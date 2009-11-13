@@ -1,0 +1,27 @@
+
+Here are the stages of conversion:
+(They can pretty much all be rewritten using xsltproc, but I wanted a debugger)
+
+For each module, the following are done (check Cnx2Docbook.java):
+ * Cleanup the cnxml
+ * Cleanup the MathML in the cnxml (remove empty mml:mo, extra mml:munder, etc)
+ * Convert cnxml to docbook
+ * Convert P-MathML to SVG (using Saxon and XSLT2)
+ * Cleanup the docbook file (add error text for unconverted MathML, move all exercises to end of module)
+ * Create a separate docbook file for validation.
+   Reorder docbook elements for RelaxNG validation.
+   In RNG, a para can occur before a section but not after
+ * Validate the docbook file
+
+Temporary files are created and deleted (if everything passes).
+
+Individual PDFs can be made for each module to make sure there are no other errors.
+  (see the .sh script for how to do that)
+
+
+At this point the entire collection PDF is created:
+ * Resolve the xi:include elements and create a giant Docbook file
+ * Cleanup the giant Docbook file (module titles with the chapter prefix are removed)
+ * Convert the docbook file to XSL-FO
+ * Align the Math SVG properly
+ * Convert the XSL-FO file to PDF

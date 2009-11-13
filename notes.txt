@@ -1,0 +1,32 @@
+FOP
+DITA
+Docbook
+Google Docs (footnotes, TOC, equations, svg images) vs shared workspace and editor
+
+
+FOP can create at least a 1000 page PDF
+DITA Topic = Module
+DITA TopicMap = Collection
+
+DITA -> Docbook -> PDF (Docbook has nicer stylesheets, numbered chapters, examples at the end of chapters, etc)
+inject xslt customizations at any layer
+
+Google Docs can link to other docs or URL's, import PDF's Word docs...
+
+Google Docs provides "shared workspaces".
+Users can log in w/ their google id, and "check out" modules to docs.
+
+
+
+
+Running the xslt:
+
+
+Run the java class.
+declare -x COL_PATH=col10522_1.36_complete
+time xsltproc --xinclude xsl/docbook-cleanup-whole.xsl $COL_PATH/collection.dbk > $COL_PATH/collection-whole.cleaned.dbk
+time xsltproc xsl/docbook2fo.xsl $COL_PATH/collection-whole.cleaned.dbk > $COL_PATH/collection-whole.dbk.fo.xml
+time xsltproc xsl/postprocess-svg.xsl $COL_PATH/collection-whole.dbk.fo.xml > $COL_PATH/collection-whole.dbk.aligned.fo.xml
+
+# From the collection dir (to get the images to attach)
+time ../dita/demo/fo/fop/fop -c ../dita/demo/fo/fop/conf/fop.xconf collection-whole.dbk.aligned.fo.xml collection-whole.dbk.aligned.fo.pdf
