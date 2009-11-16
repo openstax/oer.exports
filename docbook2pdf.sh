@@ -4,11 +4,11 @@ COL_PATH=$1
 
 ROOT=`pwd`
 
-FOP_OPTS=-Xmx14000M # FOP Needs a lot of memory (4+Gb for Elementary Algebra)
+declare -x FOP_OPTS=-Xmx14000M # FOP Needs a lot of memory (4+Gb for Elementary Algebra)
 DOCBOOK=$COL_PATH/collection.dbk
 DOCBOOK2=$COL_PATH/collection.cleaned.dbk
-UNALIGNED=$COL_PATH/collection.unaligned.fo
-FO=collection.fo
+UNALIGNED=$COL_PATH/collection.fo
+FO=collection.aligned.fo
 PDF=collection.pdf
 
 XSLTPROC=xsltproc

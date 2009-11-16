@@ -63,7 +63,8 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 	<xsl:call-template name="debug"><xsl:with-param name="str">WARNING: Converting mml:none to a mml:mspace</xsl:with-param></xsl:call-template>
 	<mml:mi>.</mml:mi>
 </xsl:template>
-<!-- Make sure only Presentation MathML is left. All presentation MathML starts with 'm' or is the element 'none' -->
+<!-- Make sure only Presentation MathML is left. All presentation MathML starts with 'm' or is the element 'none'
+-->
 <xsl:template match="*[namespace-uri(.)='http://www.w3.org/1998/Math/MathML' and not(starts-with(local-name(.), 'm'))]">
 	<xsl:call-template name="debug"><xsl:with-param name="str">BUG: Found some Content MathML that seeped through. <xsl:value-of select="namespace-uri(.)"/>^<xsl:value-of select="local-name(.)"/></xsl:with-param></xsl:call-template>
 	<mml:mi>
@@ -84,7 +85,8 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 	</mml:mn>
 </xsl:template>
 
-<!-- For some reason the mml:* pass the RNG but still only have 1 child. -->
+<!-- For some reason the mml:* pass the RNG but still only have 1 child.
+-->
 <xsl:template match="mml:munder[count(*)=1]" priority="100">
 	<xsl:call-template name="debug"><xsl:with-param name="str">WARNING: mml:munder only has 1 child. Unwrapping the element</xsl:with-param></xsl:call-template>
 	<xsl:apply-templates/>
@@ -96,26 +98,51 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 	See: m21927
  -->
 <xsl:template match="mml:mtable">
-	<!-- Will be != '' if there is a row that doesn't match -->
-	<xsl:variable name="mtdCount" select="count(mml:mtr[1]/mml:mtd)"/>
-	<xsl:variable name="mismatchedMtdCount">
-		<xsl:for-each select="mml:mtr">
-			<xsl:if test="count(mml:mtd) != $mtdCount">
-				<xsl:text>.</xsl:text>
-			</xsl:if>
-		</xsl:for-each>
+	<xsl:variable name="maxCols">
+		<xsl:call-template name="findMaxCols">
+			<xsl:with-param name="list" select="mml:mtr"/>
+		</xsl:call-template>
 	</xsl:variable>
+	<xsl:variable name="maxRow" select="mml:mtr[count(mml:mtd) = $maxCols]"/>
+	<!-- For-each row, make sure it has the same number of mml:mtd's by filling in empty ones -->
+	<xsl:for-each select="mml:mtr">
+		<xsl:variable name="currentRow" select="."/>
+		<xsl:if test="$maxCols != count(mml:mtd)">
+			<xsl:call-template name="debug"><xsl:with-param name="str">WARNING: Mismatched number of mml:mtd in the mml:mtable. Adding an empty mml:mtd</xsl:with-param></xsl:call-template>
+		</xsl:if>
+		<xsl:for-each select="$maxRow/mml:mtd">
+			<xsl:choose>
+				<xsl:when test="count($currentRow/mml:mtd) >= position()">
+					<mml:mtd><mml:mrow/></mml:mtd>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates select="."/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:for-each>
+	</xsl:for-each>
+</xsl:template>
+<!-- Helper for mml:mtable fixing -->
+<xsl:template name="findMaxCols">
+	<xsl:param name="list" />
 	<xsl:choose>
-		<xsl:when test="$mismatchedMtdCount">
-			<xsl:call-template name="debug"><xsl:with-param name="str">ERROR: Mismatched number of mml:mtd in the mml:mtable. Discarding mml:mtable</xsl:with-param></xsl:call-template>
-			<mml:mtext>[ERROR: Mismatched number of mml:mtd in the mml:mtable]</mml:mtext>
+		<xsl:when test="$list">
+			<xsl:variable name="first" select="count($list[1]/mml:mtd)" />
+			<xsl:variable name="max-of-rest">
+				<xsl:call-template name="findMaxCols">
+					<xsl:with-param name="list" select="$list[position()!=1]" />
+				</xsl:call-template>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="$first > $max-of-rest">
+					<xsl:value-of select="$first" />
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="$max-of-rest" />
+				</xsl:otherwise>
+			</xsl:choose>
 		</xsl:when>
-		<xsl:otherwise>
-			<xsl:copy>
-				<xsl:copy-of select="@*"/>
-				<xsl:apply-templates/>
-			</xsl:copy>
-		</xsl:otherwise>
+		<xsl:otherwise>0</xsl:otherwise>
 	</xsl:choose>
 </xsl:template>
 

@@ -32,7 +32,7 @@
 	<xsl:choose>
 		<xsl:when test="@xml:id">
 			<xsl:text>@xml:id='</xsl:text>
-			<xsl:value-of select="@id"/>
+			<xsl:value-of select="@xml:id"/>
 			<xsl:text>'</xsl:text>
 		</xsl:when>
 		<xsl:when test="@id">

@@ -27,10 +27,6 @@ Install the STIXGeneral and STIXSize1 fonts from the fonts directory into your O
 Note: fop needs to know about the STIX fonts, so lib/fop.xconf is customized
 
 
-Compile the Cnx2Docbook.java file by running:
-  javac -classpath lib/saxon9he.jar:lib/isorelax.jar:lib/jing-20081028.jar src/*.java
-
-
 We're ready to do some converting!
 
 First, we need to convert the collection and modules into individual docbook files:
