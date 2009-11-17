@@ -15,9 +15,9 @@ CNXML=$MOD_PATH/index.cnxml
 CNXML1=$MOD_PATH/cnxml1.xml
 CNXML2=$MOD_PATH/cnxml2.xml
 CNXML3=$MOD_PATH/cnxml3.xml
-DOCBOOK=$MOD_PATH/docbook.dbk
-DOCBOOK1=$MOD_PATH/docbook1.dbk
-DOCBOOK2=$MOD_PATH/docbook2.dbk
+DOCBOOK=$MOD_PATH/index.dbk # Important. Used in collxml2docbook xinclude
+DOCBOOK1=$MOD_PATH/index1.dbk
+DOCBOOK2=$MOD_PATH/index2.dbk
 VALID=$MOD_PATH/valid.dbk
 
 #XSLT files
@@ -52,6 +52,7 @@ if [ $MATH2SVG_ERROR -eq 0 ]; then
 fi
 
 $XSLTPROC -o $DOCBOOK $DOCBOOK_CLEANUP_XSL $DOCBOOK2
+rm $DOCBOOK2
 
 # Create a file to validate against
 $XSLTPROC -o $VALID $DOCBOOK_VALIDATION_XSL $DOCBOOK
@@ -59,6 +60,6 @@ $XSLTPROC -o $VALID $DOCBOOK_VALIDATION_XSL $DOCBOOK
 # Validate
 $JING $SCHEMA $VALID
 RET=$?
-rm $VALID
+if [ $RET -eq 0 ]; then rm $VALID; fi
 
 exit $MATH2SVG_ERROR || $RET

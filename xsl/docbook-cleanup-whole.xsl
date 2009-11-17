@@ -32,7 +32,7 @@
 			<xsl:copy>
 				<xsl:copy-of select="@*"/>
 				<xsl:apply-templates mode="strip-title" select="db:title"/>
-				<xsl:apply-templates select="*[local-name()!='title']|comment()|text()"/>
+				<xsl:apply-templates select="*[local-name()!='title']|comment()"/>
 			</xsl:copy>
 		</xsl:when>
 		<xsl:otherwise>
@@ -53,7 +53,6 @@
 		<xsl:for-each select="node()">
 			<xsl:choose>
 				<xsl:when test="position()=1">
-					<xsl:message>Stripped!!!!!!! chap="<xsl:value-of select="$chapTitle"/> strip=<xsl:value-of select="substring-after(., $chapTitle)"/></xsl:message>
 					<xsl:value-of select="substring-after(., $chapTitle)"/>
 				</xsl:when>
 				<xsl:otherwise>

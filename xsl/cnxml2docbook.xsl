@@ -229,6 +229,10 @@
 <xsl:template match="c:media">
 	<db:mediaobject><xsl:call-template name="id-and-children"/></db:mediaobject>
 </xsl:template>
+<!-- See m21854 //c:equation/@id="eip-id14423064" -->
+<xsl:template match="c:para//c:media">
+	<db:inlinemediaobject><xsl:call-template name="id-and-children"/></db:inlinemediaobject>
+</xsl:template>
 
 <xsl:template match="c:image">
 	<db:imageobject>
@@ -279,7 +283,7 @@
 		<xsl:call-template name="block-id-and-children"/>
 	</db:informalequation>
 </xsl:template>
-<xsl:template match="c:para/c:equation[not(c:title)]">
+<xsl:template match="c:para//c:equation[not(c:title)]">
 	<db:inlineequation>
 		<xsl:call-template name="block-id-and-children"/>
 	</db:inlineequation>
@@ -298,7 +302,7 @@
 	<xsl:call-template name="block-id-and-children"/>
 </xsl:template>
 
-<!--TODO: Figure out when to move the exercises
+<!--TODO: Figure out when to move the exercises (and definitions)
 <xsl:template match="c:exercise">
 	<xsl:message>Moving exercise to bottom of module</xsl:message>
 </xsl:template>
@@ -326,6 +330,27 @@
 	</db:answer>
 </xsl:template>
 
+<!-- According to eip-help/definition -->
+<xsl:template match="c:definition">
+	<db:variablelist>
+		<xsl:if test="c:title">
+			<xsl:apply-templates select="c:title"/>
+		</xsl:if>
+		<db:varlistentry>
+			<xsl:apply-templates select="c:term"/>
+			<db:listitem>
+				<xsl:apply-templates select="*[preceding-sibling::c:term]"/>
+			</db:listitem>
+		</db:varlistentry>
+	</db:variablelist>
+</xsl:template>
+<xsl:template match="c:definition/c:term">
+	<db:term><xsl:apply-templates /></db:term>
+</xsl:template>
+<xsl:template match="c:definition/c:meaning">
+	<db:para><xsl:apply-templates/></db:para>
+</xsl:template>
+
 
 <xsl:template match="c:preformat">
 	<db:programlisting>
@@ -333,6 +358,10 @@
 	</db:programlisting>
 </xsl:template>
 
+<xsl:template match="c:foreign">
+	<xsl:call-template name="debug"><xsl:with-param name="str">WARNING: Ignoring c:foreign element for conversion</xsl:with-param></xsl:call-template>
+	<xsl:apply-templates/>
+</xsl:template>
 
 <!-- MathML -->
 <xsl:template match="c:equation/mml:math">
@@ -364,7 +393,7 @@
 <!-- Partially supported -->
 <xsl:template match="c:figure[c:subfigure]">
 	<xsl:call-template name="debug">
-		<xsl:with-param name="str">Subfigures are not really supported. Only the 1st subfigure is used id=<xsl:value-of select="@id"/></xsl:with-param>
+		<xsl:with-param name="str">ERROR: Subfigures are not really supported. Only the 1st subfigure is used id=<xsl:value-of select="@id"/></xsl:with-param>
 	</xsl:call-template>
 	<db:figure>
 		<xsl:call-template name="copy-attributes-to-docbook"/>
