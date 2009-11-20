@@ -103,24 +103,30 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 			<xsl:with-param name="list" select="mml:mtr"/>
 		</xsl:call-template>
 	</xsl:variable>
-	<xsl:variable name="maxRow" select="mml:mtr[count(mml:mtd) = $maxCols]"/>
-	<!-- For-each row, make sure it has the same number of mml:mtd's by filling in empty ones -->
-	<xsl:for-each select="mml:mtr">
-		<xsl:variable name="currentRow" select="."/>
-		<xsl:if test="$maxCols != count(mml:mtd)">
-			<xsl:call-template name="debug"><xsl:with-param name="str">WARNING: Mismatched number of mml:mtd in the mml:mtable. Adding an empty mml:mtd</xsl:with-param></xsl:call-template>
-		</xsl:if>
-		<xsl:for-each select="$maxRow/mml:mtd">
-			<xsl:choose>
-				<xsl:when test="count($currentRow/mml:mtd) >= position()">
-					<mml:mtd><mml:mrow/></mml:mtd>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:apply-templates select="."/>
-				</xsl:otherwise>
-			</xsl:choose>
+	<xsl:variable name="maxRow" select="mml:mtr[count(mml:mtd) = $maxCols][1]"/>
+	<mml:mtable>
+		<xsl:copy-of select="@*"/>
+		<!-- For-each row, make sure it has the same number of mml:mtd's by filling in empty ones -->
+		<xsl:for-each select="mml:mtr">
+			<xsl:variable name="currentRow" select="."/>
+			<xsl:if test="$maxCols != count(mml:mtd)">
+				<xsl:call-template name="debug"><xsl:with-param name="str">WARNING: Mismatched number of mml:mtd in the mml:mtable. Adding an empty mml:mtd</xsl:with-param></xsl:call-template>
+			</xsl:if>
+			<mml:mtr>
+				<xsl:copy-of select="@*"/>
+				<xsl:for-each select="$maxRow/mml:mtd">
+					<xsl:choose>
+						<xsl:when test="count($currentRow/mml:mtd) >= position()">
+							<mml:mtd><mml:mrow/></mml:mtd>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:apply-templates select="."/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:for-each>
+			</mml:mtr>
 		</xsl:for-each>
-	</xsl:for-each>
+	</mml:mtable>
 </xsl:template>
 <!-- Helper for mml:mtable fixing -->
 <xsl:template name="findMaxCols">

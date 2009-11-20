@@ -11,7 +11,7 @@ UNALIGNED=$COL_PATH/collection.fo
 FO=collection.aligned.fo
 PDF=collection.pdf
 
-XSLTPROC=xsltproc
+XSLTPROC="xsltproc --nonet"
 FOP="sh $ROOT/fop/fop -c $ROOT/lib/fop.xconf"
 
 # XSL files
@@ -22,7 +22,8 @@ ALIGN_XSL=$ROOT/xsl/postprocess-svg.xsl
 
 $XSLTPROC --xinclude -o $DOCBOOK2 $DOCBOOK_CLEANUP_XSL $DOCBOOK
 
-time $XSLTPROC -o $UNALIGNED $DOCBOOK2FO_XSL $DOCBOOK2
+$XSLTPROC -o $UNALIGNED $DOCBOOK2FO_XSL $DOCBOOK2
+
 $XSLTPROC -o $COL_PATH/$FO $ALIGN_XSL $UNALIGNED
 
 # Change to the collection dir so the relative paths to images work

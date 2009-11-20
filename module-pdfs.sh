@@ -1,4 +1,8 @@
 #!/bin/sh
+
+# 1st arg is the path to the collection
+# 2nd arg (optional) is the module name
+
 echo "NOTE: You will need to change lib/fop.xconf to point to absolute paths!"
 echo "      Otherwise, errors will arise below!!!"
 
@@ -9,7 +13,7 @@ ROOT=`pwd`
 # FOP Needs a lot of memory (4+Gb for Elementary Algebra)
 declare -x FOP_OPTS=-Xmx14000M
 
-XSLTPROC=xsltproc
+XSLTPROC="xsltproc --nonet"
 FOP="bash $ROOT/fop/fop -c $ROOT/lib/fop.xconf"
 
 # XSL files
@@ -17,7 +21,10 @@ DOCBOOK_CLEANUP_XSL=$ROOT/xsl/docbook-cleanup-whole.xsl
 DOCBOOK2FO_XSL=$ROOT/xsl/docbook2fo.xsl
 ALIGN_XSL=$ROOT/xsl/postprocess-svg.xsl
 
-for MODULE in `ls $COL_PATH`
+MODULES=`ls $COL_PATH`
+if [ $2 != '' ]; then MODULES=$2; fi
+
+for MODULE in $MODULES
 do
     if [ -d $COL_PATH/$MODULE ];
     then

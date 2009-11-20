@@ -6,7 +6,7 @@ ROOT=.
 COLLXML=$COL_PATH/collection.xml
 DOCBOOK=$COL_PATH/collection.dbk
 
-XSLTPROC=xsltproc
+XSLTPROC="xsltproc --nonet"
 MODULE2DOCBOOK=$ROOT/module2docbook.sh
 
 # If the docbook for the collection doesn't exist yet, create it

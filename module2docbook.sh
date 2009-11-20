@@ -8,7 +8,7 @@ ROOT=.
 SCHEMA=docbook-rng/docbook.rng
 SAXON="java -jar $ROOT/lib/saxon9he.jar"
 JING="java -jar $ROOT/lib/jing-20081028.jar"
-XSLTPROC="xsltproc --stringparam moduleId $MOD_NAME"
+XSLTPROC="xsltproc --nonet --stringparam moduleId $MOD_NAME"
 
 #Temporary files
 CNXML=$MOD_PATH/index.cnxml

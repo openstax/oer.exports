@@ -35,18 +35,18 @@
 
 
 <!-- @linkend can't be resolved for links to other modules. So, turn it into a xlink:href -->
-<xsl:template match="db:link[@endlink]">
+<xsl:template match="db:link[@linkend]">
 	<xsl:copy>
 		<xsl:attribute name="xlink:href">
-			<xsl:value-of select="@endlink"/>
+			<xsl:value-of select="@linkend"/>
 		</xsl:attribute>
 		<xsl:apply-templates/>
 	</xsl:copy>
 </xsl:template>
-<xsl:template match="db:xref[@endlink]">
+<xsl:template match="db:xref[@linkend]">
 	<xsl:copy>
 		<xsl:attribute name="xlink:href">
-			<xsl:value-of select="@endlink"/>
+			<xsl:value-of select="@linkend"/>
 		</xsl:attribute>
 		<xsl:apply-templates/>
 	</xsl:copy>
@@ -69,6 +69,7 @@
 	<xsl:choose>
 		<xsl:when test="local-name()!='section' and local-name()!='simplesect'">
     		<db:simplesect>
+				<xsl:copy-of select="@*"/>
     			<db:title>INJECTED_TITLE</db:title>
     			<xsl:apply-templates mode="copy" select="."/>
     		</db:simplesect>
@@ -82,8 +83,8 @@
 <xsl:template match="db:section[not(db:title)]">
 	<xsl:call-template name="debug"><xsl:with-param name="str">VALIDATION: Found a section without a title</xsl:with-param></xsl:call-template> 
 	<db:simplesect>
-		<db:title>INJECTED_TITLE2</db:title>
 		<xsl:copy-of select="@*"/>
+		<db:title>INJECTED_TITLE2</db:title>
 		<xsl:apply-templates/>
 	</db:simplesect>
 </xsl:template>

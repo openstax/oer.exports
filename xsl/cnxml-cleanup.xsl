@@ -109,6 +109,5 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 
 
 <!-- TODO: Bring back and handle. For now Just remove these because they are annoying messages -->
-<xsl:template match="c:newline|c:space|c:term"><xsl:apply-templates/></xsl:template>
 
 </xsl:stylesheet>
