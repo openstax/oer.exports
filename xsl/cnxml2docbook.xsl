@@ -393,7 +393,7 @@
 <!-- Partially supported -->
 <xsl:template match="c:figure[c:subfigure]">
 	<xsl:call-template name="debug">
-		<xsl:with-param name="str">ERROR: Subfigures are not really supported. Only the 1st subfigure is used id=<xsl:value-of select="@id"/></xsl:with-param>
+		<xsl:with-param name="str">ERROR: Subfigures are not really supported. Only the 1st subfigure is used</xsl:with-param>
 	</xsl:call-template>
 	<db:figure>
 		<xsl:call-template name="copy-attributes-to-docbook"/>

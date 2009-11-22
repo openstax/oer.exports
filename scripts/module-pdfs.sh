@@ -8,7 +8,8 @@ echo "      Otherwise, errors will arise below!!!"
 
 COL_PATH=$1
 
-ROOT=`pwd`
+ROOT=`dirname "$0"`
+ROOT=`cd "$ROOT/.."; pwd` # .. since we live in scripts/
 
 # FOP Needs a lot of memory (4+Gb for Elementary Algebra)
 declare -x FOP_OPTS=-Xmx14000M
@@ -29,6 +30,7 @@ do
     if [ -d $COL_PATH/$MODULE ];
     then
         echo "Converting $MODULE"
+        # bash ./module2docbook.sh $COL_PATH $MODULE
 
         DOCBOOK=$COL_PATH/$MODULE/index.dbk
         DOCBOOK2=$COL_PATH/$MODULE/index.cleaned.dbk

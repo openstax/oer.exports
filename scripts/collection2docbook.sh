@@ -2,7 +2,9 @@
 
 COL_PATH=$1
 
-ROOT=.
+ROOT=`dirname "$0"`
+ROOT=`cd "$ROOT/.."; pwd` # .. since we live in scripts/
+
 COLLXML=$COL_PATH/collection.xml
 DOCBOOK=$COL_PATH/collection.dbk
 

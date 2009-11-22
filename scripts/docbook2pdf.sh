@@ -2,7 +2,8 @@
 
 COL_PATH=$1
 
-ROOT=`pwd`
+ROOT=`dirname "$0"`
+ROOT=`cd "$ROOT/.."; pwd` # .. since we live in scripts/
 
 declare -x FOP_OPTS=-Xmx14000M # FOP Needs a lot of memory (4+Gb for Elementary Algebra)
 DOCBOOK=$COL_PATH/collection.dbk

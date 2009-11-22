@@ -30,9 +30,9 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 
 <!--  Fix some CNXML 0.5 stuff -->
 <xsl:template match="c:link[@src]">
-	<link url="{@src}">
+	<c:link url="{@src}">
 		<xsl:apply-templates/>
-	</link>
+	</c:link>
 </xsl:template>
 
 <xsl:template match="c:media[@src]">
@@ -51,12 +51,12 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 </xsl:template>
 
 <xsl:template match="c:cnxn">
-	<link>
+	<c:link>
 		<xsl:apply-templates select="@*"/>
 		<xsl:if test="@target"><xsl:attribute name="target-id">
 			<xsl:value-of select="@target"/></xsl:attribute></xsl:if>
 		<xsl:apply-templates/>
-	</link>
+	</c:link>
 </xsl:template>
 
 <xsl:template match="c:name">
