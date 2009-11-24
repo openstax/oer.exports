@@ -44,7 +44,6 @@ XMLVALIDATE="xmllint --nonet --noout"
 if [ -s $MOD_PATH/__err.txt ]; 
 then 
   echo "Invalid cnxml doc" 1>&2
-  echo "$MOD_NAME: Invalid cnxml doc" 1>&2
   rm $MOD_PATH/__err.txt
   exit 0
 fi

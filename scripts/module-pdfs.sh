@@ -23,7 +23,7 @@ DOCBOOK2FO_XSL=$ROOT/xsl/docbook2fo.xsl
 ALIGN_XSL=$ROOT/xsl/postprocess-svg.xsl
 
 MODULES=`ls $COL_PATH`
-if [ $2 != '' ]; then MODULES=$2; fi
+if [ ".$2" != "." ]; then MODULES=$2; fi
 
 for MODULE in $MODULES
 do

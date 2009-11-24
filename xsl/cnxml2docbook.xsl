@@ -24,21 +24,23 @@
 
 <!-- Boilerplate -->
 <xsl:template match="/">
-	<xsl:apply-templates select="//c:document/c:content"/>
+	<xsl:apply-templates select="//c:document"/>
 </xsl:template>
 
 <!-- Match the roots and add boilerplate -->
-<xsl:template match="c:content">
+<xsl:template match="c:document">
     <db:section>
     	<xsl:attribute name="xml:id"><xsl:value-of select="$moduleId"/></xsl:attribute>
-        <xsl:apply-templates select="../c:title"/>
-        <xsl:apply-templates/>
+        <xsl:apply-templates select="c:title"/>
+        <!-- TODO: Load the metadata -->
+        <xsl:apply-templates select="c:content/*"/>
         <!--TODO: Figure out when to move the exercises
         <xsl:if test=".//c:section/c:exercise or c:exercise">
         	<db:qandaset>
         		<xsl:apply-templates mode="end-of-module" select=".//c:section/c:exercise | c:exercise"/>
         	</db:qandaset>
         </xsl:if>-->
+        <xsl:apply-templates select="c:glossary"/>
     </db:section>
 </xsl:template>
 
@@ -330,28 +332,6 @@
 	</db:answer>
 </xsl:template>
 
-<!-- According to eip-help/definition -->
-<xsl:template match="c:definition">
-	<db:variablelist>
-		<xsl:if test="c:title">
-			<xsl:apply-templates select="c:title"/>
-		</xsl:if>
-		<db:varlistentry>
-			<xsl:apply-templates select="c:term"/>
-			<db:listitem>
-				<xsl:apply-templates select="*[preceding-sibling::c:term]"/>
-			</db:listitem>
-		</db:varlistentry>
-	</db:variablelist>
-</xsl:template>
-<xsl:template match="c:definition/c:term">
-	<db:term><xsl:apply-templates /></db:term>
-</xsl:template>
-<xsl:template match="c:definition/c:meaning">
-	<db:para><xsl:apply-templates/></db:para>
-</xsl:template>
-
-
 <xsl:template match="c:preformat">
 	<db:programlisting>
 		<xsl:call-template name="id-and-children"/>
@@ -459,6 +439,65 @@
 		<xsl:value-of select="$moduleId"/>
 		<xsl:text>]</xsl:text>
 	</db:title>
+</xsl:template>
+
+
+<!-- Match glossary stuff. TODO: A free-standing definition (not in a glossary)
+     should continue to appear in-line but should be numbered.
+     TODO: A glossary definition should be in a top-level glossary and then later
+     turned into a single db:glossary at the end of a book.
+ -->
+<xsl:template match="c:glossary">
+	<db:glossary>
+		<xsl:call-template name="id-and-children"/>
+	</db:glossary>
+</xsl:template>
+<xsl:template match="c:glossary/c:definition">
+	<db:glossentry>
+		<xsl:call-template name="copy-attributes-to-docbook"/>
+		<xsl:if test="c:title">
+			<xsl:call-template name="debug"><xsl:with-param name="str">BUG: Dropping c:title in c:definition</xsl:with-param></xsl:call-template>
+		</xsl:if>
+		<xsl:apply-templates select="c:term"/>
+		<db:glossdef>
+			<xsl:apply-templates select="*[preceding-sibling::c:term]"/>
+		</db:glossdef>
+	</db:glossentry>
+</xsl:template>
+
+<!-- According to eip-help/definition. Can be inline, and not in a c:glossary -->
+<xsl:template match="c:definition">
+	<db:glosslist>
+		<xsl:if test="c:title">
+			<xsl:apply-templates select="c:title"/>
+		</xsl:if>
+		<db:glossentry>
+			<xsl:call-template name="copy-attributes-to-docbook"/>
+			<xsl:apply-templates select="c:term"/>
+			<db:glossdef>
+				<xsl:apply-templates select="*[preceding-sibling::c:term]"/>
+			</db:glossdef>
+		</db:glossentry>
+	</db:glosslist>
+</xsl:template>
+<xsl:template match="c:definition/c:meaning">
+	<db:para><xsl:call-template name="id-and-children"/></db:para>
+</xsl:template>
+
+<xsl:template match="c:term[not(@url)]">
+	<db:glossterm>
+		<xsl:call-template name="id-and-children"/>
+	</db:glossterm>
+</xsl:template>
+
+<xsl:template match="c:term[@document|@target-id]">
+	<xsl:variable name="linkend">
+		<xsl:if test="not(@document)"><xsl:value-of select="$moduleId"/></xsl:if>
+		<xsl:value-of select="@document"/>
+		<xsl:if test="@target-id"><xsl:value-of select="$moduleSeparator"/></xsl:if>
+		<xsl:value-of select="@target-id"/>
+	</xsl:variable>
+    <db:glossterm linkend="{$linkend}"><xsl:call-template name="id-and-children"/></db:glossterm>
 </xsl:template>
 
 

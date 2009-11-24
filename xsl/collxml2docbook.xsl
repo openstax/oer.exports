@@ -36,7 +36,7 @@
 	<xsl:apply-templates/>
 </xsl:template>
 
-<xsl:template match="col:module">
+<xsl:template match="col:module[@document]">
 	<xi:include href="{@document}/index.dbk"/>
 </xsl:template>
 
