@@ -83,10 +83,10 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 
 <!-- Word importer does not detect these. -->
 <xsl:template match="c:list[c:item[1]/c:label/text()='a']">
-	<xsl:call-template name="format-list"><xsl:with-param name="numberStyle">upper-alpha</xsl:with-param></xsl:call-template>
+	<xsl:call-template name="format-list"><xsl:with-param name="numberStyle">lower-alpha</xsl:with-param></xsl:call-template>
 </xsl:template>
 <xsl:template match="c:list[c:item[1]/c:label/text()='A']">
-	<xsl:call-template name="format-list"><xsl:with-param name="numberStyle">lower-alpha</xsl:with-param></xsl:call-template>
+	<xsl:call-template name="format-list"><xsl:with-param name="numberStyle">upper-alpha</xsl:with-param></xsl:call-template>
 </xsl:template>
 <xsl:template match="c:list[c:item[1]/c:label/text()='i']">
 	<xsl:call-template name="format-list"><xsl:with-param name="numberStyle">lower-roman</xsl:with-param></xsl:call-template>
@@ -99,6 +99,7 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 	<xsl:call-template name="debug"><xsl:with-param name="str">WARNING: Inferring the @number-style on a list (probably imported from Word)</xsl:with-param></xsl:call-template>
 	<xsl:copy>
 		<xsl:copy-of select="@*"/>
+		<xsl:attribute name="list-type">enumerated</xsl:attribute>
 		<xsl:attribute name="number-style"><xsl:value-of select="$numberStyle"/></xsl:attribute>
 		<xsl:apply-templates/>
 	</xsl:copy>
@@ -108,6 +109,51 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 </xsl:template>
 
 
-<!-- TODO: Bring back and handle. For now Just remove these because they are annoying messages -->
+<!-- Handle c:newline elements. -->
+<xsl:template match="c:para[c:newline]">
+	<xsl:call-template name="debug"><xsl:with-param name="str">WARNING: Converting c:para[c:newline] to multiple c:para elements</xsl:with-param></xsl:call-template>
+	<!-- Need to use a special prefix for the c:para... grr (so c:newline can close it and reopen it -->
+	<xsl:text disable-output-escaping="yes">&lt;cnxmlAdded:para xmlns:cnxmlAdded="http://cnx.rice.edu/cnxml"</xsl:text>
+	<xsl:for-each select="@*">
+		<xsl:text> </xsl:text>
+		<xsl:value-of select="name(.)"/>
+		<xsl:text>="</xsl:text>
+		<xsl:value-of select="."/>
+		<xsl:text>"</xsl:text>
+	</xsl:for-each>
+	<xsl:text disable-output-escaping="yes">></xsl:text>
+	<xsl:apply-templates/>
+	<xsl:text disable-output-escaping="yes">&lt;/cnxmlAdded:para></xsl:text>
+</xsl:template>
+<xsl:template match="c:para/c:newline">
+	<xsl:text disable-output-escaping="yes">&lt;/cnxmlAdded:para></xsl:text>
+	<xsl:comment>c:newline removed</xsl:comment>
+	<xsl:text disable-output-escaping="yes">&lt;cnxmlAdded:para xmlns:cnxmlAdded="http://cnx.rice.edu/cnxml"></xsl:text>
+</xsl:template>
+<!-- If they're in a c:item, make sure the c:item has a c:para child -->
+<xsl:template match="c:*[(not(c:para) or local-name(*[1]) != 'para') and c:newline]">
+	<xsl:call-template name="debug"><xsl:with-param name="str">WARNING: Converting c:<xsl:value-of select="local-name()"/>[c:newline] to multiple c:para elements</xsl:with-param></xsl:call-template>
+	<xsl:copy>
+		<xsl:copy-of select="@*"/>
+		<xsl:text disable-output-escaping="yes">&lt;cnxmlAdded:para xmlns:cnxmlAdded="http://cnx.rice.edu/cnxml"></xsl:text>
+		<xsl:apply-templates/>
+		<xsl:text disable-output-escaping="yes">&lt;/cnxmlAdded:para></xsl:text>
+	</xsl:copy>
+</xsl:template>
+<!-- For c:*/c:para when a newline exists, close the c:para and then reopen it -->
+<xsl:template match="c:*[(not(c:para) or local-name(*[1]) != 'para') and c:newline]/c:para">
+	<xsl:text disable-output-escaping="yes">&lt;/cnxmlAdded:para></xsl:text>
+	<xsl:copy>
+		<xsl:copy-of select="@*"/>
+		<xsl:apply-templates/>
+	</xsl:copy>
+	<xsl:text disable-output-escaping="yes">&lt;cnxmlAdded:para xmlns:cnxmlAdded="http://cnx.rice.edu/cnxml"></xsl:text>
+</xsl:template>
+<!-- For c:*/c:newline, close the c:para and then reopen it (effectively making a newline) -->
+<xsl:template match="c:*[(not(c:para) or local-name(*[1]) != 'para') and c:newline]/c:newline">
+	<xsl:text disable-output-escaping="yes">&lt;/cnxmlAdded:para></xsl:text>
+	<xsl:comment>c:newline removed</xsl:comment>
+	<xsl:text disable-output-escaping="yes">&lt;cnxmlAdded:para xmlns:cnxmlAdded="http://cnx.rice.edu/cnxml"></xsl:text>
+</xsl:template>
 
 </xsl:stylesheet>

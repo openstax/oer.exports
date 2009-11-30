@@ -108,7 +108,7 @@
 </xsl:template>
 
 
-<xsl:template match="c:list[@list-type='enumerated']">
+<xsl:template match="c:list[@list-type='enumerated' or 	@number-style]">
 	<xsl:variable name="numeration">
 		<xsl:choose>
     		<xsl:when test="not(@number-style) or @number-style='arabic'">arabic</xsl:when>
@@ -201,11 +201,6 @@
 
 <xsl:template match="c:quote">
     <db:quote><xsl:call-template name="id-and-children"/></db:quote>
-</xsl:template>
-
-
-<xsl:template match="c:cite">
-    <db:citetitle><xsl:call-template name="id-and-children"/></db:citetitle>
 </xsl:template>
 
 
@@ -501,8 +496,70 @@
 </xsl:template>
 
 
+<!-- Handle citations -->
+<xsl:template match="c:cite">
+	<xsl:call-template name="debug"><xsl:with-param name="str">WARNING: Didn't fully convert c:cite yet</xsl:with-param></xsl:call-template>
+	<!-- TODO: Treat it like a link....  -->
+	<xsl:apply-templates/>
+</xsl:template>
+<xsl:template match="c:cite-title">
+<!-- 
+	c: @pub-type (optional): The type of publication cited. May be any of the following: "article", "book", "booklet", "conference",
+	   "inbook", "incollection", "inproceedings", "mastersthesis", "manual", "misc", "phdthesis", "proceedings", "techreport", "unpublished".
+	db: @pubwork (enumeration)
+
+    * “article”
+    * “bbs”
+    * “book”
+    * “cdrom”
+    * “chapter”
+    * “dvd”
+    * “emailmessage”
+    * “gopher”
+    * “journal”
+    * “manuscript”
+    * “newsposting”
+    * “part”
+    * “refentry”
+    * “section”
+    * “series”
+    * “set”
+    * “webpage”
+    * “wiki”
+ --> 
+	<xsl:variable name="pubwork">
+		<xsl:choose>
+			<xsl:when test="@pub-type = 'article'">article</xsl:when>
+			<xsl:when test="@pub-type = 'book'">book</xsl:when>
+			<xsl:when test="@pub-type = 'booklet'">journal</xsl:when>
+			<xsl:when test="@pub-type = 'conference'">journal</xsl:when>
+			<xsl:when test="@pub-type = 'inbook'">journal</xsl:when>
+			<xsl:when test="@pub-type = 'incollection'">webpage</xsl:when>
+			<xsl:when test="@pub-type = 'inproceedings'">journal</xsl:when>
+			<xsl:when test="@pub-type = 'mastersthesis'">manuscript</xsl:when>
+			<xsl:when test="@pub-type = 'manual'"></xsl:when>
+			<xsl:when test="@pub-type = 'misc'"></xsl:when>
+			<xsl:when test="@pub-type = 'phdthesis'">manuscript</xsl:when>
+			<xsl:when test="@pub-type = 'proceedings'">journal</xsl:when>
+			<xsl:when test="@pub-type = 'techreport'">journal</xsl:when>
+			<xsl:when test="@pub-type = 'unpublished'"></xsl:when>
+			<xsl:when test="not(@pub-type)"></xsl:when>
+			<xsl:otherwise>
+				<xsl:call-template name="debug"><xsl:with-param name="str">ERROR: Unmatched c:cite-title type</xsl:with-param></xsl:call-template>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	
+	<db:citetitle>
+		<xsl:if test="$pubwork != ''">
+			<xsl:attribute name="pubwork"><xsl:value-of select="$pubwork"/></xsl:attribute>
+		</xsl:if>
+		<xsl:apply-templates/>
+	</db:citetitle>
+</xsl:template>
+
 <xsl:template match="comment()">
-    <xsl:copy-of select="."/>comment
+    <xsl:comment><xsl:copy-of select="."/></xsl:comment>
 </xsl:template>
 
 

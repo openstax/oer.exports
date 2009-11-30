@@ -60,8 +60,24 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:for-each>
-		<xsl:apply-templates/>
 	</xsl:copy>
+</xsl:template>
+
+<!-- Combine all module glossaries into a single book glossary -->
+<xsl:template match="db:book">
+	<xsl:copy>
+		<xsl:copy-of select="@*"/>
+		<xsl:apply-templates/>
+		<xsl:if test="//db:chapter/db:section/db:glossary">
+			<db:glossary>
+				<xsl:apply-templates select="//db:chapter/db:section/db:glossary/*"/>
+			</db:glossary>
+		</xsl:if>
+	</xsl:copy>
+</xsl:template>
+<!-- Discard matches for db:chapter/db:section/db:glossary -->
+<xsl:template match="db:chapter/db:section/db:glossary">
+	<!-- Discard this. it's handled in match="db:book" -->
 </xsl:template>
 
 </xsl:stylesheet>

@@ -40,7 +40,19 @@
 	Currently done very hackishly because we don't want to
 	group text or other elements into
  -->
-<xsl:template match="*[count(db:qandaset[not(db:title) and count(db:qandaentry)=1])>1]">
+<xsl:template match="db:qandaset[not(db:title) and count(db:qandaentry)=1]">
+	<xsl:call-template name="debug"><xsl:with-param name="str">WARNING: Inlining db:qandasets (c:exercise elements)</xsl:with-param></xsl:call-template>
+	<xsl:if test="local-name(preceding-sibling::db:*[1]) != 'qandaset'">
+		<xsl:text disable-output-escaping="yes">&lt;docbook:qandaset xmlns:docbook="http://docbook.org/ns/docbook"></xsl:text>
+	</xsl:if>
+
+	<xsl:apply-templates/>
+
+	<xsl:if test="local-name(following-sibling::db:*[1]) != 'qandaset'">
+		<xsl:text disable-output-escaping="yes">&lt;/docbook:qandaset></xsl:text>
+	</xsl:if>
+</xsl:template>
+<!--<xsl:template match="*[count(db:qandaset[not(db:title) and count(db:qandaentry)=1])>1]">
 	<xsl:call-template name="debug"><xsl:with-param name="str">WARNING: Moving exercises to bottom of module</xsl:with-param></xsl:call-template>
 	<xsl:copy>
 		<xsl:copy-of select="@*"/>
@@ -50,7 +62,7 @@
 		</db:qandaset>
 	</xsl:copy>
 </xsl:template>
-
+-->
 <!-- Boilerplate -->
 <xsl:template match="/">
 	<xsl:apply-templates select="*"/>

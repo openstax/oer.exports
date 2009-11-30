@@ -43,6 +43,8 @@ You won't know the file is broken until the final stage of PDF generation.
 
 Now, we can do the most time-consuming parts: generate the XSL-FO file and finally the PDF.
 
+Aside: You can customize the docbook2fo step by creating a params.txt file in the current directory and having space-separated params which are defined in http://docbook.sourceforge.net/release/xsl/current/doc/fo/index.html 
+
 Run the following script (It will take a while. If you want, you can remove all exercises by adding <xsl:template match="c:exercise"/> in xsl/cnxml-cleanup.xsl)
   ./docbook2pdf.sh $COLLECTION_DIR
 

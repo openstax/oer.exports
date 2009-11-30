@@ -23,7 +23,6 @@ for MODULE in `ls $COL_PATH`
 do
   if [ -d $COL_PATH/$MODULE ];
   then
-    echo "Processing $MODULE"
     bash $MODULE2DOCBOOK $COL_PATH $MODULE
   fi
 done

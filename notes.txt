@@ -30,3 +30,11 @@ time xsltproc xsl/postprocess-svg.xsl $COL_PATH/collection-whole.dbk.fo.xml > $C
 
 # From the collection dir (to get the images to attach)
 time ../dita/demo/fo/fop/fop -c ../dita/demo/fo/fop/conf/fop.xconf collection-whole.dbk.aligned.fo.xml collection-whole.dbk.aligned.fo.pdf
+
+
+
+ 
+To search modules for a specific xpath expression use the following:
+COL_PATH=~/Downloads/all-modules; for MODULE in `ls $COL_PATH`; do if [ -d $COL_PATH/$MODULE ]; then bash scripts/module-xpath.sh "c:para[count(c:definition)>1]" $COL_PATH $MODULE "<definition"; fi; done
+COL_PATH=~/Downloads/all-modules; for MODULE in `ls $COL_PATH`; do if [ -d $COL_PATH/$MODULE ]; then bash scripts/module-xpath.sh "c:para[c:newline]" $COL_PATH $MODULE "newline"; fi; done
+m12318

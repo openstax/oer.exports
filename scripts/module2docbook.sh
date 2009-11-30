@@ -34,6 +34,9 @@ DOCBOOK_CLEANUP_XSL=$ROOT/xsl/docbook-cleanup.xsl
 DOCBOOK_VALIDATION_XSL=$ROOT/xsl/docbook-cleanup-for-validation.xsl
 MATH2SVG_XSL=$ROOT/xslt2/math2svg-in-docbook.xsl
 
+# Just some code to filter what gets re-converted so all modules don't have to.
+#GREP_FOUND=`grep "newline" $CNXML`
+#if [ ".$GREP_FOUND" == "." ]; then exit 0; fi
 
 # First check that the XML file is well-formed
 #XMLVALIDATE="xmllint --nonet --noout --valid --relaxng /Users/schatz/Documents/workspace/cnx-schema/cnxml.rng"

@@ -22,6 +22,22 @@ DOCBOOK_CLEANUP_XSL=$ROOT/xsl/docbook-cleanup-whole.xsl
 DOCBOOK2FO_XSL=$ROOT/xsl/docbook2fo.xsl
 ALIGN_XSL=$ROOT/xsl/postprocess-svg.xsl
 
+
+# Load up the custom params to xsltproc:
+if [ -s params.txt ]; then
+    echo "Using the following additional params to xsltproc:"
+    cat params.txt
+    OLD_IFS=$IFS
+    IFS="
+"
+    XSLTPROC_ARGS=""
+    for ARG in `cat params.txt`; do
+      XSLTPROC_ARGS="$XSLTPROC_ARGS --param $ARG"
+    done
+    IFS=$OLD_IFS
+    XSLTPROC="$XSLTPROC $XSLTPROC_ARGS"
+fi
+
 MODULES=`ls $COL_PATH`
 if [ ".$2" != "." ]; then MODULES=$2; fi
 
@@ -45,7 +61,7 @@ do
         
         # Change to the collection dir so the relative paths to images work
         cd $COL_PATH/$MODULE
-        time $FOP $FO $PDF > _fop.log 2> _fop.err.log
+        $FOP $FO $PDF > _fop.log 2> _fop.err.log
         ERR_CODE=$?
         cd $ROOT
 
