@@ -27,7 +27,7 @@
 				<xsl:value-of select="__XPATH2__"/>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:call-template name="debug"><xsl:with-param name="str">XPath Match</xsl:with-param></xsl:call-template>
+				<xsl:call-template name="cnx.log"><xsl:with-param name="msg">XPath Match</xsl:with-param></xsl:call-template>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>

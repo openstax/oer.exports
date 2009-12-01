@@ -9,18 +9,18 @@
   version="1.0">
 
 <xsl:import href="debug.xsl"/>
-<xsl:output omit-xml-declaration="yes" indent="yes" method="xml"/>
+<xsl:output indent="yes" method="xml"/>
 <xsl:param name="moduleId"/>
 
 <!-- Boilerplate -->
 <xsl:template match="/">
 	<xsl:apply-templates select="*"/>
 </xsl:template>
-<xsl:template match="node()|comment()">
-    <xsl:copy>
-    	<xsl:copy-of select="@*"/>
-        <xsl:apply-templates select="node()|comment()"/>
-    </xsl:copy>
+<!-- Identity Transform -->
+<xsl:template match="@*|node()">
+   <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+   </xsl:copy>
 </xsl:template>
 
 
@@ -28,11 +28,11 @@
 <xsl:template match="db:chapter/db:section">
 	<xsl:choose>
 		<xsl:when test="starts-with(db:title/text(), ../db:title/text())">
-			<xsl:call-template name="debug"><xsl:with-param name="str">WARNING: Stripping chapter name from title</xsl:with-param></xsl:call-template>
+			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Stripping chapter name from title</xsl:with-param></xsl:call-template>
 			<xsl:copy>
 				<xsl:copy-of select="@*"/>
 				<xsl:apply-templates mode="strip-title" select="db:title"/>
-				<xsl:apply-templates select="*[local-name()!='title']|comment()"/>
+				<xsl:apply-templates select="*[local-name()!='title']|processing-instruction()|comment()"/>
 			</xsl:copy>
 		</xsl:when>
 		<xsl:otherwise>

@@ -34,6 +34,22 @@ DOCBOOK_CLEANUP_XSL=$ROOT/xsl/docbook-cleanup.xsl
 DOCBOOK_VALIDATION_XSL=$ROOT/xsl/docbook-cleanup-for-validation.xsl
 MATH2SVG_XSL=$ROOT/xslt2/math2svg-in-docbook.xsl
 
+# Load up the custom params to xsltproc:
+if [ -s params.txt ]; then
+    echo "Using the following additional params to xsltproc:"
+    cat params.txt
+    OLD_IFS=$IFS
+    IFS="
+"
+    XSLTPROC_ARGS=""
+    for ARG in `cat params.txt`; do
+      XSLTPROC_ARGS="$XSLTPROC_ARGS --param $ARG"
+    done
+    IFS=$OLD_IFS
+    XSLTPROC="$XSLTPROC $XSLTPROC_ARGS"
+fi
+
+
 # Just some code to filter what gets re-converted so all modules don't have to.
 #GREP_FOUND=`grep "newline" $CNXML`
 #if [ ".$GREP_FOUND" == "." ]; then exit 0; fi

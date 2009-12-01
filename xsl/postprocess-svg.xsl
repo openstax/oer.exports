@@ -11,7 +11,7 @@
   xmlns:pmml2svg="https://sourceforge.net/projects/pmml2svg/"
   >
 
-<xsl:output omit-xml-declaration="yes" indent="yes" method="xml"/>
+<xsl:output indent="yes" method="xml"/>
 <xsl:param name="moduleId"/>
 <xsl:include href="debug.xsl"/>
 
@@ -31,17 +31,14 @@
 
 <!-- Hack to dump negative-width SVG elements -->
 <xsl:template match="fo:instream-foreign-object[svg:svg[starts-with(@width, '-')]]">
-	<xsl:call-template name="debug"><xsl:with-param name="str">BUG! Negative width SVG element. Stripping for now</xsl:with-param></xsl:call-template>
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Negative width SVG element. Stripping for now</xsl:with-param></xsl:call-template>
 </xsl:template>
 
-<!-- Boilerplate -->
-<xsl:template match="/">
-    <xsl:apply-templates/>
-</xsl:template>
-<xsl:template match="@*|node()|comment()">
-    <xsl:copy>
-        <xsl:apply-templates select="@*|node()|comment()"/>
-    </xsl:copy>
+<!-- Identity Transform -->
+<xsl:template match="@*|node()">
+   <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+   </xsl:copy>
 </xsl:template>
 
 </xsl:stylesheet>

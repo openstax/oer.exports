@@ -17,12 +17,12 @@
 	      cdata-section-elements="style"/>
 
   <!-- ALL ELEMENTS THAT ARE NOT MATHML: SIMPLY COPY AND GO ON -->
-  <xsl:template match="*[namespace-uri()!='http://www.w3.org/1998/Math/MathML']">
-    <xsl:copy>
-      <xsl:copy-of select="@*"/>
-      <xsl:apply-templates />
-    </xsl:copy>
-  </xsl:template>
+<!-- Identity Transform -->
+<xsl:template match="@*|*[namespace-uri()!='http://www.w3.org/1998/Math/MathML']|processing-instruction()|text()|comment()">
+   <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+   </xsl:copy>
+</xsl:template>
 
 
   <!-- ####################################################################

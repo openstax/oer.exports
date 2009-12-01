@@ -9,14 +9,14 @@
   version="1.0">
 
 <xsl:import href="debug.xsl"/>
-<xsl:output omit-xml-declaration="yes" indent="yes" method="xml"/>
+<xsl:output indent="yes" method="xml"/>
 <xsl:param name="moduleId"/>
 
-<xsl:template match="node()|comment()">
-    <xsl:copy>
-    	<xsl:copy-of select="@*"/>
-        <xsl:apply-templates select="node()|comment()"/>
-    </xsl:copy>
+<!-- Identity Transform -->
+<xsl:template match="@*|node()">
+   <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+   </xsl:copy>
 </xsl:template>
 
 <xsl:template mode="copy" match="node()|comment()">
@@ -24,13 +24,6 @@
     	<xsl:copy-of select="@*"/>
         <xsl:apply-templates select="node()|comment()"/>
     </xsl:copy>
-</xsl:template>
-
-
-
-<!-- Boilerplate -->
-<xsl:template match="/">
-	<xsl:apply-templates select="*"/>
 </xsl:template>
 
 
@@ -81,7 +74,7 @@
 </xsl:template>
 
 <xsl:template match="db:section[not(db:title)]">
-	<xsl:call-template name="debug"><xsl:with-param name="str">VALIDATION: Found a section without a title</xsl:with-param></xsl:call-template> 
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">VALIDATION: Found a section without a title</xsl:with-param></xsl:call-template> 
 	<db:simplesect>
 		<xsl:copy-of select="@*"/>
 		<db:title>INJECTED_TITLE2</db:title>

@@ -64,8 +64,8 @@
   </xsl:message>
 </xsl:template>
 
-<xsl:template match="comment()">
-    <xsl:copy-of select="."/>comment
+<xsl:template match="comment()|processing-instruction()">
+    <xsl:copy/>
 </xsl:template>
 
 </xsl:stylesheet>

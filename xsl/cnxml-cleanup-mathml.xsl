@@ -6,29 +6,25 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
     exclude-result-prefixes="c">
 
 <xsl:import href="debug.xsl"/>
-<xsl:output omit-xml-declaration="yes" indent="yes" method="xml"/>
+<xsl:output indent="yes" method="xml"/>
 <xsl:param name="moduleId"/>
 
-<!-- Boilerplate -->
-<xsl:template match="/">
-    <xsl:apply-templates/>
-</xsl:template>
-<xsl:template match="*|@*|comment()|text()">
-	<xsl:copy>
-	    <xsl:copy-of select="@*"/>
-    	<xsl:apply-templates select="*|comment()|text()"/>
-    </xsl:copy>
+<!-- Identity Transform -->
+<xsl:template match="@*|node()">
+   <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+   </xsl:copy>
 </xsl:template>
 
 <!-- Remove empty mml:mo -->
 <xsl:template match="mml:mo[normalize-space(text())='']">
-	<xsl:call-template name="debug"><xsl:with-param name="str">WARNING: Removing whitespace mml:mo from c2p transform</xsl:with-param></xsl:call-template>
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Removing whitespace mml:mo from c2p transform</xsl:with-param></xsl:call-template>
 </xsl:template>
 
 
 <!-- pmml2svg chokes on this -->
 <xsl:template match="mml:mo[string-length(normalize-space(text())) > 1]">
-	<xsl:call-template name="debug"><xsl:with-param name="str">WARNING: mml:mo contains more than 1 character and pmml2svg doesn't like that. '<xsl:value-of select="normalize-space(text())"/>'</xsl:with-param></xsl:call-template>
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: mml:mo contains more than 1 character and pmml2svg doesn't like that. '<xsl:value-of select="normalize-space(text())"/>'</xsl:with-param></xsl:call-template>
 	<mml:mtext>
 		<xsl:copy-of select="@*"/>
 		<xsl:apply-templates/>
@@ -40,7 +36,7 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 	Can't just remove mml:mi because it could be in a mml:msub
  -->
 <xsl:template match="mml:mi[count(*)=0 and normalize-space(text())='']">
-	<xsl:call-template name="debug"><xsl:with-param name="str">WARNING: Converting empty mml:mi to a mml:mspace</xsl:with-param></xsl:call-template>
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Converting empty mml:mi to a mml:mspace</xsl:with-param></xsl:call-template>
 	<mml:mspace />
 </xsl:template>
 
@@ -49,7 +45,7 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 	See: m21852
  -->
 <xsl:template match="mml:mmultiscripts|mml:mlabeledtr|mml:mpadded|mml:mglyph">
-	<xsl:call-template name="debug"><xsl:with-param name="str">ERROR: Cannot convert this node to SVG (for PDF generation). Please try to use something else</xsl:with-param></xsl:call-template>
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">ERROR: Cannot convert this node to SVG (for PDF generation). Please try to use something else. Name=<xsl:value-of select="local-name()"/></xsl:with-param></xsl:call-template>
 	<xsl:apply-templates select="mml:*[1]"/>
 </xsl:template>
 
@@ -60,13 +56,13 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
     See: m21852
 -->
 <xsl:template match="mml:none" priority="100">
-	<xsl:call-template name="debug"><xsl:with-param name="str">WARNING: Converting mml:none to a mml:mspace</xsl:with-param></xsl:call-template>
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Converting mml:none to a mml:mspace</xsl:with-param></xsl:call-template>
 	<mml:mi>.</mml:mi>
 </xsl:template>
 <!-- Make sure only Presentation MathML is left. All presentation MathML starts with 'm' or is the element 'none'
 -->
 <xsl:template match="*[namespace-uri(.)='http://www.w3.org/1998/Math/MathML' and not(starts-with(local-name(.), 'm'))]">
-	<xsl:call-template name="debug"><xsl:with-param name="str">BUG: Found some Content MathML that seeped through. <xsl:value-of select="namespace-uri(.)"/>^<xsl:value-of select="local-name(.)"/></xsl:with-param></xsl:call-template>
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Found some Content MathML that seeped through. <xsl:value-of select="namespace-uri(.)"/>^<xsl:value-of select="local-name(.)"/></xsl:with-param></xsl:call-template>
 	<mml:mi>
 		<xsl:copy-of select="@*"/>
 		<xsl:apply-templates/>
@@ -74,12 +70,12 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 </xsl:template>
 
 <xsl:template match="mml:apply" priority="100">
-	<xsl:call-template name="debug"><xsl:with-param name="str">BUG: Found some Content MathML that seeped through. mml:apply</xsl:with-param></xsl:call-template>
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Found some Content MathML that seeped through. mml:apply</xsl:with-param></xsl:call-template>
 	<mml:mspace/>
 </xsl:template>
 
 <xsl:template match="mml:cn" priority="100">
-	<xsl:call-template name="debug"><xsl:with-param name="str">BUG: Found some Content MathML that seeped through. mml:cn</xsl:with-param></xsl:call-template>
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Found some Content MathML that seeped through. mml:cn</xsl:with-param></xsl:call-template>
 	<mml:mn>
 		<xsl:apply-templates select="text()"/>
 	</mml:mn>
@@ -88,7 +84,7 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 <!-- For some reason the mml:* pass the RNG but still only have 1 child.
 -->
 <xsl:template match="mml:munder[count(*)=1]" priority="100">
-	<xsl:call-template name="debug"><xsl:with-param name="str">WARNING: mml:munder only has 1 child. Unwrapping the element</xsl:with-param></xsl:call-template>
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: mml:munder only has 1 child. Unwrapping the element</xsl:with-param></xsl:call-template>
 	<xsl:apply-templates/>
 </xsl:template>
 
@@ -110,7 +106,7 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 		<xsl:for-each select="mml:mtr">
 			<xsl:variable name="currentRow" select="."/>
 			<xsl:if test="$maxCols != count(mml:mtd)">
-				<xsl:call-template name="debug"><xsl:with-param name="str">WARNING: Mismatched number of mml:mtd in the mml:mtable. Adding an empty mml:mtd</xsl:with-param></xsl:call-template>
+				<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Mismatched number of mml:mtd in the mml:mtable. Adding an empty mml:mtd</xsl:with-param></xsl:call-template>
 			</xsl:if>
 			<mml:mtr>
 				<xsl:copy-of select="@*"/>

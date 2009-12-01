@@ -22,15 +22,19 @@ ALIGN_XSL=$ROOT/xsl/postprocess-svg.xsl
 
 
 # Load up the custom params to xsltproc:
-OLD_IFS=$IFS
-IFS="
+if [ -s params.txt ]; then
+    echo "Using the following additional params to xsltproc:"
+    cat params.txt
+    OLD_IFS=$IFS
+    IFS="
 "
-XSLTPROC_ARGS=""
-for ARG in `cat params.txt`; do
-  XSLTPROC_ARGS="$XSLTPROC_ARGS --param $ARG"
-done
-IFS=$OLD_IFS
-XSLTPROC="$XSLTPROC $XSLTPROC_ARGS"
+    XSLTPROC_ARGS=""
+    for ARG in `cat params.txt`; do
+      XSLTPROC_ARGS="$XSLTPROC_ARGS --param $ARG"
+    done
+    IFS=$OLD_IFS
+    XSLTPROC="$XSLTPROC $XSLTPROC_ARGS"
+fi
 
 $XSLTPROC --xinclude -o $DOCBOOK2 $DOCBOOK_CLEANUP_XSL $DOCBOOK
 

@@ -9,16 +9,16 @@
   version="1.0">
 
 <xsl:import href="debug.xsl"/>
-<xsl:output omit-xml-declaration="yes" indent="yes" method="xml"/>
+<xsl:output indent="yes" method="xml"/>
 <xsl:param name="moduleId"/>
 
 <!-- When generating id's we need to prefix them with a module id. 
 	This is the text between the module, and the module-specific id. -->
 <xsl:param name="moduleSeparator">.</xsl:param>
 
-<xsl:template mode="copy" match="@*|node()|comment()">
+<xsl:template mode="copy" match="@*|node()">
     <xsl:copy>
-        <xsl:apply-templates mode="copy" select="@*|node()|comment()"/>
+        <xsl:apply-templates mode="copy" select="@*|node()"/>
     </xsl:copy>
 </xsl:template>
 
@@ -58,14 +58,14 @@
 
 <xsl:template name="id-and-children">
 	<xsl:call-template name="copy-attributes-to-docbook"/>
-	<xsl:apply-templates select="*|text()|node()|comment()"/>
+	<xsl:apply-templates select="*|text()|node()"/>
 </xsl:template>
 
 <xsl:template name="id-title-and-children-in-para">
 	<xsl:call-template name="copy-attributes-to-docbook"/>
 	<xsl:apply-templates select="c:title"/>
 	<db:para>
-		<xsl:apply-templates select="*[local-name()!='title']|text()|comment()"/>
+		<xsl:apply-templates select="*[local-name()!='title']|text()|processing-instruction()|comment()"/>
 	</db:para>
 </xsl:template>
 
@@ -117,7 +117,7 @@
 			<xsl:when test="@number-style='upper-roman'">upperroman</xsl:when>
 			<xsl:when test="@number-style='lower-roman'">lowerroman</xsl:when>
     		<xsl:otherwise>
-    			<xsl:call-template name="debug"><xsl:with-param name="str">BUG: Unsupported @number-style</xsl:with-param></xsl:call-template>
+    			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Unsupported @number-style</xsl:with-param></xsl:call-template>
     			<xsl:text>arabic</xsl:text>
     		</xsl:otherwise>
     	</xsl:choose>
@@ -334,7 +334,7 @@
 </xsl:template>
 
 <xsl:template match="c:foreign">
-	<xsl:call-template name="debug"><xsl:with-param name="str">WARNING: Ignoring c:foreign element for conversion</xsl:with-param></xsl:call-template>
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Ignoring c:foreign element for conversion</xsl:with-param></xsl:call-template>
 	<xsl:apply-templates/>
 </xsl:template>
 
@@ -367,8 +367,8 @@
 
 <!-- Partially supported -->
 <xsl:template match="c:figure[c:subfigure]">
-	<xsl:call-template name="debug">
-		<xsl:with-param name="str">ERROR: Subfigures are not really supported. Only the 1st subfigure is used</xsl:with-param>
+	<xsl:call-template name="cnx.log">
+		<xsl:with-param name="msg">ERROR: Subfigures are not really supported. Only the 1st subfigure is used</xsl:with-param>
 	</xsl:call-template>
 	<db:figure>
 		<xsl:call-template name="copy-attributes-to-docbook"/>
@@ -451,7 +451,7 @@
 	<db:glossentry>
 		<xsl:call-template name="copy-attributes-to-docbook"/>
 		<xsl:if test="c:title">
-			<xsl:call-template name="debug"><xsl:with-param name="str">BUG: Dropping c:title in c:definition</xsl:with-param></xsl:call-template>
+			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Dropping c:title in c:definition</xsl:with-param></xsl:call-template>
 		</xsl:if>
 		<xsl:apply-templates select="c:term"/>
 		<db:glossdef>
@@ -498,7 +498,7 @@
 
 <!-- Handle citations -->
 <xsl:template match="c:cite">
-	<xsl:call-template name="debug"><xsl:with-param name="str">WARNING: Didn't fully convert c:cite yet</xsl:with-param></xsl:call-template>
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Didn't fully convert c:cite yet</xsl:with-param></xsl:call-template>
 	<!-- TODO: Treat it like a link....  -->
 	<xsl:apply-templates/>
 </xsl:template>
@@ -508,24 +508,24 @@
 	   "inbook", "incollection", "inproceedings", "mastersthesis", "manual", "misc", "phdthesis", "proceedings", "techreport", "unpublished".
 	db: @pubwork (enumeration)
 
-    * “article”
-    * “bbs”
-    * “book”
-    * “cdrom”
-    * “chapter”
-    * “dvd”
-    * “emailmessage”
-    * “gopher”
-    * “journal”
-    * “manuscript”
-    * “newsposting”
-    * “part”
-    * “refentry”
-    * “section”
-    * “series”
-    * “set”
-    * “webpage”
-    * “wiki”
+    * "article"
+    * "bbs"
+    * "book"
+    * "cdrom"
+    * "chapter"
+    * "dvd"
+    * "emailmessage"
+    * "gopher"
+    * "journal"
+    * "manuscript"
+    * "newsposting"
+    * "part"
+    * "refentry"
+    * "section"
+    * "series"
+    * "set"
+    * "webpage"
+    * "wiki"
  --> 
 	<xsl:variable name="pubwork">
 		<xsl:choose>
@@ -545,7 +545,7 @@
 			<xsl:when test="@pub-type = 'unpublished'"></xsl:when>
 			<xsl:when test="not(@pub-type)"></xsl:when>
 			<xsl:otherwise>
-				<xsl:call-template name="debug"><xsl:with-param name="str">ERROR: Unmatched c:cite-title type</xsl:with-param></xsl:call-template>
+				<xsl:call-template name="cnx.log"><xsl:with-param name="msg">ERROR: Unmatched c:cite-title type</xsl:with-param></xsl:call-template>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
@@ -558,8 +558,9 @@
 	</db:citetitle>
 </xsl:template>
 
-<xsl:template match="comment()">
-    <xsl:comment><xsl:copy-of select="."/></xsl:comment>
+<!-- Add a processing instruction that will be matched in the custom docbook2fo.xsl -->
+<xsl:template match="c:newline">
+	<xsl:processing-instruction name="cnx.newline"/>
 </xsl:template>
 
 
