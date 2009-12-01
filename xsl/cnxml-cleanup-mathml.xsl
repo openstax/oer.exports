@@ -111,12 +111,13 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 			<mml:mtr>
 				<xsl:copy-of select="@*"/>
 				<xsl:for-each select="$maxRow/mml:mtd">
+					<xsl:variable name="pos" select="position()"/>
 					<xsl:choose>
-						<xsl:when test="count($currentRow/mml:mtd) > position()">
+						<xsl:when test="$pos > count($currentRow/mml:mtd)">
 							<mml:mtd><mml:mrow/></mml:mtd>
 						</xsl:when>
 						<xsl:otherwise>
-							<xsl:apply-templates select="$currentRow/mml:mtd[position()]"/>
+							<xsl:apply-templates select="$currentRow/mml:mtd[$pos]"/>
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:for-each>

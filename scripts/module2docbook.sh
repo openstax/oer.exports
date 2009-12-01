@@ -93,7 +93,9 @@ if [ $MATH2SVG_ERROR -eq 0 ]; then
 fi
 
 $XSLTPROC -o $DOCBOOK $DOCBOOK_CLEANUP_XSL $DOCBOOK2
-rm $DOCBOOK2
+if [ $MATH2SVG_ERROR -eq 0 ]; then 
+  rm $DOCBOOK2
+fi
 
 # Create a file to validate against
 $XSLTPROC -o $VALID $DOCBOOK_VALIDATION_XSL $DOCBOOK
