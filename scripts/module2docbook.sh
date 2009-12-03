@@ -56,17 +56,26 @@ fi
 
 # First check that the XML file is well-formed
 #XMLVALIDATE="xmllint --nonet --noout --valid --relaxng /Users/schatz/Documents/workspace/cnx-schema/cnxml.rng"
-XMLVALIDATE="xmllint --nonet --noout"
+XMLVALIDATE="xmllint"
 #$XMLVALIDATE $CNXML 2> /dev/null
 #if [ $? -ne 0 ]; then exit 0; fi
-($XMLVALIDATE $CNXML 2>&1) > $MOD_PATH/__err.txt
+($XMLVALIDATE "--nonet --noout" $CNXML 2>&1) > $MOD_PATH/__err.txt
 if [ -s $MOD_PATH/__err.txt ]; 
 then 
-  echo "Invalid cnxml doc" 1>&2
-  rm $MOD_PATH/__err.txt
-  exit 0
+
+	# Try again, but load the DTD this time (and replace the cnxml file)
+  echo "Failed without DTD. Trying with DTD" 1>&2
+	CNXML_NEW=$CNXML.new.xml
+	($XMLVALIDATE --loaddtd --noent --dropdtd --output $CNXML_NEW $CNXML 2>&1) > $MOD_PATH/__err.txt
+	if [ -s $MOD_PATH/__err.txt ]; 
+	then 
+		echo "Invalid cnxml doc" 1>&2
+		exit 1
+	fi
+	#rm $MOD_PATH/__err.txt
+	mv $CNXML_NEW $CNXML
 fi
-rm $MOD_PATH/__err.txt
+#rm $MOD_PATH/__err.txt
 
 
 

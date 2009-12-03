@@ -22,6 +22,9 @@ Now, we'll need to install/configure some fonts for Apache FOP (mostly the Math 
 
 Install the STIXGeneral and STIXSize1 fonts from the fonts directory into your OS
   (getting this right is a pain. see the tests dir to make sure FOP and Batik can find the fonts)
+In Linux:
+$ mkdir ~/.fonts
+$ cp fonts/stix/*.ttf ~/.fonts
 
 
 Note: fop needs to know about the STIX fonts, so lib/fop.xconf is customized

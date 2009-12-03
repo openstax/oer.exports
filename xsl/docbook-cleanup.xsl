@@ -56,6 +56,18 @@
 </xsl:template>
 -->
 
+<!-- col10363 has, for every eps file, a svg file and FOP doesn't support eps. -->
+<xsl:template match="db:imageobject[db:imagedata[contains(@fileref, '.eps')]]">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: discarding EPS file in hopes that there is another (PNG).</xsl:with-param></xsl:call-template>
+</xsl:template>
+<xsl:template match="db:imagedata[contains(@fileref, '-0.eps')]">
+	<xsl:variable name="href">
+		<xsl:value-of select="substring-before(@fileref, '.eps')"/>
+		<xsl:text>.svg</xsl:text>
+	</xsl:variable>
+	<xi:include href="{$href}" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+</xsl:template>
+
 <!-- Identity Transform -->
 <xsl:template match="@*|node()">
    <xsl:copy>

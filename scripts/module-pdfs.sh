@@ -11,8 +11,7 @@ COL_PATH=$1
 ROOT=`dirname "$0"`
 ROOT=`cd "$ROOT/.."; pwd` # .. since we live in scripts/
 
-# FOP Needs a lot of memory (4+Gb for Elementary Algebra)
-declare -x FOP_OPTS=-Xmx14000M
+declare -x FOP_OPTS=-Xmx512M
 
 XSLTPROC="xsltproc --nonet"
 FOP="bash $ROOT/fop/fop -c $ROOT/lib/fop.xconf"
@@ -43,10 +42,15 @@ if [ ".$2" != "." ]; then MODULES=$2; fi
 
 for MODULE in $MODULES
 do
-    if [ -d $COL_PATH/$MODULE ];
-    then
+    if [ -d $COL_PATH/$MODULE ]; then
         echo "Converting $MODULE"
-        # bash ./module2docbook.sh $COL_PATH $MODULE
+        if [ ! -d $COL_PATH/$MODULE/index.dbk ]; then
+            bash $ROOT/scripts/module2docbook.sh $COL_PATH $MODULE 2> /dev/null > /dev/null
+            DOCBOOK_ERR=$?
+            if [ $DOCBOOK_ERR -ne 0 ]; then
+                echo "Error creating docbook (probably MathML to SVG). Continuing..." 1>&2
+            fi
+        fi
 
         DOCBOOK=$COL_PATH/$MODULE/index.dbk
         DOCBOOK2=$COL_PATH/$MODULE/index.cleaned.dbk

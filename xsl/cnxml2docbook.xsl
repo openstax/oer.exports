@@ -224,11 +224,36 @@
 </xsl:template>
 
 <xsl:template match="c:media">
-	<db:mediaobject><xsl:call-template name="id-and-children"/></db:mediaobject>
+	<db:mediaobject><xsl:call-template name="mediaobject"/>
+	</db:mediaobject>
 </xsl:template>
 <!-- See m21854 //c:equation/@id="eip-id14423064" -->
 <xsl:template match="c:para//c:media">
-	<db:inlinemediaobject><xsl:call-template name="id-and-children"/></db:inlinemediaobject>
+	<db:inlinemediaobject><xsl:call-template name="mediaobject"/></db:inlinemediaobject>
+</xsl:template>
+<!-- see m0003 -->
+<xsl:template name="mediaobject">
+	<xsl:call-template name="copy-attributes-to-docbook"/>
+	<xsl:choose>
+		<xsl:when test="c:image[@mime-type='image/svg']">
+			<xsl:apply-templates select="c:image[@mime-type='image/svg']"/>
+		</xsl:when>
+		<xsl:when test="c:image[@mime-type='application/postscript']">
+			<!-- Try both the postscript (SVG xinclude fallback) and png. If the xinclude fails, then hopefully the png will work -->
+			<xsl:apply-templates select="c:image[@mime-type='application/postscript']"/>
+			<xsl:apply-templates select="c:image[@mime-type='image/png']"/>
+			<xsl:apply-templates select="c:image[@mime-type='image/jpeg']"/>
+		</xsl:when>
+		<xsl:when test="c:image[@mime-type='image/png']">
+			<xsl:apply-templates select="c:image[@mime-type='image/png']"/>
+		</xsl:when>
+		<xsl:when test="c:image[@mime-type='image/jpeg']">
+			<xsl:apply-templates select="c:image[@mime-type='image/jpeg']"/>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Could not find a suitable image file. <xsl:value-of select="c:image/@mime-type"/></xsl:with-param></xsl:call-template>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 <xsl:template match="c:image">
