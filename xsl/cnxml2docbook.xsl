@@ -16,6 +16,9 @@
 	This is the text between the module, and the module-specific id. -->
 <xsl:param name="moduleSeparator">.</xsl:param>
 
+<!-- HACK: FOP generation requires that db:imagedata be missing but epub/html needs it -->
+<xsl:param name="cnx.output">fop</xsl:param>
+
 <xsl:template mode="copy" match="@*|node()">
     <xsl:copy>
         <xsl:apply-templates mode="copy" select="@*|node()"/>
@@ -234,30 +237,21 @@
 <!-- see m0003 -->
 <xsl:template name="mediaobject">
 	<xsl:call-template name="copy-attributes-to-docbook"/>
-	<xsl:choose>
-		<xsl:when test="c:image[@mime-type='image/svg']">
-			<xsl:apply-templates select="c:image[@mime-type='image/svg']"/>
-		</xsl:when>
-		<xsl:when test="c:image[@mime-type='application/postscript']">
-			<!-- Try both the postscript (SVG xinclude fallback) and png. If the xinclude fails, then hopefully the png will work -->
-			<xsl:apply-templates select="c:image[@mime-type='application/postscript']"/>
-			<xsl:apply-templates select="c:image[@mime-type='image/png']"/>
-			<xsl:apply-templates select="c:image[@mime-type='image/jpeg']"/>
-		</xsl:when>
-		<xsl:when test="c:image[@mime-type='image/png']">
-			<xsl:apply-templates select="c:image[@mime-type='image/png']"/>
-		</xsl:when>
-		<xsl:when test="c:image[@mime-type='image/jpeg']">
-			<xsl:apply-templates select="c:image[@mime-type='image/jpeg']"/>
-		</xsl:when>
-		<xsl:otherwise>
-			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Could not find a suitable image file. <xsl:value-of select="c:image/@mime-type"/></xsl:with-param></xsl:call-template>
-		</xsl:otherwise>
-	</xsl:choose>
+	<xsl:apply-templates/>
 </xsl:template>
 
 <xsl:template match="c:image">
-	<db:imageobject>
+	<xsl:variable name="format">
+		<xsl:choose>
+			<xsl:when test="@mime-type = 'image/jpeg'">JPEG</xsl:when>
+			<xsl:when test="@mime-type = 'image/gif'">GIF</xsl:when>
+			<xsl:when test="@mime-type = 'image/png'">PNG</xsl:when>
+			<xsl:when test="@mime-type = 'image/svg+xml'">SVG</xsl:when>
+			<xsl:when test="@mime-type = 'application/postscript'">SVG</xsl:when>
+			<xsl:otherwise>JPEG</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<db:imageobject format="{$format}">
 		<db:imagedata fileref="{@src}">
 			<xsl:choose>
 				<xsl:when test="@print-width">
@@ -270,6 +264,21 @@
 			<xsl:if test="@height">
 				<xsl:attribute name="depth"><xsl:value-of select="@height"/></xsl:attribute>
 			</xsl:if>
+			
+			<!-- Docbook doesn't support EPS, so try an SVG alternative. -->
+			<!-- col10363 has, for every eps file, a svg file and FOP doesn't support eps. -->
+			<xsl:choose>
+				<xsl:when test="@mime-type = 'application/postscript'">
+					<xsl:variable name="href">
+						<xsl:value-of select="substring-before(@src, '.eps')"/>
+						<xsl:text>.svg</xsl:text>
+					</xsl:variable>
+					<xi:include href="{$href}" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:attribute name="fileref"><xsl:value-of select="@src"/></xsl:attribute>
+				</xsl:otherwise>
+			</xsl:choose>
 		</db:imagedata>
 	</db:imageobject>
 </xsl:template>
@@ -365,25 +374,27 @@
 
 <!-- MathML -->
 <xsl:template match="c:equation/mml:math">
-	<db:mediaobject>
-		<db:imageobject>
-			<!-- <db:imagedata format="svg"> --> 
-				<xsl:apply-templates mode="copy" select="."/>
-			<!-- </db:imagedata> -->
-		</db:imageobject>
-	</db:mediaobject>
+	<db:mediaobject><xsl:call-template name="insert-mathml"/></db:mediaobject>
 </xsl:template>
 <xsl:template match="mml:math">
-	<db:inlinemediaobject>
-		<db:imageobject>
-			<!-- TODO: Docbook BUG. SVG should be in db:imagedata
-			<db:imagedata format="svg"> --> 
-				<xsl:apply-templates mode="copy" select="."/>
-			<!-- </db:imagedata> -->
-		</db:imageobject>
-	</db:inlinemediaobject>
+	<db:inlinemediaobject><xsl:call-template name="insert-mathml"/></db:inlinemediaobject>
 </xsl:template>
 
+<xsl:template name="insert-mathml">
+	<db:imageobject>
+		<!-- HACK: FOP generation requires that db:imagedata be missing -->
+		<xsl:choose>
+			<xsl:when test="$cnx.output = 'fop'">
+				<xsl:apply-templates mode="copy" select="."/>
+			</xsl:when>
+			<xsl:otherwise>
+				<db:imagedata format="svg"> 
+					<xsl:apply-templates mode="copy" select="."/>
+				</db:imagedata>
+			</xsl:otherwise>
+		</xsl:choose>
+	</db:imageobject>
+</xsl:template>
 
 
 

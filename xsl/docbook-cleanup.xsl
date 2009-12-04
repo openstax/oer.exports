@@ -4,11 +4,16 @@
   xmlns:mml="http://www.w3.org/1998/Math/MathML"
   xmlns:db="http://docbook.org/ns/docbook"
   xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:svg="http://www.w3.org/2000/svg"
+  xmlns:pmml2svg="https://sourceforge.net/projects/pmml2svg/"
   version="1.0">
 
 <xsl:import href="debug.xsl"/>
 <xsl:output indent="yes" method="xml"/>
 <xsl:param name="moduleId"/>
+
+<xsl:param name="cnx.output">fop</xsl:param>
 
 <xsl:template mode="copy" match="@*|node()">
     <xsl:copy>
@@ -56,20 +61,35 @@
 </xsl:template>
 -->
 
+<!-- Discard unmatched xinclude files -->
 <!-- col10363 has, for every eps file, a svg file and FOP doesn't support eps. -->
-<xsl:template match="db:imageobject[db:imagedata[contains(@fileref, '.eps')]]">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: discarding EPS file in hopes that there is another (PNG).</xsl:with-param></xsl:call-template>
+<xsl:template match="*[db:imageobject/db:imagedata/xi:include]">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">ERROR: xincluded file not found. <xsl:value-of select="db:imageobject/db:imagedata/xi:include/@href"/></xsl:with-param></xsl:call-template> 
 </xsl:template>
-<xsl:template match="db:imagedata[contains(@fileref, '-0.eps')]">
-	<xsl:variable name="href">
-		<xsl:value-of select="substring-before(@fileref, '.eps')"/>
-		<xsl:text>.svg</xsl:text>
-	</xsl:variable>
-	<xi:include href="{$href}" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+<!-- But if there is a PNG fallback, let it through -->
+<xsl:template match="*[db:imageobject/db:imagedata/xi:include and db:imageobject/db:imagedata[@fileref]]">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Using non-svg alternate for eps file. <xsl:value-of select="db:imageobject/db:imagedata/@fileref"/></xsl:with-param></xsl:call-template> 
+	<xsl:copy>
+		<xsl:apply-templates select="@*"/>
+		<db:imageobject>
+			<db:imagedata>
+				<xsl:apply-templates select="db:imageobject/db:imagedata[@fileref]/@*"/>
+				<xsl:apply-templates select="db:imageobject/db:imagedata[@fileref]/node()"/>
+			</db:imagedata>
+		</db:imageobject>
+	</xsl:copy>
 </xsl:template>
 
+<!-- FOP needs the pmml2svg:baseline-shift element to move the math, but all others don't -->
+<xsl:template match="svg:metadata[pmml2svg:baseline-shift]">
+	<xsl:if test="$cnx.output = 'fop'">
+		<xsl:call-template name="ident"/>
+	</xsl:if>
+</xsl:template>
+
+
 <!-- Identity Transform -->
-<xsl:template match="@*|node()">
+<xsl:template name="ident" match="@*|node()">
    <xsl:copy>
       <xsl:apply-templates select="@*|node()"/>
    </xsl:copy>

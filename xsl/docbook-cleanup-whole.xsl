@@ -81,18 +81,5 @@
 	<!-- Discard this. it's handled in match="db:book" -->
 </xsl:template>
 
-<!-- Discard unmatched xinclude files -->
-<xsl:template match="*[db:imageobject/xi:include]">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">ERROR: xincluded file not found. <xsl:value-of select="db:imageobject/xi:include/@href"/></xsl:with-param></xsl:call-template> 
-</xsl:template>
-<!-- But if there is a PNG fallback, let it through -->
-<xsl:template match="*[db:imageobject/xi:include and db:imageobject/db:imagedata[@fileref]]">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">ERROR: Using non-svg alternate for eps file. <xsl:value-of select="db:imageobject/db:imagedata/@fileref"/></xsl:with-param></xsl:call-template> 
-	<xsl:copy>
-		<xsl:apply-templates select="@*"/>
-		<xsl:apply-templates select="db:imageobject/db:imagedata[@fileref]"/>
-	</xsl:copy>
-</xsl:template>
-
 
 </xsl:stylesheet>

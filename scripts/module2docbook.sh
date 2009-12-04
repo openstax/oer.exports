@@ -14,7 +14,8 @@ ROOT=`cd "$ROOT/.."; pwd` # .. since we live in scripts/
 SCHEMA=$ROOT/docbook-rng/docbook.rng
 SAXON="java -jar $ROOT/lib/saxon9he.jar"
 JING="java -jar $ROOT/lib/jing-20081028.jar"
-XSLTPROC="xsltproc --nonet --stringparam moduleId $MOD_NAME $XSLTPROC_ARGS"
+# we use --xinclude because the XSLT attempts to load inline svg files
+XSLTPROC="xsltproc --nonet --xinclude --stringparam moduleId $MOD_NAME $XSLTPROC_ARGS"
 
 #Temporary files
 CNXML=$MOD_PATH/index.cnxml
@@ -36,8 +37,8 @@ MATH2SVG_XSL=$ROOT/xslt2/math2svg-in-docbook.xsl
 
 # Load up the custom params to xsltproc:
 if [ -s params.txt ]; then
-    echo "Using the following additional params to xsltproc:"
-    cat params.txt
+    echo "Using custom params in params.txt for xsltproc."
+    # cat params.txt
     OLD_IFS=$IFS
     IFS="
 "
@@ -59,23 +60,21 @@ fi
 XMLVALIDATE="xmllint"
 #$XMLVALIDATE $CNXML 2> /dev/null
 #if [ $? -ne 0 ]; then exit 0; fi
-($XMLVALIDATE "--nonet --noout" $CNXML 2>&1) > $MOD_PATH/__err.txt
-if [ -s $MOD_PATH/__err.txt ]; 
-then 
+($XMLVALIDATE --nonet --noout $CNXML 2>&1) > $MOD_PATH/__err.txt
+if [ -s $MOD_PATH/__err.txt ]; then 
 
-	# Try again, but load the DTD this time (and replace the cnxml file)
+  # Try again, but load the DTD this time (and replace the cnxml file)
   echo "Failed without DTD. Trying with DTD" 1>&2
-	CNXML_NEW=$CNXML.new.xml
-	($XMLVALIDATE --loaddtd --noent --dropdtd --output $CNXML_NEW $CNXML 2>&1) > $MOD_PATH/__err.txt
-	if [ -s $MOD_PATH/__err.txt ]; 
-	then 
-		echo "Invalid cnxml doc" 1>&2
-		exit 1
-	fi
-	#rm $MOD_PATH/__err.txt
-	mv $CNXML_NEW $CNXML
+  cat $MOD_PATH/__err.txt
+  CNXML_NEW=$CNXML.new.xml
+  ($XMLVALIDATE --loaddtd --noent --dropdtd --output $CNXML_NEW $CNXML 2>&1) > $MOD_PATH/__err.txt
+  if [ -s $MOD_PATH/__err.txt ]; then 
+    echo "Invalid cnxml doc" 1>&2
+      exit 1
+  fi
+  mv $CNXML_NEW $CNXML
 fi
-#rm $MOD_PATH/__err.txt
+rm $MOD_PATH/__err.txt
 
 
 

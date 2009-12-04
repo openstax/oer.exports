@@ -1,6 +1,7 @@
 <xsl:stylesheet 
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
   xmlns:mml="http://www.w3.org/1998/Math/MathML"
+  xmlns:m="http://www.w3.org/1998/Math/MathML"
   xmlns:c="http://cnx.rice.edu/cnxml"
   xmlns:cnx="http://cnx.rice.edu/cnxml"
   xmlns:db="http://docbook.org/ns/docbook"

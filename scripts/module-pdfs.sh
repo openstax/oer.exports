@@ -24,8 +24,8 @@ ALIGN_XSL=$ROOT/xsl/postprocess-svg.xsl
 
 # Load up the custom params to xsltproc:
 if [ -s params.txt ]; then
-    echo "Using the following additional params to xsltproc:"
-    cat params.txt
+    echo "Using custom params in params.txt for xsltproc."
+    # cat params.txt
     OLD_IFS=$IFS
     IFS="
 "

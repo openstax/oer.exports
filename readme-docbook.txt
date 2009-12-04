@@ -32,6 +32,10 @@ Note: fop needs to know about the STIX fonts, so lib/fop.xconf is customized
 
 We're ready to do some converting!
 
+To generate an epub file, you will need (due to a bug in docbook) to run the following line:
+$ echo 'cnx.output "html"' >> params.txt
+
+
 First, we need to convert the collection and modules into individual docbook files:
 Run the following line (where $COLLECTION_DIR is the directory you unzipped the collection):
   ./collection2docbook.sh $COLLECTION_DIR
