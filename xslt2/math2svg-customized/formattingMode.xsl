@@ -841,9 +841,11 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     
     <!-- Retrieve stretch horizontal attribute (Specific to this renderer) -->
     <xsl:variable name="stretchHorizontal">
+      <!-- Don't horizontally stretch when the op is in a math:mrow -->
+      <xsl:variable name="inmrow" select="index-of($rowElement, local-name(parent::*)) &gt;= 0"/>
       <xsl:choose>
 	<!-- Added to dictionary -->
-	<xsl:when test="$stretchy = true() and $defaultAttributes/math:mo/@stretchHorizontal">
+	<xsl:when test="$stretchy = true() and $defaultAttributes/math:mo/@stretchHorizontal and not($inmrow)">
 	  <xsl:value-of select="$defaultAttributes/math:mo/@stretchHorizontal"/>
 	</xsl:when>
 	<!-- Default value -->
