@@ -962,7 +962,7 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
   </xsl:template>
 
 
-  <!-- PHIL convenience function -->
+  <!-- Determines the base font to use -->
   <xsl:template name="setBestFont">
     <xsl:param name="char" />
     <xsl:param name="fontName" tunnel="yes" />

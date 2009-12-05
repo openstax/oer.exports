@@ -278,7 +278,6 @@ The best file format is CID that give more information about metrics
     </xsl:choose>
   </xsl:template>
 
-<!-- PHIL added -->
   <xsl:template name="findFontName">
     <xsl:param name="name"/>
     <xsl:param name="fonts"/>

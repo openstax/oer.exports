@@ -217,7 +217,7 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       </xsl:call-template>
     </xsl:variable>
     
-    <!-- PHIL: assume it's 1 character -->
+    <!-- Assume it's 1 character -->
     <xsl:variable name="bestFontName">
       <xsl:call-template name="findFontName">
 	<xsl:with-param name="name" select="substring($str, $strLen, 1)"/>
@@ -697,7 +697,7 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <!-- Retrieve all operator entries from operator dictionary -->
     <xsl:variable name="opEntries" select="document('operator-dictionary.xml')/math:operators/math:mo[@op = $operator]"/>
 
-    <!-- PHIL: assume it's 1 character -->
+    <!-- Assume it's 1 character -->
     <xsl:variable name="bestFontName">
       <xsl:call-template name="findFontName">
 	<xsl:with-param name="name" select="$operator"/>
