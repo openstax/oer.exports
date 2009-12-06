@@ -15,7 +15,7 @@ SCHEMA=$ROOT/docbook-rng/docbook.rng
 SAXON="java -jar $ROOT/lib/saxon9he.jar"
 JING="java -jar $ROOT/lib/jing-20081028.jar"
 # we use --xinclude because the XSLT attempts to load inline svg files
-XSLTPROC="xsltproc --nonet --xinclude --stringparam moduleId $MOD_NAME $XSLTPROC_ARGS"
+XSLTPROC="xsltproc --nonet --xinclude --stringparam cnx.module.id $MOD_NAME $XSLTPROC_ARGS"
 
 #Temporary files
 CNXML=$MOD_PATH/index.cnxml
@@ -28,11 +28,11 @@ DOCBOOK2=$MOD_PATH/index2.dbk
 VALID=$MOD_PATH/valid.dbk
 
 #XSLT files
-CLEANUP_XSL=$ROOT/xsl/cnxml-cleanup.xsl
-CLEANUP2_XSL=$ROOT/xsl/cnxml-cleanup-mathml.xsl
-CNXML2DOCBOOK_XSL=$ROOT/xsl/cnxml2docbook.xsl
-DOCBOOK_CLEANUP_XSL=$ROOT/xsl/docbook-cleanup.xsl
-DOCBOOK_VALIDATION_XSL=$ROOT/xsl/docbook-cleanup-for-validation.xsl
+CLEANUP_XSL=$ROOT/xsl/cnxml-clean.xsl
+CLEANUP2_XSL=$ROOT/xsl/cnxml-clean-math.xsl
+CNXML2DOCBOOK_XSL=$ROOT/xsl/cnxml2dbk.xsl
+DOCBOOK_CLEANUP_XSL=$ROOT/xsl/dbk-clean.xsl
+DOCBOOK_VALIDATION_XSL=$ROOT/xsl/dbk-clean-for-validation.xsl
 MATH2SVG_XSL=$ROOT/xslt2/math2svg-in-docbook.xsl
 
 # Load up the custom params to xsltproc:
@@ -56,7 +56,7 @@ fi
 #if [ ".$GREP_FOUND" == "." ]; then exit 0; fi
 
 # First check that the XML file is well-formed
-#XMLVALIDATE="xmllint --nonet --noout --valid --relaxng /Users/schatz/Documents/workspace/cnx-schema/cnxml.rng"
+#XMLVALIDATE="xmllint --nonet --noout --valid --relaxng /Users/schatz/Documents/workspace/cnxml-schema/cnxml.rng"
 XMLVALIDATE="xmllint"
 #$XMLVALIDATE $CNXML 2> /dev/null
 #if [ $? -ne 0 ]; then exit 0; fi
@@ -104,6 +104,9 @@ $XSLTPROC -o $DOCBOOK $DOCBOOK_CLEANUP_XSL $DOCBOOK2
 if [ $MATH2SVG_ERROR -eq 0 ]; then 
   rm $DOCBOOK2
 fi
+
+echo "Skipping Docbook Validation. Remove next line to enable"
+exit $MATH2SVG_ERROR
 
 # Create a file to validate against
 $XSLTPROC -o $VALID $DOCBOOK_VALIDATION_XSL $DOCBOOK

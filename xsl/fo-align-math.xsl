@@ -12,7 +12,6 @@
   >
 
 <xsl:output indent="yes" method="xml"/>
-<xsl:param name="moduleId"/>
 <xsl:include href="debug.xsl"/>
 
 

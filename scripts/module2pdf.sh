@@ -45,7 +45,7 @@ do
     if [ -d $COL_PATH/$MODULE ]; then
         echo "Converting $MODULE"
         if [ ! -d $COL_PATH/$MODULE/index.dbk ]; then
-            bash $ROOT/scripts/module2docbook.sh $COL_PATH $MODULE 2> /dev/null > /dev/null
+            bash $ROOT/scripts/module2dbk.sh $COL_PATH $MODULE 2> /dev/null > /dev/null
             DOCBOOK_ERR=$?
             if [ $DOCBOOK_ERR -ne 0 ]; then
                 echo "Error creating docbook (probably MathML to SVG). Continuing..." 1>&2

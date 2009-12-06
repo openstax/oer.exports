@@ -8,16 +8,20 @@
   xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
   version="1.0">
 
-<xsl:import href="mdml2docbook.xsl"/>
+<xsl:import href="mdml2dbk.xsl"/>
+<xsl:import href="cnxml2dbk-simple.xsl"/>
 <xsl:output indent="yes" method="xml"/>
-<xsl:param name="moduleId"/>
+
+<!-- Used to update the ids so they are unique within a collection -->
+<xsl:param name="cnx.module.id"/>
 
 <!-- When generating id's we need to prefix them with a module id. 
 	This is the text between the module, and the module-specific id. -->
-<xsl:param name="moduleSeparator">.</xsl:param>
+<xsl:param name="cnx.module.separator">.</xsl:param>
 
 <!-- HACK: FOP generation requires that db:imagedata be missing but epub/html needs it -->
 <xsl:param name="cnx.output">fop</xsl:param>
+
 
 <xsl:template mode="copy" match="@*|node()">
     <xsl:copy>
@@ -30,10 +34,25 @@
 	<xsl:apply-templates select="*"/>
 </xsl:template>
 
+<!-- Prefix all id's with the module id (for inclusion in collection) -->
+<xsl:template match="@id">
+	<xsl:attribute name="xml:id">
+		<xsl:value-of select="$cnx.module.id"/>
+		<xsl:value-of select="$cnx.module.separator"/>
+		<xsl:value-of select="."/>
+	</xsl:attribute>
+</xsl:template>
+<!-- Bug. can't replace @id with xsl:attribute if other attributes have already converted using xsl:copy -->
+<xsl:template match="@*">
+	<xsl:attribute name="{local-name(.)}"><xsl:value-of select="."/></xsl:attribute>
+</xsl:template>
+
+<xsl:template match="@url|@type|@src|@format|@alt"/>
+
 <!-- Match the roots and add boilerplate -->
 <xsl:template match="c:document">
     <db:section>
-    	<xsl:attribute name="xml:id"><xsl:value-of select="$moduleId"/></xsl:attribute>
+    	<xsl:attribute name="xml:id"><xsl:value-of select="$cnx.module.id"/></xsl:attribute>
         <db:info>
         	<xsl:apply-templates select="c:title"/>
         	<xsl:apply-templates select="c:metadata"/>
@@ -50,65 +69,14 @@
     </db:section>
 </xsl:template>
 
-<xsl:template name="copy-attributes-to-docbook">
-    <xsl:if test="@id">
-        <xsl:attribute name="xml:id">
-        	<xsl:value-of select="$moduleId"/>
-        	<xsl:text>.</xsl:text>
-        	<xsl:value-of select="@id"/>
-        </xsl:attribute>
-    </xsl:if>
-</xsl:template>
-
-<xsl:template name="id-and-children">
-	<xsl:call-template name="copy-attributes-to-docbook"/>
-	<xsl:apply-templates select="*|text()|node()"/>
-</xsl:template>
-
-<xsl:template name="id-title-and-children-in-para">
-	<xsl:call-template name="copy-attributes-to-docbook"/>
-	<xsl:apply-templates select="c:title"/>
-	<db:para>
-		<xsl:apply-templates select="*[local-name()!='title']|text()|processing-instruction()|comment()"/>
-	</db:para>
-</xsl:template>
-
-
-<!-- Block elements in docbook cannot have free-floating text. they need to be wrapped in a db:para -->
-<xsl:template name="block-id-and-children">
-	<xsl:choose>
-		<xsl:when test="normalize-space(text()) != ''">
-			<db:para>
-				<xsl:call-template name="id-and-children"/>
-			</db:para>
-		</xsl:when>
-		<xsl:otherwise>
-			<xsl:call-template name="id-and-children"/>
-		</xsl:otherwise>
-	</xsl:choose>
-</xsl:template>
-
-
-<xsl:template match="c:para">
-    <db:para><xsl:call-template name="id-and-children"/></db:para>
-</xsl:template>
 
 <xsl:template match="c:para[c:title]">
-    <db:formalpara><xsl:call-template name="id-title-and-children-in-para"/></db:formalpara>
-</xsl:template>
-
-
-<xsl:template match="c:sub">
-    <db:subscript><xsl:call-template name="id-and-children"/></db:subscript>
-</xsl:template>
-
-<xsl:template match="c:sup">
-    <db:superscript><xsl:call-template name="id-and-children"/></db:superscript>
-</xsl:template>
-
-
-<xsl:template match="c:list">
-    <db:itemizedlist><xsl:call-template name="id-and-children"/></db:itemizedlist>
+    <db:formalpara>
+		<xsl:apply-templates select="@*|c:title"/>
+		<db:para>
+			<xsl:apply-templates select="*[local-name()!='title']|text()|processing-instruction()|comment()"/>
+		</db:para>
+	</db:formalpara>
 </xsl:template>
 
 
@@ -126,12 +94,9 @@
     		</xsl:otherwise>
     	</xsl:choose>
 	</xsl:variable>		
-    <db:orderedlist numeration="{$numeration}"><xsl:call-template name="id-and-children"/></db:orderedlist>
+    <db:orderedlist numeration="{$numeration}"><xsl:apply-templates select="@*|node()"/></db:orderedlist>
 </xsl:template>
 
-<xsl:template match="c:list[@list-type='labeled-item']">
-    <db:orderedlist><xsl:call-template name="id-and-children"/></db:orderedlist>
-</xsl:template>
 
 <xsl:template match="c:list[@display='inline']">
 	<xsl:for-each select="c:item">
@@ -146,17 +111,16 @@
     	<xsl:choose>
     		<xsl:when test="c:title">
     			<db:formalpara>
-    				<xsl:call-template name="copy-attributes-to-docbook"/>
-					<xsl:apply-templates select="*[local-name(.)!='para']|text()|node()|comment()"/>
+    				<xsl:apply-templates select="@*|*[local-name(.)!='para']|text()|node()|comment()"/>
     			</db:formalpara>
     			<xsl:apply-templates select="c:para"/>
     		</xsl:when>
     		<xsl:when test="c:para">
-				<xsl:call-template name="id-and-children"/>
+				<xsl:apply-templates select="@*|node()"/>
     		</xsl:when>
     		<xsl:otherwise>
 		    	<db:para>
-					<xsl:call-template name="id-and-children"/>
+					<xsl:apply-templates select="@*|node()"/>
 				</db:para>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -164,47 +128,23 @@
 </xsl:template>
 
 
-<xsl:template match="c:emphasis[not(@effect) or @effect='bold']">
-    <db:emphasis role="bold"><xsl:call-template name="id-and-children"/></db:emphasis>
-</xsl:template>
-<xsl:template match="c:emphasis[@effect='italics']">
-    <db:emphasis><xsl:call-template name="id-and-children"/></db:emphasis>
-</xsl:template>
-
-
-
-<xsl:template match="c:link[@url]">
-    <db:link xlink:href="{@url}"><xsl:call-template name="id-and-children"/></db:link>
-</xsl:template>
 <xsl:template match="c:link[@document|@target-id and normalize-space(text())='']">
 	<xsl:variable name="linkend">
-		<xsl:if test="not(@document)"><xsl:value-of select="$moduleId"/></xsl:if>
+		<xsl:if test="not(@document)"><xsl:value-of select="$cnx.module.id"/></xsl:if>
 		<xsl:value-of select="@document"/>
-		<xsl:if test="@target-id"><xsl:value-of select="$moduleSeparator"/></xsl:if>
+		<xsl:if test="@target-id"><xsl:value-of select="$cnx.module.separator"/></xsl:if>
 		<xsl:value-of select="@target-id"/>
 	</xsl:variable>
-    <db:xref linkend="{$linkend}"><xsl:call-template name="id-and-children"/></db:xref>
+    <db:xref linkend="{$linkend}"><xsl:apply-templates select="@*|node()"/></db:xref>
 </xsl:template>
 <xsl:template match="c:link[@document|@target-id and normalize-space(text())!='']">
 	<xsl:variable name="linkend">
-		<xsl:if test="not(@document)"><xsl:value-of select="$moduleId"/></xsl:if>
+		<xsl:if test="not(@document)"><xsl:value-of select="$cnx.module.id"/></xsl:if>
 		<xsl:value-of select="@document"/>
-		<xsl:if test="@target-id"><xsl:value-of select="$moduleSeparator"/></xsl:if>
+		<xsl:if test="@target-id"><xsl:value-of select="$cnx.module.separator"/></xsl:if>
 		<xsl:value-of select="@target-id"/>
 	</xsl:variable>
-    <db:link linkend="{$linkend}"><xsl:call-template name="id-and-children"/></db:link>
-</xsl:template>
-
-
-
-
-<xsl:template match="c:code">
-    <db:programlisting><xsl:call-template name="id-and-children"/></db:programlisting>
-</xsl:template>
-
-
-<xsl:template match="c:quote">
-    <db:quote><xsl:call-template name="id-and-children"/></db:quote>
+    <db:link linkend="{$linkend}"><xsl:apply-templates select="@*|node()"/></db:link>
 </xsl:template>
 
 
@@ -216,13 +156,6 @@
         * no c:caption
         * c:title cannot have xml elements in it, just text
      **************************************** -->
-<xsl:template match="c:figure[c:title and c:media/c:image]">
-	<db:figure><xsl:call-template name="id-and-children"/></db:figure>
-</xsl:template>
-<xsl:template match="c:figure[c:media/c:image]">
-	<db:informalfigure><xsl:call-template name="id-and-children"/></db:informalfigure>
-</xsl:template>
-
 <xsl:template match="c:media[c:image]">
 	<db:mediaobject><xsl:call-template name="media.image"/></db:mediaobject>
 </xsl:template>
@@ -232,7 +165,7 @@
 </xsl:template>
 <!-- see m0003 -->
 <xsl:template name="media.image">
-	<xsl:call-template name="copy-attributes-to-docbook"/>
+	<xsl:apply-templates select="@*"/>
 	<!-- Pick the correct image. To get Music Theory to use the included SVG file, 
 	     we try to xinclude it here and then remove the xinclude in the cleanup phase.
 	 -->
@@ -309,87 +242,18 @@
 </xsl:template>
 
 
-
-
-<xsl:template match="c:caption">
-	<db:caption><xsl:call-template name="id-and-children"/></db:caption>
-</xsl:template>
-
-<xsl:template match="c:title">
-	<db:title><xsl:call-template name="id-and-children"/></db:title>
-</xsl:template>
-
-<xsl:template match="c:note">
-    <db:note>
-		<xsl:call-template name="block-id-and-children"/>
-    </db:note>
-</xsl:template>
-<xsl:template match="c:section">
-    <db:section>
-		<xsl:call-template name="block-id-and-children"/>
-    </db:section>
-</xsl:template>
-<xsl:template match="c:equation">
-	<db:equation>
-		<xsl:call-template name="block-id-and-children"/>
-	</db:equation>
-</xsl:template>
-<xsl:template match="c:equation[not(c:title)]">
-	<db:informalequation>
-		<xsl:call-template name="block-id-and-children"/>
-	</db:informalequation>
-</xsl:template>
-<xsl:template match="c:para//c:equation[not(c:title)]">
-	<db:inlineequation>
-		<xsl:call-template name="block-id-and-children"/>
-	</db:inlineequation>
-</xsl:template>
-<xsl:template match="c:example">
-	<db:example>
-		<xsl:call-template name="do-example-stuff"/>
-	</db:example>
-</xsl:template>
-<xsl:template match="c:example[not(c:title)]">
-	<db:informalexample>
-		<xsl:call-template name="do-example-stuff"/>
-	</db:informalexample>
-</xsl:template>
-<xsl:template name="do-example-stuff">
-	<xsl:call-template name="block-id-and-children"/>
-</xsl:template>
-
-<!--TODO: Figure out when to move the exercises (and definitions)
-<xsl:template match="c:exercise">
-	<xsl:message>Moving exercise to bottom of module</xsl:message>
-</xsl:template>
-<xsl:template mode="end-of-module" match="c:exercise">
-	<db:qandaentry>
-		<xsl:call-template name="id-and-children"/>
-	</db:qandaentry>
-</xsl:template>
--->
 <xsl:template match="c:exercise">
 	<db:qandaset role="none">
 	<db:qandaentry>
-		<xsl:call-template name="id-and-children"/>
+		<xsl:apply-templates select="@*|node()"/>
 	</db:qandaentry>
 	</db:qandaset>
 </xsl:template>
 <xsl:template match="c:problem">
-	<db:question>
-		<xsl:call-template name="id-and-children"/>
-	</db:question>
+	<db:question><xsl:apply-templates select="@*|node()"/></db:question>
 </xsl:template>
 <xsl:template match="c:solution">
-	<db:answer>
-		<xsl:call-template name="id-and-children"/>
-	</db:answer>
-</xsl:template>
-
-<xsl:template match="c:preformat">
-	<db:programlisting>
-		<xsl:call-template name="id-and-children"/>
-	</db:programlisting>
+	<db:answer><xsl:apply-templates select="@*|node()"/></db:answer>
 </xsl:template>
 
 <xsl:template match="c:foreign">
@@ -423,76 +287,30 @@
 
 
 
-
-
-
 <!-- Partially supported -->
 <xsl:template match="c:figure[c:subfigure]">
 	<xsl:call-template name="cnx.log">
 		<xsl:with-param name="msg">ERROR: Subfigures are not really supported. Only the 1st subfigure is used</xsl:with-param>
 	</xsl:call-template>
 	<db:figure>
-		<xsl:call-template name="copy-attributes-to-docbook"/>
-		<xsl:apply-templates select="*[local-name()!='subfigure']"/>
+		<xsl:apply-templates select="@*|*[local-name()!='subfigure']|text()|comment()|processing-instruction()"/>
 		<xsl:apply-templates select="c:subfigure[1]/*"/>
 	</db:figure>
 </xsl:template>
 
 <xsl:template match="c:figure/c:subfigure[1]">
-	<xsl:apply-templates select="*|text()|node()|comment()"/>
+	<xsl:apply-templates select="node()"/>
 </xsl:template>
 
 
-
-<!-- Convert CALS Table -->
-<xsl:template match="c:table">
-	<db:table><xsl:call-template name="calsHelper"/></db:table>
-</xsl:template>
-<xsl:template match="c:tgroup">
-	<db:tgroup><xsl:call-template name="calsHelper"/></db:tgroup>
-</xsl:template>
-<xsl:template match="c:thead">
-	<db:thead><xsl:call-template name="calsHelper"/></db:thead>
-</xsl:template>
-<xsl:template match="c:tfoot">
-	<db:tfoot><xsl:call-template name="calsHelper"/></db:tfoot>
-</xsl:template>
-<xsl:template match="c:tbody">
-	<db:tbody><xsl:call-template name="calsHelper"/></db:tbody>
-</xsl:template>
-<xsl:template match="c:colspec">
-	<db:colspec><xsl:call-template name="calsHelper"/></db:colspec>
-</xsl:template>
-<xsl:template match="c:row">
-	<db:row><xsl:call-template name="calsHelper"/></db:row>
-</xsl:template>
-<xsl:template match="c:entry">
-	<db:entry><xsl:call-template name="calsHelper"/></db:entry>
-</xsl:template>
-<xsl:template match="c:entrytbl">
-	<db:entrytbl><xsl:call-template name="calsHelper"/></db:entrytbl>
-</xsl:template>
-
-<xsl:template name="calsHelper">
-	<xsl:if test="@id">
-		<xsl:attribute name="xml:id">
-			<xsl:value-of select="$moduleId"/>
-			<xsl:value-of select="$moduleSeparator"/>
-			<xsl:value-of select="@id"/>
-		</xsl:attribute>
-	</xsl:if>
-	<xsl:copy-of select="@*"/>
-	<xsl:apply-templates/>
-</xsl:template>
 
 
 <xsl:template match="c:document/c:title">
 	<db:title>
-		<xsl:call-template name="copy-attributes-to-docbook"/>
-		<xsl:apply-templates select="*|text()|node()|comment()"/>
+		<xsl:apply-templates select="@*|node()"/>
 		<!-- TODO: Remove debugging line. -->
 		<xsl:text> [</xsl:text>
-		<xsl:value-of select="$moduleId"/>
+		<xsl:value-of select="$cnx.module.id"/>
 		<xsl:text>]</xsl:text>
 	</db:title>
 </xsl:template>
@@ -505,12 +323,12 @@
  -->
 <xsl:template match="c:glossary">
 	<db:glossary>
-		<xsl:call-template name="id-and-children"/>
+		<xsl:apply-templates select="@*|node()"/>
 	</db:glossary>
 </xsl:template>
 <xsl:template match="c:glossary/c:definition">
 	<db:glossentry>
-		<xsl:call-template name="copy-attributes-to-docbook"/>
+		<xsl:apply-templates select="@*"/>
 		<xsl:if test="c:title">
 			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Dropping c:title in c:definition</xsl:with-param></xsl:call-template>
 		</xsl:if>
@@ -528,8 +346,7 @@
 			<xsl:apply-templates select="c:title"/>
 		</xsl:if>
 		<db:glossentry>
-			<xsl:call-template name="copy-attributes-to-docbook"/>
-			<xsl:apply-templates select="c:term"/>
+			<xsl:apply-templates select="@*|c:term"/>
 			<db:glossdef>
 				<xsl:apply-templates select="*[preceding-sibling::c:term]"/>
 			</db:glossdef>
@@ -537,87 +354,23 @@
 	</db:glosslist>
 </xsl:template>
 <xsl:template match="c:definition/c:meaning">
-	<db:para><xsl:call-template name="id-and-children"/></db:para>
+	<db:para><xsl:apply-templates select="@*|node()"/></db:para>
 </xsl:template>
 
 <xsl:template match="c:term[not(@url)]">
-	<db:glossterm>
-		<xsl:call-template name="id-and-children"/>
-	</db:glossterm>
+	<db:glossterm><xsl:apply-templates select="@*|node()"/></db:glossterm>
 </xsl:template>
 
 <xsl:template match="c:term[@document|@target-id]">
 	<xsl:variable name="linkend">
-		<xsl:if test="not(@document)"><xsl:value-of select="$moduleId"/></xsl:if>
+		<xsl:if test="not(@document)"><xsl:value-of select="$cnx.module.id"/></xsl:if>
 		<xsl:value-of select="@document"/>
-		<xsl:if test="@target-id"><xsl:value-of select="$moduleSeparator"/></xsl:if>
+		<xsl:if test="@target-id"><xsl:value-of select="$cnx.module.separator"/></xsl:if>
 		<xsl:value-of select="@target-id"/>
 	</xsl:variable>
-    <db:glossterm linkend="{$linkend}"><xsl:call-template name="id-and-children"/></db:glossterm>
+    <db:glossterm linkend="{$linkend}"><xsl:apply-templates select="@*|node()"/></db:glossterm>
 </xsl:template>
 
-
-<!-- Handle citations -->
-<xsl:template match="c:cite">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Didn't fully convert c:cite yet</xsl:with-param></xsl:call-template>
-	<!-- TODO: Treat it like a link....  -->
-	<xsl:apply-templates/>
-</xsl:template>
-<xsl:template match="c:cite-title">
-<!-- 
-	c: @pub-type (optional): The type of publication cited. May be any of the following: "article", "book", "booklet", "conference",
-	   "inbook", "incollection", "inproceedings", "mastersthesis", "manual", "misc", "phdthesis", "proceedings", "techreport", "unpublished".
-	db: @pubwork (enumeration)
-
-    * "article"
-    * "bbs"
-    * "book"
-    * "cdrom"
-    * "chapter"
-    * "dvd"
-    * "emailmessage"
-    * "gopher"
-    * "journal"
-    * "manuscript"
-    * "newsposting"
-    * "part"
-    * "refentry"
-    * "section"
-    * "series"
-    * "set"
-    * "webpage"
-    * "wiki"
- --> 
-	<xsl:variable name="pubwork">
-		<xsl:choose>
-			<xsl:when test="@pub-type = 'article'">article</xsl:when>
-			<xsl:when test="@pub-type = 'book'">book</xsl:when>
-			<xsl:when test="@pub-type = 'booklet'">journal</xsl:when>
-			<xsl:when test="@pub-type = 'conference'">journal</xsl:when>
-			<xsl:when test="@pub-type = 'inbook'">journal</xsl:when>
-			<xsl:when test="@pub-type = 'incollection'">webpage</xsl:when>
-			<xsl:when test="@pub-type = 'inproceedings'">journal</xsl:when>
-			<xsl:when test="@pub-type = 'mastersthesis'">manuscript</xsl:when>
-			<xsl:when test="@pub-type = 'manual'"></xsl:when>
-			<xsl:when test="@pub-type = 'misc'"></xsl:when>
-			<xsl:when test="@pub-type = 'phdthesis'">manuscript</xsl:when>
-			<xsl:when test="@pub-type = 'proceedings'">journal</xsl:when>
-			<xsl:when test="@pub-type = 'techreport'">journal</xsl:when>
-			<xsl:when test="@pub-type = 'unpublished'"></xsl:when>
-			<xsl:when test="not(@pub-type)"></xsl:when>
-			<xsl:otherwise>
-				<xsl:call-template name="cnx.log"><xsl:with-param name="msg">ERROR: Unmatched c:cite-title type</xsl:with-param></xsl:call-template>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-	
-	<db:citetitle>
-		<xsl:if test="$pubwork != ''">
-			<xsl:attribute name="pubwork"><xsl:value-of select="$pubwork"/></xsl:attribute>
-		</xsl:if>
-		<xsl:apply-templates/>
-	</db:citetitle>
-</xsl:template>
 
 <!-- Add a processing instruction that will be matched in the custom docbook2fo.xsl -->
 <xsl:template match="c:newline">

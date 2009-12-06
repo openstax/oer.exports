@@ -37,7 +37,7 @@ XPATH2=`echo $XPATH2 | sed 's/\"/&quot;/g'`
 XPATH2=`echo $XPATH2 | sed 's/</&lt;/g'`
 
 
-XSLTPROC="xsltproc --stringparam moduleId $MODULE"
+XSLTPROC="xsltproc --stringparam cnx.module.id $MODULE"
 if [ ".$OUTPUT_TYPE" != "." ]; then
   XSLTPROC="$XSLTPROC --stringparam output $OUTPUT_TYPE"
 fi

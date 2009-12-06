@@ -2,6 +2,8 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
     >
 
+<!-- Used for logging to know what the current module is -->
+<xsl:param name="cnx.module.id"/>
 <!-- The following parameters are used for batch processing and gathering statistics -->
 <xsl:param name="cnx.log.onlybugs">no</xsl:param> 
 <xsl:param name="cnx.log.onlyaggregate">no</xsl:param>
@@ -62,7 +64,7 @@
 				<xsl:message>
 					<xsl:text>LOG: </xsl:text>
 					<xsl:text>{ module: "</xsl:text>
-				  	<xsl:value-of select="$moduleId"/>
+				  	<xsl:value-of select="$cnx.module.id"/>
 					<xsl:text>", message: "</xsl:text>
 				  	<xsl:value-of select="$msg"/>
 				  	<xsl:text>", xpath: "</xsl:text>

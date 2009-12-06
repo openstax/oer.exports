@@ -10,7 +10,6 @@
 
 <xsl:import href="debug.xsl"/>
 <xsl:output indent="yes" method="xml"/>
-<xsl:param name="moduleId"/>
 
 <!-- Identity Transform -->
 <xsl:template match="@*|node()">

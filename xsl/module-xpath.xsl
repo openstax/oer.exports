@@ -11,7 +11,7 @@
 
 	<xsl:import href="debug.xsl"/>
 	<!-- Required -->
-	<xsl:param name="moduleId"/>
+	<xsl:param name="cnx.module.id"/>
 	<!-- Can be one of "module", "node", "xpath", or "" -->
 	<xsl:param name="output" />
 
@@ -19,7 +19,7 @@
 	<xsl:template match="__XPATH__">
 		<xsl:choose>
 			<xsl:when test="$output = 'module'">
-				<xsl:value-of select="$moduleId"/>
+				<xsl:value-of select="$cnx.module.id"/>
 			</xsl:when>
 			<xsl:when test="$output = 'node'">
 				<xsl:apply-templates mode="copy" select="."/>

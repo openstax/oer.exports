@@ -7,11 +7,9 @@
   version="1.0">
 
 <xsl:import href="debug.xsl"/>
-
 <xsl:import href="../docbook-xsl/fo/docbook.xsl"/>
 
 <xsl:output indent="yes" method="xml"/>
-<xsl:param name="moduleId"/>
 
 
 <!-- When numbering exercises, only use the last number.

@@ -9,8 +9,8 @@ COLLXML=$COL_PATH/collection.xml
 DOCBOOK=$COL_PATH/collection.dbk
 
 XSLTPROC="xsltproc --nonet"
-COLLXML2DOCBOOK_XSL=$ROOT/xsl/collxml2docbook.xsl
-MODULE2DOCBOOK=$ROOT/scripts/module2docbook.sh
+COLLXML2DOCBOOK_XSL=$ROOT/xsl/collxml2dbk.xsl
+MODULE2DOCBOOK=$ROOT/scripts/module2dbk.sh
 
 # If the docbook for the collection doesn't exist yet, create it
 if [ ! -e $DOCBOOK ]; 

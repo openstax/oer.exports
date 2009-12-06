@@ -16,9 +16,9 @@ XSLTPROC="xsltproc --nonet"
 FOP="sh $ROOT/fop/fop -c $ROOT/lib/fop.xconf"
 
 # XSL files
-DOCBOOK_CLEANUP_XSL=$ROOT/xsl/docbook-cleanup-whole.xsl
-DOCBOOK2FO_XSL=$ROOT/xsl/docbook2fo.xsl
-ALIGN_XSL=$ROOT/xsl/postprocess-svg.xsl
+DOCBOOK_CLEANUP_XSL=$ROOT/xsl/dbk-clean-whole.xsl
+DOCBOOK2FO_XSL=$ROOT/xsl/dbk2fo.xsl
+ALIGN_XSL=$ROOT/xsl/fo-align-math.xsl
 
 
 # Load up the custom params to xsltproc:

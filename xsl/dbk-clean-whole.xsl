@@ -11,7 +11,6 @@
 
 <xsl:import href="debug.xsl"/>
 <xsl:output indent="yes" method="xml"/>
-<xsl:param name="moduleId"/>
 
 <!-- Boilerplate -->
 <xsl:template match="/">
