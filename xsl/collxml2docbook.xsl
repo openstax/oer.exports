@@ -6,30 +6,28 @@
   xmlns:xi='http://www.w3.org/2001/XInclude'
   exclude-result-prefixes="col md"
   >
-  
+<xsl:include href="cnxml2docbook.xsl"/>
+
 <xsl:output indent="yes"/>
 
-<!-- Boilerplate -->
-<xsl:template match="/">
-    <xsl:apply-templates select="col:collection"/>
+<xsl:template match="col:*/@*">
+	<xsl:copy/>
 </xsl:template>
 
 <xsl:template match="col:collection">
-	<db:book>
-      <xsl:apply-templates/>
-    </db:book>
+	<db:book><xsl:apply-templates select="@*|node()"/></db:book>
+</xsl:template>
+
+<xsl:template match="col:metadata">
+	<db:info><xsl:apply-templates select="@*|node()"/></db:info>
 </xsl:template>
 
 <xsl:template match="col:subcollection[col:content/col:subcollection]">
-	<db:part>
-		<xsl:apply-templates/>
-	</db:part>
+	<db:part><xsl:apply-templates select="@*|node()"/></db:part>
 </xsl:template>
 
 <xsl:template match="col:subcollection/col:content/col:subcollection[not(col:content/col:subcollection)]|col:subcollection">
-	<db:chapter>
-		<xsl:apply-templates/>
-	</db:chapter>
+	<db:chapter><xsl:apply-templates select="@*|node()"/></db:chapter>
 </xsl:template>
 
 <xsl:template match="col:content">
@@ -46,23 +44,6 @@
 </xsl:template>
 
 
-<!-- Catch-all -->
-<xsl:template match="*">
-	<xsl:message>
-		<xsl:text>WARNING: </xsl:text>
-		<xsl:text>Could not match Element: </xsl:text>
-	  	<xsl:value-of select="namespace-uri(.)"/>
-	  	<xsl:text> </xsl:text>
-	  	<xsl:value-of select="local-name(.)"/>
-	  	<xsl:for-each select="@*">
-		  	<xsl:text> @</xsl:text>
-	  		<xsl:value-of select="local-name(.)"/>
-		  	<xsl:text>="</xsl:text>
-	  		<xsl:value-of select="."/>
-		  	<xsl:text>"</xsl:text>
-	  	</xsl:for-each>
-  </xsl:message>
-</xsl:template>
 
 <xsl:template match="comment()|processing-instruction()">
     <xsl:copy/>

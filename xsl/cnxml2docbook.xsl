@@ -8,7 +8,7 @@
   xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
   version="1.0">
 
-<xsl:import href="debug.xsl"/>
+<xsl:import href="mdml2docbook.xsl"/>
 <xsl:output indent="yes" method="xml"/>
 <xsl:param name="moduleId"/>
 
@@ -27,15 +27,18 @@
 
 <!-- Boilerplate -->
 <xsl:template match="/">
-	<xsl:apply-templates select="//c:document"/>
+	<xsl:apply-templates select="*"/>
 </xsl:template>
 
 <!-- Match the roots and add boilerplate -->
 <xsl:template match="c:document">
     <db:section>
     	<xsl:attribute name="xml:id"><xsl:value-of select="$moduleId"/></xsl:attribute>
-        <xsl:apply-templates select="c:title"/>
-        <!-- TODO: Load the metadata -->
+        <db:info>
+        	<xsl:apply-templates select="c:title"/>
+        	<xsl:apply-templates select="c:metadata"/>
+        </db:info>
+        
         <xsl:apply-templates select="c:content/*"/>
         <!--TODO: Figure out when to move the exercises
         <xsl:if test=".//c:section/c:exercise or c:exercise">
@@ -46,8 +49,6 @@
         <xsl:apply-templates select="c:glossary"/>
     </db:section>
 </xsl:template>
-
-
 
 <xsl:template name="copy-attributes-to-docbook">
     <xsl:if test="@id">
@@ -215,32 +216,44 @@
         * no c:caption
         * c:title cannot have xml elements in it, just text
      **************************************** -->
-<xsl:template match="c:figure[not(c:subfigure or c:table or c:code) and c:media/c:image]">
+<xsl:template match="c:figure[c:title and c:media/c:image]">
+	<db:figure><xsl:call-template name="id-and-children"/></db:figure>
+</xsl:template>
+<xsl:template match="c:figure[c:media/c:image]">
+	<db:informalfigure><xsl:call-template name="id-and-children"/></db:informalfigure>
+</xsl:template>
+
+<xsl:template match="c:media[c:image]">
+	<db:mediaobject><xsl:call-template name="media.image"/></db:mediaobject>
+</xsl:template>
+<!-- See m21854 //c:equation/@id="eip-id14423064" -->
+<xsl:template match="c:para//c:media[c:image]">
+	<db:inlinemediaobject><xsl:call-template name="media.image"/></db:inlinemediaobject>
+</xsl:template>
+<!-- see m0003 -->
+<xsl:template name="media.image">
+	<xsl:call-template name="copy-attributes-to-docbook"/>
+	<!-- Pick the correct image. To get Music Theory to use the included SVG file, 
+	     we try to xinclude it here and then remove the xinclude in the cleanup phase.
+	 -->
+	<xsl:apply-templates select="c:image[contains(@src, '.eps')]"/>
 	<xsl:choose>
-		<xsl:when test="not(c:title)">
-			<db:informalfigure><xsl:call-template name="id-and-children"/></db:informalfigure>
+	 	<xsl:when test="c:image[@mime-type != 'application/postscript' and not(contains(@src, '.eps')) and @for = 'pdf']">
+	 		<xsl:apply-templates select="c:image[@mime-type != 'application/postscript' and not(contains(@src, '.eps')) and @for = 'pdf']"/>
+	 	</xsl:when>
+	 	<xsl:when test="c:image[@mime-type != 'application/postscript' and not(contains(@src, '.eps'))]">
+	 		<xsl:apply-templates select="c:image[@mime-type != 'application/postscript' and not(contains(@src, '.eps'))]"/>
+	 	</xsl:when>
+		<xsl:when test="c:image[contains(@src, '.eps')]">
+			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: No suitable image found. Hoping that a SVG file with the same name as the EPS file exists</xsl:with-param></xsl:call-template>
 		</xsl:when>
 		<xsl:otherwise>
-			<db:figure><xsl:call-template name="id-and-children"/></db:figure>
+			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">ERROR: No suitable image found.</xsl:with-param></xsl:call-template>
 		</xsl:otherwise>
 	</xsl:choose>
 </xsl:template>
 
-<xsl:template match="c:media">
-	<db:mediaobject><xsl:call-template name="mediaobject"/>
-	</db:mediaobject>
-</xsl:template>
-<!-- See m21854 //c:equation/@id="eip-id14423064" -->
-<xsl:template match="c:para//c:media">
-	<db:inlinemediaobject><xsl:call-template name="mediaobject"/></db:inlinemediaobject>
-</xsl:template>
-<!-- see m0003 -->
-<xsl:template name="mediaobject">
-	<xsl:call-template name="copy-attributes-to-docbook"/>
-	<xsl:apply-templates/>
-</xsl:template>
-
-<xsl:template match="c:image">
+<xsl:template match="c:image[@src]">
 	<xsl:variable name="format">
 		<xsl:choose>
 			<xsl:when test="@mime-type = 'image/jpeg'">JPEG</xsl:when>
@@ -248,7 +261,10 @@
 			<xsl:when test="@mime-type = 'image/png'">PNG</xsl:when>
 			<xsl:when test="@mime-type = 'image/svg+xml'">SVG</xsl:when>
 			<xsl:when test="@mime-type = 'application/postscript'">SVG</xsl:when>
-			<xsl:otherwise>JPEG</xsl:otherwise>
+			<xsl:otherwise>
+				<xsl:call-template name="cnx.log"><xsl:with-param name="msg">ERROR: Could not match mime-type. Assuming JPEG.</xsl:with-param></xsl:call-template>
+				<xsl:text>JPEG</xsl:text>
+			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
 	<db:imageobject format="{$format}">
@@ -264,21 +280,30 @@
 			<xsl:if test="@height">
 				<xsl:attribute name="depth"><xsl:value-of select="@height"/></xsl:attribute>
 			</xsl:if>
-			
-			<!-- Docbook doesn't support EPS, so try an SVG alternative. -->
-			<!-- col10363 has, for every eps file, a svg file and FOP doesn't support eps. -->
+		</db:imagedata>
+	</db:imageobject>
+</xsl:template>
+
+<xsl:template match="c:image[contains(@src, '.eps')]">
+	<db:imageobject format="SVG">
+		<db:imagedata>
 			<xsl:choose>
-				<xsl:when test="@mime-type = 'application/postscript'">
-					<xsl:variable name="href">
-						<xsl:value-of select="substring-before(@src, '.eps')"/>
-						<xsl:text>.svg</xsl:text>
-					</xsl:variable>
-					<xi:include href="{$href}" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+				<xsl:when test="@print-width">
+					<xsl:attribute name="width"><xsl:value-of select="@print-width"/></xsl:attribute>
 				</xsl:when>
-				<xsl:otherwise>
-					<xsl:attribute name="fileref"><xsl:value-of select="@src"/></xsl:attribute>
-				</xsl:otherwise>
+				<xsl:when test="@width">
+					<xsl:attribute name="width"><xsl:value-of select="@width"/></xsl:attribute>
+				</xsl:when>
 			</xsl:choose>
+			<xsl:if test="@height">
+				<xsl:attribute name="depth"><xsl:value-of select="@height"/></xsl:attribute>
+			</xsl:if>
+			
+			<xsl:variable name="href">
+				<xsl:value-of select="substring-before(@src, '.eps')"/>
+				<xsl:text>.svg</xsl:text>
+			</xsl:variable>
+			<xi:include href="{$href}" xmlns:xi="http://www.w3.org/2001/XInclude"/>
 		</db:imagedata>
 	</db:imageobject>
 </xsl:template>
@@ -597,6 +622,11 @@
 <!-- Add a processing instruction that will be matched in the custom docbook2fo.xsl -->
 <xsl:template match="c:newline">
 	<xsl:processing-instruction name="cnx.newline"/>
+</xsl:template>
+
+<!-- Add metadata like authors, an abstract, etc -->
+<xsl:template match="c:metadata">
+	<xsl:apply-templates/>
 </xsl:template>
 
 

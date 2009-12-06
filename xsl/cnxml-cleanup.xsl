@@ -22,9 +22,6 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 <xsl:template match="root">
 	<xsl:apply-templates/>
 </xsl:template>
-<xsl:template match="c:metadata">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Ignoring c:metadata</xsl:with-param></xsl:call-template>
-</xsl:template>
 
 <!--  Fix some CNXML 0.5 stuff -->
 <xsl:template match="c:link[@src]">

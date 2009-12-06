@@ -18,7 +18,7 @@
 	<xsl:apply-templates select="*"/>
 </xsl:template>
 <!-- Identity Transform -->
-<xsl:template match="@*|node()">
+<xsl:template name="ident" match="@*|node()">
    <xsl:copy>
       <xsl:apply-templates select="@*|node()"/>
    </xsl:copy>
@@ -68,6 +68,7 @@
 <xsl:template match="db:book">
 	<xsl:copy>
 		<xsl:copy-of select="@*"/>
+		<!-- Generate a list of authors from the modules -->
 		<xsl:apply-templates/>
 		<xsl:if test="//db:chapter/db:section/db:glossary">
 			<db:glossary>
@@ -81,5 +82,7 @@
 	<!-- Discard this. it's handled in match="db:book" -->
 </xsl:template>
 
+<!-- Discard extra db:info in db:section (modules) except for db:title -->
+<xsl:template match="db:section/db:info/db:*[not(self::db:title)]"/>
 
 </xsl:stylesheet>
