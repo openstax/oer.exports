@@ -289,9 +289,7 @@
 
 <!-- Partially supported -->
 <xsl:template match="c:figure[c:subfigure]">
-	<xsl:call-template name="cnx.log">
-		<xsl:with-param name="msg">ERROR: Subfigures are not really supported. Only the 1st subfigure is used</xsl:with-param>
-	</xsl:call-template>
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">ERROR: Subfigures are not really supported. Only the 1st subfigure is used</xsl:with-param></xsl:call-template>
 	<db:figure>
 		<xsl:apply-templates select="@*|*[local-name()!='subfigure']|text()|comment()|processing-instruction()"/>
 		<xsl:apply-templates select="c:subfigure[1]/*"/>
@@ -375,6 +373,24 @@
 <!-- Add a processing instruction that will be matched in the custom docbook2fo.xsl -->
 <xsl:template match="c:newline">
 	<xsl:processing-instruction name="cnx.newline"/>
+</xsl:template>
+
+<xsl:template match="c:space[@effect='underline']">
+	<xsl:call-template name="cnx.space.loop">
+		<xsl:with-param name="char">_</xsl:with-param>
+		<xsl:with-param name="count" select="@count"/>
+	</xsl:call-template>
+</xsl:template>
+<xsl:template name="cnx.space.loop">
+	<xsl:param name="char"/>
+	<xsl:param name="count">0</xsl:param>
+	<xsl:if test="$count != 0">
+		<xsl:value-of select="$char"/>
+		<xsl:call-template name="cnx.space.loop">
+			<xsl:with-param name="char" select="$char"/>
+			<xsl:with-param name="count" select="$count - 1"/>
+		</xsl:call-template>
+	</xsl:if>
 </xsl:template>
 
 <!-- Add metadata like authors, an abstract, etc -->

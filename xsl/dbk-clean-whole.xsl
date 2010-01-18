@@ -23,16 +23,43 @@
    </xsl:copy>
 </xsl:template>
 
+<xsl:template match="db:informalequation">
+	<db:equation>
+		<xsl:apply-templates select="@*"/>
+		<db:title/>
+		<xsl:apply-templates select="node()"/>
+	</db:equation>
+</xsl:template>
+
+<xsl:template match="db:informalexample">
+	<db:example>
+		<xsl:apply-templates select="@*"/>
+		<db:title/>
+		<xsl:apply-templates select="node()"/>
+	</db:example>
+</xsl:template>
+
+<xsl:template match="db:informalfigure">
+	<db:figure>
+		<xsl:apply-templates select="@*"/>
+		<db:title/>
+		<xsl:apply-templates select="node()"/>
+	</db:figure>
+</xsl:template>
+
 
 <!-- If the Module title starts with the chapter title then discard it. -->
 <xsl:template match="db:chapter/db:section">
 	<xsl:choose>
-		<xsl:when test="starts-with(db:title/text(), ../db:title/text())">
+		<xsl:when test="starts-with(db:info/db:title/text(), ../db:info/db:title/text())">
 			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Stripping chapter name from title</xsl:with-param></xsl:call-template>
 			<xsl:copy>
 				<xsl:copy-of select="@*"/>
-				<xsl:apply-templates mode="strip-title" select="db:title"/>
-				<xsl:apply-templates select="*[local-name()!='title']|processing-instruction()|comment()"/>
+				<db:info>
+					<xsl:apply-templates mode="strip-title" select="db:info/db:title"/>
+					<xsl:apply-templates select="db:info/*[local-name()!='title']|db:info/processing-instruction()|db:info/comment()"/>
+				</db:info>
+				<xsl:apply-templates select="*[local-name()!='info']|processing-instruction()|comment()"/>
 			</xsl:copy>
 		</xsl:when>
 		<xsl:otherwise>
@@ -45,7 +72,7 @@
 </xsl:template>
 <xsl:template mode="strip-title" match="db:title">
 	<xsl:variable name="chapTitle">
-		<xsl:value-of select="../../db:title/text()"/>
+		<xsl:value-of select="../../../db:info/db:title/text()"/>
 		<xsl:text>: </xsl:text>
 	</xsl:variable>
 	<xsl:copy>
@@ -82,6 +109,54 @@
 </xsl:template>
 
 <!-- Discard extra db:info in db:section (modules) except for db:title -->
+<!-- This way we don't have attribution for every db:section (module) -->
 <xsl:template match="db:section/db:info/db:*[not(self::db:title)]"/>
+
+<!-- Move the solutions to exercises (db:qandaset) to the end of the chapter. -->
+<xsl:template match="db:question[../db:answer]">
+	<xsl:copy>
+		<xsl:apply-templates select="@*|node()"/>
+		<db:para><db:link xlink:href="{ancestor::db:section[@xml:id]/@xml:id}.solution">Solution</db:link></db:para>
+	</xsl:copy>
+</xsl:template>
+<xsl:template match="db:answer"/>
+<xsl:template match="db:chapter[.//db:qandaset]">
+	<xsl:copy>
+		<xsl:apply-templates select="@*|node()"/>
+		<db:section>
+			<db:title>Solutions to Exercises</db:title>
+			<xsl:apply-templates mode="cnx.solution" select=".//db:qandaset"/>
+		</db:section>
+	</xsl:copy>
+</xsl:template>
+<xsl:template mode="cnx.solution" match="db:qandaset">
+	<db:formalpara>
+		<xsl:attribute name="xml:id">
+			<xsl:value-of select="ancestor::db:section[@xml:id]/@xml:id"/>
+			<xsl:text>.solution</xsl:text>
+		</xsl:attribute>
+		<db:title><xsl:apply-templates select="ancestor::db:*[db:title][2]/db:title/node()"/></db:title>
+		<xsl:apply-templates mode="cnx.solution"/>
+	</db:formalpara>
+</xsl:template>
+<xsl:template mode="cnx.solution" match="db:qandaentry">
+	<xsl:value-of select="position()"/>
+	<xsl:text>. </xsl:text>
+	<xsl:apply-templates mode="cnx.solution"/>
+	<xsl:text> </xsl:text>
+</xsl:template>
+<xsl:template mode="cnx.solution" match="db:answer">
+	<xsl:apply-templates mode="cnx.solution"/>
+</xsl:template>
+<xsl:template mode="cnx.solution" match="db:para">
+	<xsl:apply-templates mode="cnx.solution"/>
+</xsl:template>
+<xsl:template mode="cnx.solution" match="db:question"/>
+<xsl:template mode="cnx.solution" match="*">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">ERROR: Skipped in creating a solution</xsl:with-param></xsl:call-template>
+	<xsl:copy>
+		<xsl:apply-templates select="@*|node()"/>
+	</xsl:copy>
+</xsl:template>
 
 </xsl:stylesheet>

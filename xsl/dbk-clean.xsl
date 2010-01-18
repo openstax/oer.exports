@@ -20,6 +20,30 @@
     </xsl:copy>
 </xsl:template>
 
+<xsl:template match="db:informalequation">
+	<db:equation>
+		<xsl:apply-templates select="@*"/>
+		<db:title/>
+		<xsl:apply-templates select="node()"/>
+	</db:equation>
+</xsl:template>
+
+<xsl:template match="db:informalexample">
+	<db:example>
+		<xsl:apply-templates select="@*"/>
+		<db:title/>
+		<xsl:apply-templates select="node()"/>
+	</db:example>
+</xsl:template>
+
+<xsl:template match="db:informalfigure">
+	<db:figure>
+		<xsl:apply-templates select="@*"/>
+		<db:title/>
+		<xsl:apply-templates select="node()"/>
+	</db:figure>
+</xsl:template>
+
 
 <xsl:template match="db:inlinemediaobject[.//mml:math]">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Inline MathML Not converted</xsl:with-param></xsl:call-template>

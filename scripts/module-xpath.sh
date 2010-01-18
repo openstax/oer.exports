@@ -44,7 +44,7 @@ fi
 
 echo "Checking $MODULE" 1>&2
 
-if [ $GREP_STR != "" ]; then
+if [ ".$GREP_STR" != "." ]; then
   GREP_FOUND=`grep "$GREP_STR" $MOD_PATH`
   if [ ".$GREP_FOUND" == "." ]; then exit 0; fi
 fi
