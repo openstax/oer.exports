@@ -41,10 +41,9 @@
 	<xsl:template match="text()"/>
 	
 	<!-- For outputting an entire node -->
-	<xsl:template mode="copy" select="node()|comment()">
+	<xsl:template mode="copy" select="@*|node()">
 		<xsl:copy>
-			<xsl:copy-of select="@*"/>
-			<xsl:apply-templates mode="copy"/>
+			<xsl:apply-templates mode="copy" select="@*|node()"/>
 		</xsl:copy>
 	</xsl:template>
 </xsl:stylesheet>

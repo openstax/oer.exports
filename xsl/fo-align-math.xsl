@@ -23,8 +23,7 @@
 			<xsl:value-of select="svg:svg/svg:metadata/pmml2svg:baseline-shift/text()"/>
 			<xsl:text>px</xsl:text>
 		</xsl:attribute>
-		<xsl:copy-of select="@*"/>
-		<xsl:apply-templates select="svg:svg"/>
+		<xsl:apply-templates select="@*|svg:svg"/>
 	</xsl:copy>
 </xsl:template>
 

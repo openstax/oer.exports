@@ -38,7 +38,7 @@
   <xsl:choose>
     <xsl:when test="self::md4:*">
       <xsl:element name="{local-name(.)}" namespace="http://cnx.rice.edu/mdml">
-        <xsl:copy-of select="@*[not(name(.) = 'xml:id')]"/>
+        <xsl:apply-templates select="@*[not(name(.) = 'xml:id')]"/>
         <xsl:if test="@xml:id">
           <xsl:attribute name="id">
             <xsl:value-of select="@xml:id"/>
@@ -49,7 +49,7 @@
     </xsl:when>
     <xsl:otherwise>
       <xsl:copy>
-        <xsl:copy-of select="@*[not(name(.) = 'xml:id')]"/>
+        <xsl:apply-templates select="@*[not(name(.) = 'xml:id')]"/>
         <xsl:if test="@xml:id">
           <xsl:attribute name="id">
             <xsl:value-of select="@xml:id"/>
@@ -194,7 +194,7 @@
 
 <!-- Ignore the following metadata elements -->
 <!-- Ignore actors. they're only used by md:roles -->
-<xsl:template match="md:title|md:content-id|md:version|md:created|md:language|md:fullname|md:actors"/>
+<xsl:template match="md:title|md:content-id|md:version|md:created|md:language|md:fullname|md:actors|md:repository|md:content-url"/>
 
  
 </xsl:stylesheet>

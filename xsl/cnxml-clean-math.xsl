@@ -25,8 +25,7 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 <xsl:template match="mml:mo[string-length(normalize-space(text())) > 1]">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: mml:mo contains more than 1 character and pmml2svg doesn't like that. '<xsl:value-of select="normalize-space(text())"/>'</xsl:with-param></xsl:call-template>
 	<mml:mtext>
-		<xsl:copy-of select="@*"/>
-		<xsl:apply-templates/>
+		<xsl:apply-templates select="@*|node()"/>
 	</mml:mtext>
 </xsl:template>
 
@@ -63,8 +62,7 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 <xsl:template match="*[namespace-uri(.)='http://www.w3.org/1998/Math/MathML' and not(starts-with(local-name(.), 'm'))]">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Found some Content MathML that seeped through. <xsl:value-of select="local-name(.)"/></xsl:with-param></xsl:call-template>
 	<mml:mi>
-		<xsl:copy-of select="@*"/>
-		<xsl:apply-templates/>
+		<xsl:apply-templates select="@*|node()"/>
 	</mml:mi>
 </xsl:template>
 
@@ -100,7 +98,7 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 	</xsl:variable>
 	<xsl:variable name="maxRow" select="mml:mtr[count(mml:mtd) = $maxCols][1]"/>
 	<mml:mtable>
-		<xsl:copy-of select="@*"/>
+		<xsl:apply-templates select="@*"/>
 		<!-- For-each row, make sure it has the same number of mml:mtd's by filling in empty ones -->
 		<xsl:for-each select="mml:mtr">
 			<xsl:variable name="currentRow" select="."/>
@@ -108,7 +106,7 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 				<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Mismatched number of mml:mtd in the mml:mtable. Adding an empty mml:mtd</xsl:with-param></xsl:call-template>
 			</xsl:if>
 			<mml:mtr>
-				<xsl:copy-of select="@*"/>
+				<xsl:apply-templates select="@*"/>
 				<xsl:for-each select="$maxRow/mml:mtd">
 					<xsl:variable name="pos" select="position()"/>
 					<xsl:choose>

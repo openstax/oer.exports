@@ -18,10 +18,9 @@
    </xsl:copy>
 </xsl:template>
 
-<xsl:template mode="copy" match="node()|comment()">
+<xsl:template mode="copy" match="@*|node()">
     <xsl:copy>
-    	<xsl:copy-of select="@*"/>
-        <xsl:apply-templates select="node()|comment()"/>
+        <xsl:apply-templates mode="copy" select="@*|node()"/>
     </xsl:copy>
 </xsl:template>
 
@@ -48,7 +47,7 @@
 <!-- CALS Tables require a db:title. See m21870 -->
 <xsl:template match="db:table[not(db:title)]">
 	<xsl:copy>
-		<xsl:copy-of select="@*"/>
+		<xsl:apply-templates select="@*"/>
 		<db:title>INJECTED_TITLE</db:title>
 		<xsl:apply-templates/>
 	</xsl:copy>
@@ -61,7 +60,7 @@
 	<xsl:choose>
 		<xsl:when test="local-name()!='section' and local-name()!='simplesect'">
     		<db:simplesect>
-				<xsl:copy-of select="@*"/>
+				<xsl:apply-templates select="@*"/>
     			<db:title>INJECTED_TITLE</db:title>
     			<xsl:apply-templates mode="copy" select="."/>
     		</db:simplesect>
@@ -75,7 +74,7 @@
 <xsl:template match="db:section[not(db:title)]">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">VALIDATION: Found a section without a title</xsl:with-param></xsl:call-template> 
 	<db:simplesect>
-		<xsl:copy-of select="@*"/>
+		<xsl:apply-templates select="@*"/>
 		<db:title>INJECTED_TITLE2</db:title>
 		<xsl:apply-templates/>
 	</db:simplesect>
@@ -85,8 +84,7 @@
 <xsl:template match="db:imageobject[svg:*]">
 	<db:imageobject>
 		<db:imagedata format="svg">
-			<xsl:copy-of select="@*"/>
-			<xsl:apply-templates/>
+			<xsl:apply-templates select="@*|node()"/>
 		</db:imagedata>
 	</db:imageobject>
 </xsl:template>
