@@ -105,9 +105,7 @@
 
 <!-- FOP needs the pmml2svg:baseline-shift element to move the math, but all others don't -->
 <xsl:template match="svg:metadata[pmml2svg:baseline-shift]">
-	<xsl:if test="$cnx.output = 'fop'">
-		<xsl:call-template name="ident"/>
-	</xsl:if>
+	<xsl:call-template name="ident"/>
 </xsl:template>
 
 

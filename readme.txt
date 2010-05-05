@@ -14,6 +14,7 @@ Technologies used:
 
 The following files may be useful:
  * docbook.txt : Instructions on how to configure and run the docbook PDF generation
+ * epub.txt    : Instructions on generating an epub from a collection or module
  * design.txt  : Notes on the entire PDF generation process
  * output.txt  : Notes on the output from different stages of conversion
  * notes.txt   : My personal scratchpad
