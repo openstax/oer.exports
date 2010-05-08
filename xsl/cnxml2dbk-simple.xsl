@@ -31,6 +31,12 @@
 <xsl:template match="c:note">
     <db:note><xsl:call-template name="block-id-and-children"/></db:note>
 </xsl:template>
+<xsl:template match="c:note[@type='warning']">
+    <db:warning><xsl:call-template name="block-id-and-children"/></db:warning>
+</xsl:template>
+<xsl:template match="c:note[@type='footnote']">
+    <db:footnote><xsl:call-template name="block-id-and-children"/></db:footnote>
+</xsl:template>
 <xsl:template match="c:section">
     <db:section><xsl:call-template name="block-id-and-children"/></db:section>
 </xsl:template>
@@ -77,10 +83,10 @@
     <db:orderedlist><xsl:apply-templates select="@*|node()"/></db:orderedlist>
 </xsl:template>
 
-<xsl:template match="c:emphasis[not(@effect) or @effect='bold']">
+<xsl:template match="c:emphasis[@effect='bold']">
     <db:emphasis role="bold"><xsl:apply-templates select="@*|node()"/></db:emphasis>
 </xsl:template>
-<xsl:template match="c:emphasis[@effect='italics']">
+<xsl:template match="c:emphasis[not(@effect) or @effect='italics']">
     <db:emphasis><xsl:apply-templates select="@*|node()"/></db:emphasis>
 </xsl:template>
 
@@ -88,15 +94,18 @@
     <db:link xlink:href="{@url}"><xsl:apply-templates select="@*|node()"/></db:link>
 </xsl:template>
 
-<xsl:template match="c:code">
-    <db:programlisting><xsl:apply-templates select="@*|node()"/></db:programlisting>
+<xsl:template match="c:para//c:code">
+    <db:code><xsl:apply-templates select="@*|node()"/></db:code>
 </xsl:template>
-<xsl:template match="c:preformat">
+<xsl:template match="c:preformat|c:code">
     <db:literallayout><xsl:apply-templates select="@*|node()"/></db:literallayout>
 </xsl:template>
 
 <xsl:template match="c:quote">
     <db:quote><xsl:apply-templates select="@*|node()"/></db:quote>
+</xsl:template>
+<xsl:template match="c:quote[@type='block']">
+    <db:blockquote><xsl:apply-templates select="@*|node()"/></db:blockquote>
 </xsl:template>
 
 <xsl:template match="c:figure[not(c:title) and c:media/c:image]">

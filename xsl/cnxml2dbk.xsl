@@ -187,12 +187,14 @@
 </xsl:template>
 
 <xsl:template match="c:image[@src]">
+	<xsl:variable name="ext" select="substring-after(substring(@src, string-length(@src) - 5), '.')"/>
 	<xsl:variable name="format">
 		<xsl:choose>
-			<xsl:when test="@mime-type = 'image/jpeg'">JPEG</xsl:when>
-			<xsl:when test="@mime-type = 'image/gif'">GIF</xsl:when>
-			<xsl:when test="@mime-type = 'image/png'">PNG</xsl:when>
-			<xsl:when test="@mime-type = 'image/svg+xml'">SVG</xsl:when>
+			<xsl:when test="$ext='jpg' or $ext='jpeg' or @mime-type = 'image/jpeg'">JPEG</xsl:when>
+			<xsl:when test="$ext='gif' or @mime-type = 'image/gif'">GIF</xsl:when>
+			<xsl:when test="$ext='png' or @mime-type = 'image/png'">PNG</xsl:when>
+			<xsl:when test="$ext='svg' or @mime-type = 'image/svg+xml'">SVG</xsl:when>
+			<!-- Hack for Music Theory. Kitty stores the .epc and .svg files -->
 			<xsl:when test="@mime-type = 'application/postscript'">SVG</xsl:when>
 			<xsl:otherwise>
 				<xsl:call-template name="cnx.log"><xsl:with-param name="msg">ERROR: Could not match mime-type. Assuming JPEG.</xsl:with-param></xsl:call-template>
@@ -339,6 +341,7 @@
 
 <!-- According to eip-help/definition. Can be inline, and not in a c:glossary -->
 <xsl:template match="c:definition">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Inline defined terms and term definitions are not yet numbered.</xsl:with-param></xsl:call-template>
 	<db:glosslist>
 		<xsl:if test="c:title">
 			<xsl:apply-templates select="c:title"/>
