@@ -46,19 +46,14 @@
     <xsl:with-param name="media-type" select="$svg.media-type"/>
     <xsl:with-param name="quiet" select="$chunk.quietly"/>
   </xsl:call-template>
-<!--<object type="image/svg+xml" data="{$chunkfn}" width="{@width}" height="{@height}">
-  	<xsl:if test="svg:metadata/pmml2svg:baseline-shift">
-  		<xsl:attribute name="style">position:relative; top:<xsl:value-of
-			select="svg:metadata/pmml2svg:baseline-shift" />px;</xsl:attribute>
+
+  <object id="{$id}" type="image/svg+xml" data="{$chunkfn}" width="{@width}" height="{@height}">
+ 	<xsl:if test="svg:metadata/pmml2svg:baseline-shift">
+  	  <xsl:attribute name="style">position:relative; top:<xsl:value-of
+		select="svg:metadata/pmml2svg:baseline-shift" />px;</xsl:attribute>
   	</xsl:if>
-</object>
-  -->
-  <img id="$id" src="{$chunkfn}" width="{@width}" height="{@height}">
-  	<xsl:if test="svg:metadata/pmml2svg:baseline-shift">
-  		<xsl:attribute name="style">position:relative; top:<xsl:value-of
-			select="svg:metadata/pmml2svg:baseline-shift" />px;</xsl:attribute>
-  	</xsl:if>
-  </img>
+	<img src="{$chunkfn}" width="{@width}" height="{@height}"/>
+  </object>
 </xsl:template>
 
 

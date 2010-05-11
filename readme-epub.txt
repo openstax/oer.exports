@@ -1,5 +1,8 @@
 See the docbook.txt for setting things up (You can ignore anything with Apache FOP).
 
+Additionally, the epub scripts that come with Docbook require Ruby.
+Another set of tools may work as an alternative: http://code.google.com/p/epub-tools/
+
 We're ready to do some converting!
 
 To generate an epub file, you will need (due to a bug in docbook) to run the following line:
