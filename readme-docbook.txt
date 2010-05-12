@@ -30,6 +30,10 @@ $ cp fonts/stix/*.ttf ~/.fonts
 Note: fop needs to know about the STIX fonts, so lib/fop.xconf is customized
 
 
+Then, there are a couple of files that need patching:
+docbook-xsl/fo/graphics.xsl will need submitted-patches/inline-svg.diff
+
+
 We're ready to do some converting!
 
 To generate an epub file, you will need (due to a bug in docbook) to run the following line:

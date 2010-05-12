@@ -1,5 +1,9 @@
 See the docbook.txt for setting things up (You can ignore anything with Apache FOP).
 
+Then, there are a couple of files that need patching:
+docbook-xsl/epub/bin/lib/docbook.rb will need epub-xmlbase-and-namespace-prefixes.diff
+
+
 Additionally, the epub scripts that come with Docbook require Ruby.
 Another set of tools may work as an alternative: http://code.google.com/p/epub-tools/
 
