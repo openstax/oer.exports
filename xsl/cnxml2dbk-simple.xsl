@@ -94,7 +94,7 @@
     <db:link xlink:href="{@url}"><xsl:apply-templates select="@*|node()"/></db:link>
 </xsl:template>
 
-<xsl:template match="c:para//c:code">
+<xsl:template match="c:para//c:code[not(@display='block')]">
     <db:code><xsl:apply-templates select="@*|node()"/></db:code>
 </xsl:template>
 <xsl:template match="c:preformat|c:code">

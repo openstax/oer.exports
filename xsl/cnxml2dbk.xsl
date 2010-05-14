@@ -203,6 +203,13 @@
 		</xsl:choose>
 	</xsl:variable>
 	<db:imageobject format="{$format}">
+		<!-- Make sure imageobject has an id. Used when converting svg to png -->
+		<xsl:attribute name="xml:id">
+			<xsl:value-of select="$cnx.module.id"/>
+			<xsl:value-of select="$cnx.module.separator"/>
+			<xsl:value-of select="generate-id(.)"/>
+		</xsl:attribute>
+		
 		<db:imagedata fileref="{@src}">
 			<xsl:choose>
 				<xsl:when test="@print-width">
@@ -221,6 +228,12 @@
 
 <xsl:template match="c:image[contains(@src, '.eps')]">
 	<db:imageobject format="SVG">
+		<!-- Make sure imageobject has an id. Used when converting svg to png -->
+		<xsl:attribute name="xml:id">
+			<xsl:value-of select="$cnx.module.id"/>
+			<xsl:value-of select="$cnx.module.separator"/>
+			<xsl:value-of select="generate-id(.)"/>
+		</xsl:attribute>
 		<db:imagedata>
 			<xsl:choose>
 				<xsl:when test="@print-width">
@@ -273,6 +286,12 @@
 
 <xsl:template name="insert-mathml">
 	<db:imageobject>
+		<!-- Make sure imageobject has an id. Used when converting svg to png -->
+		<xsl:attribute name="xml:id">
+			<xsl:value-of select="$cnx.module.id"/>
+			<xsl:value-of select="$cnx.module.separator"/>
+			<xsl:value-of select="generate-id(.)"/>
+		</xsl:attribute>
 		<!-- HACK: FOP generation requires that db:imagedata be missing -->
 		<xsl:choose>
 			<xsl:when test="$cnx.output = 'fop'">

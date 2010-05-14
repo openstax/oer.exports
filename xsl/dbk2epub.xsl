@@ -2,9 +2,6 @@
 <xsl:stylesheet 
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
   xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:db="http://docbook.org/ns/docbook"
-  xmlns:svg="http://www.w3.org/2000/svg"
-  xmlns:pmml2svg="https://sourceforge.net/projects/pmml2svg/"
   version="1.0">
 
 <xsl:import href="debug.xsl"/>
@@ -18,43 +15,31 @@
 
 <xsl:output indent="yes" method="xml"/>
 
-<!-- From docbook-xsl/html/graphics.xsl -->
-
-<!-- Ignore -->
-<xsl:template match="pmml2svg:baseline-shift" xmlns:pmml2svg="https://sourceforge.net/projects/pmml2svg/">
-</xsl:template>
-
-
-<!-- Chunk the SVG -->
-<xsl:template match="svg:svg">
-  <xsl:variable name="id" select="generate-id(.)"/>
-  <xsl:variable name="chunkfn">
-  	<xsl:value-of select="$id"/>
-  	<xsl:text>.svg</xsl:text>
-  </xsl:variable>
-  <xsl:variable name="filename">
-    <xsl:call-template name="make-relative-filename">
-      <xsl:with-param name="base.dir" select="$base.dir"/>
-      <xsl:with-param name="base.name" select="$chunkfn"/>
-    </xsl:call-template>
-  </xsl:variable>
-  <xsl:call-template name="write.chunk">
-    <xsl:with-param name="filename" select="$filename"/>
-    <xsl:with-param name="content" select="."/>
-    <xsl:with-param name="doctype-public" select="$svg.doctype-public"/>
-    <xsl:with-param name="doctype-system" select="$svg.doctype-system"/>
-    <xsl:with-param name="media-type" select="$svg.media-type"/>
-    <xsl:with-param name="quiet" select="$chunk.quietly"/>
-  </xsl:call-template>
-
+<!-- Output the PNG with the baseline info -->
+<xsl:template match="*['imagedata'=local-name() and @pmml2svg:baseline-shift]" xmlns:svg="http://www.w3.org/2000/svg" xmlns:pmml2svg="https://sourceforge.net/projects/pmml2svg/">
+	<img src="{@fileref}">
+		<xsl:attribute name="style">
+		    <!-- Ignore width and height information for now
+			<xsl:text>width:</xsl:text>
+			<xsl:value-of select="@width"/>
+			<xsl:text>; height:</xsl:text>
+			<xsl:value-of select="@depth"/>
+			<xsl:text>;</xsl:text>
+			-->
+		  	<xsl:text>position:relative; top:</xsl:text>
+		  	<xsl:value-of select="@pmml2svg:baseline-shift" />
+		  	<xsl:text>pt;</xsl:text>
+	  	</xsl:attribute>
+  	</img>
+<!--
   <object id="{$id}" type="image/svg+xml" data="{$chunkfn}" width="{@width}" height="{@height}">
  	<xsl:if test="svg:metadata/pmml2svg:baseline-shift">
   	  <xsl:attribute name="style">position:relative; top:<xsl:value-of
 		select="svg:metadata/pmml2svg:baseline-shift" />px;</xsl:attribute>
   	</xsl:if>
-	<img src="{$chunkfn}" width="{@width}" height="{@height}"/>
+	<img src="{$png}" width="{@width}" height="{@height}"/>
   </object>
-</xsl:template>
+--></xsl:template>
 
 
 <!-- Put the equation number on the RHS -->
