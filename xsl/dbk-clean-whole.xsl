@@ -12,6 +12,15 @@
 <xsl:import href="debug.xsl"/>
 <xsl:output indent="yes" method="xml"/>
 
+<!-- Make image paths point into the module directory -->
+<xsl:template match="@fileref">
+	<xsl:attribute name="fileref">
+		<xsl:value-of select="substring-before(ancestor::db:section[@xml:base]/@xml:base, '/')"/>
+                <xsl:text>/</xsl:text>
+		<xsl:value-of select="."/>
+	</xsl:attribute>
+</xsl:template>
+
 <!-- Boilerplate -->
 <xsl:template match="/">
 	<xsl:apply-templates select="*"/>

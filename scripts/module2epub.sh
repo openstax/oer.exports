@@ -13,6 +13,11 @@ ROOT=`dirname "$0"`
 ROOT=`cd "$ROOT/.."; pwd` # .. since we live in scripts/
 
 
+XSLTPROC="xsltproc --xinclude --nonet"
+
+# XSL files
+DOCBOOK_CLEANUP_XSL=$ROOT/xsl/dbk-clean-whole.xsl
+
 
 if [ ".$2" != "." ]; then 
   MODULE=$2;
@@ -21,8 +26,12 @@ if [ ".$2" != "." ]; then
   EPUB_FILE=$COL_PATH/$MODULE.epub.zip
 else
   MODULES=`ls $COL_PATH`
-  bash $ROOT/scripts/collection2dbk.sh $COL_PATH
-  DBK_FILE=$COL_PATH/collection.dbk
+  #bash $ROOT/scripts/collection2dbk.sh $COL_PATH
+  
+  # Clean up image paths
+  DOCBOOK=$COL_PATH/collection.dbk
+  DBK_FILE=$COL_PATH/collection.cleaned.dbk
+  $XSLTPROC -o $DBK_FILE $DOCBOOK_CLEANUP_XSL $DOCBOOK
   EPUB_FILE=$COL_PATH.epub.zip
 fi
 

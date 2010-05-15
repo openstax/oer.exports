@@ -116,9 +116,13 @@ $XSLTPROC -o $DOCBOOK $SVG2PNG_FILES_XSL $DOCBOOK_SVG 2> $SVG2PNG_FILES_LIST
 # Convert the files
 for ID in `cat $SVG2PNG_FILES_LIST`
 do
-  echo "Converting-SVG $ID to PNG"
-  $CONVERT $MOD_PATH/$ID.svg $MOD_PATH/$ID.png
-#  (/Applications/Inkscape.app/Contents/Resources/bin/inkscape $MOD_PATH/$ID.svg --export-png=$MOD_PATH/$ID.png 2>&1) > $MOD_PATH/__err.txt 
+  if [ -s $MOD_PATH/$ID.png ]; then
+    echo "Converting-SVG $ID to PNG skipping!"
+  else
+    echo "Converting-SVG $ID to PNG"
+    $CONVERT $MOD_PATH/$ID.svg $MOD_PATH/$ID.png
+#   (/Applications/Inkscape.app/Contents/Resources/bin/inkscape $MOD_PATH/$ID.svg --export-png=$MOD_PATH/$ID.png 2>&1) > $MOD_PATH/__err.txt
+  fi 
 done
 
 
