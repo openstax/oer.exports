@@ -10,18 +10,14 @@
   version="1.0">
 
 <xsl:import href="debug.xsl"/>
+<xsl:import href="ident.xsl"/>
+
 <xsl:output indent="yes" method="xml"/>
 
 
 <!-- Boilerplate -->
 <xsl:template match="/">
 	<xsl:apply-templates select="*"/>
-</xsl:template>
-<!-- Identity Transform -->
-<xsl:template name="ident" match="@*|node()">
-   <xsl:copy>
-      <xsl:apply-templates select="@*|node()"/>
-   </xsl:copy>
 </xsl:template>
 
 <xsl:template match="db:informalequation">

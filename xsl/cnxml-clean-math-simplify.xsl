@@ -7,18 +7,11 @@
   exclude-result-prefixes="c mml">
 
 <xsl:import href="debug.xsl"/>
+<xsl:import href="ident.xsl"/>
 
 <xsl:param name="cnx.log.onlyaggregate">yes</xsl:param>
 
 <xsl:output indent="yes" method="xml" omit-xml-declaration="yes"/>
-
-<!-- Identity Transform -->
-<xsl:template match="@*|node()">
-   <xsl:copy>
-      <xsl:apply-templates select="@*|node()"/>
-   </xsl:copy>
-</xsl:template>
-
 
 <xsl:template match="mml:math">
 	<!-- Check if we can simplify it (convert the math to cnxml) -->
@@ -195,7 +188,7 @@
 	    </xsl:call-template>
 	  </xsl:when>
 	  <xsl:otherwise>
-	    <xsl:copy-of select="child::*"/>
+	    <xsl:apply-templates mode="cnx.simplify" select="child::*"/>
 	  </xsl:otherwise>
 	</xsl:choose>
     <xsl:value-of select="$closeGlyph"/>

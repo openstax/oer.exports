@@ -6,14 +6,9 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
     exclude-result-prefixes="c">
 
 <xsl:import href="debug.xsl"/>
-<xsl:output indent="yes" method="xml"/>
+<xsl:import href="ident.xsl"/>
 
-<!-- Identity Transform -->
-<xsl:template match="@*|node()">
-   <xsl:copy>
-      <xsl:apply-templates select="@*|node()"/>
-   </xsl:copy>
-</xsl:template>
+<xsl:output indent="yes" method="xml"/>
 
 <!-- Remove empty mml:mo -->
 <xsl:template match="mml:mo[normalize-space(text())='']">

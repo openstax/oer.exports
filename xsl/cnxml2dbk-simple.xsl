@@ -28,6 +28,12 @@
 	</xsl:choose>
 </xsl:template>
 
+<xsl:template match="c:span">
+	<db:token>
+		<xsl:apply-templates select="@*|node()"/>
+	</db:token>
+</xsl:template>
+
 <xsl:template match="c:note">
     <db:note><xsl:call-template name="block-id-and-children"/></db:note>
 </xsl:template>

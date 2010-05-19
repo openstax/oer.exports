@@ -13,7 +13,7 @@
 
 <xsl:output indent="yes" method="xml"/>
 <xsl:include href="debug.xsl"/>
-
+<xsl:include href="ident.xsl"/>
 
 <!-- Move the image up or down according to its baseline -->
 <xsl:template match="fo:instream-foreign-object[svg:svg/svg:metadata/pmml2svg:baseline-shift]">
@@ -30,13 +30,6 @@
 <!-- Hack to dump negative-width SVG elements -->
 <xsl:template match="fo:instream-foreign-object[svg:svg[starts-with(@width, '-')]]">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Negative width SVG element. Stripping for now</xsl:with-param></xsl:call-template>
-</xsl:template>
-
-<!-- Identity Transform -->
-<xsl:template match="@*|node()">
-   <xsl:copy>
-      <xsl:apply-templates select="@*|node()"/>
-   </xsl:copy>
 </xsl:template>
 
 </xsl:stylesheet>

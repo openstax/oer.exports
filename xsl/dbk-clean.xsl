@@ -10,6 +10,8 @@
   version="1.0">
 
 <xsl:import href="debug.xsl"/>
+<xsl:import href="ident.xsl"/>
+
 <xsl:output indent="yes" method="xml"/>
 
 <xsl:param name="cnx.output">fop</xsl:param>
@@ -108,12 +110,5 @@
 	<xsl:call-template name="ident"/>
 </xsl:template>
 
-
-<!-- Identity Transform -->
-<xsl:template name="ident" match="@*|node()">
-   <xsl:copy>
-      <xsl:apply-templates select="@*|node()"/>
-   </xsl:copy>
-</xsl:template>
 
 </xsl:stylesheet>

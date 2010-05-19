@@ -9,14 +9,9 @@
   version="1.0">
 
 <xsl:import href="debug.xsl"/>
-<xsl:output indent="yes" method="xml"/>
+<xsl:import href="ident.xsl"/>
 
-<!-- Identity Transform -->
-<xsl:template match="@*|node()">
-   <xsl:copy>
-      <xsl:apply-templates select="@*|node()"/>
-   </xsl:copy>
-</xsl:template>
+<xsl:output indent="yes" method="xml"/>
 
 <xsl:template mode="copy" match="@*|node()">
     <xsl:copy>

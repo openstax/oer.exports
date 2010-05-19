@@ -6,17 +6,12 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
     exclude-result-prefixes="c">
 
 <xsl:import href="debug.xsl"/>
+<xsl:import href="ident.xsl"/>
+
 <xsl:output indent="yes" method="xml"/>
 
 <!-- Convert Content MathML to Presentation MathML -->
 <xsl:include href="c2p.xsl"/>
-
-<!-- Identity Transform -->
-<xsl:template match="@*|node()">
-   <xsl:copy>
-      <xsl:apply-templates select="@*|node()"/>
-   </xsl:copy>
-</xsl:template>
 
 <xsl:template match="root">
 	<xsl:apply-templates/>
