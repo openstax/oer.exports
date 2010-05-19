@@ -12,6 +12,24 @@ XSLTPROC="xsltproc --nonet"
 COLLXML2DOCBOOK_XSL=$ROOT/xsl/collxml2dbk.xsl
 MODULE2DOCBOOK=$ROOT/scripts/module2dbk.sh
 
+
+# Load up the custom params to xsltproc:
+if [ -s params.txt ]; then
+    echo "Using custom params in params.txt for xsltproc."
+    # cat params.txt
+    OLD_IFS=$IFS
+    IFS="
+"
+    XSLTPROC_ARGS=""
+    for ARG in `cat params.txt`; do
+      XSLTPROC_ARGS="$XSLTPROC_ARGS --param $ARG"
+    done
+    IFS=$OLD_IFS
+    XSLTPROC="$XSLTPROC $XSLTPROC_ARGS"
+fi
+
+
+
 # If the docbook for the collection doesn't exist yet, create it
 if [ ! -e $DOCBOOK ]; 
 then 
