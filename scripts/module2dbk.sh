@@ -65,6 +65,9 @@ fi
 XMLVALIDATE="xmllint"
 #$XMLVALIDATE $CNXML 2> /dev/null
 #if [ $? -ne 0 ]; then exit 0; fi
+
+# Skip validation by just replacing all entities with &amp;
+#sed -i "" 's/&[a-zA-Z][a-zA-Z]*/\&amp/g' $CNXML
 ($XMLVALIDATE --nonet --noout $CNXML 2>&1) > $MOD_PATH/__err.txt
 if [ -s $MOD_PATH/__err.txt ]; then 
 
