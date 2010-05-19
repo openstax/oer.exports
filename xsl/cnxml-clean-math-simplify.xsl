@@ -69,6 +69,12 @@
 	<xsl:apply-templates mode="cnx.iscomplex"/>
 </xsl:template>
 
+<!-- Non-terminal nodes that MUST be complex -->
+<!-- This one would need stretchy parentheses and so, should NOT be converted -->
+<xsl:template mode="cnx.iscomplex" match="mml:*[mml:*[contains('[]{}()',normalize-space(text()))] and (descendant::mml:msub or descendant::mml:msup or descendant::mml:msubsup)]">
+	<xsl:text>(stretchy-paren)|</xsl:text>
+</xsl:template>
+
 <!-- Non-terminal nodes that MUST be complex (everything else) -->
 <xsl:template mode="cnx.iscomplex" match="*">
 	<xsl:value-of select="local-name()"/>
