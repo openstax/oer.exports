@@ -53,4 +53,4 @@ else
   EPUB_FILE=$COL_PATH.epub.zip
 fi
 
-$ROOT/docbook-xsl/epub/bin/dbtoepub --stylesheet $ROOT/xsl/dbk2epub.xsl -c $ROOT/docbook.css -d $DBK_FILE -o $EPUB_FILE
+$ROOT/docbook-xsl/epub/bin/dbtoepub --stylesheet $ROOT/xsl/dbk2epub.xsl -c $ROOT/content.css -d $DBK_FILE -o $EPUB_FILE
