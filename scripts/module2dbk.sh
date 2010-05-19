@@ -23,6 +23,7 @@ CNXML=$MOD_PATH/index.cnxml
 CNXML1=$MOD_PATH/_cnxml1.xml
 CNXML2=$MOD_PATH/_cnxml2.xml
 CNXML3=$MOD_PATH/_cnxml3.xml
+CNXML4=$MOD_PATH/_cnxml4.xml
 DOCBOOK=$MOD_PATH/index.dbk # Important. Used in collxml2docbook xinclude
 DOCBOOK1=$MOD_PATH/_index1.dbk
 DOCBOOK2=$MOD_PATH/_index2.dbk
@@ -33,6 +34,7 @@ VALID=$MOD_PATH/_valid.dbk
 #XSLT files
 CLEANUP_XSL=$ROOT/xsl/cnxml-clean.xsl
 CLEANUP2_XSL=$ROOT/xsl/cnxml-clean-math.xsl
+SIMPLIFY_MATHML_XSL=$ROOT/xsl/cnxml-clean-math-simplify.xsl
 CNXML2DOCBOOK_XSL=$ROOT/xsl/cnxml2dbk.xsl
 DOCBOOK_CLEANUP_XSL=$ROOT/xsl/dbk-clean.xsl
 DOCBOOK_VALIDATION_XSL=$ROOT/xsl/dbk-clean-for-validation.xsl
@@ -93,8 +95,11 @@ $XSLTPROC -o $CNXML2 $CLEANUP2_XSL $CNXML1
 # See m21903
 $XSLTPROC -o $CNXML3 $CLEANUP2_XSL $CNXML2
 
+# Convert "simple" MathML to cnxml
+$XSLTPROC -o $CNXML4 $SIMPLIFY_MATHML_XSL $CNXML3
+
 # Convert to docbook
-$XSLTPROC -o $DOCBOOK1 $CNXML2DOCBOOK_XSL $CNXML3
+$XSLTPROC -o $DOCBOOK1 $CNXML2DOCBOOK_XSL $CNXML4
 
 # Convert MathML to SVG
 $SAXON -s:$DOCBOOK1 -xsl:$MATH2SVG_XSL -o:$DOCBOOK2
