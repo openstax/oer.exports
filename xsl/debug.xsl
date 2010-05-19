@@ -7,6 +7,7 @@
 <!-- The following parameters are used for batch processing and gathering statistics -->
 <xsl:param name="cnx.log.onlybugs">no</xsl:param> 
 <xsl:param name="cnx.log.onlyaggregate">no</xsl:param>
+<xsl:param name="cnx.log.nowarn">no</xsl:param> 
 
 <!-- Catch-all -->
 <xsl:template match="*">
@@ -53,6 +54,7 @@
 	<xsl:param name="isBug">no</xsl:param>
 	<xsl:param name="node" select="."/>
 	<xsl:if test="($cnx.log.onlybugs != 'no' and $isBug != 'no') or $cnx.log.onlybugs = 'no'">
+	<xsl:if test="not(starts-with($msg, 'WARNING: ')) or $cnx.log.nowarn='no'"> 
 		<xsl:choose>
 			<xsl:when test="$cnx.log.onlyaggregate != 'no'">
 				<xsl:message>
@@ -73,6 +75,7 @@
 				</xsl:message>
 			</xsl:otherwise>
 		</xsl:choose> 
+	</xsl:if>
 	</xsl:if>
 </xsl:template>
 
