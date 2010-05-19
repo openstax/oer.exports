@@ -12,14 +12,6 @@
 <xsl:import href="debug.xsl"/>
 <xsl:output indent="yes" method="xml"/>
 
-<!-- Make image paths point into the module directory -->
-<xsl:template match="@fileref">
-	<xsl:attribute name="fileref">
-		<xsl:value-of select="substring-before(ancestor::db:section[@xml:base]/@xml:base, '/')"/>
-                <xsl:text>/</xsl:text>
-		<xsl:value-of select="."/>
-	</xsl:attribute>
-</xsl:template>
 
 <!-- Boilerplate -->
 <xsl:template match="/">
@@ -140,10 +132,10 @@
 </xsl:template>
 <xsl:template mode="cnx.solution" match="db:qandaset">
 	<db:formalpara>
-		<xsl:attribute name="xml:id">
+		<!-- <xsl:attribute name="xml:id">
 			<xsl:value-of select="ancestor::db:section[@xml:id]/@xml:id"/>
 			<xsl:text>.solution</xsl:text>
-		</xsl:attribute>
+		</xsl:attribute>  -->
 		<db:title><xsl:apply-templates select="ancestor::db:*[db:title][2]/db:title/node()"/></db:title>
 		<xsl:apply-templates mode="cnx.solution"/>
 	</db:formalpara>
