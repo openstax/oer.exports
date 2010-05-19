@@ -2,6 +2,7 @@
 <xsl:stylesheet 
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
   xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:pmml2svg="https://sourceforge.net/projects/pmml2svg/"
   version="1.0">
 
 <xsl:import href="debug.xsl"/>
@@ -16,21 +17,27 @@
 <xsl:output indent="yes" method="xml"/>
 
 <!-- Output the PNG with the baseline info -->
-<xsl:template match="*['imagedata'=local-name() and @pmml2svg:baseline-shift]" xmlns:svg="http://www.w3.org/2000/svg" xmlns:pmml2svg="https://sourceforge.net/projects/pmml2svg/">
+<xsl:template match="@pmml2svg:baseline-shift">
+	<xsl:attribute name="style">
+	    <!-- Ignore width and height information for now
+		<xsl:text>width:</xsl:text>
+		<xsl:value-of select="@width"/>
+		<xsl:text>; height:</xsl:text>
+		<xsl:value-of select="@depth"/>
+		<xsl:text>;</xsl:text>
+		-->
+	  	<xsl:text>position:relative; top:</xsl:text>
+	  	<xsl:value-of select="." />
+	  	<xsl:text>pt;</xsl:text>
+  	</xsl:attribute>
+</xsl:template>
+
+<!-- Ignore the SVG element and use the @fileref (SVG-to-PNG conversion) -->
+<xsl:template match="*['imagedata'=local-name() and @fileref]" xmlns:svg="http://www.w3.org/2000/svg">
 	<img src="{@fileref}">
-		<xsl:attribute name="style">
-		    <!-- Ignore width and height information for now
-			<xsl:text>width:</xsl:text>
-			<xsl:value-of select="@width"/>
-			<xsl:text>; height:</xsl:text>
-			<xsl:value-of select="@depth"/>
-			<xsl:text>;</xsl:text>
-			-->
-		  	<xsl:text>position:relative; top:</xsl:text>
-		  	<xsl:value-of select="@pmml2svg:baseline-shift" />
-		  	<xsl:text>pt;</xsl:text>
-	  	</xsl:attribute>
-  	</img>
+		<xsl:apply-templates select="@pmml2svg:baseline-shift"/>
+		<!-- Ignore the SVG child -->
+	</img>
 <!--
   <object id="{$id}" type="image/svg+xml" data="{$chunkfn}" width="{@width}" height="{@height}">
  	<xsl:if test="svg:metadata/pmml2svg:baseline-shift">
