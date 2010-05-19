@@ -1,37 +1,67 @@
-/* From src/Products.RhaptosContent/Products/RhaptosContent/skins/rhaptos_content/stylesheets/plone/content.css */
-/* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-   See /stylesheets/README.txt for an explanation of
-   any CSS browser detection hacks used in this file
-   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+/* Based on src/Products.RhaptosContent/Products/RhaptosContent/skins/rhaptos_content/stylesheets/plone/content.css */
 
-.token { /* simple math hack */
-  font-family: STIXGeneral,DejaVu Serif,DejaVu Sans,Cambria,Cambria Math,Times,Lucida Sans Unicode,OpenSymbol,Standard Symbols L,serif;
-  font-size: 12pt;
-  font-weight: 400;
+/* ======== general ============ */
+
+body{
+  font-size: .85em;
+  font-family: georgia, palatino linotype, serif;
 }
 
-
-.equation {
-  text-align: center;
+a{
+  color: #369;
 }
 
-.note .title, .warning .title {
-  border:0;
-  display:inline;
-}
-
-/* =========== headers =========== */
-
-h2, h3, h4, h5, h6, dl, dt, dd{
+h1, h2, h3, h4, h5, h6, .title{
+  font-family: arial, helvetica, sans-serif;
   font-size: 1em;
+  margin: .25em 0;
+/*
+  display: inline-block;
+*/
+  display: block;
+  text-align: left;
+  line-height: normal;
+}
+
+h1, .chapter .titlepage h1{
+  color: #d60;
+  font-size: 1.85em;
+  font-family: georgia, palatino linotype, serif;
+  margin: 1em 0;
+}
+
+.chapter .titlepage h1{
+  margin: 1em 0 3em;
+}
+
+.section .titlepage h1{
+  font-family: arial, helvetica, sans-serif;
+  font-size: 1.85em;
+  color: #369;
+  margin: .5em 0 0;
+}
+
+dl, dt, dd{
   margin: 0;
 }
 
-/* ========== the "befores" ========== */
+/* ============== ToC ============= */
 
-#cnx_module #cnx_main span.cnx_label, .solution-toggle, .footnote-reference, 
-.equation-number, .view-math, .view-math a, .references-header, 
-.glossary-header, .bibtex-reference, .footnotes-header, .title, .equation .label  {
+.toc dt{
+  font-weight: bold;
+}
+
+.toc dl dl dt{
+  font-weight: normal;
+}
+
+.toc dl dl{
+  margin-left: 1em;
+}
+
+/* ========== the "befores" (label) ========== */
+
+a.footnoote, .label, .glossary .titlepage{
   font-size: .9em;
   color: #369;
   text-transform: uppercase;
@@ -41,34 +71,33 @@ h2, h3, h4, h5, h6, dl, dt, dd{
 
 /* ========== section & section headers ========== */
 
-.section-header, h2.title {
+.section .section .titlepage{
   color: #369;
   margin: .5em 0 0;
-  padding: 0 0 .1em;
   border: 0 solid #369;
   border-bottom-width: 1px;
   border-right-width: 1px;
   font-weight: bold;
   font-size: 1.5em;
-  letter-spacing: -1px;
-  line-height: 1.5em;
 }
 
-.section .section .section-header, h3.title, h4.title, h5.title, h6.title, h7.title, h8.title, h9.title {
+.section .section .section .titlepage{
   border: 0 solid #369;
   border-left-width: 1px;
   border-bottom-width: 1px;
-  font-size: 1.05em;
+  font-size: 1.25em;
   padding: 0 0 .1em .4em;
-  letter-spacing: 0;
 }
 
-.section{
-  margin: 2em 0;
+.section .section .section .section .titlepage{
+  border: 0 solid #369;
+  border-left-width: 0;
+  font-size: 1em;
+  padding: 0 0 .1em 0;
 }
 
 .section .section{
-  margin: 1.75em 0 1.75em 3em;
+  margin: 1.5em 0;
 }
 
 .example .section-header, .proof .section-header, .problem 
@@ -94,19 +123,25 @@ h2, h3, h4, h5, h6, dl, dt, dd{
 
 /* ========== list & item ========== */
 
-div.list{
+div.itemizedlist{
   margin: 1em 0;
 }
 
-.list ul, .list ol{
-  display: block;
+.itemizedlist ul{
+  margin-left: 1.1em;
   padding: 0;
-  margin: 0 0 0 2.5em;
-  list-style-image: none;
+  list-style-type: disc;
 }
 
-.list ol{
-  margin-left: 3em;
+.itemizedlist ol{
+  margin-left: 1.5em;
+  padding: 0;
+  list-style-type: decimal;
+}
+
+.listitem{
+  margin: 0;
+  padding: 0;
 }
 
 ol.arabic{ list-style-type: decimal; }
@@ -124,74 +159,40 @@ ol.other, ul.other, ul.labeled-item{
   margin-left: 1.5em;
 }
 
-.list li{
-  margin: 0 0 .7em;
-  line-height: 1.5em;
-}
-
-.list-header{
-  margin: 1em 0 .5em;
-}
-
-span .list-header{
-  display: inline;
-}
-
 div.list .item-decoration{
   margin-right: .5em;
 }
 
 /* ========== para ========== */
 
-p.para, div.para{
-  display: block;
+p{
   margin: 1em 0;
 }
 
-.para-header{
-  margin: 1em 0 -.5em;
-}
-
-#cnx_main{
-  line-height: 1.5em;
-}
-
-/* ========== diff highlighting ========== */
-
-ins{
-  color: #060;
-}
-
-del{
-  color: #c00;
+body{
+  line-height: 1.4em;
 }
 
 /* ========== codeblock & codeline ========== */
 
-code{
+code, .literallayout{
   font-family: courier, courier new, monospace;
-  font-size: 1.18em;
   color: #060;
   font-style: normal;
-}
-
-div.code{
-  margin: 1em 0;
-}
-
-pre.codeblock{
-  margin: 0;
-  text-align: left;
-  line-height: normal;
-  font-family: courier, courier new, monospace;
   font-size: 1em;
 }
 
-code blockquote, blockquote code{
+.literallayout{
+  margin: 0;
+  text-align: left;
+  line-height: normal;
+}
+
+code blockquote, blockquote code, .literallayout blockquote, blockquote .literallayout{
   font-style: normal;
 }
 
-.cnx_label code{
+.label code{
   text-transform: none;
 }
 
@@ -231,14 +232,18 @@ blockquote{
 /* ========== example ========== */
 
 .example{
-  margin: 1.2em 3em;
-  padding: 1em;
+  margin: 1em 0;
+  padding: .75em;
   border: 1px solid #333;
   border-top-color: #ccc;
   border-left-color: #ccc;
 }
 
-.example .para{
+.example-break{
+  display: none;
+}
+
+.example p{
   margin: .5em 0;
 }
 
@@ -250,7 +255,7 @@ blockquote{
   padding: .5em .8em;
 }
 
-.definition .example .para, .rule .example .para{
+.definition .example p, .rule .example p{
   margin: .5em 0;
 }
 
@@ -290,7 +295,7 @@ blockquote{
 
 /* ========== assorted inline elements ========== */
 
-.cnxn {
+.link {
   font-weight: bold;
 }
 
@@ -317,7 +322,7 @@ i em, i cite, .foreign cite, .foreign em, blockquote em, blockquote cite{
   font-style: normal;
 }
 
-.cnxn-target{
+.xref{
   text-transform: capitalize;
 }
 
@@ -335,30 +340,18 @@ i .foreign, .foreign i, blockquote i, blockquote .foreign, i blockquote, .foreig
   font-style: italic;
 }
 
+.token { /* simple math */
+  font-family: STIXGeneral,DejaVu Serif,DejaVu Sans,Cambria,Cambria Math,Times,Lucida Sans Unicode,OpenSymbol,Standard Symbols L,serif;
+  font-size: 12pt;
+  font-weight: 400;
+}
+
 /* ========== term & definition ========== */
 
-.term{
+.glossterm{
   font-weight: bold;
   font-style: normal;
   display: inline;
-  color: #369;
-}
-
-.term .hovlink{
-  text-decoration: none;
-  border-bottom: 1px dotted #369;
-}
-
-.term .hovlink:visited{
-  border-color: #647;
-}
-
-.lensinfo a{
-  text-decoration: none !important;
-  border-bottom-width: 0 !important;
-}
-
-.lensinfo .term a{
   color: #369;
 }
 
@@ -367,12 +360,12 @@ i .foreign, .foreign i, blockquote i, blockquote .foreign, i blockquote, .foreig
 }
 
 .meaning, .seealso{
-  margin: .5em 0 .5em 3em;
+  margin: .5em 0 .5em 1em;
   padding: .2em 0;
 }
 
 .seealso{
-  margin: .2em 0 .2em 3em;
+  margin: .2em 0 .2em 1em;
 }
 
 /* ========== equation ========== */
@@ -380,14 +373,10 @@ i .foreign, .foreign i, blockquote i, blockquote .foreign, i blockquote, .foreig
 .equation{
   margin: .5em 0 1em;
   position: relative;
+  text-align: center;
 }
 
-* html .equation{
-  width: 100%;
-  z-index: -1;
-}
-
-.equation-number, .equation .label {
+.equation .label{
   position: absolute;
   top: 50%;
   right: 0;
@@ -402,62 +391,39 @@ i .foreign, .foreign i, blockquote i, blockquote .foreign, i blockquote, .foreig
 
 .figure{
   margin: 1.5em auto;
-}
-
-.inner-figure{
   text-align: center;
 }
 
-.inner-figure{
-  border: 0 #999 solid;
-  border-top-width: 1px;
-  border-bottom-width: 1px;
-  padding: .5em 0 .75em;
+.figure-break{
+  display: none;
 }
 
-.horizontal-subfigure-name, .inner-horizontal-subfigure, .horizontal-subfigure-caption{
-  padding: 0 .3em;
+.figure-contents{
   text-align: center;
+  padding: .5em auto .75em;
 }
 
-.horizontal-subfigure-name{
-  padding-bottom: .5em;
-}
-
-.vertical-subfigure, .vertical-subfigure-name, .figure-name{
-  text-align: center;
-}
-
-.horizontal-subfigure, .vertical-subfigure{
-  margin: .5em auto 0;
+.figure .caption{
+  margin: .5em auto;
 }
 
 .horizontal-subfigure-caption, .vertical-subfigure-caption{
   padding-bottom: .5em;
 }
 
-.figure-caption, .horizontal-subfigure-caption, .vertical-subfigure-caption{
-  font-weight: normal;
-  font-size: .9em;
-  padding-top: .3em;
-  line-height: normal;
-  text-align: left;
-}
-
-.horizontal-subfigure-caption{
-  vertical-align: top;
-}
-
-.vertical-subfigure-caption{
-  text-align: center;
-  padding-top: 0;
-}
-
-.figure div.code, .figure .table{
+.figure .literallayout, .figure .table{
   margin: 0;
 }
 
+.figure .title, .table .title{
+  text-align: center;
+}
+
 /* ========== table ========== */
+
+.table-break{
+  display: none;
+}
 
 .table{
   margin: 1.5em 0;
@@ -465,18 +431,11 @@ i .foreign, .foreign i, blockquote i, blockquote .foreign, i blockquote, .foreig
   width: 100%;
 }
 
-.table table, .old-table{
+.table table{
   border-collapse: collapse;
   border: 1px solid #666 !important;
-}
-
-.table-name{
-  padding-bottom: .5em;
+  margin: 0 auto;
   text-align: center;
-}
-
-.old-table td, .old-table th{
-  text-align: left;
 }
 
 .table td, .table th{
@@ -484,21 +443,15 @@ i .foreign, .foreign i, blockquote i, blockquote .foreign, i blockquote, .foreig
   border: 1px solid #666 !important;
 }
 
-.table-text{
-  text-align: left;
-  line-height: normal;
-  padding-top: .3em;
-}
-
-div.table-caption{
+.table .caption{
   margin-top: .5em;
 }
 
-.table-caption, .code-caption{
+.table .caption, .literallayout .caption{
   font-size: .9em;
 }
 
-.code-caption{
+.literallayout /* code*/ .caption{
   text-align: left;
   border-top: 1px solid #999;
   margin: .75em auto 0;
@@ -506,37 +459,24 @@ div.table-caption{
   padding-top: .5em;
 }
 
-.code td{
-  padding: 0;
-}
-
-/* ========== math ========== */
-
-semantics annotation-xml{
-  display: none;
-}
-
-math{
-  font-size: 140%;
-}
-
 /* ========== note ========== */
 
 .note, .warning{
   padding: .75em;
-  margin: .5em 3em .75em;
+  margin: .5em 0 .75em !important;
   border: 1px solid #333;
   border-top-color: #ccc;
   border-left-color: #ccc;
 }
 
-.note-header{
+/*
+.note .title, .warning .title{
   display: inline;
 }
+*/
 
-.footnote-reference{
-  vertical-align: .5em;
-  line-height: .1em;
+.note-header{
+  display: inline;
 }
 
 /* ========== rule ========== */
@@ -553,7 +493,7 @@ math{
   margin: .4em 0 .2em 3em;
 }
 
-.statement .para, .proof .para{
+.statement p, .proof p{
   margin: .5em 0 1em;
 }
 
@@ -565,33 +505,25 @@ math{
   padding: .5em 0;
 }
 
-.glossary-header, .references-header, .footnotes-header{
+.glossary .titlepage, .references .titlepage, .footnotes .titlepage{
   font-size: 1em;
   margin-top: 0;
 }
 
-.glossary{
-  margin: 1.2em 0 1.2em 3em;
+div.glossary{
+  margin: 1em 0 1em 1em;
 }
 
-.glossary-container .glossary div, .glossary h3, .glossary h4, .glossary h5, 
-.glossary h6, .glossary p, .glossary dt, .glossary dd{
+div.glossary dt{
+  margin-left: -1em;
+}
+
+div.glossary div, div.glossary h3, div.glossary h4, div.glossary h5, 
+div.glossary h6, div.glossary p, div.glossary dt, div.glossary dd{
   display: inline;
   margin: 0;
   padding: 0;
   border: 0;
-}
-
-.glossary dt{
-  margin-left: -3em;
-}
-
-.glossary dd, .glossary .example-header .example{
-  margin-left: .5em;
-}
-
-.glossary .lensinfo dd{
-  margin-left: 0;
 }
 
 .glossary .seealso{
@@ -607,9 +539,6 @@ math{
   border: 0 solid black;  
   border-width: 0 0 1px;
 }
-
-* html .newline hr{ margin: .5em 0 -.2em; }
-*+html .newline hr{ margin: .5em 0 -.2em; }
 
 pre.underline{
   text-decoration: underline;              
