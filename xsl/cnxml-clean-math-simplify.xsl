@@ -12,17 +12,11 @@
 
 <xsl:output indent="yes" method="xml" omit-xml-declaration="yes"/>
 
-<xsl:template match="/">
-	<table>
-		<xsl:apply-templates/>
-	</table>
-</xsl:template>
-
 <!-- Identity Transform -->
 <xsl:template match="@*|node()">
-   <!-- xsl:copy -->
+   <xsl:copy>
       <xsl:apply-templates select="@*|node()"/>
-   <!-- /xsl:copy -->
+   </xsl:copy>
 </xsl:template>
 
 
@@ -34,18 +28,13 @@
 	<xsl:choose>
 		<xsl:when test="normalize-space($isComplex)!=''">
 			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: MathML too complex because of <xsl:value-of select="$isComplex"/></xsl:with-param></xsl:call-template>
-			<!-- xsl:copy -->
+			<xsl:copy>
 				<xsl:apply-templates select="@*|node()"/>
-			<!-- /xsl:copy -->
+			</xsl:copy>
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: MathML is simple!</xsl:with-param></xsl:call-template>
-			<tr>
-			<td><xsl:copy><xsl:apply-templates mode="ident" select="@*|node()"/></xsl:copy></td>
-			<td>
 			<xsl:apply-templates mode="cnx.simplify" select="."/>
-			</td>
-			</tr>
 		</xsl:otherwise>
 	</xsl:choose>
 </xsl:template>
