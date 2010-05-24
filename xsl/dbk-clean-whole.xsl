@@ -14,6 +14,24 @@
 
 <xsl:output indent="yes" method="xml"/>
 
+<!-- Collapse XIncluded modules -->
+<xsl:template match="db:chapter[count(db:section)=1]">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Converting module to chapter</xsl:with-param></xsl:call-template>
+	<xsl:copy>
+		<xsl:apply-templates select="@*|db:section/@*"/>
+		<xsl:choose>
+			<xsl:when test="db:info">
+				<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding original module title</xsl:with-param></xsl:call-template>
+				<xsl:apply-templates select="db:info"/>
+				<xsl:apply-templates select="db:section/*[local-name() != 'info']"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates select="db:section/node()"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:copy>
+</xsl:template>
+
 
 <!-- Boilerplate -->
 <xsl:template match="/">
@@ -46,7 +64,7 @@
 
 
 <!-- If the Module title starts with the chapter title then discard it. -->
-<xsl:template match="db:chapter/db:section">
+<xsl:template match="db:PHIL/db:chapter/db:section">
 	<xsl:choose>
 		<xsl:when test="starts-with(db:info/db:title/text(), ../db:info/db:title/text())">
 			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Stripping chapter name from title</xsl:with-param></xsl:call-template>
@@ -110,6 +128,7 @@
 <xsl:template match="db:section/db:info/db:*[not(self::db:title)]"/>
 
 <!-- Move the solutions to exercises (db:qandaset) to the end of the chapter. -->
+<!-- 
 <xsl:template match="db:question[../db:answer]">
 	<xsl:copy>
 		<xsl:apply-templates select="@*|node()"/>
@@ -128,10 +147,6 @@
 </xsl:template>
 <xsl:template mode="cnx.solution" match="db:qandaset">
 	<db:formalpara>
-		<!-- <xsl:attribute name="xml:id">
-			<xsl:value-of select="ancestor::db:section[@xml:id]/@xml:id"/>
-			<xsl:text>.solution</xsl:text>
-		</xsl:attribute>  -->
 		<db:title><xsl:apply-templates select="ancestor::db:*[db:title][2]/db:title/node()"/></db:title>
 		<xsl:apply-templates mode="cnx.solution"/>
 	</db:formalpara>
@@ -155,5 +170,5 @@
 		<xsl:apply-templates select="@*|node()"/>
 	</xsl:copy>
 </xsl:template>
-
+ -->
 </xsl:stylesheet>

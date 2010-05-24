@@ -22,7 +22,23 @@
 	<db:info><xsl:apply-templates select="@*|node()"/></db:info>
 </xsl:template>
 
-<xsl:template match="col:collection/col:content">
+<!-- If there are no sub collections, treat each module as a db:chapter -->
+<xsl:template match="col:collection/col:content[not(col:subcollection)]">
+	<xsl:apply-templates select="node()"/>
+</xsl:template>
+
+<!-- If there are subcollections but no modules then treat each subcollection as a db:part -->
+<xsl:template match="col:collection/col:content[col:subcollection and not(col:module)]">
+	<xsl:apply-templates select="col:subcollection"/>
+</xsl:template> 
+
+<!-- If there are subcollections and modules then:
+     treat each module before the 1st subcollection as a preface
+     treat each module after the last subcollection as an appendix
+     treat each subcollection as a chapter
+     treat each module between subcollections as a chapter
+ -->
+<xsl:template match="col:collection/col:content[col:subcollection and col:module]">
 	<!-- Preface -->
 	<xsl:if test="col:module[not(preceding-sibling::col:subcollection)]">
 		<db:preface>
@@ -32,7 +48,7 @@
 	</xsl:if>
 	<!-- Body -->
 	<xsl:apply-templates select="col:subcollection|col:module[preceding-sibling::col:subcollection and following-sibling::col:subcollection]"/>
-	<!-- Conclusion -->
+	<!-- Appendix -->
 	<xsl:if test="col:module[not(following-sibling::col:subcollection)]">
 		<db:appendix>
 			<db:title>Errata</db:title>
@@ -41,11 +57,13 @@
 	</xsl:if>
 </xsl:template>
 
+
 <!-- Free-floating Modules in a col:collection should be treated as Chapters -->
 <xsl:template match="col:collection/col:content/col:module"> 
 	<!-- TODO: Convert the db:section root of the module to a chapter. Can't now because we create xinclude refs to it -->
 	<db:chapter>
 		<xsl:apply-templates select="@*|node()"/>
+		<xi:include href="{@document}/index.dbk"/>
 	</db:chapter>
 </xsl:template>
 
@@ -62,7 +80,7 @@
 	<xsl:apply-templates/>
 </xsl:template>
 
-<xsl:template match="col:module[@document]">
+<xsl:template match="col:module">
 	<xi:include href="{@document}/index.dbk"/>
 </xsl:template>
 
