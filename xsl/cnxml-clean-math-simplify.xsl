@@ -47,13 +47,23 @@
 </xsl:template>
 
 <!-- Non-terminal nodes that MAY be complex, but that we support -->
-<xsl:template mode="cnx.iscomplex" match="mml:mrow|mml:semantics|mml:msub|mml:msup|mml:msubsup[*[position()>1 and contains('mi mo mn', local-name())]]|mml:math[not(@display='block')]|mml:mfenced"> 
+<xsl:template mode="cnx.iscomplex" match="mml:mrow|mml:semantics
+                                  |mml:msub|mml:msup|mml:msubsup[*[position()>1 and contains('mi mo mn', local-name())]]
+                                  |mml:math[not(@display='block')]|mml:mfenced
+                                  |mml:mstyle[@fontsize and count(@*)=1]"> 
 	<xsl:apply-templates mode="cnx.iscomplex"/>
 </xsl:template>
 
 <!-- Non-terminal nodes that MUST be complex -->
 <!-- This one would need stretchy parentheses and so, should NOT be converted -->
-<xsl:template mode="cnx.iscomplex" match="mml:*[mml:*[contains('[]{}()',normalize-space(text()))] and (descendant::mml:msub or descendant::mml:msup or descendant::mml:msubsup)]">
+<xsl:template mode="cnx.iscomplex" match="mml:*[
+				mml:mo[
+					contains('[]{}()',normalize-space(text()))
+					and not(@stretchy='false')
+				] and (descendant::mml:msub
+					 or descendant::mml:msup
+					 or descendant::mml:msubsup)
+			]">
 	<xsl:text>(stretchy-paren)|</xsl:text>
 </xsl:template>
 
@@ -233,7 +243,7 @@
 
 
 <!-- Just pass through -->
-<xsl:template mode="cnx.simplify" match="mml:mrow|mml:semantics">
+<xsl:template mode="cnx.simplify" match="mml:mrow|mml:semantics|mml:mstyle[@fontsize and count(@*)=1]">
 	<xsl:apply-templates mode="cnx.simplify"/>
 </xsl:template>
 

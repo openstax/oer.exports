@@ -141,4 +141,20 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 	</xsl:choose>
 </xsl:template>
 
+
+<!-- mml:msup or mml:msub with 1 child causes SVG generation to choke. -->
+<xsl:template match="mml:msub[2 > count(*)]|mml:msup[2 > count(*)]">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">ERROR: MathML contains a subscript or superscript with only 1 child. Removing the tag and continuing.</xsl:with-param></xsl:call-template>
+	<xsl:apply-templates select="node()"/>
+</xsl:template>
+
+<xsl:template match="mml:msub[count(*) > 2]|mml:msup[count(*) > 2]">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">ERROR: MathML contains a subscript or superscript with too many children. Using only the first ones and discarding the rest.</xsl:with-param></xsl:call-template>
+	<xsl:copy>
+		<xsl:apply-templates select="@*"/>
+		<xsl:apply-templates select="*[1]"/>
+		<xsl:apply-templates select="*[2]"/>
+	</xsl:copy>
+</xsl:template>
+
 </xsl:stylesheet>

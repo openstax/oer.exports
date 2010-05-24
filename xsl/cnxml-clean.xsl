@@ -111,4 +111,14 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 	<!-- Intentionally ignore. -->
 </xsl:template>
 
+
+<!-- Word importer generates mml:mtr with no mml:mtd. This causes errors for the mathml2svg conversion -->
+<xsl:template match="mml:mtr/mml:mrow">
+	<mml:mtd>
+		<xsl:copy>
+			<xsl:apply-templates select="@*|node()"/>
+		</xsl:copy>
+	</mml:mtd>
+</xsl:template>
+
 </xsl:stylesheet>
