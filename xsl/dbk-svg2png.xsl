@@ -9,6 +9,7 @@
 <xsl:include href="debug.xsl"/>
 <xsl:include href="../docbook-xsl/xhtml-1_1/chunker.xsl"/>
 
+<xsl:param name="cnx.svg.extension">png</xsl:param>
 <xsl:param name="chunk.quietly">1</xsl:param>
 <xsl:param name="svg.doctype-public">-//W3C//DTD SVG 1.1//EN</xsl:param>
 <xsl:param name="svg.doctype-system">http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd</xsl:param>
@@ -33,11 +34,12 @@
 		<xsl:value-of select="$id"/>
 		<xsl:text>.svg</xsl:text>
 	</xsl:variable>
-	<xsl:variable name="png">
+	<xsl:variable name="imageFile">
 		<xsl:value-of select="$id"/>
-		<xsl:text>.png</xsl:text>
+		<xsl:text>.</xsl:text>
+		<xsl:value-of select="$cnx.svg.extension"/>
 	</xsl:variable>
-	<db:imagedata fileref="{$png}" width="{svg:svg/@width}" depth="{svg:svg/@height}">
+	<db:imagedata fileref="{$imageFile}" width="{svg:svg/@width}" depth="{svg:svg/@height}">
 		<xsl:if test="svg:svg/svg:metadata/pmml2svg:baseline-shift">
 			<xsl:attribute name="pmml2svg:baseline-shift">
 				<xsl:value-of select="svg:svg/svg:metadata/pmml2svg:baseline-shift"/>
