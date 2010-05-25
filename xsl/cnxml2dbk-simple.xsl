@@ -62,6 +62,48 @@
 	<db:informalexample><xsl:call-template name="block-id-and-children"/></db:informalexample>
 </xsl:template>
 
+<!-- Support c:rule (with c:statement and c:proof) -->
+<xsl:template match="c:rule">
+    <db:section>
+    	<xsl:apply-templates select="@*"/>
+    	<db:title>
+    	    <xsl:apply-templates select="c:title/@*"/>
+    		<xsl:if test="not(@type)">
+    			<xsl:text>Rule</xsl:text>
+    		</xsl:if>
+    		<xsl:value-of select="@type"/>
+    		<xsl:if test="c:title">
+    			<xsl:text>: </xsl:text>
+    			<xsl:apply-templates select="c:title/node()"/>
+    		</xsl:if>
+    	</db:title>
+    	<xsl:apply-templates select="*[local-name()!='title']"/>
+    </db:section>
+</xsl:template>
+
+<xsl:template match="c:proof">
+    <db:section>
+    	<xsl:apply-templates select="@*"/>
+    	<db:title>
+    		<xsl:apply-templates select="c:title/@*"/>
+    		<xsl:if test="not(@type)">
+    			<xsl:text>Proof</xsl:text>
+    		</xsl:if>
+    		<xsl:value-of select="@type"/>
+    		<xsl:if test="c:title">
+    			<xsl:text>: </xsl:text>
+    			<xsl:apply-templates select="c:title/node()"/>
+    		</xsl:if>
+    	</db:title>
+    	<xsl:apply-templates select="*[local-name()!='title']"/>
+    </db:section>
+</xsl:template>
+
+<xsl:template match="c:statement">
+    <db:section>
+    	<xsl:apply-templates select="@*|node()"/>
+    </db:section>
+</xsl:template>
 
 
 <xsl:template match="c:para">
@@ -100,7 +142,7 @@
     <xsl:apply-templates select="@*|node()"/>
 </xsl:template>
 <xsl:template match="c:emphasis[@effect='normal']">
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates select="node()"/>
 </xsl:template>
 
 <xsl:template match="c:link[@url]">
