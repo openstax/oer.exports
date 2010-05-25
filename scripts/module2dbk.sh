@@ -129,7 +129,7 @@ do
   else
     echo "Converting-SVG $ID to PNG"
     $CONVERT $MOD_PATH/$ID.svg $MOD_PATH/$ID.png
-#   (/Applications/Inkscape.app/Contents/Resources/bin/inkscape $MOD_PATH/$ID.svg --export-png=$MOD_PATH/$ID.png 2>&1) > $MOD_PATH/__err.txt
+    (/Applications/Inkscape.app/Contents/Resources/bin/inkscape $MOD_PATH/$ID.svg --export-png=$MOD_PATH/$ID.png 2>&1) > $MOD_PATH/__err.txt
   fi 
 done
 

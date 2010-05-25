@@ -12,7 +12,7 @@
 	Much of cnxml can be converted to docbook just by converting element names
 	and attribute values. This file contains the straightforward conversions
  -->
-
+<xsl:import href="debug.xsl"/>
 
 <!-- Block elements in docbook cannot have free-floating text. they need to be wrapped in a db:para -->
 <xsl:template name="block-id-and-children">
@@ -94,6 +94,13 @@
 </xsl:template>
 <xsl:template match="c:emphasis[not(@effect) or @effect='italics']">
     <db:emphasis><xsl:apply-templates select="@*|node()"/></db:emphasis>
+</xsl:template>
+<xsl:template match="c:emphasis[@effect and @effect!='italics' and @effect!='bold']">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Removing emphasis with @effect=<xsl:value-of select="@effect"/></xsl:with-param></xsl:call-template>
+    <xsl:apply-templates select="@*|node()"/>
+</xsl:template>
+<xsl:template match="c:emphasis[@effect='normal']">
+    <xsl:apply-templates select="@*|node()"/>
 </xsl:template>
 
 <xsl:template match="c:link[@url]">

@@ -86,13 +86,62 @@
 </xsl:template>
 
 
-<xsl:template mode="cnx.simplify" match="mml:mi[string-length(text())=1 and contains('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', text())]">
-	<c:emphasis class="mi">
-		<xsl:apply-templates mode="cnx.simplify" select="node()"/>
-	</c:emphasis>
+<!-- Only infinity is not italicized -->
+<xsl:template mode="cnx.simplify" match="mml:mi">
+    <!-- Default mathvariant is normal except for mi 
+	 with one letter which is italic (except infinite character) -->
+	<xsl:variable name="str" select="normalize-space(text())"/>
+	<xsl:variable name="strLen" select="string-length($str)"/>
+    <xsl:variable name="defaultmathvariant">
+		<xsl:choose>
+			<xsl:when test="$strLen=1 and $str != '&#8734;'">
+				<xsl:text>italic</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>normal</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<!-- mathvariant options: normal | bold | italic | bold-italic | double-struck | bold-fraktur | script | bold-script | fraktur | sans-serif | bold-sans-serif | sans-serif-italic | sans-serif-bold-italic | monospace  -->
+	<xsl:variable name="mathVariant">
+		<xsl:if test="not(@mathvariant)">
+			<xsl:value-of select="$defaultmathvariant"/>
+		</xsl:if>
+		<xsl:value-of select="@mathvariant"/>
+	</xsl:variable>
+	<xsl:choose>
+		<xsl:when test="$mathVariant='normal' or $mathVariant='bold'">
+			<c:emphasis class="mi" effect="{$mathVariant}">
+				<xsl:apply-templates mode="cnx.simplify" select="node()"/>
+			</c:emphasis>
+		</xsl:when>
+		<xsl:when test="$mathVariant='italic'">
+			<c:emphasis class="mi" effect="italics">
+				<xsl:apply-templates mode="cnx.simplify" select="node()"/>
+			</c:emphasis>
+		</xsl:when>
+		<xsl:when test="$mathVariant='bold-italic'">
+			<c:emphasis class="mi" effect="bold">
+				<c:emphasis class="mi" effect="italics">
+					<xsl:apply-templates mode="cnx.simplify" select="node()"/>
+				</c:emphasis>
+			</c:emphasis>
+		</xsl:when>
+		<xsl:when test="$mathVariant='double-struck'">
+			<c:emphasis class="mi" effect="normal">
+				<xsl:apply-templates mode="cnx.simplify" select="node()"/>
+			</c:emphasis>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Ignoring @mathvariant</xsl:with-param></xsl:call-template>
+			<c:emphasis class="mi" effect="normal">
+				<xsl:apply-templates mode="cnx.simplify" select="node()"/>
+			</c:emphasis>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
-<xsl:template mode="cnx.simplify" match="mml:mi|mml:mn|mml:mtext">
+<xsl:template mode="cnx.simplify" match="mml:mn|mml:mtext">
 	<xsl:apply-templates mode="cnx.simplify" select="node()"/>
 </xsl:template>
 
