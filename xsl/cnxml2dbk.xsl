@@ -310,15 +310,16 @@
 
 <!-- Partially supported -->
 <xsl:template match="c:figure[c:subfigure]">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">ERROR: Subfigures are not really supported. Only the 1st subfigure is used</xsl:with-param></xsl:call-template>
-	<db:figure>
-		<xsl:apply-templates select="@*|*[local-name()!='subfigure']|text()|comment()|processing-instruction()"/>
-		<xsl:apply-templates select="c:subfigure[1]/*"/>
-	</db:figure>
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Splitting subfigures into multiple figures</xsl:with-param></xsl:call-template>
+	<db:section>
+		<xsl:apply-templates select="@*|node()"/>
+	</db:section>
 </xsl:template>
 
-<xsl:template match="c:figure/c:subfigure[1]">
-	<xsl:apply-templates select="node()"/>
+<xsl:template match="c:figure|c:subfigure">
+	<db:figure>
+		<xsl:apply-templates select="@*|node()"/>
+	</db:figure>
 </xsl:template>
 
 
