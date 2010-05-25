@@ -157,4 +157,8 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 	</xsl:copy>
 </xsl:template>
 
+<xsl:template match="mml:maligngroup">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: MathML to SVG conversion does not support the following element. Skipping <xsl:value-of select="local-name()"/>.</xsl:with-param></xsl:call-template>
+</xsl:template>
+
 </xsl:stylesheet>
