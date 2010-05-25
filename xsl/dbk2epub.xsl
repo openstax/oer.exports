@@ -7,6 +7,14 @@
 
 <xsl:import href="debug.xsl"/>
 <xsl:import href="../docbook-xsl/epub/docbook.xsl"/>
+
+<!-- Number the sections 1 level deep. See http://docbook.sourceforge.net/release/xsl/current/doc/html/ -->
+<xsl:param name="section.autolabel" select="1"></xsl:param>
+<xsl:param name="section.autolabel.max.depth">1</xsl:param>
+<xsl:param name="chunk.section.depth" select="0"></xsl:param>
+<xsl:param name="chunk.first.sections" select="0"></xsl:param>
+
+
 <!-- Use .xhtml so browsers are in XML-mode (and render inline SVG) -->
 <xsl:param name="html.ext">.xhtml</xsl:param>
 <!-- <xsl:param name="chunk.quietly">0</xsl:param>  -->
@@ -44,7 +52,7 @@
   	  <xsl:attribute name="style">position:relative; top:<xsl:value-of
 		select="svg:metadata/pmml2svg:baseline-shift" />px;</xsl:attribute>
   	</xsl:if>
-	<img src="{$png}" width="{@width}" height="{@height}"/>
+	<img src="{@fileref}" width="{@width}" height="{@height}"/>
   </object>
 --></xsl:template>
 
