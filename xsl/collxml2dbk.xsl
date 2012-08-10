@@ -46,7 +46,17 @@
   <db:part>
     <xsl:apply-templates select="node()"/> <!-- this wil match cnx:title and col:subcollection -->
   </db:part>
-</xsl:template>
+  
+  
+  
+  
+  </xsl:template>
+  
+  
+  
+  
+  
+  
 
 
 <!-- end of test TOC -->
@@ -127,5 +137,6 @@
 <xsl:template name="cnx.xinclude.module">
     <xi:include href="{@document}/index.included.dbk"/>
 </xsl:template>
+
 
 </xsl:stylesheet>
