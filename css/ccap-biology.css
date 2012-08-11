@@ -1212,7 +1212,6 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   columns: 2;
   text-align: justify;
   column-gap: 2.5em;
-  color: green !important;
 }
 .span-all {
   column-span: all !important;
@@ -1337,51 +1336,28 @@ a {
   background-image: url("ccap-biology/CNX_BioMaj_Career.svg");
   column-span: 1 !important;
 }
-.art-connections {
+.exercise[id*=biology] {
   background-color: #ffffcc;
-}
-.art-connections:before {
-  padding-top: 0.65in;
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
   page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
+}
+.exercise[id*=biology]:before {
+  content: url(ccap-biology/CNX_BioMaj_Art.svg);
+  max-width: 3.95in;
+  margin-top: -0.25in;
+}
+.exercise[id*=biology]  > .title {
+  display: none;
+}
+.exercise[id*=biology] .problem {
+  padding: 1em;
+}
+.exercise[id*=biology] .problem > p:nth-child(2):before {
   display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.03in;
+  content: "Question:";
+  font-weight: bold;
 }
-.art-connections .title {
-  text-align: left !important;
-  font-size: x-large;
-  margin: .25em 0;
-}
-.art-connections:before {
-  background-image: url("ccap-biology/CNX_BioMaj_Art.svg");
-  column-span: 1 !important;
-}
-.art-connections:before {
-  padding-top: .55in;
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.03in;
-}
-.art-connections .caption {
-  color: blue !important;
-}
-.art-connections .exercise {
-  color: red !important;
+.exercise[id*=biology] .solution[id*=art] {
+  display: none;
 }
 /************************ Elements that are Features but Special Styled*********************/
 .interactive {
@@ -1652,7 +1628,6 @@ h2::before {
 }
 h2 .toc-section > ul > li {
   display: block;
-  color: red !important;
   string-set: cnx-objectives content();
 }
 h3 {
@@ -1692,7 +1667,7 @@ blockquote::after {
 }
 /*.table {
   Tables that span both columns float to the bottom of a page
-   
+  
   caption {
   	 padding-top: .5em;
   	 caption-side:bottom;
@@ -1709,8 +1684,6 @@ blockquote::after {
     &before{ .caption{color:white;font-weight:bold;}}
   
       }
-
-
 
   th {
     background-color: black;
@@ -1748,7 +1721,6 @@ blockquote::after {
 }
 .figure.span-all  > .caption {
   text-align: center;
-  color: red !important;
 }
 .figure  > .title {
   display: inline;
@@ -1759,6 +1731,10 @@ blockquote::after {
 .figure  > .caption {
   display: inline;
   font-weight: bold;
+}
+.figure .subfigure {
+  /* test for redundancy should inherit from parent figure remove/test */
+
 }
 .figure .subfigure.span-all {
   column-span: all !important;
@@ -1795,30 +1771,4 @@ blockquote::after {
 }
 .solutions  > div.title {
   border: 0em;
-}
-/****index styling*****/
-.index[title=Index] {
-  page-break-before: always;
-  page-break-after: always;
-  page-break-inside: auto;
-  string-set: cnx-header "Index";
-  column-count: 3;
-}
-.index .title * {
-  display: inline;
-  string-set: cnx-header content();
-  text-transform: uppercase;
-  font-size: x-large;
-}
-.index .letter {
-  font-weight: bold;
-  color: black;
-}
-.indexdiv, .indexdiv dl {
-  page-break-inside: auto;
-}
-.indexterm {
-  content: target-counter(attr(href), page);
-  color: black;
-  font-weight: bold;
 }

@@ -31,8 +31,7 @@
 	columns:2;   
 	text-align: justify;
 	column-gap: 2.5em;
-	
-		} 
+	} 
 
 
 .span-all{
@@ -68,27 +67,32 @@ a{color:black;}
 .careers            { .x-feature(black, @cream, CNX_BioMaj_Career); }
 
   
-.art-connections { 
-   .x-feature(black, @cream, CNX_BioMaj_Art); 
-&:before {
- 	 padding-top:.55in; //0.55 + margin-top. 0.55in is from the SVG files
-    background-repeat: no-repeat;
-    background-position: top left;
-    background-position: top outside;
+//pulls only exercises that contain "biology" in the id attribute
+.exercise[id*=biology]{
+    background-color: @cream;	
     page-break-inside: avoid;
-	 page-break-after: avoid;	
-	 background-color: white;
-    content: "";
-    display:block;
-   // the following are tweaked so the overlays really do over lay
-    margin-left: -1.05em;
-    margin-right: -1.05em;
-    margin-top: -0.03in;
-   }
-	
-	}
+&:before{
+	 content: url(ccap-biology/CNX_BioMaj_Art.svg); //sets the svg as the header of the exercise
+	 max-width: 3.95in;    
+	 margin-top: -.25in;
+      }
+& > .title{
+	 display:none; //hides title from appearing before figure eg:"exerice 1.1"
+	}   
  
-
+.problem{
+  padding: 1em;
+	 > p:nth-child(2){
+	 	&:before{
+	  		  display: block;
+	        content:"Question:";
+	        font-weight:bold;
+	       }
+      }
+   }
+ .solution[id*=art]{display:none;}//hide solution in this feature and pull to the EOC
+ 
+}
 
 
 .x-feature (@color, @bg-color, @svg) {
@@ -607,35 +611,3 @@ blockquote {
     }
   }
 }	
-
-/****index styling*****/
-.index[title=Index] {
-  page-break-before: always;
-  page-break-after: always;
-  page-break-inside: auto;
-  string-set: cnx-header "Index";
-  column-count:3;
-  
-}
-
-.index .title * {
-  display: inline;
-  string-set: cnx-header content();
-  text-transform: uppercase;
-  font-size: x-large;
-}
-
-.index .letter {
-  font-weight: bold;
-  color: black;
-}
-
-.indexdiv, .indexdiv dl {
-  page-break-inside: auto;
-}
-
-.indexterm {
-  content: target-counter(attr(href), page);
-  color: black;
-  font-weight: bold;
-}
