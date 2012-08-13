@@ -1,5 +1,4 @@
-/***************************************************
- * Styles used when generating a PDF from xhtml+css
+ /* Styles used when generating a PDF from xhtml+css
  ***************************************************/
 @teal: #003333;
 @light-green: #ccffcc;
@@ -26,7 +25,7 @@
 	}
 	
 
-  .chapter {	
+.chapter {	
    -webkit-column-count:2;
 	columns:2;   
 	text-align: justify;
@@ -62,41 +61,50 @@ a{color:black;}
 /****** Features ******/
 // The args are title color, background color, and path to SVG
 .evolution          { .x-feature(black, @cream, CNX_BioMaj_Evolution); }
-.scientific-method  { .x-feature(black, @cream, CNX_BioMaj_Scienctific); }
+.scientific  { .x-feature(black, @cream, CNX_BioMaj_Scienctific); }
 .everyday           { .x-feature(black, @cream, CNX_BioMaj_Everyday); }
 .careers            { .x-feature(black, @cream, CNX_BioMaj_Career); }
 
   
 //pulls only exercises that contain "biology" in the id attribute
-.exercise[id*=biology]{
+.exercise[id*=art]{
     background-color: @cream;	
     page-break-inside: avoid;
+  
+   & div.body > p{   //styles art connections title
+	   padding-left: .25em;   	
+		font: x-large  arial,sans-serif;
+		text-align: left;
+   	}
+   	
 &:before{
 	 content: url(ccap-biology/CNX_BioMaj_Art.svg); //sets the svg as the header of the exercise
 	 max-width: 3.95in;    
 	 margin-top: -.25in;
       }
+      
 & > .title{
 	 display:none; //hides title from appearing before figure eg:"exerice 1.1"
 	}   
  
 .problem{
   padding: 1em;
+   
 	 > p:nth-child(2){
 	 	&:before{
 	  		  display: block;
 	        content:"Question:";
 	        font-weight:bold;
-	       }
+	        }
       }
    }
  .solution[id*=art]{display:none;}//hide solution in this feature and pull to the EOC
- 
 }
 
 
+
 .x-feature (@color, @bg-color, @svg) {
- 
+    
   &:before {
  	 padding-top: 0.65in; //0.75 + margin-top. 0.75in is from the SVG files
     background-repeat: no-repeat;
@@ -120,20 +128,24 @@ a{color:black;}
           } 
       
    background-color: @bg-color;
-  
+
   &:before {
        background-image: url("ccap-biology/@{svg}.svg");
   	    column-span: 1 !important;
   	    } 
-  
+  div.body > p{
+  	columns:2;
+  	column-gap: 2.5em;
+   }
  }
 
  /************************ Elements that are Features but Special Styled*********************/
-.interactive  { .x-feature(black, @cream, CNX_BioMaj_Link); 
-                   display:inline; 
+.interactive { 
+    
+     .x-feature(black, none, CNX_BioMaj_Link); 
+             
 						 &:before {
-							 	 padding-top: 0.95in; //0.75 + margin-top. 0.75in is from the SVG files
-							    background-repeat: no-repeat;
+							 	 background-repeat: no-repeat;
 							    background-position: top left;
 							    background-position: top outside;
 							    page-break-inside: avoid;
@@ -141,16 +153,19 @@ a{color:black;}
 								 background-color: white;
 							    content: "";
 							    display:block;
-							   // the following are tweaked so the overlays really do over lay
-							    margin-left: -1.05em;
-							    margin-right: -1.05em;
-							    margin-top: -0.03in;
-    							   }         
-    						&:after{
-                        	#interactive{float:right;}            							
-    							}	
+							    padding-bottom:.15in;    
+							
+							     }     
+						img{float:right;
+								 // the following are tweaked so the overlays really do over lay						      
+						      margin-left: -.75em;
+							   margin-right: -1.05em;
+							   margin-top: -.85in;
+						}  
+			          a{display:none;}			  
+    			 }	
     						
-              }  
+              
 
 /*********************** Table of Contents ********************/
 

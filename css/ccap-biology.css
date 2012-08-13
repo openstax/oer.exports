@@ -1,6 +1,5 @@
 @import url('ccap-css3.css');
-/***************************************************
- * Styles used when generating a PDF from xhtml+css
+/* Styles used when generating a PDF from xhtml+css
  ***************************************************/
 /***************************************************
  * Styles used when generating a PDF from xhtml+css
@@ -1258,10 +1257,14 @@ a {
   background-image: url("ccap-biology/CNX_BioMaj_Evolution.svg");
   column-span: 1 !important;
 }
-.scientific-method {
+.evolution div.body > p {
+  columns: 2;
+  column-gap: 2.5em;
+}
+.scientific {
   background-color: #ffffcc;
 }
-.scientific-method:before {
+.scientific:before {
   padding-top: 0.65in;
   background-repeat: no-repeat;
   background-position: top left;
@@ -1275,14 +1278,18 @@ a {
   margin-right: -1.05em;
   margin-top: -0.03in;
 }
-.scientific-method .title {
+.scientific .title {
   text-align: left !important;
   font-size: x-large;
   margin: .25em 0;
 }
-.scientific-method:before {
+.scientific:before {
   background-image: url("ccap-biology/CNX_BioMaj_Scienctific.svg");
   column-span: 1 !important;
+}
+.scientific div.body > p {
+  columns: 2;
+  column-gap: 2.5em;
 }
 .everyday {
   background-color: #ffffcc;
@@ -1310,6 +1317,10 @@ a {
   background-image: url("ccap-biology/CNX_BioMaj_Everyday.svg");
   column-span: 1 !important;
 }
+.everyday div.body > p {
+  columns: 2;
+  column-gap: 2.5em;
+}
 .careers {
   background-color: #ffffcc;
 }
@@ -1336,33 +1347,41 @@ a {
   background-image: url("ccap-biology/CNX_BioMaj_Career.svg");
   column-span: 1 !important;
 }
-.exercise[id*=biology] {
+.careers div.body > p {
+  columns: 2;
+  column-gap: 2.5em;
+}
+.exercise[id*=art] {
   background-color: #ffffcc;
   page-break-inside: avoid;
 }
-.exercise[id*=biology]:before {
+.exercise[id*=art] div.body > p {
+  padding-left: .25em;
+  font: x-large arial, sans-serif;
+  text-align: left;
+}
+.exercise[id*=art]:before {
   content: url(ccap-biology/CNX_BioMaj_Art.svg);
   max-width: 3.95in;
   margin-top: -0.25in;
 }
-.exercise[id*=biology]  > .title {
+.exercise[id*=art]  > .title {
   display: none;
 }
-.exercise[id*=biology] .problem {
+.exercise[id*=art] .problem {
   padding: 1em;
 }
-.exercise[id*=biology] .problem > p:nth-child(2):before {
+.exercise[id*=art] .problem > p:nth-child(2):before {
   display: block;
   content: "Question:";
   font-weight: bold;
 }
-.exercise[id*=biology] .solution[id*=art] {
+.exercise[id*=art] .solution[id*=art] {
   display: none;
 }
 /************************ Elements that are Features but Special Styled*********************/
 .interactive {
-  background-color: #ffffcc;
-  display: inline;
+  background-color: none;
 }
 .interactive:before {
   padding-top: 0.65in;
@@ -1387,8 +1406,11 @@ a {
   background-image: url("ccap-biology/CNX_BioMaj_Link.svg");
   column-span: 1 !important;
 }
+.interactive div.body > p {
+  columns: 2;
+  column-gap: 2.5em;
+}
 .interactive:before {
-  padding-top: 0.95in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
@@ -1397,12 +1419,16 @@ a {
   background-color: white;
   content: "";
   display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.03in;
+  padding-bottom: .15in;
 }
-.interactive:after #interactive {
+.interactive img {
   float: right;
+  margin-left: -0.75em;
+  margin-right: -1.05em;
+  margin-top: -0.85in;
+}
+.interactive a {
+  display: none;
 }
 /*********************** Table of Contents ********************/
 .book .toc  > .title {
