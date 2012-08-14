@@ -16,36 +16,27 @@
 
 
 /****** after thorough testing move this to base.less *********/
-.float-top{
-   float:top;	
-	}
+.float-top{float:top;}
 	
-.float-bottom{
-   float:bottom;	
-	}
+.float-bottom{float:bottom;}
 	
 
 .chapter {	
-   -webkit-column-count:2;
-	columns:2;   
-	text-align: justify;
-	column-gap: 2.5em;
+  -webkit-column-count:2;
+  columns:2;
+  text-align: justify;
+  column-gap: 2.5em;
 	} 
 
 
 .span-all{
-	column-span: all !important;	
-	-webkit-column-span: all !important;	
+  column-span: all !important;
+  -webkit-column-span: all !important;	
 		}
 
-.title{
-	text-align: left !important;	
-	}
+.title{text-align: left !important;}
 
 a{color:black;}
-
-
-
 
 /****** unit page ******/
 
@@ -60,45 +51,45 @@ a{color:black;}
 
 /****** Features ******/
 // The args are title color, background color, and path to SVG
-.evolution          { .x-feature(black, @cream, CNX_BioMaj_Evolution); }
-.scientific  { .x-feature(black, @cream, CNX_BioMaj_Scienctific); }
-.everyday           { .x-feature(black, @cream, CNX_BioMaj_Everyday); }
-.careers            { .x-feature(black, @cream, CNX_BioMaj_Career); }
+.evolution  { .x-feature(black, @cream, CNX_BioMaj_Evolution); }
+.scientific { .x-feature(black, @cream, CNX_BioMaj_Scienctific); }
+.everyday   { .x-feature(black, @cream, CNX_BioMaj_Everyday); }
+.careers    { .x-feature(black, @cream, CNX_BioMaj_Career); }
 
+ 
+ //hack for heading/svg
   
 //pulls only exercises that contain "biology" in the id attribute
-.exercise[id*=art]{
-    background-color: @cream;	
-    page-break-inside: avoid;
+.art{
+  background-color: @cream;	
+  page-break-inside: avoid;
   
-   & div.body > p{   //styles art connections title
-	   padding-left: .25em;   	
-		font: x-large  arial,sans-serif;
-		text-align: left;
-   	}
+> div.body > p{   //styles art connections title
+  padding-left: .25em;   	
+  font: x-large  arial,sans-serif;
+  text-align: left;
+  }
    	
 &:before{
-	 content: url(ccap-biology/CNX_BioMaj_Art.svg); //sets the svg as the header of the exercise
-	 max-width: 3.95in;    
-	 margin-top: -.25in;
-      }
+  content: url(ccap-biology/CNX_BioMaj_Art.svg); //sets the svg as the header of the exercise
+  max-width: 3.95in;    
+  margin-top: -.25in;
+  }
       
-& > .title{
-	 display:none; //hides title from appearing before figure eg:"exerice 1.1"
-	}   
+> .title{display:none;}   
  
 .problem{
   padding: 1em;
    
-	 > p:nth-child(2){
-	 	&:before{
-	  		  display: block;
-	        content:"Question:";
-	        font-weight:bold;
-	        }
-      }
-   }
- .solution[id*=art]{display:none;}//hide solution in this feature and pull to the EOC
+> p:nth-child(2){
+  &:before{
+    display: block;
+	content:"Question:";
+	font-weight:bold;
+	}
+  }
+}
+ .solution.art{display:none;}//hide solution in this feature and pull to the EOC
 }
 
 
@@ -106,124 +97,109 @@ a{color:black;}
 .x-feature (@color, @bg-color, @svg) {
     
   &:before {
- 	 padding-top: 0.65in; //0.75 + margin-top. 0.75in is from the SVG files
+ 	padding-top: 0.65in; //0.75 + margin-top. 0.75in is from the SVG files
     background-repeat: no-repeat;
     background-position: top left;
     background-position: top outside;
     page-break-inside: avoid;
-	 page-break-after: avoid;	
-	 background-color: white;
+    page-break-after: avoid;	
+	background-color: white;
     content: "";
     display:block;
-   // the following are tweaked so the overlays really do over lay
+    // the following are tweaked so the overlays really do over lay
     margin-left: -1.05em;
     margin-right: -1.05em;
     margin-top: -0.03in;
-    
    }
-   .title {
-	 text-align: left !important;
-    font-size: x-large;
-  	 margin: .25em 0;
-          } 
-      
-   background-color: @bg-color;
+.title {
+  text-align: left !important;
+  font-size: x-large;
+  margin: .25em 0;
+  } 
+  background-color: @bg-color;
 
-  &:before {
-       background-image: url("ccap-biology/@{svg}.svg");
-  	    column-span: 1 !important;
-  	    } 
-  div.body > p{
-  	columns:2;
-  	column-gap: 2.5em;
+&:before {
+  background-image: url("ccap-biology/@{svg}.svg");
+  column-span: 1 !important;
+  } 
+> div.body > p{
+  columns:2;
+  column-gap: 2.5em;
    }
  }
 
  /************************ Elements that are Features but Special Styled*********************/
 .interactive { 
-    
-     .x-feature(black, none, CNX_BioMaj_Link); 
+  .x-feature(black, none, CNX_BioMaj_Link); 
              
-						 &:before {
-							 	 background-repeat: no-repeat;
-							    background-position: top left;
-							    background-position: top outside;
-							    page-break-inside: avoid;
-								 page-break-after: avoid;	
-								 background-color: white;
-							    content: "";
-							    display:block;
-							    padding-bottom:.15in;    
-							
-							     }     
-						img{float:right;
-								 // the following are tweaked so the overlays really do over lay						      
-						      margin-left: -.75em;
-							   margin-right: -1.05em;
-							   margin-top: -.85in;
-						}  
-			          a{display:none;}			  
-    			 }	
-    						
+  &:before {
+    background-repeat: no-repeat;
+	background-position: top left;
+	background-position: top outside;
+	page-break-inside: avoid;
+	page-break-after: avoid;	
+	background-color: white;
+	content: "";
+    display:block;
+    padding-bottom:.15in;    
+  }     
+  img{
+    float:right;
+    // the following are tweaked so the overlays really do over lay						      
+    margin-left: -.75em;
+    margin-right: -1.05em;
+    margin-top: -.85in;
+  }  
+  a{display:none;}			  
+}	
               
 
 /*********************** Table of Contents ********************/
 
 .book .toc {
 		
-	& > .title{
-		color:black;
-		font-weight: bold;
-		padding-bottom: .25em;
-		margin-bottom:.50em;
-		border-bottom: 1px solid @tuscany;		
-	}
+> .title{
+    color:black;
+    font-weight: bold;
+	padding-bottom: .25em;
+	margin-bottom:.50em;
+	border-bottom: 1px solid @tuscany;		
+  }
 	
 
-& .target-preface{
-	font-weight: bold;
-	color: @green;
-	}
+.target-preface{
+  font-weight: bold;
+  color: @green;
+}
 	
-& .target-chapter, .target-appendix, .target-index, .target-part {  //this code could be simplified 
-	 			font-weight: bold;
-				color: @green;
-				display:inline !important;
-				&:before{display:none !important;}
-			}
-& .target-section .cnx-gentext-section{
-   	color:black !important;
-   	display: inline; //set to inline to display 1.1, 1.2 section numbers
-   	}	 
-& .target-chapter .cnx-gentext-chapter{
-	 	display: inline; //set to inline to display 1.1, 1.2 section numbers
-	}
-& ul > li {
-		padding-bottom: .5em;
-	} 
-& ul > li li{
-      padding-bottom: 0 !important;
-   } 
-& .target-appendix .cnx-gentext-appendix{
-     display:inline;	
-	}
-	
+.target-chapter, .target-appendix, .target-index, .target-part {  //this code could be simplified 
+  font-weight: bold;
+  color: @green;
+  display:inline !important;
+  
+  &:before{display:none !important;}
 }
 
+.target-section .cnx-gentext-section{
+  color:black !important;
+  display: inline; //set to inline to display 1.1, 1.2 section numbers
+  }	 
 
+.target-chapter .cnx-gentext-chapter{display: inline;}
+
+> ul > li {padding-bottom: .5em;} 
+> ul > li li{padding-bottom: 0 !important;} 
+.target-appendix .cnx-gentext-appendix{display:inline;}
+}
 
 /* "Key Concepts" Introduction able */
 
-
-
 .chapter .toc {
- 
   border: thick solid @green;
   background-color: @cream;
   
-  
-  & > .title {
-  	 margin-bottom: .5em;
+  > .title {
+    margin-bottom: .5em;
     content: "Chapter Sections";
     background-color: @green;
     color: white;
@@ -232,11 +208,12 @@ a{color:black;}
     border: 0;
   }
   
-& a.target-section {
+ > a.target-section {
 	color:black;
 	 
  .cnx-gentext-n {
     padding: .15em;     
+    
     &:after{content: ":"; /*add : to key concepts BIO Review Issue #9*/
     }
   }
@@ -244,34 +221,27 @@ a{color:black;}
   & .cnx-gentext-autogenerated {display:none;}
 } 
 
-& .toc-section{
-					margin-bottom:.5em;	
-					margin-left: .5em;
-	            padding:0em 1em;
-					text-indent: -2.5em; //this is to give the illusion that the second line of a section title is indented
-											
-					} 
+.toc-section{
+  margin-bottom:.5em;	
+  margin-left: .5em;
+  padding:0em 1em;
+  text-indent: -2.5em; //this is to give the illusion that the second line of a section title is indented
+  } 
 
-& > ul li .toc-section {
- 	padding: .25em;
- 
- 	  	}
+> ul li .toc-section {padding: .25em;}
  
  /*removes summary from key concepts # 16 code */
-&  .toc-section ul{
-	display:none;
-	list-style-type:circle;
-	string-set: cnx-learning-objectives content();
-	& > li{
-      content: "\a";
-		}
-}	 
+.toc-section ul{
+  display:none;
+  list-style-type:circle;
+  string-set: cnx-learning-objectives content();
+
+> li{content: "\a";}
+  }	 
 }	
 	
-.cnx-eoc p,
-p:nth-of-type(1) {
-  text-indent: 0em;
-}
+.cnx-eoc p,p:nth-of-type(1) {text-indent: 0em;}
+
 p {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   /* subsequent paragraphs are indented */
@@ -279,18 +249,17 @@ p {
 }
 
 .footnote{
-	margin: 2em;
-   font-style: italic;
-   color: black !important;	
-	}
+  margin: 2em;
+  font-style: italic;
+  color: black !important;	
+}
 
 .glossary {
-
-  // End-of-chapter material should start on a new page 
-  page-break-before: always;
+// End-of-chapter material should start on a new page 
+page-break-before: always;
 
   .title {
-    /* Change "Glossary" to "Key Terms" */
+  /* Change "Glossary" to "Key Terms" */
     content: "Key Terms";
     color: @green;
     font-size: x-large !important;
@@ -303,59 +272,52 @@ p {
   dt::after {
     content: " " !important;
   }
-  	  
- }
+}
 
 
 div.section > div.title {
- color: @green;
-// border-bottom: 1px solid @green;
- margin-bottom: 2em;
- &:after{
-	  display:block;
-	  background-color: @light-green;
-	  content: "By the end of this section you should know how to: \a" string(cnx-objectives);
-	  white-space: pre;
-	  padding-left: 1em;
-	  color: black;
- 	}
+color: @green;
+margin-bottom: 2em;
+  &:after{
+	display:block;
+	background-color: @light-green;
+	content: "By the end of this section you should know how to: \a" string(cnx-objectives);
+	white-space: pre;
+	padding-left: 1em;
+	color: black;
+  }
 }
 
-
 div.cnx-eoc {
-	
-  & > .title {
+  > .title {
     display: none;
   }
   
-  & > div.section > div.title {
-    color: @green;
-   // border-bottom: 1px solid @green;
-    margin-bottom: 2em;
+> div.section > div.title {
+  color: @green;
+  margin-bottom: 2em;
     &:after{
-        display:block;
-        background-color: @light-green;
-        content: "By the end of this section you should know how to: \a" string(cnx-objectives);
-        white-space: pre;
-        padding-left: 1em;
-        color: black;
-    	}
+      display:block;
+      background-color: @light-green;
+      content: "By the end of this section you should know how to: \a" string(cnx-objectives);
+      white-space: pre;
+      padding-left: 1em;
+      color: black;
+   }
     
     // ccap-base sets this so override it here
-    & a {
-      font-size: x-large !important;
-      color: @green !important;
-        }
+  & a {
+    font-size: x-large !important;
+    color: @green !important;
+  }
 	
-    & .cnx-gentext-t {
-    	   color:@green !important;
-    	   }	
+  & .cnx-gentext-t {color:@green !important;}	
 	
-    & .cnx-gentext-t{
-         color: black;   //EOC | needs to be separated to style separately
-         content: "| " content();    
-       }  
-}
+  & .cnx-gentext-t{
+    color: black;   //EOC | needs to be separated to style separately
+    content: "| " content();    
+    }  
+  }
 }
 
 /* Indent margins on lists */
@@ -363,23 +325,16 @@ div.cnx-eoc {
   margin-left: 4em;
 }
 
-.cnx-eoc.references p {
-  text-indent: 0em;
-}
+.cnx-eoc.references p {text-indent: 0em;}
 
-body {
-	  font-size: 9.5pt;
-}
+body {font-size: 9.5pt;}
 
 .span-all img {
    column-span:all !important;
    -webkit-column-span: all !important;
 }
 
-img {
-  max-width: 3.50in; //sets the image with for single column
-}
-
+img {max-width: 3.50in;} //sets the image with for single column
 
 
 .chapter h1.title {
@@ -391,70 +346,50 @@ img {
  
   .cnx-gentext-n {
     font-weight: bold;
-    //padding-left: 0.25em;
     padding-right: 0em;
     color: @green;
   }
 
   .cnx-gentext-t {
-  	
-      &::before {
+    &::before {
       content: "| ";
       color: black;
-     
+      }
     }
-  }
- 
 }
 
-a {
-	
-	font-weight: normal;
-}
-.toc > li > ul a {
-  color: #0061AA;
-}
+a {font-weight: normal;}
+
+.toc > li > ul a {color: #0061AA;}
+
 h1, h2, h3 {
   margin: 0.5em 0em;
   text-align: left !important; //overides text alignment set in
 }
+
 h2 {
   color: @green;
   font-size: x-large;
-
-
-.cnx-gentext-n{
-  color: @green;	
-	}
+  .cnx-gentext-n{color: @green;}
 
   // Separate the section number and title with a pipe
   .cnx-gentext-t::before {
-	 color: black;    
+    color: black;    
     content: "| ";
-      }
+    }
 
-  &::before {
-    color: @green;
-  }
-  
- 
-/**.toc-section > ul > li{
-display: block;
-string-set: cnx-objectives content();
-}  **/
-  	
-  	
+  &::before {color: @green;}
+   	
 .toc-section > ul > li {
-	display: block;
-	string-set: cnx-objectives content();
-	}  	
-  	
+  display: block;
+  string-set: cnx-objectives content();
+  }  	
 }
+
 h3 {
   color: @green;
-	font-size:large;
-	font-weight: bold;
- 
+  font-size:large;
+  font-weight: bold;
 }
 h4 {
   color: @green;
@@ -462,7 +397,6 @@ h4 {
 }
 
 blockquote {
-
   color: @gray;
   font-size: 150%;
   
@@ -477,55 +411,17 @@ blockquote {
 
 
   
-  .introduction{
-  //  For some reason the design template doesn't have a intro title
-  //columns:2 auto;
-  //column-span: all;
-  //page-break-after: always;
-     column-gap: 2.5em !important;
-     .splash{
-	 column-span:all;
-  	 -webkit-column-span:all;
-  	  width: 100% !important;
-     max-width: none !important;
+.introduction{
+  column-gap: 2.5em !important;
+  .splash{
+    column-span:all;
+  	-webkit-column-span:all;
+  	width: 100% !important;
+    max-width: none !important;
    	}
     
-    .introduction > .title { 
-    content: "Introduction";
-        }
+  .introduction > .title {content: "Introduction";}
  } 
-
-
-/*.table {
-  Tables that span both columns float to the bottom of a page
-  
-  caption {
-  	 padding-top: .5em;
-  	 caption-side:bottom;
-  	 background-color:@green;
-    color: white;
-    font-weight:bold;
-    padding: .5em;
-  }   
-   
-   
-  table {
-    background-color: @light-green;      
-    border-style: none !important;
-    &before{ .caption{color:white;font-weight:bold;}}
-  
-      }
-
-  th {
-    background-color: black;
-    color:white;
-    }
-  
-  td{
-    border-style:none !important;  	
-  	}   
- }*/
-
 
 .table table {
   background-color: @light-green;
@@ -534,9 +430,7 @@ blockquote {
   border-bottom: 1px solid @green;
 }
 
-.table td{
-    border-style:none !important;	
-	}
+.table td{border-style:none !important;}
 
 .table th {
   background-color: black;
@@ -549,21 +443,17 @@ blockquote {
 }
 
 .table {
-	
-   &:after{
-   	content: string(caption-bottom);
+  &:after{
+    content: string(caption-bottom);
    	font-weight:bold;
-   	 //set spacing (margin/padding) @ table-caption
-		}
-		
+   	//set spacing (margin/padding) @ table-caption
+	}
 }
 
-
 .figure {
-   &.span-all {
-     column-span: all !important;
-    
-   & > .caption{text-align:center;}
+  &.span-all {
+  column-span: all !important;
+    > .caption{text-align:center;}
   }
 
   & > .title {
@@ -578,27 +468,25 @@ blockquote {
   }
   
   .subfigure {
-/* test for redundancy should inherit from parent figure remove/test */
+  /* test for redundancy should inherit from parent figure remove/test */
   &.span-all {
 	   column-span: all !important;   
 	   padding: 1em;
-	  }
+  }
 
-  & > .title {
-	    display: inline;
-	    font-weight: bold;
-	    font-size: small;
-      }
+  > .title {
+    display: inline;
+	font-weight: bold;
+	font-size: small;
+  }
   & > .label {
     display: inline;
     font-weight: bold;
     }
+  }
 }
- }
 
-.note > .title {
-  border-bottom: 0px;  
-}
+.note > .title {border-bottom: 0px;}
 
 
 /* These are end-of-chapter collected solutions */
@@ -618,7 +506,7 @@ blockquote {
     display: inline;
   }
     
-  & > div {
+  > div {
     margin: 0em 0.5em;
     
     &.title {
