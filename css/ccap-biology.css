@@ -1271,16 +1271,19 @@ a {
   color: black;
 }
 /****** unit page ******/
-.part {
-  color: #336633;
-  content: "Unit";
-  font-weight: bold;
-  font-size: x-large;
-  page-break-after: always;
-}
+/*.part{
+page-break-before:always;
+page-break-after: always;
+.title{color: @green;}
+.lot{color: red !important;}
+}*/
+/**********************/
 /****** Features ******/
 .evolution {
   background-color: #ffffcc;
+}
+.evolution.span-all .body {
+  columns: 2;
 }
 .evolution:before {
   padding-top: 0.65in;
@@ -1300,17 +1303,18 @@ a {
   text-align: left !important;
   font-size: x-large;
   margin: .25em 0;
+  max-width: 3.5in;
+  color: black;
 }
 .evolution:before {
   background-image: url("ccap-biology/CNX_BioMaj_Evolution.svg");
   column-span: 1 !important;
 }
-.evolution > div.body > p {
-  columns: 2;
-  column-gap: 2.5em;
-}
 .scientific {
   background-color: #ffffcc;
+}
+.scientific.span-all .body {
+  columns: 2;
 }
 .scientific:before {
   padding-top: 0.65in;
@@ -1330,17 +1334,18 @@ a {
   text-align: left !important;
   font-size: x-large;
   margin: .25em 0;
+  max-width: 3.5in;
+  color: black;
 }
 .scientific:before {
   background-image: url("ccap-biology/CNX_BioMaj_Scienctific.svg");
   column-span: 1 !important;
 }
-.scientific > div.body > p {
-  columns: 2;
-  column-gap: 2.5em;
-}
 .everyday {
   background-color: #ffffcc;
+}
+.everyday.span-all .body {
+  columns: 2;
 }
 .everyday:before {
   padding-top: 0.65in;
@@ -1360,17 +1365,18 @@ a {
   text-align: left !important;
   font-size: x-large;
   margin: .25em 0;
+  max-width: 3.5in;
+  color: black;
 }
 .everyday:before {
   background-image: url("ccap-biology/CNX_BioMaj_Everyday.svg");
   column-span: 1 !important;
 }
-.everyday > div.body > p {
-  columns: 2;
-  column-gap: 2.5em;
-}
 .careers {
   background-color: #ffffcc;
+}
+.careers.span-all .body {
+  columns: 2;
 }
 .careers:before {
   padding-top: 0.65in;
@@ -1390,46 +1396,50 @@ a {
   text-align: left !important;
   font-size: x-large;
   margin: .25em 0;
+  max-width: 3.5in;
+  color: black;
 }
 .careers:before {
   background-image: url("ccap-biology/CNX_BioMaj_Career.svg");
   column-span: 1 !important;
 }
-.careers > div.body > p {
-  columns: 2;
-  column-gap: 2.5em;
-}
-.art {
+.exercise[id] {
   background-color: #ffffcc;
   page-break-inside: avoid;
+  padding: .5em;
 }
-.art > div.body > p {
+.exercise[id] > div.body > p {
   padding-left: .25em;
   font: x-large arial, sans-serif;
   text-align: left;
 }
-.art:before {
+.exercise[id]:before {
   content: url(ccap-biology/CNX_BioMaj_Art.svg);
   max-width: 3.95in;
   margin-top: -0.25in;
 }
-.art > .title {
-  display: none;
+.exercise[id] .title {
+  padding-left: 1em;
 }
-.art .problem {
+.exercise[id] .title .caption {
   padding: 1em;
 }
-.art .problem > p:nth-child(2):before {
-  display: block;
-  content: "Question:";
-  font-weight: bold;
+.exercise[id] .problem {
+  padding: 1em;
 }
-.art .solution.art {
+.exercise[id] .solution {
+  display: none;
+}
+/*end of Art Feature*/
+div.exercise > div.title {
   display: none;
 }
 /************************ Elements that are Features but Special Styled*********************/
 .interactive {
   background-color: none;
+}
+.interactive.span-all .body {
+  columns: 2;
 }
 .interactive:before {
   padding-top: 0.65in;
@@ -1449,14 +1459,12 @@ a {
   text-align: left !important;
   font-size: x-large;
   margin: .25em 0;
+  max-width: 3.5in;
+  color: black;
 }
 .interactive:before {
   background-image: url("ccap-biology/CNX_BioMaj_Link.svg");
   column-span: 1 !important;
-}
-.interactive > div.body > p {
-  columns: 2;
-  column-gap: 2.5em;
 }
 .interactive:before {
   background-repeat: no-repeat;
@@ -1465,7 +1473,6 @@ a {
   page-break-inside: avoid;
   page-break-after: avoid;
   background-color: white;
-  content: "";
   display: block;
   padding-bottom: .15in;
 }
@@ -1473,10 +1480,11 @@ a {
   float: right;
   margin-left: -0.75em;
   margin-right: -1.05em;
-  margin-top: -0.85in;
+  margin-top: -6.5em;
 }
 .interactive a {
-  display: none;
+  color: #cc6633;
+  font-weight: bold;
 }
 /*********************** Table of Contents ********************/
 .book .toc > .title {
@@ -1520,8 +1528,7 @@ a {
 .book .toc .target-appendix .cnx-gentext-appendix {
   display: inline;
 }
-/* "Key Concepts" Introduction able */
-.chapter .toc {
+/* "Key Concepts" Introduction Table */.chapter .toc {
   border: thick solid #336633;
   background-color: #ffffcc;
   /*removes summary from key concepts # 16 code */
@@ -1598,46 +1605,21 @@ p {
 .glossary dt::after {
   content: " " !important;
 }
-div.section > div.title {
-  color: #336633;
-  margin-bottom: 2em;
-}
-div.section > div.title:after {
-  display: block;
-  background-color: #ccffcc;
-  content: "By the end of this section you should know how to: \a" string(cnx-objectives);
-  white-space: pre;
-  padding-left: 1em;
-  color: black;
-}
 div.cnx-eoc > .title {
   display: none;
 }
-div.cnx-eoc > div.section > div.title {
-  color: #336633;
-  margin-bottom: 2em;
-}
-div.cnx-eoc > div.section > div.title:after {
-  display: block;
-  background-color: #ccffcc;
-  content: "By the end of this section you should know how to: \a" string(cnx-objectives);
-  white-space: pre;
-  padding-left: 1em;
-  color: black;
-}
-div.cnx-eoc > div.section > div.title a {
+div.cnx-eoc a {
   font-size: x-large !important;
   color: #336633 !important;
 }
-div.cnx-eoc > div.section > div.title .cnx-gentext-t {
+div.cnx-eoc .cnx-gentext-t {
   color: #336633 !important;
 }
-div.cnx-eoc > div.section > div.title .cnx-gentext-t {
+div.cnx-eoc .cnx-gentext-t {
   color: black;
   content: "| " content();
 }
-/* Indent margins on lists */
-.cnx-eoc .problem .orderedlist {
+/* Indent margins on lists */.gitignore.cnx-eoc .problem .orderedlist {
   margin-left: 4em;
 }
 .cnx-eoc.references p {
@@ -1762,13 +1744,13 @@ blockquote::after {
 .figure.span-all > .caption {
   text-align: center;
 }
-.figure  > .title {
+.figure > .title {
   display: inline;
   color: #cc6633;
   font-weight: bold;
   font-size: small;
 }
-.figure  > .caption {
+.figure > .caption {
   display: inline;
   font-weight: bold;
 }
@@ -1785,7 +1767,7 @@ blockquote::after {
   font-weight: bold;
   font-size: small;
 }
-.figure .subfigure  > .label {
+.figure .subfigure > .label {
   display: inline;
   font-weight: bold;
 }
