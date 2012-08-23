@@ -30,3 +30,16 @@ Alternative script for EPUB:
     
     # For just a module:
     python content2epub.py -c ./static/content.css -e ./xsl/dbk2epub.xsl -t "module" -o ./m123.epub -i "m123" ./test-ccap/m-section/
+
+To generate a MOBI:
+
+    - Install kindlegen
+    - Install ImageMagick
+    - Install phantomjs
+    - Install xsltproc
+    A basic version:
+    $ ./scripts/mobibuilder.sh test-ccap mobi-name ccap-physics.css
+
+    A beta version of mobibuilder-plus:
+    $ ./scripts/mobibuilder-plus.sh test-ccap mobi-name ccap-physics.css
+    PS: Use 2>/dev/null to mute the detailed log messages
