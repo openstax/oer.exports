@@ -25,6 +25,7 @@
   text-align: justify;
 } 
 
+p{padding-top:.5em;}
 
 .span-all {
   column-span: all !important;
@@ -41,40 +42,13 @@ div.part > div.titlepage:first-child{display:none;}
 
 /**********************/
 
+
 /****** Features ******/
 // The args are title color, background color, and path to SVG
 .evolution  { .x-feature(black, @cream, CNX_BioMaj_Evolution); }
 .scientific { .x-feature(black, @cream, CNX_BioMaj_Scienctific); }
 .everyday   { .x-feature(black, @cream, CNX_BioMaj_Everyday); }
 .careers    { .x-feature(black, @cream, CNX_BioMaj_Career); }
-
- /*Art Feature */
-.art{
-  background-color: @cream;	
-  page-break-inside: avoid;
-  padding:.5em;
-  > div.body > p{   //styles art connections title
-    padding-left: .25em;   	
-    font: x-large  arial,sans-serif;
-    text-align: left;
- }   	
-  &:before{
-    content: url(ccap-biology/CNX_BioMaj_Art.svg); //sets the svg as the header of the exercise
-    max-width: 3.95in;    
-    margin-top: -.25in;
- }
-  
-  .title{
-    padding-left: 1em;
-    .caption{ padding:1em; } 
- } 
-  .problem{ padding: 1em; }
-   
-  .solution{ display:none; } //hide solution in this feature and pull to the EOC
-}
-/*end of Art Feature*/
-
-div.exercise > div.title{ display:none; }  //hide exercise title overrides docbook
 
 .x-feature (@color, @bg-color, @svg){
   background-color: @bg-color;
@@ -147,7 +121,34 @@ div.exercise > div.title{ display:none; }  //hide exercise title overrides docbo
     font-weight: bold;
  }			  
 }	
-              
+
+ /**************Art Feature ******************/
+ 
+.art{
+  background-color: @cream;	
+  page-break-inside: avoid;
+  padding:.5em;
+  > div.body > p{   //styles art connections title
+    padding-left: .25em;   	
+    font: x-large  arial,sans-serif;
+    text-align: left;
+ }   	
+  &:before{
+    content: url(ccap-biology/CNX_BioMaj_Art.svg); //sets the svg as the header of the exercise
+    max-width: 3.95in;    
+    margin-top: -.25in;
+ }
+  
+  .title{
+    padding-left: 1em;
+    .caption{ padding:1em; } 
+ } 
+  .problem{ padding: 1em; }
+   
+  .solution{ display:none; } //hide solution in this feature and pull to the EOC
+}
+
+div.exercise > div.title{ display:none; }  //hide exercise title overrides docbook              
 
 /*********************** Table of Contents ********************/
 
@@ -293,12 +294,19 @@ div.cnx-eoc {
 
 body { font-size: 9.5pt; }
 
+img { 
+max-width: 3.50in;//sets the image with for single column
+margin:1.5em 0;
+} 
+
 .span-all img {
    column-span:all !important;
    -webkit-column-span: all !important;
+   max-width: 7.5in !important;
+   
 }
 
-img { max-width: 3.50in; } //sets the image with for single column
+
 
 
 .chapter h1.title {
@@ -431,7 +439,6 @@ display:none;
 div.table{
 margin: 0;
 padding:0;
-
  &:before{
  content:string(caption-top);
  color:white;
@@ -452,7 +459,7 @@ table{border-style:none !important}
 /*End of Tables*/
 
 .figure {
-margin:5em;
+
   &.span-all {
     column-span: all !important;
     > .caption { text-align:center; }
@@ -463,13 +470,17 @@ margin:5em;
     color: @tuscany;
     font-weight: bold;
     font-size: small;
+    text-align:center;
+   
   }
 
   > .caption {
     display: inline;
     font-weight: bold;
     font-size: small;
-  }
+    text-align:center;
+    }
+  
   
   .subfigure {
     /* test for redundancy should inherit from parent figure remove/test */
