@@ -37,12 +37,8 @@ a { color:black; }
 
 /****** unit page ******/
 
-/*.part {
-page-break-before:always;
-page-break-after: always;
-.title { color: @green; }
-}*/
 div.part > div.titlepage:first-child{display:none;}
+
 /**********************/
 
 /****** Features ******/
@@ -52,10 +48,7 @@ div.part > div.titlepage:first-child{display:none;}
 .everyday   { .x-feature(black, @cream, CNX_BioMaj_Everyday); }
 .careers    { .x-feature(black, @cream, CNX_BioMaj_Career); }
 
- 
- //hack for heading/svg
-  
-//pulls only exercises that contain "biology" in the id attribute rewrite using .art class
+ /*Art Feature */
 .art{
   background-color: @cream;	
   page-break-inside: avoid;
@@ -64,32 +57,34 @@ div.part > div.titlepage:first-child{display:none;}
     padding-left: .25em;   	
     font: x-large  arial,sans-serif;
     text-align: left;
-  }   	
+ }   	
   &:before{
     content: url(ccap-biology/CNX_BioMaj_Art.svg); //sets the svg as the header of the exercise
     max-width: 3.95in;    
     margin-top: -.25in;
-  }
+ }
   
   .title{
     padding-left: 1em;
     .caption{ padding:1em; } 
-  } 
+ } 
   .problem{ padding: 1em; }
    
   .solution{ display:none; } //hide solution in this feature and pull to the EOC
 }
-
 /*end of Art Feature*/
-auto
+
 div.exercise > div.title{ display:none; }  //hide exercise title overrides docbook
 
 .x-feature (@color, @bg-color, @svg){
   background-color: @bg-color;
 
   &.span-all {
-   .body { columns:2; }
-  }
+   .body {
+   columns:2;
+   column-gap: 2.5em;
+ }
+ }
     
   &:before {
     padding-top: 0.65in; //0.75 + margin-top. 0.75in is from the SVG files
@@ -105,7 +100,7 @@ div.exercise > div.title{ display:none; }  //hide exercise title overrides docbo
     margin-left: -1.05em;
     margin-right: -1.05em;
     margin-top: -0.03in;
-  }
+ }
  
   .title {
     text-align: left !important;
@@ -113,13 +108,13 @@ div.exercise > div.title{ display:none; }  //hide exercise title overrides docbo
     margin: .25em 0;
     max-width: @column;
     color: black;
-  }
+ }
   
 
   &:before {
     background-image: url("ccap-biology/@{svg}.svg");
     column-span: 1 !important;
-  } 
+ } 
 }
 
 /************************ Elements that are Features but Special Styled*********************/
@@ -137,7 +132,7 @@ div.exercise > div.title{ display:none; }  //hide exercise title overrides docbo
     //content: "";
     display:block;
     padding-bottom:.15in;    
-  }  
+ }  
       
   img {
     float:right;
@@ -145,12 +140,12 @@ div.exercise > div.title{ display:none; }  //hide exercise title overrides docbo
     margin-left: -.75em;
     margin-right: -1.05em;
     margin-top: -6.5em;
-  }  
+ }  
 
   a {
     color:@tuscany;
     font-weight: bold;
-  }			  
+ }			  
 }	
               
 
@@ -411,25 +406,20 @@ caption {
   caption-side:bottom;
   font-weight:bold;
   color: @green;
-  border-top: 5px solid @green;
+  border-top: 8px solid @green;
 }
-
-
 
 th{
 background-color: black;
 color:white;
 font-size: medium;
 }
-  
  
-
-
 .table caption {
-  caption-side: bottom;
+caption-side: bottom;
+}
 }
 
-}
 /* these are overwrites for tables should be tidied up  */
 
 div.table-caption.caption{
@@ -458,8 +448,6 @@ padding:0;
 
 
 table{border-style:none !important}
-
-
 
 /*End of Tables*/
 
