@@ -24,29 +24,6 @@ div.book {
   > div.appendix { counter-increment: appendix; }
 
 
-/* -------------------------------------
- *  All the rules for elements need to be prefixed
- *  according to slightly different rules
- *  - Preface isn't numbered
- *  - Chapters are numbered
- *  - Appendixes are lettered
- *
- * ie: "Figure 4.3" in chapters but "Figure A3" in an appendix
- * -------------------------------------
- */ 
-  > div.preface  { .x-prefixed (@preface, "", "");
-    //Also, disable numbering on Preface sections
-    > div.section > div.titlepage h2::before { display: none !important; }
-
-    //This convoluted replaces the default page header "Chapter 3 | Kinetics" with just "Preface"
-    > div.titlepage > div > div h1.title span.cnx-gentext-t {
-      string-set: cnx-header @S content() @E;
-    }
-  }
-  > div.chapter  { .x-prefixed (@chapter,  counter(chapter, decimal), target-counter(attr(href), chapter), "." ); }
-  > div.appendix { .x-prefixed (@appendix, counter(appendix, upper-latin), target-counter(attr(href), appendix, upper-latin) ); }
-
-
 /* Still count the element but don't show it */
 .empty {
   visibility: hidden;
@@ -97,7 +74,7 @@ div.book {
   
   /* --------------------------------------
    *  Exceptions for incrementing/displaying
-   *  Note: "div.glossary *" is by far the most time-consuming rule
+   *  Note: This is by far the most time-consuming rule
    * --------------------------------------
    */
   > div.glossary *,
@@ -190,6 +167,28 @@ div.book {
 
 }
 
+/* -------------------------------------
+ *  All the rules for elements need to be prefixed
+ *  according to slightly different rules
+ *  - Preface isn't numbered
+ *  - Chapters are numbered
+ *  - Appendixes are lettered
+ *
+ * ie: "Figure 4.3" in chapters but "Figure A3" in an appendix
+ * -------------------------------------
+ */ 
+  > div.preface  { .x-prefixed (@preface, "", "");
+    //Also, disable numbering on Preface sections
+    > div.section > div.titlepage h2::before { display: none !important; }
+
+    //This convoluted replaces the default page header "Chapter 3 | Kinetics" with just "Preface"
+    > div.titlepage > div > div h1.title span.cnx-gentext-t {
+      string-set: cnx-header @S content() @E;
+    }
+  }
+  > div.chapter  { .x-prefixed (@chapter,  counter(chapter, decimal), target-counter(attr(href), chapter), "." ); }
+  > div.appendix { .x-prefixed (@appendix, counter(appendix, upper-latin), target-counter(attr(href), appendix, upper-latin) ); }
+
 div.solution > a.number::before {
   /* look up the exercise number */
   content: @S target-counter(attr(href, url), exercise) @E;
@@ -246,6 +245,5 @@ div.solution > a.number {
   > div.preface  .toc,
   > div.appendix .toc { display: none; }
   > div.toc > ul > li.toc-appendix > ul   { display: none; }
-
 
 }

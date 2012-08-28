@@ -41,7 +41,7 @@ xmlns:xtext="xalan://com.nwalsh.xalan.Text"
   <xsl:param name="epub.oebps.dir" select="'OEBPS/'"/> 
   <xsl:param name="epub.ncx.filename" select="'toc.ncx'"/> 
   <xsl:param name="epub.container.filename" select="'container.xml'"/> 
-  <xsl:param name="epub.opf.filename" select="concat($epub.oebps.dir, 'content.opf')"/> 
+  <xsl:param name="epub.opf.filename" select="concat($opfpath, 'content.opf')"/> 
   <xsl:param name="epub.cover.filename" select="concat($epub.oebps.dir, 'cover', $html.ext)"/> 
   <xsl:param name="epub.cover.id" select="'cover'"/> 
   <xsl:param name="epub.cover.html" select="'cover.html'" />
@@ -265,19 +265,20 @@ xmlns:xtext="xalan://com.nwalsh.xalan.Text"
               </xsl:call-template>  
             </xsl:element>
 
-            <xsl:if test="/*/*[d:cover or contains(name(.), 'info')]//d:mediaobject[@role='cover' or ancestor::d:cover]"> 
+            <!--<xsl:if test="/*/*[d:cover or contains(name(.), 'info')]//d:mediaobject[@role='cover' or ancestor::d:cover]"> 
               <xsl:element namespace="http://www.idpf.org/2007/opf" name="meta">
                 <xsl:attribute name="name">cover</xsl:attribute>
                 <xsl:attribute name="content">
-                  <xsl:value-of select="$epub.cover.image.id"/>
+                  <xsl:value-of select="$epub.cover.image.id"/>                  
                 </xsl:attribute>
               </xsl:element>
-            </xsl:if>
+            </xsl:if>-->
+
 
           </xsl:element>
-          <xsl:call-template name="opf.manifest"/>
+          <!--<xsl:call-template name="opf.manifest"/>
           <xsl:call-template name="opf.spine"/>
-          <xsl:call-template name="opf.guide"/>
+          <xsl:call-template name="opf.guide"/>-->
 
         </xsl:element>
       </xsl:with-param>
