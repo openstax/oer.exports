@@ -245,7 +245,7 @@ p {
   // End-of-chapter material should start on a new page 
   page-break-before: always;
   
-  //.glossterm:first-letter{text-transform:uppercase;} //no support for pseudo element to cap first letter of term
+  .glossterm::first-letter{color:red;} //no support for pseudo element to cap first letter of term
   .title {
     /* Change "Glossary" to "Key Terms" */
     content: "Key Terms";
@@ -255,10 +255,10 @@ p {
     display: block !important;
     text-transform:uppercase;
   }  
- 
+
   // Remove ":"  
   dt::after {
-    //content: " " !important;
+   content: " " !important;
   }
 }
 
@@ -542,8 +542,11 @@ div.index{
   font-weight:bold;
   font-size: medium;
  }
- 
- //div.index-term:first-letter{text-transform:uppercase;} //Prince doesn't support :first-letter pseudo element at this time
+ div.index-term{font-size:medium;}//clean up
+ div.index-term::first-letter{
+ font-variant:small-caps; 
+ font-size:1.25em;
+ } 
  
  a.indexterm{font-weight:bold;}
 }
