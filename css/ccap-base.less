@@ -6,11 +6,11 @@
 @import url('ccap-css3.css');
 
 
-/*.x-page-float(@float: bottom) {
+.x-page-float(@float: bottom) {
   float: @float;
-}*/
+}
 
-/*.x-column-count(@num: 2) {
+.x-column-count(@num: 2) {
   -webkit-column-count: @num; // Supported by webkit
   column-count: @num;         // Not supported (but should be)
   columns: @num;              // Supported by PrinceXML
@@ -19,7 +19,7 @@
   column-width: 3.50in;		   // max width of column /
   //calculate width of a single column: total column width= column-width + column-gap/2 + padding + margin
    text-align: justify;  //left/right justifies text in columns
-}*/
+}
 
 
 /* Squirrel away the collection URL so it shows up as the footer on every page */
@@ -27,6 +27,9 @@
   prince-text-replace: ":9680" "";	//this strips the port number from bread doesn't effect anything else this issue was corrected on production already
   string-set: cnx-collection-url attr(href);
 } 
+
+
+div.section .titlepage .abstract{display: none !important;} // squirrel away abstract at section.module level(section-learning-objectives) Physics/Soc 
 
 /* Don't print module asterix (link to attribution) */
 sup a {
@@ -153,7 +156,7 @@ a[href^="http"] {
   page-break-after: always;
   page-break-inside: auto;
   string-set: cnx-header "Index";
-  column-count:3;
+  .x-column-count(3);
 }
 
 .index .title * {
@@ -169,7 +172,7 @@ a[href^="http"] {
   page-break-inside: auto;
 }
 
-.indexterm {
+.indexterm[href] {
   content: target-counter(attr(href), page);
 }
 
