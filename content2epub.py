@@ -117,14 +117,13 @@ def main():
     print "Invalid content type. Must be one of ['module', 'collection']"
     return 1
   
-  nothing = convert(etree.parse(StringIO(dbk)), temp_dir, args.css_file, args.output)
-  
   # Write out all the added files
   for name in newFiles:
     f = open(os.path.join(temp_dir, name), 'w')
     f.write(newFiles[name])
     f.close()
 
+  nothing = convert(etree.parse(StringIO(dbk)), temp_dir, args.css_file, args.output)
 
   # Now, run the epub script
 
