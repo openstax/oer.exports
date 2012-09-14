@@ -126,10 +126,4 @@
 </xsl:template>
 
 
-<xsl:template name="unit" match="//db:lot">
-<div> 
-<xsl:text>lala</xsl:text>
-</div>
-</xsl:template>
-
 </xsl:stylesheet>
