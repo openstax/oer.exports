@@ -46,21 +46,8 @@
   <db:part>
     <xsl:apply-templates select="node()"/> <!-- this wil match cnx:title and col:subcollection -->
   </db:part>
+</xsl:template>
   
-  
-  
-  
-  </xsl:template>
-  
-  
-  
-  
-  
-  
-
-
-<!-- end of test TOC -->
-
 
 <!-- Modules before the first subcollection are preface frontmatter -->
 <xsl:template match="col:collection/col:content[col:subcollection and col:module]/col:module[not(preceding-sibling::col:subcollection)]" priority="100">
@@ -138,5 +125,11 @@
     <xi:include href="{@document}/index.included.dbk"/>
 </xsl:template>
 
+
+<xsl:template name="unit" match="//db:lot">
+<div> 
+<xsl:text>lala</xsl:text>
+</div>
+</xsl:template>
 
 </xsl:stylesheet>
