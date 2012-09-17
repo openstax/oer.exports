@@ -192,7 +192,7 @@
 	</xsl:if>
 </xsl:template>
 
-<xsl:template mode="" match="db:section[not(contains(@class,'introduction')) and db:sectioninfo/db:abstract]">
+<xsl:template mode="cnx.chapter.summary" match="db:section[not(contains(@class,'introduction')) and db:sectioninfo/db:abstract]">
   <xsl:variable name="id">
     <xsl:call-template name="object.id"/>
   </xsl:variable>
