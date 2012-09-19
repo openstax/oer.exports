@@ -7,7 +7,11 @@
 /* Print-specific styles <style media="print"... */
 /* Squirrel away the collection URL so it shows up as the footer on every page */
 #title_page_url a[href] {
+  prince-text-replace: ":9680" "";
   string-set: cnx-collection-url attr(href);
+}
+div.section .titlepage .abstract {
+  display: none !important;
 }
 /* Don't print module asterix (link to attribution) */
 sup a {
@@ -523,21 +527,21 @@ em.glossterm {
 /* Numbering test. Auto Generated using http://lesscss.org */
 div.book, div.book > div.part {
   /* --------------------------------------
- *  Define how counters are incremented
- * --------------------------------------
- */
+   *  Define how counters are incremented
+   * --------------------------------------
+   */
 
   counter-reset: chapter appendix;
   /* -------------------------------------
- *  All the rules for elements need to be prefixed
- *  according to slightly different rules
- *  - Preface isn't numbered
- *  - Chapters are numbered
- *  - Appendixes are lettered
- *
- * ie: "Figure 4.3" in chapters but "Figure A3" in an appendix
- * -------------------------------------
- */
+   *  All the rules for elements need to be prefixed
+   *  according to slightly different rules
+   *  - Preface isn't numbered
+   *  - Chapters are numbered
+   *  - Appendixes are lettered
+   *
+   * ie: "Figure 4.3" in chapters but "Figure A3" in an appendix
+   * -------------------------------------
+   */
   /* Still count the element but don't show it */
 
   /* -------------------------------------
@@ -1456,9 +1460,7 @@ div.book > div.toc > ul > li.toc-appendix > ul, div.book > div.part > div.toc > 
 .span-all {
   column-span: all !important;
   -webkit-column-span: all !important;
-  float: prince-snap;
 }
-/************************/
 .title {
   text-align: left !important;
 }
@@ -1570,14 +1572,14 @@ div.part > div.titlepage:first-child {
   background-image: url("ccap-biology/CNX_BioMaj_Everyday.svg");
   column-span: 1 !important;
 }
-.career {
+.careers {
   background-color: #ffffcc;
 }
-.career.span-all .body {
+.careers.span-all .body {
   columns: 2;
   column-gap: 2.5em;
 }
-.career:before {
+.careers:before {
   padding-top: 0.65in;
   background-repeat: no-repeat;
   background-position: top left;
@@ -1591,7 +1593,7 @@ div.part > div.titlepage:first-child {
   margin-right: -1.05em;
   margin-top: -0.03in;
 }
-.career .title {
+.careers .title {
   text-align: left !important;
   font-size: large;
   margin: .25em 0;
@@ -1599,7 +1601,7 @@ div.part > div.titlepage:first-child {
   color: black;
   font-weight: bold;
 }
-.career:before {
+.careers:before {
   background-image: url("ccap-biology/CNX_BioMaj_Career.svg");
   column-span: 1 !important;
 }
@@ -1658,48 +1660,35 @@ div.part > div.titlepage:first-child {
   font-weight: bold;
 }
 /**************Art Feature ******************/
-div.exercise.art-connections {
-  page-break-inside: avoid;
-  page-break-after: avoid;
+.art {
   background-color: #ffffcc;
+  page-break-inside: avoid;
+  padding: .5em;
 }
-div.exercise.art-connections:before {
+.art > div.body > p {
+  padding-left: .25em;
+  font: x-large arial, sans-serif;
+  text-align: left;
+}
+.art:before {
   content: url(ccap-biology/CNX_BioMaj_Art.svg);
   max-width: 3.95in;
+  margin-top: -0.25in;
 }
-div.exercise.art-connections > div.title {
-  color: red;
+.art .title {
+  padding-left: 1em;
 }
-div.exercise.art-connections > div.problem {
-  padding: .25em 1em;
-  font-size: medium;
-  font-family: inherit;
+.art .title .caption {
+  padding: 1em;
 }
-div.exercise.art-connections > div.problem:before {
-  content: string(art-title);
-  text-align: left !important;
-  font-size: large;
-  max-width: 3.5in;
-  color: black;
-  font-weight: bold;
+.art .problem {
+  padding: 1em;
 }
-div.exercise.art-connections .itemizedlist {
-  list-style-type: lower-alpha !important;
-}
-div.exercise.art-connections .solution {
+.art .solution {
   display: none;
 }
-div.exercise.art-connections .figure img {
-  max-width: 3in;
-  margin: 0;
-}
-div.exercise.art-connections .subfigure img {
-  /* test for redundancy should inherit from parent figure remove/test */
-
-}
-max-width:3.5in div.exercise.art-connections .subfigure img.span-all {
-  max-width: 3.5in !important ;
-  padding: 1em;
+div.exercise > div.title {
+  display: none;
 }
 /*********************** Table of Contents ********************/
 .book .toc > .title {
@@ -1746,8 +1735,6 @@ max-width:3.5in div.exercise.art-connections .subfigure img.span-all {
 /* "Key Concepts" Introduction Table */.chapter .toc {
   border: thick solid #336633;
   background-color: #ffffcc;
-  /*check code*/
-
   /*removes summary from key concepts # 16 code */
 
 }
@@ -1764,10 +1751,6 @@ max-width:3.5in div.exercise.art-connections .subfigure img.span-all {
   margin: .5em;
   padding: 0em 1em;
   text-indent: -3.25em;
-  text-align: left !important;
-}
-.chapter .toc .toc-section .abstract {
-  display: none;
 }
 .chapter .toc .toc-section > a.target-section {
   color: black;
@@ -1792,17 +1775,18 @@ max-width:3.5in div.exercise.art-connections .subfigure img.span-all {
   display: none;
 }
 .cnx-eoc p, p:nth-of-type(1) {
-  text-indent: 0em !important;
+  text-indent: 0em;
 }
-/*end of code check*/
+p {
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  /* subsequent paragraphs are indented */
+
+  text-indent: 2em;
+}
 .footnote {
   margin: 2em;
   font-style: italic;
   color: black !important;
-}
-a.target-figure {
-  color: #cc6633;
-  font-weight: bold;
 }
 .glossary {
   page-break-before: always;
@@ -1824,31 +1808,26 @@ a.target-figure {
 /******Learning Objectives *********/
 div.section .titlepage .abstract {
   font-size: 1.10em;
-  display: block !important;
-  margin: 1em 0em;
-  background-color: #ccffcc;
-  padding: .5em;
-  text-align: left !important;
-  font-family: inherit;
 }
 div.section .titlepage .abstract div.itemizedlist {
-  margin-left: -0.65em;
+  padding: 1em;
+  background-color: #ccffcc;
+}
+div.section .titlepage .abstract ul.itemizedlist:before {
+  margin-left: -1.25em;
+  font-family: Liberation Serif, serif;
+  content: "By the end of this section you should know how to:";
+}
+div.section .titlepage .abstract li.listitem {
+  padding: .25em;
 }
 /*****************************/
-div.cnx-eoc.section-summary > div.title {
-  color: red;
-  margin: 1em -1em;
-}
-div.cnx-eoc.section-summary .cnx-gentext-section {
-  color: black !important;
-  font-size: small !important;
-}
-div.cnx-eoc.section-summary .cnx-gentext-autogenerated {
+div.cnx-eoc > .title {
   display: none;
 }
 div.cnx-eoc a {
   font-size: x-large !important;
-  color: #336633;
+  color: #336633 !important;
 }
 div.cnx-eoc .cnx-gentext-t {
   color: #336633 !important;
@@ -1857,8 +1836,7 @@ div.cnx-eoc .cnx-gentext-t {
   color: black;
   content: "| " content();
 }
-/* Indent margins on lists */
-.cnx-eoc .problem .orderedlist {
+/* Indent margins on lists */.gitignore.cnx-eoc .problem .orderedlist {
   margin-left: 4em;
 }
 .cnx-eoc.references p {
@@ -1868,7 +1846,8 @@ body {
   font-size: 9.5pt;
 }
 img {
-  max-width: 3.35in;
+  max-width: 3.50in;
+  margin: 1.5em 0;
 }
 .span-all img {
   column-span: all !important;
@@ -1883,7 +1862,6 @@ img {
   font-weight: bold;
   text-align: left !important;
   color: #336633;
-  padding-left: 0;
 }
 .chapter h1.title .cnx-gentext-n {
   font-weight: bold;
@@ -1953,7 +1931,6 @@ blockquote::after {
   -webkit-column-span: all;
   width: 100% !important;
   max-width: none !important;
-  padding-bottom: 2.5em;
 }
 div.introduction h3.title {
   content: "Introduction";
@@ -1971,7 +1948,6 @@ div.introduction h3.title {
   font-weight: bold;
   color: black;
   border-top: 8px solid #336633;
-  margin-bottom: .5em;
 }
 .table th {
   background-color: black;
@@ -2007,10 +1983,9 @@ table {
 }
 /*End of Tables*/
 .figure.span-all {
-  column-span: all;
-  margin-bottom: 1em;
+  column-span: all !important;
 }
-.figure.span-all .caption {
+.figure.span-all > .caption {
   text-align: center;
 }
 .figure > .title {
@@ -2031,7 +2006,7 @@ table {
 
 }
 .figure .subfigure.span-all {
-  column-span: all;
+  column-span: all !important;
   padding: 1em;
 }
 .figure .subfigure > .title {
