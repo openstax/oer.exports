@@ -11,7 +11,6 @@
 @blue: blue;
 @column: 3.5in;
 
-
 @import url('ccap-base.less');
 @import url('ccap-numbering.less');
 
@@ -19,7 +18,7 @@
 /****** after thorough testing move this to base.less *********/
 .float-top{ float:top; }
 .float-bottom{ float:bottom; }
-
+	
 
 .chapter{
   .x-column-count(2);
@@ -29,10 +28,7 @@
 .span-all{
   column-span: all !important;
   -webkit-column-span: all !important;	
-  float:prince-snap; //default top/bottom snap - shortest distance takes precedence 
 }
-
-/************************/
 
 .title{ text-align: left !important; }
 
@@ -50,16 +46,17 @@ div.part > div.titlepage:first-child{display:none;}
 .evolution { .x-feature(black, @cream, CNX_BioMaj_Evolution); }
 .scientific{ .x-feature(black, @cream, CNX_BioMaj_Scienctific); }
 .everyday  { .x-feature(black, @cream, CNX_BioMaj_Everyday); }
-.career   { .x-feature(black, @cream, CNX_BioMaj_Career); }
+.careers   { .x-feature(black, @cream, CNX_BioMaj_Career); }
 
 .x-feature (@color, @bg-color, @svg){
   background-color: @bg-color;
+
   &.span-all{
-    .body{
-      columns:2;
-      column-gap: 2.5em;
-     }
-  }
+   .body{
+   columns:2;
+   column-gap: 2.5em;
+ }
+ }
     
   &:before{
     padding-top: 0.65in; //0.75 + margin-top. 0.75in is from the SVG files
@@ -75,7 +72,7 @@ div.part > div.titlepage:first-child{display:none;}
     margin-left: -1.05em;
     margin-right: -1.05em;
     margin-top: -0.03in;
-  }
+ }
  
   .title{
     text-align: left !important;
@@ -86,15 +83,18 @@ div.part > div.titlepage:first-child{display:none;}
     font-weight:bold;
  }
   
+
   &:before{
     background-image: url("ccap-biology/@{svg}.svg");
     column-span: 1 !important;
-  } 
- }
+ } 
+}
 
 /************************ Elements that are Features but Special Styled*********************/
 .interactive{ 
+   
   .x-feature(black, none, CNX_BioMaj_Link); 
+   
   &:before{
     background-repeat: no-repeat;
     background-position: top left;
@@ -102,9 +102,10 @@ div.part > div.titlepage:first-child{display:none;}
     page-break-inside: avoid;
     page-break-after: avoid;	
     background-color: white;
+    //content: "";
     display:block;
     padding-bottom:.15in;    
-  }  
+ }  
       
   img{
     float:right;
@@ -112,56 +113,41 @@ div.part > div.titlepage:first-child{display:none;}
     margin-left: -.75em;
     margin-right: -1.05em;
     margin-top: -6.5em;
-  }  
+ }  
 
   a{
     color:@tuscany;
     font-weight: bold;
-  }
+ }			  
 }	
 
  /**************Art Feature ******************/
  
-div.exercise.art-connections{
-  page-break-inside: avoid;
-  page-break-after: avoid;
+.art{
   background-color: @cream;	
-  
+  page-break-inside: avoid;
+  padding:.5em;
+  > div.body > p{   //styles art connections title
+    padding-left: .25em;   	
+    font: x-large  arial,sans-serif;
+    text-align: left;
+ }   	
   &:before{
     content: url(ccap-biology/CNX_BioMaj_Art.svg); //sets the svg as the header of the exercise
-    max-width:3.95in; 
-  }
+    max-width: 3.95in;    
+    margin-top: -.25in;
+ }
   
-  >div.title{color:red;}   
- 
-  >div.problem{ 
-    padding:.25em 1em;  
-    font-size: medium;
-    font-family:inherit;
-  
-    &:before{
-      content: string(art-title);
-      text-align: left !important;
-      font-size: large;
-      max-width: @column;
-      color: black;
-      font-weight:bold;
-    }
-  }
-  
-  .itemizedlist{list-style-type:lower-alpha !important;}//assign letter to m/c list items
+  .title{
+    padding-left: 1em;
+    .caption{ padding:1em; } 
+ } 
+  .problem{ padding: 1em; }
+   
   .solution{ display:none; } //hide solution in this feature and pull to the EOC
-  .figure img{ max-width:3in;margin:0;}  
-  .subfigure img{
-    /* test for redundancy should inherit from parent figure remove/test */
-    max-width:3.5in
-    
-    &.span-all{
-      max-width:3.5in !important ;
-      padding: 1em;
-    }
-  }
 }
+
+div.exercise > div.title{ display:none; }  //hide exercise title overrides docbook              
 
 /*********************** Table of Contents ********************/
 
@@ -207,54 +193,53 @@ div.exercise.art-connections{
   background-color: @cream;
   
   > .title{
-    content: "Chapter Sections";
-    background-color: @green;
-    color: white;
-    font-weight: bold;
-    text-align: center !important;
-    border: 0;
-    min-width:3.5in;
-  }
+  content: "Chapter Sections";
+  background-color: @green;
+  color: white;
+  font-weight: bold;
+  text-align: center !important;
+  border: 0;
+  min-width:3.5in;
+ }
   
   .toc-section{
-    margin:.5em;	
-    padding:0em 1em;
-    text-indent: -3.25em; //this is to force the second line of a section title is indented
-    text-align: left !important;
+  margin:.5em;	
+  padding:0em 1em;
+  text-indent: -3.25em; //this is to force the second line of a section title is indented
     
-    .abstract{display:none;}
-  
     > a.target-section{
-      color:black;
+    color:black;
      
-      .cnx-gentext-n{
-        padding: .5em;     
+    .cnx-gentext-n{
+    padding: .5em;     
     
-        &:after{ content: ":";}/*add : to key concepts BIO Review Issue #9*/
+    &:after{ content: ":";}/*add : to key concepts BIO Review Issue #9*/
       
-      }
-  /*remove . from key concepts BIO Review Issue #9*/
-  .cnx-gentext-autogenerated{display:none !important;}
-  }  
+ }
+ /*remove . from key concepts BIO Review Issue #9*/
+ .cnx-gentext-autogenerated{display:none !important;}
+ }  
 }   
-/*check code*/
+
   > ul li .toc-section{padding: .25em; }
  
   /*removes summary from key concepts # 16 code */
   .toc-section ul{display:none;}
 }
 	
-.cnx-eoc p,p:nth-of-type(1){ text-indent: 0em !important; }
-/*end of code check*/
+.cnx-eoc p,p:nth-of-type(1){ text-indent: 0em; }
 
+p{
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;  
+  /* subsequent paragraphs are indented */
+  text-indent: 2em;
+}
 
 .footnote{
   margin: 2em;
   font-style: italic;
   color: black !important;	
 }
-
-a.target-figure{color:@tuscany;font-weight:bold;}
 
 .glossary{
   // End-of-chapter material should start on a new page 
@@ -269,42 +254,43 @@ a.target-figure{color:@tuscany;font-weight:bold;}
     padding: 0em !important;
     display: block !important;
     text-transform:uppercase;
-   }  
+  }  
 
   // Remove ":"  
-  dt::after{content: " " !important;  }
+  dt::after{
+   content: " " !important;
+  }
 }
-
-
 
 /******Learning Objectives *********/
 div.section .titlepage .abstract{
-  font-size:1.10em;//tweak for nearly unnoticeable diff in font-size
-  display: block !important;
-  margin: 1em 0em;
-  background-color: @light-green;
-  padding: .5em;
-  text-align: left !important;
-  font-family: inherit;
+font-size:1.10em;//tweak for nearly unnoticeable diff in font-size
 
-  & div.itemizedlist{margin-left: -.65em;}
+& div.itemizedlist{
+padding:1em;
+background-color: @light-green;
+}
 
+& ul.itemizedlist{
+  &:before{
+  margin-left:-1.25em;//set to align with bullets of listitems
+  font-family: Liberation Serif, serif;
+  content: "By the end of this section you should know how to:"; //to do: best to generate in docbook?
+ }
+ }
+& li.listitem{padding:.25em;}
 }
 /*****************************/
 
 div.cnx-eoc{
-  &.section-summary{
-    > div.title{color:red; margin:1em -1em;}//to do
-    .cnx-gentext-section{
-      color:black !important;
-      font-size: small !important;
-    }
-    .cnx-gentext-autogenerated{ display:none; }
+  > .title{  
+    display: none;
   }
-    // ccap-base sets this so override it here
+  
+  // ccap-base sets this so override it here
   a{
     font-size: x-large !important;
-    color: @green;
+    color: @green !important;
   }
 	
   .cnx-gentext-t{ color:@green !important; }	
@@ -316,20 +302,29 @@ div.cnx-eoc{
 }
 
 
-/* Indent margins on lists */
-.cnx-eoc .problem .orderedlist{margin-left: 4em;}
+/* Indent margins on lists */.gitignore
+.cnx-eoc .problem .orderedlist{
+  margin-left: 4em;
+}
 
 .cnx-eoc.references p{ text-indent: 0em; }
 
 body{ font-size: 9.5pt; }
 
-img{ max-width: 3.35in;} 
+img{ 
+max-width: 3.50in;//sets the image with for single column
+margin:1.5em 0;
+} 
 
 .span-all img{
    column-span:all !important;
    -webkit-column-span: all !important;
    max-width: 7.5in !important;
- }
+   
+}
+
+
+
 
 .chapter h1.title{
   column-span: all !important; 
@@ -337,8 +332,7 @@ img{ max-width: 3.35in;}
   font-weight: bold;
   text-align: left !important;
   color: @green;
-  padding-left: 0;
-  
+ 
   .cnx-gentext-n{
     font-weight: bold;
     padding-right: 0em;
@@ -349,8 +343,8 @@ img{ max-width: 3.35in;}
     &::before{
       content: "| ";
       color: black;
-    }
   }
+ }
 }
 
 a{ font-weight: normal; }
@@ -365,7 +359,6 @@ h1, h2, h3{
 h2{
   color: @green;
   font-size: x-large;
-  
   .cnx-gentext-n{ color: @green; }
 
   // Separate the section number and title with a pipe
@@ -387,7 +380,6 @@ h3{
   font-size:large;
   font-weight: bold;
 }
-
 h4{
   color: @green;
   font-style:italic;
@@ -410,14 +402,12 @@ blockquote{
   
 .introduction{
   column-gap: 2.5em !important;
- 
   .splash{
     column-span:all;
   	-webkit-column-span:all;
   	width: 100% !important;
     max-width: none !important;
-    padding-bottom:2.5em;//clean up padding between splash caption and text flow 
-  }
+ }
 } 
 
 div.introduction h3.title{
@@ -429,11 +419,12 @@ div.introduction h3.title{
 /*Tables*/
 
 .table{ 
-
+  
 table{
   background-color: @light-green;      
   margin: 0;
   border-style: 5px solid orange;
+  
 }
 
 caption{
@@ -442,7 +433,6 @@ caption{
   font-weight:bold;
   color: black;
   border-top: 8px solid @green;
-  margin-bottom:.5em;
 }
 
 th{
@@ -458,26 +448,25 @@ font-size: medium;
 /* these are overwrites for tables should be tidied up  */
 
 div.table-caption.caption{
-  margin-top: 1em;
-  string-set: caption-top content();
-  display:none;
+margin-top: 1em;
+string-set: caption-top content();
+display:none;
 }
 
 div.table{
-  margin: 0;
-  padding:0;
- 
-  &:before{
-   content:string(caption-top);
-   color:@green;
-   font-weight:bold;
-   display:inline-block;
-   margin-top: 1em;
-   margin-right:-.65em;
-   padding: .25em;
-   text-align: left !important; 
-   font-size: large;
-  }
+margin: 0;
+padding:0;
+ &:before{
+ content:string(caption-top);
+ color:@green;
+ font-weight:bold;
+ display:inline-block;
+ margin-top: 1em;
+ margin-right:-.65em;
+ padding: .25em;
+ text-align: left !important; 
+ font-size: large;
+ }
 }
 
 
@@ -488,10 +477,9 @@ table{border-style:none !important}
 .figure{
 
   &.span-all{
-    column-span: all;
-    .caption{ text-align:center;}
-    margin-bottom: 1em;
-  }
+    column-span: all !important;
+    > .caption{ text-align:center; }
+ }
 
   > .title{
     display: inline;
@@ -499,33 +487,35 @@ table{border-style:none !important}
     font-weight: bold;
     font-size: small;
     text-align:center;
-  }
+   
+ }
 
   > .caption{
     display: inline;
     font-weight: bold;
     font-size: small;
     text-align:center;
-  }
+ }
+  
   
   .subfigure{
     /* test for redundancy should inherit from parent figure remove/test */
     &.span-all{
-      column-span: all;   
+      column-span: all !important;   
       padding: 1em;
-    }
+ }
 
     > .title{
       display: inline;
       font-weight: bold;
       font-size: small;
-    }
+ }
 
     > .label{
       display: inline;
       font-weight: bold;
-    }
   }
+ }
 }
 
 .note > .title{ border-bottom: 0px; }
@@ -544,31 +534,33 @@ table{border-style:none !important}
   *{display: inline;}
     
   > div{margin: 0em 0.5em;
+    
     &.title{border: 0em;} // remove the underscore
-  }
+
+ }
 }	
 
 /*Index*/
 div.index{
   div.title h2{
-    padding:0;
-    color:@green;
-    text-transform:uppercase;
-    font-size: x-large;
-  }
+  padding:0;
+  color:@green;
+  text-transform:uppercase;
+  font-size: x-large;
+ }
   h3.letter{
-    color:inherit;
-    font-weight:bold;
-    font-size: medium;
-    padding-top:1em;
-  }
+  color:inherit;
+  font-weight:bold;
+  font-size: medium;
+  padding-top:1em;
+ }
  
-  div.index-term{font-size:medium;}//clean up
+ div.index-term{font-size:medium;}//clean up
  
-  div.index-term::first-letter{
-    font-variant:small-caps; 
-    font-size:1.25em;
-  } 
-  a.indexterm{font-weight:bold;}
+ div.index-term::first-letter{
+ font-variant:small-caps; 
+ font-size:1.25em;
+ } 
+ 
+ a.indexterm{font-weight:bold;}
 }
-
