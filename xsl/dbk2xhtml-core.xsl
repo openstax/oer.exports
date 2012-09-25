@@ -192,7 +192,7 @@
 	</xsl:if>
 </xsl:template>
 
-<xsl:template mode="cnx.chapter.summary" match="db:section[not(contains(@class,'introduction')) and db:sectioninfo/db:abstract]">
+<xsl:template mode="" match="db:section[not(contains(@class,'introduction')) and db:sectioninfo/db:abstract]">
   <xsl:variable name="id">
     <xsl:call-template name="object.id"/>
   </xsl:variable>
@@ -270,8 +270,8 @@
      This way we can render the solutions at the end of a book
 -->
 <xsl:template match="ext:exercise[ancestor-or-self::*[@class]]">
-<xsl:param name="render" select="false()"/>
-<xsl:param name="renderSolution" select="false()"/>
+<xsl:param name="render" select="true()"/>
+<xsl:param name="renderSolution" select="true()"/>
 <xsl:variable name="class" select="ancestor-or-self::*[@class][1]/@class"/>
 <xsl:if test="$render">
     <xsl:apply-imports/>
@@ -635,11 +635,8 @@ Combination of formal.object and formal.object.heading -->
   </div>
 </xsl:template>
 
-<!-- Lists inside an exercise (that isn't at the bottom of the chapter)
-     (ie "Check for Understanding")
-     have a larger number. overriding docbook-xsl/fo/lists.xsl
-     see <xsl:template match="d:orderedlist/d:listitem">
- -->
+<!-- pass class in exercises for style --> 
+ 
 <xsl:template match="ext:exercise/ext:problem/d:orderedlist/d:listitem" mode="item-number">
   <div class="cnx-gentext-listitem cnx-gentext-n">
     <xsl:apply-imports/>
@@ -1739,9 +1736,9 @@ Example:
 
 </xsl:template>
 
-<xsl:template match="db:preface | db:chapter | db:appendix | db:section | db:index" mode="toc">
+<xsl:template match="db:preface | db:chapter | db:appendix | db:section | db:index | db:part" mode="toc">
   <xsl:param name="toc-context" select="."/>
-  <xsl:variable name="nodes" select="db:section"/>
+  <xsl:variable name="nodes" select="db:section | db:chapter"/>
   <li>
     <xsl:attribute name="class">
       <xsl:text>toc-</xsl:text>

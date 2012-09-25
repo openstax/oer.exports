@@ -72,6 +72,13 @@
 		<xsl:apply-templates select="@*|node()"/>
 		<xsl:call-template name="cnx.xinclude.module"/>
 	</db:chapter>
+</xsl:template>  
+
+<xsl:template match="col:collection/col:content/col:subcollection/col:content/col:subcollection" priority="10">
+  <db:chapter>
+      <xsl:apply-templates select="@*|node()"/>
+		<xsl:call-template name="cnx.xinclude.module"/>
+  </db:chapter>
 </xsl:template>
 
 <xsl:template match="col:collection/col:content/col:subcollection[not(col:content/col:subcollection)]">
