@@ -29,7 +29,7 @@
 <!-- Number the sections 1 level deep. See http://docbook.sourceforge.net/release/xsl/current/doc/html/ -->
 <xsl:param name="section.autolabel" select="1"></xsl:param>
 <xsl:param name="section.autolabel.max.depth">1</xsl:param>
-
+<xsl:param name="generate.section.toc.level" select="1"></xsl:param>
 <xsl:param name="section.label.includes.component.label">1</xsl:param>
 <xsl:param name="xref.with.number.and.title">0</xsl:param>
 <xsl:param name="toc.section.depth">0</xsl:param>
@@ -43,6 +43,7 @@
     </xsl:when>
     <xsl:otherwise>
       book toc,title
+      section toc
     </xsl:otherwise>
   </xsl:choose>
 </xsl:param>
@@ -262,12 +263,6 @@
 
 <!-- Renders an abstract onnly when "render" is set to true().
 -->
-<xsl:template match="d:abstract" mode="titlepage.mode">
-  <xsl:param name="render" select="false()"/>
-  <xsl:if test="$render">
-    <xsl:apply-imports/>
-  </xsl:if>
-</xsl:template>
 
 <!-- Renders an exercise only when "render" is set to true().
      This allows us to move certain problem-sets to the end of a chapter.
@@ -422,7 +417,7 @@
           <xsl:apply-templates select="db:title/node()"/>
         </xsl:when>
         <xsl:when test="db:sectioninfo/db:title">
-          <xsl:apply-templates select="db:sectioninfo/db:title/node()"/>
+          <xsl:apply-templates select="db:sectioninfo/db:title/node()"/>          
         </xsl:when>
         <xsl:otherwise>
           <xsl:text>Introduction</xsl:text>
@@ -1095,6 +1090,7 @@ Combination of formal.object and formal.object.heading -->
 </xsl:template>
 
 <xsl:template name="section.titlepage.recto">
+
   <xsl:choose>
     <xsl:when test="d:sectioninfo/d:title">
       <xsl:apply-templates mode="section.titlepage.recto.auto.mode" select="d:sectioninfo/d:title"/>
@@ -1105,7 +1101,10 @@ Combination of formal.object and formal.object.heading -->
     <xsl:when test="d:title">
       <xsl:apply-templates mode="section.titlepage.recto.auto.mode" select="d:title"/>
     </xsl:when>
-  </xsl:choose>
+   </xsl:choose>
+   <xsl:if test="d:sectioninfo/d:abstract"> 
+   <xsl:apply-templates select="db:sectioninfo/db:abstract"/><!-- generates abstract at section level should not be presented explicitly. should be generated with toc params -->
+   </xsl:if>
 </xsl:template>
 
 <!-- Docbook generates "???" when it cannot generate text for a db:xref. Instead, we print the name of the closest enclosing element. -->
