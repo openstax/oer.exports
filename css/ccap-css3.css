@@ -39,11 +39,13 @@ svg|g {
     text-transform: uppercase;
   }
   @bottom-left {
-    font-weight: bold;
+  	 color: grey;
+    font-weight: thin;
     content: "This content is available for free at " string(cnx-collection-url);
     // The following line doesn't work because prince-link can aonly take a attr() or url()
     // Fortunately prince auto-detects the http://... and makes it a link
     // prince-link: string(cnx-collection-url);
+    prince-text-replace: ":9680" "\2019";
   }
 }
 
@@ -57,3 +59,11 @@ svg|g {
     text-transform: uppercase;
   }
 }
+
+/* hides the table caption in caption to place at bottom of table */
+		div.table-caption.caption {
+			display:none;
+			string-set: caption-bottom content();
+			}
+		
+
