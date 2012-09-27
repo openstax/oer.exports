@@ -37,6 +37,7 @@
 
 a{ color:black; }
 
+
 /******************************************************
  * Unit Page
  ******************************************************/
@@ -139,10 +140,20 @@ div.part > div.titlepage:first-child{display:none;}
   }   
 }
 
-.footnote{
-  margin: 2em;
-  font-style: italic;
-  color: black !important;	
+/******************************************************
+ * Section Level Learning Objectives
+ ******************************************************/
+div.section .titlepage .abstract{
+  display: block !important;
+  margin: 1em 0em;
+  padding: .5em;
+  background-color: @light-green;
+  text-align: left !important;
+  page-break-inside:avoid;
+  column-break-inside:avoid;
+    >.itemizedlist{margin-left: -.65em;
+      .listitem{margin:.5em 0em;}
+    }
 }
 
 /******************************************************
@@ -214,10 +225,6 @@ div.section .titlepage .abstract{
   } 
 }
 
-/******Learning Objectives *********/
-div.section .titlepage .abstract{
-font-size:1.10em;//tweak for nearly unnoticeable diff in font-size
-}
 
 /******************************************************
  *Elements that are special features but styled
@@ -291,6 +298,10 @@ img{
    max-width: 7.5in !important;
  }
 
+img{ 
+  max-width: @column;//sets the image with for single column
+  max-height:9.5in;
+} 
 
 .chapter h1.title{
   column-span: all !important; 
@@ -498,7 +509,6 @@ div.table{
 }
 
 .note > .title{ border-bottom: 0px; }
-
 
 /******************************************************
  * End of Chapter Solutions Development in Progress
