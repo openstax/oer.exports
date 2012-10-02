@@ -567,11 +567,7 @@ div.book, div.book > div.part {
  * Number the book-level TOC
  ******************************/
 
-  /* Units */
-
   /* Chapters/Appendixes */
-
-  /* Sections */
 
   /* Don't render nested sections in the toc */
 
@@ -1407,10 +1403,21 @@ div.book *.footnote::footnote-call, div.book > div.part *.footnote::footnote-cal
 div.book *.footnote::footnote-marker, div.book > div.part *.footnote::footnote-marker {
   margin-right: 0.5em;
 }
+div.book > div.toc, div.book > div.part > div.toc {
+  /* Units */
+
+  /* A Chapter could be part of a Part, hence the extra "> li > ul" */
+
+  /* Sections */
+
+}
 div.book > div.toc > ul > li > a.target-part::after, div.book > div.part > div.toc > ul > li > a.target-part::after {
   content: "";
 }
-div.book > div.toc > ul > li > ul > li.toc-chapter > a.target-chapter::before, div.book > div.part > div.toc > ul > li > ul > li.toc-chapter > a.target-chapter::before {
+div.book > div.toc > ul > li.toc-chapter > a.target-chapter::before,
+div.book > div.part > div.toc > ul > li.toc-chapter > a.target-chapter::before,
+div.book > div.toc > ul > li > ul > li.toc-chapter > a.target-chapter::before,
+div.book > div.part > div.toc > ul > li > ul > li.toc-chapter > a.target-chapter::before {
   content: "Chapter" ": ";
   content: "" target-counter(attr(href), chapter, decimal) "" " ";
 }

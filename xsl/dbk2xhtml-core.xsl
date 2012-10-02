@@ -1736,9 +1736,9 @@ Example:
 
 </xsl:template>
 
-<xsl:template match="db:preface | db:chapter | db:appendix | db:section | db:index" mode="toc">
+<xsl:template match="db:preface | db:chapter | db:appendix | db:section | db:index | db:part" mode="toc">
   <xsl:param name="toc-context" select="."/>
-  <xsl:variable name="nodes" select="db:section"/>
+  <xsl:variable name="nodes" select="db:section | db:chapter"/>
   <li>
     <xsl:attribute name="class">
       <xsl:text>toc-</xsl:text>
