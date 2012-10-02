@@ -319,9 +319,12 @@
     <!-- Print the chapter number (not title) and link back to it -->
     <div class="chapter-area">
       <h2 class="title">
-        <a href="#{$chapterId}" class="chapter-number">
-          <xsl:apply-templates select="." mode="object.xref.markup"/>
-        </a>
+        <xsl:call-template name="simple.xlink">
+          <xsl:with-param name="linkend" select="$chapterId"/>
+          <xsl:with-param name="content">
+            <xsl:apply-templates select="." mode="object.xref.markup"/>
+          </xsl:with-param>
+        </xsl:call-template>
       </h2>
 
       <xsl:for-each select="db:section[.//*[ext:exercise]]">
@@ -331,11 +334,14 @@
         <!-- Print the section title and link back to it -->
         <div class="section-area">
           <h3 class="title">
-            <a href="#{$sectionId}" class="section-number">
-              <xsl:apply-templates select="." mode="object.title.markup">
-                <xsl:with-param name="allow-anchors" select="0"/>
-              </xsl:apply-templates>
-            </a>
+            <xsl:call-template name="simple.xlink">
+              <xsl:with-param name="linkend" select="$sectionId"/>
+              <xsl:with-param name="content">
+                <xsl:apply-templates select="." mode="object.title.markup">
+                  <xsl:with-param name="allow-anchors" select="0"/>
+                </xsl:apply-templates>
+              </xsl:with-param>
+            </xsl:call-template>
           </h3>
           <xsl:apply-templates select=".//ext:exercise/ext:solution">
             <xsl:with-param name="render" select="true()"/>
