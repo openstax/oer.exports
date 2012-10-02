@@ -25,7 +25,7 @@
 <!-- Generate custom HTML for an ext:problem, ext:solution, and ext:commentary.
 	Taken from docbook-xsl/xhtml-1_1/formal.xsl: <xsl:template match="example">
  -->
-<xsl:template match="ext:*" name="ext.element">
+<xsl:template match="ext:exercise|ext:problem|ext:solution|ext:commentary|ext:label" name="ext.element">
 
   <xsl:variable name="id">
     <xsl:call-template name="object.id"/>

@@ -293,23 +293,25 @@
 <!-- ============================================== -->
 <!-- New Feature: Solutions at end of book          -->
 <!-- ============================================== -->
-<!-- TODO: end-of-book solutions code is bitrotting -->
-<!-- when the placeholder element is encountered (since I didn't want to
-      rewrite the match="d:book" template) run a nested for-loop on all
-      chapters (and then sections) that contain a solution to be printed ( *[contains(@class,'problems-exercises') and .//ext:solution] ).
-      Print the "exercise" solution with numbering.
--->
-<xsl:template match="db:index[..//*[.//ext:solution]]">
-  <xsl:call-template name="cnx.log"><xsl:with-param name="msg">Injecting custom solution appendix</xsl:with-param></xsl:call-template>
-
-  <div class="colophon answers">
-    <h1 class="title">
-      <span>
-        <xsl:text>Solutions</xsl:text>
-      </span>
-    </h1>
+<!-- 
+  Solutions get added slightly differently between a PDF (single HTML page)
+  and an EPUB (chunked as a separate file).
+  This template relies on a special:
+  <db:colophon class="end-of-book-solutions">
+    <db:title>Solutions</db:title>
+    <ext:end-of-book-solutions-placeholder/>
+  </db:colophon>
+  which is added in by dbk-clean-whole-remove-duplicate-glossentry.xsl
   
-  <xsl:for-each select="../*[self::db:preface | self::db:chapter | self::db:appendix][.//ext:exercise[.//ext:solution]]">
+  The reasons for this are:
+  - So it is chunked as a separate file (hence the db:colophon)
+  - Has a title that shows up in the EPUB spine/TOC (hence the db:title)
+  - Gets matched (hence the ext:special-element-name)
+-->
+<xsl:template match="ext:end-of-book-solutions-placeholder[../..//*[.//ext:solution]]">
+  <xsl:param name="context" select="/db:book"/>
+
+  <xsl:for-each select="$context/*[self::db:preface | self::db:chapter | self::db:appendix][.//ext:exercise[.//ext:solution]]">
 
     <xsl:variable name="chapterId">
       <xsl:call-template name="object.id"/>
@@ -343,10 +345,6 @@
 
     </div>
   </xsl:for-each>
-  </div>
-  
-  <!-- Apply the colophon template -->
-  <xsl:apply-imports/>
 </xsl:template>
 
 <!-- ============================================== -->
