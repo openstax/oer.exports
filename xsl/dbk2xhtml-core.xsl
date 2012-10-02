@@ -299,48 +299,54 @@
       chapters (and then sections) that contain a solution to be printed ( *[contains(@class,'problems-exercises') and .//ext:solution] ).
       Print the "exercise" solution with numbering.
 -->
-<xsl:template match="ext:cnx-solutions-placeholder[..//*[contains(@class,'problems-exercises') and .//ext:solution]]">
+<xsl:template match="db:index[..//*[.//ext:solution]]">
   <xsl:call-template name="cnx.log"><xsl:with-param name="msg">Injecting custom solution appendix</xsl:with-param></xsl:call-template>
 
-  <div class="cnx-answers">
-  <div class="title">
-    <span>
-      <xsl:text>Answers</xsl:text>
-    </span>
-  </div>
+  <div class="colophon answers">
+    <h1 class="title">
+      <span>
+        <xsl:text>Solutions</xsl:text>
+      </span>
+    </h1>
   
-  <xsl:for-each select="../*[self::db:preface | self::db:chapter | self::db:appendix][.//*[contains(@class,'problems-exercises') and .//ext:solution]]">
+  <xsl:for-each select="../*[self::db:preface | self::db:chapter | self::db:appendix][.//ext:exercise[.//ext:solution]]">
 
     <xsl:variable name="chapterId">
       <xsl:call-template name="object.id"/>
     </xsl:variable>
     <!-- Print the chapter number (not title) and link back to it -->
-    <div class="problem">
-      <a href="#{$chapterId}">
-        <xsl:apply-templates select="." mode="object.xref.markup"/>
-      </a>
-    </div>
-
-    <xsl:for-each select="db:section[.//*[contains(@class,'problems-exercises')]]">
-      <xsl:variable name="sectionId">
-        <xsl:call-template name="object.id"/>
-      </xsl:variable>
-      <!-- Print the section title and link back to it -->
-      <div class="cnx-problems-subtitle">
-        <a href="#{$sectionId}">
-          <xsl:apply-templates select="." mode="object.title.markup">
-            <xsl:with-param name="allow-anchors" select="0"/>
-          </xsl:apply-templates>
+    <div class="chapter-area">
+      <h2 class="title">
+        <a href="#{$chapterId}" class="chapter-number">
+          <xsl:apply-templates select="." mode="object.xref.markup"/>
         </a>
-      </div>
-      <xsl:apply-templates select=".//*[contains(@class,'problems-exercises')]">
-        <xsl:with-param name="render" select="true()"/>
-        <xsl:with-param name="renderSolution" select="true()"/>
-      </xsl:apply-templates>
-    </xsl:for-each>
+      </h2>
 
+      <xsl:for-each select="db:section[.//*[ext:exercise]]">
+        <xsl:variable name="sectionId">
+          <xsl:call-template name="object.id"/>
+        </xsl:variable>
+        <!-- Print the section title and link back to it -->
+        <div class="section-area">
+          <h3 class="title">
+            <a href="#{$sectionId}" class="section-number">
+              <xsl:apply-templates select="." mode="object.title.markup">
+                <xsl:with-param name="allow-anchors" select="0"/>
+              </xsl:apply-templates>
+            </a>
+          </h3>
+          <xsl:apply-templates select=".//ext:exercise/ext:solution">
+            <xsl:with-param name="render" select="true()"/>
+          </xsl:apply-templates>
+        </div>
+      </xsl:for-each>
+
+    </div>
   </xsl:for-each>
   </div>
+  
+  <!-- Apply the colophon template -->
+  <xsl:apply-imports/>
 </xsl:template>
 
 <!-- ============================================== -->
