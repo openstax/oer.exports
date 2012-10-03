@@ -316,8 +316,8 @@
     <xsl:variable name="chapterId">
       <xsl:call-template name="object.id"/>
     </xsl:variable>
-    <!-- Print the chapter number (not title) and link back to it -->
-    <div class="chapter-area">
+    <!-- Print the chapter number (not title) and link back to it  use class "chapter-area" or "preface-area" so we know how to label the Solution in the CSS -->
+    <div class="{local-name()}-area">
       <h2 class="title">
         <xsl:call-template name="simple.xlink">
           <xsl:with-param name="linkend" select="$chapterId"/>
@@ -327,7 +327,12 @@
         </xsl:call-template>
       </h2>
 
-      <xsl:for-each select="db:section[.//*[ext:exercise]]">
+      <!-- If the exercises are not in a section that put them up here -->
+      <xsl:apply-templates select=".//ext:exercise[not(ancestor::db:section)]/ext:solution">
+        <xsl:with-param name="render" select="true()"/>
+      </xsl:apply-templates>
+
+      <xsl:for-each select="db:section[.//ext:exercise]">
         <xsl:variable name="sectionId">
           <xsl:call-template name="object.id"/>
         </xsl:variable>
