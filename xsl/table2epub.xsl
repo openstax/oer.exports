@@ -26,7 +26,10 @@
   </xsl:template> 
 
   <xsl:template match="db:table/@class">
-    <xsl:copy/>
+    <xsl:attribute name="class">
+      <xsl:text>table </xsl:text>
+      <xsl:value-of select="."/>
+    </xsl:attribute>
   </xsl:template>
   
   <xsl:template match="db:table">

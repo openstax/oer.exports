@@ -4,4 +4,4 @@ That way you have a control group (what the files looked like before making chan
 Then, make some changes and re-run the tests on each (checking what the report HTML file looks like to see diffs)
 
 
-Also, be sure to check out https://github.com/philschatz/oer.epubcss into the current directory (so oer is in this dir).
+Also, be sure to check out https://github.com/philschatz/oer.epubcss into this directory and make sure you have phantomJS installed and 'phantomjs -v' should work.

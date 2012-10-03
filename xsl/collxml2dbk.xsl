@@ -68,14 +68,7 @@
 
 <!-- Free-floating Modules in a col:collection should be treated as Chapters -->
 <xsl:template match="col:collection/col:content/col:subcollection/col:module"> 
-<db:chapter>
-		<xsl:apply-templates select="@*|node()"/>
-		<xsl:call-template name="cnx.xinclude.module"/>
-	</db:chapter>
-</xsl:template>
-
-  <xsl:template match="col:collection/col:content/col:subcollection[not(col:content/col:subcollection)]">
-	<db:chapter>
+  <db:chapter>
 		<xsl:apply-templates select="@*|node()"/>
 		<xsl:call-template name="cnx.xinclude.module"/>
 	</db:chapter>
@@ -88,9 +81,21 @@
   </db:chapter>
 </xsl:template>
 
+<xsl:template match="col:collection/col:content/col:subcollection[not(col:content/col:subcollection)]">
+	<db:chapter>
+		<xsl:apply-templates select="@*|node()"/>
+	</db:chapter>
+</xsl:template>  
+
+<xsl:template match="col:collection/col:content/col:subcollection/col:content/col:subcollection" priority="10">
+  <db:chapter>
+    <xsl:apply-templates select="@*|node()"/>
+  </db:chapter>
+</xsl:template>
+
 <xsl:template match="col:collection/col:content[not(col:subcollection)]/col:module">
   <db:chapter>
-      <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates select="@*|node()"/>
 		<xsl:call-template name="cnx.xinclude.module"/>
   </db:chapter>
 </xsl:template>
