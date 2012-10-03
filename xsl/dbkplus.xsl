@@ -94,7 +94,7 @@
 	<xsl:apply-templates select="." mode="cnx.template"/>
 	<xsl:variable name="exerciseId" select="parent::ext:exercise/@xml:id"/>
 	<xsl:if test="$exerciseId!=''">
-	  <span class="return-pretext">
+	  <span class="epub-only pre-text">
 		<xsl:text> </xsl:text>
                 <!-- TODO: gentext for "(" -->
 		<xsl:text>(</xsl:text>
@@ -120,7 +120,7 @@
                         </xsl:choose>
 		    </xsl:with-param>
 		  </xsl:call-template>
-		<span class="return-posttext">
+		<span class="epub-only post-text">
                 <!-- TODO: gentext for ")" -->
   		<xsl:text>)</xsl:text>
 		</span>
