@@ -107,7 +107,7 @@ div.part > div.titlepage:first-child{display:none;}
  * Chapter Outline
  ******************************************************/
 .chapter .toc{
-  border: 1px solid @green;
+  border: 2pt solid @green;
    
   > .title{
     content: "Chapter Outline";
@@ -147,11 +147,13 @@ div.section .titlepage .abstract{
   display: block !important;
   margin: 1em 0em;
   padding: .5em;
-  background-color: @light-green;
+  border: 2pt solid @green;
   text-align: left !important;
+  text-replace: "Summary" ""; //strips Summary text from appearing
   page-break-inside:avoid !important;
-  column-break-inside:avoid!important;
-      >.itemizedlist{margin-left: -.65em;
+  column-break-inside:avoid !important;
+    >.itemizedlist{
+      margin-left: -.65em;
       .listitem{margin:.5em 0em;}
     }
 }
@@ -366,7 +368,7 @@ p{
 }
 
 .footnote{
-  margin: 2em;
+  margin: 1em;
   font-style: italic;
   color: black !important;	
 }
@@ -391,6 +393,7 @@ p{
 }
 
 .section > .title{ page-break-after:avoid; }
+
   
 /******************************************************
  * Tables TODO: simplify/regroup code block
@@ -422,7 +425,7 @@ p{
 
 /* these are overides for tables should be tidied up, tested further  */
 
- div.table-caption.caption{
+div.table-caption.caption{
   margin-top: 1em;
   string-set: caption-top content();
   display:none;
@@ -466,7 +469,6 @@ div.table{
 
   > .caption{
     display: inline;
-    font-weight: bold;
     font-size: small;
     text-align:center;
   }
