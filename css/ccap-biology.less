@@ -104,14 +104,13 @@ div.part > div.titlepage:first-child{display:none;}
 
 
 /******************************************************
- * Chapter Sections Introduction Table
+ * Chapter Outline
  ******************************************************/
 .chapter .toc{
-  border: thick solid @green;
-  background-color: @cream;
-  
+  border: 2pt solid @green;
+   
   > .title{
-    content: "Chapter Sections";
+    content: "Chapter Outline";
     background-color: @green;
     color: white;
     font-weight: bold;
@@ -122,7 +121,7 @@ div.part > div.titlepage:first-child{display:none;}
   
   .toc-section{
     margin:.5em;	
-    padding:0em 1em;
+    padding: 0 1.5em; 
     text-indent: -3.25em; //this is to force the second line of a section title is indented
     text-align: left;
     .abstract{display:none;}
@@ -140,21 +139,6 @@ div.part > div.titlepage:first-child{display:none;}
   }   
 }
 
-/******************************************************
- * Section Level Learning Objectives
- ******************************************************/
-div.section .titlepage .abstract{
-  display: block !important;
-  margin: 1em 0em;
-  padding: .5em;
-  background-color: @light-green;
-  text-align: left !important;
-  page-break-inside:avoid;
-  column-break-inside:avoid;
-    >.itemizedlist{margin-left: -.65em;
-      .listitem{margin:.5em 0em;}
-    }
-}
 
 /******************************************************
  * Section Level Learning Objectives
@@ -163,13 +147,15 @@ div.section .titlepage .abstract{
   display: block !important;
   margin: 1em 0em;
   padding: .5em;
-  background-color: @light-green;
+  border: 2pt solid @green;
   text-align: left !important;
-  page-break-inside:avoid;
-  column-break-inside:avoid;
-    >.itemizedlist{margin-left: -.65em;
+  page-break-inside:avoid !important;
+  column-break-inside:avoid !important;
+    >.itemizedlist{
+      margin-left: -.65em;
       .listitem{margin:.5em 0em;}
     }
+    >.title{ display:none; } /*remove "summary"*/
 }
 
 
@@ -382,7 +368,7 @@ p{
 }
 
 .footnote{
-  margin: 2em;
+  margin: 1em;
   font-style: italic;
   color: black !important;	
 }
@@ -408,7 +394,7 @@ p{
 
 .section > .title{ page-break-after:avoid; }
 
-
+  
 /******************************************************
  * Tables TODO: simplify/regroup code block
  ******************************************************/
@@ -483,7 +469,6 @@ div.table{
 
   > .caption{
     display: inline;
-    font-weight: bold;
     font-size: small;
     text-align:center;
   }
@@ -508,7 +493,11 @@ div.table{
   }
 }
 
-.note > .title{ border-bottom: 0px; }
+.target-figure{
+  font-weight:bold;
+  color: @tuscany;    	
+}
+
 
 /******************************************************
  * End of Chapter Solutions Development in Progress
