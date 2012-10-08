@@ -225,22 +225,45 @@ div.section .titlepage .abstract{
  *Elements that are special features but styled
  ******************************************************/
 .interactive{ 
-  background-image: url("ccap-biology/CNX_BioMaj_Link.svg");
+  
+  &:before{	
+    background-image: url("ccap-biology/CNX_BioMaj_Link.svg");
+    padding-top: .75in; //0.75 + margin-top. 0.75in is from the SVG files
+    padding-bottom: .50in;
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-position: top outside;
+    page-break-inside: avoid;
+    page-break-after: avoid;	
+  	background-color: white;
+    content: "";
+    display: block;
+    // the following are tweaked so the overlays really do over lay
+    margin-left: -.15in;
     
+ 
+  }
+  
   img{
     float:right;
     // the following are tweaked so the overlays really do over lay						      
     width: @qr;
     height: @qr;
-    margin-bottom:5em;
+    display: inherit;
+    margin-top: -1.15in;
+    margin-left: -.50in !important;
   }  
-
+  
   a{
     color:@tuscany;
     font-weight: bold;
-  }	
-  * p{ color:red; padding-top:2em;}		  
-}	
+    &:before{ content: "" !important;}
+    }	
+  	  
+   * p{ margin-left: -.15in; }		
+
+}
+
 
 
 /******************************************************
