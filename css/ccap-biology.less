@@ -10,6 +10,15 @@
 @gray: #cccccc;
 @blue: blue;
 @column: 3.5in;
+/******************************************************
+Finished printed size of the QR code is dependent on:
+-distance between qr code and scanning device
+-size of dots in the code(amount of data inputed into the code, the smaller the dots become)
+
+For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
+ QR code printed in a magazine/book will have a nominal effective scan distance of about 250mm (10 inches),
+ ******************************************************/
+@qr: 1in; 
 
 @import url('ccap-base.less');
 @import url('ccap-numbering.less');
@@ -216,33 +225,45 @@ div.section .titlepage .abstract{
  *Elements that are special features but styled
  ******************************************************/
 .interactive{ 
-   
-  .x-feature(black, none, CNX_BioMaj_Link); 
-   
-  &:before{
+  
+  &:before{	
+    background-image: url("ccap-biology/CNX_BioMaj_Link.svg");
+    padding-top: .75in; //0.75 + margin-top. 0.75in is from the SVG files
+    padding-bottom: .50in;
     background-repeat: no-repeat;
     background-position: top left;
     background-position: top outside;
     page-break-inside: avoid;
     page-break-after: avoid;	
-    background-color: white;
-    //content: "";
-    display:block;
-    padding-bottom:.15in;    
- }  
-      
+  	background-color: white;
+    content: "";
+    display: block;
+    // the following are tweaked so the overlays really do over lay
+    margin-left: -.15in;
+    
+ 
+  }
+  
   img{
     float:right;
     // the following are tweaked so the overlays really do over lay						      
-    margin-left: -.75em;
-    margin-right: -1.05em;
-    }  
-
-  a{
+    width: @qr;
+    height: @qr;
+    display: inherit;
+    margin-top: -1.15in;
+    margin-left: -.50in !important;
+  }  
+  
+  a[href^="http"] {
+    content: content() !important; /*set in base.less override it here*/
     color:@tuscany;
     font-weight: bold;
-  }			  
-}	
+   }	
+  	  
+   * p{ margin-left: -.15in; }		
+
+}
+
 
 
 /******************************************************

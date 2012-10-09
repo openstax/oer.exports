@@ -1,6 +1,14 @@
 @import url('ccap-css3.css');
 /* Styles used when generating a PDF from xhtml+css
  ***************************************************/
+/******************************************************
+Finished printed size of the QR code is dependent on:
+-distance between qr code and scanning device
+-size of dots in the code(amount of data inputed into the code, the smaller the dots become)
+
+For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
+ QR code printed in a magazine/book will have a nominal effective scan distance of about 250mm (10 inches),
+ ******************************************************/
 /***************************************************
  * Styles used when generating a PDF from xhtml+css
  ***************************************************/
@@ -1798,22 +1806,10 @@ div.section .titlepage .abstract > .title {
 /******************************************************
  *Elements that are special features but styled
  ******************************************************/
-.interactive {
-  /*set smaller than single column width to include margin/padding of feature element*/
-  background-color: none;
-}
-.interactive img {
-  max-width: 3.35in;
-}
-.interactive * p {
-  font-family: inherit;
-}
-.interactive.span-all .body {
-  columns: 2;
-  column-gap: 2.5em;
-}
 .interactive:before {
-  padding-top: 0.65in;
+  background-image: url("ccap-biology/CNX_BioMaj_Link.svg");
+  padding-top: .75in;
+  padding-bottom: .50in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
@@ -1822,40 +1818,25 @@ div.section .titlepage .abstract > .title {
   background-color: white;
   content: "";
   display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.03in;
-}
-.interactive .title {
-  text-align: left !important;
-  font-size: large;
-  margin: .25em 0;
-  max-width: 3.5in;
-  color: black;
-  font-weight: bold;
-}
-.interactive:before {
-  background-image: url("ccap-biology/CNX_BioMaj_Link.svg");
-  column-span: 1 !important;
-}
-.interactive:before {
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
-  display: block;
-  padding-bottom: .15in;
+  margin-left: -0.15in;
 }
 .interactive img {
   float: right;
-  margin-left: -0.75em;
-  margin-right: -1.05em;
+  width: 1in;
+  height: 1in;
+  display: inherit;
+  margin-top: -1.15in;
+  margin-left: -0.5in !important;
 }
-.interactive a {
+.interactive a[href^="http"] {
+  content: content() !important;
+  /*set in base.less override it here*/
+
   color: #cc6633;
   font-weight: bold;
+}
+.interactive * p {
+  margin-left: -0.15in;
 }
 /******************************************************
  * End of chapter customizations
