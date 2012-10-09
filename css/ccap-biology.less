@@ -10,6 +10,7 @@
 @gray: #cccccc;
 @blue: blue;
 @column: 3.5in;
+@table-column: 3in;
 
 @import url('ccap-base.less');
 @import url('ccap-numbering.less');
@@ -398,10 +399,12 @@ p{
  * Tables TODO: simplify/regroup code block
  ******************************************************/
 .table{ 
-  
-  table{
-    margin: 1em;
-    border-style:none !important;
+  max-width: @column !important;
+  &.span-all{ 
+    table{
+      margin: 1em;
+      border-style:none !important;
+    }
   }
 
   caption{
@@ -409,28 +412,32 @@ p{
     padding-bottom: 1em;    
     font-weight:bold;
     color: @green;
-    &:after{ 
-      content: " " string(caption-top); 
-      color: black;
-      font-weight: normal;  
-    }
+    caption-side:bottom;
+    
   }
 
   th{
-    color: @green;
+    color: black;
     background-color: @cream;
     font-size: medium;
     border-style: none !important;
     border-top:1pt solid @green !important;
     border-bottom:1pt solid @green !important;
+    text-align: center !important;
+  }
+  
+  tr:first-child > th:first-child { 
+    padding: .25em !important;
+    color: @green !important;
+    font-size:large;
+    margin-left: -1em;
+    text-align: left !important;
+    border-style: none !important; 
+    background-color: transparent !important;
   }
 }
 
-div.table-caption.caption{
-  margin-top: 1em;
-  string-set: caption-top content();
-  display:none;
-}
+
 
 
 /******************************************************
