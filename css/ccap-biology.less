@@ -20,6 +20,7 @@ For most smartphones the relationship between scan distance and minimum QR code 
  ******************************************************/
 @qr: 1in; 
 
+
 @import url('ccap-base.less');
 @import url('ccap-numbering.less');
 
@@ -307,13 +308,16 @@ img{
    max-width: 7.5in !important;
  }
 
-img{ 
-  max-width: @column;//sets the image with for single column
-  max-height:9.5in;
+* .caption, * .title{
+  column-break-before: avoid;
+  page-break-before: avoid;	
 } 
 
 .chapter h1.title{
-  column-span: all !important; 
+  column-span: all !important;
+  /*reset left only*/ 
+  margin-left:0 !important;
+  padding-left: 0 !important;
   font-size: 4em; /* x-large; */
   font-weight: bold;
   text-align: left !important;
@@ -391,7 +395,7 @@ p{
 }
 
 .footnote{
-  margin: 1em;
+  margin: .25em;
   font-style: italic;
   color: black !important;	
 }
@@ -422,61 +426,55 @@ p{
  * Tables TODO: simplify/regroup code block
  ******************************************************/
 .table{ 
-  
-  table{
-    background-color: @light-green;      
-    margin: 0;
-    border-style:none !important;
+ 
+  &.span-all{ 
+    table{
+    /*reset metrics*/
+      margin: 0;
+      padding:0;
+      border-style:none !important;
+    }
   }
 
   caption{
     padding-top: .5em;
-    caption-side:bottom;
+    padding-bottom: 1em;    
     font-weight:bold;
-    color: black;
-    border-top: 8px solid @green;
+    color: @green;
+    caption-side:bottom;
+    
   }
 
   th{
-    background-color: black;
-    color:white;
-    font-size: medium;
+    color: black;
+    background-color: @cream;
+    font-size: small;
+    border-style: none !important;
+    border-top:1pt solid @green !important;
+    border-bottom:1pt solid @green !important;
+    text-align: center !important;
   }
- 
-  .table caption{caption-side: bottom;}
+  
+  tr:first-child > th:first-child { 
+    padding: .25em !important;
+    color: @green !important;
+    font-size:medium;
+    margin-left: -1em;
+    text-align: left !important;
+    border-style: none !important; 
+    background-color: transparent !important;
+  }
 }
 
-/* these are overides for tables should be tidied up, tested further  */
 
-div.table-caption.caption{
-  margin-top: 1em;
-  string-set: caption-top content();
-  display:none;
-}
-
-div.table{
-  margin: 0;
-  padding:0;
-   
-   &:before{
-     content:string(caption-top);
-     color:@green;
-     font-weight:bold;
-     display:inline-block;
-     margin-top: 1em;
-     margin-right:-.65em;
-     padding: .25em;
-     text-align: left !important; 
-     font-size: large;
-   }
-}
 
 
 /******************************************************
  * Figures/Subfigures
  ******************************************************/
 .figure{
-
+  font-size: 9pt;
+  
   &.span-all{
     column-span: all !important;
     > .caption{ text-align:center;}
@@ -486,13 +484,11 @@ div.table{
     display: inline;
     color: @tuscany;
     font-weight: bold;
-    font-size: small;
     text-align:center;
   }
 
   > .caption{
     display: inline;
-    font-size: small;
     text-align:center;
   }
   
@@ -506,8 +502,7 @@ div.table{
     > .title{
       display: inline;
       font-weight: bold;
-      font-size: small;
-    }
+      }
 
     > .label{
       display: inline;

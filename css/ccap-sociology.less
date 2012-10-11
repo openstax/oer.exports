@@ -266,4 +266,26 @@ h2 {
     }
   }
 }
+
+/**************************************
+ * All end-of-book solutions in a chapter
+ * are a single character so they should be inline
+ **************************************/
+div.colophon.end-of-book-solutions {
+
+  div.preface-area,
+  div.chapter-area,
+  div.appendix-area {
+    
+    > div.section-area { display: inline; }
+    div.solution {
+      display: inline;
+      &::after { padding-right: 0.5em; content: " "; } // Insert a space between every solution
+      > div.title,
+      > div.body,
+      > div.body > p {
+	  display: inline;
+      }
+    }
+  }
 }

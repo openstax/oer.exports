@@ -74,7 +74,7 @@ xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/"
 	</xsl:call-template>
 </xsl:template>
 <xsl:template name="cnx.mime-type" match="c:image/@mime-type">
-	<xsl:param name="mime-type" select="@mime-type"/>
+	<xsl:param name="mime-type" select="."/>
 	<xsl:attribute name="mime-type">
 		<xsl:choose>
 			<xsl:when test="$mime-type='image/jpg'">image/jpeg</xsl:when>
