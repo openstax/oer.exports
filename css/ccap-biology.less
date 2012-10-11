@@ -399,7 +399,18 @@ p{
  * Tables TODO: simplify/regroup code block
  ******************************************************/
 .table{ 
- 
+  
+  table{ border-style: none !important; }
+    
+  tbody, th{
+    margin: 0;
+    padding: 0;
+    display: block;
+    table-layout: fixed;
+    max-width: @column;
+  }    
+   
+  
   &.span-all{ 
     table{
     /*reset metrics*/
@@ -407,15 +418,6 @@ p{
       padding:0;
       border-style:none !important;
     }
-  }
-
-  caption{
-    padding-top: .5em;
-    padding-bottom: 1em;    
-    font-weight:bold;
-    color: @green;
-    caption-side:bottom;
-    
   }
 
   th{
@@ -426,6 +428,7 @@ p{
     border-top:1pt solid @green !important;
     border-bottom:1pt solid @green !important;
     text-align: center !important;
+    display: block;
   }
   
   tr:first-child > th:first-child { 
@@ -438,8 +441,6 @@ p{
     background-color: transparent !important;
   }
 }
-
-
 
 
 /******************************************************
