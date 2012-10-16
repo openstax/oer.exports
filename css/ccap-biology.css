@@ -1628,8 +1628,6 @@ div.section .titlepage .abstract {
   text-align: left !important;
   page-break-inside: avoid !important;
   column-break-inside: avoid !important;
-  /*remove "summary"*/
-
 }
 div.section .titlepage .abstract > .itemizedlist {
   margin-left: -0.65em;
@@ -1842,22 +1840,49 @@ div.section .titlepage .abstract > .title {
  * End of chapter customizations
  ******************************************************/
 .cnx-eoc > .title {
-  display: none;
+  margin-top: 2em;
 }
-.cnx-eoc a {
-  font-size: x-large !important;
-  color: #336633 !important;
+.cnx-eoc.summary > .title {
+  content: "Chapter Summary";
+  text-transform: uppercase;
+  color: #336633;
+  font-size: large;
+  font-weight: bold;
 }
-.cnx-eoc .cnx-gentext-t {
-  color: black;
-  content: "| " content();
-  color: #336633 !important;
+.cnx-eoc.summary > .section .title a {
+  color: #ff0000 !important;
+}
+.cnx-eoc.summary p {
+  margin-top: 1em;
 }
 .cnx-eoc .references p {
   text-indent: 0em;
 }
 .cnx-eoc .problem .orderedlist {
   margin-left: 4em;
+}
+.cnx-eoc.solutions {
+  display: none !important;
+}
+/******************************************************
+ * section below should be rewritten in .less
+   nesting class and grouping selectors properly
+   --below is quick/clean css
+ ******************************************************/
+.multiple-choice > .title, .free-response > .title {
+  text-transform: uppercase;
+  color: #336633;
+  font-size: large;
+  font-weight: bold;
+}
+.multiple-choice > .title {
+  content: "Review Questions";
+}
+.free-response > .title {
+  content: "Critical Thinking Questions";
+}
+.multiple-choice > .section > .title > a, .free-response > .section > .title > a {
+  display: none;
 }
 /******************************************************
  * Generic Elements
@@ -1965,8 +1990,6 @@ p {
   display: inline;
 }
 .glossary .title {
-  /* Change "Glossary" to "Key Terms" */
-
   content: "Key Terms";
   color: #336633;
   font-size: large !important;

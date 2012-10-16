@@ -273,24 +273,41 @@ div.section .titlepage .abstract{
  * End of chapter customizations
  ******************************************************/
 .cnx-eoc{
-  > .title{ display: none; }
-  
-  // ccap-base sets this so override it here
-  a{
-    font-size: x-large !important;
-    color: @green !important;
+  > .title { margin-top: 2em; }
+  &.summary{ 
+    > .title{ 
+      content: "Chapter Summary"; 
+      text-transform: uppercase;
+      color: @green;
+      font-size: large;
+      font-weight: bold;
+    }
+    > .section .title a{ color:red !important } //left red intentionally 
+    p{ margin-top:1em; }
   }
-	
-  .cnx-gentext-t{
-    color: black;   //EOC | needs to be separated to style separately
-    content: "| " content();    
-    color:@green !important;
-  }  
+  
+  //ccap-base sets this so override it here
   .references p{ text-indent: 0em; }
   
   .problem .orderedlist{ margin-left: 4em;}
+  
+  &.solutions { display:none !important; }
+}
+/******************************************************
+ * section below should be rewritten in .less
+   nesting class and grouping selectors properly
+   --below is quick/clean css
+ ******************************************************/
+.multiple-choice > .title, .free-response > .title{
+  text-transform: uppercase;
+  color: @green;
+  font-size: large;
+  font-weight: bold;
 }
 
+.multiple-choice > .title{ content: "Review Questions"; }
+.free-response > .title{ content: "Critical Thinking Questions"; }
+.multiple-choice > .section > .title > a, .free-response > .section > .title > a { display: none; }
 
 /******************************************************
  * Generic Elements
@@ -401,12 +418,12 @@ p{
 }
 
 .glossary{
-  // End-of-chapter material should start on a new page 
+   //End-of-chapter material should start on a new page 
   page-break-before: always;
   display:inline;
 
   .title{
-    /* Change "Glossary" to "Key Terms" */
+    //Change "Glossary" to "Key Terms" 
     content: "Key Terms";
     color: @green;
     font-size: large !important;
@@ -415,9 +432,9 @@ p{
     text-transform:uppercase;
   }  
 
-  // Remove ":"  
+  //Remove ":"  
   dt::after{ content: " " !important; }
-}
+} 
 
 .section > .title{ page-break-after:avoid; }
 
