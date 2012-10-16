@@ -277,21 +277,27 @@ div.section .titlepage .abstract {
 /******************************************************
  * End of chapter customizations
  ******************************************************/
-.cnx-eoc {
-  > .title { display: none; }
-  
-  // ccap-base sets this so override it here
-  a {
-    font-size: x-large !important;
-    color: @green !important;
+
+ 
+ 
+ .cnx-eoc{
+   
+  &.summary{ 
+    > .title{ 
+      content: "Chapter Summary"; 
+      text-transform: uppercase;
+      color: @green;
+      font-size: large;
+      font-weight: bold;
+    }
+   > .section > .title > a{
+      color:red !important
+   }
+   p{ margin-top:1em; }
   }
-	
-  .cnx-gentext-t {
-    color: black;   //EOC | needs to be separated to style separately
-    content: "| " content();    
-    color:@green !important;
-  }  
-  .references p { text-indent: 0em; }
+  //ccap-base sets this so override it here
+ 
+  .references p{ text-indent: 0em; }
   
   .problem .orderedlist { margin-left: 4em;}
   
@@ -435,7 +441,6 @@ p {
 img, figure, subfigure  { margin: .5em; }
 
 
->>>>>>> bugfixes
 /******************************************************
  * Tables TODO: simplify/regroup code block //latest
  ******************************************************/
