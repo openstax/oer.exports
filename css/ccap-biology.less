@@ -248,11 +248,8 @@ div.section .titlepage .abstract{
 /******************************************************
  * End of chapter customizations
  ******************************************************/
-
- 
- 
- .cnx-eoc{
-   
+.cnx-eoc{
+  > .title { margin-top: 2em; }
   &.summary{ 
     > .title{ 
       content: "Chapter Summary"; 
@@ -261,18 +258,28 @@ div.section .titlepage .abstract{
       font-size: large;
       font-weight: bold;
     }
-   > .section > .title > a{
+   > .section .title a{
       color:red !important
    }
    p{ margin-top:1em; }
   }
+  
   //ccap-base sets this so override it here
- 
   .references p{ text-indent: 0em; }
   
   .problem .orderedlist{ margin-left: 4em;}
 }
 
+.multiple-choice > .title, .free-response > .title{
+  text-transform: uppercase;
+  color: @green;
+  font-size: large;
+  font-weight: bold;
+}
+
+.multiple-choice > .title{ content: "Review Questions"; }
+.free-response > .title{ content: "Critical Thinking Questions"; }
+.multiple-choice > .section > .title > a, .free-response > .section > .title > a { display: none; }
 
 /******************************************************
  * Generic Elements
