@@ -1606,8 +1606,6 @@ div.section .titlepage .abstract {
   text-align: left !important;
   page-break-inside: avoid !important;
   column-break-inside: avoid !important;
-  /*remove "summary"*/
-
 }
 div.section .titlepage .abstract > .itemizedlist {
   margin-left: -0.65em;
@@ -1958,46 +1956,37 @@ p {
 /******************************************************
  * Tables TODO: simplify/regroup code block
  ******************************************************/
-.table table {
-  background-color: #ccffcc;
+.table.span-all table {
+  /*reset metrics*/
+
   margin: 0;
+  padding: 0;
   border-style: none !important;
 }
 .table caption {
   padding-top: .5em;
-  caption-side: bottom;
+  padding-bottom: 1em;
   font-weight: bold;
-  color: black;
-  border-top: 8px solid #336633;
+  color: #336633;
+  caption-side: bottom;
 }
 .table th {
-  background-color: black;
-  color: white;
+  color: black;
+  background-color: #ffffcc;
+  font-size: small;
+  border-style: none !important;
+  border-top: 1pt solid #336633 !important;
+  border-bottom: 1pt solid #336633 !important;
+  text-align: center !important;
+}
+.table tr:first-child > th:first-child {
+  padding: .25em !important;
+  color: #336633 !important;
   font-size: medium;
-}
-.table .table caption {
-  caption-side: bottom;
-}
-/* these are overides for tables should be tidied up, tested further  */
-div.table-caption.caption {
-  margin-top: 1em;
-  string-set: caption-top content();
-  display: none;
-}
-div.table {
-  margin: 0;
-  padding: 0;
-}
-div.table:before {
-  content: string(caption-top);
-  color: #336633;
-  font-weight: bold;
-  display: inline-block;
-  margin-top: 1em;
-  margin-right: -0.65em;
-  padding: .25em;
+  margin-left: -1em;
   text-align: left !important;
-  font-size: large;
+  border-style: none !important;
+  background-color: transparent !important;
 }
 /******************************************************
  * Figures/Subfigures
