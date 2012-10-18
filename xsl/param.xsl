@@ -4,6 +4,9 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	version="1.0">
 
+<!-- This dir is "." for PDFs but "content" for EPUBs --> 
+<xsl:param name="base.dir" select="''"/>
+
 <!-- Sprinkle in useful debugging information to the content (like module id in titles) -->
 <xsl:param name="cnx.debug" select="0"/>
 

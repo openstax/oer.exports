@@ -293,54 +293,69 @@
 <!-- ============================================== -->
 <!-- New Feature: Solutions at end of book          -->
 <!-- ============================================== -->
-<!-- TODO: end-of-book solutions code is bitrotting -->
-<!-- when the placeholder element is encountered (since I didn't want to
-      rewrite the match="d:book" template) run a nested for-loop on all
-      chapters (and then sections) that contain a solution to be printed ( *[contains(@class,'problems-exercises') and .//ext:solution] ).
-      Print the "exercise" solution with numbering.
--->
-<xsl:template match="ext:cnx-solutions-placeholder[..//*[contains(@class,'problems-exercises') and .//ext:solution]]">
-  <xsl:call-template name="cnx.log"><xsl:with-param name="msg">Injecting custom solution appendix</xsl:with-param></xsl:call-template>
-
-  <div class="cnx-answers">
-  <div class="title">
-    <span>
-      <xsl:text>Answers</xsl:text>
-    </span>
-  </div>
+<!-- 
+  Solutions get added slightly differently between a PDF (single HTML page)
+  and an EPUB (chunked as a separate file).
+  This template relies on a special:
+  <db:colophon class="end-of-book-solutions">
+    <db:title>Solutions</db:title>
+    <ext:end-of-book-solutions-placeholder/>
+  </db:colophon>
+  which is added in by dbk-clean-whole-remove-duplicate-glossentry.xsl
   
-  <xsl:for-each select="../*[self::db:preface | self::db:chapter | self::db:appendix][.//*[contains(@class,'problems-exercises') and .//ext:solution]]">
+  The reasons for this are:
+  - So it is chunked as a separate file (hence the db:colophon)
+  - Has a title that shows up in the EPUB spine/TOC (hence the db:title)
+  - Gets matched (hence the ext:special-element-name)
+-->
+<xsl:template match="ext:end-of-book-solutions-placeholder[../..//*[.//ext:solution]]">
+  <xsl:param name="context" select="/db:book"/>
+
+  <xsl:for-each select="$context/*[self::db:preface | self::db:chapter | self::db:appendix][.//ext:exercise[.//ext:solution]]">
 
     <xsl:variable name="chapterId">
       <xsl:call-template name="object.id"/>
     </xsl:variable>
-    <!-- Print the chapter number (not title) and link back to it -->
-    <div class="problem">
-      <a href="#{$chapterId}">
-        <xsl:apply-templates select="." mode="object.xref.markup"/>
-      </a>
-    </div>
+    <!-- Print the chapter number (not title) and link back to it  use class "chapter-area" or "preface-area" so we know how to label the Solution in the CSS -->
+    <div class="{local-name()}-area">
+      <h2 class="title">
+        <xsl:call-template name="simple.xlink">
+          <xsl:with-param name="linkend" select="$chapterId"/>
+          <xsl:with-param name="content">
+            <xsl:apply-templates select="." mode="object.xref.markup"/>
+          </xsl:with-param>
+        </xsl:call-template>
+      </h2>
 
-    <xsl:for-each select="db:section[.//*[contains(@class,'problems-exercises')]]">
-      <xsl:variable name="sectionId">
-        <xsl:call-template name="object.id"/>
-      </xsl:variable>
-      <!-- Print the section title and link back to it -->
-      <div class="cnx-problems-subtitle">
-        <a href="#{$sectionId}">
-          <xsl:apply-templates select="." mode="object.title.markup">
-            <xsl:with-param name="allow-anchors" select="0"/>
-          </xsl:apply-templates>
-        </a>
-      </div>
-      <xsl:apply-templates select=".//*[contains(@class,'problems-exercises')]">
+      <!-- If the exercises are not in a section that put them up here -->
+      <xsl:apply-templates select=".//ext:exercise[not(ancestor::db:section)]/ext:solution">
         <xsl:with-param name="render" select="true()"/>
-        <xsl:with-param name="renderSolution" select="true()"/>
       </xsl:apply-templates>
-    </xsl:for-each>
 
+      <xsl:for-each select="db:section[.//ext:exercise]">
+        <xsl:variable name="sectionId">
+          <xsl:call-template name="object.id"/>
+        </xsl:variable>
+        <!-- Print the section title and link back to it -->
+        <div class="section-area">
+          <h3 class="title">
+            <xsl:call-template name="simple.xlink">
+              <xsl:with-param name="linkend" select="$sectionId"/>
+              <xsl:with-param name="content">
+                <xsl:apply-templates select="." mode="object.title.markup">
+                  <xsl:with-param name="allow-anchors" select="0"/>
+                </xsl:apply-templates>
+              </xsl:with-param>
+            </xsl:call-template>
+          </h3>
+          <xsl:apply-templates select=".//ext:exercise/ext:solution">
+            <xsl:with-param name="render" select="true()"/>
+          </xsl:apply-templates>
+        </div>
+      </xsl:for-each>
+
+    </div>
   </xsl:for-each>
-  </div>
 </xsl:template>
 
 <!-- ============================================== -->

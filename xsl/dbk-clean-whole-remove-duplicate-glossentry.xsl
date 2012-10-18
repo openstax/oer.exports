@@ -48,6 +48,8 @@
 <xsl:template match="db:book[not(@ext:element='module')]">
     <xsl:copy>
         <xsl:apply-templates select="@*|node()"/>
+        <!-- This placeholder is added so solutions can later be populated by dbk2xhtml-core.xsl (with an explanation for each of the elements) -->
+        <db:colophon class="end-of-book-solutions"><db:title>Solutions</db:title><ext:end-of-book-solutions-placeholder/></db:colophon>
         <db:index/>
         <db:colophon>
             <xsl:attribute name="xml:id">
