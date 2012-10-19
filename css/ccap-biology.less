@@ -180,24 +180,25 @@ div.section .titlepage .abstract {
 /******************************************************
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
-.evolution  { .x-feature(black, @cream, CNX_BioMaj_Evolution); }
+.evolution { .x-feature(black, @cream, CNX_BioMaj_Evolution); }
 .scientific { .x-feature(black, @cream, CNX_BioMaj_Scienctific); }
-.everyday   { .x-feature(black, @cream, CNX_BioMaj_Everyday); }
-.career    { .x-feature(black, @cream, CNX_BioMaj_Career); }
+.everyday { .x-feature(black, @cream, CNX_BioMaj_Everyday); }
+.career { .x-feature(black, @cream, CNX_BioMaj_Career); }
 
 .x-feature (@color, @bg-color, @svg) {
+  background-color: @bg-color;	
   /*set smaller than single column width to include margin/padding of feature element*/	
   img { max-width:3.35in; }
  
-  * p {font-family:inherit;}	
-  
-  background-color: @bg-color;
+  * p { font-family:inherit; }	
+   
   &.span-all {
     .body {
       columns:2;
       column-gap: 2.5em;
      }
-  }  
+  } 
+   
   &::before {
     padding-top: 0.65in; //0.75 + margin-top. 0.75in is from the SVG files
     background-repeat: no-repeat;
@@ -222,11 +223,13 @@ div.section .titlepage .abstract {
     color: black;
     font-weight:bold;
   }
- 
+  
+  .figure > .title { font-size: small; }
+     
   &::before {
-    background-image: url("ccap-biology/@ {svg}.svg");
+    background-image: url("ccap-biology/@{svg}.svg");
     column-span: 1 !important;
-  } 
+  }    
 }
 
 
