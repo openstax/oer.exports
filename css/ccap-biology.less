@@ -179,24 +179,24 @@ div.section .titlepage .abstract {
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
 .evolution { .x-feature(black, @cream, CNX_BioMaj_Evolution); }
-.scientific { .x-feature(black, @cream, CNX_BioMaj_Scienctific); }
-.everyday { .x-feature(black, @cream, CNX_BioMaj_Everyday); }
-.career { .x-feature(black, @cream, CNX_BioMaj_Career); }
+.scientific{ .x-feature(black, @cream, CNX_BioMaj_Scienctific); }
+.everyday  { .x-feature(black, @cream, CNX_BioMaj_Everyday); }
+.career   { .x-feature(black, @cream, CNX_BioMaj_Career); }
 
-.x-feature (@color, @bg-color, @svg) {
+.x-feature (@color, @bg-color, @svg){
   /*set smaller than single column width to include margin/padding of feature element*/	
-  img { max-width:3.35in; }
+  img{ max-width:3.35in; }
  
-  * p {font-family:inherit;}	
+  * p{font-family:inherit;}	
   
   background-color: @bg-color;
-  &.span-all {
-    .body {
+  &.span-all{
+    .body{
       columns:2;
       column-gap: 2.5em;
      }
   }  
-  &::before {
+  &:before{
     padding-top: 0.65in; //0.75 + margin-top. 0.75in is from the SVG files
     background-repeat: no-repeat;
     background-position: top left;
@@ -212,17 +212,17 @@ div.section .titlepage .abstract {
     margin-top: -0.03in;
   }
  
-  .title {
+  .title{
     text-align: left !important;
     font-size: large;
     margin: .25em 0;
     max-width: @column;
     color: black;
     font-weight:bold;
-  }
+ }
  
-  &::before {
-    background-image: url("ccap-biology/@ {svg}.svg");
+  &:before{
+    background-image: url("ccap-biology/@{svg}.svg");
     column-span: 1 !important;
   } 
 }
@@ -568,3 +568,31 @@ img, figure, subfigure  { margin: .5em; }
  
  a {font-weight:bold;}
 }
+
+/******************************************************
+ * EOB - SOLUTIONS
+ ******************************************************/
+ 
+ /**************************************
+ * All end-of-book solutions in a chapter
+ * are a single character so they should be inline
+ **************************************/
+div.colophon.end-of-book-solutions {
+
+  div.preface-area,
+  div.chapter-area,
+  div.appendix-area {
+    
+    > div.section-area { display: inline; }
+    div.solution {
+      display: inline;
+      &::after { padding-right: 0.5em; content: " "; } // Insert a space between every solution
+      > div.title,
+      > div.body,
+      > div.body > p {
+	  display: inline;
+      }
+    }
+  }
+}
+
