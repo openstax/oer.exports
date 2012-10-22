@@ -280,33 +280,35 @@ div.section .titlepage .abstract {
  .art-connections {
   background-color: @cream;	
   page-break-inside: avoid;
-  padding: .5em;
-  > div.body > p {   //styles art connections title
-    padding-left: .25em;   	
-    font: x-large arial,sans-serif;
+  padding: 1em;
+  
+  > .title {   //styles art connections title  
+    padding: .5em 0;
+    font-size: large;
     text-align: left;
   }
      	
   &::before {
     content: url(ccap-biology/CNX_BioMaj_Art.svg); //sets the svg as the header of the exercise
-    max-width: 3.95in;    
-    margin-top: -.25in;
+    max-width: (@column + .45in);    //remaining properties/values set to force overlays based on svg file 
+    margin: -.25in -.13in 0;
+  }
+ 
+  img {
+    padding: 0;
+    margin: 0;
+    max-width: (@column - .25em) !important;
   }
   
-  .title{
-    padding-left: 1em;
-    .caption{ padding:1em; } 
-  } 
+  .problem > p { 
+    text-indent: 0em; 
+    margin-top: 1em; 
+    font: inherit;
+  }
   
-  .problem{ padding: 1em; }
-   
-  .solution{ display:none; } //hide solution in this feature and pull to the EOC
-
+  .solution { display:none; } //hide solution in this feature
 }
-
-//this line is for testing only
-div.exercise > div.title{ color:red; }  
-
+ 
 
 /******************************************************
  * End of chapter customizations
