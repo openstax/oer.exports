@@ -274,35 +274,84 @@ div.section .titlepage .abstract {
 
 
 /******************************************************
+ * Art-Connections
+ ******************************************************/
+ .art-connections {
+  background-color: @cream;	
+  page-break-inside: avoid;
+  padding: 1em;
+  
+  > .title {   //styles art connections title  
+    padding: .5em 0;
+    font-size: large;
+    text-align: left;
+  }
+     	
+  &::before {
+    content: url(ccap-biology/CNX_BioMaj_Art.svg); //sets the svg as the header of the exercise
+    max-width: (@column + .45in);    //remaining properties/values set to force overlays based on svg file 
+    margin: -.25in -.13in 0;
+  }
+ 
+  img {
+    padding: 0;
+    margin: 0;
+    max-width: (@column - .25em) !important;
+  }
+  
+  .problem > p { 
+    text-indent: 0em; 
+    margin-top: 1em; 
+    font: inherit;
+  }
+  
+  .solution { display:none; } //hide solution in this feature
+}
+
+
+/******************************************************
  * End of chapter customizations
  ******************************************************/
 .cnx-eoc {
-  > .title { display: none; }
-  
-  // ccap-base sets this so override it here
-  a {
-    font-size: x-large !important;
-    color: @green !important;
+  > .title  { margin-top: 1em; margin-bottom: 0;}
+  &.summary { 
+    > .title { 
+      content: "Chapter Summary"; 
+      text-transform: uppercase;
+      color: @green;
+      font-size: large;
+      font-weight: bold;
+    }
+    > .section .title a { color: black; } 
+    p { margin-top:1em; }
   }
-	
-  .cnx-gentext-t {
-    color: black;   //EOC | needs to be separated to style separately
-    content: "| " content();    
-    color:@green !important;
-  }  
+  
+  //ccap-base sets this so override it here
   .references p { text-indent: 0em; }
   
   .problem .orderedlist { margin-left: 4em;}
   
-  &.solutions { display:none !important; } 
+ &.solutions  { display:none !important; } 
  /* should remove element completely from the document/pdf gen. 
  Should NOT(BUT DOES) take up space, even though the HTML for it is still in the source code.
  */
 }
+/******************************************************
+ * section below should be rewritten in .less
+   nesting class and grouping selectors properly
+   --below is quick/clean css
+ ******************************************************/
+.multiple-choice > .title, .free-response > .title {
+  text-transform: uppercase !important;
+  color: @green !important;
+  font-size: large !important;
+  font-weight: bold !important;
+}
 
 .multiple-choice > .title { content: "Review Questions"; }
 .free-response > .title { content: "Critical Thinking Questions"; }
-.multiple-choice > .section > .title > a, .free-response > .section > .title > a { display: none; }
+.multiple-choice > .section > .title > a, .free-response > .section > .title > a  { display: none; }
+
 
 /******************************************************
  * Generic Elements
@@ -433,7 +482,9 @@ p {
 
 .section > .title { page-break-after:avoid; }
 
-img, figure, subfigure  { margin: .5em; }  
+img, figure, subfigure  { margin: .5em; }
+
+
 /******************************************************
  * Tables TODO: simplify/regroup code block
  ******************************************************/
@@ -572,10 +623,7 @@ img, figure, subfigure  { margin: .5em; }
  a {font-weight:bold;}
 }
 
-/******************************************************
- * EOB - SOLUTIONS
- ******************************************************/
- 
+
  /**************************************
  * All end-of-book solutions in a chapter
  * are a single character so they should be inline

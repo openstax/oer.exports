@@ -1858,6 +1858,37 @@ div.section .titlepage .abstract > .title {
   margin-left: -0.15in;
 }
 /******************************************************
+ * Art-Connections
+ ******************************************************/
+.art-connections {
+  background-color: #ffffcc;
+  page-break-inside: avoid;
+  padding: 1em;
+}
+.art-connections > .title {
+  padding: .5em 0;
+  font-size: large;
+  text-align: left;
+}
+.art-connections::before {
+  content: url(ccap-biology/CNX_BioMaj_Art.svg);
+  max-width: 3.95in;
+  margin: -0.25in -0.13in 0;
+}
+.art-connections img {
+  padding: 0;
+  margin: 0;
+  max-width: 3.25in !important;
+}
+.art-connections .problem > p {
+  text-indent: 0em;
+  margin-top: 1em;
+  font: inherit;
+}
+.art-connections .solution {
+  display: none;
+}
+/******************************************************
  * End of chapter customizations
  ******************************************************/
 .cnx-eoc {
@@ -1867,16 +1898,21 @@ div.section .titlepage .abstract > .title {
 
 }
 .cnx-eoc > .title {
-  display: none;
+  margin-top: 1em;
+  margin-bottom: 0;
 }
-.cnx-eoc a {
-  font-size: x-large !important;
-  color: #336633 !important;
+.cnx-eoc.summary > .title {
+  content: "Chapter Summary";
+  text-transform: uppercase;
+  color: #336633;
+  font-size: large;
+  font-weight: bold;
 }
-.cnx-eoc .cnx-gentext-t {
+.cnx-eoc.summary > .section .title a {
   color: black;
-  content: "| " content();
-  color: #336633 !important;
+}
+.cnx-eoc.summary p {
+  margin-top: 1em;
 }
 .cnx-eoc .references p {
   text-indent: 0em;
@@ -1886,6 +1922,17 @@ div.section .titlepage .abstract > .title {
 }
 .cnx-eoc.solutions {
   display: none !important;
+}
+/******************************************************
+ * section below should be rewritten in .less
+   nesting class and grouping selectors properly
+   --below is quick/clean css
+ ******************************************************/
+.multiple-choice > .title, .free-response > .title {
+  text-transform: uppercase !important;
+  color: #336633 !important;
+  font-size: large !important;
+  font-weight: bold !important;
 }
 .multiple-choice > .title {
   content: "Review Questions";
@@ -2138,9 +2185,6 @@ img, figure, subfigure {
 .index a {
   font-weight: bold;
 }
-/******************************************************
- * EOB - SOLUTIONS
- ******************************************************/
 /**************************************
  * All end-of-book solutions in a chapter
  * are a single character so they should be inline
