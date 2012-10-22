@@ -661,6 +661,7 @@ Combination of formal.object and formal.object.heading -->
 <!-- ============================================== -->
 <!-- concat class w/exercise like special notes     -->
 <!--        special styling (art-connecitons)       -->
+<!--           class concat limitation=2            -->
 <!-- ============================================== -->
 
  <xsl:template match="ext:exercise">
