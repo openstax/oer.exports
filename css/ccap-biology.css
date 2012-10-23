@@ -1,6 +1,14 @@
 @import url('ccap-css3.css');
 /* Styles used when generating a PDF from xhtml+css
  ***************************************************/
+/******************************************************
+Finished printed size of the QR code is dependent on:
+-distance between qr code and scanning device
+-size of dots in the code(amount of data inputed into the code, the smaller the dots become)
+
+For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
+ QR code printed in a magazine/book will have a nominal effective scan distance of about 250mm (10 inches),
+ ******************************************************/
 /***************************************************
  * Styles used when generating a PDF from xhtml+css
  ***************************************************/
@@ -1583,14 +1591,13 @@ div.part > div.titlepage:first-child {
   display: inline;
 }
 /******************************************************
- * Chapter Sections Introduction Table
+ * Chapter Outline
  ******************************************************/
 .chapter .toc {
-  border: thick solid #336633;
-  background-color: #ffffcc;
+  border: 2pt solid #336633;
 }
 .chapter .toc > .title {
-  content: "Chapter Sections";
+  content: "Chapter Outline";
   background-color: #336633;
   color: white;
   font-weight: bold;
@@ -1600,7 +1607,7 @@ div.part > div.titlepage:first-child {
 }
 .chapter .toc .toc-section {
   margin: .5em;
-  padding: 0em 1em;
+  padding: 0 1.5em;
   text-indent: -3.25em;
   text-align: left;
 }
@@ -1630,10 +1637,12 @@ div.section .titlepage .abstract {
   display: block !important;
   margin: 1em 0em;
   padding: .5em;
-  background-color: #ccffcc;
+  border: 2pt solid #336633;
   text-align: left !important;
-  page-break-inside: avoid;
-  column-break-inside: avoid;
+  page-break-inside: avoid !important;
+  column-break-inside: avoid !important;
+  /*remove "summary"*/
+
 }
 div.section .titlepage .abstract > .itemizedlist {
   margin-left: -0.65em;
@@ -1641,23 +1650,8 @@ div.section .titlepage .abstract > .itemizedlist {
 div.section .titlepage .abstract > .itemizedlist .listitem {
   margin: .5em 0em;
 }
-/******************************************************
- * Section Level Learning Objectives
- ******************************************************/
-div.section .titlepage .abstract {
-  display: block !important;
-  margin: 1em 0em;
-  padding: .5em;
-  background-color: #ccffcc;
-  text-align: left !important;
-  page-break-inside: avoid;
-  column-break-inside: avoid;
-}
-div.section .titlepage .abstract > .itemizedlist {
-  margin-left: -0.65em;
-}
-div.section .titlepage .abstract > .itemizedlist .listitem {
-  margin: .5em 0em;
+div.section .titlepage .abstract > .title {
+  display: none;
 }
 /******************************************************
  * Features args(title color, bkgrnd color, path to svg)
@@ -1825,22 +1819,10 @@ div.section .titlepage .abstract > .itemizedlist .listitem {
 /******************************************************
  *Elements that are special features but styled
  ******************************************************/
-.interactive {
-  /*set smaller than single column width to include margin/padding of feature element*/
-  background-color: none;
-}
-.interactive img {
-  max-width: 3.35in;
-}
-.interactive * p {
-  font-family: inherit;
-}
-.interactive.span-all .body {
-  columns: 2;
-  column-gap: 2.5em;
-}
 .interactive:before {
-  padding-top: 0.65in;
+  background-image: url("ccap-biology/CNX_BioMaj_Link.svg");
+  padding-top: .75in;
+  padding-bottom: .50in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
@@ -1849,40 +1831,25 @@ div.section .titlepage .abstract > .itemizedlist .listitem {
   background-color: white;
   content: "";
   display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.03in;
-}
-.interactive .title {
-  text-align: left !important;
-  font-size: large;
-  margin: .25em 0;
-  max-width: 3.5in;
-  color: black;
-  font-weight: bold;
-}
-.interactive:before {
-  background-image: url("ccap-biology/CNX_BioMaj_Link.svg");
-  column-span: 1 !important;
-}
-.interactive:before {
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
-  display: block;
-  padding-bottom: .15in;
+  margin-left: -0.15in;
 }
 .interactive img {
   float: right;
-  margin-left: -0.75em;
-  margin-right: -1.05em;
+  width: 1in;
+  height: 1in;
+  display: inherit;
+  margin-top: -1.15in;
+  margin-left: -0.5in !important;
 }
-.interactive a {
+.interactive a[href^="http"] {
+  content: content() !important;
+  /*set in base.less override it here*/
+
   color: #cc6633;
   font-weight: bold;
+}
+.interactive * p {
+  margin-left: -0.15in;
 }
 /******************************************************
  * End of chapter customizations
@@ -1999,7 +1966,7 @@ p {
   margin: 0;
 }
 .footnote {
-  margin: 2em;
+  margin: 1em;
   font-style: italic;
   color: black !important;
 }
@@ -2085,7 +2052,6 @@ div.table:before {
 }
 .figure > .caption {
   display: inline;
-  font-weight: bold;
   font-size: small;
   text-align: center;
 }
@@ -2102,8 +2068,9 @@ div.table:before {
   display: inline;
   font-weight: bold;
 }
-.note > .title {
-  border-bottom: 0px;
+.target-figure {
+  font-weight: bold;
+  color: #cc6633;
 }
 /******************************************************
  * End of Chapter Solutions Development in Progress
