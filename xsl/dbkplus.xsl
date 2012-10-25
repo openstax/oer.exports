@@ -58,10 +58,7 @@
 </xsl:template>
 
 <xsl:template match="ext:solution">
-  <xsl:param name="render" select="false()"/>
-  <xsl:if test="$render">
-    <xsl:call-template name="ext.element"/>
-  </xsl:if>
+  <xsl:call-template name="ext.element"/>
 </xsl:template>
 
 

@@ -580,7 +580,7 @@ div.book, div.book > div.part {
   /* Don't render the TOC for preface or appendix at all */
 
 }
-div.book > div.part > div.chapter, div.book > div.part > div.part > div.chapter {
+div.book > div.chapter, div.book > div.part > div.chapter {
   counter-increment: chapter;
 }
 div.book > div.appendix, div.book > div.part > div.appendix {
@@ -1475,7 +1475,20 @@ div.colophon.end-of-book-solutions div.preface-area div.solution > div.title .ep
   display: none;
 }
 div.colophon.end-of-book-solutions div.preface-area div.solution > div.title a.solution, div.colophon.end-of-book-solutions div.chapter-area div.solution > div.title a.solution, div.colophon.end-of-book-solutions div.appendix-area div.solution > div.title a.solution {
+  font-weight: bold;
   content: target-counter(attr(href), exercise);
+}
+/*******************
+ * Hide the (Return to Exercise) when solution is inside the exercise
+ *******************/
+div.exercise > div.body > div.solution span.epub-only, div.exercise > div.body > div.solution a.solution {
+  display: none;
+}
+/**********************
+ * Hide module summaries by default
+ **********************/
+div.book > div.preface > div.titlepage > div > div:not(:first-child), div.book > div.chapter > div.titlepage > div > div:not(:first-child), div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
+  display: none;
 }
 /******************************************************
  * 2 Column Customized Elements
@@ -2185,28 +2198,12 @@ img, figure, subfigure {
 .index a {
   font-weight: bold;
 }
-/**************************************
- * All end-of-book solutions in a chapter
- * are a single character so they should be inline
- **************************************/
-div.colophon.end-of-book-solutions div.preface-area > div.section-area, div.colophon.end-of-book-solutions div.chapter-area > div.section-area, div.colophon.end-of-book-solutions div.appendix-area > div.section-area {
-  display: inline;
+div.book > div.preface > div.cnx-eoc, div.book > div.part > div.preface > div.cnx-eoc {
+  counter-reset: /*exercise*/ eoc-section -1;
 }
-div.colophon.end-of-book-solutions div.preface-area div.solution, div.colophon.end-of-book-solutions div.chapter-area div.solution, div.colophon.end-of-book-solutions div.appendix-area div.solution {
-  display: inline;
+div.book > div.chapter > div.cnx-eoc, div.book > div.part > div.chapter > div.cnx-eoc {
+  counter-reset: /*exercise*/ eoc-section -1;
 }
-div.colophon.end-of-book-solutions div.preface-area div.solution::after, div.colophon.end-of-book-solutions div.chapter-area div.solution::after, div.colophon.end-of-book-solutions div.appendix-area div.solution::after {
-  padding-right: 0.5em;
-  content: " ";
-}
-div.colophon.end-of-book-solutions div.preface-area div.solution > div.title,
-div.colophon.end-of-book-solutions div.chapter-area div.solution > div.title,
-div.colophon.end-of-book-solutions div.appendix-area div.solution > div.title,
-div.colophon.end-of-book-solutions div.preface-area div.solution > div.body,
-div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body,
-div.colophon.end-of-book-solutions div.appendix-area div.solution > div.body,
-div.colophon.end-of-book-solutions div.preface-area div.solution > div.body > p,
-div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body > p,
-div.colophon.end-of-book-solutions div.appendix-area div.solution > div.body > p {
-  display: inline;
+div.book > div.appendix > div.cnx-eoc, div.book > div.part > div.appendix > div.cnx-eoc {
+  counter-reset: /*exercise*/ eoc-section -1;
 }
