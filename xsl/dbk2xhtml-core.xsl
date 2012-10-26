@@ -335,7 +335,7 @@
       <xsl:for-each select="db:section[.//ext:exercise]">
         <xsl:variable name="sectionId">
           <xsl:call-template name="object.id"/>
-        </xsl:variable>
+        </xsl:variable>
         <!-- Print the section title and link back to it -->
         <div class="section-area">
           <h3 class="title">
@@ -408,7 +408,7 @@
 
 <!-- Since intro sections are rendered specifically only in the title page, ignore them for normal rendering -->
 <xsl:template mode="cnx.intro" match="d:section[contains(@class,'introduction')]">
-  <xsl:param name="toc"/>
+  <xsl:param name="toc"/>
 
   <xsl:variable name="title">
     <xsl:apply-templates select=".." mode="title.markup"/>
@@ -444,7 +444,7 @@
   </div>
 
 </xsl:template>
-
+
 
 
 <xsl:template mode="introduction.toc" match="db:chapter/db:section[not(contains(@class,'introduction'))]">
@@ -672,7 +672,7 @@ Combination of formal.object and formal.object.heading -->
     </xsl:if>
   <xsl:if test="@class">
     <xsl:text> </xsl:text> 
-    <xsl:for-each select="."/>
+    <xsl:value-of select="@class"/>
   </xsl:if>
   </xsl:variable>
    <div id="{@xml:id}" class="exercise{$classes}" type="{@type}">
