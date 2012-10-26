@@ -672,7 +672,7 @@ Combination of formal.object and formal.object.heading -->
     </xsl:if>
   <xsl:if test="@class">
     <xsl:text> </xsl:text> 
-    <xsl:for-each select="."/>
+    <xsl:value-of select="@class"/>
   </xsl:if>
   </xsl:variable>
    <div id="{@xml:id}" class="exercise{$classes}" type="{@type}">
