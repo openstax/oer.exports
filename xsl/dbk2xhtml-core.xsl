@@ -675,7 +675,7 @@ Combination of formal.object and formal.object.heading -->
     <xsl:value-of select="@class"/>
   </xsl:if>
   </xsl:variable>
-   <div id="{@xml:id}" class="exercise{$classes}">
+   <div id="{@xml:id}" class="exercise{$classes}" type="@type">
     <div class="title">
       <span class="cnx-gentext-tip-t">
         <xsl:apply-templates select="db:title/node()"/>
