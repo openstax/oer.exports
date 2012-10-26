@@ -311,7 +311,7 @@
 <xsl:template match="ext:end-of-book-solutions-placeholder[../..//*[.//ext:solution]]">
   <xsl:param name="context" select="/db:book"/>
 
-  <xsl:for-each select="$context/*[self::db:preface | self::db:chapter | self::db:appendix][.//ext:exercise[.//ext:solution]]|$context/db:part/db:chapter[.//ext:exercise[.//ext:solution]]">
+  <xsl:for-each select="$context/*[self::db:preface | self::db:chapter | self::db:appendix][.//ext:exercise[.//ext:solution]]">
 
     <xsl:variable name="chapterId">
       <xsl:call-template name="object.id"/>
@@ -335,7 +335,7 @@
       <xsl:for-each select="db:section[.//ext:exercise]">
         <xsl:variable name="sectionId">
           <xsl:call-template name="object.id"/>
-        </xsl:variable>
+        </xsl:variable>
         <!-- Print the section title and link back to it -->
         <div class="section-area">
           <h3 class="title">
@@ -408,7 +408,7 @@
 
 <!-- Since intro sections are rendered specifically only in the title page, ignore them for normal rendering -->
 <xsl:template mode="cnx.intro" match="d:section[contains(@class,'introduction')]">
-  <xsl:param name="toc"/>
+  <xsl:param name="toc"/>
 
   <xsl:variable name="title">
     <xsl:apply-templates select=".." mode="title.markup"/>
@@ -444,7 +444,7 @@
   </div>
 
 </xsl:template>
-
+
 
 
 <xsl:template mode="introduction.toc" match="db:chapter/db:section[not(contains(@class,'introduction'))]">
@@ -684,6 +684,7 @@ Combination of formal.object and formal.object.heading -->
     <xsl:apply-templates/>
    </div>
 </xsl:template> 
+
 
 <!-- ============================================== -->
 <!-- Customize index page for modern-textbook       -->
