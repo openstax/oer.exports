@@ -224,7 +224,7 @@ div.section .titlepage .abstract {
   }
  
   &::before {
-    background-image: url("ccap-biology/@ {svg}.svg");
+    background-image: url("ccap-biology/@{svg}.svg");
     column-span: 1 !important;
   } 
 }
@@ -279,29 +279,43 @@ div.section .titlepage .abstract {
  ******************************************************/
  .art-connections {
   display:block;
-  background-color: @cream;    
+  background-color: @cream;	
   page-break-inside: avoid;
   padding: 1em;
-  margin-top: 1em;
+  margin-top: 2em; 
    
-  &:before {
+  &::before {
     background-image: url("ccap-biology/CNX_BioMaj_Art.svg");
-    padding: 1em;  
+    padding: .25in; //0.25 + margin-top. 0.25in is from the SVG files
     background-repeat: no-repeat;
     background-position: top left;
+    background-position: top outside;
     page-break-inside: avoid;
-    page-break-after: avoid;    
-    background-color: white;
+    page-break-after: avoid;	
+  	background-color: white;
     content: "";
     display: block;
     // the following are tweaked so the overlays really do over lay
-    max-width: (@column + .45in);      
-    margin: -2em -1em 1em -1em;
+    max-width: @column;    //remaining properties/values set to force overlays based on svg file 
+    margin-left: -.10in;
+    margin-top:-.25in;
+    margin-right: -.15in;
   }
   
   &.span-all {
     columns:2;
     column-gap: 2.5em;
+    display:block;
+    &::before { 
+      display: block;
+      background-image: url("ccap-biology/CNX_BioMaj_Art.svg");
+      content: "";
+      background-color: white;
+      min-width: (@column * 2);
+      margin-top: 1in;
+    }
+    margin-top: 1in;
+    padding-top: 1em;
   }
   
   > .title {     
