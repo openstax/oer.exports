@@ -275,6 +275,7 @@ div.section .titlepage .abstract {
 
 
 /******************************************************
+
  * Art-Connections
  ******************************************************/
 .art-connections {
@@ -282,8 +283,9 @@ div.section .titlepage .abstract {
   background-color: @cream;	
   page-break-inside: avoid;
   padding: 1em;
+  margin-top: 2em; 
    
-  &:before {
+  &::before {
     background-image: url("ccap-biology/CNX_BioMaj_Art.svg");
     padding: .25in; //0.25 + margin-top. 0.25in is from the SVG files
     background-repeat: no-repeat;
@@ -295,25 +297,37 @@ div.section .titlepage .abstract {
     content: "";
     display: block;
     // the following are tweaked so the overlays really do over lay
-    max-width: (@column + .45in);    //remaining properties/values set to force overlays based on svg file 
-    margin-left: -.15in;
-    margin-top:-.5in;
+    max-width: @column;    //remaining properties/values set to force overlays based on svg file 
+    margin-left: -.10in;
+    margin-top:-.25in;
+    margin-right: -.15in;
   }
   
   &.span-all {
     columns:2;
     column-gap: 2.5em;
+    display:block;
+    &::before { 
+      display: block;
+      background-image: url("ccap-biology/CNX_BioMaj_Art.svg");
+      content: "";
+      background-color: white;
+      min-width: (@column * 2);
+      margin-top: 1in;
+    }
+    margin-top: 1in;
+    padding-top: 1em;
+
   }
   
   > .title {   //styles art connections title  
     padding: .5em 0;
     font-size: large;
     text-align: left;
-    > .cnx-gentext-tip-t { &::before { prince-text-replace: "Exercise" "Art Connection"; } }
+    prince-text-replace: "Exercise" "Art Connections";
   }
- 
- 
-  img {
+  
+    img {
     padding: 0;
     margin: 0;
     max-width: (@column - .25em) !important;
@@ -324,6 +338,7 @@ div.section .titlepage .abstract {
     margin-top: 1em; 
     font: inherit;
   }
+  
   .solution { display:none; } //hide solution in this feature
 
 }
