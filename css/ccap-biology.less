@@ -10,7 +10,6 @@
 @gray: #cccccc;
 @blue: blue;
 @column: 3.5in;
-
 /******************************************************
 Finished printed size of the QR code is dependent on:
 -distance between qr code and scanning device
@@ -19,7 +18,6 @@ Finished printed size of the QR code is dependent on:
 For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
  QR code printed in a magazine/book will have a nominal effective scan distance of about 250mm (10 inches),
  ******************************************************/
-
 @qr: 1in; 
 
 
@@ -132,13 +130,14 @@ div.part > div.titlepage {display:none;}
     font-weight: bold;
     text-align: center !important;
     border: 0;
+    
     min-width:3.5in;
   }
   
   .toc-section {
-    margin: 1em;
-    padding: 0 .5em;	
-    text-indent: -3.15em; //this is to force the second line of a section title is indented
+    margin:.5em;	
+    padding: 0 1.5em; 
+    text-indent: -3.25em; //this is to force the second line of a section title is indented
     text-align: left;
     .abstract {display:none;}
     
@@ -147,6 +146,7 @@ div.part > div.titlepage {display:none;}
      
       .cnx-gentext-n {
         
+        padding: .5em;     
         &::after { content: ":";}/*add : to key concepts BIO Review Issue #9*/
       }
       /*remove . from key concepts*/
@@ -180,25 +180,24 @@ div.section .titlepage .abstract {
 /******************************************************
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
-.evolution { .x-feature(black, @cream, CNX_BioMaj_Evolution); }
+.evolution  { .x-feature(black, @cream, CNX_BioMaj_Evolution); }
 .scientific { .x-feature(black, @cream, CNX_BioMaj_Scienctific); }
-.everyday { .x-feature(black, @cream, CNX_BioMaj_Everyday); }
-.career { .x-feature(black, @cream, CNX_BioMaj_Career); }
+.everyday   { .x-feature(black, @cream, CNX_BioMaj_Everyday); }
+.career    { .x-feature(black, @cream, CNX_BioMaj_Career); }
 
 .x-feature (@color, @bg-color, @svg) {
-  background-color: @bg-color;	
   /*set smaller than single column width to include margin/padding of feature element*/	
   img { max-width:3.35in; }
  
-  * p { font-family:inherit; }	
-   
+  * p {font-family:inherit;}	
+  
+  background-color: @bg-color;
   &.span-all {
     .body {
       columns:2;
       column-gap: 2.5em;
      }
-  } 
-   
+  }  
   &::before {
     padding-top: 0.65in; //0.75 + margin-top. 0.75in is from the SVG files
     background-repeat: no-repeat;
@@ -222,14 +221,12 @@ div.section .titlepage .abstract {
     max-width: @column;
     color: black;
     font-weight:bold;
- }
+  }
  
-  .figure > .title { font-size: x-small; }
-    
-  &::before {  
+  &::before {
     background-image: url("ccap-biology/@{svg}.svg");
     column-span: 1 !important;
-  }    
+  } 
 }
 
 
@@ -252,6 +249,8 @@ div.section .titlepage .abstract {
     display: block;
     // the following are tweaked so the overlays really do over lay
     margin-left: -.15in;
+    
+ 
   }
   
   img {
@@ -263,8 +262,8 @@ div.section .titlepage .abstract {
     margin-top: -1.15in;
     margin-left: -.50in !important;
   }  
-    
-  a[href^="http"] {
+  
+  a[href^="http"]  {
     content: content() !important; /*set in base.less override it here*/
     color:@tuscany;
     font-weight: bold;
@@ -278,11 +277,28 @@ div.section .titlepage .abstract {
 /******************************************************
  * Art-Connections
  ******************************************************/
- .art-connections {
+.art-connections {
+  display:block;
   background-color: @cream;	
   page-break-inside: avoid;
   padding: 1em;
-  
+   
+  &:before {
+    background-image: url("ccap-biology/CNX_BioMaj_Art.svg");
+    padding: .25in; //0.25 + margin-top. 0.25in is from the SVG files
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-position: top outside;
+    page-break-inside: avoid;
+    page-break-after: avoid;	
+  	background-color: white;
+    content: "";
+    display: block;
+    // the following are tweaked so the overlays really do over lay
+    max-width: (@column + .45in);    //remaining properties/values set to force overlays based on svg file 
+    margin-left: -.15in;
+    margin-top:-.5in;
+  }
   
   &.span-all {
     columns:2;
@@ -295,12 +311,7 @@ div.section .titlepage .abstract {
     text-align: left;
     > .cnx-gentext-tip-t { &::before { prince-text-replace: "Exercise" "Art Connection"; } }
   }
-     	
-  &::before {
-    content: url(ccap-biology/CNX_BioMaj_Art.svg); //sets the svg as the header of the exercise
-    max-width: (@column + .45in);    //remaining properties/values set to force overlays based on svg file 
-    margin: -.25in -.13in 0;
-  }
+ 
  
   img {
     padding: 0;
@@ -314,8 +325,9 @@ div.section .titlepage .abstract {
     font: inherit;
   }
   .solution { display:none; } //hide solution in this feature
-}
 
+}
+ 
 
 /******************************************************
  * End of chapter customizations
@@ -359,7 +371,6 @@ div.section .titlepage .abstract {
 .multiple-choice > .title { content: "Review Questions"; }
 .free-response > .title { content: "Critical Thinking Questions"; }
 .multiple-choice > .section > .title > a, .free-response > .section > .title > a  { display: none; }
-
 
 /******************************************************
  * Generic Elements
@@ -466,8 +477,8 @@ p {
 .footnote {
   margin: .25em;
   font-style: italic;
-  color: black !important;
- }
+  color: black !important;	
+}
 
 .glossary {
   // End-of-chapter material should start on a new page 
@@ -490,11 +501,11 @@ p {
 
 .section > .title { page-break-after:avoid; }
 
+
 img, figure, subfigure  { margin: .5em; }
 
-
 /******************************************************
- * Tables TODO: simplify/regroup code block
+ * Tables TODO: simplify/regroup code block //latest
  ******************************************************/
 .table { 
  
@@ -558,7 +569,7 @@ img, figure, subfigure  { margin: .5em; }
 
   > .caption {
     display: inline;
-    text-align:center;display:block;
+    text-align:center;
   }
   
   
@@ -631,8 +642,6 @@ img, figure, subfigure  { margin: .5em; }
  a {font-weight:bold;}
 }
 
-
-
 // Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
 // originally defined in ccap-numbering.less
 // The hierarchy is copied from ccap-numbering so the selectors (and priority for which to apply) are the same
@@ -645,7 +654,7 @@ div.book, div.book > div.part {
   > div.appendix { .x-duplicate-hierarchy(); }
 }
 
-div.end-of-book-solutions{ 
+div.end-of-book-solutions { 
   > .title { 
     content: "Answer Key";
     color: @green;
@@ -655,4 +664,3 @@ div.end-of-book-solutions{
     font-weight: bold;
   }	
 }
-
