@@ -659,6 +659,34 @@ Combination of formal.object and formal.object.heading -->
 </xsl:template>
 
 <!-- ============================================== -->
+<!-- concat class w/exercise like special notes     -->
+<!--        special styling (art-connecitons)       -->
+<!--           class concat limitation=2            -->
+<!-- ============================================== -->
+
+ <xsl:template match="ext:exercise">
+ <xsl:variable name="classes">
+    <xsl:if test="@type">
+      <xsl:text> </xsl:text>
+      <xsl:value-of select="@type"/>
+    </xsl:if>
+    <xsl:if test="@class">
+      <xsl:text> </xsl:text>
+      <xsl:value-of select="@class"/>
+    </xsl:if>
+  </xsl:variable>
+   <div id="{@xml:id}" class="exercise{$classes}" type="{@type}">
+    <div class="title">
+      <span class="cnx-gentext-tip-t">
+        <xsl:apply-templates select="db:title/node()"/>
+      </span>
+    </div>
+    <xsl:apply-templates/>
+   </div>
+</xsl:template> 
+
+
+<!-- ============================================== -->
 <!-- Customize index page for modern-textbook       -->
 <!-- ============================================== -->
 
