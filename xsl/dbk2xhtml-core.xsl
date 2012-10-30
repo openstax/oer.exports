@@ -311,7 +311,7 @@
 <xsl:template match="ext:end-of-book-solutions-placeholder[../..//*[.//ext:solution]]">
   <xsl:param name="context" select="/db:book"/>
 
-  <xsl:for-each select="$context/*[self::db:preface | self::db:chapter | self::db:appendix][.//ext:exercise[.//ext:solution]]">
+  <xsl:for-each select="$context/*[self::db:preface | self::db:chapter | self::db:appendix][.//ext:exercise[.//ext:solution]]|$context/db:part/db:chapter[.//ext:exercise[.//ext:solution]]">
 
     <xsl:variable name="chapterId">
       <xsl:call-template name="object.id"/>
@@ -657,7 +657,6 @@ Combination of formal.object and formal.object.heading -->
     <xsl:apply-imports/>
   </div>
 </xsl:template>
-
 
 <!-- ============================================== -->
 <!-- concat class w/exercise like special notes     -->
