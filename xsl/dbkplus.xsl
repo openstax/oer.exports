@@ -49,7 +49,17 @@
       <xsl:text> labeled</xsl:text>
     </xsl:if>
   </xsl:variable>
-  <div id="{$id}" class="{local-name()}{$labeled}">
+  <xsl:variable name="classes">
+    <xsl:if test="@type">
+      <xsl:text> </xsl:text>
+      <xsl:value-of select="@type"/>
+    </xsl:if>
+    <xsl:if test="@class">
+      <xsl:text> </xsl:text>
+      <xsl:value-of select="@class"/>
+    </xsl:if>
+  </xsl:variable>
+  <div id="{$id}" class="{local-name()}{$labeled}{$classes}">
 <xsl:comment>calling formal.object</xsl:comment>
   <xsl:call-template name="formal.object">
     <xsl:with-param name="placement" select="$placement"/>
@@ -58,10 +68,7 @@
 </xsl:template>
 
 <xsl:template match="ext:solution">
-  <xsl:param name="render" select="false()"/>
-  <xsl:if test="$render">
-    <xsl:call-template name="ext.element"/>
-  </xsl:if>
+  <xsl:call-template name="ext.element"/>
 </xsl:template>
 
 

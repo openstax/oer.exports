@@ -1469,15 +1469,30 @@ div.colophon.end-of-book-solutions div.preface-area div.solution > div.title .ep
   display: none;
 }
 div.colophon.end-of-book-solutions div.preface-area div.solution > div.title a.solution, div.colophon.end-of-book-solutions div.chapter-area div.solution > div.title a.solution, div.colophon.end-of-book-solutions div.appendix-area div.solution > div.title a.solution {
+  font-weight: bold;
   content: target-counter(attr(href), exercise);
+}
+/*******************
+ * Hide the (Return to Exercise) when solution is inside the exercise
+ *******************/
+div.exercise > div.body > div.solution span.epub-only, div.exercise > div.body > div.solution a.solution {
+  display: none;
+}
+/**********************
+ * Hide module summaries by default
+ **********************/
+div.book > div.preface > div.titlepage > div > div:not(:first-child), div.book > div.chapter > div.titlepage > div > div:not(:first-child), div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
+  display: none;
 }
 /*************** Hide ALL solutions ***********/
 .solutions {
   display: none;
 }
-/************** Hide EOB solutions ***********/
+/**************************************
+ * Hide the end-of-book solutions colophon
+ **************************************/
 div.colophon.end-of-book-solutions {
-  display: none !important;
+  display: none;
 }
 /********* Chapter Introduction styles *********/
 /********* HTML Element styles *********/
