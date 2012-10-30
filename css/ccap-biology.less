@@ -116,7 +116,35 @@ div.part > div.titlepage {display:none;}
    .target-appendix .cnx-gentext-appendix { display:inline; }
 }
 
-
+/******************************************************
+ * Preface
+ ******************************************************/
+.preface {
+  //overrides numbering.less without it "Preface" wasn't displaying after pg #	
+  > div.titlepage > div > div h1.title {string-set: cnx-header @S content() @E; color:black;}	
+  .title { 
+    color: @green !important;
+    margin: 0;
+    padding: 0;
+    font-size: xx-large;
+    font-weight: bold;
+    &:first-child { border-bottom: solid 1px black; margin: inherit; } 
+   }
+   > div.title { 
+     color: @green;
+     font-size: medium;
+     margin: .5em 0;
+   }
+  .itemizedlist { 
+    list-style-type:none;
+    .title { 
+     color: @green;
+     font-size: medium;
+     margin: .5em 0; 
+    }  
+  }
+}
+ 
 /******************************************************
  * Chapter Outline
  ******************************************************/
@@ -180,24 +208,25 @@ div.section .titlepage .abstract {
 /******************************************************
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
-.evolution  { .x-feature(black, @cream, CNX_BioMaj_Evolution); }
+.evolution { .x-feature(black, @cream, CNX_BioMaj_Evolution); }
 .scientific { .x-feature(black, @cream, CNX_BioMaj_Scienctific); }
-.everyday   { .x-feature(black, @cream, CNX_BioMaj_Everyday); }
-.career    { .x-feature(black, @cream, CNX_BioMaj_Career); }
+.everyday { .x-feature(black, @cream, CNX_BioMaj_Everyday); }
+.career { .x-feature(black, @cream, CNX_BioMaj_Career); }
 
 .x-feature (@color, @bg-color, @svg) {
+  background-color: @bg-color;	
   /*set smaller than single column width to include margin/padding of feature element*/	
   img { max-width:3.35in; }
  
-  * p {font-family:inherit;}	
-  
-  background-color: @bg-color;
+  * p { font-family:inherit; }	
+   
   &.span-all {
     .body {
       columns:2;
       column-gap: 2.5em;
      }
-  }  
+  } 
+   
   &::before {
     padding-top: 0.65in; //0.75 + margin-top. 0.75in is from the SVG files
     background-repeat: no-repeat;
@@ -228,7 +257,7 @@ div.section .titlepage .abstract {
   &::before {
     background-image: url("ccap-biology/@{svg}.svg");
     column-span: 1 !important;
-  } 
+  }    
 }
 
 
@@ -689,5 +718,3 @@ div.end-of-book-solutions {
   }
 }
 
-
- 
