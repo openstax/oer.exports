@@ -311,7 +311,7 @@
 <xsl:template match="ext:end-of-book-solutions-placeholder[../..//*[.//ext:solution]]">
   <xsl:param name="context" select="/db:book"/>
 
-  <xsl:for-each select="$context/*[self::db:preface | self::db:chapter | self::db:appendix][.//ext:exercise[.//ext:solution]]|$context/db:part/db:chapter[.//ext:exercise[.//ext:solution]]">
+  <xsl:for-each select="$context/*[self::db:preface | self::db:chapter | self::db:appendix][.//ext:exercise[.//ext:solution]]">
 
     <xsl:variable name="chapterId">
       <xsl:call-template name="object.id"/>
@@ -657,34 +657,6 @@ Combination of formal.object and formal.object.heading -->
     <xsl:apply-imports/>
   </div>
 </xsl:template>
-
-
-<!-- ============================================== -->
-<!-- concat class w/exercise like special notes     -->
-<!--        special styling (art-connecitons)       -->
-<!--           class concat limitation=2            -->
-<!-- ============================================== -->
-
- <xsl:template match="ext:exercise">
- <xsl:variable name="classes">
-    <xsl:if test="@type">
-      <xsl:text> </xsl:text>
-      <xsl:value-of select="@type"/>
-    </xsl:if>
-    <xsl:if test="@class">
-      <xsl:text> </xsl:text>
-      <xsl:value-of select="@class"/>
-    </xsl:if>
-  </xsl:variable>
-   <div id="{@xml:id}" class="exercise{$classes}" type="{@type}">
-    <div class="title">
-      <span class="cnx-gentext-tip-t">
-        <xsl:apply-templates select="db:title/node()"/>
-      </span>
-    </div>
-    <xsl:apply-templates/>
-   </div>
-</xsl:template> 
 
 
 <!-- ============================================== -->
