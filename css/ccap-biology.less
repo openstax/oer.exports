@@ -665,6 +665,34 @@ img, figure, subfigure  { margin: .5em; }
 
 
 /******************************************************
+ * End of Book Solutions
+ ******************************************************/
+// TODO: If this is used by other books it should probably be moved to ccap-numbering.less
+div.end-of-book-solutions {
+  div.solution {
+    // Make the solutions pages span 2 columns
+    //.x-column-count(2);
+
+    // Make the solution show up horizontally next to the 1st paragraph of the solution
+    // This is a bit problematic for several reasons:
+    //   - the place it would ideally be displayed is .body::first-child::before BUT...
+    //   - the a.href with the exercise id (to look up the exercise number) is inside the .title (for EPUBs)
+    //   - single-letter solutions aren't wrapped in a para so there is no .body::first-child
+    // I tried using string-set to squirrel away the exercise id but princexml does not support target-counter(string(...), counter-name)
+    // I tried moving the anchor but princexml also does not support move-to
+    > div.title {
+      display: inline;
+      a.solution { padding-right: 0.5em; }
+    }
+    > div.body {
+      display: inline;
+      &::first-child { display: inline; }
+    }
+  }
+}
+
+
+/******************************************************
  * Index
  ******************************************************/
 .index {
