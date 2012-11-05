@@ -115,6 +115,7 @@ a[href^="http"] {
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
+  column-break-inside: avoid;
 }
 .mathml-mi {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -1768,6 +1769,36 @@ div.part > div.titlepage {
   display: inline;
 }
 /******************************************************
+ * Preface
+ ******************************************************/
+.preface > div.titlepage > div > div h1.title {
+  string-set: cnx-header "" content() "";
+  color: black;
+}
+.preface h1.title {
+  color: #336633;
+  font-size: xx-large;
+}
+.preface h1.title:first-child {
+  margin: 0;
+  background-color: #336633;
+  color: white !important;
+}
+.preface > div.title {
+  color: #336633;
+  font-size: medium;
+  margin: .5em 0;
+}
+.preface .itemizedlist {
+  list-style-type: none;
+}
+.preface .itemizedlist .title {
+  color: #336633;
+  font-size: medium;
+  margin: .5em 0;
+  font-weight: bold;
+}
+/******************************************************
  * Chapter Outline
  ******************************************************/
 .chapter .toc {
@@ -1834,8 +1865,8 @@ div.section .titlepage .abstract > .title {
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
 .evolution {
-  /*set smaller than single column width to include margin/padding of feature element*/
   background-color: #ffffcc;
+  /*set smaller than single column width to include margin/padding of feature element*/
 }
 .evolution img {
   max-width: 3.35in;
@@ -1869,13 +1900,16 @@ div.section .titlepage .abstract > .title {
   color: black;
   font-weight: bold;
 }
+.evolution .figure > .title {
+  font-size: x-small;
+}
 .evolution::before {
   background-image: url("ccap-biology/CNX_BioMaj_Evolution.svg");
   column-span: 1 !important;
 }
 .scientific {
-  /*set smaller than single column width to include margin/padding of feature element*/
   background-color: #ffffcc;
+  /*set smaller than single column width to include margin/padding of feature element*/
 }
 .scientific img {
   max-width: 3.35in;
@@ -1909,13 +1943,16 @@ div.section .titlepage .abstract > .title {
   color: black;
   font-weight: bold;
 }
+.scientific .figure > .title {
+  font-size: x-small;
+}
 .scientific::before {
   background-image: url("ccap-biology/CNX_BioMaj_Scienctific.svg");
   column-span: 1 !important;
 }
 .everyday {
-  /*set smaller than single column width to include margin/padding of feature element*/
   background-color: #ffffcc;
+  /*set smaller than single column width to include margin/padding of feature element*/
 }
 .everyday img {
   max-width: 3.35in;
@@ -1949,13 +1986,16 @@ div.section .titlepage .abstract > .title {
   color: black;
   font-weight: bold;
 }
+.everyday .figure > .title {
+  font-size: x-small;
+}
 .everyday::before {
   background-image: url("ccap-biology/CNX_BioMaj_Everyday.svg");
   column-span: 1 !important;
 }
 .career {
-  /*set smaller than single column width to include margin/padding of feature element*/
   background-color: #ffffcc;
+  /*set smaller than single column width to include margin/padding of feature element*/
 }
 .career img {
   max-width: 3.35in;
@@ -1988,6 +2028,9 @@ div.section .titlepage .abstract > .title {
   max-width: 3.5in;
   color: black;
   font-weight: bold;
+}
+.career .figure > .title {
+  font-size: x-small;
 }
 .career::before {
   background-image: url("ccap-biology/CNX_BioMaj_Career.svg");
@@ -2029,7 +2072,8 @@ div.section .titlepage .abstract > .title {
   margin-left: -0.15in;
 }
 /******************************************************
- * Art Connections
+
+ * Art-Connections
  ******************************************************/
 .art-connections {
   display: block;
@@ -2049,23 +2093,10 @@ div.section .titlepage .abstract > .title {
   background-color: white;
   content: "";
   display: block;
-  max-width: 3.5in;
+  max-width: 3.95in;
   margin-left: -0.1in;
   margin-top: -0.25in;
   margin-right: -0.3in;
-}
-.art-connections.span-all {
-  columns: 2;
-  column-gap: 2.5em;
-  display: block;
-}
-.art-connections.span-all::before {
-  display: block;
-  background-image: url("ccap-biology/CNX_BioMaj_Art.svg");
-  content: "";
-  background-color: white;
-  min-width: 7in;
-  margin-top: 1in;
 }
 .art-connections > .title {
   padding: .5em 0;
@@ -2157,11 +2188,6 @@ img {
   column-span: all !important;
   -webkit-column-span: all !important;
   max-width: 7.5in !important;
-}
-* .caption,
-* .title {
-  column-break-before: avoid;
-  page-break-before: avoid;
 }
 .chapter h1.title {
   column-span: all !important;
@@ -2273,7 +2299,12 @@ p {
 img,
 figure,
 subfigure {
-  margin: .5em;
+  margin: 1em;
+}
+.colophon > h1.title {
+  color: white;
+  background-color: #336633;
+  margin: .5em 0;
 }
 /******************************************************
  * Tables TODO: simplify/regroup code block //latest
@@ -2289,7 +2320,7 @@ subfigure {
   padding-top: .5em;
   padding-bottom: 1em;
   font-weight: bold;
-  color: #336633;
+  color: #cc6633;
   caption-side: bottom;
 }
 .table th {
@@ -2352,6 +2383,7 @@ subfigure {
  * End of Chapter Solutions Development in Progress
  ******************************************************/
 .solutions {
+  display: block;
   page-break-before: always;
   color: gray;
   float: bottom;
@@ -2367,6 +2399,21 @@ subfigure {
 }
 .solutions > div.title {
   border: 0em;
+}
+/******************************************************
+ * End of Book Solutions
+ ******************************************************/
+div.end-of-book-solutions div.solution > div.title {
+  display: inline;
+}
+div.end-of-book-solutions div.solution > div.title a.solution {
+  padding-right: 0.5em;
+}
+div.end-of-book-solutions div.solution > div.body {
+  display: inline;
+}
+div.end-of-book-solutions div.solution > div.body::first-child {
+  display: inline;
 }
 /******************************************************
  * Index
@@ -2411,5 +2458,11 @@ div.end-of-book-solutions > .title {
   margin-left: -0.5em;
   text-transform: uppercase;
   font-size: large;
+  font-weight: bold;
+  background-color: transparent;
+}
+div.end-of-book-solutions .chapter-area a.chapter * {
+  color: black;
+  font-size: medium;
   font-weight: bold;
 }

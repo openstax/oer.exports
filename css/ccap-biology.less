@@ -116,7 +116,38 @@ div.part > div.titlepage {display:none;}
    .target-appendix .cnx-gentext-appendix { display:inline; }
 }
 
-
+/******************************************************
+ * Preface
+ ******************************************************/
+.preface {
+  //overrides numbering.less without it "Preface" wasn't displaying after pg #	
+  > div.titlepage > div > div h1.title { string-set: cnx-header @S content() @E; color:black; }
+  	
+  h1.title { 
+    color: @green;
+    font-size: xx-large;
+    &:first-child { 
+      margin:0;
+      background-color: @green; 
+      color: white !important; 
+     } 
+   }
+   > div.title { 
+     color: @green;
+     font-size: medium;
+     margin: .5em 0;
+   }
+  .itemizedlist { 
+    list-style-type:none;
+    .title { 
+      color: @green;
+      font-size: medium;
+      margin: .5em 0; 
+      font-weight: bold;
+    }  
+  }
+}
+ 
 /******************************************************
  * Chapter Outline
  ******************************************************/
@@ -180,24 +211,25 @@ div.section .titlepage .abstract {
 /******************************************************
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
-.evolution  { .x-feature(black, @cream, CNX_BioMaj_Evolution); }
+.evolution { .x-feature(black, @cream, CNX_BioMaj_Evolution); }
 .scientific { .x-feature(black, @cream, CNX_BioMaj_Scienctific); }
-.everyday   { .x-feature(black, @cream, CNX_BioMaj_Everyday); }
-.career    { .x-feature(black, @cream, CNX_BioMaj_Career); }
+.everyday { .x-feature(black, @cream, CNX_BioMaj_Everyday); }
+.career { .x-feature(black, @cream, CNX_BioMaj_Career); }
 
 .x-feature (@color, @bg-color, @svg) {
+  background-color: @bg-color;	
   /*set smaller than single column width to include margin/padding of feature element*/	
   img { max-width:3.35in; }
  
-  * p {font-family:inherit;}	
-  
-  background-color: @bg-color;
+  * p { font-family:inherit; }	
+   
   &.span-all {
     .body {
       columns:2;
       column-gap: 2.5em;
      }
-  }  
+  } 
+   
   &::before {
     padding-top: 0.65in; //0.75 + margin-top. 0.75in is from the SVG files
     background-repeat: no-repeat;
@@ -222,11 +254,13 @@ div.section .titlepage .abstract {
     color: black;
     font-weight:bold;
   }
- 
+  
+  .figure > .title { font-size: x-small; }
+     
   &::before {
     background-image: url("ccap-biology/@{svg}.svg");
     column-span: 1 !important;
-  } 
+  }    
 }
 
 
@@ -275,13 +309,15 @@ div.section .titlepage .abstract {
 
 
 /******************************************************
- * Art Connections
+
+ * Art-Connections
  ******************************************************/
- .art-connections {
+.art-connections {
   display:block;
   background-color: red;	
   page-break-inside: avoid;
-  padding: 1em; 
+  padding: 1em;
+   
   &::before {
     background-image: url("ccap-biology/CNX_BioMaj_Art.svg");
     padding-top: .25in;
@@ -295,24 +331,10 @@ div.section .titlepage .abstract {
     content: "";
     display: block;
     // the following are tweaked so the overlays really do over lay
-    max-width: @column;    //remaining properties/values set to force overlays based on svg file 
+    max-width: (@column + .45in);    //remaining properties/values set to force overlays based on svg file 
     margin-left: -.10in;
     margin-top:-.25in;
     margin-right: -.30in;
-  }
-  
-  &.span-all {
-    columns:2;
-    column-gap: 2.5em;
-    display:block;
-    &::before { 
-      display: block;
-      background-image: url("ccap-biology/CNX_BioMaj_Art.svg");
-      content: "";
-      background-color: white;
-      min-width: (@column * 2);
-      margin-top: 1in;
-    }
   }
   
   > .title {   //styles art connections title  
@@ -335,6 +357,7 @@ div.section .titlepage .abstract {
   }
   
   .solution { display:none; } //hide solution in this feature
+
 }
  
 
@@ -396,11 +419,7 @@ img {
    -webkit-column-span: all !important;
    max-width: 7.5in !important;
  }
-
-* .caption, * .title {
-  column-break-before: avoid;
-  page-break-before: avoid;	
-} 
+  
 
 .chapter h1.title {
   column-span: all !important;
@@ -511,8 +530,14 @@ p {
 .section > .title { page-break-after:avoid; }
 
 
-img, figure, subfigure  { margin: .5em; }
+img, figure, subfigure  { margin: 1em; }
 
+.colophon > h1.title { 
+  //this style Attributions and About Connections 	
+  color:white;
+  background-color: @green;
+  margin: .5em 0; 
+ }
 /******************************************************
  * Tables TODO: simplify/regroup code block //latest
  ******************************************************/
@@ -531,7 +556,7 @@ img, figure, subfigure  { margin: .5em; }
     padding-top: .5em;
     padding-bottom: 1em;    
     font-weight:bold;
-    color: @green;
+    color: @tuscany;
     caption-side:bottom;
     
   }
@@ -610,7 +635,7 @@ img, figure, subfigure  { margin: .5em; }
  * End of Chapter Solutions Development in Progress
  ******************************************************/
 .solutions {
-  //display: block; // Since they're disabled in ccap-physics
+  display: block; // Since they're disabled in ccap-physics
   page-break-before:always;
   color: gray;
   float: bottom;
@@ -622,6 +647,34 @@ img, figure, subfigure  { margin: .5em; }
       &.title {border: 0em;} // remove the underscore
   }
 }	
+
+
+/******************************************************
+ * End of Book Solutions
+ ******************************************************/
+// TODO: If this is used by other books it should probably be moved to ccap-numbering.less
+div.end-of-book-solutions {
+  div.solution {
+    // Make the solutions pages span 2 columns
+    //.x-column-count(2);
+
+    // Make the solution show up horizontally next to the 1st paragraph of the solution
+    // This is a bit problematic for several reasons:
+    //   - the place it would ideally be displayed is .body::first-child::before BUT...
+    //   - the a.href with the exercise id (to look up the exercise number) is inside the .title (for EPUBs)
+    //   - single-letter solutions aren't wrapped in a para so there is no .body::first-child
+    // I tried using string-set to squirrel away the exercise id but princexml does not support target-counter(string(...), counter-name)
+    // I tried moving the anchor but princexml also does not support move-to
+    > div.title {
+      display: inline;
+      a.solution { padding-right: 0.5em; }
+    }
+    > div.body {
+      display: inline;
+      &::first-child { display: inline; }
+    }
+  }
+}
 
 
 /******************************************************
@@ -651,26 +704,38 @@ img, figure, subfigure  { margin: .5em; }
  a {font-weight:bold;}
 }
 
-
 // Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
 // originally defined in ccap-numbering.less
 // The hierarchy is copied from ccap-numbering so the selectors (and priority for which to apply) are the same
 .x-duplicate-hierarchy() {
   > div.cnx-eoc { counter-reset: /*exercise*/ eoc-section -1; }
 }
+
 div.book, div.book > div.part {
   > div.preface  { .x-duplicate-hierarchy(); }
   > div.chapter  { .x-duplicate-hierarchy(); }
   > div.appendix { .x-duplicate-hierarchy(); }
+
 }
 
-div.end-of-book-solutions{ 
+div.end-of-book-solutions { 
   > .title { 
     content: "Answer Key";
     color: @green;
-    margin-left: -.50em;
-    text-transform: uppercase;
+    margin-left: -.50em;  
+    text-transform: uppercase; 
     font-size: large;
     font-weight: bold;
+    background-color: transparent; //overwrite from .colophon title 
   }	
+  
+  .chapter-area { 
+    a.chapter *{
+      color:black;
+      font-size: medium;
+      font-weight: bold;
+    }
+  }
 }
+
+
