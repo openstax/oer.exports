@@ -196,17 +196,16 @@ div.section .titlepage .abstract {
   padding: .5em;
   border: 2pt solid @green;
   text-align: left !important;
-  page-break-inside:avoid !important;
-  column-break-inside:avoid !important;
+  page-break-inside:avoid;
+  column-break-inside: avoid;
+  page-break-before: avoid !important;
+  column-break-before: avoid !important;
     >.itemizedlist {
-      margin-left: -.65em;
-      .listitem {margin:.5em 0em;}
-    }
-
-    >.title { display:none; } /*remove "summary"*/
-
+    margin-left: -.65em;
+    .listitem {margin:.5em 0em;}
+   }
+   >.title { display:none; } /*remove "summary"*/
 }
-
 
 /******************************************************
  * Features args(title color, bkgrnd color, path to svg)
@@ -255,7 +254,7 @@ div.section .titlepage .abstract {
     font-weight:bold;
   }
   
-  .figure > .title { font-size: small; }
+  .figure > .title { font-size: x-small; }
      
   &::before {
     background-image: url("ccap-biology/@{svg}.svg");
@@ -268,7 +267,8 @@ div.section .titlepage .abstract {
  *Elements that are special features but styled
  ******************************************************/
 .interactive { 
-  
+  page-break-inside: avoid;
+  column-break-inside: avoid;
   &::before {	
     background-image: url("ccap-biology/CNX_BioMaj_Link.svg");
     padding-top: .75in; //0.75 + margin-top. 0.75in is from the SVG files
@@ -276,7 +276,6 @@ div.section .titlepage .abstract {
     background-repeat: no-repeat;
     background-position: top left;
     background-position: top outside;
-    page-break-inside: avoid;
     page-break-after: avoid;	
   	background-color: white;
     content: "";
@@ -312,67 +311,50 @@ div.section .titlepage .abstract {
 
  * Art-Connections
  ******************************************************/
-.art-connections {
+ .art-connections {
   display:block;
-  background-color: @cream;	
+  background-color: @cream;
   page-break-inside: avoid;
   padding: 1em;
-  margin-top: 2em; 
-   
+  
   &::before {
     background-image: url("ccap-biology/CNX_BioMaj_Art.svg");
     padding: .25in; //0.25 + margin-top. 0.25in is from the SVG files
+    padding-bottom: .30in;
     background-repeat: no-repeat;
     background-position: top left;
     background-position: top outside;
     page-break-inside: avoid;
-    page-break-after: avoid;	
+    page-break-after: avoid;
   	background-color: white;
     content: "";
     display: block;
     // the following are tweaked so the overlays really do over lay
-    max-width: @column;    //remaining properties/values set to force overlays based on svg file 
-    margin-left: -.10in;
+    max-width: @column;    //remaining properties/values set to force overlays based on svg file
+    margin-left: -.15in;
     margin-top:-.25in;
-    margin-right: -.15in;
+    margin-right: -.12in;
   }
-  
-  &.span-all {
-    columns:2;
-    column-gap: 2.5em;
-    display:block;
-    &::before { 
-      display: block;
-      background-image: url("ccap-biology/CNX_BioMaj_Art.svg");
-      content: "";
-      background-color: white;
-      min-width: (@column * 2);
-      margin-top: 1in;
-    }
-    margin-top: 1in;
-    padding-top: 1em;
 
-  }
-  
-  > .title {   //styles art connections title  
+  > .title {   //styles art connections title
     padding: .5em 0;
     font-size: large;
     text-align: left;
-    prince-text-replace: "Exercise" "Art Connections";
+    prince-text-replace: "Exercise" "";
   }
-  
+
     img {
     padding: 0;
     margin: 0;
     max-width: (@column - .25em) !important;
   }
-  
-  .problem > p { 
-    text-indent: 0em; 
-    margin-top: 1em; 
+
+  .problem > p {
+    text-indent: 0em;
+    margin-top: 1em;
     font: inherit;
   }
-  
+
   .solution { display:none; } //hide solution in this feature
 
 }
@@ -436,11 +418,7 @@ img {
    -webkit-column-span: all !important;
    max-width: 7.5in !important;
  }
-
-* .caption, * .title {
-  column-break-before: avoid;
-  page-break-before: avoid;	
-} 
+  
 
 .chapter h1.title {
   column-span: all !important;
@@ -548,11 +526,20 @@ p {
   dt::after { content: " " !important; }
 }
 
-.section > .title { page-break-after:avoid; }
+.section > .title { 
+  page-break-after:avoid;
+  column-break-after: avoid;  
+}
 
 
-img, figure, subfigure  { margin: .5em; }
+img, figure, subfigure  { margin: 1em; }
 
+.colophon > h1.title { 
+  //this style Attributions and About Connections 	
+  color:white;
+  background-color: @green;
+  margin: .5em 0; 
+ }
 /******************************************************
  * Tables TODO: simplify/regroup code block //latest
  ******************************************************/
@@ -571,7 +558,7 @@ img, figure, subfigure  { margin: .5em; }
     padding-top: .5em;
     padding-bottom: 1em;    
     font-weight:bold;
-    color: @green;
+    color: @tuscany;
     caption-side:bottom;
     
   }
@@ -665,6 +652,34 @@ img, figure, subfigure  { margin: .5em; }
 
 
 /******************************************************
+ * End of Book Solutions
+ ******************************************************/
+// TODO: If this is used by other books it should probably be moved to ccap-numbering.less
+div.end-of-book-solutions {
+  div.solution {
+    // Make the solutions pages span 2 columns
+    //.x-column-count(2);
+
+    // Make the solution show up horizontally next to the 1st paragraph of the solution
+    // This is a bit problematic for several reasons:
+    //   - the place it would ideally be displayed is .body::first-child::before BUT...
+    //   - the a.href with the exercise id (to look up the exercise number) is inside the .title (for EPUBs)
+    //   - single-letter solutions aren't wrapped in a para so there is no .body::first-child
+    // I tried using string-set to squirrel away the exercise id but princexml does not support target-counter(string(...), counter-name)
+    // I tried moving the anchor but princexml also does not support move-to
+    > div.title {
+      display: inline;
+      a.solution { padding-right: 0.5em; }
+    }
+    > div.body {
+      display: inline;
+      &::first-child { display: inline; }
+    }
+  }
+}
+
+
+/******************************************************
  * Index
  ******************************************************/
 .index {
@@ -702,15 +717,27 @@ div.book, div.book > div.part {
   > div.preface  { .x-duplicate-hierarchy(); }
   > div.chapter  { .x-duplicate-hierarchy(); }
   > div.appendix { .x-duplicate-hierarchy(); }
+
 }
 
 div.end-of-book-solutions { 
   > .title { 
     content: "Answer Key";
     color: @green;
-    margin-left: -.50em;
-    text-transform: uppercase;
+    margin-left: -.50em;  
+    text-transform: uppercase; 
     font-size: large;
     font-weight: bold;
+    background-color: transparent; //overwrite from .colophon title 
   }	
+  
+  .chapter-area { 
+    a.chapter *{
+      color:black;
+      font-size: medium;
+      font-weight: bold;
+    }
+  }
 }
+
+
