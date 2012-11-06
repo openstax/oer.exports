@@ -196,17 +196,16 @@ div.section .titlepage .abstract {
   padding: .5em;
   border: 2pt solid @green;
   text-align: left !important;
-  page-break-inside:avoid !important;
-  column-break-inside:avoid !important;
+  page-break-inside:avoid;
+  column-break-inside: avoid;
+  page-break-before: avoid !important;
+  column-break-before: avoid !important;
     >.itemizedlist {
-      margin-left: -.65em;
-      .listitem {margin:.5em 0em;}
-    }
-
-    >.title { display:none; } /*remove "summary"*/
-
+    margin-left: -.65em;
+    .listitem {margin:.5em 0em;}
+   }
+   >.title { display:none; } /*remove "summary"*/
 }
-
 
 /******************************************************
  * Features args(title color, bkgrnd color, path to svg)
@@ -268,7 +267,8 @@ div.section .titlepage .abstract {
  *Elements that are special features but styled
  ******************************************************/
 .interactive { 
-  
+  page-break-inside: avoid;
+  column-break-inside: avoid;
   &::before {	
     background-image: url("ccap-biology/CNX_BioMaj_Link.svg");
     padding-top: .75in; //0.75 + margin-top. 0.75in is from the SVG files
@@ -276,7 +276,6 @@ div.section .titlepage .abstract {
     background-repeat: no-repeat;
     background-position: top left;
     background-position: top outside;
-    page-break-inside: avoid;
     page-break-after: avoid;	
   	background-color: white;
     content: "";
@@ -527,7 +526,10 @@ p {
   dt::after { content: " " !important; }
 }
 
-.section > .title { page-break-after:avoid; }
+.section > .title { 
+  page-break-after:avoid;
+  column-break-after: avoid;  
+}
 
 
 img, figure, subfigure  { margin: 1em; }
