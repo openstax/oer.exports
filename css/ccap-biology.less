@@ -614,7 +614,8 @@ img, figure, subfigure  { margin: .5em; }
 
 /******************************************************
  * End of Chapter Solutions Development in Progress
- ******************************************************/
+ ******************************************************/ > div.chapter-area { counter-reset: solution; }	
+  > div.chapter-area > div.section-area > div.solution > div.body { counter-increment: solution; }
 .solutions {
   //display: block; // Since they're disabled in ccap-physics
   page-break-before:always;
@@ -686,22 +687,36 @@ div.end-of-book-solutions {
  a { font-weight:bold; }
 }
 
-/*schatz - modification of exercise/solution counters doesn't resolve 1-ordering of solutions 2-does correct numbering incrementing correctly */
+/*schatz - modification of exercise/solution counters  1-doesn't resolve collation order of solutions 2-corrects numbering incrementing correctly */
 /* dependent on eoc  collation (sorted by type) */
 // Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
 // originally defined in ccap-numbering.less
 // The hierarchy is copied from ccap-numbering so the selectors (and priority for which to apply) are the same
-.x-duplicate-hierarchy() {
- > div.exercise { counter-reset: /*exercise*/ eoc-section -1; } /*this counter may be culprit for eob numbering*/
+/*.x-duplicate-hierarchy() {
+ > div.chatper-area { counter-reset:  solution; } this counter may be culprit for eob numbering
 }
 
 div.book, div.book > div.part {
+
   > div.preface  { .x-duplicate-hierarchy(); }
   > div.chapter  { .x-duplicate-hierarchy(); }
   > div.appendix { .x-duplicate-hierarchy(); }
-}
+}*/
 
 div.end-of-book-solutions { 
+  > div.chapter-area { 
+    counter-reset: solution;
+    > div.section-area > div.solution {
+      margin-right: .5em;
+      counter-increment: solution;
+      &::before { 
+        content: counter(solution); 
+        color:black;
+        font-weight: bold;
+      }
+    }  
+  }	
+  
   > .title { 
     content: "Answer Key";
     color: @green;

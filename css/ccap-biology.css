@@ -1643,6 +1643,8 @@ div.colophon.end-of-book-solutions div.preface-area div.solution > div.title a.s
 div.colophon.end-of-book-solutions div.chapter-area div.solution > div.title a.solution,
 div.colophon.end-of-book-solutions div.appendix-area div.solution > div.title a.solution {
   font-weight: bold;
+  color: transparent;
+  margin-left: -0.15in;
   content: target-counter(attr(href), exercise);
 }
 /*******************
@@ -2364,7 +2366,12 @@ subfigure {
 }
 /******************************************************
  * End of Chapter Solutions Development in Progress
- ******************************************************/
+ ******************************************************/> div.chapter-area {
+  counter-reset: solution;
+}
+> div.chapter-area > div.section-area > div.solution > div.body {
+  counter-increment: solution;
+}
 .solutions {
   page-break-before: always;
   color: gray;
@@ -2426,34 +2433,29 @@ div.end-of-book-solutions div.solution > div.body::first-child {
 .index a {
   font-weight: bold;
 }
-/*schatz - modification of exercise/solution counters doesn't resolve 1-ordering of solutions 2-does correct numbering incrementing correctly */
+/*schatz - modification of exercise/solution counters  1-doesn't resolve collation order of solutions 2-corrects numbering incrementing correctly */
 /* dependent on eoc  collation (sorted by type) */
-div.book > div.preface,
-div.book > div.part > div.preface {
-  /*this counter may be culprit for eob numbering*/
+/*.x-duplicate-hierarchy() {
+ > div.chatper-area { counter-reset:  solution; } this counter may be culprit for eob numbering
+}
 
-}
-div.book > div.preface > div.exercise,
-div.book > div.part > div.preface > div.exercise {
-  counter-reset: /*exercise*/ eoc-section -1;
-}
-div.book > div.chapter,
-div.book > div.part > div.chapter {
-  /*this counter may be culprit for eob numbering*/
+div.book, div.book > div.part {
 
+  > div.preface  { .x-duplicate-hierarchy(); }
+  > div.chapter  { .x-duplicate-hierarchy(); }
+  > div.appendix { .x-duplicate-hierarchy(); }
+}*/
+div.end-of-book-solutions > div.chapter-area {
+  counter-reset: solution;
 }
-div.book > div.chapter > div.exercise,
-div.book > div.part > div.chapter > div.exercise {
-  counter-reset: /*exercise*/ eoc-section -1;
+div.end-of-book-solutions > div.chapter-area > div.section-area > div.solution {
+  margin-right: .5em;
+  counter-increment: solution;
 }
-div.book > div.appendix,
-div.book > div.part > div.appendix {
-  /*this counter may be culprit for eob numbering*/
-
-}
-div.book > div.appendix > div.exercise,
-div.book > div.part > div.appendix > div.exercise {
-  counter-reset: /*exercise*/ eoc-section -1;
+div.end-of-book-solutions > div.chapter-area > div.section-area > div.solution::before {
+  content: counter(solution);
+  color: black;
+  font-weight: bold;
 }
 div.end-of-book-solutions > .title {
   content: "Answer Key";
