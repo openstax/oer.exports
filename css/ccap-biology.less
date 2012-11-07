@@ -676,30 +676,32 @@ div.end-of-book-solutions {
     padding-top:1em;
   }
  
- .index-term {font-size:medium;}//clean up
+ .index-term { font-size:medium; }//clean up
  
  .index-term::first-letter {
    font-variant:small-caps; 
    font-size:1.25em;
  } 
  
- a {font-weight:bold;}
+ a { font-weight:bold; }
 }
 
-
+/*schatz - modification of exercise/solution counters doesn't resolve 1-ordering of solutions 2-does correct numbering incrementing correctly */
+/* dependent on eoc  collation (sorted by type) */
 // Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
 // originally defined in ccap-numbering.less
 // The hierarchy is copied from ccap-numbering so the selectors (and priority for which to apply) are the same
 .x-duplicate-hierarchy() {
-  > div.exercise { counter-reset: /*exercise*/ eoc-section -1; } /*this counter may be culprit for eob numbering*/
+ > div.exercise { counter-reset: /*exercise*/ eoc-section -1; } /*this counter may be culprit for eob numbering*/
 }
+
 div.book, div.book > div.part {
   > div.preface  { .x-duplicate-hierarchy(); }
   > div.chapter  { .x-duplicate-hierarchy(); }
   > div.appendix { .x-duplicate-hierarchy(); }
 }
 
-div.end-of-book-solutions{ 
+div.end-of-book-solutions { 
   > .title { 
     content: "Answer Key";
     color: @green;
