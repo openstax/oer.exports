@@ -636,6 +636,7 @@ img, figure, subfigure  { margin: .5em; }
 // TODO: If this is used by other books it should probably be moved to ccap-numbering.less
 div.end-of-book-solutions {
   div.solution {
+  display:inline;
     // Make the solutions pages span 2 columns
     //.x-column-count(2);
 
@@ -648,7 +649,7 @@ div.end-of-book-solutions {
     // I tried moving the anchor but princexml also does not support move-to
     > div.title {
       display: inline;
-      a.solution { padding-right: 0.5em; }
+      a.solution { padding-right: 0.25em; padding-left: 0.5em; }
     }
     > div.body {
       display: inline;
@@ -690,7 +691,7 @@ div.end-of-book-solutions {
 // originally defined in ccap-numbering.less
 // The hierarchy is copied from ccap-numbering so the selectors (and priority for which to apply) are the same
 .x-duplicate-hierarchy() {
-  > div.cnx-eoc { counter-reset: /*exercise*/ eoc-section -1; }
+  > div.exercise { counter-reset: /*exercise*/ eoc-section -1; } /*this counter may be culprit for eob numbering*/
 }
 div.book, div.book > div.part {
   > div.preface  { .x-duplicate-hierarchy(); }
