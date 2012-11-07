@@ -1644,6 +1644,8 @@ div.colophon.end-of-book-solutions div.preface-area div.solution > div.title a.s
 div.colophon.end-of-book-solutions div.chapter-area div.solution > div.title a.solution,
 div.colophon.end-of-book-solutions div.appendix-area div.solution > div.title a.solution {
   font-weight: bold;
+  color: transparent;
+  margin-left: -0.15in;
   content: target-counter(attr(href), exercise);
 }
 /*******************
@@ -2388,7 +2390,12 @@ subfigure {
 }
 /******************************************************
  * End of Chapter Solutions Development in Progress
- ******************************************************/
+ ******************************************************/> div.chapter-area {
+  counter-reset: solution;
+}
+> div.chapter-area > div.section-area > div.solution > div.body {
+  counter-increment: solution;
+}
 .solutions {
   display: block;
   page-break-before: always;
@@ -2451,44 +2458,13 @@ div.end-of-book-solutions div.solution > div.body::first-child {
 .index a {
   font-weight: bold;
 }
-div.book > div.preface,
-div.book > div.part > div.preface {
-  /*this counter may be culprit for eob numbering*/
+/*.x-duplicate-hierarchy() {
+ > div.chatper-area { counter-reset:  solution; } this counter may be culprit for eob numbering
+}
 
-}
-div.book > div.preface > div.exercise,
-div.book > div.part > div.preface > div.exercise {
-  counter-reset: /*exercise*/ eoc-section -1;
-}
-div.book > div.chapter,
-div.book > div.part > div.chapter {
-  /*this counter may be culprit for eob numbering*/
+div.book, div.book > div.part {
 
-}
-div.book > div.chapter > div.exercise,
-div.book > div.part > div.chapter > div.exercise {
-  counter-reset: /*exercise*/ eoc-section -1;
-}
-div.book > div.appendix,
-div.book > div.part > div.appendix {
-  /*this counter may be culprit for eob numbering*/
-
-}
-div.book > div.appendix > div.exercise,
-div.book > div.part > div.appendix > div.exercise {
-  counter-reset: /*exercise*/ eoc-section -1;
-}
-div.end-of-book-solutions > .title {
-  content: "Answer Key";
-  color: #336633;
-  margin-left: -0.5em;
-  text-transform: uppercase;
-  font-size: large;
-  font-weight: bold;
-  background-color: transparent;
-}
-div.end-of-book-solutions .chapter-area a.chapter * {
-  color: black;
-  font-size: medium;
-  font-weight: bold;
-}
+  > div.preface  { .x-duplicate-hierarchy(); }
+  > div.chapter  { .x-duplicate-hierarchy(); }
+  > div.appendix { .x-duplicate-hierarchy(); }
+}*/
