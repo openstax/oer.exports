@@ -2390,13 +2390,7 @@ subfigure {
 }
 /******************************************************
  * End of Chapter Solutions Development in Progress
- ******************************************************/> div.chapter-area {
-  counter-reset: solution;
-}
-> div.chapter-area > div.section-area > div.solution > div.body {
-  counter-increment: solution;
-}
-.solutions {
+ ******************************************************/.solutions {
   display: block;
   page-break-before: always;
   color: gray;
@@ -2468,3 +2462,29 @@ div.book, div.book > div.part {
   > div.chapter  { .x-duplicate-hierarchy(); }
   > div.appendix { .x-duplicate-hierarchy(); }
 }*/
+div.end-of-book-solutions > div.chapter-area {
+  counter-reset: solution;
+}
+div.end-of-book-solutions > div.chapter-area > div.section-area > div.solution {
+  margin-right: .5em;
+  counter-increment: solution;
+}
+div.end-of-book-solutions > div.chapter-area > div.section-area > div.solution::before {
+  content: counter(solution);
+  color: black;
+  font-weight: bold;
+}
+div.end-of-book-solutions > .title {
+  content: "Answer Key";
+  color: #336633;
+  background-color: transparent;
+  margin-left: -0.5em;
+  text-transform: uppercase;
+  font-size: large;
+  font-weight: bold;
+}
+.chapter-area a.chapter * {
+  color: black;
+  font-size: medium;
+  font-weight: bold;
+}
