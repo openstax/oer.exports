@@ -313,6 +313,8 @@
 
   <xsl:for-each select="$context/*[self::db:preface | self::db:chapter | self::db:appendix][.//ext:exercise[.//ext:solution]]|$context/db:part/db:chapter[.//ext:exercise[.//ext:solution]]">
 
+    <xsl:variable name="context" select="."/>
+
     <xsl:variable name="chapterId">
       <xsl:call-template name="object.id"/>
     </xsl:variable>
