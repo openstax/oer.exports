@@ -327,32 +327,41 @@
         </xsl:call-template>
       </h2>
 
-      <!-- If the exercises are not in a section that put them up here -->
-      <xsl:apply-templates select=".//ext:exercise[not(ancestor::db:section)]/ext:solution">
-        <xsl:with-param name="render" select="true()"/>
-      </xsl:apply-templates>
-
-      <xsl:for-each select="db:section[.//ext:exercise]">
-        <xsl:variable name="sectionId">
-          <xsl:call-template name="object.id"/>
-        </xsl:variable>
-        <!-- Print the section title and link back to it -->
-        <div class="section-area">
-          <h3 class="title">
-            <xsl:call-template name="simple.xlink">
-              <xsl:with-param name="linkend" select="$sectionId"/>
-              <xsl:with-param name="content">
-                <xsl:apply-templates select="." mode="object.title.markup">
-                  <xsl:with-param name="allow-anchors" select="0"/>
-                </xsl:apply-templates>
-              </xsl:with-param>
-            </xsl:call-template>
-          </h3>
-          <xsl:apply-templates select=".//ext:exercise/ext:solution">
-            <xsl:with-param name="render" select="true()"/>
-          </xsl:apply-templates>
-        </div>
+      <xsl:comment>START: solutions that don't have a cnx.eoc processing instruction</xsl:comment>
+      <!-- Since they're in the content they should occur BEFORE all the other solutions -->
+      <xsl:variable name="instructions">
+        <xsl:for-each select="$context//processing-instruction('cnx.eoc')">
+          <xsl:value-of select="."/>
+          <xsl:text> | </xsl:text>
+        </xsl:for-each>
+      </xsl:variable>
+      <xsl:for-each select="$context//ext:exercise">
+        <xsl:if test="not(contains($instructions, @class))">
+          <xsl:apply-templates select="./ext:solution"/>
+        </xsl:if>
       </xsl:for-each>
+      <xsl:comment>END: solutions that don't have a cnx.eoc processing instruction</xsl:comment>
+
+
+      <xsl:comment>START: solutions ordered by cnx.eoc processing instruction</xsl:comment>
+      <xsl:for-each select=".//processing-instruction('cnx.eoc')">
+        <xsl:variable name="val" select="concat(' ', .)"/>
+        <xsl:variable name="class" select="substring-before(substring-after($val,' class=&quot;'), '&quot;')"/>
+        <xsl:message>LOG: INFO: Looking for some end-of-chapter matter: class=[<xsl:value-of select="$class"/>] inside a [<xsl:value-of select="name()"/>]</xsl:message>
+
+        <xsl:if test="string-length($class) &gt; 0 and $context//*[contains(@class,$class)]//ext:solution">
+          <xsl:message>LOG: INFO: Found some end-of-chapter solutions: class=[<xsl:value-of select="$class"/>]</xsl:message>
+          <!--
+          <xsl:comment>HACK: Do not rely on this div existing</xsl:comment>
+          <div class="{$class}-divider">
+          -->
+          <xsl:apply-templates select="$context//*[contains(@class,$class)]//ext:solution"/>
+
+          <!-- </div> -->
+        </xsl:if>
+      </xsl:for-each>
+      <xsl:comment>END: solutions ordered by cnx.eoc processing instruction</xsl:comment>
+
 
     </div>
   </xsl:for-each>
