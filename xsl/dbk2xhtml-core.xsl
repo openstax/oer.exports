@@ -309,9 +309,9 @@
   - Gets matched (hence the ext:special-element-name)
 -->
 <xsl:template match="ext:end-of-book-solutions-placeholder[../..//*[.//ext:solution]]">
-  <xsl:param name="context" select="/db:book"/>
+  <xsl:param name="book" select="/db:book"/>
 
-  <xsl:for-each select="$context/*[self::db:preface | self::db:chapter | self::db:appendix][.//ext:exercise[.//ext:solution]]|$context/db:part/db:chapter[.//ext:exercise[.//ext:solution]]">
+  <xsl:for-each select="$book/*[self::db:preface | self::db:chapter | self::db:appendix][.//ext:exercise[.//ext:solution]]|$book/db:part/db:chapter[.//ext:exercise[.//ext:solution]]">
 
     <xsl:variable name="context" select="."/>
 
