@@ -1822,10 +1822,10 @@ div.part > div.titlepage {
   border: 0;
   min-width: 3.5in;
 }
+.chapter .toc > ul {
+  margin-left: 0.5in;
+}
 .chapter .toc .toc-section {
-  margin: .5em;
-  padding: 0 1.5em;
-  text-indent: -3.25em;
   text-align: left;
 }
 .chapter .toc .toc-section .abstract {
@@ -1833,12 +1833,14 @@ div.part > div.titlepage {
 }
 .chapter .toc .toc-section > a.target-section {
   color: black;
+  margin-left: -0.37in;
+  /* precise measurement to give illusion second line of target-section is indented */
+
   /*remove . from key concepts*/
 
 }
 .chapter .toc .toc-section > a.target-section .cnx-gentext-n {
-  padding: .5em;
-  /*add : to key concepts BIO Review Issue #9*/
+  /*add : after section # */
 
 }
 .chapter .toc .toc-section > a.target-section .cnx-gentext-n::after {
@@ -1863,11 +1865,12 @@ div.section .titlepage .abstract {
   /*remove "summary"*/
 
 }
-div.section .titlepage .abstract > .itemizedlist {
-  margin-left: -0.65em;
+div.section .titlepage .abstract > .itemizedlist::before {
+  content: "By the end of this section, students will be able to:";
+  font: x-small "Times New Roman", Times, serif;
 }
 div.section .titlepage .abstract > .itemizedlist .listitem {
-  margin: .5em 0em;
+  margin: .25em 0em;
 }
 div.section .titlepage .abstract > .title {
   display: none;
