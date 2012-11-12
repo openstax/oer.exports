@@ -2467,38 +2467,28 @@ div.end-of-book-solutions div.solution > div.body::first-child {
 .index a {
   font-weight: bold;
 }
-/*.x-duplicate-hierarchy() {
- > div.chatper-area { counter-reset:  solution; } this counter may be culprit for eob numbering
+div.book > div.preface > div.cnx-eoc,
+div.book > div.part > div.preface > div.cnx-eoc {
+  counter-reset: /*exercise*/ eoc-section -1;
 }
-
-div.book, div.book > div.part {
-
-  > div.preface  { .x-duplicate-hierarchy(); }
-  > div.chapter  { .x-duplicate-hierarchy(); }
-  > div.appendix { .x-duplicate-hierarchy(); }
-}*/
-div.end-of-book-solutions > div.chapter-area {
-  counter-reset: solution;
+div.book > div.chapter > div.cnx-eoc,
+div.book > div.part > div.chapter > div.cnx-eoc {
+  counter-reset: /*exercise*/ eoc-section -1;
 }
-div.end-of-book-solutions > div.chapter-area > div.section-area > div.solution {
-  margin-right: .5em;
-  counter-increment: solution;
-}
-div.end-of-book-solutions > div.chapter-area > div.section-area > div.solution::before {
-  content: counter(solution);
-  color: black;
-  font-weight: bold;
+div.book > div.appendix > div.cnx-eoc,
+div.book > div.part > div.appendix > div.cnx-eoc {
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.end-of-book-solutions > .title {
   content: "Answer Key";
   color: #336633;
-  background-color: transparent;
   margin-left: -0.5em;
   text-transform: uppercase;
   font-size: large;
   font-weight: bold;
+  background-color: transparent;
 }
-.chapter-area a.chapter * {
+div.end-of-book-solutions .chapter-area a.chapter * {
   color: black;
   font-size: medium;
   font-weight: bold;

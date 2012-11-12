@@ -29,10 +29,10 @@ For most smartphones the relationship between scan distance and minimum QR code 
  * 2 Column Customized Elements
  ******************************************************/
 .page-top { float: top; }
-.page-bottom { float: bottom; }
+.page-bottom { float: bottom !important; }
 .column-top { float: column-top; }
 .column-bottom { float: column-bottom; }
-	
+.column-top-corner { float: column-top-corner; }	
 
 .chapter {
   .x-column-count(2);
@@ -42,7 +42,7 @@ For most smartphones the relationship between scan distance and minimum QR code 
 .span-all {
   column-span: all !important;
   -webkit-column-span: all !important;	
-  float:prince-snap;
+  float:top;
 }
 
 .title { text-align: left !important; }
@@ -709,8 +709,8 @@ div.end-of-book-solutions {
 // Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
 // originally defined in ccap-numbering.less
 // The hierarchy is copied from ccap-numbering so the selectors (and priority for which to apply) are the same
-/*.x-duplicate-hierarchy() {
- > div.chatper-area { counter-reset:  solution; } this counter may be culprit for eob numbering
+.x-duplicate-hierarchy() {
+  > div.cnx-eoc { counter-reset: /*exercise*/ eoc-section -1; }
 }
 
 div.book, div.book > div.part {
@@ -718,36 +718,22 @@ div.book, div.book > div.part {
   > div.preface  { .x-duplicate-hierarchy(); }
   > div.chapter  { .x-duplicate-hierarchy(); }
   > div.appendix { .x-duplicate-hierarchy(); }
-}*/
+}
 
-div.end-of-book-solutions { 
-  > div.chapter-area { 
-    counter-reset: solution;
-    > div.section-area > div.solution {
-      margin-right: .5em;
-      counter-increment: solution;
-      &::before { 
-        content: counter(solution); 
-        color:black;
-        font-weight: bold;
-      }
-    }  
-  }
-  
-  > .title { 
+div.end-of-book-solutions {
+  > .title {
     content: "Answer Key";
     color: @green;
-    background-color: transparent;
     margin-left: -.50em;
     text-transform: uppercase;
     font-size: large;
     font-weight: bold;
-  }	
-}
-  
-  .chapter-area { 
+    background-color: transparent; //overwrite from .colophon title
+  }
+
+  .chapter-area {
     a.chapter * {
-      color:black;
+      color: black;
       font-size: medium;
       font-weight: bold;
     }
