@@ -18,7 +18,8 @@ Finished printed size of the QR code is dependent on:
 For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
  QR code printed in a magazine/book will have a nominal effective scan distance of about 250mm (10 inches),
  ******************************************************/
-@qr: 1in; 
+@qr: 1in;
+@table-border: 1pt solid @green;
 
 
 @import url('ccap-base.less');
@@ -200,11 +201,14 @@ div.section .titlepage .abstract {
   column-break-inside: avoid;
   page-break-before: avoid !important;
   column-break-before: avoid !important;
-    >.itemizedlist {
-    margin-left: -.65em;
-    .listitem {margin:.5em 0em;}
-   }
-   >.title { display:none; } /*remove "summary"*/
+  >.itemizedlist {
+    &::before { 
+      content: "By the end of this section, you will be able to:"; 
+      font-size: x-small "Times New Roman", Times, serif; 
+    }
+    .listitem { margin:.25em 0em; }
+  }
+  >.title { display:none; } /*remove "summary"*/
 }
 
 /******************************************************
@@ -556,7 +560,6 @@ img, figure, subfigure  { margin: 1em; }
     /*reset metrics*/
       margin: 0;
       padding:0;
-      border-style:none !important;
     }
   }
 
@@ -564,9 +567,8 @@ img, figure, subfigure  { margin: 1em; }
     padding-top: .5em;
     padding-bottom: 1em;    
     font-weight:bold;
-    color: @tuscany;
+    color: @green;
     caption-side:bottom;
-    
   }
 
   th {
@@ -574,8 +576,8 @@ img, figure, subfigure  { margin: 1em; }
     background-color: @cream;
     font-size: small;
     border-style: none !important;
-    border-top:1pt solid @green !important;
-    border-bottom:1pt solid @green !important;
+    border-top: @table-border !important;
+    border-bottom: @table-border !important;
     text-align: center !important;
   }
   
@@ -584,10 +586,15 @@ img, figure, subfigure  { margin: 1em; }
     color: @green !important;
     font-size:medium;
     margin-left: -1em;
-    text-align: left !important;
-    border-style: none !important; 
+    text-align: center !important;
+    border-style: none !important;
     background-color: transparent !important;
   }
+    	
+  table { 
+    border: 0 !important; 
+    border-bottom: @table-border !important; 
+  }  
 }
 
 
