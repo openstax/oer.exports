@@ -19,7 +19,7 @@ For most smartphones the relationship between scan distance and minimum QR code 
  QR code printed in a magazine/book will have a nominal effective scan distance of about 250mm (10 inches),
  ******************************************************/
 @qr: 1in;
-
+@table-border: 1pt solid @green;
 
 @import url('ccap-base.less');
 @import url('ccap-numbering.less');
@@ -204,7 +204,7 @@ div.section .titlepage .abstract {
   >.itemizedlist {
     &::before { 
       content: "By the end of this section, you will be able to:"; 
-      font: x-small "Times New Roman", Times, serif; 
+      font-size: x-small "Times New Roman", Times, serif; 
     }
     .listitem { margin:.25em 0em; }
   }
@@ -552,13 +552,12 @@ img, figure, subfigure  { margin: 1em; }
  * Tables TODO: simplify/regroup code block //latest
  ******************************************************/
 .table {
-      
+ 
   &.span-all {
     table {
     /*reset metrics*/
       margin: 0;
       padding:0;
-      border-style:none !important;
     }
   }
 
@@ -575,8 +574,8 @@ img, figure, subfigure  { margin: 1em; }
     background-color: @cream;
     font-size: small;
     border-style: none !important;
-    border-top:1pt solid @green !important;
-    border-bottom:1pt solid @green !important;
+    border-top: @table-border !important;
+    border-bottom: @table-border !important;
     text-align: center !important;
   }
 
@@ -589,6 +588,11 @@ img, figure, subfigure  { margin: 1em; }
     border-style: none !important;
     background-color: transparent !important;
   }
+    	
+  table { 
+    border: 0 !important; 
+    border-bottom: @table-border !important; 
+  }  
 }
 
 
