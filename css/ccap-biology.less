@@ -19,7 +19,8 @@ For most smartphones the relationship between scan distance and minimum QR code 
  QR code printed in a magazine/book will have a nominal effective scan distance of about 250mm (10 inches),
  ******************************************************/
 @qr: 1in;
-
+@table-border: 1pt solid @green;
+@font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 
 @import url('ccap-base.less');
 @import url('ccap-numbering.less');
@@ -203,8 +204,8 @@ div.section .titlepage .abstract {
   column-break-before: avoid !important;
   >.itemizedlist {
     &::before { 
-      content: "By the end of this section, students will be able to:"; 
-      font: x-small "Times New Roman", Times, serif; 
+      content: "By the end of this section, you will be able to:"; 
+      font-size: x-small "Times New Roman", Times, serif; 
     }
     .listitem { margin:.25em 0em; }
   }
@@ -513,7 +514,6 @@ p {
 
 .footnote {
   margin: .25em;
-  font-style: italic;
   color: black !important;
 }
 
@@ -554,13 +554,12 @@ img, figure, subfigure  { margin: 1em; }
  * Tables TODO: simplify/regroup code block //latest
  ******************************************************/
 .table {
-
+ 
   &.span-all {
     table {
     /*reset metrics*/
       margin: 0;
       padding:0;
-      border-style:none !important;
     }
   }
 
@@ -568,9 +567,8 @@ img, figure, subfigure  { margin: 1em; }
     padding-top: .5em;
     padding-bottom: 1em;
     font-weight:bold;
-    color: @tuscany;
+    color: @green;
     caption-side:bottom;
-
   }
 
   th {
@@ -578,8 +576,8 @@ img, figure, subfigure  { margin: 1em; }
     background-color: @cream;
     font-size: small;
     border-style: none !important;
-    border-top:1pt solid @green !important;
-    border-bottom:1pt solid @green !important;
+    border-top: @table-border !important;
+    border-bottom: @table-border !important;
     text-align: center !important;
   }
 
@@ -588,10 +586,15 @@ img, figure, subfigure  { margin: 1em; }
     color: @green !important;
     font-size:medium;
     margin-left: -1em;
-    text-align: left !important;
+    text-align: center !important;
     border-style: none !important;
     background-color: transparent !important;
   }
+    	
+  table { 
+    border: 0 !important; 
+    border-bottom: @table-border !important; 
+  }  
 }
 
 
@@ -733,6 +736,7 @@ div.book, div.book > div.part {
 }
 
 div.end-of-book-solutions {
+  	
   > .title {
     content: "Answer Key";
     color: @green;
