@@ -1672,11 +1672,24 @@ div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
 /******************************************************
  * 2 Column Customized Elements
  ******************************************************/
-.float-top {
+/* layout positioning classes */
+.page-top {
   float: top;
 }
-.float-bottom {
-  float: bottom;
+.page-bottom {
+  float: bottom !important;
+}
+.column-top {
+  float: column-top;
+}
+.column-bottom {
+  float: column-bottom;
+}
+/* classes/modifiers allowing next page positioning */.next-page-top {
+  float: top next !important;
+}
+.next-page-bottom {
+  float: bottom next !important;
 }
 .chapter {
   -webkit-column-count: 2;
@@ -1690,7 +1703,7 @@ div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
 .span-all {
   column-span: all !important;
   -webkit-column-span: all !important;
-  float: prince-snap;
+  float: top;
 }
 .title {
   text-align: left !important;
@@ -1866,8 +1879,8 @@ div.section .titlepage .abstract {
 
 }
 div.section .titlepage .abstract > .itemizedlist::before {
-  content: "By the end of this section, students will be able to:";
-  font: x-small "Times New Roman", Times, serif;
+  content: "By the end of this section, you will be able to:";
+  font-size: x-small "Times New Roman", Times, serif;
 }
 div.section .titlepage .abstract > .itemizedlist .listitem {
   margin: .25em 0em;
@@ -2104,8 +2117,7 @@ div.section .titlepage .abstract > .title {
 }
 .art-connections::before {
   background-image: url("ccap-biology/CNX_BioMaj_Art.svg");
-  padding: .25in;
-  padding-bottom: .30in;
+  padding: .25in .10in .30in 0in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
@@ -2137,6 +2149,9 @@ div.section .titlepage .abstract > .title {
 }
 .art-connections .solution {
   display: none;
+}
+.art-connections.span-all img {
+  min-width: 7in;
 }
 /******************************************************
  * End of chapter customizations
@@ -2298,7 +2313,6 @@ p {
 }
 .footnote {
   margin: .25em;
-  font-style: italic;
   color: black !important;
 }
 .glossary {
@@ -2340,13 +2354,12 @@ subfigure {
 
   margin: 0;
   padding: 0;
-  border-style: none !important;
 }
 .table caption {
   padding-top: .5em;
   padding-bottom: 1em;
   font-weight: bold;
-  color: #cc6633;
+  color: #336633;
   caption-side: bottom;
 }
 .table th {
@@ -2363,9 +2376,13 @@ subfigure {
   color: #336633 !important;
   font-size: medium;
   margin-left: -1em;
-  text-align: left !important;
+  text-align: center !important;
   border-style: none !important;
   background-color: transparent !important;
+}
+.table table {
+  border: 0 !important;
+  border-bottom: 1pt solid #336633 !important;
 }
 /******************************************************
  * Figures/Subfigures

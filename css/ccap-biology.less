@@ -19,7 +19,8 @@ For most smartphones the relationship between scan distance and minimum QR code 
  QR code printed in a magazine/book will have a nominal effective scan distance of about 250mm (10 inches),
  ******************************************************/
 @qr: 1in;
-
+@table-border: 1pt solid @green;
+@font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 
 @import url('ccap-base.less');
 @import url('ccap-numbering.less');
@@ -28,9 +29,15 @@ For most smartphones the relationship between scan distance and minimum QR code 
 /******************************************************
  * 2 Column Customized Elements
  ******************************************************/
-.float-top { float:top; }
-.float-bottom { float:bottom; }
+ /* layout positioning classes */
+.page-top { float: top; }
+.page-bottom { float: bottom !important; }
+.column-top { float: column-top; }
+.column-bottom { float: column-bottom; }
 
+/* classes/modifiers allowing next page positioning */	
+.next-page-top { float: top next !important; } 
+.next-page-bottom { float: bottom next !important; }
 
 .chapter {
   .x-column-count(2);
@@ -39,8 +46,8 @@ For most smartphones the relationship between scan distance and minimum QR code 
 
 .span-all {
   column-span: all !important;
-  -webkit-column-span: all !important;
-  float:prince-snap;
+  -webkit-column-span: all !important;	
+  float: top;
 }
 
 .title { text-align: left !important; }
@@ -197,8 +204,8 @@ div.section .titlepage .abstract {
   column-break-before: avoid !important;
   >.itemizedlist {
     &::before { 
-      content: "By the end of this section, students will be able to:"; 
-      font: x-small "Times New Roman", Times, serif; 
+      content: "By the end of this section, you will be able to:"; 
+      font-size: x-small "Times New Roman", Times, serif; 
     }
     .listitem { margin:.25em 0em; }
   }
@@ -317,8 +324,7 @@ div.section .titlepage .abstract {
 
   &::before {
     background-image: url("ccap-biology/CNX_BioMaj_Art.svg");
-    padding: .25in; //0.25 + margin-top. 0.25in is from the SVG files
-    padding-bottom: .30in;
+    padding: .25in .10in .30in 0in;
     background-repeat: no-repeat;
     background-position: top left;
     background-position: top outside;
@@ -334,6 +340,7 @@ div.section .titlepage .abstract {
     margin-right: -.12in;
   }
 
+
   > .title {   //styles art connections title
     padding: .5em 0;
     font-size: large;
@@ -341,7 +348,7 @@ div.section .titlepage .abstract {
     prince-text-replace: "Exercise" "";
   }
 
-    img {
+  img {
     padding: 0;
     margin: 0;
     max-width: (@column - .25em) !important;
@@ -355,9 +362,11 @@ div.section .titlepage .abstract {
 
   .solution { display:none; } //hide solution in this feature
 
+  &.span-all {
+    img { min-width: (2 * @column);}
+  }
+
 }
-
-
 /******************************************************
  * End of chapter customizations
  ******************************************************/
@@ -505,7 +514,6 @@ p {
 
 .footnote {
   margin: .25em;
-  font-style: italic;
   color: black !important;
 }
 
@@ -546,13 +554,12 @@ img, figure, subfigure  { margin: 1em; }
  * Tables TODO: simplify/regroup code block //latest
  ******************************************************/
 .table {
-
+ 
   &.span-all {
     table {
     /*reset metrics*/
       margin: 0;
       padding:0;
-      border-style:none !important;
     }
   }
 
@@ -560,9 +567,8 @@ img, figure, subfigure  { margin: 1em; }
     padding-top: .5em;
     padding-bottom: 1em;
     font-weight:bold;
-    color: @tuscany;
+    color: @green;
     caption-side:bottom;
-
   }
 
   th {
@@ -570,8 +576,8 @@ img, figure, subfigure  { margin: 1em; }
     background-color: @cream;
     font-size: small;
     border-style: none !important;
-    border-top:1pt solid @green !important;
-    border-bottom:1pt solid @green !important;
+    border-top: @table-border !important;
+    border-bottom: @table-border !important;
     text-align: center !important;
   }
 
@@ -580,10 +586,15 @@ img, figure, subfigure  { margin: 1em; }
     color: @green !important;
     font-size:medium;
     margin-left: -1em;
-    text-align: left !important;
+    text-align: center !important;
     border-style: none !important;
     background-color: transparent !important;
   }
+    	
+  table { 
+    border: 0 !important; 
+    border-bottom: @table-border !important; 
+  }  
 }
 
 
@@ -725,6 +736,7 @@ div.book, div.book > div.part {
 }
 
 div.end-of-book-solutions {
+  	
   > .title {
     content: "Answer Key";
     color: @green;
