@@ -1719,8 +1719,7 @@ div.part > div.titlepage {
 }
 /******************************************************
  * Introduction
- ******************************************************/
-.introduction {
+ ******************************************************/.introduction {
   column-gap: 2.5em !important;
   /*pulled from Soc*/
 
@@ -1879,8 +1878,8 @@ div.section .titlepage .abstract {
 
 }
 div.section .titlepage .abstract > .itemizedlist::before {
-  content: "By the end of this section, students will be able to:";
-  font: x-small "Times New Roman", Times, serif;
+  content: "By the end of this section, you will be able to:";
+  font-size: x-small "Times New Roman", Times, serif;
 }
 div.section .titlepage .abstract > .itemizedlist .listitem {
   margin: .25em 0em;
@@ -1894,7 +1893,6 @@ div.section .titlepage .abstract > .title {
 .evolution {
   background-color: #ffffcc;
   /*set smaller than single column width to include margin/padding of feature element*/
-
 }
 .evolution img {
   max-width: 3.35in;
@@ -1938,7 +1936,6 @@ div.section .titlepage .abstract > .title {
 .scientific {
   background-color: #ffffcc;
   /*set smaller than single column width to include margin/padding of feature element*/
-
 }
 .scientific img {
   max-width: 3.35in;
@@ -1982,7 +1979,6 @@ div.section .titlepage .abstract > .title {
 .everyday {
   background-color: #ffffcc;
   /*set smaller than single column width to include margin/padding of feature element*/
-
 }
 .everyday img {
   max-width: 3.35in;
@@ -2026,7 +2022,6 @@ div.section .titlepage .abstract > .title {
 .career {
   background-color: #ffffcc;
   /*set smaller than single column width to include margin/padding of feature element*/
-
 }
 .career img {
   max-width: 3.35in;
@@ -2070,7 +2065,6 @@ div.section .titlepage .abstract > .title {
 .art {
   background-color: #ffffcc;
   /*set smaller than single column width to include margin/padding of feature element*/
-
 }
 .art img {
   max-width: 3.35in;
@@ -2153,54 +2147,64 @@ div.section .titlepage .abstract > .title {
 
  * Art-Connections
  ******************************************************/
-.art-connections {
-  display: block;
-  background-color: #ffffcc;
+/*.art-connections {
+  display:block;
+  background-color: @cream;
   page-break-inside: avoid;
   padding: 1em;
-}
-.art-connections::before {
-  background-image: url("ccap-biology/CNX_BioMaj_Art.svg");
-  padding: .25in .10in .30in 0in;
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  max-width: 3.5in;
-  margin-left: -0.15in;
-  margin-top: -0.25in;
-  margin-right: -0.12in;
-}
-.art-connections > .title {
-  padding: .5em 0;
-  font-size: large;
-  text-align: left;
-  prince-text-replace: "Exercise" "";
-}
-.art-connections img {
-  padding: 0;
-  margin: 0;
-  max-width: 3.25in !important;
-}
-.art-connections .problem > p {
-  text-indent: 0em;
-  margin-top: 1em;
-  font: inherit;
-}
-.art-connections .solution {
-  display: none;
-}
-.art-connections.span-all img {
-  min-width: 7in;
-}
+  
+  &::before {
+    background-image: url("ccap-biology/CNX_BioMaj_Art.svg");
+    padding: .25in .10in .30in 0in;
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-position: top outside;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+  	background-color: white;
+    content: "";
+    display: block;
+    // the following are tweaked so the overlays really do over lay
+    max-width: @column;    //remaining properties/values set to force overlays based on svg file
+    margin-left: -.15in;
+    margin-top:-.25in;
+    margin-right: -.12in;
+  }
+
+
+  > .title {   //styles art connections title
+    padding: .5em 0;
+    font-size: large;
+    text-align: left;
+    prince-text-replace: "Exercise" "";
+  }
+
+  img {
+    padding: 0;
+    margin: 0;
+    max-width: (@column - .25em) !important;
+  }
+
+  .problem > p {
+    text-indent: 0em;
+    margin-top: 1em;
+    font: inherit;
+  }
+
+  .solution { display:none; } //hide solution in this feature
+
+  &.span-all {
+    img { min-width: (2 * @column);}
+  }
+
+}/*
 /******************************************************
  * End of chapter customizations
  ******************************************************/
 .cnx-eoc {
+  /*&.art-connections { display:none; }*\
+  
+  &.solutions  { display:none !important; } 
   /* should remove element completely from the document/pdf gen. 
    Should NOT(BUT DOES) take up space, even though the HTML for it is still in the source code.
   */
@@ -2229,16 +2233,14 @@ div.section .titlepage .abstract > .title {
 .cnx-eoc .problem .orderedlist {
   margin-left: 4em;
 }
-.cnx-eoc.solutions {
-  display: none !important;
-}
 /******************************************************
  * section below should be rewritten in .less
    nesting class and grouping selectors properly
    --below is quick/clean css
  ******************************************************/
 .multiple-choice > .title,
-.free-response > .title {
+.free-response > .title,
+.art-connections > .title {
   text-transform: uppercase !important;
   color: #336633 !important;
   font-size: large !important;
@@ -2251,7 +2253,8 @@ div.section .titlepage .abstract > .title {
   content: "Critical Thinking Questions";
 }
 .multiple-choice > .section > .title > a,
-.free-response > .section > .title > a {
+.free-response > .section > .title > a,
+.art-connections > .section > .title > a {
   display: none;
 }
 /******************************************************
@@ -2272,7 +2275,6 @@ img {
 .chapter h1.title {
   column-span: all !important;
   /*reset left only*/
-
   margin-left: 0 !important;
   padding-left: 0 !important;
   font-size: 4em;
@@ -2354,7 +2356,6 @@ p {
 }
 .footnote {
   margin: .25em;
-  font-style: italic;
   color: black !important;
 }
 .glossary {
@@ -2396,13 +2397,12 @@ subfigure {
 
   margin: 0;
   padding: 0;
-  border-style: none !important;
 }
 .table caption {
   padding-top: .5em;
   padding-bottom: 1em;
   font-weight: bold;
-  color: #cc6633;
+  color: #336633;
   caption-side: bottom;
 }
 .table th {
@@ -2419,9 +2419,13 @@ subfigure {
   color: #336633 !important;
   font-size: medium;
   margin-left: -1em;
-  text-align: left !important;
+  text-align: center !important;
   border-style: none !important;
   background-color: transparent !important;
+}
+.table table {
+  border: 0 !important;
+  border-bottom: 1pt solid #336633 !important;
 }
 /******************************************************
  * Figures/Subfigures
@@ -2464,8 +2468,8 @@ subfigure {
 }
 /******************************************************
  * End of Chapter Solutions Development in Progress
- ******************************************************/
-.solutions {
+
+ ******************************************************/.solutions {
   display: block;
   page-break-before: always;
   color: gray;
@@ -2499,7 +2503,7 @@ div.end-of-book-solutions div.solution > div.title a.solution {
 div.end-of-book-solutions div.solution > div.body {
   display: inline;
 }
-div.end-of-book-solutions div.solution > div.body * {
+div.end-of-book-solutions div.solution > div.body::first-child {
   display: inline;
 }
 /******************************************************
