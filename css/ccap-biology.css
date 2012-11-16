@@ -1879,7 +1879,7 @@ div.section .titlepage .abstract {
 }
 div.section .titlepage .abstract > .itemizedlist::before {
   content: "By the end of this section, you will be able to:";
-  font-size: x-small "Times New Roman", Times, serif;
+  font-size: x-small;
 }
 div.section .titlepage .abstract > .itemizedlist .listitem {
   margin: .25em 0em;
@@ -1895,7 +1895,9 @@ div.section .titlepage .abstract > .title {
   /*set smaller than single column width to include margin/padding of feature element*/
 }
 .evolution img {
-  max-width: 3.35in;
+  margin: 0;
+  padding: 0;
+  max-width: 3.25in;
 }
 .evolution * p {
   font-family: inherit;
@@ -1938,7 +1940,9 @@ div.section .titlepage .abstract > .title {
   /*set smaller than single column width to include margin/padding of feature element*/
 }
 .scientific img {
-  max-width: 3.35in;
+  margin: 0;
+  padding: 0;
+  max-width: 3.25in;
 }
 .scientific * p {
   font-family: inherit;
@@ -1981,7 +1985,9 @@ div.section .titlepage .abstract > .title {
   /*set smaller than single column width to include margin/padding of feature element*/
 }
 .everyday img {
-  max-width: 3.35in;
+  margin: 0;
+  padding: 0;
+  max-width: 3.25in;
 }
 .everyday * p {
   font-family: inherit;
@@ -2024,7 +2030,9 @@ div.section .titlepage .abstract > .title {
   /*set smaller than single column width to include margin/padding of feature element*/
 }
 .career img {
-  max-width: 3.35in;
+  margin: 0;
+  padding: 0;
+  max-width: 3.25in;
 }
 .career * p {
   font-family: inherit;
@@ -2067,7 +2075,9 @@ div.section .titlepage .abstract > .title {
   /*set smaller than single column width to include margin/padding of feature element*/
 }
 .art img {
-  max-width: 3.35in;
+  margin: 0;
+  padding: 0;
+  max-width: 3.25in;
 }
 .art * p {
   font-family: inherit;
@@ -2201,15 +2211,6 @@ div.section .titlepage .abstract > .title {
 /******************************************************
  * End of chapter customizations
  ******************************************************/
-.cnx-eoc {
-  /*&.art-connections { display:none; }*\
-  
-  &.solutions  { display:none !important; } 
-  /* should remove element completely from the document/pdf gen. 
-   Should NOT(BUT DOES) take up space, even though the HTML for it is still in the source code.
-  */
-
-}
 .cnx-eoc > .title {
   margin-top: 1em;
   margin-bottom: 0;
@@ -2233,14 +2234,20 @@ div.section .titlepage .abstract > .title {
 .cnx-eoc .problem .orderedlist {
   margin-left: 4em;
 }
+.cnx-eoc.art-connections > .title {
+  color: red;
+}
+.cnx-eoc.solutions {
+  display: none !important;
+}
 /******************************************************
  * section below should be rewritten in .less
    nesting class and grouping selectors properly
    --below is quick/clean css
  ******************************************************/
+.art-connections > .title,
 .multiple-choice > .title,
-.free-response > .title,
-.art-connections > .title {
+.free-response > .title {
   text-transform: uppercase !important;
   color: #336633 !important;
   font-size: large !important;

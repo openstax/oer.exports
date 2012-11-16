@@ -205,7 +205,7 @@ div.section .titlepage .abstract {
   >.itemizedlist {
     &::before { 
       content: "By the end of this section, you will be able to:"; 
-      font-size: x-small "Times New Roman", Times, serif; 
+      font-size: x-small; 
     }
     .listitem { margin:.25em 0em; }
   }
@@ -224,7 +224,11 @@ div.section .titlepage .abstract {
 .x-feature (@color, @bg-color, @svg) {
   background-color: @bg-color;	
   /*set smaller than single column width to include margin/padding of feature element*/	
-  img { max-width:3.35in; }
+  img { 
+    margin: 0; 
+    padding: 0; 
+    max-width: (@column - .25em); 
+  }
  
   * p { font-family:inherit; }	
    
@@ -288,9 +292,7 @@ div.section .titlepage .abstract {
     display: block;
     // the following are tweaked so the overlays really do over lay
     margin-left: -.15in;
-    
- 
-  }
+}
   
   img {
     float:right;
@@ -390,12 +392,9 @@ div.section .titlepage .abstract {
   
   .problem .orderedlist { margin-left: 4em;}
  
-  /*&.art-connections { display:none; }*\
+  &.art-connections > .title{ color:red; }
   
   &.solutions  { display:none !important; } 
-  /* should remove element completely from the document/pdf gen. 
-   Should NOT(BUT DOES) take up space, even though the HTML for it is still in the source code.
-  */
 }
 
 
@@ -404,7 +403,7 @@ div.section .titlepage .abstract {
    nesting class and grouping selectors properly
    --below is quick/clean css
  ******************************************************/
-.multiple-choice > .title, .free-response > .title, .art-connections > .title {
+.art-connections > .title, .multiple-choice > .title, .free-response > .title {
   text-transform: uppercase !important;
   color: @green !important;
   font-size: large !important;
@@ -413,6 +412,7 @@ div.section .titlepage .abstract {
 .multiple-choice > .title { content: "Review Questions"; }
 .free-response > .title { content: "Critical Thinking Questions"; }
 .multiple-choice > .section > .title > a, .free-response > .section > .title > a, .art-connections > .section > .title > a  { display: none; }
+
 
 /******************************************************
  * Generic Elements
