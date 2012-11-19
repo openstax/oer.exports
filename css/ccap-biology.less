@@ -188,7 +188,6 @@ div.section .titlepage .abstract {
 
 .x-feature (@color, @bg-color, @svg) {
   background-color: @bg-color;
-  //img { max-width:3.35in; }
 
   * p { font-family:inherit; }
 
@@ -224,7 +223,7 @@ div.section .titlepage .abstract {
 
 
 /******************************************************
- *Elements that are special features but styled
+ * rewrite for single column layout
  ******************************************************/
 .interactive { 
   page-break-inside: avoid;
@@ -266,56 +265,6 @@ div.section .titlepage .abstract {
 
 
 /******************************************************
-
- * Art-Connections
- ******************************************************/
- .art-connections {
-  display:block;
-  background-color: @cream;
-  page-break-inside: avoid;
-  padding: 1em;
-
-  &::before {
-    background-image: url("ccap-biology/CNX_BioMaj_Art.svg");
-    padding: .25in .10in .30in 0in;
-    background-repeat: no-repeat;
-    background-position: top left;
-    background-position: top outside;
-    page-break-inside: avoid;
-    page-break-after: avoid;
-  	background-color: white;
-    content: "";
-    display: block;
-    // the following are tweaked so the overlays really do over lay
-    margin-left: -.15in;
-    margin-top:-.25in;
-    margin-right: -.12in;
-  }
-
-  > .title {   //styles art connections title
-    padding: .5em 0;
-    font-size: large;
-    text-align: left;
-    prince-text-replace: "Exercise" "";
-  }
-
-  img {
-    padding: 0;
-    margin: 0;
-  }
-
-  .problem > p {
-    text-indent: 0em;
-    margin-top: 1em;
-    font: inherit;
-  }
-
-  .solution { display:none; } //hide solution in this feature
-}
-
-
-/******************************************************
-
  * End of chapter customizations
  ******************************************************/
 .cnx-eoc {
@@ -363,7 +312,6 @@ body { font-size: 9.5pt; }
 img { max-height:9.5in; }
 
 .chapter h1.title {
-  //column-span: all !important;
   /*reset left only*/
   margin-left:0 !important;
   padding-left: 0 !important;
@@ -537,10 +485,7 @@ img, figure, subfigure  { margin: 1em; }
     display: inline;
     text-align:center;
   }
- &.span-all {
-      column-span: all !important;   
-      padding: 1em;
-    }
+
   .subfigure {
    
     > .title {
