@@ -9,7 +9,7 @@
 @orange: #ffcc00;
 @gray: #cccccc;
 @blue: blue;
-@column: 3.5in;
+
 /******************************************************
 Finished printed size of the QR code is dependent on:
 -distance between qr code and scanning device
@@ -20,40 +20,11 @@ For most smartphones the relationship between scan distance and minimum QR code 
  ******************************************************/
 @qr: 1in;
 @table-border: 1pt solid @green;
-@font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+
 
 
 @import url('ccap-base.less');
 @import url('ccap-numbering.less');
-
-
-/******************************************************
- * 2 Column Customized Elements
- ******************************************************/
- /* layout positioning classes */
-.page-top { float: top; }
-.page-bottom { float: bottom !important; }
-.column-top { float: column-top; }
-.column-bottom { float: column-bottom; }
-
-/* classes/modifiers allowing next page positioning */	
-.next-page-top { float: top next !important; } 
-.next-page-bottom { float: bottom next !important; }
-
-.chapter {
-  .x-column-count(2);
-  text-align: justify;
-} 
-
-.span-all {
-  column-span: all !important;
-  -webkit-column-span: all !important;	
-  float: top;
-}
-
-.title { text-align: left !important; }
-
-a { color:black; }
 
 
 /*******************************************************
@@ -66,12 +37,9 @@ div.part > div.titlepage {display:none;}
  * Introduction
  ******************************************************/  
 .introduction {
-  column-gap: 2.5em !important;
   /*pulled from Soc*/
   .splash {
-    column-span:all;
-  	-webkit-column-span:all;
-  	width: 100% !important;
+    width: 100% !important;
     max-width: none !important;
     padding-bottom:2.5em;  /*clean up padding between splash caption and text flow*/
   }
@@ -199,9 +167,7 @@ div.section .titlepage .abstract {
   border: 2pt solid @green;
   text-align: left !important;
   page-break-inside:avoid;
-  column-break-inside: avoid;
   page-break-before: avoid !important;
-  column-break-before: avoid !important;
   >.itemizedlist {
     &::before { 
       content: "By the end of this section, you will be able to:"; 
@@ -219,21 +185,14 @@ div.section .titlepage .abstract {
 .scientific { .x-feature(black, @cream, CNX_BioMaj_Scienctific); }
 .everyday { .x-feature(black, @cream, CNX_BioMaj_Everyday); }
 .career { .x-feature(black, @cream, CNX_BioMaj_Career); }
+.art { .x-feature(black, @cream, CNX_BioMaj_Art); }
 
 .x-feature (@color, @bg-color, @svg) {
-  background-color: @bg-color;	
-  /*set smaller than single column width to include margin/padding of feature element*/	
-  img { max-width:3.35in; }
- 
-  * p { font-family:inherit; }	
-   
-  &.span-all {
-    .body {
-      columns:2;
-      column-gap: 2.5em;
-     }
-  } 
-   
+  background-color: @bg-color;
+  //img { max-width:3.35in; }
+
+  * p { font-family:inherit; }
+
   &::before {
     padding-top: 0.65in; //0.75 + margin-top. 0.75in is from the SVG files
     background-repeat: no-repeat;
@@ -254,17 +213,14 @@ div.section .titlepage .abstract {
     text-align: left !important;
     font-size: large;
     margin: .25em 0;
-    max-width: @column;
     color: black;
     font-weight:bold;
   }
   
   .figure > .title { font-size: x-small; }
-     
-  &::before {
-    background-image: url("ccap-biology/@{svg}.svg");
-    column-span: 1 !important;
-  }    
+
+  &::before { background-image: url("ccap-biology/@{svg}.svg"); }
+
 }
 
 
@@ -273,8 +229,8 @@ div.section .titlepage .abstract {
  ******************************************************/
 .interactive { 
   page-break-inside: avoid;
-  column-break-inside: avoid;
-  &::before {	
+  
+  &::before {
     background-image: url("ccap-biology/CNX_BioMaj_Link.svg");
     padding-top: .75in; //0.75 + margin-top. 0.75in is from the SVG files
     padding-bottom: .50in;
@@ -287,9 +243,7 @@ div.section .titlepage .abstract {
     display: block;
     // the following are tweaked so the overlays really do over lay
     margin-left: -.15in;
-    
- 
-  }
+}
   
   img {
     float:right;
@@ -334,12 +288,10 @@ div.section .titlepage .abstract {
     content: "";
     display: block;
     // the following are tweaked so the overlays really do over lay
-    max-width: @column;    //remaining properties/values set to force overlays based on svg file
     margin-left: -.15in;
     margin-top:-.25in;
     margin-right: -.12in;
   }
-
 
   > .title {   //styles art connections title
     padding: .5em 0;
@@ -351,7 +303,6 @@ div.section .titlepage .abstract {
   img {
     padding: 0;
     margin: 0;
-    max-width: (@column - .25em) !important;
   }
 
   .problem > p {
@@ -361,79 +312,59 @@ div.section .titlepage .abstract {
   }
 
   .solution { display:none; } //hide solution in this feature
-
-  &.span-all {
-    img { min-width: (2 * @column);}
-  }
-
 }
+
+
 /******************************************************
+
  * End of chapter customizations
  ******************************************************/
 .cnx-eoc {
-  > .title  { margin-top: 1em; margin-bottom: 0;}
-  &.summary { 
-    > .title { 
-      content: "Chapter Summary"; 
-      text-transform: uppercase;
-      color: @green;
-      font-size: large;
-      font-weight: bold;
-    }
-    > .section .title a { color: black; } 
-    p { margin-top:1em; }
+  > .title  { 
+    margin-top: 1em; 
+    margin-bottom: 0;
+    text-transform: uppercase !important;
+    color: @green !important;
+    font-size: large !important;
+    font-weight: bold !important;
   }
+  
+  &.summary { 
+    > .title { content: "Chapter Summary"; }
+    > .section .title > a { color: black; } 
+    p { margin-top:1em; }
+  } 
   
   //ccap-base sets this so override it here
   .references p { text-indent: 0em; }
   
   .problem .orderedlist { margin-left: 4em;}
- 
-  &.art-connections { display:none; }
   
   &.solutions  { display:none !important; } 
-  /* should remove element completely from the document/pdf gen. 
-   Should NOT(BUT DOES) take up space, even though the HTML for it is still in the source code.
-  */
+  
+  &.art-connections { display: none !important; }
 }
-
 
 /******************************************************
  * section below should be rewritten in .less
    nesting class and grouping selectors properly
    --below is quick/clean css
  ******************************************************/
-.multiple-choice > .title, .free-response > .title {
-  text-transform: uppercase !important;
-  color: @green !important;
-  font-size: large !important;
-  font-weight: bold !important;
-}
-
+.art-connections > .title { content: "Art Connections"; }
 .multiple-choice > .title { content: "Review Questions"; }
 .free-response > .title { content: "Critical Thinking Questions"; }
-.multiple-choice > .section > .title > a, .free-response > .section > .title > a  { display: none; }
+.multiple-choice > .section > .title > a, .free-response > .section > .title > a, .art-connections > .section > .title > a  { display: none; }
+
 
 /******************************************************
  * Generic Elements
  ******************************************************/
 body { font-size: 9.5pt; }
 
-img { 
-  max-width: @column;//sets the image with for single column
-  max-height:9.5in;
-} 
-
-.span-all img {
-   column-span:all !important;
-   -webkit-column-span: all !important;
-   max-width: 7.5in !important;
- }
-  
+img { max-height:9.5in; }
 
 .chapter h1.title {
-  column-span: all !important;
-  /*reset left only*/ 
+  /*reset left only*/
   margin-left:0 !important;
   padding-left: 0 !important;
   font-size: 4em; /* x-large; */
@@ -455,7 +386,7 @@ img {
   }
 }
 
-a { font-weight: normal; }
+a { font-weight: bold; color: @tuscany;}
 
 
 h1, h2, h3 {
@@ -536,11 +467,7 @@ p {
   dt::after { content: " " !important; }
 }
 
-.section > .title { 
-  page-break-after:avoid;
-  column-break-after: avoid;  
-}
-
+.section > .title { page-break-after:avoid; }
 
 img, figure, subfigure  { margin: 1em; }
 
@@ -550,19 +477,13 @@ img, figure, subfigure  { margin: 1em; }
   background-color: @green;
   margin: .5em 0; 
  }
+ 
+ 
 /******************************************************
  * Tables TODO: simplify/regroup code block //latest
  ******************************************************/
 .table { 
  
-  &.span-all { 
-    table {
-    /*reset metrics*/
-      margin: 0;
-      padding:0;
-    }
-  }
-
   caption {
     padding-top: .5em;
     padding-bottom: 1em;    
@@ -604,12 +525,7 @@ img, figure, subfigure  { margin: 1em; }
 .figure {
   font-size: 9pt;
   padding-bottom: 1em;
-  
-  &.span-all {
-    column-span: all !important;
-    > .caption { text-align:center; }
-  }
-
+ 
   > .title {
     display: inline;
     color: @tuscany;
@@ -623,11 +539,7 @@ img, figure, subfigure  { margin: 1em; }
   }
 
   .subfigure {
-    &.span-all {
-      column-span: all !important;   
-      padding: 1em;
-    }
-
+   
     > .title {
       display: inline;
       font-weight: bold;
@@ -747,9 +659,9 @@ div.end-of-book-solutions {
   }
 
   .chapter-area {
-    a.chapter * {
-      color: black;
-      font-size: medium;
+    a *{
+      color: black !important;
+      font-size: small;
       font-weight: bold;
     }
   }

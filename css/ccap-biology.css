@@ -13,6 +13,16 @@ For most smartphones the relationship between scan distance and minimum QR code 
  * Styles used when generating a PDF from xhtml+css
  ***************************************************/
 /* Print-specific styles <style media="print"... */
+/*.x-column-count(@num: 2) {
+  -webkit-column-count: @num; // Supported by webkit
+  column-count: @num;         // Not supported (but should be)
+  columns: @num;              // Supported by PrinceXML
+  column-fill: auto;          // Fill up the left column 1st, don't balance
+  column-gap: 2.5em;            // Force gap between columns
+  column-width: 3.50in;		   // max width of column /
+  //calculate width of a single column: total column width= column-width + column-gap/2 + padding + margin
+   text-align: justify;  //left/right justifies text in columns
+}*/
 /* Squirrel away the collection URL so it shows up as the footer on every page */
 #title_page_url a[href] {
   prince-text-replace: ":9680" "";
@@ -126,13 +136,7 @@ a[href^="http"] {
   page-break-after: always;
   page-break-inside: auto;
   string-set: cnx-header "Index";
-  -webkit-column-count: 3;
   column-count: 3;
-  columns: 3;
-  column-fill: auto;
-  column-gap: 2.5em;
-  column-width: 3.50in;
-  text-align: justify;
 }
 .index .title * {
   display: inline;
@@ -1669,48 +1673,6 @@ div.book > div.chapter > div.titlepage > div > div:not(:first-child),
 div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
   display: none;
 }
-/******************************************************
- * 2 Column Customized Elements
- ******************************************************/
-/* layout positioning classes */
-.page-top {
-  float: top;
-}
-.page-bottom {
-  float: bottom !important;
-}
-.column-top {
-  float: column-top;
-}
-.column-bottom {
-  float: column-bottom;
-}
-/* classes/modifiers allowing next page positioning */.next-page-top {
-  float: top next !important;
-}
-.next-page-bottom {
-  float: bottom next !important;
-}
-.chapter {
-  -webkit-column-count: 2;
-  column-count: 2;
-  columns: 2;
-  column-fill: auto;
-  column-gap: 2.5em;
-  column-width: 3.50in;
-  text-align: justify;
-}
-.span-all {
-  column-span: all !important;
-  -webkit-column-span: all !important;
-  float: top;
-}
-.title {
-  text-align: left !important;
-}
-a {
-  color: black;
-}
 /*******************************************************
  * Unit Page
  ******************************************************/
@@ -1720,13 +1682,10 @@ div.part > div.titlepage {
 /******************************************************
  * Introduction
  ******************************************************/.introduction {
-  column-gap: 2.5em !important;
   /*pulled from Soc*/
 
 }
 .introduction .splash {
-  column-span: all;
-  -webkit-column-span: all;
   width: 100% !important;
   max-width: none !important;
   padding-bottom: 2.5em;
@@ -1871,9 +1830,7 @@ div.section .titlepage .abstract {
   border: 2pt solid #336633;
   text-align: left !important;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   page-break-before: avoid !important;
-  column-break-before: avoid !important;
   /*remove "summary"*/
 
 }
@@ -1892,17 +1849,9 @@ div.section .titlepage .abstract > .title {
  ******************************************************/
 .evolution {
   background-color: #ffffcc;
-  /*set smaller than single column width to include margin/padding of feature element*/
-}
-.evolution img {
-  max-width: 3.35in;
 }
 .evolution * p {
   font-family: inherit;
-}
-.evolution.span-all .body {
-  columns: 2;
-  column-gap: 2.5em;
 }
 .evolution::before {
   padding-top: 0.65in;
@@ -1922,7 +1871,6 @@ div.section .titlepage .abstract > .title {
   text-align: left !important;
   font-size: large;
   margin: .25em 0;
-  max-width: 3.5in;
   color: black;
   font-weight: bold;
 }
@@ -1931,21 +1879,12 @@ div.section .titlepage .abstract > .title {
 }
 .evolution::before {
   background-image: url("ccap-biology/CNX_BioMaj_Evolution.svg");
-  column-span: 1 !important;
 }
 .scientific {
   background-color: #ffffcc;
-  /*set smaller than single column width to include margin/padding of feature element*/
-}
-.scientific img {
-  max-width: 3.35in;
 }
 .scientific * p {
   font-family: inherit;
-}
-.scientific.span-all .body {
-  columns: 2;
-  column-gap: 2.5em;
 }
 .scientific::before {
   padding-top: 0.65in;
@@ -1965,7 +1904,6 @@ div.section .titlepage .abstract > .title {
   text-align: left !important;
   font-size: large;
   margin: .25em 0;
-  max-width: 3.5in;
   color: black;
   font-weight: bold;
 }
@@ -1974,21 +1912,12 @@ div.section .titlepage .abstract > .title {
 }
 .scientific::before {
   background-image: url("ccap-biology/CNX_BioMaj_Scienctific.svg");
-  column-span: 1 !important;
 }
 .everyday {
   background-color: #ffffcc;
-  /*set smaller than single column width to include margin/padding of feature element*/
-}
-.everyday img {
-  max-width: 3.35in;
 }
 .everyday * p {
   font-family: inherit;
-}
-.everyday.span-all .body {
-  columns: 2;
-  column-gap: 2.5em;
 }
 .everyday::before {
   padding-top: 0.65in;
@@ -2008,7 +1937,6 @@ div.section .titlepage .abstract > .title {
   text-align: left !important;
   font-size: large;
   margin: .25em 0;
-  max-width: 3.5in;
   color: black;
   font-weight: bold;
 }
@@ -2017,21 +1945,12 @@ div.section .titlepage .abstract > .title {
 }
 .everyday::before {
   background-image: url("ccap-biology/CNX_BioMaj_Everyday.svg");
-  column-span: 1 !important;
 }
 .career {
   background-color: #ffffcc;
-  /*set smaller than single column width to include margin/padding of feature element*/
-}
-.career img {
-  max-width: 3.35in;
 }
 .career * p {
   font-family: inherit;
-}
-.career.span-all .body {
-  columns: 2;
-  column-gap: 2.5em;
 }
 .career::before {
   padding-top: 0.65in;
@@ -2051,7 +1970,6 @@ div.section .titlepage .abstract > .title {
   text-align: left !important;
   font-size: large;
   margin: .25em 0;
-  max-width: 3.5in;
   color: black;
   font-weight: bold;
 }
@@ -2060,14 +1978,45 @@ div.section .titlepage .abstract > .title {
 }
 .career::before {
   background-image: url("ccap-biology/CNX_BioMaj_Career.svg");
-  column-span: 1 !important;
+}
+.art {
+  background-color: #ffffcc;
+}
+.art * p {
+  font-family: inherit;
+}
+.art::before {
+  padding-top: 0.65in;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  margin-left: -1.05em;
+  margin-right: -1.05em;
+  margin-top: -0.03in;
+}
+.art .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+}
+.art .figure > .title {
+  font-size: x-small;
+}
+.art::before {
+  background-image: url("ccap-biology/CNX_BioMaj_Art.svg");
 }
 /******************************************************
  *Elements that are special features but styled
  ******************************************************/
 .interactive {
   page-break-inside: avoid;
-  column-break-inside: avoid;
 }
 .interactive::before {
   background-image: url("ccap-biology/CNX_BioMaj_Link.svg");
@@ -2121,7 +2070,6 @@ div.section .titlepage .abstract > .title {
   background-color: white;
   content: "";
   display: block;
-  max-width: 3.5in;
   margin-left: -0.15in;
   margin-top: -0.25in;
   margin-right: -0.12in;
@@ -2135,7 +2083,6 @@ div.section .titlepage .abstract > .title {
 .art-connections img {
   padding: 0;
   margin: 0;
-  max-width: 3.25in !important;
 }
 .art-connections .problem > p {
   text-indent: 0em;
@@ -2145,30 +2092,22 @@ div.section .titlepage .abstract > .title {
 .art-connections .solution {
   display: none;
 }
-.art-connections.span-all img {
-  min-width: 7in;
-}
 /******************************************************
+
  * End of chapter customizations
  ******************************************************/
-.cnx-eoc {
-  /* should remove element completely from the document/pdf gen. 
-   Should NOT(BUT DOES) take up space, even though the HTML for it is still in the source code.
-  */
-
-}
 .cnx-eoc > .title {
   margin-top: 1em;
   margin-bottom: 0;
+  text-transform: uppercase !important;
+  color: #336633 !important;
+  font-size: large !important;
+  font-weight: bold !important;
 }
 .cnx-eoc.summary > .title {
   content: "Chapter Summary";
-  text-transform: uppercase;
-  color: #336633;
-  font-size: large;
-  font-weight: bold;
 }
-.cnx-eoc.summary > .section .title a {
+.cnx-eoc.summary > .section .title > a {
   color: black;
 }
 .cnx-eoc.summary p {
@@ -2180,10 +2119,10 @@ div.section .titlepage .abstract > .title {
 .cnx-eoc .problem .orderedlist {
   margin-left: 4em;
 }
-.cnx-eoc.art-connections {
-  display: none;
-}
 .cnx-eoc.solutions {
+  display: none !important;
+}
+.cnx-eoc.art-connections {
   display: none !important;
 }
 /******************************************************
@@ -2191,12 +2130,8 @@ div.section .titlepage .abstract > .title {
    nesting class and grouping selectors properly
    --below is quick/clean css
  ******************************************************/
-.multiple-choice > .title,
-.free-response > .title {
-  text-transform: uppercase !important;
-  color: #336633 !important;
-  font-size: large !important;
-  font-weight: bold !important;
+.art-connections > .title {
+  content: "Art Connections";
 }
 .multiple-choice > .title {
   content: "Review Questions";
@@ -2205,7 +2140,8 @@ div.section .titlepage .abstract > .title {
   content: "Critical Thinking Questions";
 }
 .multiple-choice > .section > .title > a,
-.free-response > .section > .title > a {
+.free-response > .section > .title > a,
+.art-connections > .section > .title > a {
   display: none;
 }
 /******************************************************
@@ -2215,17 +2151,11 @@ body {
   font-size: 9.5pt;
 }
 img {
-  max-width: 3.5in;
   max-height: 9.5in;
 }
-.span-all img {
-  column-span: all !important;
-  -webkit-column-span: all !important;
-  max-width: 7.5in !important;
-}
 .chapter h1.title {
-  column-span: all !important;
   /*reset left only*/
+
   margin-left: 0 !important;
   padding-left: 0 !important;
   font-size: 4em;
@@ -2245,7 +2175,8 @@ img {
   color: black;
 }
 a {
-  font-weight: normal;
+  font-weight: bold;
+  color: #cc6633;
 }
 h1,
 h2,
@@ -2328,7 +2259,6 @@ p {
 }
 .section > .title {
   page-break-after: avoid;
-  column-break-after: avoid;
 }
 img,
 figure,
@@ -2343,12 +2273,6 @@ subfigure {
 /******************************************************
  * Tables TODO: simplify/regroup code block //latest
  ******************************************************/
-.table.span-all table {
-  /*reset metrics*/
-
-  margin: 0;
-  padding: 0;
-}
 .table caption {
   padding-top: .5em;
   padding-bottom: 1em;
@@ -2385,12 +2309,6 @@ subfigure {
   font-size: 9pt;
   padding-bottom: 1em;
 }
-.figure.span-all {
-  column-span: all !important;
-}
-.figure.span-all > .caption {
-  text-align: center;
-}
 .figure > .title {
   display: inline;
   color: #cc6633;
@@ -2400,10 +2318,6 @@ subfigure {
 .figure > .caption {
   display: inline;
   text-align: center;
-}
-.figure .subfigure.span-all {
-  column-span: all !important;
-  padding: 1em;
 }
 .figure .subfigure > .title {
   display: inline;
@@ -2503,8 +2417,8 @@ div.end-of-book-solutions > .title {
   font-weight: bold;
   background-color: transparent;
 }
-div.end-of-book-solutions .chapter-area a.chapter * {
-  color: black;
-  font-size: medium;
+div.end-of-book-solutions .chapter-area a * {
+  color: black !important;
+  font-size: small;
   font-weight: bold;
 }
