@@ -1681,8 +1681,7 @@ div.part > div.titlepage {
 }
 /******************************************************
  * Introduction
- ******************************************************/
-.introduction {
+ ******************************************************/.introduction {
   /*pulled from Soc*/
 
 }
@@ -1980,6 +1979,39 @@ div.section .titlepage .abstract > .title {
 .career::before {
   background-image: url("ccap-biology/CNX_BioMaj_Career.svg");
 }
+.art {
+  background-color: #ffffcc;
+}
+.art * p {
+  font-family: inherit;
+}
+.art::before {
+  padding-top: 0.65in;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  margin-left: -1.05em;
+  margin-right: -1.05em;
+  margin-top: -0.03in;
+}
+.art .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+}
+.art .figure > .title {
+  font-size: x-small;
+}
+.art::before {
+  background-image: url("ccap-biology/CNX_BioMaj_Art.svg");
+}
 /******************************************************
  *Elements that are special features but styled
  ******************************************************/
@@ -2061,26 +2093,21 @@ div.section .titlepage .abstract > .title {
   display: none;
 }
 /******************************************************
+
  * End of chapter customizations
  ******************************************************/
-.cnx-eoc {
-  /* should remove element completely from the document/pdf gen. 
-   Should NOT(BUT DOES) take up space, even though the HTML for it is still in the source code.
-  */
-
-}
 .cnx-eoc > .title {
   margin-top: 1em;
   margin-bottom: 0;
+  text-transform: uppercase !important;
+  color: #336633 !important;
+  font-size: large !important;
+  font-weight: bold !important;
 }
 .cnx-eoc.summary > .title {
   content: "Chapter Summary";
-  text-transform: uppercase;
-  color: #336633;
-  font-size: large;
-  font-weight: bold;
 }
-.cnx-eoc.summary > .section .title a {
+.cnx-eoc.summary > .section .title > a {
   color: black;
 }
 .cnx-eoc.summary p {
@@ -2092,9 +2119,6 @@ div.section .titlepage .abstract > .title {
 .cnx-eoc .problem .orderedlist {
   margin-left: 4em;
 }
-.cnx-eoc.art-connections {
-  display: none;
-}
 .cnx-eoc.solutions {
   display: none !important;
 }
@@ -2103,12 +2127,8 @@ div.section .titlepage .abstract > .title {
    nesting class and grouping selectors properly
    --below is quick/clean css
  ******************************************************/
-.multiple-choice > .title,
-.free-response > .title {
-  text-transform: uppercase !important;
-  color: #336633 !important;
-  font-size: large !important;
-  font-weight: bold !important;
+.art-connections > .title {
+  content: "Art Connections";
 }
 .multiple-choice > .title {
   content: "Review Questions";
@@ -2117,7 +2137,8 @@ div.section .titlepage .abstract > .title {
   content: "Critical Thinking Questions";
 }
 .multiple-choice > .section > .title > a,
-.free-response > .section > .title > a {
+.free-response > .section > .title > a,
+.art-connections > .section > .title > a {
   display: none;
 }
 /******************************************************
@@ -2318,8 +2339,8 @@ subfigure {
 }
 /******************************************************
  * End of Chapter Solutions Development in Progress
- ******************************************************/
-.solutions {
+
+ ******************************************************/.solutions {
   display: block;
   page-break-before: always;
   color: gray;
