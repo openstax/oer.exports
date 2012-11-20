@@ -13,6 +13,16 @@ For most smartphones the relationship between scan distance and minimum QR code 
  * Styles used when generating a PDF from xhtml+css
  ***************************************************/
 /* Print-specific styles <style media="print"... */
+/*.x-column-count(@num: 2) {
+  -webkit-column-count: @num; // Supported by webkit
+  column-count: @num;         // Not supported (but should be)
+  columns: @num;              // Supported by PrinceXML
+  column-fill: auto;          // Fill up the left column 1st, don't balance
+  column-gap: 2.5em;            // Force gap between columns
+  column-width: 3.50in;		   // max width of column /
+  //calculate width of a single column: total column width= column-width + column-gap/2 + padding + margin
+   text-align: justify;  //left/right justifies text in columns
+}*/
 /* Squirrel away the collection URL so it shows up as the footer on every page */
 #title_page_url a[href] {
   prince-text-replace: ":9680" "";
@@ -1969,13 +1979,13 @@ div.section .titlepage .abstract > .title {
 .career::before {
   background-image: url("ccap-biology/CNX_BioMaj_Career.svg");
 }
-.art {
+.art-connections {
   background-color: #ffffcc;
 }
-.art * p {
+.art-connections * p {
   font-family: inherit;
 }
-.art::before {
+.art-connections::before {
   padding-top: 0.65in;
   background-repeat: no-repeat;
   background-position: top left;
@@ -1989,17 +1999,17 @@ div.section .titlepage .abstract > .title {
   margin-right: -1.05em;
   margin-top: -0.03in;
 }
-.art .title {
+.art-connections .title {
   text-align: left !important;
   font-size: large;
   margin: .25em 0;
   color: black;
   font-weight: bold;
 }
-.art .figure > .title {
+.art-connections .figure > .title {
   font-size: x-small;
 }
-.art::before {
+.art-connections::before {
   background-image: url("ccap-biology/CNX_BioMaj_Art.svg");
 }
 /******************************************************
@@ -2071,12 +2081,7 @@ div.section .titlepage .abstract > .title {
 .cnx-eoc.art-connections {
   display: none !important;
 }
-/******************************************************
- * section below should be rewritten in .less
-   nesting class and grouping selectors properly
-   --below is quick/clean css
- ******************************************************/
-.art-connections > .title {
+.art-exercise > .title {
   content: "Art Connections";
 }
 .multiple-choice > .title {
@@ -2087,7 +2092,7 @@ div.section .titlepage .abstract > .title {
 }
 .multiple-choice > .section > .title > a,
 .free-response > .section > .title > a,
-.art-connections > .section > .title > a {
+.art-exercise > .section > .title > a {
   display: none;
 }
 /******************************************************
