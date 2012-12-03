@@ -18,13 +18,15 @@ Finished printed size of the QR code is dependent on:
 For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
  QR code printed in a magazine/book will have a nominal effective scan distance of about 250mm (10 inches),
  ******************************************************/
-@qr: 1in;
+@qr: 1.25in;
 @table-border: 1pt solid @green;
 
 
 
 @import url('ccap-base.less');
 @import url('ccap-numbering.less');
+
+@page { margin: 0.5in 1.5in; } /*pulled from Sociology*/
 
 
 /*******************************************************
@@ -38,11 +40,13 @@ div.part > div.titlepage {display:none;}
  ******************************************************/  
 .introduction {
   /*pulled from Soc*/
-  .splash {
+  .splash img{
+    margin: 0 !important;
+    padding: 0 !important;
     width: 100% !important;
     max-width: none !important;
-    padding-bottom:2.5em;  /*clean up padding between splash caption and text flow*/
   }
+  
   >.title {
     content: "Introduction";
     font-size: x-large;
@@ -129,6 +133,7 @@ div.part > div.titlepage {display:none;}
  ******************************************************/
 .chapter .toc {
   border: 2pt solid @green;
+  
   > .title {
     content: "Chapter Outline";
     background-color: @green;
@@ -136,7 +141,7 @@ div.part > div.titlepage {display:none;}
     font-weight: bold;
     text-align: center !important;
     border: 0;
-    min-width:3.5in;
+    min-width:5.40in;
   }
   > ul { margin-left: 0.5in; }
  
@@ -185,7 +190,7 @@ div.section .titlepage .abstract {
 .scientific { .x-feature(black, @cream, CNX_BioMaj_Scienctific); }
 .everyday { .x-feature(black, @cream, CNX_BioMaj_Everyday); }
 .career { .x-feature(black, @cream, CNX_BioMaj_Career); }
-.art-connections { .x-feature(black, @cream, CNX_BioMaj_Art); }
+.art-connections { .x-feature(black, @cream, CNX_Bio_Art); }
 
 .x-feature (@color, @bg-color, @svg) {
   background-color: @bg-color;
@@ -241,7 +246,7 @@ div.section .titlepage .abstract {
     content: "";
     display: block;
     // the following are tweaked so the overlays really do over lay
-    margin-left: -.15in;
+    margin-left: -.25in;
 }
   
   img {
@@ -250,8 +255,9 @@ div.section .titlepage .abstract {
     width: @qr;
     height: @qr;
     display: inherit;
-    margin-top: -1.15in;
-    margin-left: -.50in !important;
+    margin-top: -1.25in;
+    margin-left: 0;
+    margin-right: -.25in;
   }  
   
   a[href^="http"]  {
@@ -260,7 +266,7 @@ div.section .titlepage .abstract {
     font-weight: bold;
    }	
   	  
-   * p { margin-left: -.15in; }		
+   * p { margin-left: -.15in; margin-top: 1em;}		
 
 }
 
@@ -316,7 +322,7 @@ img { max-height:9.5in; }
   /*reset left only*/
   margin-left:0 !important;
   padding-left: 0 !important;
-  font-size: 4em; /* x-large; */
+  font-size: 35pt; /* x-large; */
   font-weight: bold;
   text-align: left !important;
   color: @green;
@@ -557,19 +563,16 @@ img, figure, subfigure  { margin: 1em; }
  * End of Chapter Solutions Development in Progress
 
  ******************************************************/ 
-.solutions {
-  display: block; // Since they're disabled in ccap-physics
-  page-break-before:always;
-  color: gray;
-  float: bottom;
-  a {color: gray;}
-
-  * {display: inline;}
-    
-  > div {margin: 0em 0.5em;
-      &.title {border: 0em;} // remove the underscore
+.cnx-eoc {
+  &.multiple-choice {
+    .x-column-count(2);
+    page-break-before: always;
+    column-width: auto; 
   }
-}	
+
+  /* Allow section in the 2-column to break */
+  &.multiple-choice .section {  page-break-inside: auto; }
+}
 
 
 /******************************************************
@@ -605,6 +608,9 @@ div.end-of-book-solutions {
  * Index
  ******************************************************/
 .index {
+  text-align: left !important;
+  column-width: auto !important;
+ 	  
   .title h2 {
     padding:0;
     color:@green;
