@@ -177,7 +177,8 @@ div.section .titlepage .abstract {
   >.itemizedlist {
     &::before { 
       content: "By the end of this section, you will be able to:"; 
-      font-size: x-small "Times New Roman", Times, serif; 
+      font-size: small;
+      font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1; 
     }
     .listitem { margin:.25em 0em; }
   }
@@ -188,7 +189,7 @@ div.section .titlepage .abstract {
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
 .evolution { .x-feature(black, @cream, CNX_BioMaj_Evolution); }
-.scientific { .x-feature(black, @cream, CNX_BioMaj_Scienctific); }
+.scientific { .x-feature(black, @cream, CNX_BioMaj_Scientific); }
 .everyday { .x-feature(black, @cream, CNX_BioMaj_Everyday); }
 .career { .x-feature(black, @cream, CNX_BioMaj_Career); }5.5in
 .art-connections { .x-feature(black, @cream, CNX_Bio_Art); }
@@ -200,7 +201,7 @@ div.section .titlepage .abstract {
 
   &::before {
     background-image: url("ccap-biology/@{svg}.svg");
-    padding-top: 0.65in; // 0.65in is from the SVG files
+    padding-top: 0.85in; // 0.65in is from the SVG files
     background-repeat: no-repeat;
     background-position: top left;
     background-position: top outside;
@@ -299,15 +300,22 @@ div.section .titlepage .abstract {
   &.solutions  { display:none !important; } 
   
   &.art-connections { display: none !important; }
+  
+  &.multiple-choice {
+    .x-column-count(2);
+    page-break-before: always;
+    column-width: auto; 
+  }
+
+  /* Allow section in the 2-column to break */
+  &.multiple-choice .section {  page-break-inside: auto; }
 }
 
 .art-exercise > .title { content: "Art Connections"; }
 .multiple-choice > .title { content: "Review Questions"; }
 .free-response > .title { content: "Critical Thinking Questions"; }
 
-.multiple-choice,
-.free-response,
-.art-exercise {
+.multiple-choice,.free-response,.art-exercise {
   > .section > .title > a { display: none; }
 }
 
@@ -484,7 +492,8 @@ img, figure, subfigure  { margin: 1em; }
  * Tables TODO: simplify/regroup code block //latest
  ******************************************************/
 .table { 
- 
+  page-break-inside: auto;
+
   caption {
     padding-top: .5em;
     padding-bottom: 1em;    
@@ -561,22 +570,6 @@ img, figure, subfigure  { margin: 1em; }
 .target-figure {
   font-weight:bold;
   color: @tuscany;    	
-}
-
-
-/******************************************************
- * End of Chapter Solutions Development in Progress
-
- ******************************************************/ 
-.cnx-eoc {
-  &.multiple-choice {
-    .x-column-count(2);
-    page-break-before: always;
-    column-width: auto; 
-  }
-
-  /* Allow section in the 2-column to break */
-  &.multiple-choice .section {  page-break-inside: auto; }
 }
 
 

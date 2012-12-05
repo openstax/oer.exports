@@ -1835,7 +1835,8 @@ div.section .titlepage .abstract {
 }
 div.section .titlepage .abstract > .itemizedlist::before {
   content: "By the end of this section, you will be able to:";
-  font-size: x-small "Times New Roman", Times, serif;
+  font-size: small;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 div.section .titlepage .abstract > .itemizedlist .listitem {
   margin: .25em 0em;
@@ -1854,7 +1855,7 @@ div.section .titlepage .abstract > .title {
 }
 .evolution::before {
   background-image: url("ccap-biology/CNX_BioMaj_Evolution.svg");
-  padding-top: 0.65in;
+  padding-top: 0.85in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
@@ -1866,7 +1867,6 @@ div.section .titlepage .abstract > .title {
   margin-left: -1.05em;
   margin-right: -2.05em;
   margin-top: -0.03in;
-  width: 5.5in !important;
 }
 .evolution .title {
   text-align: left !important;
@@ -1885,8 +1885,8 @@ div.section .titlepage .abstract > .title {
   font-family: inherit;
 }
 .scientific::before {
-  background-image: url("ccap-biology/CNX_BioMaj_Scienctific.svg");
-  padding-top: 0.65in;
+  background-image: url("ccap-biology/CNX_BioMaj_Scientific.svg");
+  padding-top: 0.85in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
@@ -1898,7 +1898,6 @@ div.section .titlepage .abstract > .title {
   margin-left: -1.05em;
   margin-right: -2.05em;
   margin-top: -0.03in;
-  width: 5.5in !important;
 }
 .scientific .title {
   text-align: left !important;
@@ -1918,7 +1917,7 @@ div.section .titlepage .abstract > .title {
 }
 .everyday::before {
   background-image: url("ccap-biology/CNX_BioMaj_Everyday.svg");
-  padding-top: 0.65in;
+  padding-top: 0.85in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
@@ -1930,7 +1929,6 @@ div.section .titlepage .abstract > .title {
   margin-left: -1.05em;
   margin-right: -2.05em;
   margin-top: -0.03in;
-  width: 5.5in !important;
 }
 .everyday .title {
   text-align: left !important;
@@ -1950,7 +1948,7 @@ div.section .titlepage .abstract > .title {
 }
 .career::before {
   background-image: url("ccap-biology/CNX_BioMaj_Career.svg");
-  padding-top: 0.65in;
+  padding-top: 0.85in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
@@ -1962,7 +1960,6 @@ div.section .titlepage .abstract > .title {
   margin-left: -1.05em;
   margin-right: -2.05em;
   margin-top: -0.03in;
-  width: 5.5in !important;
 }
 .career .title {
   text-align: left !important;
@@ -1982,7 +1979,7 @@ div.section .titlepage .abstract > .title {
 }
 5.5in .art-connections::before {
   background-image: url("ccap-biology/CNX_Bio_Art.svg");
-  padding-top: 0.65in;
+  padding-top: 0.85in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
@@ -1994,7 +1991,6 @@ div.section .titlepage .abstract > .title {
   margin-left: -1.05em;
   margin-right: -2.05em;
   margin-top: -0.03in;
-  width: 5.5in !important;
 }
 5.5in .art-connections .title {
   text-align: left !important;
@@ -2049,6 +2045,10 @@ div.section .titlepage .abstract > .title {
 
  * End of chapter customizations
  ******************************************************/
+.cnx-eoc {
+  /* Allow section in the 2-column to break */
+
+}
 .cnx-eoc > .title {
   margin-top: 1em;
   margin-bottom: 0;
@@ -2077,6 +2077,20 @@ div.section .titlepage .abstract > .title {
 }
 .cnx-eoc.art-connections {
   display: none !important;
+}
+.cnx-eoc.multiple-choice {
+  -webkit-column-count: 2;
+  column-count: 2;
+  columns: 2;
+  column-fill: auto;
+  column-gap: 2.5em;
+  column-width: 3.50in;
+  text-align: justify;
+  page-break-before: always;
+  column-width: auto;
+}
+.cnx-eoc.multiple-choice .section {
+  page-break-inside: auto;
 }
 .art-exercise > .title {
   content: "Art Connections";
@@ -2277,6 +2291,9 @@ subfigure {
 /******************************************************max
  * Tables TODO: simplify/regroup code block //latest
  ******************************************************/
+.table {
+  page-break-inside: auto;
+}
 .table caption {
   padding-top: .5em;
   padding-bottom: 1em;
@@ -2338,27 +2355,6 @@ subfigure {
 .target-figure {
   font-weight: bold;
   color: #cc6633;
-}
-/******************************************************
- * End of Chapter Solutions Development in Progress
-
- ******************************************************/.cnx-eoc {
-  /* Allow section in the 2-column to break */
-
-}
-.cnx-eoc.multiple-choice {
-  -webkit-column-count: 2;
-  column-count: 2;
-  columns: 2;
-  column-fill: auto;
-  column-gap: 2.5em;
-  column-width: 3.50in;
-  text-align: justify;
-  page-break-before: always;
-  column-width: auto;
-}
-.cnx-eoc.multiple-choice .section {
-  page-break-inside: auto;
 }
 /******************************************************
  * End of Book Solutions
