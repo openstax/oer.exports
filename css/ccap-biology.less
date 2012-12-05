@@ -20,6 +20,8 @@ For most smartphones the relationship between scan distance and minimum QR code 
  ******************************************************/
 @qr: 1.25in;
 @table-border: 1pt solid @green;
+@page-width: 5.5in;
+
 
 
 @import url('ccap-base.less');
@@ -186,7 +188,7 @@ div.section .titlepage .abstract {
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
 .evolution { .x-feature(black, @cream, CNX_BioMaj_Evolution); }
-.scientific { .x-feature(black, @cream, CNX_BioMaj_Scienctific); }
+.scientific { .x-feature(black, @cream, CNX_BioMaj_Scientific); }
 .everyday { .x-feature(black, @cream, CNX_BioMaj_Everyday); }
 .career { .x-feature(black, @cream, CNX_BioMaj_Career); }
 .art-connections { .x-feature(black, @cream, CNX_Bio_Art); }
@@ -197,7 +199,8 @@ div.section .titlepage .abstract {
   * p { font-family:inherit; }
 
   &::before {
-    padding-top: 0.65in; //0.75 + margin-top. 0.75in is from the SVG files
+    background-image: url("ccap-biology/@{svg}.svg");
+    padding-top: 0.85in; // 0.65in is from the SVG files
     background-repeat: no-repeat;
     background-position: top left;
     background-position: top outside;
@@ -222,9 +225,7 @@ div.section .titlepage .abstract {
   
   .figure > .title { font-size: x-small; }
 
-  &::before { background-image: url("ccap-biology/@{svg}.svg"); }
-
-}
+ }
 
 
 /******************************************************
@@ -271,6 +272,7 @@ div.section .titlepage .abstract {
 
 
 /******************************************************
+
  * End of chapter customizations
  ******************************************************/
 .cnx-eoc {
@@ -295,6 +297,7 @@ div.section .titlepage .abstract {
   .problem .orderedlist { margin-left: 4em;}
   
   &.solutions  { display:none !important; } 
+  
   &.art-connections { display: none !important; }
 }
 
@@ -312,7 +315,6 @@ div.section .titlepage .abstract {
  * Generic Elements
  ******************************************************/
 body { font-size: 9.5pt; }
-
 
 img { max-height:9.5in; }
 
@@ -342,7 +344,53 @@ img { max-height:9.5in; }
 a { font-weight: bold; color: @tuscany;}
 
 
-h1, h2, h3 {
+h1, h2, h3 {/******************************************************
+
+ * Art-Connections
+ ******************************************************/
+ .art-connections {
+  display:block;
+  background-color: @cream;
+  page-break-inside: avoid;
+  padding: 1em;
+  
+  &::before {
+    background-image: url("ccap-biology/CNX_BioMaj_Art.svg");
+    padding: .25in .10in .30in 0in;
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-position: top outside;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+  	background-color: white;
+    content: "";
+    display: block;
+    // the following are tweaked so the overlays really do over lay
+    margin-left: -.15in;
+    margin-top:-.25in;
+    margin-right: -.12in;
+  }
+
+  > .title {   //styles art connections title
+    padding: .5em 0;
+    font-size: large;
+    text-align: left;
+    prince-text-replace: "Exercise" "";
+  }
+
+  img {
+    padding: 0;
+    margin: 0;
+  }
+
+  .problem > p {
+    text-indent: 0em;
+    margin-top: 1em;
+    font: inherit;
+  }
+
+  .solution { display:none; } //hide solution in this feature
+}
   margin: 0.5em 0em;
   text-align: left !important; //overides text alignment set in
 }
@@ -432,10 +480,10 @@ img, figure, subfigure  { margin: 1em; }
  }
  
  
-/******************************************************
+/******************************************************max
  * Tables TODO: simplify/regroup code block //latest
  ******************************************************/
-.table {
+.table { 
  
   caption {
     padding-top: .5em;
@@ -478,12 +526,17 @@ img, figure, subfigure  { margin: 1em; }
 .figure {
   font-size: 9pt;
   padding-bottom: 1em;
- 
+   
   > .title {
     display: inline;
     color: @tuscany;
     font-weight: bold;
     text-align:center;
+  }
+  
+  & img { 
+    margin: 1em 0; //override auto  left/right margins from base
+    max-width: @page-width !important; 
   }
 
   > .caption {
@@ -533,7 +586,7 @@ img, figure, subfigure  { margin: 1em; }
 // TODO: If this is used by other books it should probably be moved to ccap-numbering.less
 div.end-of-book-solutions {
   div.solution {
-    display:inline;
+  display:inline;
     // Make the solutions pages span 2 columns
     //.x-column-count(2);
 
@@ -550,7 +603,7 @@ div.end-of-book-solutions {
     }
     > div.body {
       display: inline;
-      * { display: inline; }
+      &::first-child { display: inline; }
     }
   }
 }
@@ -575,14 +628,14 @@ div.end-of-book-solutions {
     font-size: medium;
     padding-top:1em;
   }
-
+ 
  .index-term { font-size:medium; }//clean up
-
+ 
  .index-term::first-letter {
-   font-variant:small-caps;
+   font-variant:small-caps; 
    font-size:1.25em;
- }
-
+ } 
+ 
  a { font-weight:bold; }
 }
 
@@ -590,12 +643,10 @@ div.end-of-book-solutions {
 // originally defined in ccap-numbering.less
 // The hierarchy is copied from ccap-numbering so the selectors (and priority for which to apply) are the same
 .x-duplicate-hierarchy() {
- //> div.chatper-area { counter-reset:  solution; } this counter may be culprit for eob numbering
- > div.cnx-eoc { counter-reset: /*exercise*/ eoc-section -1; }
+  > div.cnx-eoc { counter-reset: /*exercise*/ eoc-section -1; }
 }
 
 div.book, div.book > div.part {
-
   > div.preface  { .x-duplicate-hierarchy(); }
   > div.chapter  { .x-duplicate-hierarchy(); }
   > div.appendix { .x-duplicate-hierarchy(); }
