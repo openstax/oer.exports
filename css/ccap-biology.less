@@ -42,9 +42,9 @@ div.part > div.titlepage {display:none;}
 .introduction {
   /*pulled from Soc*/
   .splash img{
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100% !important;
+    margin: 0 !important; //forced reset on splash img left margin/padding 
+    padding: 0 !important; //was being inherited from unknown - not base
+    width: 100% !important; //ensures alignment 
     max-width: none !important;
   }
   
@@ -499,7 +499,7 @@ img, figure, subfigure  { margin: 1em; }
   
   & img { 
     margin: 1em 0; //override auto  left/right margins from base
-    max-width: @page-width !important; 
+    max-width: @page-width !important; //overrides width value figures/subfigures ensuring imgs do not bleed off page
   }
 
   > .caption {
@@ -560,12 +560,12 @@ div.end-of-book-solutions {
  * Index
  ******************************************************/
 .index {
-  text-align: left !important;
+  text-align: left !important; //override text-alignment from base .x-column-count
   column-width: auto !important;
  	  
   .title h2 {
     padding:0;
-    color:@green;
+    color:@green; 
     text-transform:uppercase;
     font-size: x-large;
   }
