@@ -275,19 +275,24 @@ div.section .titlepage .abstract {
  * End of chapter customizations
  ******************************************************/
 .cnx-eoc {
+  .x-column-count(2);
+  column-width: auto !important;
+  page-break-inside: auto;
+  column-break-inside: auto;
+  	
   > .title  { 
-    margin-top: 1em; 
-    margin-bottom: 0;
     text-transform: uppercase !important;
+    text-align: left; //override from base .x-column-count
     color: @green !important;
     font-size: large !important;
     font-weight: bold !important;
   }
   
   &.summary { 
+    .x-column-count(1);
     > .title { content: "Chapter Summary"; }
     > .section .title > a { color: black; } 
-    p { margin-top:1em; }
+    p { text-indent: 2em; }
   } 
   
   //ccap-base sets this so override it here
@@ -296,15 +301,6 @@ div.section .titlepage .abstract {
   .problem .orderedlist { margin-left: 4em;}
   
   &.solutions  { display:none !important; } 
-  
-  &.multiple-choice {
-    .x-column-count(2);
-    page-break-before: always;
-    column-width: auto; 
-  }
-
-  /* Allow section in the 2-column to break */
-  &.multiple-choice .section {  page-break-inside: auto; }
 }
 
 .art-exercise > .title { content: "Art Connections"; }
@@ -574,7 +570,7 @@ div.end-of-book-solutions {
     padding-top:1em;
   }
  
- .index-term { font-size:medium; }//clean up
+ .index-term { font-size:small; } //clean up
  
  .index-term::first-letter {
    font-variant:small-caps; 

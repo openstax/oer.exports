@@ -2043,16 +2043,32 @@ div.section .titlepage .abstract > .title {
  * End of chapter customizations
  ******************************************************/
 .cnx-eoc {
-  /* Allow section in the 2-column to break */
-
+  -webkit-column-count: 2;
+  column-count: 2;
+  columns: 2;
+  column-fill: auto;
+  column-gap: 2.5em;
+  column-width: 3.50in;
+  text-align: justify;
+  column-width: auto !important;
+  page-break-inside: auto;
+  column-break-inside: auto;
 }
 .cnx-eoc > .title {
-  margin-top: 1em;
-  margin-bottom: 0;
   text-transform: uppercase !important;
+  text-align: left;
   color: #336633 !important;
   font-size: large !important;
   font-weight: bold !important;
+}
+.cnx-eoc.summary {
+  -webkit-column-count: 1;
+  column-count: 1;
+  columns: 1;
+  column-fill: auto;
+  column-gap: 2.5em;
+  column-width: 3.50in;
+  text-align: justify;
 }
 .cnx-eoc.summary > .title {
   content: "Chapter Summary";
@@ -2061,7 +2077,7 @@ div.section .titlepage .abstract > .title {
   color: black;
 }
 .cnx-eoc.summary p {
-  margin-top: 1em;
+  text-indent: 2em;
 }
 .cnx-eoc .references p {
   text-indent: 0em;
@@ -2071,20 +2087,6 @@ div.section .titlepage .abstract > .title {
 }
 .cnx-eoc.solutions {
   display: none !important;
-}
-.cnx-eoc.multiple-choice {
-  -webkit-column-count: 2;
-  column-count: 2;
-  columns: 2;
-  column-fill: auto;
-  column-gap: 2.5em;
-  column-width: 3.50in;
-  text-align: justify;
-  page-break-before: always;
-  column-width: auto;
-}
-.cnx-eoc.multiple-choice .section {
-  page-break-inside: auto;
 }
 .art-exercise > .title {
   content: "Art Connections";
@@ -2334,7 +2336,7 @@ div.end-of-book-solutions div.solution > div.body::first-child {
   padding-top: 1em;
 }
 .index .index-term {
-  font-size: medium;
+  font-size: small;
 }
 .index .index-term::first-letter {
   font-variant: small-caps;
