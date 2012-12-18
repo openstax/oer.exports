@@ -201,7 +201,7 @@ div.section .titlepage .abstract {
 
   &::before {
     background-image: url("ccap-biology/@{svg}.svg");
-    padding-top: 0.85in; // 0.65in is from the SVG files
+    padding-top: 0.65in; // 0.65in is from the SVG files
     background-repeat: no-repeat;
     background-position: top left;
     background-position: top outside;
@@ -223,10 +223,12 @@ div.section .titlepage .abstract {
     color: black;
     font-weight:bold;
   }
-
-  .figure > .title { font-size: x-small; }
-
- }
+  
+  .figure {
+    img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
+    > .title { font-size: x-small; }
+  }
+}
 
 
 /******************************************************
@@ -248,19 +250,17 @@ div.section .titlepage .abstract {
     display: block;
     // the following are tweaked so the overlays really do over lay
     margin-left: -.25in;
-}
-
+   }
+  
   img {
-    float:right;
-    // the following are tweaked so the overlays really do over lay
+    // the following are tweaked so the overlays really do over lay						      
     width: @qr;
     height: @qr;
     display: inherit;
     margin-top: -1.25in;
-    margin-left: 0;
-    margin-right: -.25in;
-  }
-
+    margin-left: 2in;
+  }  
+  
   a[href^="http"]  {
     content: content() !important; /*set in base.less override it here*/
     color:@tuscany;
@@ -277,39 +277,35 @@ div.section .titlepage .abstract {
  * End of chapter customizations
  ******************************************************/
 .cnx-eoc {
-  > .title  {
-    margin-top: 1em;
-    margin-bottom: 0;
+  .x-column-count(2);
+  column-width: auto !important;
+  page-break-inside: auto;
+  column-break-inside: auto;
+  	
+  > .title  { 
     text-transform: uppercase !important;
+    text-align: left; //override from base .x-column-count
     color: @green !important;
     font-size: large !important;
     font-weight: bold !important;
   }
 
-  &.summary {
+  &.summary { 
+    .x-column-count(1);
     > .title { content: "Chapter Summary"; }
-    > .section .title > a { color: black; }
-    p { margin-top:1em; }
-  }
-
+    > .section .title > a { color: black; } 
+    p { text-indent: 2em; }
+  } 
+  
   //ccap-base sets this so override it here
   .references p { text-indent: 0em; }
 
   .problem .orderedlist { margin-left: 4em;}
 
-  &.solutions  { display:none !important; }
-
-  &.multiple-choice {
-    .x-column-count(2);
-    page-break-before: always;
-    column-width: auto;
-  }
-
-  /* Allow section in the 2-column to break */
-  &.multiple-choice .section {  page-break-inside: auto; }
+  &.solutions  { display:none !important; } 
 }
 
-.art-exercise > .title { content: "Art Connections"; }
+.art-exercise > .title { content: "Art Connections Questions"; }
 .multiple-choice > .title { content: "Review Questions"; }
 .free-response > .title { content: "Critical Thinking Questions"; }
 
@@ -614,11 +610,16 @@ div.end-of-book-solutions {
     // I tried moving the anchor but princexml also does not support move-to
     > div.title {
       display: inline;
-      a.solution { padding-right: 0.25em; padding-left: 0.5em; }
+      a.solution { 
+        //padding-right: 0.25em; 
+        //padding-left: 0.50em; 
+        color: black;
+        font-weight: bold;
+      }
     }
     > div.body {
       display: inline;
-      &::first-child { display: inline; }
+      * { display: inline; }
     }
   }
 }
