@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-                xmlns="http://www.w3.org/1999/xhtml" 
-                xmlns:db="http://docbook.org/ns/docbook" 
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:db="http://docbook.org/ns/docbook"
                 version="1.0">
-  
+
   <!-- FIXME: This file essentially copied from cnxml/trunk/style/table.xsl with some edits.  Eventually we should try to use just one file to reduce code duplication. -->
 
   <!--ID CHECK -->
@@ -15,15 +15,15 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template name="class-test">           
+  <xsl:template name="class-test">
     <xsl:param name="provided-class"/>
     <xsl:param name="wanted-class"/>
-    <xsl:if test="$provided-class = $wanted-class or                   
-                  starts-with($provided-class, concat($wanted-class, ' ')) or                   
-                  contains($provided-class, concat(' ', $wanted-class, ' ')) or                    
-                  substring($provided-class, string-length($provided-class) - string-length($wanted-class)) = concat(' ', $wanted-class)                               
-                 ">1</xsl:if> 
-  </xsl:template> 
+    <xsl:if test="$provided-class = $wanted-class or
+                  starts-with($provided-class, concat($wanted-class, ' ')) or
+                  contains($provided-class, concat(' ', $wanted-class, ' ')) or
+                  substring($provided-class, string-length($provided-class) - string-length($wanted-class)) = concat(' ', $wanted-class)
+                 ">1</xsl:if>
+  </xsl:template>
 
   <xsl:template match="db:table/@class">
     <xsl:attribute name="class">
@@ -31,7 +31,7 @@
       <xsl:value-of select="."/>
     </xsl:attribute>
   </xsl:template>
-  
+
   <xsl:template match="db:table">
     <div class="table">
       <xsl:call-template name="IdCheck"/>
@@ -77,13 +77,13 @@
               </xsl:attribute>
             </xsl:if>
 	    <xsl:attribute name="style">
-	      <!-- The "solid" style is used because browsers need this to render any border at all (can be overridden in a CSS file 
-	      with !important marker).  Where the border is turned off with a "border-width: 0 !important;", the !important marker is 
-	      used to prevent a CSS file from overriding that zero width when a general width is given to table elements in a CSS file 
+	      <!-- The "solid" style is used because browsers need this to render any border at all (can be overridden in a CSS file
+	      with !important marker).  Where the border is turned off with a "border-width: 0 !important;", the !important marker is
+	      used to prevent a CSS file from overriding that zero width when a general width is given to table elements in a CSS file
 	      (which must also use the !important marker to override the non-!important elements encoded inline).  -->
 	      <xsl:text>border: 1px solid; </xsl:text>
 	      <xsl:if test="@pgwide!='0' or @orient='land'">
-		width: 100%; 
+		width: 100%;
 	      </xsl:if>
       	      <xsl:if test="@frame">
 		<xsl:choose>
@@ -121,7 +121,7 @@
                   </span>
                   <span class="cnx-gentext-caption cnx-gentext-n">
                     <xsl:if test="not(ancestor::*[1][self::db:figure or self::db:subfigure])">
-                      <xsl:for-each select="ancestor::db:chapter">   
+                      <xsl:for-each select="ancestor::db:chapter">
                         <xsl:apply-templates select="." mode="label.markup"/>
                         <xsl:apply-templates select="." mode="intralabel.punctuation"/>
                       </xsl:for-each>
@@ -178,12 +178,12 @@
 	  </table>
 	</xsl:otherwise>
       </xsl:choose>
-    </div>  
+    </div>
   </xsl:template>
 
   <xsl:template match="db:colspec|db:spanspec"/>
 
-  <xsl:template match="db:tgroup">    
+  <xsl:template match="db:tgroup">
     <!-- Only bother to do this if there are colwidth attributes specified. -->
     <xsl:call-template name="IdCheck"/>
     <xsl:if test="db:colspec/@colwidth or child::*/db:colspec/@colwidth">
@@ -260,15 +260,15 @@
       <xsl:apply-templates/>
     </tr>
   </xsl:template>
-  
+
   <xsl:template match="db:thead/db:row/db:entry|db:tfoot/db:row/db:entry">
     <xsl:call-template name="process.cell">
       <xsl:with-param name="cellgi">th</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
 
-  <!-- Doesn't yet support non-sequential entry(tbl)s (presumably ordered by colnames that refer to colspecs that actually put the 
-       elements in their correct order). -->  
+  <!-- Doesn't yet support non-sequential entry(tbl)s (presumably ordered by colnames that refer to colspecs that actually put the
+       elements in their correct order). -->
   <xsl:template match="db:tbody/db:row/db:entry">
     <xsl:variable name="row.header.or.not">
       <xsl:call-template name="row.header.or.not">
@@ -303,7 +303,7 @@
       <xsl:otherwise>td</xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
+
   <xsl:template name="row.header.class.or.not">
     <xsl:param name="step" select="'entry'"/>
     <xsl:param name="entry.colnum">1</xsl:param>
@@ -373,12 +373,12 @@
 	</xsl:attribute>
       </xsl:if>
       <xsl:call-template name="IdCheck"/>
-      <!-- Set colsep and rowsep attributes with CSS using the style attribute.  Turn off the borders on the left and top of any 
+      <!-- Set colsep and rowsep attributes with CSS using the style attribute.  Turn off the borders on the left and top of any
 	   entry(tbl) because they are always ignored. -->
       <xsl:attribute name="style">
 	<!-- Don't let .css files override these (hence the "!important") -->
 	<xsl:text>border-left: 0 !important; border-top: 0 !important; </xsl:text>
-	<!-- Give an entry a border on the right if its not in the last column of the tgroup or entrytbl, or according to any colsep 
+	<!-- Give an entry a border on the right if its not in the last column of the tgroup or entrytbl, or according to any colsep
 	     attributes either in current entry or inherited from above. -->
 	<xsl:choose>
 	  <xsl:when test="not(following-sibling::*) or ancestor-or-self::*/@colsep='0' or ancestor::*/db:colspec/@colsep='0' or ancestor::*[3]/db:spanspec/@colsep='0'">
@@ -393,7 +393,7 @@
 	    </xsl:call-template>
 	  </xsl:otherwise>
 	</xsl:choose>
-	<!-- Give an entry a border on the bottom if its not in the very last row, or according to any rowsep attributes in current 
+	<!-- Give an entry a border on the bottom if its not in the very last row, or according to any rowsep attributes in current
 	     entry or inherited from above. -->
 	<xsl:choose>
 	  <xsl:when test="not(parent::db:row/following-sibling::db:row) or ancestor-or-self::*/@rowsep='0' or ancestor::*/db:colspec/@rowsep='0' or ancestor::*[3]/db:spanspec/@rowsep='0' or @morerows">
@@ -408,7 +408,7 @@
 	    </xsl:call-template>
 	  </xsl:otherwise>
 	</xsl:choose>
-	<!-- Give the cell alignment to the left unless otherwise declared or unless the cell is affected by a spanspec (whose default 
+	<!-- Give the cell alignment to the left unless otherwise declared or unless the cell is affected by a spanspec (whose default
 	     alignment is to the center). -->
 	<xsl:choose>
 	  <xsl:when test="ancestor-or-self::*/@align!='left' or ancestor::*/db:colspec/@align!='left' or @spanname">
@@ -447,10 +447,10 @@
     </xsl:element>
   </xsl:template>
 
-  <!-- This template checks for instances of certain attributes (colsep, rowsep, align, char, and charoff) in certain places in the 
-       table, going up in the following inheritance order: entry attributes > row attributes (rowsep) > colspecs in nearest thead 
-       or nearest tfoot > nearest spanspec references > nearest colspec references not in thead or tfoot > entrytbl or tgroup 
-       attributes > table attributes (if no intermediary entrybl), with pit stops first to turn borders off at the bottom and left of 
+  <!-- This template checks for instances of certain attributes (colsep, rowsep, align, char, and charoff) in certain places in the
+       table, going up in the following inheritance order: entry attributes > row attributes (rowsep) > colspecs in nearest thead
+       or nearest tfoot > nearest spanspec references > nearest colspec references not in thead or tfoot > entrytbl or tgroup
+       attributes > table attributes (if no intermediary entrybl), with pit stops first to turn borders off at the bottom and left of
        the table's very last rows and columns, respectively.  If no attributes are found, the default values are provided. -->
   <xsl:template name="style.param.determiner">
     <xsl:param name="style.name"/>
@@ -458,9 +458,9 @@
       <xsl:call-template name="entry.colnum"/>
     </xsl:variable>
     <xsl:choose>
-      <!-- If there is not a subsequent row of columns in the table (or entrytbl, if currently located there), don't give entry(tbl) a 
-	   bottom border.  Watch out for the case where the current entry is not in the last row but stretches all the way down there 
-	   anyway via @morerows.  Additionally, watch out for cases where the current entry(tbl) is at the bottom of a tgroup, but 
+      <!-- If there is not a subsequent row of columns in the table (or entrytbl, if currently located there), don't give entry(tbl) a
+	   bottom border.  Watch out for the case where the current entry is not in the last row but stretches all the way down there
+	   anyway via @morerows.  Additionally, watch out for cases where the current entry(tbl) is at the bottom of a tgroup, but
 	   there are other tgroups that follow.  -->
       <xsl:when test="$style.name='rowsep' and          (parent::db:row[not(following-sibling::db:row)]           and not(ancestor::*[2][preceding-sibling::db:tfoot or self::db:thead]      or (ancestor::db:tgroup[following-sibling::db:tgroup] and not(ancestor::db:entrytbl))) or          @morerows=count(parent::db:row/following-sibling::db:row)           and not(ancestor::*[2][preceding-sibling::db:tfoot or self::db:thead]      or (ancestor::db:tgroup[following-sibling::db:tgroup] and not(ancestor::db:entrytbl))))">
 	<xsl:call-template name="style.maker">
@@ -468,8 +468,8 @@
 	  <xsl:with-param name="style.name" select="'rowsep'"/>
 	</xsl:call-template>
       </xsl:when>
-      <!-- If the right edge (essentially the entry.ending.colnum) of the current entry(tbl) is at the end of the row (and not just 
-	   bordering an entry from a previous row whose @morerows attribute makes it extend to the current entry(tbl)'s edge), don't 
+      <!-- If the right edge (essentially the entry.ending.colnum) of the current entry(tbl) is at the end of the row (and not just
+	   bordering an entry from a previous row whose @morerows attribute makes it extend to the current entry(tbl)'s edge), don't
 	   give it a border on the right. -->
       <xsl:when test="$style.name='colsep' and          not(following-sibling::*) and          not(parent::db:row/preceding-sibling::db:row/db:entry[position()=last()][(@morerows + count(parent::db:row/preceding-sibling::db:row)) &gt;= count(current()/parent::db:row/preceding-sibling::db:row)])">
 	<xsl:call-template name="style.maker">
@@ -495,11 +495,11 @@
 	   (where @colnum attributes are specified) -->
       <xsl:when test="ancestor::*[2]/db:colspec[@colnum=$entry.colnum]/attribute::*[local-name()=$style.name]">
 	<xsl:call-template name="style.maker">
-	  <xsl:with-param name="style.param" select="ancestor::*[2]/db:colspec[@colnum=$entry.colnum]/attribute::*[local-name()=$style.name]"/> 
+	  <xsl:with-param name="style.param" select="ancestor::*[2]/db:colspec[@colnum=$entry.colnum]/attribute::*[local-name()=$style.name]"/>
 	  <xsl:with-param name="style.name" select="$style.name"/>
 	</xsl:call-template>
       </xsl:when>
-      <!-- nearest thead/colspec or tfoot/colspec (notice these are not tgroups as children of tgroup or entrytbl) 
+      <!-- nearest thead/colspec or tfoot/colspec (notice these are not tgroups as children of tgroup or entrytbl)
 	   (where no @colnum attributes are specified and colspecs are instead ordered sequentially) -->
       <xsl:when test="ancestor::*[2]/db:colspec[position()=$entry.colnum and not(@colnum)]/attribute::*[local-name()=$style.name]">
 	<xsl:call-template name="style.maker">
@@ -535,7 +535,7 @@
 	  <xsl:with-param name="style.name" select="$style.name"/>
 	</xsl:call-template>
       </xsl:when>
-      <!-- if table has a colsep/rowsep/align/char/charoff declaration, use it, unless current entry is in an entrytbl, in which case 
+      <!-- if table has a colsep/rowsep/align/char/charoff declaration, use it, unless current entry is in an entrytbl, in which case
 	   table's attributes cannot be inherited -->
       <xsl:when test="ancestor::db:table/attribute::*[local-name()=$style.name] and not(ancestor::db:entrytbl)">
 	<xsl:call-template name="style.maker">
@@ -543,7 +543,7 @@
 	  <xsl:with-param name="style.name" select="$style.name"/>
 	</xsl:call-template>
       </xsl:when>
-      <!-- for everything else, default to having a border if testing borders and left alignment if testing alignment (with the 
+      <!-- for everything else, default to having a border if testing borders and left alignment if testing alignment (with the
 	   special exception of aligning elements defined by a spanspec (via @spanname) to the center) -->
       <xsl:otherwise>
 	<xsl:choose>
@@ -570,7 +570,7 @@
 	      </xsl:otherwise>
 	    </xsl:choose>
 	  </xsl:when>
-	  <!-- If there were no @char or @charoff attributes explicitly defined earlier, don't add any as a "default" value, because 
+	  <!-- If there were no @char or @charoff attributes explicitly defined earlier, don't add any as a "default" value, because
 	       the default would be to just leave these things out. -->
 	  <xsl:when test="$style.name='char' or $style.name='charoff'">
 	    <xsl:call-template name="style.maker">
@@ -583,8 +583,8 @@
     </xsl:choose>
   </xsl:template>
 
-  <!-- This template adds border styles, alignments, and char-related attributes to the HTML for the current entry(tbl), depending on 
-       how those attributes were determined in style.param.determiner (or in the process.cell/db:entrytbl templates if the current 
+  <!-- This template adds border styles, alignments, and char-related attributes to the HTML for the current entry(tbl), depending on
+       how those attributes were determined in style.param.determiner (or in the process.cell/db:entrytbl templates if the current
        entry(tbl) didn't pass through style.param.determiner). -->
   <xsl:template name="style.maker">
     <xsl:param name="style.name"/>
@@ -629,8 +629,8 @@
   </xsl:template>
 
 
-  <!-- When looking for an entry(tbl)'s colnum, start with a @spanname, then @namest, then @colname, then figure it out manually if 
-       none of those attributes are present.  If the entry(tbl) is inside a thead or tfoot with its own set of colspecs, however, 
+  <!-- When looking for an entry(tbl)'s colnum, start with a @spanname, then @namest, then @colname, then figure it out manually if
+       none of those attributes are present.  If the entry(tbl) is inside a thead or tfoot with its own set of colspecs, however,
        those colspecs take precedence and any @spanname is ignored (since thead and tfoot can't take spanspec). -->
   <xsl:template name="entry.colnum">
     <xsl:param name="entry" select="."/>
@@ -723,25 +723,25 @@
   </xsl:template>
 
 
-  <!-- The following 5 templates are used to determine the colnum of an entry(tbl) where there is a @morerows attribute in the entry 
-       of a previous row which straddles the space to the left of a particular column.  For example, they would determine the colnum 
-       of the "d" entry in this table (whose colnum is otherwise obscured by the "a" entry if "d" doesn't have a @colname, @namest or 
-       @spanname attribute) in the following way: 
+  <!-- The following 5 templates are used to determine the colnum of an entry(tbl) where there is a @morerows attribute in the entry
+       of a previous row which straddles the space to the left of a particular column.  For example, they would determine the colnum
+       of the "d" entry in this table (whose colnum is otherwise obscured by the "a" entry if "d" doesn't have a @colname, @namest or
+       @spanname attribute) in the following way:
 	 ___________
 	| a | b | c |
 	|   |___|___|
 	|   | d | e |
 	|___|___|___|
 
-     - mc.cols.initialization builds a string that looks like this: ;0;0;0; (basically it serves like an array, filled with 
+     - mc.cols.initialization builds a string that looks like this: ;0;0;0; (basically it serves like an array, filled with
        values of rowspans for each column in the table)
      - The 1st iteration of mc.cols.assignment (entry "a") changes the string to: ;2;0;0; (since entry "a" spans two rows)
      - The 2nd iteration of mc.cols.assignment (entry "b") changes the string to: ;2;1;0; (since entry "b" spans one row, its own)
      - The 3rd iteration of mc.cols.assignment (entry "c") changes the string to: ;2;1;1; (since entry "c" spans one row, its own)
      - mc.cols.reset subtracts 1 from each of the values in the string, changing ;2;1;1; to ;1;0;0;
-     - Since the fourth entry ("d") is matched in morerows.check, we look in mc.determine.colnum to see which column it is in, 
+     - Since the fourth entry ("d") is matched in morerows.check, we look in mc.determine.colnum to see which column it is in,
        based on the string we've made up to that point: 1;0;0;
-     - We iterate through the string to determine where the entry can "fit" (i.e., where there isn't already a rowspan, represented by 
+     - We iterate through the string to determine where the entry can "fit" (i.e., where there isn't already a rowspan, represented by
        any positive number).  We find this in the 2nd value of the string and therefore determine that the "d" entry is in column 2.
   -->
 
@@ -751,14 +751,14 @@
     <xsl:param name="mc.row.number.being.checked" select="'1'"/> <!-- Number of row we're in during testing (start at top) -->
     <xsl:param name="mc.entry.number.being.checked" select="'1'"/> <!-- Number of column we're in during testing (start at left) -->
     <xsl:param name="mc.cols.quantity" select="$mc.entry/ancestor::*[3]/@cols"/>
-    <xsl:param name="mc.cols"> <!-- A semi-colon separated string that shows us how many rows are being occupied by a particular 
+    <xsl:param name="mc.cols"> <!-- A semi-colon separated string that shows us how many rows are being occupied by a particular
 				     row's entries.  Start of by making it look something like this: ;0;0;0;0;...;0; -->
       <xsl:call-template name="mc.cols.initialization">
 	<xsl:with-param name="mc.cols.quantity" select="$mc.cols.quantity"/>
 	<xsl:with-param name="mc.cols" select="';'"/>
       </xsl:call-template>
     </xsl:param>
-    <!-- Start at the top left (because we have to start accounting for @morerows beginning there) until we make it down to the row 
+    <!-- Start at the top left (because we have to start accounting for @morerows beginning there) until we make it down to the row
 	 with the entry(tbl) whose colnum we're trying to determine. -->
     <xsl:choose>
       <xsl:when test="generate-id($mc.entry/ancestor::*[2]/db:row[position()=$mc.row.number.being.checked]/child::*[position()=$mc.entry.number.being.checked])                 = generate-id($mc.entry)">
@@ -804,7 +804,7 @@
     <xsl:param name="mc.first.part"/>
     <xsl:param name="mca.number.in.question">
       <xsl:choose>
-	<!-- If nobody has added an entry(tbl) who's colnum is greater than the @cols attribute, determine the number by removing the 
+	<!-- If nobody has added an entry(tbl) who's colnum is greater than the @cols attribute, determine the number by removing the
 	     "first part" from the mc.cols string, then taking the string before the first separator (';') -->
  	<xsl:when test="$mc.cols != $mc.first.part">
           <xsl:value-of select="substring-before(substring-after($mc.cols,$mc.first.part),';')"/>
@@ -815,7 +815,7 @@
     </xsl:param>
     <xsl:param name="mca.last.part">
       <xsl:choose>
-	<!-- If nobody has added an entry(tbl) who's colnum is greater than the @cols attribute, determine the "last part" by removing 
+	<!-- If nobody has added an entry(tbl) who's colnum is greater than the @cols attribute, determine the "last part" by removing
 	     the "first part" and "number in question" from the cols string -->
 	<xsl:when test="$mc.cols != $mc.first.part">
 	  <xsl:value-of select="substring-after($mc.cols,concat($mc.first.part,$mca.number.in.question))"/>
@@ -864,7 +864,7 @@
     </xsl:param>
     <!-- Assign the colnum if it can be found -->
     <xsl:choose>
-      <!-- If the column has a marker that's higher than 0, something is already sitting there (either a previous entry in the same 
+      <!-- If the column has a marker that's higher than 0, something is already sitting there (either a previous entry in the same
 	   row or a morerows in the entry of a previous row. -->
       <xsl:when test="$mca.number.in.question != 0">
 	<xsl:call-template name="mc.cols.assignment">
@@ -945,7 +945,7 @@
 	</xsl:call-template>
       </xsl:when>
       <xsl:otherwise>
-	<!-- If somebody failed to put in an entry(tbl) somewhere (i.e. all the entries in a row don't add up to the number in the 
+	<!-- If somebody failed to put in an entry(tbl) somewhere (i.e. all the entries in a row don't add up to the number in the
 	     @cols attribute), just set it to 0 instead of a negative number.  -->
 	<xsl:choose>
 	  <xsl:when test="$mcr.number.in.question &lt; 1">
@@ -1018,7 +1018,7 @@
 
   <xsl:template name="col.maker">
     <xsl:param name="cm.iteration" select="'1'"/>
-      <!-- If thead or tfoot has a colspec with a colwidth attribute, it takes precedence ??? over a colwidth directly under a 
+      <!-- If thead or tfoot has a colspec with a colwidth attribute, it takes precedence ??? over a colwidth directly under a
 	   tgroup or entrytbl.  Set this colwidth attribute as a param. -->
       <xsl:param name="colwidth">
       <xsl:choose>
@@ -1037,13 +1037,13 @@
 	  <!-- Do something if this particular column (matched by the colspec's colnum attribute) has an actual colwidth. -->
 	  <xsl:choose>
 	    <xsl:when test="db:colspec[(@colnum=$cm.iteration) or (position()=$cm.iteration and not(@colnum))][@colwidth!=''] or         child::*/db:colspec[(@colnum=$cm.iteration) or (position()=$cm.iteration and not(@colnum))][@colwidth!='']">
-	      <!-- If the colwidth is expressed in 'in', 'em', 'cm', 'pc', 'pi', 'mm', or 'ex', express this width with a style 
+	      <!-- If the colwidth is expressed in 'in', 'em', 'cm', 'pc', 'pi', 'mm', or 'ex', express this width with a style
 		   attribute instead of a width attribute, since browsers can actually handle this. -->
 	      <xsl:choose>
 		<xsl:when test="contains($colwidth,'in') or      contains($colwidth,'em') or      contains($colwidth,'cm') or      contains($colwidth,'pc') or      contains($colwidth,'pi') or      contains($colwidth,'mm') or      contains($colwidth,'ex')">
 		  <xsl:attribute name="style">
 		    <xsl:text>width: </xsl:text>
-		    <!-- If 'pi' is used for 'picas' (as given in an example in the CALS spec) instead of 'pc' (as can be rendered by 
+		    <!-- If 'pi' is used for 'picas' (as given in an example in the CALS spec) instead of 'pc' (as can be rendered by
 			 browsers), change it to 'pc'. -->
 		    <xsl:choose>
 		      <xsl:when test="contains($colwidth,'pi')">
@@ -1056,8 +1056,8 @@
 		    </xsl:choose>
 		  </xsl:attribute>
 		</xsl:when>
-		<!-- Otherwise, such as when the width is expressed in '%' (percentages), 'pt', 'px', '*' (relative widths) or just a 
-		     number, use the width attribute, which browsers can render just as well in those cases (if not better, as in the 
+		<!-- Otherwise, such as when the width is expressed in '%' (percentages), 'pt', 'px', '*' (relative widths) or just a
+		     number, use the width attribute, which browsers can render just as well in those cases (if not better, as in the
 		     case of relative widths). -->
 		<xsl:otherwise>
 		  <xsl:attribute name="width">
@@ -1066,7 +1066,7 @@
 		</xsl:otherwise>
 	      </xsl:choose>
 	    </xsl:when>
-	    <!-- If no colwidth was declared for a certain column, just give it a width of a '1*' (default as specified by CALS 
+	    <!-- If no colwidth was declared for a certain column, just give it a width of a '1*' (default as specified by CALS
 		 spec), and which also makes other relative values (e.g. '3*') actually work in the browsers.. -->
 	    <xsl:otherwise>
 	      <xsl:attribute name="width">
