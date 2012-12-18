@@ -357,6 +357,7 @@
     <xsl:param name="cellgi"/>
 
     <xsl:element name="{$cellgi}">
+      <xsl:copy-of select="@class"/>
       <xsl:if test="@morerows">
 	<xsl:attribute name="rowspan">
 	  <xsl:value-of select="@morerows+1"/>
