@@ -1681,7 +1681,8 @@ div.part > div.titlepage {
 }
 /******************************************************
  * Introduction
- ******************************************************/.introduction {
+ ******************************************************/
+.introduction {
   /*pulled from Soc*/
 
 }
@@ -2234,6 +2235,7 @@ subfigure {
  ******************************************************/
 .table {
   page-break-inside: auto;
+  prince-caption-page: following;
 }
 .table caption {
   padding-top: .5em;
@@ -2241,6 +2243,10 @@ subfigure {
   font-weight: bold;
   color: #336633;
   caption-side: bottom;
+}
+.table td.header {
+  background-color: #ffffcc;
+  border-bottom: 1pt solid #336633;
 }
 .table th {
   color: black;
@@ -2298,6 +2304,17 @@ subfigure {
   color: #cc6633;
 }
 /******************************************************
+ * Equations
+ ******************************************************/
+div.book > div.preface > div.section div.equation > *:last-child::after,
+div.book > div.part > div.preface > div.section div.equation > *:last-child::after,
+div.book > div.chapter > div.section div.equation > *:last-child::after,
+div.book > div.part > div.chapter > div.section div.equation > *:last-child::after,
+div.book > div.appendix > div.section div.equation > *:last-child::after,
+div.book > div.part > div.appendix > div.section div.equation > *:last-child::after {
+  content: "";
+}
+/******************************************************
  * End of Book Solutions
  ******************************************************/
 div.end-of-book-solutions div.solution {
@@ -2337,10 +2354,6 @@ div.end-of-book-solutions div.solution > div.body::first-child {
 }
 .index .index-term {
   font-size: medium;
-}
-.index .index-term::first-letter {
-  font-variant: small-caps;
-  font-size: 1.25em;
 }
 .index a {
   font-weight: bold;
