@@ -542,9 +542,10 @@ div.end-of-book-solutions {
     // I tried moving the anchor but princexml also does not support move-to
     > div.title {
       display: inline;
-      a.solution { 
+      a.solution {
         color: black;
         font-weight: bold;
+        margin-left: .75em; //I tried ::first-child to remove left margin on first solution see comment above
       }
     }
     > div.body {
@@ -606,13 +607,17 @@ div.end-of-book-solutions {
   }
 
   .chapter-area {
-    a *{
-      color: black !important;
-      font-size: small;
-      font-weight: bold;
+    a {
+      .solution {
+        color: black;
+        font-weight: bold;
+      }
+      &.chapter * { 
+        color: black; 
+        font-size: medium;
+      }
     }
-    font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1; //font-family: @font-family;
   }
+   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1; //font-family: @font-family;
+   prince-text-replace: "Answer:" ""; //strip out "Answer:" eob solutions for print_pdf
 }
-
-
