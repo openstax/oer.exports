@@ -249,7 +249,7 @@ div.section .titlepage .abstract {
     content: "";
     display: block;
     // the following are tweaked so the overlays really do over lay
-    margin-left: -.25in;
+    margin-left: -.20in;
    }
   
   img {
@@ -258,7 +258,7 @@ div.section .titlepage .abstract {
     height: @qr;
     display: inherit;
     margin-top: -1.25in;
-    margin-left: 2in;
+    margin-left: 2.25in;
   }  
   
   a[href^="http"]  {
@@ -597,7 +597,7 @@ div.book > div.part {
 // TODO: If this is used by other books it should probably be moved to ccap-numbering.less
 div.end-of-book-solutions {
   div.solution {
-  display:inline;
+    display:inline;
     // Make the solutions pages span 2 columns
     //.x-column-count(2);
 
@@ -610,11 +610,10 @@ div.end-of-book-solutions {
     // I tried moving the anchor but princexml also does not support move-to
     > div.title {
       display: inline;
-      a.solution { 
-        //padding-right: 0.25em; 
-        //padding-left: 0.50em; 
+      a.solution {
         color: black;
         font-weight: bold;
+        margin-left: .75em; //I tried ::first-child to remove left margin on first solution see comment above
       }
     }
     > div.body {
@@ -642,12 +641,12 @@ div.end-of-book-solutions {
     color:inherit;
     font-weight:bold;
     font-size: medium;
-    padding-top:1em;
+    padding-top:.5em;
   }
-
- .index-term { font-size:medium; }//clean up
-
- a { font-weight:bold; }
+ 
+ .index-term { font-size: small; } 
+ 
+  a { font-weight:bold; }
 }
 
 // Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
@@ -676,13 +675,17 @@ div.end-of-book-solutions {
   }
 
   .chapter-area {
-    a *{
-      color: black !important;
-      font-size: small;
-      font-weight: bold;
+    a {
+      .solution {
+        color: black;
+        font-weight: bold;
+      }
+      &.chapter * { 
+        color: black; 
+        font-size: medium;
+      }
     }
-    font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1; //font-family: @font-family;
   }
+   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1; //font-family: @font-family;
+   prince-text-replace: "Answer:" ""; //strip out "Answer:" eob solutions for print_pdf
 }
-
-
