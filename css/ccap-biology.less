@@ -279,10 +279,11 @@ div.section .titlepage .abstract {
 .cnx-eoc {
   .x-column-count(2);
   column-width: auto !important;
+  column-fill: balance !important;
   page-break-inside: auto;
-  column-break-inside: auto;
-  	
-  > .title  { 
+  column-break-inside: auto;  
+    	
+  > .title  {
     text-transform: uppercase !important;
     text-align: left; //override from base .x-column-count
     color: @green !important;
@@ -292,9 +293,9 @@ div.section .titlepage .abstract {
 
   &.summary { 
     .x-column-count(1);
-    > .title { content: "Chapter Summary"; }
+    > .title { content: "Chapter Summary"; margin-top: 1em;}
     > .section .title > a { color: black; } 
-    p { text-indent: 2em; }
+    p { text-indent: 2em; margin-top: 1em;}
   } 
   
   //ccap-base sets this so override it here
@@ -305,13 +306,14 @@ div.section .titlepage .abstract {
   &.solutions  { display:none !important; } 
 }
 
-.art-exercise > .title { content: "Art Connections Questions"; }
-.multiple-choice > .title { content: "Review Questions"; }
-.free-response > .title { content: "Critical Thinking Questions"; }
+.art-exercise > .title { content: "Art Connections Questions"; column-span: all; margin-top: 1em} //need to clean redundant column-span/margin rules - this is quick and dirty
+.multiple-choice > .title { content: "Review Questions"; column-span: all; margin-top: 1em} //todo: clean code 
+.free-response > .title { content: "Critical Thinking Questions"; column-span: all; margin-top: 1em}
 
 .multiple-choice,.free-response,.art-exercise {
   > .section > .title > a { display: none; }
 }
+
 
 /******************************************************
  * Generic Elements
@@ -676,10 +678,7 @@ div.end-of-book-solutions {
 
   .chapter-area {
     a {
-      &.solution {
-        color: black;
-        font-weight: bold;
-      }
+      &.solution { color: black; }
       &.chapter * { 
         color: black; 
         font-size: medium;
