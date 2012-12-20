@@ -201,7 +201,7 @@ div.section .titlepage .abstract {
 
   &::before {
     background-image: url("ccap-biology/@{svg}.svg");
-    padding-top: 0.85in; // 0.65in is from the SVG files
+    padding-top: 0.65in; // 0.65in is from the SVG files
     background-repeat: no-repeat;
     background-position: top left;
     background-position: top outside;
@@ -224,9 +224,11 @@ div.section .titlepage .abstract {
     font-weight:bold;
   }
   
-  .figure > .title { font-size: x-small; }
-
- }
+  .figure {
+    img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
+    > .title { font-size: x-small; }
+  }
+}
 
 
 /******************************************************
@@ -247,18 +249,16 @@ div.section .titlepage .abstract {
     content: "";
     display: block;
     // the following are tweaked so the overlays really do over lay
-    margin-left: -.25in;
-}
+    margin-left: -.20in;
+   }
   
   img {
-    float:right;
     // the following are tweaked so the overlays really do over lay						      
     width: @qr;
     height: @qr;
     display: inherit;
     margin-top: -1.25in;
-    margin-left: 0;
-    margin-right: -.25in;
+    margin-left: 2.25in;
   }  
   
   a[href^="http"]  {
@@ -277,19 +277,25 @@ div.section .titlepage .abstract {
  * End of chapter customizations
  ******************************************************/
 .cnx-eoc {
-  > .title  { 
-    margin-top: 1em; 
-    margin-bottom: 0;
+  .x-column-count(2);
+  column-width: auto !important;
+  column-fill: balance !important;
+  page-break-inside: auto;
+  column-break-inside: auto;  
+    	
+  > .title  {
     text-transform: uppercase !important;
+    text-align: left; //override from base .x-column-count
     color: @green !important;
     font-size: large !important;
     font-weight: bold !important;
   }
   
   &.summary { 
-    > .title { content: "Chapter Summary"; }
+    .x-column-count(1);
+    > .title { content: "Chapter Summary"; margin-top: 1em;}
     > .section .title > a { color: black; } 
-    p { margin-top:1em; }
+    p { text-indent: 2em; margin-top: 1em;}
   } 
   
   //ccap-base sets this so override it here
@@ -298,24 +304,16 @@ div.section .titlepage .abstract {
   .problem .orderedlist { margin-left: 4em;}
   
   &.solutions  { display:none !important; } 
-  
-  &.multiple-choice {
-    .x-column-count(2);
-    page-break-before: always;
-    column-width: auto; 
-  }
-
-  /* Allow section in the 2-column to break */
-  &.multiple-choice .section {  page-break-inside: auto; }
 }
 
-.art-exercise > .title { content: "Art Connections"; }
-.multiple-choice > .title { content: "Review Questions"; }
-.free-response > .title { content: "Critical Thinking Questions"; }
+.art-exercise > .title { content: "Art Connections Questions"; column-span: all; margin-top: 1em} //need to clean redundant column-span/margin rules - this is quick and dirty
+.multiple-choice > .title { content: "Review Questions"; column-span: all; margin-top: 1em} //todo: clean code 
+.free-response > .title { content: "Critical Thinking Questions"; column-span: all; margin-top: 1em}
 
 .multiple-choice,.free-response,.art-exercise {
   > .section > .title > a { display: none; }
 }
+
 
 /******************************************************
  * Generic Elements
@@ -533,7 +531,7 @@ img, figure, subfigure  { margin: 1em; }
 // TODO: If this is used by other books it should probably be moved to ccap-numbering.less
 div.end-of-book-solutions {
   div.solution {
-  display:inline;
+    display:inline;
     // Make the solutions pages span 2 columns
     //.x-column-count(2);
 
@@ -546,11 +544,15 @@ div.end-of-book-solutions {
     // I tried moving the anchor but princexml also does not support move-to
     > div.title {
       display: inline;
-      a.solution { padding-right: 0.25em; padding-left: 0.5em; }
+      a.solution {
+        color: black;
+        font-weight: bold;
+        margin-left: .75em; //I tried ::first-child to remove left margin on first solution see comment above
+      }
     }
     > div.body {
       display: inline;
-      &::first-child { display: inline; }
+      * { display: inline; }
     }
   }
 }
@@ -573,17 +575,12 @@ div.end-of-book-solutions {
     color:inherit;
     font-weight:bold;
     font-size: medium;
-    padding-top:1em;
+    padding-top:.5em;
   }
  
- .index-term { font-size:medium; }//clean up
+ .index-term { font-size: small; } 
  
- .index-term::first-letter {
-   font-variant:small-caps; 
-   font-size:1.25em;
- } 
- 
- a { font-weight:bold; }
+  a { font-weight:bold; }
 }
 
 // Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
@@ -612,13 +609,14 @@ div.end-of-book-solutions {
   }
 
   .chapter-area {
-    a *{
-      color: black !important;
-      font-size: small;
-      font-weight: bold;
+    a {
+      &.solution { color: black; }
+      &.chapter * { 
+        color: black; 
+        font-size: medium;
+      }
     }
-    font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1; //font-family: @font-family;
   }
+   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1; //font-family: @font-family;
+   prince-text-replace: "Answer:" ""; //strip out "Answer:" eob solutions for print_pdf
 }
-
-
