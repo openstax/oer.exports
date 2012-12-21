@@ -191,13 +191,16 @@ div.section .titlepage .abstract {
 .evolution { .x-feature(black, @cream, CNX_BioMaj_Evolution); }
 .scientific { .x-feature(black, @cream, CNX_BioMaj_Scientific); }
 .everyday { .x-feature(black, @cream, CNX_BioMaj_Everyday); }
-.career { .x-feature(black, @cream, CNX_BioMaj_Career); }5.5in
+.career { .x-feature(black, @cream, CNX_BioMaj_Career); }
 .art-connection { .x-feature(black, @cream, CNX_Bio_Art); }
 
 .x-feature (@color, @bg-color, @svg) {
   background-color: @bg-color;
-
-  * p { font-family:inherit; }
+  page-break-inside: avoid;
+  * p { 
+    font-family:inherit; 
+    text-indent: 0;
+  }
 
   &::before {
     background-image: url("ccap-biology/@{svg}.svg");
@@ -301,7 +304,7 @@ div.section .titlepage .abstract {
   
   //ccap-base sets this so override it here
   .references p { text-indent: 0em; }
-  .exercise { margin-top: 0em !important; padding-top: 0em !important; }
+  
   .problem .orderedlist { margin-left: 4em;}
 
   &.solutions  { display:none !important; } 
@@ -448,7 +451,7 @@ img, figure, subfigure  { margin: 1em; }
 .table {
   page-break-inside: auto;
   // If a table spans more than 1 page then put caption on all following pages
-  prince-caption-page: following;
+  prince-caption-page: all;
 
   caption {
     padding-top: .5em;
