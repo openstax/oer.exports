@@ -289,13 +289,12 @@ div.section .titlepage .abstract {
     color: @green !important;
     font-size: large !important;
     font-weight: bold !important;
-    page-break-after: avoid;
   }
 
   &.summary { 
     .x-column-count(1);
     > .title { content: "Chapter Summary"; margin-top: 1em;}
-    > .section .title > a { color: black; } 
+    > .section .title > a { color: black; page-break-after: avoid;} 
     p { text-indent: 2em; margin-top: 1em;}
   } 
   
@@ -307,11 +306,13 @@ div.section .titlepage .abstract {
   &.solutions  { display:none !important; } 
 }
 
-.art-exercise > .title { content: "Art Connection Questions"; column-span: all; margin-top: 1em; } //need to clean redundant column-span/margin rules - this is quick and dirty
-.multiple-choice > .title { content: "Review Questions"; column-span: all; margin-top: 1em; } //todo: clean code 
-.free-response > .title { content: "Critical Thinking Questions"; column-span: all; margin-top: 1em; }
+.art-exercise > .title { content: "Art Connection Questions"; column-span: all; margin-top: 1em;} //need to clean redundant column-span/margin rules - this is quick and dirty
+.multiple-choice > .title { content: "Review Questions"; column-span: all; margin-top: 1em;} //todo: clean code 
+.free-response > .title { content: "Critical Thinking Questions"; column-span: all; margin-top: 1em;}
 
 .multiple-choice,.free-response,.art-exercise {
+  page-break-inside: avoid; 
+  page-break-before: avoid;
   > .section > .title { display: none; }
 }
 
