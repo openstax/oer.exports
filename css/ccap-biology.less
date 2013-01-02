@@ -569,12 +569,13 @@ div.end-of-book-solutions {
       a.solution {
         color: black;
         font-weight: bold;
-        margin-left: .75em; //I tried ::first-child to remove left margin on first solution see comment above
       }
     }
     > div.body {
+      margin-right: .65em;
       display: inline;
       * { display: inline; }
+      > a.target-figure { margin: 0em .25em; } //add margin for .xref in solution body
     }
   }
 }
@@ -625,20 +626,21 @@ div.end-of-book-solutions {
     color: @green;
     margin-left: -.50em;
     text-transform: uppercase;
-    font-size: large;
+    font-size: x-large;
     font-weight: bold;
     background-color: transparent; //overwrite from .colophon title
   }
 
   .chapter-area {
+    font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1; //font-family: @font-family;
     a {
       &.solution { color: black; }
       &.chapter * { 
         color: black; 
         font-size: medium;
       }
+    
     }
   }
-   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1; //font-family: @font-family;
    prince-text-replace: "Answer:" ""; //strip out "Answer:" eob solutions for print_pdf
 }
