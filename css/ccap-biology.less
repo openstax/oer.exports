@@ -232,7 +232,7 @@ div.section .titlepage .abstract {
 
 
 /******************************************************
- * rewrite for single column layout
+ * Link2Learning Special Feature
  ******************************************************/
 .interactive {
   page-break-inside: avoid;
@@ -289,6 +289,7 @@ div.section .titlepage .abstract {
     color: @green !important;
     font-size: large !important;
     font-weight: bold !important;
+    page-break-after: avoid !important;
   }
 
   &.summary { 
@@ -303,7 +304,9 @@ div.section .titlepage .abstract {
   
   .problem .orderedlist { margin-left: 4em;}
 
-  &.solutions  { display:none !important; } 
+  &.solutions  { display: none !important; } 
+  
+  .empty { display: none; }
 }
 
 .art-exercise > .title { content: "Art Connection Questions"; column-span: all; margin-top: 1em;} //need to clean redundant column-span/margin rules - this is quick and dirty
@@ -311,8 +314,6 @@ div.section .titlepage .abstract {
 .free-response > .title { content: "Critical Thinking Questions"; column-span: all; margin-top: 1em;}
 
 .multiple-choice,.free-response,.art-exercise {
-  page-break-inside: avoid; 
-  page-break-before: avoid;
   > .section > .title { display: none; }
 }
 
@@ -410,6 +411,11 @@ p {
 .footnote {
   margin: .25em;
   color: black !important;
+  a[href^="http"]  {
+    content: content() !important; //set in base.less override it here
+    color:@tuscany;
+    font-weight: bold;
+  }
 }
 
 .glossary {
