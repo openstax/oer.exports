@@ -188,18 +188,27 @@ div.section .titlepage .abstract {
 /******************************************************
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
-.art-connection { .x-feature(black, @cream, CNX_Bio_Art); } //feature same for majors && nonMajors
-.career { .x-feature(black, @cream, CNX_BioMaj_Career); }
-.career-non-majors { .x-feature(black, @cream, CNX_BioNonMaj_Career); }
-.everyday { .x-feature(black, @cream, CNX_BioMaj_Everyday); }  
-.evolution { .x-feature(black, @cream, CNX_BioMaj_Evolution); }
-.evolution-non-majors { .x-feature(black, @cream, CNX_BioNonMaj_Evolution); }
-.experiment-non-majors { .x-feature(black, @cream, CNX_BioNonMaj_Experiment); }
-.scientific { .x-feature(black, @cream, CNX_BioMaj_Scientific); } 
-.interactive-non-majors {
-  &::before { background-image: url("ccap-biology/CNX_BioNonMaj_Concept.svg"); }
+.art-connection { .x-feature(black, @cream, CNX_Bio_Art); } //same svg header for maj/nonMaj
+
+.career { 
+	.x-feature(black, @cream, CNX_BioMaj_Career); 
+	&.non-majors { .x-feature(black, @cream, CNX_BioNonMaj_Career); }
 }
 
+.everyday { 
+	.x-feature(black, @cream, CNX_BioMaj_Everyday); 
+	&.non-majors { .x-feature(black, @cream, CNX_BioNonMaj_Everyday); }
+}
+
+.evolution { 
+	.x-feature(black, @cream, CNX_BioMaj_Evolution); 
+	&.non-majors { .x-feature(black, @cream, CNX_BioNonMaj_Evolution); }
+}
+
+.scientific  { 
+	.x-feature(black, @cream, CNX_BioMaj_Scientific ); 
+	&.non-majors { .x-feature(black, @cream, CNX_BioNonMaj_Scientific ); }
+}
 
 .x-feature (@color, @bg-color, @svg) {
   background-color: @bg-color;
@@ -242,11 +251,11 @@ div.section .titlepage .abstract {
 
 
 /******************************************************
- * rewrite for single column layout
+ * Special Feature 
  ******************************************************/
 .interactive {
   page-break-inside: avoid;
-
+     
   &::before {
     background-image: url("ccap-biology/CNX_BioMaj_Link.svg");
     padding-top: .75in; //0.75 + margin-top. 0.75in is from the SVG files
@@ -262,6 +271,8 @@ div.section .titlepage .abstract {
     margin-left: -.20in;
    }
   
+  &.non-majors { &::before { background-image: url("ccap-biology/CNX_BioNonMaj_Concept.svg"); } }
+    
   img {
     // the following are tweaked so the overlays really do over lay						      
     width: @qr;
@@ -278,7 +289,8 @@ div.section .titlepage .abstract {
    }
 
    * p { margin-left: -.15in; margin-top: 1em;}
-
+   
+   .title { display: none; }  
 }
 
 
