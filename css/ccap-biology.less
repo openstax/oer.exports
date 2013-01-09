@@ -220,7 +220,7 @@ div.section .titlepage .abstract {
 
   &::before {
     background-image: url("ccap-biology/@{svg}.svg");
-    padding-top: 0.65in; // 0.65in is from the SVG files
+    padding-top: 0.65in; // 0.65 in is from the SVG files
     background-repeat: no-repeat;
     background-position: top left;
     background-position: top outside;
@@ -282,12 +282,6 @@ div.section .titlepage .abstract {
     margin-left: 2.25in;
   }  
   
-  a[href^="http"]  {
-    content: content() !important; /*set in base.less override it here*/
-    color:@tuscany;
-    font-weight: bold;
-   }
-
    * p { margin-left: -.15in; margin-top: 1em;}
    
    .title { display: none; }  
@@ -317,7 +311,7 @@ div.section .titlepage .abstract {
   &.summary { 
     .x-column-count(1);
     > .title { content: "Chapter Summary"; margin-top: 1em;}
-    > .section .title > a { color: black; } 
+    > .section .title > a { color: black; page-break-after: avoid;} 
     p { text-indent: 2em; margin-top: 1em;}
   } 
   
@@ -326,7 +320,9 @@ div.section .titlepage .abstract {
   
   .problem .orderedlist { margin-left: 4em;}
 
-  &.solutions  { display:none !important; } 
+  &.solutions  { display: none !important; } 
+  
+  .empty { display: none; }
 }
 
 .art-exercise > .title { content: "Art Connection Questions"; column-span: all; margin-top: 1em; } //need to clean redundant column-span/margin rules - this is quick and dirty
@@ -426,11 +422,6 @@ p {
   text-indent: 2em;
   /*reset margins so subsequent paragraphs start next line  */
   margin:0;
-}
-
-.footnote {
-  margin: .25em;
-  color: black !important;
 }
 
 .glossary {
@@ -592,12 +583,13 @@ div.end-of-book-solutions {
       a.solution {
         color: black;
         font-weight: bold;
-        margin-left: .75em; //I tried ::first-child to remove left margin on first solution see comment above
       }
     }
     > div.body {
+      margin-right: .65em;
       display: inline;
       * { display: inline; }
+      > a.target-figure { margin: 0em .25em; } //add margin for .xref in solution body
     }
   }
 }
@@ -661,6 +653,7 @@ div.end-of-book-solutions {
         color: black; 
         font-size: medium;
       }
+    
     }
   }
    prince-text-replace: "Answer:" ""; //strip out "Answer:" eob solutions for print_pdf
