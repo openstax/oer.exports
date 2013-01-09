@@ -16,10 +16,6 @@ DEBUG= 'DEBUG' in os.environ
 
 BASE_PATH = os.getcwd()
 
-# XSL files
-DOCBOOK2XHTML_XSL=util.makeXsl('dbk2epub.xsl')
-DOCBOOK_CLEANUP_XSL = util.makeXsl('dbk-clean-whole.xsl')
-
 EMBED_FONTS = [
   'fonts/stix/STIXGeneral.ttf',
   'fonts/stix/STIXGeneralBol.ttf',
@@ -30,7 +26,7 @@ EMBED_FONTS = [
 ]
 
 
-def convert(dbk1, temp_dir, cssFile, epubFile):
+def convert(dbk1, temp_dir, cssFile, xslFile, epubFile):
   """ Converts a Docbook Element into EPUB HTML. """
 
   temp_dir = os.path.abspath(temp_dir)
@@ -57,12 +53,10 @@ def convert(dbk1, temp_dir, cssFile, epubFile):
   # The epub script will generate HTML files in temp_dir
   # It will not return anything
   orig_dir = os.getcwd()  
-  # $RUBY $ROOT/docbook-xsl/epub/bin/dbtoepub --stylesheet $DBK_TO_HTML_XSL -c $CSS_FILE $EMBEDDED_FONTS_ARGS -o $EPUB_FILE -d $DBK_FILE
 
   RUBY_BIN = 'ruby'
   DBK_TO_EPUB_BIN = os.path.abspath('./docbook-xsl/epub/bin/dbtoepub')
   DBK_FILE_NAME = 'collection.dbk'
-  DBK_TO_HTML_XSL_PATH = os.path.join(orig_dir, 'xsl/dbk2epub.xsl')
   
   EMBED_FONT_ARGS = [['--font', os.path.join(os.getcwd(), path)] for path in EMBED_FONTS]
   
@@ -72,7 +66,7 @@ def convert(dbk1, temp_dir, cssFile, epubFile):
   f.write(etree.tostring(dbk1))
   f.close()
 
-  strCmd = ['--stylesheet', DBK_TO_HTML_XSL_PATH, '-c', os.path.abspath(cssFile), EMBED_FONT_ARGS, '-o', os.path.abspath(epubFile), '-d', DBK_FILE]
+  strCmd = ['--stylesheet', os.path.abspath(xslFile), '-c', os.path.abspath(cssFile), EMBED_FONT_ARGS, '-o', os.path.abspath(epubFile), '-d', DBK_FILE]
   strCmd = flatten(strCmd)
   strCmd.insert(0, DBK_TO_EPUB_BIN)
   strCmd.insert(0, RUBY_BIN)
@@ -130,7 +124,7 @@ def main():
     f.close()
 
   # Now, run the epub script
-  nothing = convert(etree.parse(StringIO(dbk)), temp_dir, args.css_file, args.output)
+  nothing = convert(etree.parse(StringIO(dbk)), temp_dir, args.css_file, args.epub_script, args.output)
 
 if __name__ == '__main__':
     sys.exit(main())
