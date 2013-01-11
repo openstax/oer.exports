@@ -297,11 +297,11 @@ div.section .titlepage .abstract {
   column-width: auto !important;
   column-fill: balance !important;
   page-break-inside: auto;
-  column-break-inside: auto;  
-    	
+  //column-break-inside: auto;  
+  text-align: left;  	
+  
   > .title  {
     text-transform: uppercase !important;
-    text-align: left; //override from base .x-column-count
     color: @green !important;
     font-size: large !important;
     font-weight: bold !important;
@@ -318,8 +318,10 @@ div.section .titlepage .abstract {
   //ccap-base sets this so override it here
   .references p { text-indent: 0em; }
   
-  .problem .orderedlist { margin-left: 4em;}
-
+  .problem {
+    .orderedlist { margin-left: 4em; }
+  }
+  
   &.solutions  { display: none !important; } 
   
   .empty { display: none; }
@@ -545,6 +547,14 @@ img, figure, subfigure  { margin: 1em; }
 .target-figure {
   font-weight:bold;
   color: @tuscany;
+}
+
+.cnx-figure-horizontal .informalfigure .caption { 
+  text-align: center; //center subfigure caption
+  * { 
+    font-weight: normal !important; //override base rule
+    font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1; //font-family: @font-family;
+  }
 }
 
 /******************************************************
