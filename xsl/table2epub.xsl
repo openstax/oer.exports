@@ -25,14 +25,9 @@
                  ">1</xsl:if> 
   </xsl:template> 
 
-  <xsl:template match="db:table/@class">
-    <xsl:copy/>
-  </xsl:template>
-  
   <xsl:template match="db:table">
     <div class="table">
       <xsl:call-template name="IdCheck"/>
-      <xsl:apply-templates select="@class"/>
       <xsl:choose>
 	<!-- OLD TABLES -->
 	<xsl:when test="db:categories">
