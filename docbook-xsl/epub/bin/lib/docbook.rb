@@ -6,7 +6,7 @@ module DocBook
 
   class Epub
     # When zipping, also include HTML files in the root dir - Phil
-    HACK_INCLUDE_HTML_FILES = "*.html"
+    HACK_INCLUDE_HTML_FILES = "start.html"
 
     CHECKER = "epubcheck"
     STYLESHEET = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', "docbook.xsl"))
