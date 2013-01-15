@@ -46,9 +46,9 @@ procedure before
 
 <!-- The PDF has a nice way of handling footnotes so override Docbook's method -->
 <xsl:template match="db:footnote">
-  <div class="footnote" id="{@xml:id}">
-    <xsl:apply-templates select="node()"/>
-  </div>
+ <div class="footnote" id="{@xml:id}">
+   <xsl:apply-templates select="node()"/>
+ </div>
 </xsl:template>
 
 
@@ -65,10 +65,6 @@ procedure before
      when calling "common.html.attributes" -->
 <xsl:template match="d:footnote/d:para[1]/@xml:id|d:footnote/d:simpara[1]/@xml:id"/>
 
-<!-- this allows urls to pass through footnotes wrap footnote link in span and pass through superscript 
-<xsl:template match="db:superscript">
-  <xsl:apply-templates select="@*|node()"/>
-</xsl:template> -->
 
 <!-- Wrapp glossterms with a span tag so we retain the @id (so the index can link to it) -->
 <xsl:template match="d:glossentry/d:glossterm">
