@@ -65,12 +65,10 @@ procedure before
      when calling "common.html.attributes" -->
 <xsl:template match="d:footnote/d:para[1]/@xml:id|d:footnote/d:simpara[1]/@xml:id"/>
 
-<!-- this allows urls to pass through footnotes wrap footnote link in span and pass through superscript  -->
+<!-- this allows urls to pass through footnotes wrap footnote link in span and pass through superscript 
 <xsl:template match="db:superscript">
-  <span>
-    <xsl:apply-templates select="@*|node()"/>  
-  </span>
-</xsl:template>
+  <xsl:apply-templates select="@*|node()"/>
+</xsl:template> -->
 
 <!-- Wrapp glossterms with a span tag so we retain the @id (so the index can link to it) -->
 <xsl:template match="d:glossentry/d:glossterm">
