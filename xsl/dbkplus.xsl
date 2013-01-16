@@ -424,8 +424,8 @@
                         <xsl:with-param name="linkend" select="$id"/>
                         <xsl:with-param name="content">
                             <sup class="attribution-link">
-						    	<xsl:text>*</xsl:text>
-					        </sup>
+			      <xsl:text>*</xsl:text>
+			    </sup>
                         </xsl:with-param>
                 </xsl:call-template>
         	</xsl:with-param>
