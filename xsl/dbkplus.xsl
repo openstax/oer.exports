@@ -25,7 +25,7 @@
 <!-- Generate custom HTML for an ext:problem, ext:solution, and ext:commentary.
 	Taken from docbook-xsl/xhtml-1_1/formal.xsl: <xsl:template match="example">
  -->
-<xsl:template match="ext:exercise|ext:problem|ext:solution|ext:commentary|ext:label" name="ext.element">
+<xsl:template match="ext:*">
 
   <xsl:variable name="id">
     <xsl:call-template name="object.id"/>
@@ -49,28 +49,13 @@
       <xsl:text> labeled</xsl:text>
     </xsl:if>
   </xsl:variable>
-  <xsl:variable name="classes">
-    <xsl:if test="@type">
-      <xsl:text> </xsl:text>
-      <xsl:value-of select="@type"/>
-    </xsl:if>
-    <xsl:if test="@class">
-      <xsl:text> </xsl:text>
-      <xsl:value-of select="@class"/>
-    </xsl:if>
-  </xsl:variable>
-  <div id="{$id}" class="{local-name()}{$labeled}{$classes}">
+  <div id="{$id}" class="{local-name()}{$labeled}">
 <xsl:comment>calling formal.object</xsl:comment>
   <xsl:call-template name="formal.object">
     <xsl:with-param name="placement" select="$placement"/>
   </xsl:call-template>
   </div>
 </xsl:template>
-
-<xsl:template match="ext:solution">
-  <xsl:call-template name="ext.element"/>
-</xsl:template>
-
 
 <xsl:template match="ext:problem[not(db:title[normalize-space(text()) !=''])]">
 <xsl:comment>calling informal.object</xsl:comment>
@@ -100,12 +85,10 @@
 <xsl:template match="ext:solution" mode="object.title.markup">
 	<xsl:apply-templates select="." mode="cnx.template"/>
 	<xsl:variable name="exerciseId" select="parent::ext:exercise/@xml:id"/>
-	<xsl:if test="$exerciseId!=''">
-	  <span class="epub-only pre-text">
+	<xsl:if test="$exerciseId!='' and parent::db:section[@ext:element='solutions']">
 		<xsl:text> </xsl:text>
                 <!-- TODO: gentext for "(" -->
 		<xsl:text>(</xsl:text>
-		</span>
 		  <xsl:call-template name="simple.xlink">
 		    <xsl:with-param name="linkend" select="$exerciseId"/>
 		    <xsl:with-param name="content">
@@ -127,10 +110,8 @@
                         </xsl:choose>
 		    </xsl:with-param>
 		  </xsl:call-template>
-		<span class="epub-only post-text">
                 <!-- TODO: gentext for ")" -->
-  		<xsl:text>)</xsl:text>
-		</span>
+		<xsl:text>)</xsl:text>
 	</xsl:if>
 </xsl:template>
 
@@ -423,7 +404,9 @@
                 <xsl:call-template name="simple.xlink">
                         <xsl:with-param name="linkend" select="$id"/>
                         <xsl:with-param name="content">
+                        <sup class="attribution-link">
 							<xsl:text>*</xsl:text>
+					    </sup>
                         </xsl:with-param>
                 </xsl:call-template>
         	</xsl:with-param>
