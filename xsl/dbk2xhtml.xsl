@@ -55,11 +55,14 @@ procedure before
 <xsl:template match="d:footnote/d:para[1]|d:footnote/d:simpara[1]" priority="2">
   <p><xsl:call-template name="common.html.attributes"/>
     <xsl:attribute name="id">
-		  <xsl:call-template name="object.id"/>
+      <xsl:call-template name="object.id"/>
     </xsl:attribute>
     <xsl:apply-templates select="@*|node()"/>
   </p>
 </xsl:template>
+<!-- Ignore the 1st para in a footnote's id because it is already handled above
+     when calling "common.html.attributes" -->
+<xsl:template match="d:footnote/d:para[1]/@xml:id|d:footnote/d:simpara[1]/@xml:id"/>
 
 
 <!-- Wrapp glossterms with a span tag so we retain the @id (so the index can link to it) -->

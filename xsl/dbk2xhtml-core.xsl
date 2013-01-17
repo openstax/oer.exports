@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
-<xsl:stylesheet 
-  xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+<xsl:stylesheet
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:d="http://docbook.org/ns/docbook"
   xmlns:db="http://docbook.org/ns/docbook"
@@ -29,7 +29,7 @@
 <!-- Number the sections 1 level deep. See http://docbook.sourceforge.net/release/xsl/current/doc/html/ -->
 <xsl:param name="section.autolabel" select="1"></xsl:param>
 <xsl:param name="section.autolabel.max.depth">1</xsl:param>
-
+<xsl:param name="generate.section.toc.level" select="1"></xsl:param>
 <xsl:param name="section.label.includes.component.label">1</xsl:param>
 <xsl:param name="xref.with.number.and.title">0</xsl:param>
 <xsl:param name="toc.section.depth">0</xsl:param>
@@ -43,6 +43,7 @@
     </xsl:when>
     <xsl:otherwise>
       book toc,title
+      section toc
     </xsl:otherwise>
   </xsl:choose>
 </xsl:param>
@@ -128,7 +129,7 @@
 		<xsl:variable name="title" select="substring-before(substring-after(.,' title=&quot;'),'&quot;')"/>
 
 			<xsl:message>LOG: INFO: Looking for some end-of-chapter matter: class=[<xsl:value-of select="$class"/>] title=[<xsl:value-of select="$title"/>] inside a [<xsl:value-of select="name()"/>]</xsl:message>
-		
+
 		<xsl:if test="string-length($class) &gt; 0 and $context//*[contains(@class,$class)]">
 			<xsl:message>LOG: INFO: Found some end-of-chapter matter: class=[<xsl:value-of select="$class"/>] title=[<xsl:value-of select="$title"/>]</xsl:message>
 			<xsl:call-template name="cnx.end-of-chapter-problems">
@@ -151,7 +152,7 @@
 	<!-- Create a 1-column Listing of "Conceptual Questions" or "end-of-chapter Problems" -->
 	<xsl:if test="count($context//*[contains(@class,$attribute)]) &gt; 0">
 		<xsl:comment>CNX: Start Area: "<xsl:value-of select="$title"/>"</xsl:comment>
-		
+
 		<div class="cnx-eoc {$attribute}">
 		<div class="title">
 			<span>
@@ -191,7 +192,7 @@
 	</xsl:if>
 </xsl:template>
 
-<xsl:template mode="cnx.chapter.summary" match="db:section[not(contains(@class,'introduction')) and db:sectioninfo/db:abstract]">
+<xsl:template mode="" match="db:section[not(contains(@class,'introduction')) and db:sectioninfo/db:abstract]">
   <xsl:variable name="id">
     <xsl:call-template name="object.id"/>
   </xsl:variable>
@@ -262,12 +263,6 @@
 
 <!-- Renders an abstract onnly when "render" is set to true().
 -->
-<xsl:template match="d:abstract" mode="titlepage.mode">
-  <xsl:param name="render" select="false()"/>
-  <xsl:if test="$render">
-    <xsl:apply-imports/>
-  </xsl:if>
-</xsl:template>
 
 <!-- Renders an exercise only when "render" is set to true().
      This allows us to move certain problem-sets to the end of a chapter.
@@ -275,8 +270,8 @@
      This way we can render the solutions at the end of a book
 -->
 <xsl:template match="ext:exercise[ancestor-or-self::*[@class]]">
-<xsl:param name="render" select="false()"/>
-<xsl:param name="renderSolution" select="false()"/>
+<xsl:param name="render" select="true()"/>
+<xsl:param name="renderSolution" select="true()"/>
 <xsl:variable name="class" select="ancestor-or-self::*[@class][1]/@class"/>
 <xsl:if test="$render">
     <xsl:apply-imports/>
@@ -298,54 +293,80 @@
 <!-- ============================================== -->
 <!-- New Feature: Solutions at end of book          -->
 <!-- ============================================== -->
-<!-- TODO: end-of-book solutions code is bitrotting -->
-<!-- when the placeholder element is encountered (since I didn't want to
-      rewrite the match="d:book" template) run a nested for-loop on all
-      chapters (and then sections) that contain a solution to be printed ( *[contains(@class,'problems-exercises') and .//ext:solution] ).
-      Print the "exercise" solution with numbering.
--->
-<xsl:template match="ext:cnx-solutions-placeholder[..//*[contains(@class,'problems-exercises') and .//ext:solution]]">
-  <xsl:call-template name="cnx.log"><xsl:with-param name="msg">Injecting custom solution appendix</xsl:with-param></xsl:call-template>
+<!--
+  Solutions get added slightly differently between a PDF (single HTML page)
+  and an EPUB (chunked as a separate file).
+  This template relies on a special:
+  <db:colophon class="end-of-book-solutions">
+    <db:title>Solutions</db:title>
+    <ext:end-of-book-solutions-placeholder/>
+  </db:colophon>
+  which is added in by dbk-clean-whole-remove-duplicate-glossentry.xsl
 
-  <div class="cnx-answers">
-  <div class="title">
-    <span>
-      <xsl:text>Answers</xsl:text>
-    </span>
-  </div>
-  
-  <xsl:for-each select="../*[self::db:preface | self::db:chapter | self::db:appendix][.//*[contains(@class,'problems-exercises') and .//ext:solution]]">
+  The reasons for this are:
+  - So it is chunked as a separate file (hence the db:colophon)
+  - Has a title that shows up in the EPUB spine/TOC (hence the db:title)
+  - Gets matched (hence the ext:special-element-name)
+-->
+<xsl:template match="ext:end-of-book-solutions-placeholder[../..//*[.//ext:solution]]">
+  <xsl:param name="book" select="/db:book"/>
+
+  <xsl:for-each select="$book/*[self::db:preface | self::db:chapter | self::db:appendix][.//ext:exercise[.//ext:solution]]|$book/db:part/db:chapter[.//ext:exercise[.//ext:solution]]">
+
+    <xsl:variable name="context" select="."/>
 
     <xsl:variable name="chapterId">
       <xsl:call-template name="object.id"/>
     </xsl:variable>
-    <!-- Print the chapter number (not title) and link back to it -->
-    <div class="problem">
-      <a href="#{$chapterId}">
-        <xsl:apply-templates select="." mode="object.xref.markup"/>
-      </a>
-    </div>
+    <!-- Print the chapter number (not title) and link back to it  use class "chapter-area" or "preface-area" so we know how to label the Solution in the CSS -->
+    <div class="{local-name()}-area">
+      <h2 class="title">
+        <xsl:call-template name="simple.xlink">
+          <xsl:with-param name="linkend" select="$chapterId"/>
+          <xsl:with-param name="content">
+            <xsl:apply-templates select="." mode="object.xref.markup"/>
+          </xsl:with-param>
+        </xsl:call-template>
+      </h2>
 
-    <xsl:for-each select="db:section[.//*[contains(@class,'problems-exercises')]]">
-      <xsl:variable name="sectionId">
-        <xsl:call-template name="object.id"/>
+      <xsl:comment>START: solutions that don't have a cnx.eoc processing instruction</xsl:comment>
+      <!-- Since they're in the content they should occur BEFORE all the other solutions -->
+      <xsl:variable name="instructions">
+        <xsl:for-each select="$context//processing-instruction('cnx.eoc')">
+          <xsl:value-of select="."/>
+          <xsl:text> | </xsl:text>
+        </xsl:for-each>
       </xsl:variable>
-      <!-- Print the section title and link back to it -->
-      <div class="cnx-problems-subtitle">
-        <a href="#{$sectionId}">
-          <xsl:apply-templates select="." mode="object.title.markup">
-            <xsl:with-param name="allow-anchors" select="0"/>
-          </xsl:apply-templates>
-        </a>
-      </div>
-      <xsl:apply-templates select=".//*[contains(@class,'problems-exercises')]">
-        <xsl:with-param name="render" select="true()"/>
-        <xsl:with-param name="renderSolution" select="true()"/>
-      </xsl:apply-templates>
-    </xsl:for-each>
+      <xsl:for-each select="$context//ext:exercise">
+        <xsl:if test="not(contains($instructions, @class))">
+          <xsl:apply-templates select="./ext:solution"/>
+        </xsl:if>
+      </xsl:for-each>
+      <xsl:comment>END: solutions that don't have a cnx.eoc processing instruction</xsl:comment>
 
+
+      <xsl:comment>START: solutions ordered by cnx.eoc processing instruction</xsl:comment>
+      <xsl:for-each select=".//processing-instruction('cnx.eoc')">
+        <xsl:variable name="val" select="concat(' ', .)"/>
+        <xsl:variable name="class" select="substring-before(substring-after($val,' class=&quot;'), '&quot;')"/>
+        <xsl:message>LOG: INFO: Looking for some end-of-chapter matter: class=[<xsl:value-of select="$class"/>] inside a [<xsl:value-of select="name()"/>]</xsl:message>
+
+        <xsl:if test="string-length($class) &gt; 0 and $context//*[contains(@class,$class)]//ext:solution">
+          <xsl:message>LOG: INFO: Found some end-of-chapter solutions: class=[<xsl:value-of select="$class"/>]</xsl:message>
+          <!--
+          <xsl:comment>HACK: Do not rely on this div existing</xsl:comment>
+          <div class="{$class}-divider">
+          -->
+          <xsl:apply-templates select="$context//*[contains(@class,$class)]//ext:solution"/>
+
+          <!-- </div> -->
+        </xsl:if>
+      </xsl:for-each>
+      <xsl:comment>END: solutions ordered by cnx.eoc processing instruction</xsl:comment>
+
+
+    </div>
   </xsl:for-each>
-  </div>
 </xsl:template>
 
 <!-- ============================================== -->
@@ -412,9 +433,9 @@
   <xsl:if test=".//db:figure[contains(@class,'splash')]">
     <xsl:apply-templates mode="cnx.splash" select=".//db:figure[contains(@class,'splash')]"/>
   </xsl:if>
-  
+
   <xsl:copy-of select="$toc"/>
-  
+
   <h3 class="title">
     <span>
       <xsl:choose>
@@ -600,12 +621,12 @@ Combination of formal.object and formal.object.heading -->
 <xsl:template name="formal.object">
     <xsl:apply-templates mode="formal.object.heading" select=".">
     </xsl:apply-templates>
-  
+
     <xsl:variable name="content">
       <xsl:apply-templates select="*[not(self::d:caption)]"/>
       <xsl:apply-templates select="d:caption"/>
     </xsl:variable>
-  
+
     <div class="body">
       <xsl:copy-of select="$content"/>
     </div>
@@ -640,11 +661,8 @@ Combination of formal.object and formal.object.heading -->
   </div>
 </xsl:template>
 
-<!-- Lists inside an exercise (that isn't at the bottom of the chapter)
-     (ie "Check for Understanding")
-     have a larger number. overriding docbook-xsl/fo/lists.xsl
-     see <xsl:template match="d:orderedlist/d:listitem">
- -->
+<!-- pass class in exercises for style -->
+
 <xsl:template match="ext:exercise/ext:problem/d:orderedlist/d:listitem" mode="item-number">
   <div class="cnx-gentext-listitem cnx-gentext-n">
     <xsl:apply-imports/>
@@ -686,13 +704,13 @@ Combination of formal.object and formal.object.heading -->
 </xsl:template>
 
 <xsl:template name="toc.line">
-  <xsl:param name="toc-context" select="NOTANODE"/>  
-  <xsl:variable name="id">  
+  <xsl:param name="toc-context" select="NOTANODE"/>
+  <xsl:variable name="id">
     <xsl:call-template name="object.id"/>
   </xsl:variable>
 
-  <xsl:variable name="label">  
-    <xsl:apply-templates select="." mode="label.markup"/>  
+  <xsl:variable name="label">
+    <xsl:apply-templates select="." mode="label.markup"/>
   </xsl:variable>
 
       <a href="#{$id}" class="target-{local-name()}">
@@ -716,7 +734,7 @@ Combination of formal.object and formal.object.heading -->
 </span>
         </xsl:if>
         <span class="cnx-gentext-{local-name()} cnx-gentext-t">
-          <xsl:apply-templates select="." mode="title.markup"/>  
+          <xsl:apply-templates select="." mode="title.markup"/>
         </span>
       </a>
 </xsl:template>
@@ -1033,7 +1051,7 @@ Combination of formal.object and formal.object.heading -->
                         <xsl:text>This selection and arrangement of content as a collection is copyrighted by </xsl:text>
                     </xsl:otherwise>
                 </xsl:choose>
-                
+
                 <xsl:call-template name="person.name.list">
                     <xsl:with-param name="person.list" select="$licensors"/>
                 </xsl:call-template>
@@ -1062,7 +1080,7 @@ Combination of formal.object and formal.object.heading -->
                     <xsl:text>Collection structure revised: </xsl:text>
                 </xsl:otherwise>
             </xsl:choose>
-            
+
             <!-- FIXME: Should read "August 10, 2009".  But for now, leaving as "2009/08/10" and chopping off the rest of the time/timezone stuff. -->
             <xsl:value-of select="substring-before(normalize-space(db:bookinfo/db:pubdate/text()),' ')"/>
         </div>
@@ -1095,6 +1113,7 @@ Combination of formal.object and formal.object.heading -->
 </xsl:template>
 
 <xsl:template name="section.titlepage.recto">
+
   <xsl:choose>
     <xsl:when test="d:sectioninfo/d:title">
       <xsl:apply-templates mode="section.titlepage.recto.auto.mode" select="d:sectioninfo/d:title"/>
@@ -1105,7 +1124,10 @@ Combination of formal.object and formal.object.heading -->
     <xsl:when test="d:title">
       <xsl:apply-templates mode="section.titlepage.recto.auto.mode" select="d:title"/>
     </xsl:when>
-  </xsl:choose>
+   </xsl:choose>
+   <xsl:if test="d:sectioninfo/d:abstract">
+   <xsl:apply-templates select="db:sectioninfo/db:abstract"/><!-- generates abstract at section level should not be presented explicitly. should be generated with toc params -->
+   </xsl:if>
 </xsl:template>
 
 <!-- Docbook generates "???" when it cannot generate text for a db:xref. Instead, we print the name of the closest enclosing element. -->
@@ -1147,7 +1169,7 @@ Combination of formal.object and formal.object.heading -->
     </xsl:choose>
 </xsl:template>
 
-<!-- FIXME: This template an exact copy from the docbook copy.  The only change was for the namespace ("d:" to "db:") and white space.  
+<!-- FIXME: This template an exact copy from the docbook copy.  The only change was for the namespace ("d:" to "db:") and white space.
      This mysteriously makes @start-value work (and gets us closer to @number-style working).
      But it really shouldn't be necessary to copy the template verbatim.  Not sure why it doesn't work w/o this template here.  -->
 <xsl:template match="db:orderedlist">
@@ -1181,7 +1203,7 @@ Combination of formal.object and formal.object.heading -->
       <xsl:call-template name="formal.object.heading"/>
     </xsl:if>
     <!-- Preserve order of PIs and comments -->
-    <xsl:apply-templates 
+    <xsl:apply-templates
         select="*[not(self::db:listitem
                   or self::db:title
                   or self::db:titleabbrev)]
@@ -1193,7 +1215,7 @@ Combination of formal.object and formal.object.heading -->
           <xsl:call-template name="generate.class.attribute"/>
           <col align="{$direction.align.start}" valign="top"/>
           <tbody>
-            <xsl:apply-templates 
+            <xsl:apply-templates
                 mode="orderedlist-table"
                 select="db:listitem
                         |comment()[preceding-sibling::db:listitem]
@@ -1221,7 +1243,7 @@ Combination of formal.object and formal.object.heading -->
               <xsl:value-of select="@spacing"/>
             </xsl:attribute>
           </xsl:if>
-          <xsl:apply-templates 
+          <xsl:apply-templates
                 select="db:listitem
                         |comment()[preceding-sibling::db:listitem]
                         |processing-instruction()[preceding-sibling::db:listitem]"/>
@@ -1283,20 +1305,20 @@ Combination of formal.object and formal.object.heading -->
 </xsl:template>
 
 <!-- Taken from docbook-xsl/epub/graphics.xsl . Added default for "alt" param. -->
-  <!-- we can't deal with no img/@alt, because it's required. Try grabbing a title before it instead (hopefully meaningful) --> 
-  <xsl:template name="process.image.attributes"> 
+  <!-- we can't deal with no img/@alt, because it's required. Try grabbing a title before it instead (hopefully meaningful) -->
+  <xsl:template name="process.image.attributes">
     <!-- BEGIN customization -->
     <xsl:param name="alt" select="ancestor::d:mediaobject/d:textobject[d:phrase]|ancestor::d:inlinemediaobject/d:textobject[d:phrase]"/>
     <!-- END customization -->
-    <xsl:param name="html.width"/> 
-    <xsl:param name="html.depth"/> 
-    <xsl:param name="longdesc"/> 
-    <xsl:param name="scale"/> 
-    <xsl:param name="scalefit"/> 
-    <xsl:param name="scaled.contentdepth"/> 
-    <xsl:param name="scaled.contentwidth"/> 
-    <xsl:param name="viewport"/> 
- 
+    <xsl:param name="html.width"/>
+    <xsl:param name="html.depth"/>
+    <xsl:param name="longdesc"/>
+    <xsl:param name="scale"/>
+    <xsl:param name="scalefit"/>
+    <xsl:param name="scaled.contentdepth"/>
+    <xsl:param name="scaled.contentwidth"/>
+    <xsl:param name="viewport"/>
+
     <xsl:choose>
       <!-- Use @print-width by default (@contentwidth will have units at the end, and thus not be a number -->
       <xsl:when test="@width and string(number(@width)) = 'NaN'">
@@ -1306,117 +1328,117 @@ Combination of formal.object and formal.object.heading -->
           <xsl:text>;</xsl:text>
         </xsl:attribute>
       </xsl:when>
-      <xsl:when test="@contentwidth or @contentdepth"> 
-        <!-- ignore @width/@depth, @scale, and @scalefit if specified --> 
-        <xsl:if test="@contentwidth and $scaled.contentwidth != ''"> 
-          <xsl:attribute name="width"> 
-            <xsl:value-of select="$scaled.contentwidth"/> 
-          </xsl:attribute> 
-        </xsl:if> 
-        <xsl:if test="@contentdepth and $scaled.contentdepth != ''"> 
-          <xsl:attribute name="height"> 
-            <xsl:value-of select="$scaled.contentdepth"/> 
-          </xsl:attribute> 
-        </xsl:if> 
-      </xsl:when> 
- 
-      <xsl:when test="number($scale) != 1.0"> 
-        <!-- scaling is always uniform, so we only have to specify one dimension --> 
-        <!-- ignore @scalefit if specified --> 
-        <xsl:attribute name="width"> 
-          <xsl:value-of select="$scaled.contentwidth"/> 
-        </xsl:attribute> 
-      </xsl:when> 
- 
-      <xsl:when test="$scalefit != 0"> 
-        <xsl:choose> 
-          <xsl:when test="contains($html.width, '%')"> 
-            <xsl:choose> 
-              <xsl:when test="$viewport != 0"> 
-                <!-- The *viewport* will be scaled, so use 100% here! --> 
-                <xsl:attribute name="width"> 
-                  <xsl:value-of select="'100%'"/> 
-                </xsl:attribute> 
-              </xsl:when> 
-              <xsl:otherwise> 
-                <xsl:attribute name="width"> 
-                  <xsl:value-of select="$html.width"/> 
-                </xsl:attribute> 
-              </xsl:otherwise> 
-            </xsl:choose> 
-          </xsl:when> 
- 
-          <xsl:when test="contains($html.depth, '%')"> 
-            <!-- HTML doesn't deal with this case very well...do nothing --> 
-          </xsl:when> 
- 
-          <xsl:when test="$scaled.contentwidth != '' and $html.width != ''                         and $scaled.contentdepth != '' and $html.depth != ''"> 
-            <!-- scalefit should not be anamorphic; figure out which direction --> 
-            <!-- has the limiting scale factor and scale in that direction --> 
-            <xsl:choose> 
-              <xsl:when test="$html.width div $scaled.contentwidth &gt;                             $html.depth div $scaled.contentdepth"> 
-                <xsl:attribute name="height"> 
-                  <xsl:value-of select="$html.depth"/> 
-                </xsl:attribute> 
-              </xsl:when> 
-              <xsl:otherwise> 
-                <xsl:attribute name="width"> 
-                  <xsl:value-of select="$html.width"/> 
-                </xsl:attribute> 
-              </xsl:otherwise> 
-            </xsl:choose> 
-          </xsl:when> 
- 
-          <xsl:when test="$scaled.contentwidth != '' and $html.width != ''"> 
-            <xsl:attribute name="width"> 
-              <xsl:value-of select="$html.width"/> 
-            </xsl:attribute> 
-          </xsl:when> 
- 
-          <xsl:when test="$scaled.contentdepth != '' and $html.depth != ''"> 
-            <xsl:attribute name="height"> 
-              <xsl:value-of select="$html.depth"/> 
-            </xsl:attribute> 
-          </xsl:when> 
-        </xsl:choose> 
-      </xsl:when> 
-    </xsl:choose> 
- 
-    <!-- AN OVERRIDE --> 
-    <xsl:if test="not(@format ='SVG')"> 
-      <xsl:attribute name="alt"> 
-        <xsl:choose> 
-          <xsl:when test="$alt != ''"> 
-            <xsl:value-of select="normalize-space($alt)"/> 
-          </xsl:when> 
-          <xsl:when test="preceding::d:title[1]"> 
-            <xsl:value-of select="normalize-space(preceding::d:title[1])"/> 
-          </xsl:when> 
-          <xsl:otherwise> 
-            <xsl:text>(missing alt)</xsl:text> 
-          </xsl:otherwise> 
-        </xsl:choose> 
-      </xsl:attribute> 
-    </xsl:if> 
-    <!-- END OF OVERRIDE --> 
- 
-    <xsl:if test="$longdesc != ''"> 
-      <xsl:attribute name="longdesc"> 
-        <xsl:value-of select="$longdesc"/> 
-      </xsl:attribute> 
-    </xsl:if> 
- 
-    <xsl:if test="@align and $viewport = 0"> 
-      <xsl:attribute name="style"><xsl:text>text-align: </xsl:text> 
-        <xsl:choose> 
-          <xsl:when test="@align = 'center'">middle</xsl:when> 
-          <xsl:otherwise> 
-            <xsl:value-of select="@align"/> 
-          </xsl:otherwise> 
-        </xsl:choose> 
-      </xsl:attribute> 
-    </xsl:if> 
-  </xsl:template> 
+      <xsl:when test="@contentwidth or @contentdepth">
+        <!-- ignore @width/@depth, @scale, and @scalefit if specified -->
+        <xsl:if test="@contentwidth and $scaled.contentwidth != ''">
+          <xsl:attribute name="width">
+            <xsl:value-of select="$scaled.contentwidth"/>
+          </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="@contentdepth and $scaled.contentdepth != ''">
+          <xsl:attribute name="height">
+            <xsl:value-of select="$scaled.contentdepth"/>
+          </xsl:attribute>
+        </xsl:if>
+      </xsl:when>
+
+      <xsl:when test="number($scale) != 1.0">
+        <!-- scaling is always uniform, so we only have to specify one dimension -->
+        <!-- ignore @scalefit if specified -->
+        <xsl:attribute name="width">
+          <xsl:value-of select="$scaled.contentwidth"/>
+        </xsl:attribute>
+      </xsl:when>
+
+      <xsl:when test="$scalefit != 0">
+        <xsl:choose>
+          <xsl:when test="contains($html.width, '%')">
+            <xsl:choose>
+              <xsl:when test="$viewport != 0">
+                <!-- The *viewport* will be scaled, so use 100% here! -->
+                <xsl:attribute name="width">
+                  <xsl:value-of select="'100%'"/>
+                </xsl:attribute>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:attribute name="width">
+                  <xsl:value-of select="$html.width"/>
+                </xsl:attribute>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:when>
+
+          <xsl:when test="contains($html.depth, '%')">
+            <!-- HTML doesn't deal with this case very well...do nothing -->
+          </xsl:when>
+
+          <xsl:when test="$scaled.contentwidth != '' and $html.width != ''                         and $scaled.contentdepth != '' and $html.depth != ''">
+            <!-- scalefit should not be anamorphic; figure out which direction -->
+            <!-- has the limiting scale factor and scale in that direction -->
+            <xsl:choose>
+              <xsl:when test="$html.width div $scaled.contentwidth &gt;                             $html.depth div $scaled.contentdepth">
+                <xsl:attribute name="height">
+                  <xsl:value-of select="$html.depth"/>
+                </xsl:attribute>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:attribute name="width">
+                  <xsl:value-of select="$html.width"/>
+                </xsl:attribute>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:when>
+
+          <xsl:when test="$scaled.contentwidth != '' and $html.width != ''">
+            <xsl:attribute name="width">
+              <xsl:value-of select="$html.width"/>
+            </xsl:attribute>
+          </xsl:when>
+
+          <xsl:when test="$scaled.contentdepth != '' and $html.depth != ''">
+            <xsl:attribute name="height">
+              <xsl:value-of select="$html.depth"/>
+            </xsl:attribute>
+          </xsl:when>
+        </xsl:choose>
+      </xsl:when>
+    </xsl:choose>
+
+    <!-- AN OVERRIDE -->
+    <xsl:if test="not(@format ='SVG')">
+      <xsl:attribute name="alt">
+        <xsl:choose>
+          <xsl:when test="$alt != ''">
+            <xsl:value-of select="normalize-space($alt)"/>
+          </xsl:when>
+          <xsl:when test="preceding::d:title[1]">
+            <xsl:value-of select="normalize-space(preceding::d:title[1])"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:text>(missing alt)</xsl:text>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
+    </xsl:if>
+    <!-- END OF OVERRIDE -->
+
+    <xsl:if test="$longdesc != ''">
+      <xsl:attribute name="longdesc">
+        <xsl:value-of select="$longdesc"/>
+      </xsl:attribute>
+    </xsl:if>
+
+    <xsl:if test="@align and $viewport = 0">
+      <xsl:attribute name="style"><xsl:text>text-align: </xsl:text>
+        <xsl:choose>
+          <xsl:when test="@align = 'center'">middle</xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="@align"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
+    </xsl:if>
+  </xsl:template>
 
   <xsl:template match="db:example">
     <div id="{@xml:id}"><xsl:call-template name="common.html.attributes"/>
@@ -1740,9 +1762,9 @@ Example:
 
 </xsl:template>
 
-<xsl:template match="db:preface | db:chapter | db:appendix | db:section | db:index" mode="toc">
+<xsl:template match="db:preface | db:chapter | db:appendix | db:section | db:index | db:part" mode="toc">
   <xsl:param name="toc-context" select="."/>
-  <xsl:variable name="nodes" select="db:section"/>
+  <xsl:variable name="nodes" select="db:section | db:chapter"/>
   <li>
     <xsl:attribute name="class">
       <xsl:text>toc-</xsl:text>
@@ -1776,7 +1798,7 @@ Example:
   <xsl:param name="toc-context" select="."/>
 
   <xsl:call-template name="toc.line"/>
-  
+
   <xsl:if test="$toc-context[self::d:chapter] and d:sectioninfo/d:abstract">
     <li class="abstract">
       <xsl:apply-templates select="d:sectioninfo/d:abstract/node()"/>
@@ -1785,4 +1807,3 @@ Example:
 </xsl:template>
 
 </xsl:stylesheet>
-

@@ -48,7 +48,7 @@
 
 
 <!-- Collapse XIncluded modules -->
-<xsl:template match="db:section[@document][db:section and count(*[not(self::db:title)])=1]">
+<xsl:template match="*[self::db:section or self::db:appendix or self::db:preface or self::db:chapter][@document][db:section and count(*[not(self::db:title)])=1]">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Removing wrapper element around Xincluded module inside a <xsl:value-of select="local-name()"/></xsl:with-param></xsl:call-template>
 	<xsl:copy>
 		<xsl:apply-templates select="@*|db:section/@*"/>
@@ -62,7 +62,7 @@
 </xsl:template>
 
 <!-- Save the original title for attribution later. -->
-<xsl:template match="db:*[(local-name()='preface' or local-name()='chapter' or local-name()='appendix' or local-name()='section') and db:title and count(db:section)=1]/db:section/db:sectioninfo/db:title">
+<xsl:template match="db:*[(self::db:preface or self::db:chapter or self::db:appendix or self::db:section) and db:title and count(db:section)=1]/db:section/db:sectioninfo/db:title">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding original title</xsl:with-param></xsl:call-template>
     <ext:original-title>
         <xsl:apply-templates select="@*|node()"/>

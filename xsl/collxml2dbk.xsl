@@ -39,6 +39,16 @@
 	</db:bookinfo>
 </xsl:template>
 
+
+<!--adding units as subcollection-->
+
+<xsl:template match="col:collection/col:content/col:subcollection[col:content/col:subcollection]">
+  <db:part>
+    <xsl:apply-templates select="node()"/> <!-- this wil match cnx:title and col:subcollection -->
+  </db:part>
+</xsl:template>
+  
+
 <!-- Modules before the first subcollection are preface frontmatter -->
 <xsl:template match="col:collection/col:content[col:subcollection and col:module]/col:module[not(preceding-sibling::col:subcollection)]" priority="100">
 	<db:preface>
@@ -57,17 +67,39 @@
 
 
 <!-- Free-floating Modules in a col:collection should be treated as Chapters -->
-<xsl:template match="col:collection/col:content/col:module"> 
-	<!-- TODO: Convert the db:section root of the module to a chapter. Can't now because we create xinclude refs to it -->
-	<db:chapter>
+<xsl:template match="col:collection/col:content/col:subcollection/col:module"> 
+  <db:chapter>
 		<xsl:apply-templates select="@*|node()"/>
 		<xsl:call-template name="cnx.xinclude.module"/>
 	</db:chapter>
+</xsl:template>  
+
+<xsl:template match="col:collection/col:content/col:subcollection/col:content/col:subcollection" priority="10">
+  <db:chapter>
+      <xsl:apply-templates select="@*|node()"/>
+		<xsl:call-template name="cnx.xinclude.module"/>
+  </db:chapter>
 </xsl:template>
 
-<xsl:template match="col:collection/col:content/col:subcollection">
-	<db:chapter><xsl:apply-templates select="@*|node()"/></db:chapter>
+<xsl:template match="col:collection/col:content/col:subcollection[not(col:content/col:subcollection)]">
+	<db:chapter>
+		<xsl:apply-templates select="@*|node()"/>
+	</db:chapter>
+</xsl:template>  
+
+<xsl:template match="col:collection/col:content/col:subcollection/col:content/col:subcollection" priority="10">
+  <db:chapter>
+    <xsl:apply-templates select="@*|node()"/>
+  </db:chapter>
 </xsl:template>
+
+<xsl:template match="col:collection/col:content[not(col:subcollection)]/col:module">
+  <db:chapter>
+    <xsl:apply-templates select="@*|node()"/>
+		<xsl:call-template name="cnx.xinclude.module"/>
+  </db:chapter>
+</xsl:template>
+
 
 <!-- Subcollections in a chapter should be treated as a section -->
 <xsl:template match="col:subcollection/col:content/col:subcollection">
@@ -90,8 +122,6 @@
 	<db:title><xsl:apply-templates/></db:title>
 </xsl:template>
 
-
-
 <xsl:template match="@id|@xml:id|comment()|processing-instruction()">
     <xsl:copy/>
 </xsl:template>
@@ -99,5 +129,6 @@
 <xsl:template name="cnx.xinclude.module">
     <xi:include href="{@document}/index.included.dbk"/>
 </xsl:template>
+
 
 </xsl:stylesheet>
