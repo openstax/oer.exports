@@ -142,7 +142,7 @@ a[href^="http"] {
 .indexdiv dl {
   page-break-inside: auto;
 }
-.indexterm {
+.indexterm[href] {
   content: target-counter(attr(href), page);
 }
 /********************* Glossary Section **************/
@@ -177,7 +177,7 @@ h6 {
 }
 /****************** Modern-Textbook classes ****************/
 .introduction {
-  /* page-break-after: always; */
+  /*  page-break-after: always; */
 
 }
 /* Hide the manual key-concepts table */
@@ -613,6 +613,7 @@ div.book > div.part > div.preface {
 
   /* --------------------------------------
    *  Exceptions for incrementing/displaying
+   *  Note: "div.glossary *" is by far the most time-consuming rule
    * --------------------------------------
    */
 
@@ -924,6 +925,7 @@ div.book > div.part > div.chapter {
 
   /* --------------------------------------
    *  Exceptions for incrementing/displaying
+   *  Note: "div.glossary *" is by far the most time-consuming rule
    * --------------------------------------
    */
 
@@ -1227,6 +1229,7 @@ div.book > div.part > div.appendix {
 
   /* --------------------------------------
    *  Exceptions for incrementing/displaying
+   *  Note: "div.glossary *" is by far the most time-consuming rule
    * --------------------------------------
    */
 
@@ -2298,10 +2301,11 @@ img {
 .chapter h1.title .cnx-gentext-n {
   font-weight: bold;
   padding-right: 0em;
+  color: #336633;
 }
 .chapter h1.title .cnx-gentext-t::before {
   content: "| ";
-  color: LimeGreen;
+  color: black;
 }
 a {
   font-weight: bold;
@@ -2311,23 +2315,30 @@ h1,
 h2,
 h3 {
   margin: 0.5em 0em;
+  text-align: left !important;
 }
 h2 {
-  color: Green;
+  color: #336633;
   font-size: x-large;
 }
+h2 .cnx-gentext-n {
+  color: #336633;
+}
 h2 .cnx-gentext-t::before {
+  color: black;
   content: "| ";
 }
 h2::before {
   color: #336633;
 }
 h3 {
-  color: #ffcc00;
+  color: #336633;
   font-size: large;
+  font-weight: bold;
 }
 h4 {
-  color: Green;
+  color: #336633;
+  font-style: italic;
 }
 blockquote {
   color: #cccccc;
@@ -2437,7 +2448,7 @@ subfigure {
 }
 .figure > .title {
   display: inline;
-  color: #ffcc00;
+  color: #cc6633;
   font-weight: bold;
   text-align: center;
 }
