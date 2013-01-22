@@ -21,7 +21,8 @@ For most smartphones the relationship between scan distance and minimum QR code 
 @qr: 1.25in;
 @table-border: 1pt solid @green;
 @page-width: 5.5in;
-@font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+// The base CCAP books use sans fonts but the Bio books use serif fonts.
+@font-family-bio: Liberation Serif, serif, @stix-fonts;
 
 
 @import url('ccap-base.less');
@@ -178,7 +179,7 @@ div.section .titlepage .abstract {
     &::before {
       content: "By the end of this section, you will be able to:";
       font-size: small;
-      font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1; //@font-family
+      font-family: @font-family-bio;
     }
     .listitem { margin:.25em 0em; }
   }
@@ -215,7 +216,6 @@ div.section .titlepage .abstract {
   page-break-inside: avoid;
   * p { 
     font-family:inherit; 
-    text-indent: 0;
   }
 
   &::before {
@@ -245,7 +245,7 @@ div.section .titlepage .abstract {
   
   .figure {
     img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
-    > .title { font-size: x-small; }
+    > .title { font-size: x-small; color: @tuscany; }
   }
 }
 
@@ -310,9 +310,10 @@ div.section .titlepage .abstract {
 
   &.summary { 
     .x-column-count(1);
-    > .title { content: "Chapter Summary"; margin-top: 1em;}
-    > .section .title > a { color: black; page-break-after: avoid;} 
-    p { text-indent: 2em; margin-top: 1em;}
+    > .title { content: "Chapter Summary"; margin-top: 1em; }
+    > .section .title > a { color: black; page-break-after: avoid; } 
+    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; } 
+    p { text-indent: 2em; }
   } 
   
   //ccap-base sets this so override it here
@@ -322,7 +323,7 @@ div.section .titlepage .abstract {
 
   &.solutions  { display: none !important; } 
   
-  .empty { display: none; }
+  .empty { display: hidden; } //hide element but count it   *didn't use visibility property which would cause element to still take up space on page
 }
 
 .art-exercise > .title { content: "Art Connection Questions"; column-span: all; margin-top: 1em; } //need to clean redundant column-span/margin rules - this is quick and dirty
@@ -417,7 +418,7 @@ blockquote {
 .cnx-eoc p, .notes p,p:nth-of-type(1) { text-indent: 0em; }
 
 p {
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: @font-family-bio;
   /* subsequent paragraphs are indented */
   text-indent: 2em;
   /*reset margins so subsequent paragraphs start next line  */
@@ -527,25 +528,21 @@ img, figure, subfigure  { margin: 1em; }
     display: inline;
     text-align:center;
   }
-
-  .subfigure {
-
-    > .title {
-      display: inline;
-      font-weight: bold;
-      }
-
-    > .label {
-      display: inline;
-      font-weight: bold;
-    }
-  }
 }
 
 .target-figure {
   font-weight:bold;
   color: @tuscany;
 }
+
+.cnx-figure-horizontal .informalfigure .caption { 
+  text-align: center; //center subfigure caption
+  * { 
+    font-weight: normal !important; //override strong tag
+    font-family: @font-family-bio;
+  }
+}
+
 
 /******************************************************
  * Equations
@@ -646,7 +643,7 @@ div.end-of-book-solutions {
   }
 
   .chapter-area {
-    font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1; //font-family: @font-family;
+    font-family: @font-family-bio;
     a {
       &.solution { color: black; }
       &.chapter * { 
