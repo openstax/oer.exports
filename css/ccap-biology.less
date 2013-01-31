@@ -189,7 +189,10 @@ div.section .titlepage .abstract {
 /******************************************************
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
-.art-connection { .x-feature(black, @cream, CNX_Bio_Art); } //same svg header for maj/nonMaj
+.art-connection { 
+  .x-feature(black, @cream, CNX_Bio_Art); //same svg header for maj/nonMaj
+  p { text-indent: 0em; } //don't indent p - override default feature behavior
+} 
 
 .career { 
 	.x-feature(black, @cream, CNX_BioMaj_Career); 
@@ -235,13 +238,15 @@ div.section .titlepage .abstract {
     margin-top: -0.03in;
   }
 
-  .title {
+  > .title { display: none; } //supress title in pdf (webview only)
+ 
+  .body .title { 
     text-align: left !important;
     font-size: large;
     margin: .25em 0;
     color: black;
     font-weight:bold;
-  }
+   }   
   
   .figure {
     img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
@@ -477,6 +482,8 @@ img, figure, subfigure  { margin: 1em; }
     background-color: @cream;
     border-bottom: @table-border;
   }
+  
+  tr { page-break-inside: avoid;}
 
   th {
     color: black;
