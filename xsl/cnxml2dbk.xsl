@@ -672,7 +672,7 @@
 <xsl:template name="cnx.indexterm">
   <xsl:param name="id"/>
   <xsl:variable name="node">
-    <xsl:apply-templates mode="cnx.strip-id" select="."/>
+    <xsl:apply-templates select="node()"/>
   </xsl:variable>
     <db:indexterm zone="{$id}">
       <db:primary>

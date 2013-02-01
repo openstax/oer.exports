@@ -189,7 +189,7 @@ Example:
         <a id="{(@id|@xml:id)[1]}"/>
       </xsl:if>
     </xsl:for-each>
-    <xsl:value-of select="d:primary"/>
+    <xsl:apply-templates select="d:primary"/>
     <xsl:choose>      <xsl:when test="$index.links.to.section = 1">
         <xsl:for-each select="$refs[generate-id() = generate-id(key('primary-section', concat($key, &quot; &quot;, generate-id((ancestor-or-self::d:set|ancestor-or-self::d:book|ancestor-or-self::d:part|ancestor-or-self::d:reference|ancestor-or-self::d:partintro|ancestor-or-self::d:chapter|ancestor-or-self::d:appendix|ancestor-or-self::d:preface|ancestor-or-self::d:article|ancestor-or-self::d:section|ancestor-or-self::d:sect1|ancestor-or-self::d:sect2|ancestor-or-self::d:sect3|ancestor-or-self::d:sect4|ancestor-or-self::d:sect5|ancestor-or-self::d:refentry|ancestor-or-self::d:refsect1|ancestor-or-self::d:refsect2|ancestor-or-self::d:refsect3|ancestor-or-self::d:simplesect|ancestor-or-self::d:bibliography|ancestor-or-self::d:glossary|ancestor-or-self::d:index|ancestor-or-self::d:webpage)[last()])))[count(ancestor::node()|$scope) = count(ancestor::node()) and ($role = @role or $type = @type or (string-length($role) = 0 and string-length($type) = 0))][1])]">
           <xsl:apply-templates select="." mode="reference">
