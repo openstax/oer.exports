@@ -8,6 +8,7 @@
 @green: #339933;
 @cream: #ffffcc;
 @tuscany: #cc6633;
+@gray: #ccc;
 
 @page { margin: 0.5in 1.5in; }
 
@@ -102,7 +103,7 @@
 
   >.title {
     content: "Introduction";
-    font-size: x-large;
+    font-size: x-large;reen
   }
 }
 
@@ -138,3 +139,120 @@
     }
   }
 }
+
+/******************************************************
+ * Generic Elements
+ ******************************************************/
+body {
+  font-size: 9.5pt;
+  text-align: justify;
+}
+
+img { max-height:9.5in; }
+
+.chapter h1.title {
+  /*reset left only*/
+  margin-left:0 !important;
+  padding-left: 0 !important;
+  font-size: 35pt; /* x-large; */
+  font-weight: bold;
+  text-align: left !important;
+  color: @teal;
+
+  .cnx-gentext-n {
+    font-weight: bold;
+    padding-right: 0em;
+    color: @teal;
+  }
+
+  .cnx-gentext-t {
+    &::before {
+      content: "| ";
+      color: black;
+    }
+  }
+}
+
+a { font-weight: bold; color: @tuscany;}
+
+
+h1, h2, h3 { margin: 0.5em 0em; }
+
+h2 {
+  color: @teal;
+  font-size: x-large;
+
+  .cnx-gentext-n { color: @teal; }
+
+  // Separate the section number and title with a pipe
+  .cnx-gentext-t::before {
+    color: black;
+    content: "| ";
+  }
+
+  &::before { color: @teal; }
+}
+
+h3 {
+  color: @teal;
+  font-size:large;
+  font-weight: bold;
+}
+
+h4 {
+  color: @teal;
+  font-style:italic;
+}
+
+blockquote {
+  color: @gray;
+  font-size: 150%;
+
+  &::before, &::after {
+    font-weight: bold;
+    color: black;
+  }
+
+  &::before { content: "\201C" /* open-quote */; }
+  &::after { content: "\201D" /* close-quote; */; }
+}
+
+.cnx-eoc p, .notes p,p:nth-of-type(1) { text-indent: 0em; }
+
+p {
+  //font-family: @font-family-bio;
+  /* subsequent paragraphs are indented */
+  text-indent: 2em;
+  /*reset margins so subsequent paragraphs start next line  */
+  margin:0;
+}
+
+.glossary {
+  // End-of-chapter material should start on a new page
+  page-break-before: always;
+  display:inline;
+
+  .title {
+    /* Change "Glossary" to "Key Terms" */
+    content: "Key Terms";
+    color: @teal;
+    font-size: large !important;
+    padding: 0em !important;
+    display: block !important;
+    text-transform:uppercase;
+  }
+
+  // Remove ":"
+  dt::after { content: " " !important; }
+}
+
+.section > .title { page-break-after:avoid; }
+
+img, figure, subfigure  { margin: 1em; }
+
+.colophon > h1.title {
+  //this style Attributions and About Connections
+  color:white;
+  background-color: @teal;
+  margin: .5em 0;
+ }
