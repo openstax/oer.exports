@@ -5,7 +5,7 @@
 @blue: #000066;
 @red: #990033;
 @orange: #cc9900;
-@green: #339933;
+@teal: #339933;
 @cream: #ffffcc;
 @tuscany: #cc6633;
 
@@ -51,4 +51,39 @@
     li { padding-bottom: 0 !important; }
   }
    .target-appendix .cnx-gentext-appendix { display:inline; }
+}
+
+/******************************************************
+ * Preface
+ ******************************************************/
+.preface {
+  //overrides numbering.less without it "Preface" wasn't displaying after pg # in header
+  > div.titlepage > div > div h1.title { string-set: cnx-header @S content() @E; color: black; }
+
+  h1.title {
+    color: @teal;
+    font-size: xx-large;
+    
+    &:first-child {
+      margin: 0;
+      background-color: @teal;
+      color: white !important;
+    }
+   }
+   
+   > div.title {
+     color: @teal;
+     font-size: medium;
+     margin: .5em 0;
+   }
+   
+  .itemizedlist {
+    list-style-type: none;
+    .title {
+      color: @teal;
+      font-size: medium;
+      margin: .5em 0;
+      font-weight: bold;
+    }
+  }
 }
