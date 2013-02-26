@@ -1,9 +1,14 @@
 @import url('ccap-css3.css');
 /* Styles used when generating a PDF from xhtml+css
  ***************************************************/
-@page  {
-  margin: 0.5in 1.5in;
-}
+/******************************************************
+Finished printed size of the QR code is dependent on:
+-distance between qr code and scanning device
+-size of dots in the code(amount of data inputed into the code, the smaller the dots become)
+
+For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
+ QR code printed in a magazine/book will have a nominal effective scan distance of about 250mm (10 inches),
+ ******************************************************/
 /***************************************************
  * Styles used when generating a PDF from xhtml+css
  ***************************************************/
@@ -1662,6 +1667,33 @@ div.book > div.chapter > div.titlepage > div > div:not(:first-child),
 div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
   display: none;
 }
+@page  {
+  margin: 0.5in 1.5in;
+}
+/*pulled from Sociology*/
+/*******************************************************
+ * Unit Page
+ ******************************************************/
+div.part > div.titlepage {
+  display: none;
+}
+/******************************************************
+ * Introduction
+ ******************************************************/
+.introduction {
+  /*pulled from Soc*/
+
+}
+.introduction .splash img {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+.introduction > .title {
+  content: "Introduction";
+  font-size: x-large;
+}
 /******************************************************
  * Table of Contents TODO: simplify/regroup code block
  ******************************************************/
@@ -1672,10 +1704,14 @@ div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
   margin-bottom: .50em;
   border-bottom: 1px solid #cc6633;
 }
+.book .toc .target-preface {
+  font-weight: bold;
+  color: #339999;
+}
 .book .toc .target-chapter,
 .book .toc .target-appendix,
 .book .toc .target-index,
-.book .toc .target-preface {
+.book .toc .target-part {
   font-weight: bold;
   color: #339999;
   display: inline !important;
@@ -1683,7 +1719,7 @@ div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
 .book .toc .target-chapter::before,
 .book .toc .target-appendix::before,
 .book .toc .target-index::before,
-.book .toc .target-preface::before {
+.book .toc .target-part::before {
   display: none !important;
 }
 .book .toc .target-section {
@@ -1726,11 +1762,6 @@ div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
   background-color: #339999;
   color: white !important;
 }
-.preface > div.title {
-  color: #339999;
-  font-size: medium;
-  margin: .5em 0;
-}
 .preface .itemizedlist {
   list-style-type: none;
 }
@@ -1738,20 +1769,9 @@ div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
   color: #339999;
   font-size: medium;
   margin: .5em 0;
-  font-weight: bold;
 }
-/******************************************************
- * Introduction
- ******************************************************/
-.introduction .splash img {
-  margin: 0 !important;
-  padding: 0 !important;
-  width: 100% !important;
-  max-width: none !important;
-}
-.introduction > .title {
-  content: "Introduction";
-  font-size: x-large;
+.preface .cnx-gentext-t::before {
+  display: none;
 }
 /******************************************************
  * Chapter Objectives
@@ -1796,11 +1816,501 @@ div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
   display: none !important;
 }
 /******************************************************
+ * Section Level Learning Objectives
+ ******************************************************/
+div.section .titlepage .abstract {
+  display: block !important;
+  margin: 1em 0em;
+  page-break-inside: avoid;
+  page-break-before: avoid !important;
+  /*remove "summary"*/
+
+}
+div.section .titlepage .abstract > .itemizedlist::before {
+  content: "By the end of this module, you will be able to:";
+  font-size: small;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+div.section .titlepage .abstract > .itemizedlist .listitem {
+  margin: .25em 0em ;
+}
+div.section .titlepage .abstract > .title {
+  display: none;
+}
+/******************************************************
+ * Features args(title color, bkgrnd color, path to svg)
+ ******************************************************/
+.art-connection {
+  background-color: #ffffcc;
+  page-break-inside: avoid;
+}
+.art-connection * p {
+  font-family: inherit;
+}
+.art-connection::before {
+  background-image: url("ccap-anatomylogy/CNX_anatomy_Art.svg");
+  padding-top: 0.65in;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  margin-left: -1.05em;
+  margin-right: -2.05em;
+  margin-top: -0.03in;
+}
+.art-connection > .title {
+  display: none;
+}
+.art-connection .body .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+}
+.art-connection .figure img {
+  max-width: 5.25in !important;
+}
+.art-connection .figure > .title {
+  font-size: x-small;
+  color: #cc9900;
+}
+.art-connection p {
+  text-indent: 0em;
+}
+.career {
+  background-color: #ffffcc;
+  page-break-inside: avoid;
+}
+.career * p {
+  font-family: inherit;
+}
+.career::before {
+  background-image: url("ccap-anatomylogy/CNX_anatomyMaj_Career.svg");
+  padding-top: 0.65in;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  margin-left: -1.05em;
+  margin-right: -2.05em;
+  margin-top: -0.03in;
+}
+.career > .title {
+  display: none;
+}
+.career .body .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+}
+.career .figure img {
+  max-width: 5.25in !important;
+}
+.career .figure > .title {
+  font-size: x-small;
+  color: #cc9900;
+}
+.career.non-majors {
+  background-color: #ffffcc;
+  page-break-inside: avoid;
+}
+.career.non-majors * p {
+  font-family: inherit;
+}
+.career.non-majors::before {
+  background-image: url("ccap-anatomylogy/CNX_anatomyNonMaj_Career.svg");
+  padding-top: 0.65in;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  margin-left: -1.05em;
+  margin-right: -2.05em;
+  margin-top: -0.03in;
+}
+.career.non-majors > .title {
+  display: none;
+}
+.career.non-majors .body .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+}
+.career.non-majors .figure img {
+  max-width: 5.25in !important;
+}
+.career.non-majors .figure > .title {
+  font-size: x-small;
+  color: #cc9900;
+}
+.everyday {
+  background-color: #ffffcc;
+  page-break-inside: avoid;
+}
+.everyday * p {
+  font-family: inherit;
+}
+.everyday::before {
+  background-image: url("ccap-anatomylogy/CNX_anatomyMaj_Everyday.svg");
+  padding-top: 0.65in;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  margin-left: -1.05em;
+  margin-right: -2.05em;
+  margin-top: -0.03in;
+}
+.everyday > .title {
+  display: none;
+}
+.everyday .body .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+}
+.everyday .figure img {
+  max-width: 5.25in !important;
+}
+.everyday .figure > .title {
+  font-size: x-small;
+  color: #cc9900;
+}
+.everyday.non-majors {
+  background-color: #ffffcc;
+  page-break-inside: avoid;
+}
+.everyday.non-majors * p {
+  font-family: inherit;
+}
+.everyday.non-majors::before {
+  background-image: url("ccap-anatomylogy/CNX_anatomyNonMaj_Everyday.svg");
+  padding-top: 0.65in;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  margin-left: -1.05em;
+  margin-right: -2.05em;
+  margin-top: -0.03in;
+}
+.everyday.non-majors > .title {
+  display: none;
+}
+.everyday.non-majors .body .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+}
+.everyday.non-majors .figure img {
+  max-width: 5.25in !important;
+}
+.everyday.non-majors .figure > .title {
+  font-size: x-small;
+  color: #cc9900;
+}
+.evolution {
+  background-color: #ffffcc;
+  page-break-inside: avoid;
+}
+.evolution * p {
+  font-family: inherit;
+}
+.evolution::before {
+  background-image: url("ccap-anatomylogy/CNX_anatomyMaj_Evolution.svg");
+  padding-top: 0.65in;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  margin-left: -1.05em;
+  margin-right: -2.05em;
+  margin-top: -0.03in;
+}
+.evolution > .title {
+  display: none;
+}
+.evolution .body .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+}
+.evolution .figure img {
+  max-width: 5.25in !important;
+}
+.evolution .figure > .title {
+  font-size: x-small;
+  color: #cc9900;
+}
+.evolution.non-majors {
+  background-color: #ffffcc;
+  page-break-inside: avoid;
+}
+.evolution.non-majors * p {
+  font-family: inherit;
+}
+.evolution.non-majors::before {
+  background-image: url("ccap-anatomylogy/CNX_anatomyNonMaj_Evolution.svg");
+  padding-top: 0.65in;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  margin-left: -1.05em;
+  margin-right: -2.05em;
+  margin-top: -0.03in;
+}
+.evolution.non-majors > .title {
+  display: none;
+}
+.evolution.non-majors .body .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+}
+.evolution.non-majors .figure img {
+  max-width: 5.25in !important;
+}
+.evolution.non-majors .figure > .title {
+  font-size: x-small;
+  color: #cc9900;
+}
+.scientific {
+  background-color: #ffffcc;
+  page-break-inside: avoid;
+}
+.scientific * p {
+  font-family: inherit;
+}
+.scientific::before {
+  background-image: url("ccap-anatomylogy/CNX_anatomyMaj_Scientific.svg");
+  padding-top: 0.65in;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  margin-left: -1.05em;
+  margin-right: -2.05em;
+  margin-top: -0.03in;
+}
+.scientific > .title {
+  display: none;
+}
+.scientific .body .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+}
+.scientific .figure img {
+  max-width: 5.25in !important;
+}
+.scientific .figure > .title {
+  font-size: x-small;
+  color: #cc9900;
+}
+.scientific.non-majors {
+  background-color: #ffffcc;
+  page-break-inside: avoid;
+}
+.scientific.non-majors * p {
+  font-family: inherit;
+}
+.scientific.non-majors::before {
+  background-image: url("ccap-anatomylogy/CNX_anatomyNonMaj_Scientific.svg");
+  padding-top: 0.65in;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  margin-left: -1.05em;
+  margin-right: -2.05em;
+  margin-top: -0.03in;
+}
+.scientific.non-majors > .title {
+  display: none;
+}
+.scientific.non-majors .body .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+}
+.scientific.non-majors .figure img {
+  max-width: 5.25in !important;
+}
+.scientific.non-majors .figure > .title {
+  font-size: x-small;
+  color: #cc9900;
+}
+/******************************************************
+ * Special Feature 
+ ******************************************************/
+.interactive {
+  page-break-inside: avoid;
+}
+.interactive::before {
+  background-image: url("ccap-anatomylogy/CNX_anatomyMaj_Link.svg");
+  padding-top: .75in;
+  padding-bottom: .50in;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-after: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  margin-left: -0.2in;
+}
+.interactive.non-majors::before {
+  background-image: url("ccap-anatomylogy/CNX_anatomyNonMaj_Concept.svg");
+}
+.interactive img {
+  width: 1.25in;
+  height: 1.25in;
+  display: inherit;
+  margin-top: -1.25in;
+  margin-left: 2.25in;
+}
+.interactive * p {
+  margin-left: -0.15in;
+  margin-top: 1em;
+}
+.interactive .title {
+  display: none;
+}
+/******************************************************
+
+ * End of chapter customizations
+ ******************************************************/
+.cnx-eoc {
+  -webkit-column-count: 2;
+  column-count: 2;
+  columns: 2;
+  column-fill: auto;
+  column-width: auto !important;
+  column-fill: balance !important;
+  page-break-inside: auto;
+  column-break-inside: auto;
+}
+.cnx-eoc > .title {
+  text-transform: uppercase !important;
+  text-align: left;
+  color: #339999 !important;
+  font-size: large !important;
+  font-weight: bold !important;
+  page-break-after: avoid;
+}
+.cnx-eoc.summary {
+  -webkit-column-count: 1;
+  column-count: 1;
+  columns: 1;
+  column-fill: auto;
+}
+.cnx-eoc.summary > .title {
+  content: "Chapter Summary";
+  margin-top: 1em;
+}
+.cnx-eoc.summary > .section .title > a {
+  color: black;
+  page-break-after: avoid;
+}
+.cnx-eoc.summary p:nth-of-type(1) {
+  text-indent: 0em;
+  margin-top: 1em;
+}
+.cnx-eoc.summary p {
+  text-indent: 2em;
+}
+.cnx-eoc .references p {
+  text-indent: 0em;
+}
+.cnx-eoc .problem .orderedlist {
+  margin-left: 4em;
+}
+.cnx-eoc.solutions {
+  display: none !important;
+}
+.cnx-eoc .empty {
+  display: hidden;
+}
+.art-exercise > .title {
+  content: "Art Connection Questions";
+  column-span: all;
+  margin-top: 1em;
+}
+.multiple-choice > .title {
+  content: "Review Questions";
+  column-span: all;
+  margin-top: 1em;
+}
+.free-response > .title {
+  content: "Critical Thinking Questions";
+  column-span: all;
+  margin-top: 1em;
+}
+.multiple-choice > .section > .title,
+.free-response > .section > .title,
+.art-exercise > .section > .title {
+  display: none;
+}
+/******************************************************
  * Generic Elements
  ******************************************************/
 body {
   font-size: 9.5pt;
-  text-align: justify;
+  text-align: justify !important;
 }
 img {
   max-height: 9.5in;
@@ -1834,6 +2344,7 @@ h1,
 h2,
 h3 {
   margin: 0.5em 0em;
+  text-align: left !important;
 }
 h2 {
   color: #339999;
@@ -1879,6 +2390,7 @@ p:nth-of-type(1) {
   text-indent: 0em;
 }
 p {
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   /* subsequent paragraphs are indented */
 
   text-indent: 2em;
@@ -1915,4 +2427,172 @@ subfigure {
   color: white;
   background-color: #339999;
   margin: .5em 0;
+}
+/******************************************************
+ * Tables TODO: simplify/regroup code block //latest
+ ******************************************************/
+.table {
+  page-break-inside: auto;
+  prince-caption-page: all;
+}
+.table caption {
+  padding-top: .5em;
+  padding-bottom: 1em;
+  font-weight: bold;
+  color: #cc9900;
+  caption-side: bottom;
+}
+.table td.header {
+  background-color: #ffffcc;
+  border-bottom: 1pt solid #339999;
+}
+.table tr {
+  page-break-inside: avoid;
+}
+.table th {
+  color: black;
+  background-color: #ffffcc;
+  font-size: small;
+  border-style: none !important;
+  border-top: 1pt solid #339999 !important;
+  border-bottom: 1pt solid #339999 !important;
+  text-align: center !important;
+}
+.table tr:first-child > th:first-child {
+  padding: .25em !important;
+  color: #cc9900 !important;
+  font-size: medium;
+  margin-left: -1em;
+  text-align: center !important;
+  border-style: none !important;
+  background-color: transparent !important;
+}
+.table table {
+  border: 0 !important;
+  border-bottom: 1pt solid #339999 !important;
+}
+/******************************************************
+ * Figures/Subfigures
+ ******************************************************/
+.figure {
+  font-size: 9pt;
+  padding-bottom: 1em;
+}
+.figure > .title {
+  display: inline;
+  color: #cc6633;
+  font-weight: bold;
+  text-align: center;
+}
+.figure img {
+  margin: 1em 0;
+  max-width: 5.5in !important;
+}
+.figure > .caption {
+  display: inline;
+  text-align: center;
+}
+.target-figure {
+  font-weight: bold;
+  color: #cc6633;
+}
+.cnx-figure-horizontal .informalfigure .caption {
+  text-align: center;
+}
+.cnx-figure-horizontal .informalfigure .caption * {
+  font-weight: normal !important;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+/******************************************************
+ * Equations
+ ******************************************************/
+div.book > div.preface > div.section div.equation > *:last-child::after,
+div.book > div.part > div.preface > div.section div.equation > *:last-child::after,
+div.book > div.chapter > div.section div.equation > *:last-child::after,
+div.book > div.part > div.chapter > div.section div.equation > *:last-child::after,
+div.book > div.appendix > div.section div.equation > *:last-child::after,
+div.book > div.part > div.appendix > div.section div.equation > *:last-child::after {
+  content: "";
+}
+/******************************************************
+ * End of Book Solutions
+ ******************************************************/
+div.end-of-book-solutions div.solution {
+  display: inline;
+}
+div.end-of-book-solutions div.solution > div.title {
+  display: inline;
+}
+div.end-of-book-solutions div.solution > div.title a.solution {
+  color: black;
+  font-weight: bold;
+}
+div.end-of-book-solutions div.solution > div.body {
+  margin-right: .65em;
+  display: inline;
+}
+div.end-of-book-solutions div.solution > div.body * {
+  display: inline;
+}
+div.end-of-book-solutions div.solution > div.body > a.target-figure {
+  margin: 0em .25em;
+}
+/******************************************************
+ * Index
+ ******************************************************/
+.index {
+  text-align: left !important;
+  column-width: auto !important;
+}
+.index .title h2 {
+  padding: 0;
+  color: #339999;
+  text-transform: uppercase;
+  font-size: x-large;
+}
+.index h3.letter {
+  color: inherit;
+  font-weight: bold;
+  font-size: medium;
+  padding-top: .5em;
+}
+.index .index-term {
+  font-size: small;
+}
+.index a {
+  font-weight: bold;
+}
+div.book > div.preface > div.cnx-eoc,
+div.book > div.part > div.preface > div.cnx-eoc {
+  counter-reset: /*exercise*/ eoc-section -1;
+}
+div.book > div.chapter > div.cnx-eoc,
+div.book > div.part > div.chapter > div.cnx-eoc {
+  counter-reset: /*exercise*/ eoc-section -1;
+}
+div.book > div.appendix > div.cnx-eoc,
+div.book > div.part > div.appendix > div.cnx-eoc {
+  counter-reset: /*exercise*/ eoc-section -1;
+}
+div.end-of-book-solutions {
+  prince-text-replace: "Answer:" "";
+}
+div.end-of-book-solutions > .title {
+  content: "Answer Key";
+  color: #339999;
+  margin-left: -0.5em;
+  text-transform: uppercase;
+  font-size: x-large;
+  font-weight: bold;
+  background-color: transparent;
+}
+div.end-of-book-solutions .chapter-area {
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+div.end-of-book-solutions .chapter-area a.solution {
+  color: black;
+}
+div.end-of-book-solutions .chapter-area a.chapter * {
+  color: black;
+  font-size: medium;
 }
