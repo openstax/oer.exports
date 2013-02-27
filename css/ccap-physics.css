@@ -208,11 +208,14 @@ p {
   align: top;
   text-align: left;
 }
-.table-caption {
+div.table-caption {
   font-weight: normal;
   color: black;
   display: inline;
   margin-left: 0.5em;
+}
+div.table-caption.caption {
+  display: inline;
 }
 .itemizedlist .title {
   margin: 0px;
@@ -343,7 +346,7 @@ h6 {
 
   border-color: black !important;
 }
-.table caption {
+div.table-caption.caption {
   caption-side: top;
   font-weight: bold;
 }
@@ -909,8 +912,8 @@ div.book > div.preface > div.section > div.titlepage h2::before,
 div.book > div.part > div.preface > div.section > div.titlepage h2::before {
   display: none !important;
 }
-div.book > div.preface > div.titlepage > div > div h1.title span.cnx-gentext-t,
-div.book > div.part > div.preface > div.titlepage > div > div h1.title span.cnx-gentext-t {
+div.book > div.preface > div.titlepage > div > div h1.title,
+div.book > div.part > div.preface > div.titlepage > div > div h1.title {
   string-set: cnx-header "" content() "";
 }
 div.book > div.chapter,
@@ -1660,6 +1663,21 @@ div.book > div.preface > div.titlepage > div > div:not(:first-child),
 div.book > div.chapter > div.titlepage > div > div:not(:first-child),
 div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
   display: none;
+}
+/****** Preface ******/
+/*  NOTE: book specific preface. Prior to implementing parts/collection/subcollection 
+structure preface section module titles were passed in <h3> and subsection titles in <h4>.
+ These elements have become <h2> and <h3> tags respectively. Follow code block contains rulesets
+ to ensure sizing/styling  */
+.preface > .section h2 {
+  color: #0061aa;
+  font-weight: normal;
+  font-size: medium;
+}
+.preface > .section h3 {
+  font-weight: bold;
+  font-size: small;
+  color: black;
 }
 /*************** Hide ALL solutions ***********/
 .solutions {
