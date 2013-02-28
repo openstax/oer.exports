@@ -185,55 +185,36 @@ div.section .titlepage .abstract {
 /******************************************************
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
-.art-connection { 
-  .x-feature(black, @cream, CNX_anatomy_Art); //same svg header for maj/nonMaj
-  p { text-indent: 0em; } //don't indent p - override default feature behavior
-} 
+/****** Features ******/
+// The args are title color, background color, and path to SVG
+.aging { .x-feature(#330033, @cream, aging, 0.60in); }
+.career { .x-feature(#006666, @cream, career, 0.60in); }
+.diseases { .x-feature(#336600, @cream, diseases, 0.60in); }
+.disorders { .x-feature(#336633, @cream, disorders, 0.60in); }
+.everyday { .x-feature(#993333, @cream, everyday, 0.60in); }
+.homeostatic { .x-feature(#993333, @cream, homeostatic, 0.60in); }
 
-.career { 
-	.x-feature(black, @cream, CNX_anatomyMaj_Career); 
-	&.non-majors { .x-feature(black, @cream, CNX_anatomyNonMaj_Career); }
-}
 
-.everyday { 
-	.x-feature(black, @cream, CNX_anatomyMaj_Everyday); 
-	&.non-majors { .x-feature(black, @cream, CNX_anatomyNonMaj_Everyday); }
-}
-
-.evolution { 
-	.x-feature(black, @cream, CNX_anatomyMaj_Evolution); 
-	&.non-majors { .x-feature(black, @cream, CNX_anatomyNonMaj_Evolution); }
-}
-
-.scientific  { 
-	.x-feature(black, @cream, CNX_anatomyMaj_Scientific ); 
-	&.non-majors { .x-feature(black, @cream, CNX_anatomyNonMaj_Scientific ); }
-}
-
-.x-feature (@color, @bg-color, @svg) {
-  background-color: @bg-color;
-  page-break-inside: avoid;
-  * p { 
-    font-family:inherit; 
-  }
-
+.x-feature (@color, @bg-color, @svg, @padding-top) {
   &::before {
-    background-image: url("ccap-anatomylogy/@{svg}.svg");
-    padding-top: 0.65in; // 0.65 in is from the SVG files
+    padding-top: @padding-top; //0.60 + margin-top. 0.60 is from the SVG files
     background-repeat: no-repeat;
     background-position: top left;
     background-position: top outside;
     page-break-inside: avoid;
-    page-break-after: avoid;
-  	background-color: white;
+	page-break-after: avoid;	
+	background-color: white;
     content: "";
-    display:block;
+    display: block;
     // the following are tweaked so the overlays really do over lay
     margin-left: -1.05em;
-    margin-right: -2.05em;
-    margin-top: -0.03in;
+    margin-right: -1.05em;
+    margin-top: -0.05in;
   }
-
+   
+  background-color: @bg-color;  
+  &::before { background-image: url("ccap-anatomy/@{svg}.svg"); }
+  
   > .title { display: none; } //supress title in pdf (webview only)
  
   .body .title { 
@@ -249,7 +230,7 @@ div.section .titlepage .abstract {
     > .title { font-size: x-small; color: @orange; }
   }
 }
-
+}
 
 /******************************************************
  * Special Feature 
