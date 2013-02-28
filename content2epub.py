@@ -14,6 +14,7 @@ import util
 
 DEBUG= 'DEBUG' in os.environ
 
+here = os.path.abspath(os.path.dirname(__file__))
 BASE_PATH = os.getcwd()
 
 EMBED_FONTS = [
@@ -53,13 +54,12 @@ def convert(dbk1, temp_dir, cssFile, xslFile, epubFile):
   # Step 1 (Convert Docbook to EPUB HTML)
   # The epub script will generate HTML files in temp_dir
   # It will not return anything
-  orig_dir = os.getcwd()
 
   RUBY_BIN = 'ruby'
-  DBK_TO_EPUB_BIN = os.path.abspath('./docbook-xsl/epub/bin/dbtoepub')
+  DBK_TO_EPUB_BIN = os.path.join(here, 'docbook-xsl/epub/bin/dbtoepub')
   DBK_FILE_NAME = 'collection.dbk'
 
-  EMBED_FONT_ARGS = [['--font', os.path.join(os.getcwd(), path)] for path in EMBED_FONTS]
+  EMBED_FONT_ARGS = [['--font', os.path.join(here, path)] for path in EMBED_FONTS]
 
   DBK_FILE = os.path.join(temp_dir, DBK_FILE_NAME)
 
