@@ -189,10 +189,7 @@ div.section .titlepage .abstract {
 /******************************************************
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
-.art-connection { 
-  .x-feature(black, @cream, CNX_Bio_Art); //same svg header for maj/nonMaj
-  p { text-indent: 0em; } //don't indent p - override default feature behavior
-} 
+.art-connection { .x-feature(black, @cream, CNX_Bio_Art); } //same svg header for maj/nonMaj 
 
 .career { 
 	.x-feature(black, @cream, CNX_BioMaj_Career); 
@@ -216,9 +213,8 @@ div.section .titlepage .abstract {
 
 .x-feature (@color, @bg-color, @svg) {
   background-color: @bg-color;
-  * p { 
-    font-family:inherit; 
-  }
+  * p { font-family:inherit; }
+  p:nth-of-type(2) { text-indent: 0em; } // 1st para: feature body title 2nd para: feature body text (do not indent)
 
   &::before {
     background-image: url("ccap-biology/@{svg}.svg");
