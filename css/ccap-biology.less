@@ -187,8 +187,8 @@ div.section .titlepage .abstract {
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
 .art-connection { 
-  .x-feature(black, @cream, CNX_Bio_Art); //same svg header for maj/nonMaj
-  p { text-indent: 0em; } //don't indent p - override default feature behavior
+  .x-feature(black, @cream, CNX_Bio_Art); //same svg header for maj/nonMaj 
+  p:nth-of-type(3) { text-indent: 0em; } // 1st para: contains feature body title. title 2nd para: figure/caption 3rd para feature question (do not indent)
 } 
 
 .career { 
@@ -213,10 +213,11 @@ div.section .titlepage .abstract {
 
 .x-feature (@color, @bg-color, @svg) {
   background-color: @bg-color;
-  page-break-inside: avoid;
-  * p { 
-    font-family:inherit; 
-  }
+  * p { font-family: inherit; }
+  p:nth-of-type(1) { 
+    text-indent: 0em !important; 
+    page-break-after: avoid; // 1st para contains feature body title no break after
+  } 
 
   &::before {
     background-image: url("ccap-biology/@{svg}.svg");
@@ -237,12 +238,15 @@ div.section .titlepage .abstract {
 
   > .title { display: none; } //supress title in pdf (webview only)
  
-  .body .title { 
+  > .body > .title { 
     text-align: left !important;
     font-size: large;
     margin: .25em 0;
     color: black;
     font-weight:bold;
+    //no breaks before/after title
+    page-break-after: avoid; 
+    page-break-before: avoid;
    }   
   
   .figure {
@@ -299,7 +303,7 @@ div.section .titlepage .abstract {
   column-width: auto !important;
   column-fill: balance !important;
   page-break-inside: auto;
-  column-break-inside: auto;  
+  text-align: left; 
     	
   > .title  {
     text-transform: uppercase !important;
