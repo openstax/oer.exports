@@ -214,11 +214,8 @@ div.section .titlepage .abstract {
 .x-feature (@color, @bg-color, @svg) {
   background-color: @bg-color;
   * p { font-family: inherit; }
-  p:nth-of-type(2) { 
-    text-indent: 0em !important; 
-    page-break-before: avoid; // 1st para contains feature body title no break before
-  } 
-
+  p:nth-of-type(2) { text-indent: 0em !important; } // this is a hack to override the empty p element resulting from adding
+                                                    // a secondary title to features. TODO: fix html output ex:<p title="Forensic Scientist"><span id="m10052-fs-id1808500"> </span></p>
   &::before {
     background-image: url("ccap-biology/@{svg}.svg");
     padding-top: 0.65in; // 0.65 in is from the SVG files
