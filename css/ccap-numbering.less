@@ -14,7 +14,7 @@
 @example: "Example ";
 @exercise: "Exercise ";
 
-div.book, div.book > div.part {
+div.book {
   /* --------------------------------------
    *  Define how counters are incremented
    * --------------------------------------
@@ -22,7 +22,7 @@ div.book, div.book > div.part {
 
   counter-reset: chapter appendix;
 
-  > div.chapter { counter-increment: chapter; }
+  div.chapter { counter-increment: chapter; }
   > div.appendix { counter-increment: appendix; }
 
 
@@ -44,7 +44,7 @@ div.book, div.book > div.part {
     > div.titlepage > div > div h1.title {string-set: cnx-header @S content() @E;}
  }
 
-  > div.chapter { .x-prefixed(@chapter,  counter(chapter, decimal), target-counter(attr(href), chapter), "." ); }
+  div.chapter { .x-prefixed(@chapter,  counter(chapter, decimal), target-counter(attr(href), chapter), "." ); }
   > div.appendix { .x-prefixed(@appendix, counter(appendix, upper-latin), target-counter(attr(href), appendix, upper-latin) ); }
 
 
