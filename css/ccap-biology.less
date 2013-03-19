@@ -1,4 +1,4 @@
- /* Styles used when generating a PDF from xhtml+css
+/* Styles used when generating a PDF from xhtml+css
  ***************************************************/
 @teal: #003333;
 @light-green: #ccffcc;
@@ -186,38 +186,38 @@ div.section .titlepage .abstract {
 /******************************************************
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
-.art-connection { 
-  .x-feature(black, @cream, CNX_Bio_Art); //same svg header for maj/nonMaj 
+.art-connection {
+  .x-feature(black, @cream, CNX_Bio_Art); //same svg header for maj/nonMaj
   p:nth-of-type(3) { text-indent: 0em; } // 1st para: contains feature body title. title 2nd para: figure/caption 3rd para feature question (do not indent)
-} 
-
-.career { 
-	.x-feature(black, @cream, CNX_BioMaj_Career); 
-	&.non-majors { .x-feature(black, @cream, CNX_BioNonMaj_Career); }
 }
 
-.everyday { 
-	.x-feature(black, @cream, CNX_BioMaj_Everyday); 
-	&.non-majors { .x-feature(black, @cream, CNX_BioNonMaj_Everyday); }
+.career {
+  .x-feature(black, @cream, CNX_BioMaj_Career);
+  &.non-majors { .x-feature(black, @cream, CNX_BioNonMaj_Career); }
 }
 
-.evolution { 
-	.x-feature(black, @cream, CNX_BioMaj_Evolution); 
-	&.non-majors { .x-feature(black, @cream, CNX_BioNonMaj_Evolution); }
+.everyday {
+  .x-feature(black, @cream, CNX_BioMaj_Everyday);
+  &.non-majors { .x-feature(black, @cream, CNX_BioNonMaj_Everyday); }
 }
 
-.scientific  { 
-	.x-feature(black, @cream, CNX_BioMaj_Scientific ); 
-	&.non-majors { .x-feature(black, @cream, CNX_BioNonMaj_Scientific ); }
+.evolution {
+  .x-feature(black, @cream, CNX_BioMaj_Evolution);
+  &.non-majors { .x-feature(black, @cream, CNX_BioNonMaj_Evolution); }
+}
+
+.scientific  {
+  .x-feature(black, @cream, CNX_BioMaj_Scientific );
+  &.non-majors { .x-feature(black, @cream, CNX_BioNonMaj_Scientific ); }
 }
 
 .x-feature (@color, @bg-color, @svg) {
   background-color: @bg-color;
   * p { font-family: inherit; }
-  p:nth-of-type(1) { 
-    text-indent: 0em !important; 
+  p:nth-of-type(1) {
+    text-indent: 0em !important;
     page-break-after: avoid; // 1st para contains feature body title no break after
-  } 
+  }
 
   &::before {
     background-image: url("ccap-biology/@{svg}.svg");
@@ -227,7 +227,7 @@ div.section .titlepage .abstract {
     background-position: top outside;
     page-break-inside: avoid;
     page-break-after: avoid;
-  	background-color: white;
+    background-color: white;
     content: "";
     display:block;
     // the following are tweaked so the overlays really do over lay
@@ -237,18 +237,18 @@ div.section .titlepage .abstract {
   }
 
   > .title { display: none; } //supress title in pdf (webview only)
- 
-  > .body > .title { 
+
+  > .body > .title {
     text-align: left !important;
     font-size: large;
     margin: .25em 0;
     color: black;
     font-weight:bold;
     //no breaks before/after title
-    page-break-after: avoid; 
+    page-break-after: avoid;
     page-break-before: avoid;
-   }   
-  
+   }
+
   .figure {
     img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
     > .title { font-size: x-small; color: @tuscany; }
@@ -257,11 +257,11 @@ div.section .titlepage .abstract {
 
 
 /******************************************************
- * Special Feature 
+ * Special Feature
  ******************************************************/
 .interactive {
   page-break-inside: avoid;
-     
+
   &::before {
     background-image: url("ccap-biology/CNX_BioMaj_Link.svg");
     padding-top: .75in; //0.75 + margin-top. 0.75in is from the SVG files
@@ -270,27 +270,27 @@ div.section .titlepage .abstract {
     background-position: top left;
     background-position: top outside;
     page-break-after: avoid;
-  	background-color: white;
+    background-color: white;
     content: "";
     display: block;
     // the following are tweaked so the overlays really do over lay
     margin-left: -.20in;
    }
-  
+
   &.non-majors { &::before { background-image: url("ccap-biology/CNX_BioNonMaj_Concept.svg"); } }
-    
+
   img {
-    // the following are tweaked so the overlays really do over lay						      
+    // the following are tweaked so the overlays really do over lay
     width: @qr;
     height: @qr;
     display: inherit;
     margin-top: -1.25in;
     margin-left: 2.25in;
-  }  
-  
+  }
+
    * p { margin-left: -.15in; margin-top: 1em;}
-   
-   .title { display: none; }  
+
+   .title { display: none; }
 }
 
 
@@ -303,8 +303,8 @@ div.section .titlepage .abstract {
   column-width: auto !important;
   column-fill: balance !important;
   page-break-inside: auto;
-  text-align: left; 
-    	
+  text-align: left;
+
   > .title  {
     text-transform: uppercase !important;
     text-align: left; //override from base .x-column-count
@@ -314,26 +314,26 @@ div.section .titlepage .abstract {
     page-break-after: avoid;
   }
 
-  &.summary { 
+  &.summary {
     .x-column-count(1);
     > .title { content: "Chapter Summary"; margin-top: 1em; }
-    > .section .title > a { color: black; page-break-after: avoid; } 
-    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; } 
+    > .section .title > a { color: black; page-break-after: avoid; }
+    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
     p { text-indent: 2em; }
-  } 
-  
+  }
+
   //ccap-base sets this so override it here
   .references p { text-indent: 0em; }
-  
+
   .problem .orderedlist { margin-left: 4em;}
 
-  &.solutions  { display: none !important; } 
-  
+  &.solutions  { display: none !important; }
+
   .empty { display: hidden; } //hide element but count it   *didn't use visibility property which would cause element to still take up space on page
 }
 
 .art-exercise > .title { content: "Art Connection Questions"; column-span: all; margin-top: 1em; } //need to clean redundant column-span/margin rules - this is quick and dirty
-.multiple-choice > .title { content: "Review Questions"; column-span: all; margin-top: 1em; } //todo: clean code 
+.multiple-choice > .title { content: "Review Questions"; column-span: all; margin-top: 1em; } //todo: clean code
 .free-response > .title { content: "Critical Thinking Questions"; column-span: all; margin-top: 1em; }
 
 .multiple-choice,.free-response,.art-exercise {
@@ -483,7 +483,7 @@ img, figure, subfigure  { margin: 1em; }
     background-color: @cream;
     border-bottom: @table-border;
   }
-  
+
   tr { page-break-inside: avoid;}
 
   th {
@@ -543,9 +543,9 @@ img, figure, subfigure  { margin: 1em; }
   color: @tuscany;
 }
 
-.cnx-figure-horizontal .informalfigure .caption { 
+.cnx-figure-horizontal .informalfigure .caption {
   text-align: center; //center subfigure caption
-  * { 
+  * {
     font-weight: normal !important; //override strong tag
     font-family: @font-family-bio;
   }
@@ -556,10 +556,9 @@ img, figure, subfigure  { margin: 1em; }
  * Equations
  ******************************************************/
 // Hide equation numbers in the entire book
-div.book,
-div.book > div.part {
+div.book {
   > div.preface,
-  > div.chapter,
+  div.chapter,
   > div.appendix {
     > div.section div.equation > *:last-child::after { content: ""; }
   }
@@ -619,9 +618,9 @@ div.end-of-book-solutions {
     font-size: medium;
     padding-top:.5em;
   }
- 
- .index-term { font-size: small; } 
- 
+
+ .index-term { font-size: small; }
+
   a { font-weight:bold; }
 }
 
@@ -654,11 +653,11 @@ div.end-of-book-solutions {
     font-family: @font-family-bio;
     a {
       &.solution { color: black; }
-      &.chapter * { 
-        color: black; 
+      &.chapter * {
+        color: black;
         font-size: medium;
       }
-    
+
     }
   }
    prince-text-replace: "Answer:" ""; //strip out "Answer:" eob solutions for print_pdf
