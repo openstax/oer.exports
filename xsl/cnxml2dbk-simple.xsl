@@ -49,7 +49,9 @@
 </xsl:template>
 
 <xsl:template match="c:note">
-    <db:note><xsl:call-template name="block-id-and-children"/></db:note>
+    <db:note><xsl:call-template name="block-id-and-children"/>
+    <xsl:apply-templates select="db:formalpara"/>
+    </db:note>
 </xsl:template>
 <xsl:template match="c:note[@type='warning']">
     <db:warning><xsl:call-template name="block-id-and-children"/></db:warning>
