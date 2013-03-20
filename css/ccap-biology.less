@@ -174,7 +174,6 @@ div.section .titlepage .abstract {
 
   >.itemizedlist {
     &::before {
-      content: "By the end of this section, you will be able to:";
       font-size: small;
       font-family: @font-family-bio;
     }
@@ -214,6 +213,7 @@ div.section .titlepage .abstract {
 .x-feature (@color, @bg-color, @svg) {
   background-color: @bg-color;
   * p { font-family: inherit; }
+
   p:nth-of-type(1) {
     text-indent: 0em !important;
     page-break-after: avoid; // 1st para contains feature body title no break after
@@ -476,6 +476,10 @@ img, figure, subfigure  { margin: 1em; }
     font-weight:bold;
     color: @green;
     caption-side:bottom;
+    > .table-caption.caption { 
+      color: black; 
+      font-weight: normal;
+    }
   }
 
   // Add styling for table entries that should render as table headers
@@ -496,20 +500,25 @@ img, figure, subfigure  { margin: 1em; }
     text-align: center !important;
   }
 
-  tr:first-child > th:first-child  {
-    padding: .25em !important;
-    color: @green !important;
-    font-size:medium;
-    margin-left: -1em;
-    text-align: center !important;
-    border-style: none !important;
-    background-color: transparent !important;
+  tr:first-child { 
+    page-break-after: avoid;
+    
+    > th:first-child  {
+      padding: .25em !important;
+      color: @green !important;
+      font-size:medium;
+      margin-left: -1em;
+      text-align: center !important;
+      border-style: none !important;
+      background-color: transparent !important;
+    } 
   }
 
   table {
     border: 0 !important;
     border-bottom: @table-border !important;
   }
+  
 }
 
 
