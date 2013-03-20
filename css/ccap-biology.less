@@ -187,7 +187,7 @@ div.section .titlepage .abstract {
  ******************************************************/
 .art-connection {
   .x-feature(black, @cream, CNX_Bio_Art); //same svg header for maj/nonMaj
-  p:nth-of-type(2) { text-indent: 0em; } // 1st para: figure/caption 2nd: para feature question (do not indent)
+  p:nth-of-type(4) { text-indent: 0em; } // para feature question (do not indent)
 }
 
 .career {
@@ -213,9 +213,9 @@ div.section .titlepage .abstract {
 .x-feature (@color, @bg-color, @svg) {
   background-color: @bg-color;
   * p { font-family: inherit; }
-  p:nth-of-type(1) {
+  p:nth-of-type(2) {
     text-indent: 0em !important;
-    page-break-after: avoid; // 1st para contains feature body title no break after
+    page-break-before: avoid; // previous para contains feature body title no break 
   }
 
   &::before {
@@ -237,8 +237,8 @@ div.section .titlepage .abstract {
 
   > .title { display: none; } //supress title in pdf (webview only)
 
-  > .body .titlepage h5 { 
-    margin: 1em;
+  > .body > .title { 
+    margin: 0.5em 0em;
     text-align: left !important;
     font-size: large;
     color: black;
