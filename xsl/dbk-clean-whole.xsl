@@ -161,7 +161,7 @@
      This shouldn't be a problem because none of the other templates in this file should apply.
 -->
 <xsl:template mode="glossary" match="@xml:id"/>
-<xsl:template mode="glossary" match="*">
+<xsl:template mode="glossary" match="@*|node()">
   <xsl:copy>
     <xsl:apply-templates mode="glossary" select="@*|node()"/>
   </xsl:copy>
