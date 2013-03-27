@@ -135,7 +135,7 @@
 
 <xsl:template match="c:para[c:title]">
     <db:formalpara>
-		<xsl:copy-of select="@*|c:title"/>
+		<xsl:copy-of select="@*|c:title/text()"/>
 		<db:para>
 			<xsl:apply-templates select="*[local-name()!='title']|text()|processing-instruction()|comment()"/>
 		</db:para>
