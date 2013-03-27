@@ -7,7 +7,6 @@
 @orange: #cc9900;
 @green: #339933;
 @cream: #ffffcc;
-@orange: #cc6633;
 @gray: #ccc;
 
 /******************************************************
@@ -20,7 +19,7 @@ For most smartphones the relationship between scan distance and minimum QR code 
  ******************************************************/
 @qr: 1.25in;
 @table-border: 1pt solid @teal;
-@page-width: 5.5in;
+@page-width: 6in;
 // The base CCAP books use sans fonts but the anatomy books use serif fonts.
 @font-family-anatomy: Liberation Serif, serif, @stix-fonts;
 
@@ -194,6 +193,27 @@ div.section .titlepage .abstract {
   &.disorders { .x-feature(#336633, @cream, disorders, 0.59in); }
   &.everyday { .x-feature(#993333, @cream, everyday, 0.44in); }
   &.homeostatic { .x-feature(#993333, @cream, homeostatic, 0.57in); }
+  &.interactive { 
+    page-break-inside: avoid; //no breaks within this feature
+    .x-feature(#993333, @cream, interactive, 0.43in);
+    img {   //center qr code
+      display: block;
+      margin-left: auto;
+      margin-right: auto
+    }
+    .link { 
+      color: @orange !important; 
+      font-weight: bold; 
+    }  
+  }
+  &.interactive.um { 
+    .x-feature(#993333, @cream, interactive, 0.43in); 
+    img {
+      display: inline; //override display block from interactive feature L#200 
+      padding: 1em;
+    }
+    page-break-inside: auto !important; //override no break breaks from interactive feature L#197
+    }
 }
 
 .x-feature (@color, @bg-color, @svg, @padding-top) {
@@ -224,6 +244,7 @@ div.section .titlepage .abstract {
     margin: .25em 0;
     color: black;
     font-weight:bold;
+    page-break-after: avoid;
    }   
   
   .figure {
@@ -236,39 +257,7 @@ div.section .titlepage .abstract {
 /******************************************************
  * Special Feature 
  ******************************************************/
-.interactive {
-  page-break-inside: avoid;
-     
-  &::before {
-    background-image: url("ccap-anatomylogy/CNX_anatomyMaj_Link.svg");
-    padding-top: .75in; //0.75 + margin-top. 0.75in is from the SVG files
-    padding-bottom: .50in;
-    background-repeat: no-repeat;
-    background-position: top left;
-    background-position: top outside;
-    page-break-after: avoid;
-  	background-color: white;
-    content: "";
-    display: block;
-    // the following are tweaked so the overlays really do over lay
-    margin-left: -.20in;
-   }
-  
-  &.non-majors { &::before { background-image: url("ccap-anatomylogy/CNX_anatomyNonMaj_Concept.svg"); } }
-    
-  img {
-    // the following are tweaked so the overlays really do over lay						      
-    width: @qr;
-    height: @qr;
-    display: inherit;
-    margin-top: -1.25in;
-    margin-left: 2.25in;
-  }  
-  
-   * p { margin-left: -.15in; margin-top: 1em;}
-   
-   .title { display: none; }  
-}
+
 
 
 /******************************************************
