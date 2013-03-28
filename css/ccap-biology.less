@@ -102,11 +102,11 @@ div.part > div.titlepage {display:none;}
  * Preface
  ******************************************************/
 .preface {
-  h1.title {
+    h1.title {
     color: @green;
     font-size: xx-large;
     &:first-child {
-      margin:0;
+      margin: .5em 0;
       background-color: @green;
       color: white !important;
      }
@@ -116,6 +116,14 @@ div.part > div.titlepage {display:none;}
      font-size: medium;
      margin: .5em 0;
    }
+  
+  h2 {
+    color: @green;
+    font-size: large;
+    > .cnx-gentext-t {
+      &::before { display: none; }
+    } 
+  } 
   .itemizedlist {
     list-style-type:none;
     .title {
@@ -124,6 +132,11 @@ div.part > div.titlepage {display:none;}
       margin: .5em 0;
       font-weight: bold;
     }
+  }
+  
+  .table { //table without separators hide table caption and table border
+    caption { display: none !important; }
+    table { border-bottom: none !important; }
   }
 }
 
