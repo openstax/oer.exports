@@ -4,7 +4,7 @@ To install and get it running:
 
 # System Dependencies
 
-Tested with python 2.7 but it will probably work with python 2.5 or higher.
+Tested with python 2.4 and python 2.7 but it will probably work with all versions in between.
 
 ## For Ubuntu/Debian
 
