@@ -4,6 +4,8 @@ To install and get it running:
 
 # System Dependencies
 
+Tested with python 2.7 but it will probably work with python 2.5 or higher.
+
 ## For Ubuntu/Debian
 
     sudo apt-get install python-virtualenv        # for the following commands
