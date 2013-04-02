@@ -42,11 +42,12 @@ For most smartphones the relationship between scan distance and minimum QR code 
     max-width: none !important;
   }
 
-  >.title {
+  > .title {
     content: "Introduction";
     font-size: x-large;
   }
 }
+
 
 /******************************************************
  * Table of Contents TODO: simplify/regroup code block
@@ -70,7 +71,6 @@ For most smartphones the relationship between scan distance and minimum QR code 
     font-weight: bold;
     color: @teal;
     display:inline !important;
-
     &::before { display: none !important; }
   }
 
@@ -88,8 +88,9 @@ For most smartphones the relationship between scan distance and minimum QR code 
   > ul > li { padding-bottom: .5em;
     li { padding-bottom: 0 !important; }
   }
-   .target-appendix .cnx-gentext-appendix { display:inline; }
+  .target-appendix .cnx-gentext-appendix { display:inline; }
 }
+
 
 /******************************************************
  * Preface
@@ -118,8 +119,8 @@ For most smartphones the relationship between scan distance and minimum QR code 
   }
   
   .cnx-gentext-t::before { display: none; } //hide pipe before section title
-  
 }
+
 
 /******************************************************
  * Chapter Objectives
@@ -134,7 +135,7 @@ For most smartphones the relationship between scan distance and minimum QR code 
     font-weight: bold;
     text-align: center !important;
     border: 0;
-    min-width:5.40in;
+    min-width: 5.40in;
   }
   > ul { margin-left: 0.5in; }
 
@@ -164,7 +165,7 @@ div.section .titlepage .abstract {
   page-break-inside:avoid;
   page-break-before: avoid !important;
 
-  >.itemizedlist {
+  > .itemizedlist {
     &::before {
       content: "By the end of this module, you will be able to:";
       font-size: small;
@@ -172,8 +173,9 @@ div.section .titlepage .abstract {
     }
     .listitem { margin: .25em 0em ; }
   }
-  >.title { display:none; } /*remove "summary"*/
+  > .title { display:none; } /*remove "summary"*/
 }
+
 
 /******************************************************
  * Features args(title color, bkgrnd color, path to svg)
@@ -208,44 +210,44 @@ div.section .titlepage .abstract {
     }
     page-break-inside: auto !important; //override no break breaks from interactive feature L#197
     }
-}
+  }
 
-.x-feature (@color, @bg-color, @svg, @padding-top) {
-  &::before {
-    padding-top: @padding-top; //from the SVG files
-    background-repeat: no-repeat;
-    background-position: top left;
-    background-position: top outside;
-    page-break-inside: avoid;
-	page-break-after: avoid;	
-	background-color: white;
-    content: "";
-    display: block;
-    // the following are tweaked so the overlays really do over lay
-    margin-left: -1.05em;
-    margin-right: -1.05em;
-    margin-top: -0.05in;
-  }
+  .x-feature (@color, @bg-color, @svg, @padding-top) {
+    &::before {
+      padding-top: @padding-top; //from the SVG files
+      background-repeat: no-repeat;
+      background-position: top left;
+      background-position: top outside;
+      page-break-inside: avoid;
+	  page-break-after: avoid;	
+	  background-color: white;
+      content: "";
+      display: block;
+      // the following are tweaked so the overlays really do over lay
+      margin-left: -1.05em;
+      margin-right: -1.05em;
+      margin-top: -0.05in;
+    }
    
-  background-color: @bg-color;  
-  &::before { background-image: url("ccap-anatomy/@{svg}.svg"); }
+    background-color: @bg-color;  
+    &::before { background-image: url("ccap-anatomy/@{svg}.svg"); }
   
-  > .title { display: none; } //supress title in pdf (webview only)
+    > .title { display: none; } //supress title in pdf (webview only)
  
-  .body .title { 
-    text-align: left !important;
-    font-size: large;
-    margin: .25em 0;
-    color: black;
-    font-weight:bold;
-    page-break-after: avoid;
-   }   
+    .body .title { 
+      text-align: left !important;
+      font-size: large;
+      margin: .25em 0;
+      color: black;
+      font-weight: bold;
+      page-break-after: avoid;
+    }   
   
-  .figure {
-    img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
-    > .title { font-size: x-small; color: @orange; }
+    .figure {
+      img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
+      > .title { font-size: x-small; color: @orange; }
+    }
   }
-}
 }
 
 
@@ -261,7 +263,7 @@ img { max-height:9.5in; }
 
 .chapter h1.title {
   /*reset left only*/
-  margin-left:0 !important;
+  margin-left: 0 !important;
   padding-left: 0 !important;
   font-size: 35pt; /* x-large; */
   font-weight: bold;
@@ -282,8 +284,10 @@ img { max-height:9.5in; }
   }
 }
 
-a { font-weight: bold; color: @orange;}
-
+a { 
+  font-weight: bold; 
+  color: @orange;
+}
 
 h1, h2, h3 {
   margin: 0.5em 0em;
@@ -307,13 +311,13 @@ h2 {
 
 h3 {
   color: @teal;
-  font-size:large;
+  font-size: large;
   font-weight: bold;
 }
 
 h4 {
   color: @teal;
-  font-style:italic;
+  font-style: italic;
 }
 
 blockquote {
@@ -336,13 +340,13 @@ p {
   /* subsequent paragraphs are indented */
   text-indent: 2em;
   /*reset margins so subsequent paragraphs start next line  */
-  margin:0;
+  margin: 0;
 }
 
 .glossary {
   // End-of-chapter material should start on a new page
   page-break-before: always;
-  display:inline;
+  display: inline;
 
   .title {
     /* Change "Glossary" to "Key Terms" */
@@ -351,7 +355,7 @@ p {
     font-size: large !important;
     padding: 0em !important;
     display: block !important;
-    text-transform:uppercase;
+    text-transform: uppercase;
   }
 
   // Remove ":"
@@ -364,10 +368,10 @@ img, figure, subfigure  { margin: 1em; }
 
 .colophon > h1.title {
   //this style Attributions and About Connections
-  color:white;
+  color: white;
   background-color: @teal;
   margin: .5em 0;
- }
+}
 
 
 /******************************************************
@@ -378,19 +382,20 @@ img, figure, subfigure  { margin: 1em; }
   column-width: auto !important;
 
   .title h2 {
-    padding:0;
-    color:@teal;
-    text-transform:uppercase;
+    padding: 0;
+    color: @teal;
+    text-transform: uppercase;
     font-size: x-large;
   }
+  
   h3.letter {
-    color:inherit;
-    font-weight:bold;
+    color: inherit;
+    font-weight: bold;
     font-size: medium;
-    padding-top:.5em;
+    padding-top: .5em;
   }
  
  .index-term { font-size: small; } 
  
-  a { font-weight:bold; }
+  a { font-weight: bold; }
 }
