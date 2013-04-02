@@ -11,7 +11,7 @@
 
 /******************************************************
 Finished printed size of the QR code is dependent on:
--distance between qr code and scanning device
+-distance between qr code and scanning deviceblack
 -size of dots in the code(amount of data inputed into the code, the smaller the dots become)
 
 For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
@@ -30,17 +30,11 @@ For most smartphones the relationship between scan distance and minimum QR code 
 @page { margin: 0.5in 1.5in; } /*pulled from Sociology*/
 
 
-/*******************************************************
- * Unit Page
- ******************************************************/
-div.part > div.titlepage {display:none;}
-
-
 /******************************************************
  * Introduction
  ******************************************************/
 .introduction {
-  /*pulled from Soc*/
+  /*pulled from Soc*/ 
   .splash img{
     margin: 0 !important; //forced reset on splash img left margin/padding
     padding: 0 !important; //was being inherited from unknown - not base
@@ -254,58 +248,6 @@ div.section .titlepage .abstract {
 }
 }
 
-/******************************************************
- * Special Feature 
- ******************************************************/
-
-
-
-/******************************************************
-
- * End of chapter customizations
- ******************************************************/
-.cnx-eoc {
-  .x-column-count(2);
-  column-width: auto !important;
-  column-fill: balance !important;
-  page-break-inside: auto;
-  column-break-inside: auto;  
-    	
-  > .title  {
-    text-transform: uppercase !important;
-    text-align: left; //override from base .x-column-count
-    color: @teal !important;
-    font-size: large !important;
-    font-weight: bold !important;
-    page-break-after: avoid;
-  }
-
-  &.section-summary { 
-    .x-column-count(1);
-    > .title { content: "Section Summary"; margin-top: 1em; }
-    > .section .title > a { color: black; page-break-after: avoid; } 
-    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; } 
-    p { text-indent: 2em; }
-  } 
-  
-  //ccap-base sets this so override it here
-  .references p { text-indent: 0em; }
-  
-  .problem .orderedlist { margin-left: 4em;}
-
-  &.solutions  { display: none !important; } 
-  
-  .empty { display: hidden; } //hide element but count it   *didn't use visibility property which would cause element to still take up space on page
-}
-
-.art-exercise > .title { content: "Art Connection Questions"; column-span: all; margin-top: 1em; } //need to clean redundant column-span/margin rules - this is quick and dirty
-.multiple-choice > .title { content: "Review Questions"; column-span: all; margin-top: 1em; } //todo: clean code 
-.free-response > .title { content: "Critical Thinking Questions"; column-span: all; margin-top: 1em; }
-
-.multiple-choice,.free-response,.art-exercise {
-  > .section > .title { display: none; }
-}
-
 
 /******************************************************
  * Generic Elements
@@ -416,7 +358,7 @@ p {
   dt::after { content: " " !important; }
 }
 
-.section > .title { page-break-after:avoid; }
+.section > .title { page-break-after: avoid; }
 
 img, figure, subfigure  { margin: 1em; }
 
@@ -426,144 +368,6 @@ img, figure, subfigure  { margin: 1em; }
   background-color: @teal;
   margin: .5em 0;
  }
-
-
-/******************************************************
- * Tables TODO: simplify/regroup code block //latest
- ******************************************************/
-.table {
-  page-break-inside: auto;
-  // If a table spans more than 1 page then put caption on all following pages
-  prince-caption-page: all;
-
-  caption {
-    padding-top: .5em;
-    padding-bottom: 1em;
-    font-weight:bold;
-    color: @orange;
-    caption-side:bottom;
-  }
-
-  // Add styling for table entries that should render as table headers
-  td.header {
-    background-color: @cream;
-    border-bottom: @table-border;
-  }
-  
-  tr { page-break-inside: avoid;}
-
-  th {
-    color: black;
-    background-color: @cream;
-    font-size: small;
-    border-style: none !important;
-    border-top: @table-border !important;
-    border-bottom: @table-border !important;
-    text-align: center !important;
-  }
-
-  tr:first-child > th:first-child  {
-    padding: .25em !important;
-    color: @orange !important;
-    font-size:medium;
-    margin-left: -1em;
-    text-align: center !important;
-    border-style: none !important;
-    background-color: transparent !important;
-  }
-
-  table {
-    border: 0 !important;
-    border-bottom: @table-border !important;
-  }
-}
-
-
-/******************************************************
- * Figures/Subfigures
- ******************************************************/
-.figure {
-  font-size: 9pt;
-  padding-bottom: 1em;
-
-  > .title {
-    display: inline;
-    color: @orange;
-    font-weight: bold;
-    text-align:center;
-  }
-
-  & img {
-    margin: 1em 0; //override auto  left/right margins from base
-    max-width: @page-width !important; //overrides width value figures/subfigures ensuring imgs do not bleed off page
-  }
-
-  > .caption {
-    display: inline;
-    text-align:center;
-  }
-}
-
-.target-figure {
-  font-weight:bold;
-  color: @orange;
-}
-
-.cnx-figure-horizontal .informalfigure .caption { 
-  text-align: center; //center subfigure caption
-  * { 
-    font-weight: normal !important; //override strong tag
-    font-family: @font-family-anatomy;
-  }
-}
-
-
-/******************************************************
- * Equations
- ******************************************************/
-// Hide equation numbers in the entire book
-div.book,
-div.book > div.part {
-  > div.preface,
-  > div.chapter,
-  > div.appendix {
-    > div.section div.equation > *:last-child::after { content: ""; }
-  }
-}
-
-
-/******************************************************
- * End of Book Solutions
- ******************************************************/
-// TODO: If this is used by other books it should probably be moved to ccap-numbering.less
-div.end-of-book-solutions {
-  div.solution {
-    display:inline;
-    // Make the solutions pages span 2 columns
-    //.x-column-count(2);
-
-    // Make the solution show up horizontally next to the 1st paragraph of the solution
-    // This is a bit problematic for several reasons:
-    //   - the place it would ideally be displayed is .body::first-child::before BUT...
-    //   - the a.href with the exercise id (to look up the exercise number) is inside the .title (for EPUBs)
-    //   - single-letter solutions aren't wrapped in a para so there is no .body::first-child
-    // I tried using string-set to squirrel away the exercise id but princexml does not support target-counter(string(...), counter-name)
-    // I tried moving the anchor but princexml also does not support move-to
-    > div.title {
-      display: inline;
-      a.solution {
-        color: black;
-        font-weight: bold;
-      }
-    }
-    > div.body {
-      margin-right: .65em;
-      display: inline;
-      * { display: inline; }
-      > a.target-figure { margin: 0em .25em; } //add margin for .xref in solution body
-    }
-  }
-}
 
 
 /******************************************************
@@ -589,43 +393,4 @@ div.end-of-book-solutions {
  .index-term { font-size: small; } 
  
   a { font-weight:bold; }
-}
-
-// Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
-// originally defined in ccap-numbering.less
-// The hierarchy is copied from ccap-numbering so the selectors (and priority for which to apply) are the same
-.x-duplicate-hierarchy() {
-  > div.cnx-eoc { counter-reset: /*exercise*/ eoc-section -1; }
-}
-
-div.book, div.book > div.part {
-  > div.preface  { .x-duplicate-hierarchy(); }
-  > div.chapter  { .x-duplicate-hierarchy(); }
-  > div.appendix { .x-duplicate-hierarchy(); }
-}
-
-div.end-of-book-solutions {
-
-  > .title {
-    content: "Answer Key";
-    color: @teal;
-    margin-left: -.50em;
-    text-transform: uppercase;
-    font-size: x-large;
-    font-weight: bold;
-    background-color: transparent; //overwrite from .colophon title
-  }
-
-  .chapter-area {
-    font-family: @font-family-anatomy;
-    a {
-      &.solution { color: black; }
-      &.chapter * { 
-        color: black; 
-        font-size: medium;
-      }
-    
-    }
-  }
-   prince-text-replace: "Answer:" ""; //strip out "Answer:" eob solutions for print_pdf
 }
