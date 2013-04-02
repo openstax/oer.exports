@@ -32,10 +32,6 @@ div.section .titlepage .abstract { display: none !important; } // squirrel away 
 
 
 /* General css for print/online */
-.book > .toc {
-  ul, li { list-style-type: none; padding-left: 0em; margin-left: 1em; }
-}
-
 .toc > ul, .toc > ul > li { margin-left: 0em; }
 
 .introduction > .toc > ul {
@@ -64,12 +60,6 @@ div.section .titlepage .abstract { display: none !important; } // squirrel away 
 
 .toc-section .toc-section { display: none; }
 
-
-/* Hide sub-sections from the book TOC */
-.toc .toc-section .toc-section { display: none; }
-
-/* Hide the TOC for the Appendix */
-.appendix .toc { display: none; }
 
 /* Footnotes. remove margins */
 .footnote {
@@ -153,12 +143,7 @@ a[href^="http"] { content: content() " (" attr(href) ") "; }
 .book > .toc {
   page-break-before: right;
   page-break-after: always;
-
-  > p {
-    font-size: x-large;
-    text-align: center;
-  }
-  
+    
   > .title {
     color: black;
     font-weight: bold;
@@ -168,7 +153,31 @@ a[href^="http"] { content: content() " (" attr(href) ") "; }
     border-bottom-width: 1px;
   }
   
+  //set target specific defaults
+  .target-preface, .target-part, .target-chapter, .target-appendix, .target-index {  
+    display: inline;    
+    font-weight: bold;
+    &::before { display: none; }  
+  }
+  
+  ul, li { 
+    list-style-type: none; 
+    padding-left: 0em; 
+    margin-left: 1em; 
+  }
+    
+  /* Hide sub-sections from the book TOC */
+  .toc .toc-section .toc-section { display: none; }
+
+  /* Hide the TOC for the Appendix */
+  .appendix .toc { display: none; }
+
+  > p {
+    font-size: x-large;
+    text-align: center;
+  }
 }
+
 
 /**************** Fix the PDF Outline *************/
 h1 { bookmark-level: 1; page-break-after: avoid; }

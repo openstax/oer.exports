@@ -21,12 +21,6 @@ div.section .titlepage .abstract {
   display: none;
 }
 /* General css for print/online */
-.book > .toc ul,
-.book > .toc li {
-  list-style-type: none;
-  padding-left: 0em;
-  margin-left: 1em;
-}
 .toc > ul,
 .toc > ul > li {
   margin-left: 0em;
@@ -54,14 +48,6 @@ div.section .titlepage .abstract {
   list-style-type: none;
 }
 .toc-section .toc-section {
-  display: none;
-}
-/* Hide sub-sections from the book TOC */
-.toc .toc-section .toc-section {
-  display: none;
-}
-/* Hide the TOC for the Appendix */
-.appendix .toc {
   display: none;
 }
 /* Footnotes. remove margins */
@@ -149,10 +135,10 @@ a[href^="http"] {
 .book > .toc {
   page-break-before: right;
   page-break-after: always;
-}
-.book > .toc > p {
-  font-size: x-large;
-  text-align: center;
+  /* Hide sub-sections from the book TOC */
+
+  /* Hide the TOC for the Appendix */
+
 }
 .book > .toc > .title {
   color: black;
@@ -161,6 +147,37 @@ a[href^="http"] {
   margin-bottom: .50em;
   border-bottom-style: solid;
   border-bottom-width: 1px;
+}
+.book > .toc .target-preface,
+.book > .toc .target-part,
+.book > .toc .target-chapter,
+.book > .toc .target-appendix,
+.book > .toc .target-index {
+  display: inline;
+  font-weight: bold;
+}
+.book > .toc .target-preface::before,
+.book > .toc .target-part::before,
+.book > .toc .target-chapter::before,
+.book > .toc .target-appendix::before,
+.book > .toc .target-index::before {
+  display: none;
+}
+.book > .toc ul,
+.book > .toc li {
+  list-style-type: none;
+  padding-left: 0em;
+  margin-left: 1em;
+}
+.book > .toc .toc .toc-section .toc-section {
+  display: none;
+}
+.book > .toc .appendix .toc {
+  display: none;
+}
+.book > .toc > p {
+  font-size: x-large;
+  text-align: center;
 }
 /**************** Fix the PDF Outline *************/
 h1 {
@@ -1714,10 +1731,6 @@ a {
   font-weight: bold;
 }
 /*********************** Table of Contents ********************/
-.book > .toc {
-  /* TOC Chapter */
-
-}
 .book > .toc > .title {
   border-color: #faa61a;
   font-weight: normal;
@@ -1725,9 +1738,6 @@ a {
   padding-bottom: 0em;
 }
 .book > .toc a {
-  color: #0061aa;
-}
-.book > .toc > li > ul a {
   color: #0061aa;
 }
 /****************** Modern-Textbook classes ****************/
