@@ -106,7 +106,7 @@ div.part > div.titlepage {display:none;}
     color: @green;
     font-size: xx-large;
     &:first-child {
-      margin:0;
+      margin: .5em 0;
       background-color: @green;
       color: white !important;
      }
@@ -116,6 +116,14 @@ div.part > div.titlepage {display:none;}
      font-size: medium;
      margin: .5em 0;
    }
+  
+  h2 {
+    color: @green;
+    font-size: large;
+    > .cnx-gentext-t {
+      &::before { display: none; }
+    } 
+  } 
   .itemizedlist {
     list-style-type:none;
     .title {
@@ -125,6 +133,13 @@ div.part > div.titlepage {display:none;}
       font-weight: bold;
     }
   }
+  
+  .table { //table without separators hide table caption and table border
+    caption { display: none !important; }
+    table { border-bottom: none !important; }
+  }
+  
+  .figure > .title { display: none; }
 }
 
 /******************************************************
@@ -377,14 +392,14 @@ img { max-height:9.5in; }
 a { font-weight: bold; color: @tuscany;}
 
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
   margin: 0.5em 0em;
   text-align: left !important; //overides text alignment set in
 }
 
 h2 {
   color: @green;
-  font-size: x-large;
+  font-size: x-large !important;
 
   .cnx-gentext-n { color: @green; }
 
@@ -399,7 +414,7 @@ h2 {
 
 h3 {
   color: @green;
-  font-size:large;
+  font-size: large !important;
   font-weight: bold;
 }
 
@@ -510,8 +525,14 @@ img, figure, subfigure  { margin: 1em; }
     border: 0 !important;
     border-bottom: @table-border !important;
   }
+  
+  //handle lists inside tables
+  .itemizedlist { 
+    margin: 0; //reset
+    list-style-type: none; //no bullets for lists inside tables
+    > .listitem > p { font-family: @font-family !important; } //overrides bio p font use font-family from base
+  }
 }
-
 
 /******************************************************
  * Figures/Subfigures
