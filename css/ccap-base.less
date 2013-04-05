@@ -145,6 +145,9 @@ a[href^="http"] { content: content() " (" attr(href) ") "; }
   page-break-after: always;
     
   > .title {
+    page-break-after: avoid;
+    text-align: center;
+    font-size: large;
     color: black;
     font-weight: bold;
     padding-bottom: .25em;
@@ -261,38 +264,7 @@ div.table-caption {
 
 a {	text-decoration: none; }
 
-/*********************** Table of Contents ********************/
-.book > .toc {
-  > .title {
-    page-break-after: avoid;
-    text-align: center;
-    font-size: large;
-  }
-  
-  a {
-    font-weight: medium;
-    text-decoration: none;
-    
-    /* Chapter 3 : Type Systems ........................ 213 */
-    &::after {
-      content: leader(' . ') target-counter(attr(href), page);
-    }
-  }
-  
-  /* TOC Chapter */
-  > li > ul a { font-size: 12pt; }
-  
-  // Don't make TOC entries for sections in a  Preface or Appendix
-  > ul > li.toc-preface ul { display: none; }
-  > ul > li.toc-appendix ul { display: none; }
-}
 
-/* TOC Section */
-/* .toc > ul > li > ul > li */
-.toc li li a {
-  color: black;
-  font-weight: normal;
-}
 
 .introduction .splash img {
   width: 100% !important;
