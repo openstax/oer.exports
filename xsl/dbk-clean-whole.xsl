@@ -161,7 +161,8 @@
      This shouldn't be a problem because none of the other templates in this file should apply.
 -->
 <xsl:template mode="glossary" match="@xml:id"/>
-<xsl:template mode="glossary" match="*">
+<!-- Preserve the @xml:id on the glossterm so they are linked to in the index -->
+<xsl:template mode="glossary" match="db:glossterm/@xml:id|@*|node()">
   <xsl:copy>
     <xsl:apply-templates mode="glossary" select="@*|node()"/>
   </xsl:copy>
