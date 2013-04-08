@@ -36,7 +36,7 @@ For most smartphones the relationship between scan distance and minimum QR code 
 .introduction {
   /*pulled from Soc*/ 
   .splash {
-  
+
     img {
       margin: 0 !important; //forced reset on splash img left margin/padding
       padding: 0 !important; //was being inherited from unknown - not base
@@ -44,9 +44,11 @@ For most smartphones the relationship between scan distance and minimum QR code 
       max-width: none !important;
     } 
    
-    > .title { color: red !important; }
+    > .title { 
+      color: @orange; 
+    } 
   }
-
+ 
   > .title {
     content: "Introduction";
     font-size: x-large;
@@ -97,6 +99,8 @@ For most smartphones the relationship between scan distance and minimum QR code 
  * Chapter Objectives
  ******************************************************/
 .chapter .toc {
+  /* adding some margin space after introduction caption */
+  margin-top: 1em;
   border: 2pt solid @teal;
 
   > .title {
@@ -108,7 +112,10 @@ For most smartphones the relationship between scan distance and minimum QR code 
     border: 0;
     min-width: 5.40in;
   }
-  > ul { margin-left: 0.5in; }
+  > ul { 
+    padding: 1em;
+    margin-left: 0.5in; 
+    }
 
   .toc-section {
     text-align: left;
@@ -152,7 +159,8 @@ div.section .titlepage .abstract {
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
 /****** Features ******/
-// The args are title color, background color, path to SVG, top-padding value from svg
+// The args are title color, background color, path to SVG, top-padding value from 
+
 .anatomy {
   &.aging { .x-feature(black, @cream, aging, 0.53in); }
   &.career { .x-feature(black, @cream, career, 0.51in); }
@@ -180,7 +188,6 @@ div.section .titlepage .abstract {
       padding: 1em;
     }
     page-break-inside: auto !important; //override no break breaks from interactive feature L#197
-    }
   }
 
   .x-feature (@color, @bg-color, @svg, @padding-top) {
@@ -220,7 +227,6 @@ div.section .titlepage .abstract {
     }
   }
 }
-
 
 /******************************************************
  * Generic Elements
