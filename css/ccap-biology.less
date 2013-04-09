@@ -189,7 +189,6 @@ div.section .titlepage .abstract {
 
   >.itemizedlist {
     &::before {
-      content: "By the end of this section, you will be able to:";
       font-size: small;
       font-family: @font-family-bio;
     }
@@ -231,7 +230,7 @@ div.section .titlepage .abstract {
   * p { font-family: inherit; }
   p:nth-of-type(1) {
     text-indent: 0em !important;
-    page-break-after: avoid; // 1st para contains feature body title no break after
+    page-break-before: avoid; // 1st para contains feature body title no break after
   }
 
   &::before {
@@ -253,7 +252,7 @@ div.section .titlepage .abstract {
 
   > .title { display: none; } //supress title in pdf (webview only)
 
-  > .body > .title {
+  > .body > .title { //feature body title
     text-align: left !important;
     font-size: large;
     margin: .25em 0;
@@ -261,7 +260,7 @@ div.section .titlepage .abstract {
     font-weight:bold;
     //no breaks before/after title
     page-break-after: avoid;
-    page-break-before: avoid;
+    page-break-before: avoid !important;
    }
 
   .figure {
@@ -348,7 +347,7 @@ div.section .titlepage .abstract {
 }
 
 .art-exercise > .title { content: "Art Connection Questions"; column-span: all; margin-top: 1em; } //need to clean redundant column-span/margin rules - this is quick and dirty
-.multiple-choice > .title { content: "Review Questions"; column-span: all; margin-top: 1em; } //todo: clean code
+.multiple-choice > .title { content: "Review Questions" !important; column-span: all; margin-top: 1em; } //todo: clean code
 .free-response > .title { content: "Critical Thinking Questions"; column-span: all; margin-top: 1em; }
 
 .multiple-choice,.free-response,.art-exercise {
