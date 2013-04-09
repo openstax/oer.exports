@@ -74,21 +74,35 @@ structure preface section module titles were passed in <h3> and subsection title
   }
 }
 
+
 /*********************** Table of Contents ********************/
 
-.book > .toc > .title {
-  border-bottom: 1px solid LimeGreen;
-}
+.book > .toc {
+  
+  > .title { 
+    border-color: LimeGreen; 
+    //overrides from base
+    font-weight: normal; 
+    margin-bottom: 0em; 
+    padding-bottom: 0em;
+  }
 
-.book > .toc a {
-	color: Purple;
+  a { 
+    color: Purple; 
+    font-weight: normal;   
+  }
+ 
+ //hide section number. overrides base
+  .target-section {
+    color: Purple !important;
+    > .cnx-gentext-n { display: none !important; }
+  }
+
 }
 
 
 /* "Key Concepts" Introduction table */
-.chapter .toc {
-	border: 1px solid LimeGreen;
-}
+.chapter .toc {	border: 1px solid LimeGreen; }
 
 .chapter .toc > .title {
   background-color: LimeGreen;

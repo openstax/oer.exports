@@ -149,17 +149,23 @@ a {
 
 /*********************** Table of Contents ********************/
 
-.book > .toc > .title {
-  border-bottom: 1px solid @orange;
-}
+.book > .toc {
+	
+  > .title { 
+    border-color: @orange;
+    //overrides from base
+    font-weight: normal; 
+    margin-bottom: 0em; 
+    padding-bottom: 0em; 
+  }
 
-.book > .toc a {
-	color: @blue;
-}
-
-/* TOC Chapter */
-.book > .toc > li > ul a {
-  color: @blue;
+  a { color: @blue; } 
+  
+  //overrides from base
+  .target-section {
+    color: @blue !important; 
+    > .cnx-gentext-n { display: none !important; } //hide section number
+  }
 }
 
 
