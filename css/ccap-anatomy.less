@@ -229,6 +229,68 @@ div.section .titlepage .abstract {
 }
 
 /******************************************************
+ * Tables TODO: simplify/regroup code block //latest
+ ******************************************************/
+.table {
+  page-break-inside: auto;
+  // If a table spans more than 1 page then put caption on all following pages
+  prince-caption-page: all;
+
+  caption {
+    padding-top: .5em;
+    padding-bottom: 1em;
+    color: @orange;
+    font-weight: bold;
+    caption-side:bottom;
+  }
+
+  .caption {
+    color: black;
+    font-weight: normal !important;
+  }
+
+  // Add styling for table entries that should render as table headers
+  td.header {
+    background-color: @cream;
+    border-bottom: @table-border;
+  }
+
+  tr { page-break-inside: avoid;}
+
+  th {
+    color: black;
+    background-color: @cream;
+    font-size: small;
+    border-style: none !important;
+    border-top: @table-border !important;
+    border-bottom: @table-border !important;
+    text-align: center !important;
+  }
+
+  tr:first-child > th:first-child  {
+    padding: .25em !important;
+    color: @teal !important;
+    font-size:medium;
+    margin-left: -1em;
+    text-align: center !important;
+    border-style: none !important;
+    background-color: transparent !important;
+  }
+  
+  table {
+    border: 0 !important;
+    border-bottom: @table-border !important;
+  }
+
+  //handle lists inside tables
+  .itemizedlist { 
+    margin: 0; //reset
+    list-style-type: none; //no bullets for lists inside tables
+    > .listitem > p { font-family: @font-family !important; } //overrides bio p font use font-family from base
+  }
+}
+
+/******************************************************
  * Generic Elements
  ******************************************************/
 body {
