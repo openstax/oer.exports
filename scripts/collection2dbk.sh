@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# Copyright (c) 2013 Rice University
+#
+# This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+# See LICENSE.txt for details.
+
+
 CNX_OR_RHAPTOS=$1 # either "Connexions" or something else (we do something special for Connexions)
 WORKING_DIR=$2
 ID=$3

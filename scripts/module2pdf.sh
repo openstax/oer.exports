@@ -1,5 +1,10 @@
 #!/bin/sh -xv
 
+# Copyright (c) 2013 Rice University
+#
+# This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+# See LICENSE.txt for details.
+
 # 1st arg is the path to the collection
 # 2nd arg (optional) is the module name
 
