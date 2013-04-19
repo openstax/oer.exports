@@ -43,7 +43,6 @@
     </xsl:when>
     <xsl:otherwise>
       book toc,title
-      chapter toc,title
       section toc
     </xsl:otherwise>
   </xsl:choose>
