@@ -369,6 +369,27 @@
   </xsl:for-each>
 </xsl:template>
 
+
+<!-- ============================================== -->
+<!-- New Feature: end-of-book-references            -->
+<!-- This template relies on a special:
+<!-- <db:colophon class="end-of-book-references">
+<!-- <db:title>References</db:title>
+<!-- <ext:end-of-book-references-placeholder/>
+<!-- </db:colophon>
+<!--  which is added in by dbk-clean-whole-remove-duplicate-glossentry.xsl
+<!--  The reasons for this are:
+<!--  1- So it is chunked as a separate file (hence the db:colophon)
+<!--  2- Has a title that shows up in the EPUB spine/TOC (hence the db:title)
+<!--  3- Gets matched (hence the ext:special-element-name)
+<!-- ============================================== -->
+
+<xsl:template match="ext:end-of-book-references-placeholder">
+	<xsl:text>Jess</xsl:text>
+</xsl:template>
+
+
+
 <!-- ============================================== -->
 <!-- New Feature: @class='introduction'             -->
 <!-- ============================================== -->
