@@ -372,20 +372,52 @@
 
 <!-- ============================================== -->
 <!-- New Feature: end-of-book-references            -->
-<!-- This template relies on a special:
-<!-- <db:colophon class="end-of-book-references">
-<!-- <db:title>References</db:title>
-<!-- <ext:end-of-book-references-placeholder/>
-<!-- </db:colophon>
-<!--  which is added in by dbk-clean-whole-remove-duplicate-glossentry.xsl
-<!--  The reasons for this are:
-<!--  1- So it is chunked as a separate file (hence the db:colophon)
-<!--  2- Has a title that shows up in the EPUB spine/TOC (hence the db:title)
-<!--  3- Gets matched (hence the ext:special-element-name)
 <!-- ============================================== -->
+<!-- 
+This template relies on a special:
+  <db:colophon class="end-of-book-references">
+  <db:title>References</db:title>
+  <ext:end-of-book-references-placeholder/>
+  </db:colophon> which is added in by dbk-clean-whole-remove-duplicate-glossentry.xsl
+ The reasons for this are:
+   1- So it is chunked as a separate file (hence the db:colophon)
+   2- Has a title that shows up in the EPUB spine/TOC (hence the db:title)
+   3- Gets matched (hence the ext:special-element-name) 
+-->
 
 <xsl:template match="ext:end-of-book-references-placeholder">
-	<xsl:text>Jess</xsl:text>
+  	<xsl:param name="title"/>
+	<xsl:param name="attribute"/>
+	<xsl:param name="book" select="/db:book"/>
+	<xsl:for-each select="$book/*[self::db:preface | self::db:chapter | self::db:appendix]|$book/db:part/*[self::db:preface | self::db:chapter | self::db:appendix]">
+	<xsl:for-each select=".//db:section[@class = 'References']">
+			<xsl:variable name="sectionId">
+				<xsl:call-template name="object.id"/>
+			</xsl:variable>
+			<div class="section">
+			  <xsl:attribute name="class">
+			    <xsl:text>section</xsl:text>
+          <xsl:if test="not(descendant::*[contains(@class,$attribute)])">
+            <xsl:text> empty</xsl:text>
+          </xsl:if>
+        </xsl:attribute>
+        <!-- Print the section title and link back to it -->
+        <div class="title">
+          <a href="#{$sectionId}">
+            <xsl:apply-templates select="." mode="object.title.markup">
+              <xsl:with-param name="allow-anchors" select="0"/>
+            </xsl:apply-templates>
+          </a>
+        </div>
+        <!-- This for-each renders all the sections and exercises and numbers them -->
+        <div class="body">
+          <xsl:apply-templates select="descendant::*[contains(@class,$attribute)]/node()[not(self::db:title)]">
+            <xsl:with-param name="render" select="true()"/>
+          </xsl:apply-templates>
+        </div>
+      </div>
+		</xsl:for-each>	
+	</xsl:for-each> 	
 </xsl:template>
 
 
