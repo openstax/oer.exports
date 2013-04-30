@@ -75,7 +75,7 @@
         <xsl:value-of select="local-name($target)"/>
       </xsl:otherwise>
     </xsl:choose>
-  </xsl:if>
+  </xsl:if><xsl:variable name="context" select="."/>
   <!-- if a link contains text let CSS know to use the label instead of attempting to autogenerate it -->
   <xsl:if test="text()">
     <xsl:text> labeled</xsl:text>
@@ -386,39 +386,32 @@ This template relies on a special:
 -->
 
 <xsl:template match="ext:end-of-book-references-placeholder">
-  	<xsl:param name="title"/>
-	<xsl:param name="attribute"/>
-	<xsl:param name="book" select="/db:book"/>
+    <xsl:param name="book" select="/db:book"/>
+  	
 	<xsl:for-each select="$book/*[self::db:preface | self::db:chapter | self::db:appendix]|$book/db:part/*[self::db:preface | self::db:chapter | self::db:appendix]">
-	<xsl:for-each select=".//db:section[@class = 'References']">
-			<xsl:variable name="sectionId">
-				<xsl:call-template name="object.id"/>
-			</xsl:variable>
-			<div class="section">
-			  <xsl:attribute name="class">
-			    <xsl:text>section</xsl:text>
-          <xsl:if test="not(descendant::*[contains(@class,$attribute)])">
-            <xsl:text> empty</xsl:text>
-          </xsl:if>
-        </xsl:attribute>
-        <!-- Print the section title and link back to it -->
-        <div class="title">
-          <a href="#{$sectionId}">
-            <xsl:apply-templates select="." mode="object.title.markup">
-              <xsl:with-param name="allow-anchors" select="0"/>
-            </xsl:apply-templates>
-          </a>
-        </div>
-        <!-- This for-each renders all the sections and exercises and numbers them -->
-        <div class="body">
-          <xsl:apply-templates select="descendant::*[contains(@class,$attribute)]/node()[not(self::db:title)]">
-            <xsl:with-param name="render" select="true()"/>
-          </xsl:apply-templates>
-        </div>
-      </div>
+		<xsl:variable name="title" select="db:title"/>
+		<xsl:variable name="chapterId">
+			<xsl:call-template name="object.id"/>
+		</xsl:variable>
+	
+		<xsl:for-each select=".//db:section[@class = 'References']">
+			<div class="chapter-area">
+		    	<!-- Print the section title and link back to it -->
+        		<div class="title">
+          			<a href="#{$chapterId}">
+            			<xsl:value-of select="$title"/>
+          			</a>
+        		</div>
+        	<!-- references inserted into body -->
+        	<div class="body">
+          		<xsl:apply-templates/>
+         	</div>
+      		</div>
 		</xsl:for-each>	
 	</xsl:for-each> 	
 </xsl:template>
+
+
 
 
 
