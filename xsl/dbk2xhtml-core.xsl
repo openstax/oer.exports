@@ -394,24 +394,20 @@ This template relies on a special:
 			<xsl:call-template name="object.id"/>
 		</xsl:variable>
 	
-		<xsl:for-each select=".//db:section[@class = 'References']">
+		<xsl:for-each select=".//db:section[@class = 'references']">
 			<div class="chapter-area">
 		    	<!-- Print the section title and link back to it -->
         		<div class="title">
-          			<a href="#{$chapterId}">
-            			<xsl:value-of select="$title"/>
-          			</a>
+          			<xsl:value-of select="$title"/>
         		</div>
-        	<!-- references inserted into body -->
-        	<div class="body">
-          		<xsl:apply-templates/>
-         	</div>
+        		<!-- references inserted into body -->
+        		<div class="body">
+          			<xsl:apply-templates/>
+         		</div>
       		</div>
 		</xsl:for-each>	
 	</xsl:for-each> 	
 </xsl:template>
-
-
 
 
 
