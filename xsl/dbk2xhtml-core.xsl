@@ -393,7 +393,7 @@ This template relies on a special:
 			
 		<xsl:for-each select=".//db:section[@class = 'references']">
 			<div class="chapter-area">
-		    	<!-- Print the section title and link back to it -->
+		    	<!-- Print the chapter title -->
         		<div class="title">
           			<xsl:value-of select="$title"/>
         		</div>
