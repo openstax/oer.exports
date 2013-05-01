@@ -390,10 +390,7 @@ This template relies on a special:
   	
 	<xsl:for-each select="$book/*[self::db:preface | self::db:chapter | self::db:appendix]|$book/db:part/*[self::db:preface | self::db:chapter | self::db:appendix]">
 		<xsl:variable name="title" select="db:title"/>
-		<xsl:variable name="chapterId">
-			<xsl:call-template name="object.id"/>
-		</xsl:variable>
-	
+			
 		<xsl:for-each select=".//db:section[@class = 'references']">
 			<div class="chapter-area">
 		    	<!-- Print the section title and link back to it -->
