@@ -75,7 +75,7 @@
         <xsl:value-of select="local-name($target)"/>
       </xsl:otherwise>
     </xsl:choose>
-  </xsl:if><xsl:variable name="context" select="."/>
+  </xsl:if>
   <!-- if a link contains text let CSS know to use the label instead of attempting to autogenerate it -->
   <xsl:if test="text()">
     <xsl:text> labeled</xsl:text>
