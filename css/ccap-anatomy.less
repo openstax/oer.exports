@@ -9,14 +9,13 @@
 @cream: #ffffcc;
 @gray: #ccc;
 
-/******************************************************
-Finished printed size of the QR code is dependent on:
--distance between qr code and scanning device
--size of dots in the code(amount of data inputed into the code, the smaller the dots become)
+//Finished printed size of the QR code is dependent on:
+//-distance between qr code and scanning device
+//-size of dots in the code(amount of data inputed into the code, the smaller the dots become)
 
-For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
- QR code printed in a magazine/book will have a nominal effective scan distance of about 250mm (10 inches),
- ******************************************************/
+//For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
+// QR code printed in a magazine/book will have a nominal effective scan distance of about 250mm (10 inches),
+
 @qr: 1.25in;
 @table-border: 1pt solid @teal;
 @page-width: 6in;
@@ -275,9 +274,9 @@ div.section .titlepage .abstract {
     page-break-after: avoid;
   }
 
-  &.section-summary { 
+  &.summary { 
     .x-column-count(1);
-    > .title { content: "Section Summary"; margin-top: 1em; }
+    > .title { content: "Chapter Review"; margin-top: 1em; }
     > .section .title > a { color: black; page-break-after: avoid; } 
     p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; } 
     p { text-indent: 2em; }
@@ -293,11 +292,10 @@ div.section .titlepage .abstract {
   .empty { display: hidden; } //hide element but count it   *didn't use visibility property which would cause element to still take up space on page
 }
 
-.art-exercise > .title { content: "Art Connection Questions"; column-span: all; margin-top: 1em; } //need to clean redundant column-span/margin rules - this is quick and dirty
 .multiple-choice > .title { content: "Review Questions"; column-span: all; margin-top: 1em; } //todo: clean code 
 .free-response > .title { content: "Critical Thinking Questions"; column-span: all; margin-top: 1em; }
-
-.multiple-choice,.free-response,.art-exercise {
+&.interactive-exercise > div.title { content: "Interactive Link Questions"; column-span: all; margin-top: 1em; }
+.multiple-choice,.free-response, .interactive-exercise {
   > .section > .title { display: none; }
 }
 
