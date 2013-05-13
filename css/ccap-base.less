@@ -96,23 +96,10 @@
 .toc .toc-section .toc-section { display: none; }
 
 
- 
-/* Squirrel away the collection URL so it shows up as the footer on every page */
-#title_page_url a[href] {
-  prince-text-replace: ":9680" "";  //this strips the port number
-  string-set: cnx-collection-url attr(href);
-}
-
-
-div.section .titlepage .abstract { display: none !important; } // squirrel away abstract at section.module level(section-learning-objectives) Physics/Soc
-
-/* Don't print module asterix (link to attribution) */
-.section .titlepage, .introduction > .title {
-  sup a { display: none; }
-}
-
-
-/* General css for print/online */
+/***************************************************
+ * CHAPTER INTRODUCTION
+ ***************************************************/
+.introduction {
 
 .introduction > .toc > ul {
   padding-left: 0em;
@@ -137,6 +124,32 @@ div.section .titlepage .abstract { display: none !important; } // squirrel away 
     > li { list-style-type: none; }
   }
 }
+
+/****************** Modern-Textbook classes ****************/
+/* Hide the manual key-concepts table */
+.introduction table.simplelist { display: none; }
+
+}
+
+ 
+/* Squirrel away the collection URL so it shows up as the footer on every page */
+#title_page_url a[href] {
+  prince-text-replace: ":9680" "";  //this strips the port number
+  string-set: cnx-collection-url attr(href);
+}
+
+
+div.section .titlepage .abstract { display: none !important; } // squirrel away abstract at section.module level(section-learning-objectives) Physics/Soc
+
+/* Don't print module asterix (link to attribution) */
+.section .titlepage, .introduction > .title {
+  sup a { display: none; }
+}
+
+
+/* General css for print/online */
+
+
 
 
 /* Hide the TOC for the Appendix */
@@ -221,11 +234,6 @@ a[href^="http"] { content: content() " (" attr(href) ") "; }
 h1 { bookmark-level: 1; page-break-after: avoid; }
 h2 { bookmark-level: 2; page-break-after: avoid; }
 h3, h4, h5, h6 { bookmark-level: none; page-break-after: avoid; }
-
-
-/****************** Modern-Textbook classes ****************/
-/* Hide the manual key-concepts table */
-.introduction table.simplelist { display: none; }
 
 
 /***************************************************************
