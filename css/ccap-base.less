@@ -100,6 +100,9 @@
  * CHAPTER INTRODUCTION
  ***************************************************/
 .chapter > .introduction {
+  // hide manual key concepts table
+  table.simplelist { display: none; }
+
   .splash {
     img {
       margin-left: auto;
@@ -108,46 +111,65 @@
       max-width: none;
     }
   }
-}
+  
+  > .toc {
+    display: table;
+    margin: auto;
+    margin-bottom: 1em;
+    border-spacing: 0px;
+    page-break-inside: avoid;
 
+    > .title {
+      content: "Learning Objectives";
+      color: white;
+      font-size: large;
+      text-align: center;
+      padding: 0.25em;
+      margin: 0em;
+    }
 
-.introduction > .toc > ul {
-  padding-left: 0em;
-  margin-left: 1em;
-}
+    > * {
+      padding-left: 0em;
+      margin-left: 1em;
+      > li { list-style-type: none; }
+    }
 
-.introduction > .toc .abstract {
-  margin-left: 2.5em;
-  padding-left: 0em;
-}
+    > ul {
+      padding-left: 0em;
+      margin-left: 1em;
+    }
 
-.introduction > .toc .abstract ul {
-  margin-left: 0em;
-  padding-left: 1.5em;
-  > li { list-style-type: disc; }
-}
+    a {
+      color: inherit;
+      font-weight: bold;
+      display-align: after;
+      padding-bottom: 0.25em;
+      padding-top: 0.25em;
+      text-align: start;
+      margin-left: 0.5em;
+      margin-right: 1em;
+    }
 
-.introduction > .toc {
-  > * {
-    padding-left: 0em;
-    margin-left: 1em;
-    > li { list-style-type: none; }
+    .abstract {
+      margin-left: 2.5em;
+      padding-left: 0em;
+      ul {
+        margin-left: 0em;
+        padding-left: 1.5em;
+        > li { list-style-type: disc; }
+      }
+    }
   }
-
-/****************** Modern-Textbook classes ****************/
-/* Hide the manual key-concepts table */
-.introduction table.simplelist { display: none; }
-
 }
 
-/* "Key Concepts" Introduction table */
+/* "Key Concepts" Introduction table 
 .chapter .toc {
   display: table;
   margin: auto;
   margin-bottom: 1em;
   border-spacing: 0px;
   page-break-inside: avoid;
-}
+} 
 
 
 .chapter .toc > .title {
@@ -169,7 +191,7 @@
   text-align: start;
   margin-left: 0.5em;
   margin-right: 1em;
-}
+} */
 
  
 /* Squirrel away the collection URL so it shows up as the footer on every page */
