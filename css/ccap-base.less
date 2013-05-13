@@ -13,6 +13,11 @@
 @import url('ccap-css3.css');
 
 
+// Define variables
+@stix-fonts: STIXGeneral, STIXSizeOneSym, STIXSize1;
+@font-family: Liberation Sans, sans-serif, @stix-fonts;
+
+// LESS Mixins
 .x-page-float(@float: bottom) { float: @float; }
 
 .x-column-count(@num: 2) {
@@ -64,11 +69,11 @@
     .toc-section { display: none; }
   }
   
-  .target-chapter {
+  .toc-chapter {
     //remove number before chapter
-    &::before { display: none !important; } 
-    > .cnx-gentext-chapter { display: inline; }
-    > span:nth-of-type(3) { prince-text-replace: "." ":"; }
+    > .target-chapter::before { display: none !important; } 
+    .cnx-gentext-chapter { display: inline; }
+    span:nth-of-type(3) { prince-text-replace: "." ":"; }
   }
   
   // TOC Section
@@ -146,10 +151,6 @@ div.section .titlepage .abstract { display: none !important; } // squirrel away 
 }
 
 /********************** Generic Elements ********************/
-
-@stix-fonts: STIXGeneral, STIXSizeOneSym, STIXSize1;
-@font-family: Liberation Sans, sans-serif, @stix-fonts;
-
 body {
   font-size: 8.2pt;
   font-family: @font-family;
