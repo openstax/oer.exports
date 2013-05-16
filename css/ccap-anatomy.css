@@ -3,7 +3,9 @@
 * Copyright (c) 2013 Rice University
 *  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 *  See LICENSE.txt for details. 
-*******************************************************//***************************************************
+*******************************************************//* Styles used when generating a PDF from xhtml+css
+ ***************************************************/
+/***************************************************
  * Styles used when generating a PDF from xhtml+css
  * Print-specific styles <style media="print"... *
  ***************************************************/
@@ -19,7 +21,9 @@
   text-align: center;
   font-size: large;
   font-weight: bold;
-  margin-bottom: .75em;
+  margin-bottom: 0em;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
 }
 .book > .toc ul,
 .book > .toc li {
@@ -72,6 +76,65 @@
 .toc .toc-section .toc-section {
   display: none;
 }
+/***************************************************
+ * CHAPTER INTRODUCTION
+ ***************************************************/
+.chapter > .introduction table.simplelist {
+  display: none;
+}
+.chapter > .introduction .splash img {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: none;
+}
+.chapter > .introduction > .toc {
+  display: table;
+  margin: auto;
+  margin-bottom: 1em;
+  border-spacing: 0px;
+  page-break-inside: avoid;
+}
+.chapter > .introduction > .toc > .title {
+  content: "Learning Objectives";
+  color: white;
+  font-size: large;
+  text-align: center;
+  padding: 0.25em;
+  margin: 0em;
+}
+.chapter > .introduction > .toc > * {
+  padding-left: 0em;
+  margin-left: 1em;
+}
+.chapter > .introduction > .toc > * > li {
+  list-style-type: none;
+}
+.chapter > .introduction > .toc > ul {
+  padding-left: 0em;
+  margin-left: 1em;
+}
+.chapter > .introduction > .toc a {
+  color: inherit;
+  font-weight: bold;
+  display-align: after;
+  padding-bottom: 0.25em;
+  padding-top: 0.25em;
+  text-align: start;
+  margin-left: 0.5em;
+  margin-right: 1em;
+}
+.chapter > .introduction > .toc .abstract {
+  margin-left: 2.5em;
+  padding-left: 0em;
+}
+.chapter > .introduction > .toc .abstract ul {
+  margin-left: 0em;
+  padding-left: 1.5em;
+}
+.chapter > .introduction > .toc .abstract ul > li {
+  list-style-type: disc;
+}
 /* Squirrel away the collection URL so it shows up as the footer on every page */
 #title_page_url a[href] {
   prince-text-replace: ":9680" "";
@@ -86,28 +149,6 @@ div.section .titlepage .abstract {
   display: none;
 }
 /* General css for print/online */
-.introduction > .toc > ul {
-  padding-left: 0em;
-  margin-left: 1em;
-}
-.introduction > .toc .abstract {
-  margin-left: 2.5em;
-  padding-left: 0em;
-}
-.introduction > .toc .abstract ul {
-  margin-left: 0em;
-  padding-left: 1.5em;
-}
-.introduction > .toc .abstract ul > li {
-  list-style-type: disc;
-}
-.introduction > .toc > * {
-  padding-left: 0em;
-  margin-left: 1em;
-}
-.introduction > .toc > * > li {
-  list-style-type: none;
-}
 /* Hide the TOC for the Appendix */
 .appendix .toc {
   display: none;
@@ -209,11 +250,6 @@ h6 {
   bookmark-level: none;
   page-break-after: avoid;
 }
-/****************** Modern-Textbook classes ****************/
-/* Hide the manual key-concepts table */
-.introduction table.simplelist {
-  display: none;
-}
 /***************************************************************
  * Clean up padding and spacing
  ***************************************************************/
@@ -272,36 +308,6 @@ div.table-caption.caption {
 }
 a {
   text-decoration: none;
-}
-.introduction .splash img {
-  width: 100% !important;
-  max-width: none !important;
-}
-/* "Key Concepts" Introduction table */
-.chapter .toc {
-  display: table;
-  margin: auto;
-  margin-bottom: 1em;
-  border-spacing: 0px;
-  page-break-inside: avoid;
-}
-.chapter .toc > .title {
-  content: "Learning Objectives";
-  color: white;
-  font-size: large;
-  text-align: center;
-  padding: 0.25em;
-  margin: 0em;
-}
-.chapter .toc a {
-  color: inherit;
-  font-weight: bold;
-  display-align: after;
-  padding-bottom: 0.25em;
-  padding-top: 0.25em;
-  text-align: start;
-  margin-left: 0.5em;
-  margin-right: 1em;
 }
 .problems-exercises img {
   max-width: 3in;
@@ -1375,7 +1381,7 @@ div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
  * Book Table of Contents
   ******************************************************/
 .book > .toc > .title {
-  border-bottom: 1px solid #cc9900;
+  border-bottom-color: #cc9900;
 }
 .book > .toc a {
   color: #339999;
@@ -1387,822 +1393,9 @@ div.part > div.titlepage {
   display: none;
 }
 /******************************************************
- * Introduction
+ * CHAPTER INTRODUCTION
  ******************************************************/
-.introduction {
-  /*pulled from Soc*/
-
-}
-.introduction .splash img {
-  margin: 0 !important;
-  padding: 0 !important;
-  width: 100% !important;
-  max-width: none !important;
-}
-.introduction > .title {
+.chapter > .introduction > .title {
   content: "Introduction";
   font-size: x-large;
-}
-/******************************************************
- * Preface
- ******************************************************/
-.preface > div.titlepage > div > div h1.title {
-  string-set: cnx-header "" content() "";
-  color: black;
-}
-.preface h1.title {
-  color: #339999;
-  font-size: xx-large;
-}
-.preface h1.title:first-child {
-  margin: 0;
-  background-color: #339999;
-  color: white !important;
-}
-.preface .itemizedlist {
-  list-style-type: none;
-}
-.preface .itemizedlist .title {
-  color: #339999;
-  font-size: medium;
-  margin: .5em 0;
-}
-.preface .cnx-gentext-t::before {
-  display: none;
-}
-/******************************************************
- * Chapter Objectives
- ******************************************************/
-.chapter .toc {
-  border: 2pt solid #339999;
-}
-.chapter .toc > .title {
-  content: "Chapter Objectives";
-  background-color: #339999;
-  color: white;
-  font-weight: bold;
-  text-align: center !important;
-  border: 0;
-  min-width: 5.40in;
-}
-.chapter .toc > ul {
-  margin-left: 0.5in;
-}
-.chapter .toc .toc-section {
-  text-align: left;
-}
-.chapter .toc .toc-section .abstract {
-  display: none;
-}
-.chapter .toc .toc-section > a.target-section {
-  color: black;
-  margin-left: -0.37in;
-  /* precise measurement to give illusion second line of target-section is indented */
-
-  /*remove . from key concepts*/
-
-}
-.chapter .toc .toc-section > a.target-section .cnx-gentext-n {
-  /*add : after section # */
-
-}
-.chapter .toc .toc-section > a.target-section .cnx-gentext-n::after {
-  content: ":";
-}
-.chapter .toc .toc-section > a.target-section .cnx-gentext-autogenerated {
-  display: none !important;
-}
-/******************************************************
- * Section Level Learning Objectives
- ******************************************************/
-div.section .titlepage .abstract {
-  display: block !important;
-  margin: 1em 0em;
-  page-break-inside: avoid;
-  page-break-before: avoid !important;
-  /*remove "summary"*/
-
-}
-div.section .titlepage .abstract > .itemizedlist::before {
-  content: "By the end of this module, you will be able to:";
-  font-size: small;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-div.section .titlepage .abstract > .itemizedlist .listitem {
-  margin: .25em 0em ;
-}
-div.section .titlepage .abstract > .title {
-  display: none;
-}
-/******************************************************
- * Features args(title color, bkgrnd color, path to svg)
- ******************************************************/
-/****** Features ******/
-.anatomy.aging {
-  background-color: #ffffcc;
-}
-.anatomy.aging::before {
-  padding-top: 0.53in;
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
-}
-.anatomy.aging::before {
-  background-image: url("ccap-anatomy/aging.svg");
-}
-.anatomy.aging > .title {
-  display: none;
-}
-.anatomy.aging .body .title {
-  text-align: left !important;
-  font-size: large;
-  margin: .25em 0;
-  color: black;
-  font-weight: bold;
-  page-break-after: avoid;
-}
-.anatomy.aging .figure img {
-  max-width: 5.75in !important;
-}
-.anatomy.aging .figure > .title {
-  font-size: x-small;
-  color: #cc9900;
-}
-.anatomy.career {
-  background-color: #ffffcc;
-}
-.anatomy.career::before {
-  padding-top: 0.51in;
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
-}
-.anatomy.career::before {
-  background-image: url("ccap-anatomy/career.svg");
-}
-.anatomy.career > .title {
-  display: none;
-}
-.anatomy.career .body .title {
-  text-align: left !important;
-  font-size: large;
-  margin: .25em 0;
-  color: black;
-  font-weight: bold;
-  page-break-after: avoid;
-}
-.anatomy.career .figure img {
-  max-width: 5.75in !important;
-}
-.anatomy.career .figure > .title {
-  font-size: x-small;
-  color: #cc9900;
-}
-.anatomy.diseases {
-  background-color: #ffffcc;
-}
-.anatomy.diseases::before {
-  padding-top: 0.59in;
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
-}
-.anatomy.diseases::before {
-  background-image: url("ccap-anatomy/diseases.svg");
-}
-.anatomy.diseases > .title {
-  display: none;
-}
-.anatomy.diseases .body .title {
-  text-align: left !important;
-  font-size: large;
-  margin: .25em 0;
-  color: black;
-  font-weight: bold;
-  page-break-after: avoid;
-}
-.anatomy.diseases .figure img {
-  max-width: 5.75in !important;
-}
-.anatomy.diseases .figure > .title {
-  font-size: x-small;
-  color: #cc9900;
-}
-.anatomy.disorders {
-  background-color: #ffffcc;
-}
-.anatomy.disorders::before {
-  padding-top: 0.59in;
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
-}
-.anatomy.disorders::before {
-  background-image: url("ccap-anatomy/disorders.svg");
-}
-.anatomy.disorders > .title {
-  display: none;
-}
-.anatomy.disorders .body .title {
-  text-align: left !important;
-  font-size: large;
-  margin: .25em 0;
-  color: black;
-  font-weight: bold;
-  page-break-after: avoid;
-}
-.anatomy.disorders .figure img {
-  max-width: 5.75in !important;
-}
-.anatomy.disorders .figure > .title {
-  font-size: x-small;
-  color: #cc9900;
-}
-.anatomy.everyday {
-  background-color: #ffffcc;
-}
-.anatomy.everyday::before {
-  padding-top: 0.44in;
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
-}
-.anatomy.everyday::before {
-  background-image: url("ccap-anatomy/everyday.svg");
-}
-.anatomy.everyday > .title {
-  display: none;
-}
-.anatomy.everyday .body .title {
-  text-align: left !important;
-  font-size: large;
-  margin: .25em 0;
-  color: black;
-  font-weight: bold;
-  page-break-after: avoid;
-}
-.anatomy.everyday .figure img {
-  max-width: 5.75in !important;
-}
-.anatomy.everyday .figure > .title {
-  font-size: x-small;
-  color: #cc9900;
-}
-.anatomy.homeostatic {
-  background-color: #ffffcc;
-}
-.anatomy.homeostatic::before {
-  padding-top: 0.57in;
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
-}
-.anatomy.homeostatic::before {
-  background-image: url("ccap-anatomy/homeostatic.svg");
-}
-.anatomy.homeostatic > .title {
-  display: none;
-}
-.anatomy.homeostatic .body .title {
-  text-align: left !important;
-  font-size: large;
-  margin: .25em 0;
-  color: black;
-  font-weight: bold;
-  page-break-after: avoid;
-}
-.anatomy.homeostatic .figure img {
-  max-width: 5.75in !important;
-}
-.anatomy.homeostatic .figure > .title {
-  font-size: x-small;
-  color: #cc9900;
-}
-.anatomy.interactive {
-  page-break-inside: avoid;
-  background-color: #ffffcc;
-}
-.anatomy.interactive::before {
-  padding-top: 0.43in;
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
-}
-.anatomy.interactive::before {
-  background-image: url("ccap-anatomy/interactive.svg");
-}
-.anatomy.interactive > .title {
-  display: none;
-}
-.anatomy.interactive .body .title {
-  text-align: left !important;
-  font-size: large;
-  margin: .25em 0;
-  color: black;
-  font-weight: bold;
-  page-break-after: avoid;
-}
-.anatomy.interactive .figure img {
-  max-width: 5.75in !important;
-}
-.anatomy.interactive .figure > .title {
-  font-size: x-small;
-  color: #cc9900;
-}
-.anatomy.interactive img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-.anatomy.interactive .link {
-  color: #cc9900 !important;
-  font-weight: bold;
-}
-.anatomy.interactive.um {
-  background-color: #ffffcc;
-  page-break-inside: auto !important;
-}
-.anatomy.interactive.um::before {
-  padding-top: 0.5in;
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
-}
-.anatomy.interactive.um::before {
-  background-image: url("ccap-anatomy/interactive_UM.svg");
-}
-.anatomy.interactive.um > .title {
-  display: none;
-}
-.anatomy.interactive.um .body .title {
-  text-align: left !important;
-  font-size: large;
-  margin: .25em 0;
-  color: black;
-  font-weight: bold;
-  page-break-after: avoid;
-}
-.anatomy.interactive.um .figure img {
-  max-width: 5.75in !important;
-}
-.anatomy.interactive.um .figure > .title {
-  font-size: x-small;
-  color: #cc9900;
-}
-.anatomy.interactive.um img {
-  display: inline;
-  padding: 1em;
-}
-/******************************************************
-
- * End of chapter customizations
- ******************************************************/
-.cnx-eoc {
-  -webkit-column-count: 2;
-  column-count: 2;
-  columns: 2;
-  column-fill: auto;
-  column-width: auto !important;
-  column-fill: balance !important;
-  page-break-inside: auto;
-  column-break-inside: auto;
-}
-.cnx-eoc > .title {
-  text-transform: uppercase !important;
-  text-align: left;
-  color: #339999 !important;
-  font-size: large !important;
-  font-weight: bold !important;
-  page-break-after: avoid;
-}
-.cnx-eoc.summary {
-  -webkit-column-count: 1;
-  column-count: 1;
-  columns: 1;
-  column-fill: auto;
-}
-.cnx-eoc.summary > .title {
-  content: "Chapter Review";
-  margin-top: 1em;
-}
-.cnx-eoc.summary > .section .title > a {
-  color: black;
-  page-break-after: avoid;
-}
-.cnx-eoc.summary p:nth-of-type(1) {
-  text-indent: 0em;
-  margin-top: 1em;
-}
-.cnx-eoc.summary p {
-  text-indent: 2em;
-}
-.cnx-eoc .references p {
-  text-indent: 0em;
-}
-.cnx-eoc .problem .orderedlist {
-  margin-left: 4em;
-}
-.cnx-eoc.solutions {
-  display: none !important;
-}
-.cnx-eoc .empty {
-  display: hidden;
-}
-.multiple-choice > .title {
-  content: "Review Questions";
-  column-span: all;
-  margin-top: 1em;
-}
-.free-response > .title {
-  content: "Critical Thinking Questions";
-  column-span: all;
-  margin-top: 1em;
-}
-.interactive-exercise > div.title {
-  content: "Interactive Link Questions";
-  column-span: all;
-  margin-top: 1em;
-}
-.multiple-choice > .section > .title,
-.free-response > .section > .title,
-.interactive-exercise > .section > .title {
-  display: none;
-}
-/******************************************************
- * Generic Elements
- ******************************************************/
-body {
-  font-size: 9.5pt;
-  text-align: justify !important;
-}
-img {
-  max-height: 9.5in;
-}
-.chapter h1.title {
-  /*reset left only*/
-
-  margin-left: 0 !important;
-  padding-left: 0 !important;
-  font-size: 35pt;
-  /* x-large; */
-
-  font-weight: bold;
-  text-align: left !important;
-  color: #339999;
-}
-.chapter h1.title .cnx-gentext-n {
-  font-weight: bold;
-  padding-right: 0em;
-  color: #339999;
-}
-.chapter h1.title .cnx-gentext-t::before {
-  content: "| ";
-  color: black;
-}
-a {
-  font-weight: bold;
-  color: #cc9900;
-}
-h1,
-h2,
-h3,
-h4 {
-  margin: 0.5em 0em;
-  text-align: left !important;
-}
-h2 {
-  color: #339999;
-  font-size: x-large;
-}
-h2 .cnx-gentext-n {
-  color: #339999;
-}
-h2 .cnx-gentext-t::before {
-  color: black;
-  content: "| ";
-}
-h2::before {
-  color: #339999;
-}
-h3 {
-  color: #339999;
-  font-size: large;
-  font-weight: bold;
-}
-h4 {
-  color: #339999;
-  font-style: italic;
-}
-blockquote {
-  color: #cccccc;
-  font-size: 150%;
-}
-blockquote::before,
-blockquote::after {
-  font-weight: bold;
-  color: black;
-}
-blockquote::before {
-  content: "\201C" /* open-quote */;
-}
-blockquote::after {
-  content: "\201D" /* close-quote; */;
-}
-.cnx-eoc p,
-.notes p,
-p:nth-of-type(1) {
-  text-indent: 0em;
-}
-p {
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  /* subsequent paragraphs are indented */
-
-  text-indent: 2em;
-  /*reset margins so subsequent paragraphs start next line  */
-
-  margin: 0;
-}
-.glossary {
-  page-break-before: always;
-  display: inline;
-}
-.glossary .title {
-  /* Change "Glossary" to "Key Terms" */
-
-  content: "Key Terms";
-  color: #339999;
-  font-size: large !important;
-  padding: 0em !important;
-  display: block !important;
-  text-transform: uppercase;
-}
-.glossary dt::after {
-  content: " " !important;
-}
-.section > .title {
-  page-break-after: avoid;
-}
-img,
-figure,
-subfigure {
-  margin: 1em;
-}
-.colophon > h1.title {
-  color: white;
-  background-color: #339999;
-  margin: .5em 0;
-}
-/******************************************************
- * Tables TODO: simplify/regroup code block //latest
- ******************************************************/
-.table {
-  page-break-inside: auto;
-  prince-caption-page: all;
-}
-.table caption {
-  padding-top: .5em;
-  padding-bottom: 1em;
-  font-weight: bold;
-  color: #cc9900;
-  caption-side: bottom;
-}
-.table td.header {
-  background-color: #ffffcc;
-  border-bottom: 1pt solid #339999;
-}
-.table tr {
-  page-break-inside: avoid;
-}
-.table th {
-  color: black;
-  background-color: #ffffcc;
-  font-size: small;
-  border-style: none !important;
-  border-top: 1pt solid #339999 !important;
-  border-bottom: 1pt solid #339999 !important;
-  text-align: center !important;
-}
-.table tr:first-child > th:first-child {
-  padding: .25em !important;
-  color: #339999 !important;
-  font-size: medium;
-  margin-left: -1em;
-  text-align: center !important;
-  border-style: none !important;
-  background-color: transparent !important;
-}
-.table table {
-  border: 0 !important;
-  border-bottom: 1pt solid #339999 !important;
-}
-/******************************************************
- * Figures/Subfigures
- ******************************************************/
-.figure {
-  font-size: 9pt;
-  padding-bottom: 1em;
-}
-.figure > .title {
-  display: inline;
-  color: #cc9900;
-  font-weight: bold;
-  text-align: center;
-}
-.figure img {
-  margin: 1em 0;
-  max-width: 6in !important;
-}
-.figure > .caption {
-  display: inline;
-  text-align: center;
-}
-.target-figure {
-  font-weight: bold;
-  color: #cc9900;
-}
-.cnx-figure-horizontal .informalfigure .caption {
-  text-align: center;
-}
-.cnx-figure-horizontal .informalfigure .caption * {
-  font-weight: normal !important;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-/******************************************************
- * Equations
- ******************************************************/
-div.book > div.preface > div.section div.equation > *:last-child::after,
-div.book > div.part > div.preface > div.section div.equation > *:last-child::after,
-div.book > div.chapter > div.section div.equation > *:last-child::after,
-div.book > div.part > div.chapter > div.section div.equation > *:last-child::after,
-div.book > div.appendix > div.section div.equation > *:last-child::after,
-div.book > div.part > div.appendix > div.section div.equation > *:last-child::after {
-  content: "";
-}
-/******************************************************
- * End of Book Solutions
- ******************************************************/
-div.end-of-book-solutions div.solution {
-  display: inline;
-}
-div.end-of-book-solutions div.solution > div.title {
-  display: inline;
-}
-div.end-of-book-solutions div.solution > div.title a.solution {
-  color: black;
-  font-weight: bold;
-}
-div.end-of-book-solutions div.solution > div.body {
-  margin-right: .65em;
-  display: inline;
-}
-div.end-of-book-solutions div.solution > div.body * {
-  display: inline;
-}
-div.end-of-book-solutions div.solution > div.body > a.target-figure {
-  margin: 0em .25em;
-}
-/******************************************************
- * Index
- ******************************************************/
-.index {
-  text-align: left !important;
-  column-width: auto !important;
-}
-.index .title h2 {
-  padding: 0;
-  color: #339999;
-  text-transform: uppercase;
-  font-size: x-large;
-}
-.index h3.letter {
-  color: inherit;
-  font-weight: bold;
-  font-size: medium;
-  padding-top: .5em;
-}
-.index .index-term {
-  font-size: small;
-}
-.index a {
-  font-weight: bold;
-}
-div.book > div.preface > div.cnx-eoc,
-div.book > div.part > div.preface > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
-}
-div.book > div.chapter > div.cnx-eoc,
-div.book > div.part > div.chapter > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
-}
-div.book > div.appendix > div.cnx-eoc,
-div.book > div.part > div.appendix > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
-}
-div.end-of-book-solutions {
-  prince-text-replace: "Answer:" "";
-}
-div.end-of-book-solutions > .title {
-  content: "Answer Key";
-  color: #339999;
-  margin-left: -0.5em;
-  text-transform: uppercase;
-  font-size: x-large;
-  font-weight: bold;
-  background-color: transparent;
-}
-div.end-of-book-solutions .chapter-area {
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-div.end-of-book-solutions .chapter-area a.solution {
-  color: black;
-}
-div.end-of-book-solutions .chapter-area a.chapter * {
-  color: black;
-  font-size: medium;
-}
-div.end-of-book-references > .title {
-  font-size: x-large;
-  font-weight: bold;
-  background-color: transparent;
-  color: #339999;
-  margin-left: -0.5em;
-}
-div.end-of-book-references > .chapter-area > .title {
-  color: #339999;
-  font-weight: bold;
-  font-size: medium;
-  margin: .5em 0em;
-}
-div.end-of-book-references > .chapter-area > .body > p {
-  text-indent: 0em;
-  margin: .5em 0em;
-}
-div.end-of-book-references > .chapter-area > .body > p > a.link {
-  color: #339999;
-  font-weight: normal;
-  text-decoration: underline;
 }

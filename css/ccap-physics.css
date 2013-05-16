@@ -6,6 +6,9 @@
 *******************************************************/
 /***************************************************
  * Styles used when generating a PDF from xhtml+css
+ ***************************************************/
+/***************************************************
+ * Styles used when generating a PDF from xhtml+css
  * Print-specific styles <style media="print"... *
  ***************************************************/
 /***************************************************
@@ -20,7 +23,9 @@
   text-align: center;
   font-size: large;
   font-weight: bold;
-  margin-bottom: .75em;
+  margin-bottom: 0em;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
 }
 .book > .toc ul,
 .book > .toc li {
@@ -73,6 +78,65 @@
 .toc .toc-section .toc-section {
   display: none;
 }
+/***************************************************
+ * CHAPTER INTRODUCTION
+ ***************************************************/
+.chapter > .introduction table.simplelist {
+  display: none;
+}
+.chapter > .introduction .splash img {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: none;
+}
+.chapter > .introduction > .toc {
+  display: table;
+  margin: auto;
+  margin-bottom: 1em;
+  border-spacing: 0px;
+  page-break-inside: avoid;
+}
+.chapter > .introduction > .toc > .title {
+  content: "Learning Objectives";
+  color: white;
+  font-size: large;
+  text-align: center;
+  padding: 0.25em;
+  margin: 0em;
+}
+.chapter > .introduction > .toc > * {
+  padding-left: 0em;
+  margin-left: 1em;
+}
+.chapter > .introduction > .toc > * > li {
+  list-style-type: none;
+}
+.chapter > .introduction > .toc > ul {
+  padding-left: 0em;
+  margin-left: 1em;
+}
+.chapter > .introduction > .toc a {
+  color: inherit;
+  font-weight: bold;
+  display-align: after;
+  padding-bottom: 0.25em;
+  padding-top: 0.25em;
+  text-align: start;
+  margin-left: 0.5em;
+  margin-right: 1em;
+}
+.chapter > .introduction > .toc .abstract {
+  margin-left: 2.5em;
+  padding-left: 0em;
+}
+.chapter > .introduction > .toc .abstract ul {
+  margin-left: 0em;
+  padding-left: 1.5em;
+}
+.chapter > .introduction > .toc .abstract ul > li {
+  list-style-type: disc;
+}
 /* Squirrel away the collection URL so it shows up as the footer on every page */
 #title_page_url a[href] {
   prince-text-replace: ":9680" "";
@@ -87,28 +151,6 @@ div.section .titlepage .abstract {
   display: none;
 }
 /* General css for print/online */
-.introduction > .toc > ul {
-  padding-left: 0em;
-  margin-left: 1em;
-}
-.introduction > .toc .abstract {
-  margin-left: 2.5em;
-  padding-left: 0em;
-}
-.introduction > .toc .abstract ul {
-  margin-left: 0em;
-  padding-left: 1.5em;
-}
-.introduction > .toc .abstract ul > li {
-  list-style-type: disc;
-}
-.introduction > .toc > * {
-  padding-left: 0em;
-  margin-left: 1em;
-}
-.introduction > .toc > * > li {
-  list-style-type: none;
-}
 /* Hide the TOC for the Appendix */
 .appendix .toc {
   display: none;
@@ -210,11 +252,6 @@ h6 {
   bookmark-level: none;
   page-break-after: avoid;
 }
-/****************** Modern-Textbook classes ****************/
-/* Hide the manual key-concepts table */
-.introduction table.simplelist {
-  display: none;
-}
 /***************************************************************
  * Clean up padding and spacing
  ***************************************************************/
@@ -273,36 +310,6 @@ div.table-caption.caption {
 }
 a {
   text-decoration: none;
-}
-.introduction .splash img {
-  width: 100% !important;
-  max-width: none !important;
-}
-/* "Key Concepts" Introduction table */
-.chapter .toc {
-  display: table;
-  margin: auto;
-  margin-bottom: 1em;
-  border-spacing: 0px;
-  page-break-inside: avoid;
-}
-.chapter .toc > .title {
-  content: "Learning Objectives";
-  color: white;
-  font-size: large;
-  text-align: center;
-  padding: 0.25em;
-  margin: 0em;
-}
-.chapter .toc a {
-  color: inherit;
-  font-weight: bold;
-  display-align: after;
-  padding-bottom: 0.25em;
-  padding-top: 0.25em;
-  text-align: start;
-  margin-left: 0.5em;
-  margin-right: 1em;
 }
 .problems-exercises img {
   max-width: 3in;
@@ -1392,6 +1399,48 @@ div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
 .book > .toc .toc-section .cnx-gentext-n {
   display: none;
 }
+/***************************************************
+ * CHAPTER INTRODUCTION
+ ***************************************************/
+.chapter .introduction > .title span {
+  border-bottom: 1px solid #faa61a;
+}
+/***************** Title page *****************/
+/* Introduction banner */
+h1.title {
+  background-color: #faa61a;
+}
+.book > * > .titlepage .cnx-gentext-t::before,
+h1.title .cnx-gentext-n {
+  color: black;
+  padding-right: 1em;
+}
+/* "Key Concepts" Introduction table */
+.chapter .toc {
+  border: 1px solid #0061aa;
+}
+.chapter .toc > .title {
+  background-color: #0061aa;
+}
+.cnx-introduction-chapter {
+  background-color: #faa61a;
+  font-size: x-large;
+  padding-bottom: 0em;
+  padding-left: 0.1em;
+  padding-top: 0.05em;
+  text-align: left;
+}
+.cnx-chapter-title {
+  color: white;
+}
+.cnx-introduction-title-text {
+  border-bottom: 1px solid #faa61a;
+  border-bottom-color: #faa61a;
+  border-bottom-style: solid;
+  font-size: large;
+  font-weight: bold;
+  margin-bottom: 0.75em;
+}
 /****** Preface ******/
 /*  NOTE: book specific preface. Prior to implementing parts/collection/subcollection 
 structure preface section module titles were passed in <h3> and subsection titles in <h4>.
@@ -1417,23 +1466,9 @@ structure preface section module titles were passed in <h3> and subsection title
 div.colophon.end-of-book-solutions {
   display: none;
 }
-/********* Chapter Introduction styles *********/
 /********* HTML Element styles *********/
 /********* CNXML ELements *********/
 /* Print-specific styles <style media="print"... */
-/***************** Title page *****************/
-/* Introduction banner */
-h1.title {
-  background-color: #faa61a;
-}
-.book > * > .titlepage .cnx-gentext-t::before,
-h1.title .cnx-gentext-n {
-  color: black;
-  padding-right: 1em;
-}
-.chapter .introduction > .title span {
-  border-bottom: 1px solid #faa61a;
-}
 /********************** Generic Elements ********************/
 a {
   color: #d89016;
@@ -1456,13 +1491,6 @@ a {
 /* Numbered sections should have the number in blue */
 h2::before {
   color: #0061aa;
-}
-/* "Key Concepts" Introduction table */
-.chapter .toc {
-  border: 1px solid #0061aa;
-}
-.chapter .toc > .title {
-  background-color: #0061aa;
 }
 .table table {
   background-color: #fbf2e2;
@@ -1703,25 +1731,6 @@ h2::before {
   margin-left: 1em;
   margin-right: 1em;
   margin-top: 1em;
-}
-.cnx-introduction-chapter {
-  background-color: #faa61a;
-  font-size: x-large;
-  padding-bottom: 0em;
-  padding-left: 0.1em;
-  padding-top: 0.05em;
-  text-align: left;
-}
-.cnx-chapter-title {
-  color: white;
-}
-.cnx-introduction-title-text {
-  border-bottom: 1px solid #faa61a;
-  border-bottom-color: #faa61a;
-  border-bottom-style: solid;
-  font-size: large;
-  font-weight: bold;
-  margin-bottom: 0.75em;
 }
 .cnx-header-pagenumber {
   font-size: x-small;
