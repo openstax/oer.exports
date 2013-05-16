@@ -48,16 +48,8 @@
 /***************************************************
  * CHAPTER INTRODUCTION
  ***************************************************/
-
-.chapter .introduction > .title span { //.ccap-intro-title
-  border-bottom: 1px solid @orange;
-}
-
-/***************** Title page *****************/
-/* Introduction banner */
-h1.title { //ccap-chapter
-  background-color: @orange;
-}
+ // titlepage: introduction banner - used for page headers
+h1.title { background-color: @orange; } //ccap-chapter
 
 .book > * > .titlepage .cnx-gentext-t::before,
 h1.title .cnx-gentext-n { //.ccap-chapter-number
@@ -65,12 +57,20 @@ h1.title .cnx-gentext-n { //.ccap-chapter-number
   padding-right: 1em;
 }
 
-/* "Key Concepts" Introduction table */
-.chapter .toc {
-  border: 1px solid @blue;
-}
-.chapter .toc > .title {
-  background-color: @blue;
+.chapter > .introduction {
+
+  > .title span { //.ccap-intro-title
+    border-bottom: 1px solid @orange;
+    padding-right: 3em; // padding was added to maintain the length of the bottom-border (regression)
+  }
+
+  > .toc { // Learning Objectives 
+    border: 1px solid @blue;
+    > .title { //learning objectives title
+      font-weight: normal; 
+      background-color: @blue;
+    } 
+  }
 }
 
 .cnx-introduction-chapter {
