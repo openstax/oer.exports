@@ -386,24 +386,32 @@ This template relies on a special:
 -->
 
 <xsl:template match="ext:end-of-book-references-placeholder">
-    <xsl:param name="book" select="/db:book"/>
-  	
-	<xsl:for-each select="$book/*[self::db:preface | self::db:chapter | self::db:appendix]|$book/db:part/*[self::db:preface | self::db:chapter | self::db:appendix]">
-		<xsl:variable name="title" select="db:title"/>
-			
-		<xsl:for-each select=".//db:section[@class = 'references']">
-			<div class="chapter-area">
-		    	<!-- Print the chapter title -->
-        		<div class="title">
-          			<xsl:value-of select="$title"/>
-        		</div>
-        		<!-- references inserted into body -->
-        		<div class="body">
-          			<xsl:apply-templates/>
-         		</div>
-      		</div>
-		</xsl:for-each>	
-	</xsl:for-each> 	
+  <xsl:param name="book" select="/db:book"/>
+  <xsl:variable name="context" select="."/>
+  
+  <xsl:for-each select="$book/*[self::db:preface | self::db:chapter | self::db:appendix]|$book/db:part/*[self::db:preface | self::db:chapter | self::db:appendix]">
+    
+    <xsl:variable name="chapterId">
+      <xsl:call-template name="object.id"/>
+    </xsl:variable>
+    <!-- Print the chapter number  pulled from eob-solutions -->
+    <xsl:for-each select=".//db:section[@class = 'references']">
+      <div class="chapter-area">
+        <h2 class="title">
+          <xsl:call-template name="simple.xlink">
+            <xsl:with-param name="linkend" select="$chapterId"/>
+            <xsl:with-param name="content">
+              <xsl:apply-templates select="." mode="object.xref.markup"/>
+            </xsl:with-param>
+          </xsl:call-template>
+        </h2>
+        <!-- references inserted into body -->
+        <div class="body">
+          <xsl:apply-templates/>
+        </div>
+      </div>  
+    </xsl:for-each> 
+  </xsl:for-each>   
 </xsl:template>
 
 
