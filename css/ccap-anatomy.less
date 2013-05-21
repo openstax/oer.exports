@@ -207,8 +207,8 @@ div.section .titlepage .abstract {
     background-position: top left;
     background-position: top outside;
     page-break-inside: avoid;
-  page-break-after: avoid;  
-  background-color: white;
+    page-break-after: avoid;  
+    background-color: white;
     content: "";
     display: block;
     // the following are tweaked so the overlays really do over lay
@@ -276,9 +276,21 @@ div.section .titlepage .abstract {
   .empty { display: hidden; } //hide element but count it   *didn't use visibility property which would cause element to still take up space on page
 }
 
-.multiple-choice > .title { content: "Review Questions"; column-span: all; margin-top: 1em; } //todo: clean code 
-.free-response > .title { content: "Critical Thinking Questions"; column-span: all; margin-top: 1em; }
-&.interactive-exercise > div.title { content: "Interactive Link Questions"; column-span: all; margin-top: 1em; }
+.multiple-choice > .title { 
+  content: "Review Questions"; 
+  column-span: all !important; // added override to resolve bug on staging where titles 
+  margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginata
+} 
+.free-response > .title { 
+  content: "Critical Thinking Questions"; 
+  column-span: all !important; // added override to resolve bug on staging where titles 
+  margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginata
+}
+&.interactive-exercise > div.title { 
+  content: "Interactive Link Questions"; 
+  column-span: all !important;  // added override to resolve bug on staging where titles 
+  margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
+}
 .multiple-choice,.free-response, .interactive-exercise {
   > .section > .title { display: none; }
 }
