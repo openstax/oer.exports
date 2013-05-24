@@ -86,7 +86,8 @@ div.section .titlepage .abstract {
 }
 /* Don't print module asterix (link to attribution) */
 .section .titlepage sup a,
-.introduction > .title sup a {
+.introduction > .title sup a,
+.appendix .titlepage sup a {
   display: none;
 }
 /* General css for print/online */
@@ -1375,6 +1376,9 @@ div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
 @page  {
   margin: 0.5in 1in;
 }
+.note {
+  padding-bottom: 1em !important;
+}
 /******************************************************
  * Book Table of Contents
   ******************************************************/
@@ -1511,6 +1515,10 @@ div.section .titlepage .abstract > .title {
 .anatomy.aging {
   background-color: #ffffcc;
 }
+.anatomy.aging p:nth-of-type(2) {
+  text-indent: 0em;
+  page-break-before: avoid;
+}
 .anatomy.aging::before {
   padding-top: 0.53in;
   background-repeat: no-repeat;
@@ -1548,6 +1556,10 @@ div.section .titlepage .abstract > .title {
 }
 .anatomy.career {
   background-color: #ffffcc;
+}
+.anatomy.career p:nth-of-type(2) {
+  text-indent: 0em;
+  page-break-before: avoid;
 }
 .anatomy.career::before {
   padding-top: 0.51in;
@@ -1587,6 +1599,10 @@ div.section .titlepage .abstract > .title {
 .anatomy.diseases {
   background-color: #ffffcc;
 }
+.anatomy.diseases p:nth-of-type(2) {
+  text-indent: 0em;
+  page-break-before: avoid;
+}
 .anatomy.diseases::before {
   padding-top: 0.59in;
   background-repeat: no-repeat;
@@ -1624,6 +1640,10 @@ div.section .titlepage .abstract > .title {
 }
 .anatomy.disorders {
   background-color: #ffffcc;
+}
+.anatomy.disorders p:nth-of-type(2) {
+  text-indent: 0em;
+  page-break-before: avoid;
 }
 .anatomy.disorders::before {
   padding-top: 0.59in;
@@ -1663,6 +1683,10 @@ div.section .titlepage .abstract > .title {
 .anatomy.everyday {
   background-color: #ffffcc;
 }
+.anatomy.everyday p:nth-of-type(2) {
+  text-indent: 0em;
+  page-break-before: avoid;
+}
 .anatomy.everyday::before {
   padding-top: 0.44in;
   background-repeat: no-repeat;
@@ -1700,6 +1724,10 @@ div.section .titlepage .abstract > .title {
 }
 .anatomy.homeostatic {
   background-color: #ffffcc;
+}
+.anatomy.homeostatic p:nth-of-type(2) {
+  text-indent: 0em;
+  page-break-before: avoid;
 }
 .anatomy.homeostatic::before {
   padding-top: 0.57in;
@@ -1739,6 +1767,10 @@ div.section .titlepage .abstract > .title {
 .anatomy.interactive {
   page-break-inside: avoid;
   background-color: #ffffcc;
+}
+.anatomy.interactive p:nth-of-type(2) {
+  text-indent: 0em;
+  page-break-before: avoid;
 }
 .anatomy.interactive::before {
   padding-top: 0.43in;
@@ -1787,6 +1819,10 @@ div.section .titlepage .abstract > .title {
 .anatomy.interactive.um {
   background-color: #ffffcc;
   page-break-inside: auto !important;
+}
+.anatomy.interactive.um p:nth-of-type(2) {
+  text-indent: 0em;
+  page-break-before: avoid;
 }
 .anatomy.interactive.um::before {
   padding-top: 0.5in;
@@ -1884,17 +1920,17 @@ div.section .titlepage .abstract > .title {
 }
 .multiple-choice > .title {
   content: "Review Questions";
-  column-span: all;
+  column-span: all !important;
   margin-top: 1em;
 }
 .free-response > .title {
   content: "Critical Thinking Questions";
-  column-span: all;
+  column-span: all !important;
   margin-top: 1em;
 }
 .interactive-exercise > div.title {
   content: "Interactive Link Questions";
-  column-span: all;
+  column-span: all !important;
   margin-top: 1em;
 }
 .multiple-choice > .section > .title,
@@ -2081,6 +2117,7 @@ subfigure {
   color: #cc9900;
   font-weight: bold;
   text-align: center;
+  margin-right: .5em;
 }
 .figure img {
   margin: 1em 0;
