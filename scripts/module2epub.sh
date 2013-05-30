@@ -1,5 +1,10 @@
 #!/bin/sh -x -v
 
+# Copyright (c) 2013 Rice University
+#
+# This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+# See LICENSE.txt for details.
+
 # 1st arg is either "Connexions" or any other string indicating if this is a cnx site or a rhaptos site
 # 2nd arg is the path to the collection
 # 3rd arg is the epub zip file
