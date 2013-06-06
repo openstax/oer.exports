@@ -15,7 +15,14 @@ Tested with python 2.4 and python 2.7 but it will probably work with all version
     sudo apt-get install librsvg2-bin             # To convert SVG and math to PNG
     sudo apt-get install otf-stix
 
-## For Osx
+also:
+    apt-get install imagemagick                    # PNG resizing
+    apt-get install inkscape                       # svg processing
+    apt-get install ruby                           # Hmmm...
+    apt-get install libxml2-utils                  # for xmllint
+    apt-get install zip                            # building the zip
+    
+# For Osx
 
 Install http://mxcl.github.com/homebrew/
 
