@@ -193,13 +193,22 @@ h1.title .cnx-gentext-n {
 .chapter > .introduction > .toc .abstract ul > li {
   list-style-type: disc;
 }
+/***************************************************
+ * SECTION LEVEL LEARNING OBJECTIVES (section abstract) 
+ ***************************************************/
+.section > .titlepage .abstract {
+  margin: 1em 0em;
+  padding: .50em;
+  page-break-inside: avoid;
+  page-break-before: avoid;
+}
+.section > .titlepage .abstract ul > li {
+  margin: .25em 0em;
+}
 /* Squirrel away the collection URL so it shows up as the footer on every page */
 #title_page_url a[href] {
   prince-text-replace: ":9680" "";
   string-set: cnx-collection-url attr(href);
-}
-div.section .titlepage .abstract {
-  display: none !important;
 }
 /* Don't print module asterix (link to attribution) */
 .section .titlepage sup a,
@@ -1474,25 +1483,10 @@ div.part > div.titlepage {
 }
 /******************************************************
  * Section Level Learning Objectives
- ******************************************************/
-div.section .titlepage .abstract {
-  display: block !important;
-  margin: 1em 0em;
-  page-break-inside: avoid;
-  page-break-before: avoid !important;
-  /*remove "summary"*/
-
-}
-div.section .titlepage .abstract > .itemizedlist::before {
+******************************************************/
+.section > .titlepage > .abstract::before {
   content: "By the end of this module, you will be able to:";
-  font-size: small;
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-div.section .titlepage .abstract > .itemizedlist .listitem {
-  margin: .25em 0em ;
-}
-div.section .titlepage .abstract > .title {
-  display: none;
 }
 /******************************************************
  * Features args(title color, bkgrnd color, path to svg)
