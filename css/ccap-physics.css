@@ -2,7 +2,7 @@
 /*******************************************************
 * Copyright (c) 2013 Rice University
 *  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
-*  See LICENSE.txt for details. 
+*  See LICENSE.txt for details.
 *******************************************************/
 /***************************************************
  * Styles used when generating a PDF from xhtml+css
@@ -195,13 +195,22 @@ h1.title .cnx-gentext-n {
 .chapter > .introduction > .toc .abstract ul > li {
   list-style-type: disc;
 }
+/***************************************************
+ * SECTION LEVEL LEARNING OBJECTIVES (section abstract) 
+ ***************************************************/
+.section > .titlepage .abstract {
+  margin: 1em 0em;
+  padding: .50em;
+  page-break-inside: avoid;
+  page-break-before: avoid;
+}
+.section > .titlepage .abstract ul > li {
+  margin: .25em 0em;
+}
 /* Squirrel away the collection URL so it shows up as the footer on every page */
 #title_page_url a[href] {
   prince-text-replace: ":9680" "";
   string-set: cnx-collection-url attr(href);
-}
-div.section .titlepage .abstract {
-  display: none !important;
 }
 /* Don't print module asterix (link to attribution) */
 .section .titlepage sup a,
@@ -1474,6 +1483,9 @@ h1.title {
 }
 .preface > .section ul > li {
   list-style-type: disc;
+}
+.section > .titlepage .abstract {
+  display: none;
 }
 /*************** Hide ALL solutions ***********/
 .solutions {

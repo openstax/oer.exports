@@ -230,15 +230,26 @@ h1.title { //ccap-chapter
 }
 
 
+/***************************************************
+ * SECTION LEVEL LEARNING OBJECTIVES (section abstract) 
+ ***************************************************/
+.section > .titlepage {
+  .abstract {
+    margin: 1em 0em;
+    padding: .50em;
+    page-break-inside: avoid;
+    page-break-before: avoid;
+
+    ul > li { margin: .25em 0em; }   
+  }
+}
  
+
 /* Squirrel away the collection URL so it shows up as the footer on every page */
 #title_page_url a[href] {
   prince-text-replace: ":9680" "";  //this strips the port number
   string-set: cnx-collection-url attr(href);
 }
-
-
-div.section .titlepage .abstract { display: none !important; } // squirrel away abstract at section.module level(section-learning-objectives) Physics/Soc
 
 /* Don't print module asterix (link to attribution) */
 .section .titlepage, .introduction > .title, .appendix .titlepage {
