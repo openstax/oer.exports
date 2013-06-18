@@ -19,11 +19,15 @@
 @teal:        #5FC8C1;
 @dark-gray:   #08212D;
 
+@white:       #FFF;
+@black:       #000;
 
 @table-border: 1pt solid @blue;
 @page-width: 6in;
-// The base CCAP books use sans fonts but the anatomy books use serif fonts.
-@font-family-anatomy: Liberation Serif, serif, @stix-fonts;
+
+// The base CCAP books use sans fonts but the statistics book uses serif fonts.
+@font-family-statistics: Liberation Serif, serif, @stix-fonts;
+
 @page { margin: 0.5in 1in; } 
 // Finished printed size of the QR code is dependent on: 1-distance between qr code and scanning device 
 // 2-size of dots in the code(amount of data inputed into the code, the smaller the dots become)
@@ -107,7 +111,7 @@ div.part > div.titlepage {display:none;}
   .abstract {
     &::before {
       content: "By the end of this module, you will be able to:";
-      font-family: @font-family-anatomy;
+      font-family: @font-family-statistics;
     }
   }
 } 
@@ -124,12 +128,14 @@ div.part > div.titlepage {display:none;}
   &.finger { 
     // override parent selectors cnx-eoc p, .notes p, p:nth-of-type(1) which set text-indent: 0;
     p {
+      font-family: @font-family !important;  // utilize san-serif font from base for generic notes
       text-indent: 30px !important;
       background: url("ccap-statistics/finger.svg") no-repeat;
     }
   }
   &.no-finger {
      p {
+      font-family: @font-family !important;  // utilize san-serif font from base for generic notes
       text-indent: 30px !important;
     }
   }        
@@ -160,7 +166,7 @@ div.part > div.titlepage {display:none;}
     .x-feature(#336600, @gray, try, 0.59in); }
   &.calculator { 
     page-break-inside: avoid;
-    .x-feature(#336633, @gray, calculator, 0.59in); }
+    .x-feature(#336633, @white, calculator, 0.59in); }
   &.interactive { 
     page-break-inside: avoid; //no breaks within this feature
     .x-feature(#993333, @gray, interactive, 0.43in);
@@ -222,7 +228,6 @@ div.part > div.titlepage {display:none;}
     > .title { font-size: x-small; color: @blue; }
   }
 }
-
 
 /******************************************************
 
@@ -345,7 +350,6 @@ h3 {
 
 h4 {
   color: @blue;
-  font-style: italic;
   font-weight: bold;
 }
 
@@ -365,7 +369,7 @@ blockquote {
 .cnx-eoc p, .notes p,p:nth-of-type(1) { text-indent: 0em; }
 
 p {
-  font-family: @font-family-anatomy;
+  font-family: @font-family-statistics;
   /* subsequent paragraphs are indented */
   text-indent: 2em;
   /*reset margins so subsequent paragraphs start next line  */
@@ -403,8 +407,19 @@ img, figure, subfigure  { margin: 1em; }
  }
 
 // Example features with only 3 sides with blue border
+.example {
+  page-break-inside: avoid;
+}
+
 .example > .title {
-    background: @blue;
+  background: @blue;
+  padding-top: .3em;
+  padding-bottom: .3em;
+}
+
+.example > .title > * {
+    font-size: 130%;
+    font-weight: 500;
     color: #fff;
 }
 
@@ -451,6 +466,7 @@ img, figure, subfigure  { margin: 1em; }
     text-align: center !important;
   }
 
+/* don't think this will be needed for statistics - saving for later if we do
   tr:first-child > th:first-child  {
     padding: .25em !important;
     color: @blue !important;
@@ -460,10 +476,16 @@ img, figure, subfigure  { margin: 1em; }
     border-style: none !important;
     background-color: transparent !important;
   }
+*/
 
   table {
     border: 0 !important;
     border-bottom: @table-border !important;
+  }
+
+  // This is just for looks for the template take out later
+  table td {
+    padding: 1em;
   }
 
   //handle lists inside tables
@@ -511,7 +533,7 @@ img, figure, subfigure  { margin: 1em; }
   text-align: center; //center subfigure caption
   * { 
     font-weight: normal !important; //override strong tag
-    font-family: @font-family-anatomy;
+    font-family: @font-family-statistics;
   }
 }
 
@@ -615,7 +637,7 @@ div.end-of-book-solutions {
   }
 
   .chapter-area {
-    font-family: @font-family-anatomy;
+    font-family: @font-family-statistics;
     a {
       &.solution { color: black; }
       &.chapter * { 
