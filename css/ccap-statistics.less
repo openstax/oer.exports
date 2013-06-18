@@ -252,7 +252,15 @@ div.part > div.titlepage {display:none;}
   &.summary { 
     .x-column-count(1);
     > .title { content: "Chapter Review"; margin-top: 1em; }
-    > .section .title > a { color: black; page-break-after: avoid; } 
+    > .section .title > a { color: @blue; page-break-after: avoid; } 
+    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; } 
+    p { text-indent: 2em; }
+  } 
+
+   &.practice { 
+    .x-column-count(1);
+    > .title { content: "Practice"; margin-top: 1em; }
+    > .section .title > a { color: @blue; page-break-after: avoid; } 
     p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; } 
     p { text-indent: 2em; }
   } 
@@ -277,15 +285,26 @@ div.part > div.titlepage {display:none;}
   column-span: all !important; // added override to resolve bug on staging where titles 
   margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginata
 }
+
+/* don't need this one - remove later
 &.interactive-exercise > div.title { 
   content: "Interactive Link Questions"; 
   column-span: all !important;  // added override to resolve bug on staging where titles 
   margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
 }
-.multiple-choice,.free-response, .interactive-exercise {
-  > .section > .title { display: none; }
+*/
+
+&.formula-review > div.title { 
+  content: "Formula Review"; 
+  column-span: all !important;  // added override to resolve bug on staging where titles 
+  margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
 }
 
+
+
+.multiple-choice,.free-response, .interactive-exercise, .formula-review {
+  > .section > .title { display: none; }
+}
 
 /******************************************************
  * Generic Elements
