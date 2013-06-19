@@ -25,7 +25,8 @@ import util
 
 DEFAULT_PDFGEN_PATHS = ['/usr/bin/prince','/usr/local/bin/prince']
 
-BASE_PATH = os.getcwd()
+path = os.path.abspath(__file__)
+BASE_PATH = os.path.dirname(path)
 
 # XSL files
 DOCBOOK2XHTML_XSL=util.makeXsl('dbk2xhtml.xsl')
@@ -124,7 +125,7 @@ def loadModule(moduleDir):
 def xhtml2pdf(xhtml_file, files, temp_dir, print_style, pdfgen, output_pdf, verbose=False):
   """ Convert XHTML and assorted files to PDF using a XHTML+CSS to PDF script """
 
-  CSS_FILE = os.path.join(BASE_PATH, 'css/%s.css' % print_style)
+  CSS_FILE = os.path.join(BASE_PATH, 'css', '%s.css' % print_style)
   
   # Run Prince (or an Opensource) to generate an abstract tree 1st
   strCmd = [pdfgen, '-v', '--style=%s' % CSS_FILE, '--output=%s' % output_pdf, xhtml_file]

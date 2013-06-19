@@ -94,83 +94,11 @@ div.part > div.titlepage {display:none;}
  * Preface
  ******************************************************/
 .preface {
-  //overrides numbering.less without it "Preface" was not displaying after pg #
-  > div.titlepage > div > div h1.title { string-set: cnx-header @S content() @E; color:black; }
-
-  h1.title {
-    color: @teal;
-    font-size: xx-large;
-    &:first-child {
-      margin:0;
-      background-color: @teal;
-      color: white !important;
-    }
+  > .titlepage {
+    h1.title { background-color: @teal; }
   }
-
-  .itemizedlist {
-    list-style-type:none;
-    .title {
-      color: @teal;
-      font-size: medium;
-      margin: .5em 0;
-    }
-  }
-  
-  .cnx-gentext-t::before { display: none; } //hide pipe before section title
-  
 }
-
-
-/******************************************************
- * Preface
- ******************************************************/
-.preface {
-  //overrides numbering.less without it "Preface" wasn't displaying after pg #
-  > div.titlepage > div > div h1.title { string-set: cnx-header @S content() @E; color:black; }
-
-  h1.title {
-    color: @teal;
-    font-size: xx-large;
-    &:first-child {
-      margin:0;
-      background-color: @teal;
-      color: white !important;
-    }
-  }
-
-  .itemizedlist {
-    list-style-type:none;
-    .title {
-      color: @teal;
-      font-size: medium;
-      margin: .5em 0;
-    }
-  }
-  
-  .cnx-gentext-t::before { display: none; } //hide pipe before section title
-  
-}
-
-
-/******************************************************
- * Section Level Learning Objectives
- ******************************************************/
-div.section .titlepage .abstract {
-  display: block !important;
-  margin: 1em 0em;
-  page-break-inside:avoid;
-  page-break-before: avoid !important;
-
-  >.itemizedlist {
-    &::before {
-      content: "By the end of this module, you will be able to:";
-      font-size: small;
-      font-family: @font-family-anatomy;
-    }
-    .listitem { margin: .25em 0em ; }
-  }
-  >.title { display:none; } /*remove "summary"*/
-}
+ 
 
 /******************************************************
  * Features args(title color, bkgrnd color, path to svg)
@@ -375,13 +303,11 @@ h2 {
 
 h3 {
   color: @teal;
-  font-size: 1.17em !important;
   font-weight: bold;
 }
 
 h4 {
   color: @teal;
-  font-size: 1.17em !important;
   font-style: italic;
   font-weight: bold;
 }
@@ -488,6 +414,14 @@ img, figure, subfigure  { margin: 1em; }
     border: 0 !important;
     border-bottom: @table-border !important;
   }
+
+  //handle lists inside tables
+  .itemizedlist { 
+    margin: 0; //reset
+    list-style-type: none; //no bullets for lists inside tables
+    > .listitem > p { font-family: @font-family !important; } //overrides bio p font use font-family from base
+  }
+
 }
 
 
