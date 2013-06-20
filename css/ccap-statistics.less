@@ -22,8 +22,8 @@
 @white:       #FFF;
 @black:       #000;
 
-@table-border: 1pt solid @blue;
-@page-width: 6in;
+@table-border: 1pt solid @black;
+@page-width: 6.5in;
 
 // The base CCAP books use sans fonts but the statistics book uses serif fonts.
 @font-family-statistics: Liberation Serif, serif, @stix-fonts;
@@ -79,7 +79,8 @@ div.part > div.titlepage {display:none;}
     padding: 0em;
 
     > .title { //chapter objectives
-      padding: .5em 0em;
+      padding-top: .1em;
+      padding-bottom: .2em;
       background-color: @blue; 
       color: white;  
       text-align: center; 
@@ -130,13 +131,13 @@ div.part > div.titlepage {display:none;}
     p {
       font-family: @font-family !important;  // utilize san-serif font from base for generic notes
       text-indent: 30px !important;
-      background: url("ccap-statistics/finger.svg") no-repeat;
+      line-height: 1.2em;
+      background: url("ccap-statistics/pointer.svg") no-repeat;
     }
   }
   &.no-finger {
      p {
       font-family: @font-family !important;  // utilize san-serif font from base for generic notes
-      text-indent: 30px !important;
     }
   }        
 }
@@ -257,14 +258,14 @@ div.part > div.titlepage {display:none;}
     p { text-indent: 2em; }
   } 
 
-   &.practice { 
+  &.practice { 
     .x-column-count(1);
     > .title { content: "Practice"; margin-top: 1em; }
     > .section .title > a { color: @blue; page-break-after: avoid; } 
     p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; } 
     p { text-indent: 2em; }
-  } 
-  
+  }
+
   //ccap-base sets this so override it here
   .references p { text-indent: 0em; }
   
@@ -275,24 +276,29 @@ div.part > div.titlepage {display:none;}
   .empty { display: hidden; } //hide element but count it   *didn't use visibility property which would cause element to still take up space on page
 }
 
+// not using this remove
 .multiple-choice > .title { 
   content: "Review Questions"; 
   column-span: all !important; // added override to resolve bug on staging where titles 
   margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginata
 } 
+
+// this is the homework eoc piece.  Has to be fixed and renamed
+.free-response {
+  .x-column-count(1);
+}
 .free-response > .title { 
-  content: "Critical Thinking Questions"; 
+  content: "Homework"; 
   column-span: all !important; // added override to resolve bug on staging where titles 
   margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginata
 }
 
-/* don't need this one - remove later
+// not using this - remove later
 &.interactive-exercise > div.title { 
   content: "Interactive Link Questions"; 
   column-span: all !important;  // added override to resolve bug on staging where titles 
   margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
 }
-*/
 
 &.formula-review > div.title { 
   content: "Formula Review"; 
@@ -300,9 +306,7 @@ div.part > div.titlepage {display:none;}
   margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
 }
 
-
-
-.multiple-choice,.free-response, .interactive-exercise, .formula-review {
+.multiple-choice,.free-response, .interactive-exercise, .formula-review, .practice {
   > .section > .title { display: none; }
 }
 
@@ -447,10 +451,6 @@ img, figure, subfigure  { margin: 1em; }
     padding: 1em 2em .5em 2em;
   }
 
-
-
-
-
 /******************************************************
  * Tables TODO: simplify/regroup code block //latest
  ******************************************************/
@@ -470,7 +470,7 @@ img, figure, subfigure  { margin: 1em; }
   // Add styling for table entries that should render as table headers
   td.header {
     background-color: @gray;
-    border-bottom: @table-border;
+    border-right: @table-border;
   }
   
   tr { page-break-inside: avoid;}
@@ -479,9 +479,7 @@ img, figure, subfigure  { margin: 1em; }
     color: black;
     background-color: @gray;
     font-size: small;
-    border-style: none !important;
-    border-top: @table-border !important;
-    border-bottom: @table-border !important;
+    border: @table-border !important;
     text-align: center !important;
   }
 
@@ -498,8 +496,7 @@ img, figure, subfigure  { margin: 1em; }
 */
 
   table {
-    border: 0 !important;
-    border-bottom: @table-border !important;
+    border: @table-border !important;
   }
 
   // This is just for looks for the template take out later
@@ -533,7 +530,7 @@ img, figure, subfigure  { margin: 1em; }
   }
 
   & img {
-    margin: 1em 0; //override auto  left/right margins from base
+    margin: 0 !important; //override auto  left/right margins from base
     max-width: @page-width !important; //overrides width value figures/subfigures ensuring imgs do not bleed off page
   }
 

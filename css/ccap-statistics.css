@@ -1462,7 +1462,8 @@ div.part > div.titlepage {
   padding: 0em;
 }
 .chapter > .introduction .chapter-objectives > .title {
-  padding: .5em 0em;
+  padding-top: .1em;
+  padding-bottom: .2em;
   background-color: #26397f;
   color: white;
   text-align: center;
@@ -1499,11 +1500,11 @@ div.part > div.titlepage {
 .statistics.finger p {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1 !important;
   text-indent: 30px !important;
-  background: url("ccap-statistics/finger.svg") no-repeat;
+  line-height: 1.2em;
+  background: url("ccap-statistics/pointer.svg") no-repeat;
 }
 .statistics.no-finger p {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1 !important;
-  text-indent: 30px !important;
 }
 .statistics.finger .body .title,
 .statistics.no-finger .body .title {
@@ -1554,7 +1555,7 @@ div.part > div.titlepage {
   page-break-after: avoid;
 }
 .statistics.collab .figure img {
-  max-width: 5.75in !important;
+  max-width: 6.25in !important;
 }
 .statistics.collab .figure > .title {
   font-size: x-small;
@@ -1597,7 +1598,7 @@ div.part > div.titlepage {
   page-break-after: avoid;
 }
 .statistics.lab .figure img {
-  max-width: 5.75in !important;
+  max-width: 6.25in !important;
 }
 .statistics.lab .figure > .title {
   font-size: x-small;
@@ -1640,7 +1641,7 @@ div.part > div.titlepage {
   page-break-after: avoid;
 }
 .statistics.try .figure img {
-  max-width: 5.75in !important;
+  max-width: 6.25in !important;
 }
 .statistics.try .figure > .title {
   font-size: x-small;
@@ -1683,7 +1684,7 @@ div.part > div.titlepage {
   page-break-after: avoid;
 }
 .statistics.calculator .figure img {
-  max-width: 5.75in !important;
+  max-width: 6.25in !important;
 }
 .statistics.calculator .figure > .title {
   font-size: x-small;
@@ -1726,7 +1727,7 @@ div.part > div.titlepage {
   page-break-after: avoid;
 }
 .statistics.interactive .figure img {
-  max-width: 5.75in !important;
+  max-width: 6.25in !important;
 }
 .statistics.interactive .figure > .title {
   font-size: x-small;
@@ -1778,7 +1779,7 @@ div.part > div.titlepage {
   page-break-after: avoid;
 }
 .statistics.interactive.um .figure img {
-  max-width: 5.75in !important;
+  max-width: 6.25in !important;
 }
 .statistics.interactive.um .figure > .title {
   font-size: x-small;
@@ -1865,18 +1866,22 @@ div.part > div.titlepage {
   column-span: all !important;
   margin-top: 1em;
 }
+.free-response {
+  -webkit-column-count: 1;
+  column-count: 1;
+  columns: 1;
+  column-fill: auto;
+}
 .free-response > .title {
-  content: "Critical Thinking Questions";
+  content: "Homework";
   column-span: all !important;
   margin-top: 1em;
 }
-/* don't need this one - remove later
-&.interactive-exercise > div.title { 
-  content: "Interactive Link Questions"; 
-  column-span: all !important;  // added override to resolve bug on staging where titles 
-  margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
+.interactive-exercise > div.title {
+  content: "Interactive Link Questions";
+  column-span: all !important;
+  margin-top: 1em;
 }
-*/
 .formula-review > div.title {
   content: "Formula Review";
   column-span: all !important;
@@ -1885,7 +1890,8 @@ div.part > div.titlepage {
 .multiple-choice > .section > .title,
 .free-response > .section > .title,
 .interactive-exercise > .section > .title,
-.formula-review > .section > .title {
+.formula-review > .section > .title,
+.practice > .section > .title {
   display: none;
 }
 /******************************************************
@@ -2056,7 +2062,7 @@ subfigure {
 }
 .table td.header {
   background-color: #ecf1ef;
-  border-bottom: 1pt solid #26397f;
+  border-right: 1pt solid #000000;
 }
 .table tr {
   page-break-inside: avoid;
@@ -2065,14 +2071,11 @@ subfigure {
   color: black;
   background-color: #ecf1ef;
   font-size: small;
-  border-style: none !important;
-  border-top: 1pt solid #26397f !important;
-  border-bottom: 1pt solid #26397f !important;
+  border: 1pt solid #000000 !important;
   text-align: center !important;
 }
 .table table {
-  border: 0 !important;
-  border-bottom: 1pt solid #26397f !important;
+  border: 1pt solid #000000 !important;
 }
 .table table td {
   padding: 1em;
@@ -2099,8 +2102,8 @@ subfigure {
   margin-right: .5em;
 }
 .figure img {
-  margin: 1em 0;
-  max-width: 6in !important;
+  margin: 0 !important;
+  max-width: 6.5in !important;
 }
 .figure > .caption {
   display: inline;
