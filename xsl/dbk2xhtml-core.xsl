@@ -373,7 +373,7 @@
 <!-- ============================================== -->
 <!-- New Feature: end-of-book-references            -->
 <!-- ============================================== -->
-<!-- 
+<!--
 This template relies on a special:
   <db:colophon class="end-of-book-references">
   <db:title>References</db:title>
@@ -382,15 +382,15 @@ This template relies on a special:
  The reasons for this are:
    1- So it is chunked as a separate file (hence the db:colophon)
    2- Has a title that shows up in the EPUB spine/TOC (hence the db:title)
-   3- Gets matched (hence the ext:special-element-name) 
+   3- Gets matched (hence the ext:special-element-name)
 -->
 
 <xsl:template match="ext:end-of-book-references-placeholder">
     <xsl:param name="book" select="/db:book"/>
-  	
+
 	<xsl:for-each select="$book/*[self::db:preface | self::db:chapter | self::db:appendix]|$book/db:part/*[self::db:preface | self::db:chapter | self::db:appendix]">
 		<xsl:variable name="title" select="db:title"/>
-			
+
 		<xsl:for-each select=".//db:section[@class = 'references']">
 			<div class="chapter-area">
 		    	<!-- Print the chapter title -->
@@ -402,8 +402,8 @@ This template relies on a special:
           			<xsl:apply-templates/>
          		</div>
       		</div>
-		</xsl:for-each>	
-	</xsl:for-each> 	
+		</xsl:for-each>
+	</xsl:for-each>
 </xsl:template>
 
 
