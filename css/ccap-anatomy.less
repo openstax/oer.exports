@@ -1,13 +1,13 @@
 /*******************************************************
 * Copyright (c) 2013 Rice University
 *  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
-*  See LICENSE.txt for details. 
-*******************************************************/ 
- 
+*  See LICENSE.txt for details.
+*******************************************************/
+
  /* Styles used when generating a PDF from xhtml+css
  ***************************************************/
 
-// Import general page headers/footers, bookmark calculation, etc 
+// Import general page headers/footers, bookmark calculation, etc
 @import url('ccap-base.less');
 @import url('ccap-numbering.less');
 
@@ -24,8 +24,8 @@
 @page-width: 6in;
 // The base CCAP books use sans fonts but the anatomy books use serif fonts.
 @font-family-anatomy: Liberation Serif, serif, @stix-fonts;
-@page { margin: 0.5in 1in; } 
-// Finished printed size of the QR code is dependent on: 1-distance between qr code and scanning device 
+@page { margin: 0.5in 1in; }
+// Finished printed size of the QR code is dependent on: 1-distance between qr code and scanning device
 // 2-size of dots in the code(amount of data inputed into the code, the smaller the dots become)
 // For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
 @qr: 1.25in;
@@ -43,7 +43,7 @@
 .book > .toc {
   > .title { border-bottom-color: @orange; }
   a { color: @teal; }
-} 
+}
 
 
 /*******************************************************
@@ -60,11 +60,11 @@ div.part > div.titlepage {display:none;}
     content: "Introduction";
     font-size: x-large;
   }
-  
+
   /******************************************************
-  * Manual Chapter Objectives -  
+  * Manual Chapter Objectives -
   * special note ".chapter-objectives" contains
-  * list within para 
+  * list within para
   ******************************************************/
   > .toc { display: none; } // hide default chapter objectives toc
 
@@ -76,16 +76,16 @@ div.part > div.titlepage {display:none;}
 
     > .title { //chapter objectives
       padding: .5em 0em;
-      background-color: @teal; 
-      color: white;  
-      text-align: center; 
+      background-color: @teal;
+      color: white;
+      text-align: center;
       font-weight: bold;
       font-size: large;
     }
 
     p { margin: 1em 0em .75em 1em; }
-    
-    .itemizedlist > .listitem > p { margin: 0em 2em; } 
+
+    .itemizedlist > .listitem > p { margin: 0em 2em; }
   }
 }
 
@@ -98,7 +98,7 @@ div.part > div.titlepage {display:none;}
     h1.title { background-color: @teal; }
   }
 }
- 
+
 
 /******************************************************
  * Features args(title color, bkgrnd color, path to svg)
@@ -106,25 +106,25 @@ div.part > div.titlepage {display:none;}
 /****** Features ******/
 // The args are title color, background color, path to SVG, top-padding value from svg
 .anatomy {
-  &.aging { 
+  &.aging {
     page-break-inside: avoid;
     .x-feature(#330033, @cream, aging, 0.53in); }
-  &.career { 
+  &.career {
     page-break-inside: avoid;
     .x-feature(#006666, @cream, career, 0.51in); }
-  &.diseases { 
+  &.diseases {
     page-break-inside: avoid;
     .x-feature(#336600, @cream, diseases, 0.59in); }
-  &.disorders { 
+  &.disorders {
     page-break-inside: avoid;
     .x-feature(#336633, @cream, disorders, 0.59in); }
-  &.everyday { 
+  &.everyday {
     page-break-inside: avoid;
     .x-feature(#993333, @cream, everyday, 0.44in); }
-  &.homeostatic { 
+  &.homeostatic {
     page-break-inside: avoid;
     .x-feature(#993333, @cream, homeostatic, 0.57in); }
-  &.interactive { 
+  &.interactive {
     page-break-inside: avoid; //no breaks within this feature
     .x-feature(#993333, @cream, interactive, 0.43in);
     img {   //center qr code
@@ -132,23 +132,23 @@ div.part > div.titlepage {display:none;}
       margin-left: auto;
       margin-right: auto
     }
-    .link { 
-      color: @orange !important; 
-      font-weight: bold; 
-    }  
+    .link {
+      color: @orange !important;
+      font-weight: bold;
+    }
   }
-  &.interactive.um { 
-    .x-feature(#993333, @cream, interactive_UM, 0.50in); 
+  &.interactive.um {
+    .x-feature(#993333, @cream, interactive_UM, 0.50in);
     page-break-inside: auto !important; //override no break breaks from interactive feature L#197
     }
 }
 
 .x-feature (@color, @bg-color, @svg, @padding-top) {
-  // 1st semantic paragraph is title of feature. Indention removed for second semantic paragraph 
+  // 1st semantic paragraph is title of feature. Indention removed for second semantic paragraph
   // which is first real paragraph.  Subsequent paragraphs are indented.
-  p:nth-of-type(2) { 
+  p:nth-of-type(2) {
     text-indent: 0em;
-    page-break-before: avoid; 
+    page-break-before: avoid;
   }
   &::before {
     padding-top: @padding-top; //from the SVG files
@@ -156,7 +156,7 @@ div.part > div.titlepage {display:none;}
     background-position: top left;
     background-position: top outside;
     page-break-inside: avoid;
-    page-break-after: avoid;  
+    page-break-after: avoid;
     background-color: white;
     content: "";
     display: block;
@@ -165,21 +165,21 @@ div.part > div.titlepage {display:none;}
     margin-right: -1.05em;
     margin-top: -0.05in;
   }
-   
-  background-color: @bg-color;  
+
+  background-color: @bg-color;
   &::before { background-image: url("ccap-anatomy/@{svg}.svg"); }
-  
+
   > .title { display: none; } //supress title in pdf (webview only)
- 
-  .body .title { 
+
+  .body .title {
     text-align: left !important;
     font-size: large;
     margin: .25em 0;
     color: black;
     font-weight:bold;
     page-break-after: avoid;
-   }   
-  
+   }
+
   .figure {
     img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
     > .title { font-size: x-small; color: @orange; }
@@ -196,8 +196,8 @@ div.part > div.titlepage {display:none;}
   column-width: auto !important;
   column-fill: balance !important;
   page-break-inside: auto;
-  column-break-inside: auto;  
-      
+  column-break-inside: auto;
+
   > .title  {
     text-transform: uppercase !important;
     text-align: left; //override from base .x-column-count
@@ -207,37 +207,37 @@ div.part > div.titlepage {display:none;}
     page-break-after: avoid;
   }
 
-  &.summary { 
+  &.summary {
     .x-column-count(1);
     > .title { content: "Chapter Review"; margin-top: 1em; }
-    > .section .title > a { color: black; page-break-after: avoid; } 
-    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; } 
+    > .section .title > a { color: black; page-break-after: avoid; }
+    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
     p { text-indent: 2em; }
-  } 
-  
+  }
+
   //ccap-base sets this so override it here
   .references p { text-indent: 0em; }
-  
+
   .problem .orderedlist { margin-left: 4em;}
 
-  &.solutions  { display: none !important; } 
-  
+  &.solutions  { display: none !important; }
+
   .empty { display: hidden; } //hide element but count it   *didn't use visibility property which would cause element to still take up space on page
 }
 
-.multiple-choice > .title { 
-  content: "Review Questions"; 
-  column-span: all !important; // added override to resolve bug on staging where titles 
-  margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginata
-} 
-.free-response > .title { 
-  content: "Critical Thinking Questions"; 
-  column-span: all !important; // added override to resolve bug on staging where titles 
+.multiple-choice > .title {
+  content: "Review Questions";
+  column-span: all !important; // added override to resolve bug on staging where titles
   margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginata
 }
-&.interactive-exercise > div.title { 
-  content: "Interactive Link Questions"; 
-  column-span: all !important;  // added override to resolve bug on staging where titles 
+.free-response > .title {
+  content: "Critical Thinking Questions";
+  column-span: all !important; // added override to resolve bug on staging where titles
+  margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginata
+}
+&.interactive-exercise > div.title {
+  content: "Interactive Link Questions";
+  column-span: all !important;  // added override to resolve bug on staging where titles
   margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
 }
 .multiple-choice,.free-response, .interactive-exercise {
@@ -281,14 +281,19 @@ img { max-height:9.5in; }
 a { font-weight: bold; color: @orange;}
 
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5, h6 {
   margin: 0.5em 0em;
   text-align: left !important; //overides text alignment set in
 }
 
-h2 {
+h2, h3, h4, h5, h6 {
   color: @teal;
-  font-size: x-large;
+  font-weight: bold;
+}
+
+// Module title
+h2 {
+  font-size: 17pt;
 
   .cnx-gentext-n { color: @teal; }
 
@@ -301,15 +306,23 @@ h2 {
   &::before { color: @teal; }
 }
 
-h3 {
-  color: @teal;
-  font-weight: bold;
+// Module section title
+h3 { font-size: 13pt; }
+
+// Module sub-section title
+h4 { font-size: 10pt; }
+
+// Module sub-sub-section title
+h5 {
+  font-size: 10pt;
+  font-style: italic;
 }
 
-h4 {
-  color: @teal;
+// Module sub-sub-sub-section title
+h6 {
+  font-size: 10pt;
+  font-weight: normal;
   font-style: italic;
-  font-weight: bold;
 }
 
 blockquote {
@@ -387,7 +400,7 @@ img, figure, subfigure  { margin: 1em; }
     background-color: @cream;
     border-bottom: @table-border;
   }
-  
+
   tr { page-break-inside: avoid;}
 
   th {
@@ -416,7 +429,7 @@ img, figure, subfigure  { margin: 1em; }
   }
 
   //handle lists inside tables
-  .itemizedlist { 
+  .itemizedlist {
     margin: 0; //reset
     list-style-type: none; //no bullets for lists inside tables
     > .listitem > p { font-family: @font-family !important; } //overrides bio p font use font-family from base
@@ -456,9 +469,9 @@ img, figure, subfigure  { margin: 1em; }
   color: @orange;
 }
 
-.cnx-figure-horizontal .informalfigure .caption { 
+.cnx-figure-horizontal .informalfigure .caption {
   text-align: center; //center subfigure caption
-  * { 
+  * {
     font-weight: normal !important; //override strong tag
     font-family: @font-family-anatomy;
   }
@@ -532,9 +545,9 @@ div.end-of-book-solutions {
     font-size: medium;
     padding-top:.5em;
   }
- 
- .index-term { font-size: small; } 
- 
+
+ .index-term { font-size: small; }
+
   a { font-weight:bold; }
 }
 
@@ -567,11 +580,11 @@ div.end-of-book-solutions {
     font-family: @font-family-anatomy;
     a {
       &.solution { color: black; }
-      &.chapter * { 
-        color: black; 
+      &.chapter * {
+        color: black;
         font-size: medium;
       }
-    
+
     }
   }
    prince-text-replace: "Answer:" ""; //strip out "Answer:" eob solutions for print_pdf
@@ -581,25 +594,25 @@ div.end-of-book-references {
   > .title { //colophon titles are passed as h1's by default by docbook override properties here
       font-size: x-large;
       font-weight: bold;
-      background-color: transparent; 
-      color: @teal; 
+      background-color: transparent;
+      color: @teal;
       margin-left: -.50em;
   }
   > .chapter-area {
-    > .title { 
+    > .title {
       color: @teal;
       font-weight: bold;
       font-size: medium;
       margin: .5em 0em;
     }
-    > .body > p { 
+    > .body > p {
       text-indent: 0em;
-      margin: .5em 0em; 
-      > a.link { 
+      margin: .5em 0em;
+      > a.link {
         color: @teal;
         font-weight: normal;
         text-decoration: underline;
       }
     }
-  } 
+  }
 }
