@@ -1338,7 +1338,8 @@ Combination of formal.object and formal.object.heading -->
     </xsl:when>
     <xsl:otherwise>
       <!-- TODO: generate 'Summary' with gentext -->
-      <xsl:text>Summary</xsl:text>
+      <!-- This code was being executed on Docbook 1.75 and 1.78 but not on Docbook 1.76 (used for development) so it was removed. -->
+      <xsl:message>LOG: Was going to add the text 'Summary' above a section abstract but removing it for CCAP PDF books</xsl:message>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
