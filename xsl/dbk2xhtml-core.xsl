@@ -389,22 +389,31 @@ This template relies on a special:
     <xsl:param name="book" select="/db:book"/>
 
 	<xsl:for-each select="$book/*[self::db:preface | self::db:chapter | self::db:appendix]|$book/db:part/*[self::db:preface | self::db:chapter | self::db:appendix]">
-		<xsl:variable name="title" select="db:title"/>
-
-    <xsl:if test=".//db:section[@class = 'references']">
-      <!-- Print the chapter title -->
-      <div class="title">
-          <xsl:value-of select="$title"/>
-      </div>
-
+    <xsl:if test=".//db:section[@class = 'references']/node()">
       <div class="chapter-area">
+        <!-- Print the chapter title -->
+        <div class="title">
+          <xsl:apply-templates select="db:title/node()"/>
+        </div>
+
         <div class="body">
-        	<xsl:for-each select=".//db:section[@class = 'references']">
+          <!-- references inserted into body -->
+          <xsl:apply-templates select="./db:section[@class = 'references']"/>
+
+          <xsl:for-each select="db:section[.//db:section[@class = 'references']]">
             <div class="section-area">
-          		<!-- references inserted into body -->
-        			<xsl:apply-templates/>
+              <!-- Print the section title -->
+              <div class="title" data-href="#{@xml:id}">
+                  <xsl:apply-templates select="db:sectioninfo/db:title/node()|db:title/node()"/>
+              </div>
+              <div class="body">
+
+                <!-- references inserted into body -->
+              	<xsl:apply-templates select=".//db:section[@class = 'references']/node()"/>
+
+              </div>
             </div>
-        	</xsl:for-each>
+          </xsl:for-each>
         </div>
       </div>
     </xsl:if>
