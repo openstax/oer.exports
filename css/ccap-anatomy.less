@@ -599,21 +599,31 @@ div.end-of-book-references {
       color: @teal;
       margin-left: -.50em;
   }
+
   > .chapter-area {
-    > .title {
-      color: @teal;
-      font-weight: bold;
-      font-size: medium;
-      margin: .5em 0em;
-    }
-    > .body > p {
-      text-indent: 0em;
-      margin: .5em 0em;
-      > a.link {
-        color: @teal;
-        font-weight: normal;
-        text-decoration: underline;
+    > .title { display: none; }
+    > .body > .section-area {
+      > .title {
+        font-size: 12pt;
+        font-weight: bold;
+        margin: .5em 0em;
+
+        &:before { content: target-counter(attr(data-href), chapter) "." target-counter(attr(data-href), section) " "; }
+
+          // Hide the asterix
+        sup { display: none; }
+      }
+
+      > .body > p {
+        text-indent: 0em;
+        margin: .5em 0em;
+        > a.link {
+          color: @teal;
+          font-weight: normal;
+          text-decoration: underline;
+        }
       }
     }
   }
+
 }
