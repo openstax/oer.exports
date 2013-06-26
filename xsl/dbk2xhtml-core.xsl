@@ -391,18 +391,23 @@ This template relies on a special:
 	<xsl:for-each select="$book/*[self::db:preface | self::db:chapter | self::db:appendix]|$book/db:part/*[self::db:preface | self::db:chapter | self::db:appendix]">
 		<xsl:variable name="title" select="db:title"/>
 
-		<xsl:for-each select=".//db:section[@class = 'references']">
-			<div class="chapter-area">
-		    	<!-- Print the chapter title -->
-        		<div class="title">
-          			<xsl:value-of select="$title"/>
-        		</div>
-        		<!-- references inserted into body -->
-        		<div class="body">
-          			<xsl:apply-templates/>
-         		</div>
-      		</div>
-		</xsl:for-each>
+    <xsl:if test=".//db:section[@class = 'references']">
+      <!-- Print the chapter title -->
+      <div class="title">
+          <xsl:value-of select="$title"/>
+      </div>
+
+      <div class="chapter-area">
+        <div class="body">
+        	<xsl:for-each select=".//db:section[@class = 'references']">
+            <div class="section-area">
+          		<!-- references inserted into body -->
+        			<xsl:apply-templates/>
+            </div>
+        	</xsl:for-each>
+        </div>
+      </div>
+    </xsl:if>
 	</xsl:for-each>
 </xsl:template>
 
