@@ -633,7 +633,7 @@ div.book > div.appendix {
   counter-increment: appendix;
 }
 div.book > div.preface {
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section stats-lab;
   /* Cases where sections are referenced */
 
   /* --------------------------------------
@@ -658,7 +658,7 @@ div.book > div.preface > div.titlepage > div > div h1.title span.cnx-gentext-t {
   prince-text-replace: "*" "";
 }
 div.book > div.preface > div.cnx-eoc {
-  counter-reset: exercise eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book > div.preface > div.section {
   counter-increment: section;
@@ -727,6 +727,15 @@ div.book > div.preface > div.section div.equation:not(.labeled) {
   counter-increment: equation;
 }
 div.book > div.preface > div.section div.equation.labeled {
+  counter-increment: none;
+}
+div.book > div.preface .statistics.lab {
+  counter-increment: stats-lab;
+}
+div.book > div.preface .statistics.lab:not(.labeled) {
+  counter-increment: stats-lab;
+}
+div.book > div.preface .statistics.lab.labeled {
   counter-increment: none;
 }
 div.book > div.preface > div.toc li.toc-section {
@@ -837,6 +846,9 @@ div.book > div.preface > div.cnx-eoc > div.section > .title .cnx-gentext-autogen
 div.book > div.preface > div.cnx-eoc > div.section > .title .cnx-gentext-n {
   display: none;
 }
+div.book > div.preface .statistics.lab > .title:not(.labeled)::before {
+  content: "" "" "" "" counter(stats-lab) " " "";
+}
 div.book > div.preface a.target-figure:not(.labeled) {
   content: "" "Figure " "" "" target-counter(attr(href), figure) "" "";
 }
@@ -859,7 +871,7 @@ div.book > div.preface > div.titlepage > div > div h1.title {
   string-set: cnx-header "" content() "";
 }
 div.book div.chapter {
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section stats-lab;
   /* Cases where sections are referenced */
 
   /* --------------------------------------
@@ -884,7 +896,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   prince-text-replace: "*" "";
 }
 div.book div.chapter > div.cnx-eoc {
-  counter-reset: exercise eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book div.chapter > div.section {
   counter-increment: section;
@@ -953,6 +965,15 @@ div.book div.chapter > div.section div.equation:not(.labeled) {
   counter-increment: equation;
 }
 div.book div.chapter > div.section div.equation.labeled {
+  counter-increment: none;
+}
+div.book div.chapter .statistics.lab {
+  counter-increment: stats-lab;
+}
+div.book div.chapter .statistics.lab:not(.labeled) {
+  counter-increment: stats-lab;
+}
+div.book div.chapter .statistics.lab.labeled {
   counter-increment: none;
 }
 div.book div.chapter > div.toc li.toc-section {
@@ -1063,6 +1084,9 @@ div.book div.chapter > div.cnx-eoc > div.section > .title .cnx-gentext-autogener
 div.book div.chapter > div.cnx-eoc > div.section > .title .cnx-gentext-n {
   display: none;
 }
+div.book div.chapter .statistics.lab > .title:not(.labeled)::before {
+  content: "" "" counter(chapter, decimal) "." counter(stats-lab) " " "";
+}
 div.book div.chapter a.target-figure:not(.labeled) {
   content: "" "Figure " target-counter(attr(href), chapter) "." target-counter(attr(href), figure) "" "";
 }
@@ -1079,7 +1103,7 @@ div.book div.chapter a.target-exercise:not(.labeled) {
   content: "" "Exercise " target-counter(attr(href), chapter) "." target-counter(attr(href), exercise) "" "";
 }
 div.book > div.appendix {
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section stats-lab;
   /* Cases where sections are referenced */
 
   /* --------------------------------------
@@ -1104,7 +1128,7 @@ div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t 
   prince-text-replace: "*" "";
 }
 div.book > div.appendix > div.cnx-eoc {
-  counter-reset: exercise eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book > div.appendix > div.section {
   counter-increment: section;
@@ -1173,6 +1197,15 @@ div.book > div.appendix > div.section div.equation:not(.labeled) {
   counter-increment: equation;
 }
 div.book > div.appendix > div.section div.equation.labeled {
+  counter-increment: none;
+}
+div.book > div.appendix .statistics.lab {
+  counter-increment: stats-lab;
+}
+div.book > div.appendix .statistics.lab:not(.labeled) {
+  counter-increment: stats-lab;
+}
+div.book > div.appendix .statistics.lab.labeled {
   counter-increment: none;
 }
 div.book > div.appendix > div.toc li.toc-section {
@@ -1282,6 +1315,9 @@ div.book > div.appendix > div.cnx-eoc > div.section > .title .cnx-gentext-t:not(
 div.book > div.appendix > div.cnx-eoc > div.section > .title .cnx-gentext-autogenerated,
 div.book > div.appendix > div.cnx-eoc > div.section > .title .cnx-gentext-n {
   display: none;
+}
+div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
+  content: "" "" counter(appendix, upper-latin) "" counter(stats-lab) " " "";
 }
 div.book > div.appendix a.target-figure:not(.labeled) {
   content: "" "Figure " target-counter(attr(href), appendix, upper-latin) "" target-counter(attr(href), figure) "" "";
@@ -1417,6 +1453,9 @@ div.book div.chapter > div.titlepage > div > div:not(:first-child),
 div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
   display: none;
 }
+/*******************
+ * Special counter and numbering for Stats Lab Feature Box
+ *******************/
 @page  {
   margin: 0.5in 1in;
 }
@@ -1459,7 +1498,6 @@ div.part > div.titlepage {
 }
 .chapter > .introduction .chapter-objectives {
   border: 1px solid #26397f;
-  margin: 0em;
   padding: 0em;
 }
 .chapter > .introduction .chapter-objectives > .title {
@@ -1487,7 +1525,6 @@ div.part > div.titlepage {
  * Section Level Learning Objectives
 ******************************************************/
 .section > .titlepage .abstract::before {
-  content: "By the end of this module, you will be able to:";
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 /******************************************************
@@ -1571,7 +1608,7 @@ div.part > div.titlepage {
   page-break-before: avoid;
 }
 .statistics.lab::before {
-  padding-top: 0.42in;
+  padding-top: 0.34in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
@@ -1647,6 +1684,9 @@ div.part > div.titlepage {
 .statistics.try .figure > .title {
   font-size: x-small;
   color: #26397f;
+}
+.statistics .exercise .solution {
+  display: none;
 }
 .statistics.calculator {
   page-break-inside: avoid;
@@ -1850,14 +1890,28 @@ div.part > div.titlepage {
 .cnx-eoc.practice p {
   text-indent: 2em;
 }
+.cnx-eoc.solutions {
+  -webkit-column-count: 1;
+  column-count: 1;
+  columns: 1;
+  column-fill: auto;
+}
+.cnx-eoc.solutions > .section .title > a {
+  color: #26397f;
+  page-break-after: avoid;
+}
+.cnx-eoc.solutions p:nth-of-type(1) {
+  text-indent: 0em;
+  margin-top: 1em;
+}
+.cnx-eoc.solutions p {
+  text-indent: 2em;
+}
 .cnx-eoc .references p {
   text-indent: 0em;
 }
 .cnx-eoc .problem .orderedlist {
   margin-left: 4em;
-}
-.cnx-eoc.solutions {
-  display: none !important;
 }
 .cnx-eoc .empty {
   display: hidden;
@@ -1933,13 +1987,25 @@ a {
 h1,
 h2,
 h3,
-h4 {
+h4,
+h5,
+h6 {
   margin: 0.5em 0em;
   text-align: left !important;
 }
-h2 {
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: #26397f;
-  font-size: x-large;
+  font-weight: bold;
+}
+h1 {
+  font-size: 34pt;
+}
+h2 {
+  font-size: 17pt;
 }
 h2 .cnx-gentext-n {
   color: #26397f;
@@ -1952,12 +2018,14 @@ h2::before {
   color: #26397f;
 }
 h3 {
-  color: #26397f;
-  font-weight: bold;
+  font-size: 13pt;
 }
 h4 {
-  color: #26397f;
-  font-weight: bold;
+  font-size: 10pt;
+}
+h5 {
+  font-size: 10pt;
+  font-style: italic;
 }
 blockquote {
   color: #ecf1ef;
@@ -1978,6 +2046,9 @@ blockquote::after {
 .notes p,
 p:nth-of-type(1) {
   text-indent: 0em;
+}
+.statistics.collab .body p:nth-of-type(1) {
+  margin-top: 1em;
 }
 p {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2035,6 +2106,71 @@ subfigure {
   border-left: 1px solid #26397f;
   padding: 1em 2em .5em 2em;
 }
+.example .exercise {
+  counter-increment: none !important;
+}
+.example .exercise .problem > .title {
+  content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
+  color: #26397f;
+  font-weight: bold;
+}
+.example .exercise .solution > .title {
+  content: "" "Solution " counter(chapter, decimal) "." counter(example, decimal) " " "";
+  color: #26397f;
+  font-weight: bold;
+}
+/******************************************************
+ * Stats Lab: Special header numbering extraction and styling
+ ******************************************************/
+/*
+
+// For debugging, mark start and end brackets
+@S: ""; //" ["; // "S"tart and "E"nd marking text for debugging
+@E: ""; //"] ";
+
+counter-reset: section figure subfigure table equation example exercise footnote toc-section stats-lab;
+
+.x-increment(@counter-name) {
+  // Only increment if we're going to use the number (ie it's not labeled)
+  &:not(.labeled) { counter-increment: @counter-name; }
+  counter-increment: @counter-name;
+  &.labeled { counter-increment: none; }
+}
+
+.x-unlabeled(@contents) {
+    &:not(.labeled)::before { content: @S @contents @E; }
+  }
+  // This handle the common case of "Exercise 4.2" or "Appendix A3"
+  .x-test-text(@label, @counter-name, @suffix: " ") {
+    .x-unlabeled(@label @part-counter @part-separator counter(@counter-name) @suffix);
+  }
+
+.x-unlabeled(@contents) {
+    &:not(.labeled)::before { content: @S @contents @E; }
+  }
+  // This handle the common case of "Exercise 4.2" or "Appendix A3"
+  .x-test-text(@label, @counter-name, @suffix: " ") {
+    .x-unlabeled(@label @part-counter @part-separator counter(@counter-name) @suffix);
+  }  
+
+// increment the counter for statistics lab
+.statistics.lab { .x-increment(stats-lab); }
+
+// display the increment for statistics
+.statistics.lab > .title {
+  .x-test-text ("", stats-lab); 
+}
+*/
+.statistics.lab .title {
+  display: block;
+  padding-top: .5em;
+  color: #26397f !important;
+  font-size: medium !important;
+  font-weight: bold !important;
+}
+.statistics.lab > .title {
+  font-size: x-large !important;
+}
 /******************************************************
  * Tables TODO: simplify/regroup code block //latest
  ******************************************************/
@@ -2060,6 +2196,11 @@ subfigure {
   font-weight: bold;
   color: #26397f;
   caption-side: bottom;
+}
+.table .table-caption.caption {
+  color: #000000;
+  font-weight: normal !important;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .table .cnx-figure-horizontal .informalfigure .caption {
   text-align: center;

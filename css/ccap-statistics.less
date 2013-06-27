@@ -39,8 +39,6 @@
   padding-bottom: 1em !important;
 }
 
-
-
 /******************************************************
  * Book Table of Contents
   ******************************************************/
@@ -79,7 +77,6 @@ div.part > div.titlepage {display:none;}
   .chapter-objectives {
     border: 1px solid @blue;
     //add reset to left/right margins ensure appearance of solid background
-    margin: 0em;
     padding: 0em;
 
     > .title { //chapter objectives
@@ -115,7 +112,6 @@ div.part > div.titlepage {display:none;}
 .section > .titlepage {
   .abstract {
     &::before {
-      content: "By the end of this module, you will be able to:";
       font-family: @font-family-statistics;
     }
   }
@@ -165,10 +161,12 @@ div.part > div.titlepage {display:none;}
     .x-feature(#330033, @gray, collab, 0.42in); }
   &.lab { 
     page-break-inside: avoid;
-    .x-feature(#006666, @gray, lab, 0.42in); }
+    .x-feature(#006666, @gray, lab, 0.34in); }
   &.try { 
     page-break-inside: avoid;
     .x-feature(#336600, @gray, try, 0.35in); }
+    // don't display solutions for try it feature
+    .exercise .solution { display: none; }
   &.calculator { 
     page-break-inside: avoid;
     .x-feature(#336633, @white, calculator, 0.42in); }
@@ -217,7 +215,7 @@ div.part > div.titlepage {display:none;}
   background-color: @bg-color;  
   &::before { background-image: url("ccap-statistics/@{svg}.svg"); }
   
-  > .title { display: none; } //supress title in pdf (webview only)
+  > .title { display: none; } //supress title in pdf 
  
   .body .title { 
     text-align: left !important;
@@ -270,13 +268,19 @@ div.part > div.titlepage {display:none;}
     p { text-indent: 2em; }
   }
 
+  &.solutions { 
+    .x-column-count(1);
+    //> .title { content: "Try It Solutions"; margin-top: 1em; display: block; }
+    > .section .title > a { color: @blue; page-break-after: avoid; } 
+    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; } 
+    p { text-indent: 2em; }
+  } 
+
   //ccap-base sets this so override it here
   .references p { text-indent: 0em; }
   
   .problem .orderedlist { margin-left: 4em;}
 
-  &.solutions  { display: none !important; } 
-  
   .empty { display: hidden; } //hide element but count it   *didn't use visibility property which would cause element to still take up space on page
 }
 
@@ -350,15 +354,21 @@ img { max-height:9.5in; }
 a { font-weight: bold; color: @blue;}
 
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5, h6 {
   margin: 0.5em 0em;
   text-align: left !important; //overides text alignment set in
 }
 
-h2 {
+h2, h3, h4, h5, h6{
   color: @blue;
-  font-size: x-large;
+  font-weight: bold;
+}
 
+h1 { font-size: 34pt; }
+
+// Module title
+h2 {
+  font-size: 17pt;
   .cnx-gentext-n { color: @blue; }
 
   // Separate the section number and title with a pipe
@@ -370,14 +380,15 @@ h2 {
   &::before { color: @blue; }
 }
 
-h3 {
-  color: @blue;
-  font-weight: bold;
-}
+// Module section title
+h3 { font-size: 13pt; }
 
-h4 {
-  color: @blue;
-  font-weight: bold;
+// Module sub-section title
+h4 { font-size: 10pt; }
+
+h5 {
+  font-size: 10pt;
+  font-style: italic;
 }
 
 blockquote {
@@ -394,6 +405,9 @@ blockquote {
 }
 
 .cnx-eoc p, .notes p,p:nth-of-type(1) { text-indent: 0em; }
+
+// top spacing for collaborative exercises
+.statistics.collab .body p:nth-of-type(1) { margin-top: 1em; }
 
 p {
   font-family: @font-family-statistics;
@@ -455,6 +469,81 @@ img, figure, subfigure  { margin: 1em; }
     padding: 1em 2em .5em 2em;
 }
 
+// for examples that have a problem/solution structure that need numbered headings
+.example .exercise {
+    counter-increment: none !important;
+    .problem > .title {
+      content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
+      color: @blue;
+      font-weight: bold;
+    }
+
+// This not really needed because as soon as you override display:none for this that is set
+// in base.css it appears in all examples.  That's a problem.  Adress this and write code to 
+// suppress the tite if the example is not an exercise.
+
+    .solution > .title {
+      content: "" "Solution " counter(chapter, decimal) "." counter(example, decimal) " " "";
+      color: @blue;
+      font-weight: bold;
+    }
+  }
+
+/******************************************************
+ * Stats Lab: Special header numbering extraction and styling
+ ******************************************************/
+
+// add reset for stats lab - when moving to statistics.less, you must reset everything still
+/*
+
+// For debugging, mark start and end brackets
+@S: ""; //" ["; // "S"tart and "E"nd marking text for debugging
+@E: ""; //"] ";
+
+counter-reset: section figure subfigure table equation example exercise footnote toc-section stats-lab;
+
+.x-increment(@counter-name) {
+  // Only increment if we're going to use the number (ie it's not labeled)
+  &:not(.labeled) { counter-increment: @counter-name; }
+  counter-increment: @counter-name;
+  &.labeled { counter-increment: none; }
+}
+
+.x-unlabeled(@contents) {
+    &:not(.labeled)::before { content: @S @contents @E; }
+  }
+  // This handle the common case of "Exercise 4.2" or "Appendix A3"
+  .x-test-text(@label, @counter-name, @suffix: " ") {
+    .x-unlabeled(@label @part-counter @part-separator counter(@counter-name) @suffix);
+  }
+
+.x-unlabeled(@contents) {
+    &:not(.labeled)::before { content: @S @contents @E; }
+  }
+  // This handle the common case of "Exercise 4.2" or "Appendix A3"
+  .x-test-text(@label, @counter-name, @suffix: " ") {
+    .x-unlabeled(@label @part-counter @part-separator counter(@counter-name) @suffix);
+  }  
+
+// increment the counter for statistics lab
+.statistics.lab { .x-increment(stats-lab); }
+
+// display the increment for statistics
+.statistics.lab > .title {
+  .x-test-text ("", stats-lab); 
+}
+*/
+
+.statistics.lab .title {
+  display: block;
+  padding-top: .5em;
+  color: @blue !important;
+  font-size: medium !important;
+  font-weight: bold !important;
+}
+.statistics.lab > .title { 
+  font-size: x-large !important;
+}
 
 /******************************************************
  * Tables TODO: simplify/regroup code block //latest
@@ -472,6 +561,12 @@ img, figure, subfigure  { margin: 1em; }
     caption-side:bottom;
   }
 
+  // Table caption text needs to be regular
+  .table-caption.caption {
+    color: @black;
+    font-weight: normal !important; //override strong tag
+    font-family: @font-family;
+  }
   .cnx-figure-horizontal .informalfigure .caption { 
     text-align: center; //center subfigure caption
     * { 
@@ -703,3 +798,8 @@ div.end-of-book-references {
     }
   } 
 }
+
+
+
+
+
