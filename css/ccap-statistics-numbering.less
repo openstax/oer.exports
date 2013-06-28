@@ -1,0 +1,98 @@
+//Copyright (c) 2013 Rice University
+// This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+// See LICENSE.txt for details.
+//Numbering test. Auto Generated using http://lesscss.org 
+
+// For debugging, mark start and end brackets
+@S: ""; //" ["; // "S"tart and "E"nd marking text for debugging
+@E: ""; //"] ";
+
+// Strings that are used (note some have spaces at the end)
+@preface: "Preface";
+@chapter: "Chapter";
+@appendix: "Appendix";
+@example: "Example ";
+@exercise: "Exercise ";
+
+// Special cases of numbering for the statistics book needs to replicate certain functionalities
+// of numbering.less  These are duplicated here in an effort not to modify the numbering.less file
+// which would entail regression work.
+
+
+div.book {
+  /* --------------------------------------
+   *  Define how counters are incremented
+   * --------------------------------------
+   */
+
+  div.chapter { counter-increment: chapter; }
+
+
+  /* -------------------------------------
+   *  All the rules for elements need to be prefixed
+   *  according to slightly different rules
+   *  - Preface isn't numbered
+   *  - Chapters are numbered
+   *  - Appendixes are lettered
+   *
+   * ie: "Figure 4.3" in chapters but "Figure A3" in an appendix
+   * -------------------------------------
+   */
+  > div.preface { .x-prefixed(@preface, "", "");
+ }
+
+ div.chapter { .x-prefixed(@chapter,  counter(chapter, decimal), target-counter(attr(href), chapter), "." ); }
+  > div.appendix { .x-prefixed(@appendix, counter(appendix, upper-latin), target-counter(attr(href), appendix, upper-latin) ); }
+
+/* -------------------------------------
+ *  The bulk of numbering!
+ *
+ *
+ *  To handle slight variations in prefixing:
+ *  @part-label is used in page headers ie "Chapter 3"
+ *  @part-counter is the prefix to things like "Table A4"
+ *  @part-target is CSS3 for making links to elements
+ *  @part-separator is the little dot in "Table 4.3"
+ * -------------------------------------
+ */
+.x-prefixed(@part-label, @part-counter, @part-target, @part-separator: "") {
+
+  // add reset for stats lab - when moving to statistics.less, you must reset everything still
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section stats-lab;
+
+  .x-increment(@counter-name) {
+    // Only increment if we're going to use the number (ie it's noot labeled)
+    &:not(.labeled) { counter-increment: @counter-name; }
+    counter-increment: @counter-name;
+    &.labeled { counter-increment: none; }
+  }
+
+   /* ------------------------------------------
+   *  Increment the counter for statistics lab
+   * -------------------------------------------
+   */
+  .statistics.lab { .x-increment(stats-lab); }
+
+  /* --------------------------------------
+   *  Define where counters are displayed
+   * --------------------------------------
+   */
+  .x-unlabeled(@contents) {
+    &:not(.labeled)::before { content: @S @contents @E; }
+  }
+  // This handle the common case of "Exercise 4.2" or "Appendix A3"
+  .x-test-text(@label, @counter-name, @suffix: " ") {
+    .x-unlabeled(@label @part-counter @part-separator counter(@counter-name) @suffix);
+  }
+
+  /* ------------------------------------------
+   *  Display the counter for statistics lab
+   * -------------------------------------------
+   */
+    .statistics.lab > .title {
+      .x-test-text ("", stats-lab); 
+    }
+  } // .x-prefixed()
+}
+
+
