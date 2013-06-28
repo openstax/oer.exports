@@ -2,8 +2,9 @@
 /*******************************************************
 * Copyright (c) 2013 Rice University
 *  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
-*  See LICENSE.txt for details. 
-*******************************************************//* Styles used when generating a PDF from xhtml+css
+*  See LICENSE.txt for details.
+*******************************************************/
+/* Styles used when generating a PDF from xhtml+css
  ***************************************************/
 /***************************************************
  * Styles used when generating a PDF from xhtml+css
@@ -1443,9 +1444,9 @@ div.part > div.titlepage {
  ******************************************************/
 .chapter > .introduction {
   /******************************************************
-  * Manual Chapter Objectives -  
+  * Manual Chapter Objectives -
   * special note ".chapter-objectives" contains
-  * list within para 
+  * list within para
   ******************************************************/
 
 }
@@ -1458,7 +1459,8 @@ div.part > div.titlepage {
 }
 .chapter > .introduction .chapter-objectives {
   border: 1px solid #339999;
-  margin: 0em;
+  margin-top: 0em;
+  margin-bottom: 1em;
   padding: 0em;
 }
 .chapter > .introduction .chapter-objectives > .title {
@@ -1951,13 +1953,22 @@ a {
 h1,
 h2,
 h3,
-h4 {
+h4,
+h5,
+h6 {
   margin: 0.5em 0em;
   text-align: left !important;
 }
-h2 {
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: #339999;
-  font-size: x-large;
+  font-weight: bold;
+}
+h2 {
+  font-size: 17pt;
 }
 h2 .cnx-gentext-n {
   color: #339999;
@@ -1970,13 +1981,19 @@ h2::before {
   color: #339999;
 }
 h3 {
-  color: #339999;
-  font-weight: bold;
+  font-size: 13pt;
 }
 h4 {
-  color: #339999;
+  font-size: 10pt;
+}
+h5 {
+  font-size: 10pt;
   font-style: italic;
-  font-weight: bold;
+}
+h6 {
+  font-size: 10pt;
+  font-weight: normal;
+  font-style: italic;
 }
 blockquote {
   color: #cccccc;
@@ -2213,6 +2230,11 @@ div.end-of-book-solutions .chapter-area a.chapter * {
   color: black;
   font-size: medium;
 }
+/* Squash references if they show up at the end of a chapter.
+   They are special-cased and show up at the end of the book */
+.cnx-eoc.references {
+  display: none;
+}
 div.end-of-book-references > .title {
   font-size: x-large;
   font-weight: bold;
@@ -2221,16 +2243,24 @@ div.end-of-book-references > .title {
   margin-left: -0.5em;
 }
 div.end-of-book-references > .chapter-area > .title {
-  color: #339999;
+  display: none;
+}
+div.end-of-book-references > .chapter-area > .body > .section-area > .title {
+  font-size: 12pt;
   font-weight: bold;
-  font-size: medium;
   margin: .5em 0em;
 }
-div.end-of-book-references > .chapter-area > .body > p {
+div.end-of-book-references > .chapter-area > .body > .section-area > .title:before {
+  content: target-counter(attr(data-href), chapter) "." target-counter(attr(data-href), section) " ";
+}
+div.end-of-book-references > .chapter-area > .body > .section-area > .title sup {
+  display: none;
+}
+div.end-of-book-references > .chapter-area > .body > .section-area > .body > p {
   text-indent: 0em;
   margin: .5em 0em;
 }
-div.end-of-book-references > .chapter-area > .body > p > a.link {
+div.end-of-book-references > .chapter-area > .body > .section-area > .body > p > a.link {
   color: #339999;
   font-weight: normal;
   text-decoration: underline;

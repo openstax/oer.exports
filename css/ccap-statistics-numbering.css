@@ -4,7 +4,6 @@ div.book {
    * --------------------------------------
    */
 
-  counter-reset: chapter appendix;
   /* -------------------------------------
    *  All the rules for elements need to be prefixed
    *  according to slightly different rules
@@ -32,9 +31,6 @@ div.book {
 div.book div.chapter {
   counter-increment: chapter;
 }
-div.book > div.appendix {
-  counter-increment: appendix;
-}
 div.book > div.preface {
   counter-reset: section figure subfigure table equation example exercise footnote toc-section stats-lab;
   /* ------------------------------------------
@@ -55,8 +51,6 @@ div.book > div.preface {
 }
 div.book > div.preface > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Preface" " " "" " | " content() "";
-  padding-left: .25em;
-  prince-text-replace: "*" "";
 }
 div.book > div.preface .statistics.lab {
   counter-increment: stats-lab;
@@ -69,10 +63,4 @@ div.book > div.preface .statistics.lab.labeled {
 }
 div.book > div.preface .statistics.lab > .title:not(.labeled)::before {
   content: "" "" "" "" counter(stats-lab) " " "";
-}
-div.book > div.preface > div.section > div.titlepage h2::before {
-  display: none !important;
-}
-div.book > div.preface > div.titlepage > div > div h1.title {
-  string-set: cnx-header "" content() "";
 }

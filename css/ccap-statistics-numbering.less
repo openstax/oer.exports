@@ -11,9 +11,6 @@
 @preface: "Preface";
 @chapter: "Chapter";
 @appendix: "Appendix";
-@section: "Section ";
-@figure: "Figure ";
-@table: "Table ";
 @example: "Example ";
 @exercise: "Exercise ";
 
@@ -28,10 +25,7 @@ div.book {
    * --------------------------------------
    */
 
-  counter-reset: chapter appendix;
-
   div.chapter { counter-increment: chapter; }
-  > div.appendix { counter-increment: appendix; }
 
 
   /* -------------------------------------
@@ -45,11 +39,6 @@ div.book {
    * -------------------------------------
    */
   > div.preface { .x-prefixed(@preface, "", "");
-    //Also, disable numbering on Preface sections
-    > div.section > div.titlepage h2::before { display: none !important; }
-
-    //This convoluted replaces the default page header "Chapter 3 | Kinetics" with just "Preface"
-    > div.titlepage > div > div h1.title {string-set: cnx-header @S content() @E;}
  }
 
 /* -------------------------------------
@@ -68,8 +57,6 @@ div.book {
   //This convoluted path is used to suck up (via the "content()") the title of the chapter into the page header
   > div.titlepage > div > div h1.title span.cnx-gentext-t {
     string-set: cnx-header @S @part-label " " @part-counter " | " content() @E;
-    padding-left: .25em;
-    prince-text-replace: "*" ""; //remove asterisk from page header epub has a nice way to navigate to the appendix section.
   }
 
   // add reset for stats lab - when moving to statistics.less, you must reset everything still
