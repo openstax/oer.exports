@@ -9,7 +9,7 @@
 
 // Import general page headers/footers, bookmark calculation, etc 
 @import url('ccap-base.less');
-@import url('ccap-numbering.less');
+@import url('ccap-statistics-numbering.less');
 
 // color palette for statistics
 @blue:        #26397F;
@@ -46,6 +46,7 @@
   > .title { 
     border-bottom-color: @blue; 
     color: @blue;
+    margin-bottom: .5em;
   }
 
   a { color: @blue; }
@@ -101,6 +102,7 @@ div.part > div.titlepage {display:none;}
  ******************************************************/
 .preface {
   > .titlepage {
+    padding-bottom: 1em;
     h1.title { background-color: @blue; }
   }
 }
@@ -142,6 +144,7 @@ div.part > div.titlepage {display:none;}
   }        
 }
 
+
 .statistics.finger .body .title, .statistics.no-finger .body .title {
   text-align: left !important;
   text-transform: uppercase;
@@ -149,10 +152,11 @@ div.part > div.titlepage {display:none;}
   margin-top: .25em;
   margin-bottom: .5em;
   color: #26397f;
-  font-weight: 900;
+  font-weight: bold;
   page-break-after: avoid;
   border-bottom: 1px solid #26397f;
 }
+
 
 // The args are title color, background color, path to SVG, top-padding value from svg
 .statistics {
@@ -236,6 +240,9 @@ div.part > div.titlepage {display:none;}
 
  * End of chapter customizations
  ******************************************************/
+
+.cnx-eoc > .title > * { font-size: large !important; padding: 0 !important; }
+
 .cnx-eoc {
   .x-column-count(2);
   column-width: auto !important;
@@ -270,7 +277,6 @@ div.part > div.titlepage {display:none;}
 
   &.solutions { 
     .x-column-count(1);
-    //> .title { content: "Try It Solutions"; margin-top: 1em; display: block; }
     > .section .title > a { color: @blue; page-break-after: avoid; } 
     p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; } 
     p { text-indent: 2em; }
@@ -314,7 +320,7 @@ div.part > div.titlepage {display:none;}
   margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
 }
 
-.multiple-choice,.free-response, .interactive-exercise, .formula-review, .practice {
+.multiple-choice, .interactive-exercise, .formula-review {
   > .section > .title { display: none; }
 }
 
@@ -447,7 +453,9 @@ img, figure, subfigure  { margin: 1em; }
   margin: .5em 0;
  }
 
-// Example features with only 3 sides with blue border
+/******************************************************
+ * Example Elements Styling and Numbering
+ ******************************************************/
 .example {
   page-break-inside: avoid;
 }
@@ -469,6 +477,8 @@ img, figure, subfigure  { margin: 1em; }
     padding: 1em 2em .5em 2em;
 }
 
+.example .solution { padding-top: 2em; }
+
 // for examples that have a problem/solution structure that need numbered headings
 .example .exercise {
     counter-increment: none !important;
@@ -478,10 +488,6 @@ img, figure, subfigure  { margin: 1em; }
       font-weight: bold;
     }
 
-// This not really needed because as soon as you override display:none for this that is set
-// in base.css it appears in all examples.  That's a problem.  Adress this and write code to 
-// suppress the tite if the example is not an exercise.
-
     .solution > .title {
       content: "" "Solution " counter(chapter, decimal) "." counter(example, decimal) " " "";
       color: @blue;
@@ -489,50 +495,23 @@ img, figure, subfigure  { margin: 1em; }
     }
   }
 
-/******************************************************
- * Stats Lab: Special header numbering extraction and styling
- ******************************************************/
-
-// add reset for stats lab - when moving to statistics.less, you must reset everything still
-/*
-
-// For debugging, mark start and end brackets
-@S: ""; //" ["; // "S"tart and "E"nd marking text for debugging
-@E: ""; //"] ";
-
-counter-reset: section figure subfigure table equation example exercise footnote toc-section stats-lab;
-
-.x-increment(@counter-name) {
-  // Only increment if we're going to use the number (ie it's not labeled)
-  &:not(.labeled) { counter-increment: @counter-name; }
-  counter-increment: @counter-name;
-  &.labeled { counter-increment: none; }
+// Keep Try It Feature excercise numbering to match subsequent example
+.statistics.try .exercise {
+  counter-increment: none !important;
 }
 
-.x-unlabeled(@contents) {
-    &:not(.labeled)::before { content: @S @contents @E; }
-  }
-  // This handle the common case of "Exercise 4.2" or "Appendix A3"
-  .x-test-text(@label, @counter-name, @suffix: " ") {
-    .x-unlabeled(@label @part-counter @part-separator counter(@counter-name) @suffix);
-  }
-
-.x-unlabeled(@contents) {
-    &:not(.labeled)::before { content: @S @contents @E; }
-  }
-  // This handle the common case of "Exercise 4.2" or "Appendix A3"
-  .x-test-text(@label, @counter-name, @suffix: " ") {
-    .x-unlabeled(@label @part-counter @part-separator counter(@counter-name) @suffix);
-  }  
-
-// increment the counter for statistics lab
-.statistics.lab { .x-increment(stats-lab); }
-
-// display the increment for statistics
-.statistics.lab > .title {
-  .x-test-text ("", stats-lab); 
+.statistics.try .body .title { 
+  // counter-increment: exercise !important;
+  content: "" " " counter(chapter, decimal) "." counter(example, decimal) " " "" !important;
+  color: @black;
+  font-family: @font-family-statistics;
+  font-size: medium;
+  font-weight: bold;
+  float: left;
+  position: relative;
+  top: -7px;
+  padding-right: 5px;
 }
-*/
 
 .statistics.lab .title {
   display: block;
@@ -577,25 +556,26 @@ counter-reset: section figure subfigure table equation example exercise footnote
 
   // Add styling for table entries that should render as table headers
   td.header {
-    background-color: @gray;
+    background-color: @white;
   }
   
   tr { page-break-inside: avoid;}
 
   th {
     color: black;
-    background-color: @gray;
+    background-color: @white;
     font-size: small;
-    text-align: center !important;
+    text-align: left !important;
+    padding-left: .25em !important;
   }
 
-/* don't think this will be needed for statistics - saving for later if we do
+/* don't need this for stats stable - discard later
   tr:first-child > th:first-child  {
     padding: .25em !important;
-    color: @blue !important;
+    color: @black !important;
     font-size:medium;
     margin-left: -1em;
-    text-align: center !important;
+    text-align: left !important;
     border-style: none !important;
     background-color: transparent !important;
   }
@@ -636,6 +616,7 @@ counter-reset: section figure subfigure table equation example exercise footnote
   }
 
   & img {
+    padding-top: 2em;
     margin: 0 !important; //override auto  left/right margins from base
     max-width: @page-width !important; //overrides width value figures/subfigures ensuring imgs do not bleed off page
   }
@@ -736,9 +717,10 @@ div.end-of-book-solutions {
 // Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
 // originally defined in ccap-numbering.less
 // The hierarchy is copied from ccap-numbering so the selectors (and priority for which to apply) are the same
+
 .x-duplicate-hierarchy() {
   > div.cnx-eoc { counter-reset: /*exercise*/ eoc-section -1; }
-}
+ }
 
 div.book, div.book > div.part {
   > div.preface  { .x-duplicate-hierarchy(); }
