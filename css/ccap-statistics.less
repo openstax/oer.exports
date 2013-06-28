@@ -1,0 +1,787 @@
+/*******************************************************
+* Copyright (c) 2013 Rice University
+*  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+*  See LICENSE.txt for details. 
+*******************************************************/ 
+ 
+ /* Styles used when generating a PDF from xhtml+css
+ ***************************************************/
+
+// Import general page headers/footers, bookmark calculation, etc 
+@import url('ccap-base.less');
+@import url('ccap-statistics-numbering.less');
+
+// color palette for statistics
+@blue:        #26397F;
+@yellow:      #FFD155;
+@gray:        #ECF1EF;
+@gray-green:  #9FB9AF;
+@teal:        #5FC8C1;
+@dark-gray:   #08212D;
+
+@white:       #FFF;
+@black:       #000;
+
+@table-border: 1pt solid @black;
+@page-width: 6.5in;
+
+// The base CCAP books use sans fonts but the statistics book uses serif fonts.
+@font-family-statistics: Liberation Serif, serif, @stix-fonts;
+
+@page { margin: 0.5in 1in; } 
+// Finished printed size of the QR code is dependent on: 1-distance between qr code and scanning device 
+// 2-size of dots in the code(amount of data inputed into the code, the smaller the dots become)
+// For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
+@qr: 1.25in;
+
+// .note class override - bottom margin not being picked up in base.less
+.note {
+  padding-bottom: 1em !important;
+}
+
+/******************************************************
+ * Book Table of Contents
+  ******************************************************/
+.book > .toc {
+  > .title { 
+    border-bottom-color: @blue; 
+    color: @blue;
+    margin-bottom: .5em;
+  }
+
+  a { color: @blue; }
+} 
+
+
+/*******************************************************
+ * Unit Page
+ ******************************************************/
+div.part > div.titlepage {display:none;}
+
+
+/******************************************************
+ * CHAPTER INTRODUCTION
+ ******************************************************/
+.chapter > .introduction {
+  >.title {
+    content: "Introduction";
+    font-size: x-large;
+  }
+  
+  /******************************************************
+  * Manual Chapter Objectives -  
+  * special note ".chapter-objectives" contains
+  * list within para 
+  ******************************************************/
+  > .toc { display: none; } // hide default chapter objectives toc
+
+  .chapter-objectives {
+    border: 1px solid @blue;
+    //add reset to left/right margins ensure appearance of solid background
+    padding: 0em;
+
+    > .title { //chapter objectives
+      padding-top: .1em;
+      padding-bottom: .2em;
+      background-color: @blue; 
+      color: white;  
+      text-align: center; 
+      font-weight: bold;
+      font-size: large;
+    }
+
+    p { margin: 1em 0em .75em 1em; }
+    
+    .itemizedlist > .listitem > p { margin: 0em 2em; } 
+  }
+}
+
+
+/******************************************************
+ * Preface
+ ******************************************************/
+.preface {
+  > .titlepage {
+    padding-bottom: 1em;
+    h1.title { background-color: @blue; }
+  }
+}
+ 
+
+/******************************************************
+ * Section Level Learning Objectives
+******************************************************/
+.section > .titlepage {
+  .abstract {
+    &::before {
+      font-family: @font-family-statistics;
+    }
+  }
+} 
+
+
+/******************************************************
+ * Features args(title color, bkgrnd color, path to svg)
+ ******************************************************/
+/****** Features ******/
+
+.statistics {
+  color: #000;
+  background-color: @gray;
+  &.finger { 
+    // override parent selectors cnx-eoc p, .notes p, p:nth-of-type(1) which set text-indent: 0;
+    p {
+      font-family: @font-family !important;  // utilize san-serif font from base for generic notes
+      text-indent: 30px !important;
+      line-height: 1.2em;
+      background: url("ccap-statistics/pointer.svg") no-repeat;
+    }
+  }
+  &.no-finger {
+     p {
+      font-family: @font-family !important;  // utilize san-serif font from base for generic notes
+    }
+  }        
+}
+
+
+.statistics.finger .body .title, .statistics.no-finger .body .title {
+  text-align: left !important;
+  text-transform: uppercase;
+  font-size: small;
+  margin-top: .25em;
+  margin-bottom: .5em;
+  color: #26397f;
+  font-weight: bold;
+  page-break-after: avoid;
+  border-bottom: 1px solid #26397f;
+}
+
+
+// The args are title color, background color, path to SVG, top-padding value from svg
+.statistics {
+  &.collab { 
+    page-break-inside: avoid;
+    .x-feature(#330033, @gray, collab, 0.42in); }
+  &.lab { 
+    page-break-inside: avoid;
+    .x-feature(#006666, @gray, lab, 0.34in); }
+  &.try { 
+    page-break-inside: avoid;
+    .x-feature(#336600, @gray, try, 0.35in); }
+    // don't display solutions for try it feature
+    .exercise .solution { display: none; }
+  &.calculator { 
+    page-break-inside: avoid;
+    .x-feature(#336633, @white, calculator, 0.42in); }
+  &.interactive { 
+    page-break-inside: avoid; //no breaks within this feature
+    .x-feature(#993333, @gray, interactive, 0.42in);
+    img {   //center qr code
+      display: block;
+      margin-left: auto;
+      margin-right: auto
+    }
+    .link { 
+      color: @blue !important; 
+      font-weight: bold; 
+    }  
+  }
+  &.interactive.um { 
+    .x-feature(#993333, @gray, interactive_UM, 0.50in); 
+    page-break-inside: auto !important; //override no break breaks from interactive feature L#197
+    }
+}
+
+.x-feature (@color, @bg-color, @svg, @padding-top) {
+  // 1st semantic paragraph is title of feature. Indention removed for second semantic paragraph 
+  // which is first real paragraph.  Subsequent paragraphs are indented.
+  p:nth-of-type(2) { 
+    text-indent: 0em;
+    page-break-before: avoid; 
+  }
+  &::before {
+    padding-top: @padding-top; //from the SVG files
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-position: top outside;
+    page-break-inside: avoid;
+    page-break-after: avoid;  
+    background-color: white;
+    content: "";
+    display: block;
+    // the following are tweaked so the overlays really do over lay
+    margin-left: -1.05em;
+    margin-right: -1.05em;
+    margin-top: -0.05in;
+  }
+   
+  background-color: @bg-color;  
+  &::before { background-image: url("ccap-statistics/@{svg}.svg"); }
+  
+  > .title { display: none; } //supress title in pdf 
+ 
+  .body .title { 
+    text-align: left !important;
+    font-size: large;
+    margin: .25em 0;
+    color: black;
+    font-weight:bold;
+    page-break-after: avoid;
+   }   
+  
+  .figure {
+    img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
+    > .title { font-size: x-small; color: @blue; }
+  }
+}
+
+/******************************************************
+
+ * End of chapter customizations
+ ******************************************************/
+
+.cnx-eoc > .title > * { font-size: large !important; padding: 0 !important; }
+
+.cnx-eoc {
+  .x-column-count(2);
+  column-width: auto !important;
+  column-fill: balance !important;
+  page-break-inside: auto;
+  column-break-inside: auto;  
+      
+  > .title  {
+    text-transform: uppercase !important;
+    text-align: left; //override from base .x-column-count
+    color: @blue !important;
+    font-size: large !important;
+    font-weight: bold !important;
+    page-break-after: avoid;
+  }
+
+  &.summary { 
+    .x-column-count(1);
+    > .title { content: "Chapter Review"; margin-top: 1em; }
+    > .section .title > a { color: @blue; page-break-after: avoid; } 
+    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; } 
+    p { text-indent: 2em; }
+  } 
+
+  &.practice { 
+    .x-column-count(1);
+    > .title { content: "Practice"; margin-top: 1em; }
+    > .section .title > a { color: @blue; page-break-after: avoid; } 
+    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; } 
+    p { text-indent: 2em; }
+  }
+
+  &.solutions { 
+    .x-column-count(1);
+    > .section .title > a { color: @blue; page-break-after: avoid; } 
+    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; } 
+    p { text-indent: 2em; }
+  } 
+
+  //ccap-base sets this so override it here
+  .references p { text-indent: 0em; }
+  
+  .problem .orderedlist { margin-left: 4em;}
+
+  .empty { display: hidden; } //hide element but count it   *didn't use visibility property which would cause element to still take up space on page
+}
+
+// not using this remove
+.multiple-choice > .title { 
+  content: "Review Questions"; 
+  column-span: all !important; // added override to resolve bug on staging where titles 
+  margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginata
+} 
+
+// this is the homework eoc piece.  Has to be fixed and renamed
+.free-response {
+  .x-column-count(1);
+}
+.free-response > .title { 
+  content: "Homework"; 
+  column-span: all !important; // added override to resolve bug on staging where titles 
+  margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginata
+}
+
+// not using this - remove later
+&.interactive-exercise > div.title { 
+  content: "Interactive Link Questions"; 
+  column-span: all !important;  // added override to resolve bug on staging where titles 
+  margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
+}
+
+&.formula-review > div.title { 
+  content: "Formula Review"; 
+  column-span: all !important;  // added override to resolve bug on staging where titles 
+  margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
+}
+
+.multiple-choice, .interactive-exercise, .formula-review {
+  > .section > .title { display: none; }
+}
+
+/******************************************************
+ * Generic Elements
+ ******************************************************/
+body {
+  font-size: 9.5pt;
+  text-align: justify !important;
+}
+
+img { max-height:9.5in; }
+
+.chapter h1.title {
+  /*reset left only*/
+  margin-left:0 !important;
+  padding-left: 0 !important;
+  font-size: 35pt; /* x-large; */
+  font-weight: bold;
+  text-align: left !important;
+  color: @blue;
+
+  .cnx-gentext-n {
+    font-weight: bold;
+    padding-right: 0em;
+    color: @blue;
+  }
+
+  .cnx-gentext-t {
+    &::before {
+      content: "| ";
+      color: black;
+    }
+  }
+}
+
+a { font-weight: bold; color: @blue;}
+
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0.5em 0em;
+  text-align: left !important; //overides text alignment set in
+}
+
+h2, h3, h4, h5, h6{
+  color: @blue;
+  font-weight: bold;
+}
+
+h1 { font-size: 34pt; }
+
+// Module title
+h2 {
+  font-size: 17pt;
+  .cnx-gentext-n { color: @blue; }
+
+  // Separate the section number and title with a pipe
+  .cnx-gentext-t::before {
+    color: black;
+    content: "| ";
+  }
+
+  &::before { color: @blue; }
+}
+
+// Module section title
+h3 { font-size: 13pt; }
+
+// Module sub-section title
+h4 { font-size: 10pt; }
+
+h5 {
+  font-size: 10pt;
+  font-style: italic;
+}
+
+blockquote {
+  color: @gray;
+  font-size: 150%;
+
+  &::before, &::after {
+    font-weight: bold;
+    color: black;
+  }
+
+  &::before { content: "\201C" /* open-quote */; }
+  &::after { content: "\201D" /* close-quote; */; }
+}
+
+.cnx-eoc p, .notes p,p:nth-of-type(1) { text-indent: 0em; }
+
+// top spacing for collaborative exercises
+.statistics.collab .body p:nth-of-type(1) { margin-top: 1em; }
+
+p {
+  font-family: @font-family-statistics;
+  /* subsequent paragraphs are indented */
+  text-indent: 2em;
+  /*reset margins so subsequent paragraphs start next line  */
+  margin:0;
+}
+
+.glossary {
+  // End-of-chapter material should start on a new page
+  page-break-before: always;
+  display:inline;
+
+  .title {
+    /* Change "Glossary" to "Key Terms" */
+    content: "Key Terms";
+    color: @blue;
+    font-size: large !important;
+    padding: 0em !important;
+    display: block !important;
+    text-transform:uppercase;
+  }
+
+  // Remove ":"
+  dt::after { content: " " !important; }
+}
+
+.section > .title { page-break-after:avoid; }
+
+img, figure, subfigure  { margin: 1em; }
+
+.colophon > h1.title {
+  //this style Attributions and About Connections
+  color:white;
+  background-color: @blue;
+  margin: .5em 0;
+ }
+
+/******************************************************
+ * Example Elements Styling and Numbering
+ ******************************************************/
+.example {
+  page-break-inside: avoid;
+}
+
+.example > .title {
+  background: @blue;
+  padding-top: .3em;
+  padding-bottom: .3em;
+}
+
+.example > .title > * {
+    font-size: 130%;
+    font-weight: 500;
+    color: #fff;
+}
+
+.example > .body {
+    border-left: 1px solid @blue;
+    padding: 1em 2em .5em 2em;
+}
+
+.example .solution { padding-top: 2em; }
+
+// for examples that have a problem/solution structure that need numbered headings
+.example .exercise {
+    counter-increment: none !important;
+    .problem > .title {
+      content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
+      color: @blue;
+      font-weight: bold;
+    }
+
+    .solution > .title {
+      content: "" "Solution " counter(chapter, decimal) "." counter(example, decimal) " " "";
+      color: @blue;
+      font-weight: bold;
+    }
+  }
+
+// Keep Try It Feature excercise numbering to match subsequent example
+.statistics.try .exercise {
+  counter-increment: none !important;
+}
+
+.statistics.try .body .title { 
+  // counter-increment: exercise !important;
+  content: "" " " counter(chapter, decimal) "." counter(example, decimal) " " "" !important;
+  color: @black;
+  font-family: @font-family-statistics;
+  font-size: medium;
+  font-weight: bold;
+  float: left;
+  position: relative;
+  top: -7px;
+  padding-right: 5px;
+}
+
+.statistics.lab .title {
+  display: block;
+  padding-top: .5em;
+  color: @blue !important;
+  font-size: medium !important;
+  font-weight: bold !important;
+}
+.statistics.lab > .title { 
+  font-size: x-large !important;
+}
+
+/******************************************************
+ * Tables TODO: simplify/regroup code block //latest
+ ******************************************************/
+.table {
+  page-break-inside: auto;
+  // If a table spans more than 1 page then put caption on all following pages
+  prince-caption-page: all;
+
+  caption {
+    padding-top: .5em;
+    padding-bottom: 1em;
+    font-weight:bold;
+    color: @blue;
+    caption-side:bottom;
+  }
+
+  // Table caption text needs to be regular
+  .table-caption.caption {
+    color: @black;
+    font-weight: normal !important; //override strong tag
+    font-family: @font-family;
+  }
+  .cnx-figure-horizontal .informalfigure .caption { 
+    text-align: center; //center subfigure caption
+    * { 
+      font-weight: normal !important; //override strong tag
+      font-family: @font-family-statistics;
+    }
+  }
+
+  // Add styling for table entries that should render as table headers
+  td.header {
+    background-color: @white;
+  }
+  
+  tr { page-break-inside: avoid;}
+
+  th {
+    color: black;
+    background-color: @white;
+    font-size: small;
+    text-align: left !important;
+    padding-left: .25em !important;
+  }
+
+/* don't need this for stats stable - discard later
+  tr:first-child > th:first-child  {
+    padding: .25em !important;
+    color: @black !important;
+    font-size:medium;
+    margin-left: -1em;
+    text-align: left !important;
+    border-style: none !important;
+    background-color: transparent !important;
+  }
+*/
+
+   table {
+    border-bottom: @table-border !important;
+  }
+
+  // This is just for looks for the template take out later
+  table td {
+    padding: 1em;
+  }
+
+  //handle lists inside tables
+  .itemizedlist { 
+    margin: 0; //reset
+    list-style-type: none; //no bullets for lists inside tables
+    > .listitem > p { font-family: @font-family !important; } //overrides bio p font use font-family from base
+  }
+
+}
+
+
+/******************************************************
+ * Figures/Subfigures
+ ******************************************************/
+.figure {
+  font-size: 9pt;
+  padding-bottom: 1em;
+
+  > .title {
+    display: inline;
+    color: @blue;
+    font-weight: bold;
+    text-align:center;
+    margin-right: .5em;
+  }
+
+  & img {
+    padding-top: 2em;
+    margin: 0 !important; //override auto  left/right margins from base
+    max-width: @page-width !important; //overrides width value figures/subfigures ensuring imgs do not bleed off page
+  }
+
+  > .caption {
+    display: inline;
+    text-align:center;
+  }
+}
+
+.target-figure {
+  font-weight:bold;
+  color: @blue;
+}
+
+.cnx-figure-horizontal .informalfigure .caption { 
+  text-align: center; //center subfigure caption
+  * { 
+    font-weight: normal !important; //override strong tag
+    font-family: @font-family-statistics;
+  }
+}
+
+
+/******************************************************
+ * Equations
+ ******************************************************/
+// Hide equation numbers in the entire book
+div.book,
+div.book > div.part {
+  > div.preface,
+  > div.chapter,
+  > div.appendix {
+    > div.section div.equation > *:last-child::after { content: ""; }
+  }
+}
+
+
+/******************************************************
+ * End of Book Solutions
+ ******************************************************/
+// TODO: If this is used by other books it should probably be moved to ccap-numbering.less
+div.end-of-book-solutions {
+  div.solution {
+    display:inline;
+    // Make the solutions pages span 2 columns
+    //.x-column-count(2);
+
+    // Make the solution show up horizontally next to the 1st paragraph of the solution
+    // This is a bit problematic for several reasons:
+    //   - the place it would ideally be displayed is .body::first-child::before BUT...
+    //   - the a.href with the exercise id (to look up the exercise number) is inside the .title (for EPUBs)
+    //   - single-letter solutions arent wrapped in a para so there is no .body::first-child
+    // I tried using string-set to squirrel away the exercise id but princexml does not support target-counter(string(...), counter-name)
+    // I tried moving the anchor but princexml also does not support move-to
+    > div.title {
+      display: inline;
+      a.solution {
+        color: black;
+        font-weight: bold;
+      }
+    }
+    > div.body {
+      margin-right: .65em;
+      display: inline;
+      * { display: inline; }
+      > a.target-figure { margin: 0em .25em; } //add margin for .xref in solution body
+    }
+  }
+}
+
+
+/******************************************************
+ * Index
+ ******************************************************/
+.index {
+  text-align: left !important; //override text-alignment from base .x-column-count
+  column-width: auto !important;
+
+  .title h2 {
+    padding: 0;
+    color: @blue;
+    text-transform: uppercase;
+    font-size: x-large;
+  }
+  h3.letter {
+    color: inherit;
+    font-weight: bold;
+    font-size: medium;
+    padding-top: .5em;
+  }
+ 
+ .index-term { font-size: small; } 
+ 
+  a { font-weight: bold; }
+}
+
+// Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
+// originally defined in ccap-numbering.less
+// The hierarchy is copied from ccap-numbering so the selectors (and priority for which to apply) are the same
+
+.x-duplicate-hierarchy() {
+  > div.cnx-eoc { counter-reset: /*exercise*/ eoc-section -1; }
+ }
+
+div.book, div.book > div.part {
+  > div.preface  { .x-duplicate-hierarchy(); }
+  > div.chapter  { .x-duplicate-hierarchy(); }
+  > div.appendix { .x-duplicate-hierarchy(); }
+}
+
+div.end-of-book-solutions {
+
+  > .title {
+    content: "Answer Key";
+    color: @blue;
+    margin-left: -.50em;
+    text-transform: uppercase;
+    font-size: x-large;
+    font-weight: bold;
+    background-color: transparent; //overwrite from .colophon title
+  }
+
+  .chapter-area {
+    font-family: @font-family-statistics;
+    a {
+      &.solution { color: black; }
+      &.chapter * { 
+        color: black; 
+        font-size: medium;
+      }
+    
+    }
+  }
+   prince-text-replace: "Answer:" ""; //strip out "Answer:" eob solutions for print_pdf
+}
+
+div.end-of-book-references {
+  > .title { //colophon titles are passed as h1's by default by docbook override properties here
+      font-size: x-large;
+      font-weight: bold;
+      background-color: transparent; 
+      color: @blue; 
+      margin-left: -.50em;
+  }
+  > .chapter-area {
+    > .title { 
+      color: @blue;
+      font-weight: bold;
+      font-size: medium;
+      margin: .5em 0em;
+    }
+    > .body > p { 
+      text-indent: 0em;
+      margin: .5em 0em; 
+      > a.link { 
+        color: @blue;
+        font-weight: normal;
+        text-decoration: underline;
+      }
+    }
+  } 
+}
+
+
+
+
+
