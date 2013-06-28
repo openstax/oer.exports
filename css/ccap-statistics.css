@@ -658,7 +658,7 @@ div.book > div.preface > div.titlepage > div > div h1.title span.cnx-gentext-t {
   prince-text-replace: "*" "";
 }
 div.book > div.preface > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
+  counter-reset: exercise eoc-section -1;
 }
 div.book > div.preface > div.section {
   counter-increment: section;
@@ -896,7 +896,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   prince-text-replace: "*" "";
 }
 div.book div.chapter > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
+  counter-reset: exercise eoc-section -1;
 }
 div.book div.chapter > div.section {
   counter-increment: section;
@@ -1128,7 +1128,7 @@ div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t 
   prince-text-replace: "*" "";
 }
 div.book > div.appendix > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
+  counter-reset: exercise eoc-section -1;
 }
 div.book > div.appendix > div.section {
   counter-increment: section;
@@ -1468,6 +1468,7 @@ div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
 .book > .toc > .title {
   border-bottom-color: #26397f;
   color: #26397f;
+  margin-bottom: .5em;
 }
 .book > .toc a {
   color: #26397f;
@@ -1518,6 +1519,9 @@ div.part > div.titlepage {
 /******************************************************
  * Preface
  ******************************************************/
+.preface > .titlepage {
+  padding-bottom: 1em;
+}
 .preface > .titlepage h1.title {
   background-color: #26397f;
 }
@@ -1552,7 +1556,7 @@ div.part > div.titlepage {
   margin-top: .25em;
   margin-bottom: .5em;
   color: #26397f;
-  font-weight: 900;
+  font-weight: bold;
   page-break-after: avoid;
   border-bottom: 1px solid #26397f;
 }
@@ -1830,6 +1834,10 @@ div.part > div.titlepage {
 
  * End of chapter customizations
  ******************************************************/
+.cnx-eoc > .title > * {
+  font-size: large !important;
+  padding: 0 !important;
+}
 .cnx-eoc {
   -webkit-column-count: 2;
   column-count: 2;
@@ -1943,10 +1951,8 @@ div.part > div.titlepage {
   margin-top: 1em;
 }
 .multiple-choice > .section > .title,
-.free-response > .section > .title,
 .interactive-exercise > .section > .title,
-.formula-review > .section > .title,
-.practice > .section > .title {
+.formula-review > .section > .title {
   display: none;
 }
 /******************************************************
@@ -2089,6 +2095,9 @@ subfigure {
   background-color: #26397f;
   margin: .5em 0;
 }
+/******************************************************
+ * Example Elements Styling and Numbering
+ ******************************************************/
 .example {
   page-break-inside: avoid;
 }
@@ -2106,6 +2115,9 @@ subfigure {
   border-left: 1px solid #26397f;
   padding: 1em 2em .5em 2em;
 }
+.example .solution {
+  padding-top: 2em;
+}
 .example .exercise {
   counter-increment: none !important;
 }
@@ -2119,48 +2131,20 @@ subfigure {
   color: #26397f;
   font-weight: bold;
 }
-/******************************************************
- * Stats Lab: Special header numbering extraction and styling
- ******************************************************/
-/*
-
-// For debugging, mark start and end brackets
-@S: ""; //" ["; // "S"tart and "E"nd marking text for debugging
-@E: ""; //"] ";
-
-counter-reset: section figure subfigure table equation example exercise footnote toc-section stats-lab;
-
-.x-increment(@counter-name) {
-  // Only increment if we're going to use the number (ie it's not labeled)
-  &:not(.labeled) { counter-increment: @counter-name; }
-  counter-increment: @counter-name;
-  &.labeled { counter-increment: none; }
+.statistics.try .exercise {
+  counter-increment: none !important;
 }
-
-.x-unlabeled(@contents) {
-    &:not(.labeled)::before { content: @S @contents @E; }
-  }
-  // This handle the common case of "Exercise 4.2" or "Appendix A3"
-  .x-test-text(@label, @counter-name, @suffix: " ") {
-    .x-unlabeled(@label @part-counter @part-separator counter(@counter-name) @suffix);
-  }
-
-.x-unlabeled(@contents) {
-    &:not(.labeled)::before { content: @S @contents @E; }
-  }
-  // This handle the common case of "Exercise 4.2" or "Appendix A3"
-  .x-test-text(@label, @counter-name, @suffix: " ") {
-    .x-unlabeled(@label @part-counter @part-separator counter(@counter-name) @suffix);
-  }  
-
-// increment the counter for statistics lab
-.statistics.lab { .x-increment(stats-lab); }
-
-// display the increment for statistics
-.statistics.lab > .title {
-  .x-test-text ("", stats-lab); 
+.statistics.try .body .title {
+  content: "" " " counter(chapter, decimal) "." counter(example, decimal) " " "" !important;
+  color: #000000;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: medium;
+  font-weight: bold;
+  float: left;
+  position: relative;
+  top: -7px;
+  padding-right: 5px;
 }
-*/
 .statistics.lab .title {
   display: block;
   padding-top: .5em;
@@ -2177,13 +2161,13 @@ counter-reset: section figure subfigure table equation example exercise footnote
 .table {
   page-break-inside: auto;
   prince-caption-page: all;
-  /* don't think this will be needed for statistics - saving for later if we do
+  /* don't need this for stats stable - discard later
   tr:first-child > th:first-child  {
     padding: .25em !important;
-    color: @blue !important;
+    color: @black !important;
     font-size:medium;
     margin-left: -1em;
-    text-align: center !important;
+    text-align: left !important;
     border-style: none !important;
     background-color: transparent !important;
   }
@@ -2210,16 +2194,17 @@ counter-reset: section figure subfigure table equation example exercise footnote
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .table td.header {
-  background-color: #ecf1ef;
+  background-color: #ffffff;
 }
 .table tr {
   page-break-inside: avoid;
 }
 .table th {
   color: black;
-  background-color: #ecf1ef;
+  background-color: #ffffff;
   font-size: small;
-  text-align: center !important;
+  text-align: left !important;
+  padding-left: .25em !important;
 }
 .table table {
   border-bottom: 1pt solid #000000 !important;
@@ -2249,6 +2234,7 @@ counter-reset: section figure subfigure table equation example exercise footnote
   margin-right: .5em;
 }
 .figure img {
+  padding-top: 2em;
   margin: 0 !important;
   max-width: 6.5in !important;
 }
