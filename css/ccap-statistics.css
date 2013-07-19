@@ -1616,24 +1616,23 @@ div.part > div.titlepage {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 /******************************************************
- * Features args(title color, bkgrnd color, path to svg)
+ * Finger icon implementation 
  ******************************************************/
-/****** Features ******/
-.statistics {
+.generic-note {
   color: #000;
   background-color: #ecf1ef;
 }
-.statistics.finger p {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1 !important;
-  text-indent: 30px !important;
-  line-height: 1.2em;
-  background: url("ccap-statistics/pointer.svg") no-repeat;
+.generic-note.finger p:nth-of-type(1):before {
+  content: url("ccap-statistics/pointer.svg");
+  float: left;
+  padding-right: 5px;
+  padding-top: 2px;
 }
-.statistics.no-finger p {
+.generic-note.finger p {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1 !important;
 }
-.statistics.finger .body .title,
-.statistics.no-finger .body .title {
+.generic-note.finger .body .title,
+.generic-note .body .title {
   text-align: left !important;
   text-transform: uppercase;
   font-size: small;
@@ -1644,6 +1643,9 @@ div.part > div.titlepage {
   page-break-after: avoid;
   border-bottom: 1px solid #26397f;
 }
+/******************************************************
+ * Features args(title color, bkgrnd color, path to svg)
+ ******************************************************/
 .statistics.collab {
   page-break-inside: avoid;
   background-color: #ecf1ef;
@@ -1686,6 +1688,12 @@ div.part > div.titlepage {
 .statistics.collab .figure > .title {
   font-size: x-small;
   color: #26397f;
+}
+.statistics.collab.finger p:nth-of-type(1):before {
+  content: url("ccap-statistics/pointer.svg");
+  float: left;
+  padding-right: 5px;
+  padding-top: 2px;
 }
 .statistics.lab {
   page-break-inside: avoid;
@@ -1915,7 +1923,6 @@ div.part > div.titlepage {
   color: #26397f;
 }
 /******************************************************
-
  * End of chapter customizations
  ******************************************************/
 .cnx-eoc > .title > * {
@@ -2185,6 +2192,12 @@ subfigure {
 .example {
   page-break-inside: avoid;
 }
+.example.finger p:nth-of-type(1):before {
+  content: url("ccap-statistics/pointer.svg");
+  float: left;
+  padding-right: 5px;
+  padding-top: 2px;
+}
 .example > .title {
   background: #26397f;
   padding-top: .3em;
@@ -2218,6 +2231,44 @@ subfigure {
 .statistics.try .exercise {
   counter-increment: none !important;
 }
+.statistics.try.finger .body .title {
+  content: "" " " counter(chapter, decimal) "." counter(example, decimal) " " "" !important;
+  color: #000000;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: medium;
+  font-weight: bold;
+  margin: 0;
+  height: 10px !important;
+}
+.statistics.try.finger .body .title::before {
+  content: url("ccap-statistics/pointer.svg");
+  vertical-align: bottom;
+}
+.statistics.try.finger .body p {
+  padding-left: 28px;
+}
+.statistics.try.finger .body p:nth-of-type(1) {
+  margin-top: -4px;
+}
+.statistics.try.finger .body p:nth-of-type(2) {
+  text-indent: 2em;
+}
+/******************************************************
+ * Direction Line styling/finger icon implementation
+ ******************************************************/
+.direction-line-finger {
+  color: black;
+  padding: 0 !important;
+}
+.direction-line-finger p:nth-of-type(1):before {
+  content: url("ccap-statistics/pointer.svg");
+  float: left;
+  padding-right: 5px;
+  padding-top: 2px;
+}
+/******************************************************
+ * Statistics Lab Feature/Finger icon implementation
+ ******************************************************/
 .statistics.try .body .title {
   content: "" " " counter(chapter, decimal) "." counter(example, decimal) " " "" !important;
   color: #000000;
