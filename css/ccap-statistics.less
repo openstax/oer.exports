@@ -120,33 +120,31 @@ div.part > div.titlepage {display:none;}
   }
 } 
 
-
 /******************************************************
- * Features args(title color, bkgrnd color, path to svg)
+ * Finger icon implementation 
  ******************************************************/
-/****** Features ******/
 
-.statistics {
+// Generic Note
+.generic-note {
   color: #000;
   background-color: @gray;
+
   &.finger { 
-    // override parent selectors cnx-eoc p, .notes p, p:nth-of-type(1) which set text-indent: 0;
+    p:nth-of-type(1):before { 
+      content:url("ccap-statistics/pointer.svg"); 
+      float: left;
+      padding-right: 5px;
+      padding-top: 2px;
+    }
+
     p {
       font-family: @font-family !important;  // utilize san-serif font from base for generic notes
-      text-indent: 30px !important;
-      line-height: 1.2em;
-      background: url("ccap-statistics/pointer.svg") no-repeat;
-    }
+    }  
   }
-  &.no-finger {
-     p {
-      font-family: @font-family !important;  // utilize san-serif font from base for generic notes
-    }
-  }        
 }
 
-
-.statistics.finger .body .title, .statistics.no-finger .body .title {
+// Styling for Generic Note title block and border
+.generic-note.finger .body .title, .generic-note .body .title {
   text-align: left !important;
   text-transform: uppercase;
   font-size: small;
@@ -158,12 +156,24 @@ div.part > div.titlepage {display:none;}
   border-bottom: 1px solid #26397f;
 }
 
+/******************************************************
+ * Features args(title color, bkgrnd color, path to svg)
+ ******************************************************/
 
 // The args are title color, background color, path to SVG, top-padding value from svg
 .statistics {
   &.collab { 
     page-break-inside: avoid;
-    .x-feature(#330033, @gray, collab, 0.42in); }
+    .x-feature(#330033, @gray, collab, 0.42in); 
+      &.finger { 
+        p:nth-of-type(1):before { 
+          content:url("ccap-statistics/pointer.svg"); 
+          float: left;
+          padding-right: 5px;
+          padding-top: 2px;
+        }
+      }
+  }
   &.lab { 
     page-break-inside: avoid;
     .x-feature(#006666, @gray, lab, 0.34in); }
@@ -238,7 +248,6 @@ div.part > div.titlepage {display:none;}
 }
 
 /******************************************************
-
  * End of chapter customizations
  ******************************************************/
 
@@ -413,6 +422,11 @@ blockquote {
 
 .cnx-eoc p, .notes p,p:nth-of-type(1) { text-indent: 0em; }
 
+.cnx-eoc .exercise > .title .cnx-gentext-n {
+  span:before {
+  }
+}
+
 // top spacing for collaborative exercises
 .statistics.collab .body p:nth-of-type(1) { margin-top: 1em; }
 
@@ -461,6 +475,18 @@ img, figure, subfigure  { margin: 1em; }
   page-break-inside: avoid;
 }
 
+// Example using finger icon
+.example {
+ &.finger { 
+    p:nth-of-type(1):before { 
+      content:url("ccap-statistics/pointer.svg"); 
+      float: left;
+      padding-right: 5px;
+      padding-top: 2px;
+    }
+  }
+}
+
 .example > .title {
   background: @blue;
   padding-top: .3em;
@@ -500,6 +526,53 @@ img, figure, subfigure  { margin: 1em; }
 .statistics.try .exercise {
   counter-increment: none !important;
 }
+
+// Display finger icon in front of numbering for Try-It feature
+.statistics.try {
+  &.finger .body .title { 
+    content: "" " " counter(chapter, decimal) "." counter(example, decimal) " " "" !important;
+    color: @black;
+    font-family: @font-family-statistics;
+    font-size: medium;
+    font-weight: bold;
+    margin: 0;
+    height: 10px !important;
+
+    // insert pointer icon in front of numbering
+    &::before { 
+      content: url("ccap-statistics/pointer.svg"); 
+      vertical-align: bottom;
+    }  
+  }
+  // compensate spacing to have numbering as part of paragraph
+  &.finger .body p { padding-left: 28px; }
+
+  // align first paragraph with baseline of numbering
+  &.finger .body p:nth-of-type(1) { margin-top: -4px; }
+
+  // indent the second paragarph in this particular feature - may not be needed.
+  &.finger .body p:nth-of-type(2) { text-indent: 2em; }
+}
+
+/******************************************************
+ * Direction Line styling/finger icon implementation
+ ******************************************************/
+
+.direction-line-finger {
+  color: black;
+  padding: 0 !important;
+
+  p:nth-of-type(1):before { 
+      content:url("ccap-statistics/pointer.svg"); 
+      float: left;
+      padding-right: 5px;
+      padding-top: 2px;
+    }
+}
+
+/******************************************************
+ * Statistics Lab Feature/Finger icon implementation
+ ******************************************************/
 
 .statistics.try .body .title { 
   // counter-increment: exercise !important;
