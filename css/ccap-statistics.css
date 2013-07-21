@@ -1616,34 +1616,6 @@ div.part > div.titlepage {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 /******************************************************
- * Finger icon implementation 
- ******************************************************/
-.generic-note {
-  color: #000;
-  background-color: #ecf1ef;
-}
-.generic-note.finger p:nth-of-type(1):before {
-  content: url("ccap-statistics/pointer.svg");
-  float: left;
-  padding-right: 5px;
-  padding-top: 2px;
-}
-.generic-note.finger p {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1 !important;
-}
-.generic-note.finger .body .title,
-.generic-note .body .title {
-  text-align: left !important;
-  text-transform: uppercase;
-  font-size: small;
-  margin-top: .25em;
-  margin-bottom: .5em;
-  color: #26397f;
-  font-weight: bold;
-  page-break-after: avoid;
-  border-bottom: 1px solid #26397f;
-}
-/******************************************************
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
 .statistics.collab {
@@ -2231,6 +2203,48 @@ subfigure {
 .statistics.try .exercise {
   counter-increment: none !important;
 }
+/******************************************************
+ * Finger icon implementation for generic notes
+ ******************************************************/
+.generic-note {
+  color: #000;
+  background-color: #ecf1ef;
+}
+.generic-note.finger p:nth-of-type(1):before {
+  content: url("ccap-statistics/pointer.svg");
+  float: left;
+  padding-right: 5px;
+  padding-top: 2px;
+}
+.generic-note.finger p {
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1 !important;
+}
+.generic-note.finger .body .title,
+.generic-note .body .title {
+  text-align: left !important;
+  text-transform: uppercase;
+  font-size: small;
+  margin-top: .25em;
+  margin-bottom: .5em;
+  color: #26397f;
+  font-weight: bold;
+  page-break-after: avoid;
+  border-bottom: 1px solid #26397f;
+}
+/******************************************************
+ * Try-It Feature styling/finger icon implementation
+ ******************************************************/
+.statistics.try .body .title {
+  content: "" " " counter(chapter, decimal) "." counter(example, decimal) " " "" !important;
+  color: #000000;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: medium;
+  font-weight: bold;
+  float: left;
+  position: relative;
+  top: -7px;
+  padding-right: 5px;
+}
 .statistics.try.finger .body .title {
   content: "" " " counter(chapter, decimal) "." counter(example, decimal) " " "" !important;
   color: #000000;
@@ -2256,9 +2270,12 @@ subfigure {
 /******************************************************
  * Direction Line styling/finger icon implementation
  ******************************************************/
+.direction-line-finger .note {
+  padding: 0;
+  margin: 0;
+}
 .direction-line-finger {
   color: black;
-  padding: 0 !important;
 }
 .direction-line-finger p:nth-of-type(1):before {
   content: url("ccap-statistics/pointer.svg");
@@ -2269,19 +2286,13 @@ subfigure {
 /******************************************************
  * Statistics Lab Feature/Finger icon implementation
  ******************************************************/
-.statistics.try .body .title {
-  content: "" " " counter(chapter, decimal) "." counter(example, decimal) " " "" !important;
-  color: #000000;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  font-size: medium;
-  font-weight: bold;
-  float: left;
-  position: relative;
-  top: -7px;
-  padding-right: 5px;
+.statistics.lab .note {
+  padding: 0;
+  margin: 0;
 }
-.subheader-finger.title::before {
+.statslab-finger .title:before {
   content: url("ccap-statistics/pointer.svg");
+  padding-right: .2em;
   vertical-align: bottom;
 }
 .statistics.lab .title {
@@ -2294,9 +2305,15 @@ subfigure {
 .statistics.lab > .title {
   font-size: x-large !important;
 }
+.statistics.lab .figure .title {
+  display: none;
+}
 /******************************************************
  * EOC Exercise Finger icon implementation
  ******************************************************/
+.cnx-eoc .exercise .problem > .title {
+  font-weight: normal;
+}
 .cnx-eoc .exercise.exercise-finger > .title .cnx-gentext-n {
   color: #000000;
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
