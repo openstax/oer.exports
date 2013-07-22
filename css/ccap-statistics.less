@@ -129,14 +129,9 @@ div.part > div.titlepage {display:none;}
   &.collab { 
     page-break-inside: avoid;
     .x-feature(#330033, @gray, collab, 0.42in); 
-      &.finger { 
-        p:nth-of-type(1):before { 
-          content:url("ccap-statistics/pointer.svg"); 
-          float: left;
-          padding-right: 5px;
-          padding-top: 2px;
-        }
-      }
+  &.finger { 
+    p:nth-of-type(1):before { .x-finger(pointer, 5px, 2px, left); }
+    }
   }
   &.lab { 
     page-break-inside: avoid;
@@ -157,6 +152,7 @@ div.part > div.titlepage {display:none;}
       margin-left: auto;
       margin-right: auto
     }
+
     .link { 
       color: @blue !important; 
       font-weight: bold; 
@@ -209,6 +205,14 @@ div.part > div.titlepage {display:none;}
     img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
     > .title { font-size: x-small; color: @blue; }
   }
+}
+
+// macro for handling finger insertion into multiple areas
+.x-finger (@url, @padding-right, @padding-top, @position) {
+  content:url("ccap-statistics/@{url}.svg"); 
+  float: @position;
+  padding-right: @padding-right;
+  padding-top: @padding-top;
 }
 
 /******************************************************
@@ -386,10 +390,6 @@ blockquote {
 
 .cnx-eoc p, .notes p,p:nth-of-type(1) { text-indent: 0em; }
 
-.cnx-eoc .exercise > .title .cnx-gentext-n {
-  span:before {
-  }
-}
 
 // top spacing for collaborative exercises
 .statistics.collab .body p:nth-of-type(1) { margin-top: 1em; }
@@ -441,13 +441,8 @@ img, figure, subfigure  { margin: 1em; }
 
 // Example using finger icon
 .example {
- &.finger { 
-    p:nth-of-type(1):before { 
-      content:url("ccap-statistics/pointer.svg"); 
-      float: left;
-      padding-right: 5px;
-      padding-top: 2px;
-    }
+  &.finger { 
+    p:nth-of-type(1):before { .x-finger(pointer, 5px, 2px, left); }
   }
 }
 
@@ -501,12 +496,7 @@ img, figure, subfigure  { margin: 1em; }
   background-color: @gray;
 
   &.finger { 
-    p:nth-of-type(1):before { 
-      content:url("ccap-statistics/pointer.svg"); 
-      float: left;
-      padding-right: 5px;
-      padding-top: 2px;
-    }
+    p:nth-of-type(1):before { .x-finger(pointer, 5px, 2px, left); }
 
     p {
       font-family: @font-family !important;  // utilize san-serif font from base for generic notes
@@ -547,13 +537,9 @@ img, figure, subfigure  { margin: 1em; }
 // Display finger icon in front of numbering for Try-It feature
 .statistics.try {
   &.finger .body .title { 
-    content: "" " " counter(chapter, decimal) "." counter(example, decimal) " " "" !important;
-    color: @black;
-    font-family: @font-family-statistics;
-    font-size: medium;
-    font-weight: bold;
+    top: -3px;
     margin: 0;
-    height: 10px !important;
+    height: 14px !important;
 
     // insert pointer icon in front of numbering
     &::before { 
@@ -562,13 +548,10 @@ img, figure, subfigure  { margin: 1em; }
     }  
   }
   // compensate spacing to have numbering as part of paragraph
-  &.finger .body p { padding-left: 28px; }
-
-  // align first paragraph with baseline of numbering
-  &.finger .body p:nth-of-type(1) { margin-top: -4px; }
+  &.finger > .body > p { padding-left: 28px; }
 
   // indent the second paragarph in this particular feature - may not be needed.
-  &.finger .body p:nth-of-type(2) { text-indent: 2em; }
+  &.finger > .body > p:nth-of-type(2) { text-indent: 2em; }
 }
 
 /******************************************************
@@ -578,12 +561,7 @@ img, figure, subfigure  { margin: 1em; }
 .direction-line-finger {
   color: black;
 
-  p:nth-of-type(1):before { 
-      content:url("ccap-statistics/pointer.svg"); 
-      float: left;
-      padding-right: 5px;
-      padding-top: 2px;
-    }
+  p:nth-of-type(1):before { .x-finger(pointer, 5px, 2px, left); }
 }
 
 /******************************************************
@@ -602,11 +580,6 @@ img, figure, subfigure  { margin: 1em; }
   font-size: x-large !important;
 }
 
-// Supress figure caption on image entirely per template design
-.statistics.lab .figure .title {
-  display: none;
-}
-
 /******************************************************
  * EOC Exercise Finger icon implementation
  ******************************************************/
@@ -617,7 +590,7 @@ img, figure, subfigure  { margin: 1em; }
 }
 
 .cnx-eoc .exercise {
-  &.exercise-finger > .title .cnx-gentext-n { 
+  &.finger > .title .cnx-gentext-n { 
     color: @black;
     font-family: @font-family-statistics;
 
