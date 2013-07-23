@@ -48,137 +48,6 @@
   }
 }
 
-// .note class override - bottom margin not being picked up in base.less
-.note {
-  padding-bottom: 1em !important;
-}
-
-/******************************************************
- * Book Table of Contents
-  ******************************************************/
-.book > .toc {
-  > .title {
-    border-bottom-color: @blue;
-    color: @blue;
-    margin-bottom: .5em;
-  }
-
-  a { color: @blue; }
-}
-
-
-/*******************************************************
- * Unit Page
- ******************************************************/
-div.part > div.titlepage {display:none;}
-
-
-/******************************************************
- * CHAPTER INTRODUCTION
- ******************************************************/
-.chapter > .introduction {
-  >.title {
-    content: "Introduction";
-    font-size: x-large;
-  }
-
-  /******************************************************
-  * Manual Chapter Objectives -
-  * special note ".chapter-objectives" contains
-  * list within para
-  ******************************************************/
-  > .toc { display: none; } // hide default chapter objectives toc
-
-  .chapter-objectives {
-    border: 1px solid @blue;
-    //add reset to left/right margins ensure appearance of solid background
-    padding: 0em;
-
-    > .title { //chapter objectives
-      padding-top: .1em;
-      padding-bottom: .2em;
-      background-color: @blue;
-      color: white;
-      text-align: center;
-      font-weight: bold;
-      font-size: large;
-    }
-
-    p { margin: 1em 0em .75em 1em; }
-
-    .itemizedlist > .listitem > p { margin: 0em 2em; }
-  }
-}
-
-
-/******************************************************
- * Preface
- ******************************************************/
-.preface {
-  > .titlepage {
-    padding-bottom: 1em;
-    h1.title { background-color: @blue; }
-  }
-}
-
-
-/******************************************************
- * Section Level Learning Objectives
-******************************************************/
-.section > .titlepage {
-  .abstract {
-    &::before {
-      font-family: @font-family-statistics;
-    }
-  }
-}
-
-/******************************************************
- * Features args(title color, bkgrnd color, path to svg)
- ******************************************************/
-
-.x-feature (@color, @bg-color, @svg, @padding-top) {
-  // 1st semantic paragraph is title of feature. Indention removed for second semantic paragraph
-  // which is first real paragraph.  Subsequent paragraphs are indented.
-  p:nth-of-type(2) {
-    text-indent: 0em;
-    page-break-before: avoid;
-  }
-  &::before {
-    padding-top: @padding-top; //from the SVG files
-    background-repeat: no-repeat;
-    background-position: top left;
-    background-position: top outside;
-    page-break-inside: avoid;
-    page-break-after: avoid;
-    background-color: white;
-    content: "";
-    display: block;
-    // the following are tweaked so the overlays really do over lay
-    margin-left: -1.05em;
-    margin-right: -1.05em;
-    margin-top: -0.05in;
-  }
-
-  background-color: @bg-color;
-  &::before { background-image: url("ccap-statistics/@{svg}.svg"); }
-
-  > .title { display: none; } //supress title in pdf
-
-  .body .title {
-    text-align: left !important;
-    font-size: large;
-    margin: .25em 0;
-    color: black;
-    font-weight:bold;
-    page-break-after: avoid;
-   }
-
-  .figure {
-    img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
-    > .title { font-size: x-small; color: @blue; }
-  }
-}
 
 /******************************************************
  * Statistics Custom elements
@@ -350,6 +219,138 @@ div.part > div.titlepage {display:none;}
   .x-finger();
 }
 
+
+// .note class override - bottom margin not being picked up in base.less
+.note {
+  padding-bottom: 1em !important;
+}
+
+/******************************************************
+ * Book Table of Contents
+  ******************************************************/
+.book > .toc {
+  > .title {
+    border-bottom-color: @blue;
+    color: @blue;
+    margin-bottom: .5em;
+  }
+
+  a { color: @blue; }
+}
+
+
+/*******************************************************
+ * Unit Page
+ ******************************************************/
+div.part > div.titlepage {display:none;}
+
+
+/******************************************************
+ * CHAPTER INTRODUCTION
+ ******************************************************/
+.chapter > .introduction {
+  >.title {
+    content: "Introduction";
+    font-size: x-large;
+  }
+
+  /******************************************************
+  * Manual Chapter Objectives -
+  * special note ".chapter-objectives" contains
+  * list within para
+  ******************************************************/
+  > .toc { display: none; } // hide default chapter objectives toc
+
+  .chapter-objectives {
+    border: 1px solid @blue;
+    //add reset to left/right margins ensure appearance of solid background
+    padding: 0em;
+
+    > .title { //chapter objectives
+      padding-top: .1em;
+      padding-bottom: .2em;
+      background-color: @blue;
+      color: white;
+      text-align: center;
+      font-weight: bold;
+      font-size: large;
+    }
+
+    p { margin: 1em 0em .75em 1em; }
+
+    .itemizedlist > .listitem > p { margin: 0em 2em; }
+  }
+}
+
+
+/******************************************************
+ * Preface
+ ******************************************************/
+.preface {
+  > .titlepage {
+    padding-bottom: 1em;
+    h1.title { background-color: @blue; }
+  }
+}
+
+
+/******************************************************
+ * Section Level Learning Objectives
+******************************************************/
+.section > .titlepage {
+  .abstract {
+    &::before {
+      font-family: @font-family-statistics;
+    }
+  }
+}
+
+/******************************************************
+ * Features args(title color, bkgrnd color, path to svg)
+ ******************************************************/
+
+.x-feature (@color, @bg-color, @svg, @padding-top) {
+  // 1st semantic paragraph is title of feature. Indention removed for second semantic paragraph
+  // which is first real paragraph.  Subsequent paragraphs are indented.
+  p:nth-of-type(2) {
+    text-indent: 0em;
+    page-break-before: avoid;
+  }
+  &::before {
+    padding-top: @padding-top; //from the SVG files
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-position: top outside;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+    background-color: white;
+    content: "";
+    display: block;
+    // the following are tweaked so the overlays really do over lay
+    margin-left: -1.05em;
+    margin-right: -1.05em;
+    margin-top: -0.05in;
+  }
+
+  background-color: @bg-color;
+  &::before { background-image: url("ccap-statistics/@{svg}.svg"); }
+
+  > .title { display: none; } //supress title in pdf
+
+  .body .title {
+    text-align: left !important;
+    font-size: large;
+    margin: .25em 0;
+    color: black;
+    font-weight:bold;
+    page-break-after: avoid;
+   }
+
+  .figure {
+    img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
+    > .title { font-size: x-small; color: @blue; }
+  }
+}
 
 /******************************************************
  * End of chapter customizations
