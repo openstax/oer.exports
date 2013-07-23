@@ -37,11 +37,14 @@
 
 // macro for handling instances of adding finger icon to assorted features
 .x-finger() {
-  p:nth-of-type(1):before  {
-    content:url("ccap-statistics/pointer.svg");
-    float: left;
-    padding-right: 5px;
-    padding-top: 2px;
+  // Make sure the finger only applies to paragraphs inside things with the finger class on them
+  &.finger {
+    p:nth-of-type(1):before  {
+      content:url("ccap-statistics/pointer.svg");
+      float: left;
+      padding-right: 5px;
+      padding-top: 2px;
+    }
   }
 }
 
@@ -139,9 +142,7 @@ div.part > div.titlepage {display:none;}
   &.collab {
     page-break-inside: avoid;
     .x-feature(#330033, @gray, collab, 0.42in);
-  &.finger {
     .x-finger();
-    }
   }
   &.lab {
     page-break-inside: avoid;
@@ -444,9 +445,7 @@ img, figure, subfigure  { margin: 1em; }
 
 // Example using finger icon
 .example {
-  &.finger {
-   .x-finger();
-  }
+  .x-finger();
 }
 
 .example > .title {
@@ -498,9 +497,10 @@ img, figure, subfigure  { margin: 1em; }
   color: #000;
   background-color: @gray;
 
-  &.finger {
-    .x-finger();
+  .x-finger();
 
+  // Additionally, change the font of all content on a note with the finger class
+  &.finger {
     p {
       font-family: @font-family !important;  // utilize san-serif font from base for generic notes
     }
