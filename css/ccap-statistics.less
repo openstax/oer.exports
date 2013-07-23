@@ -166,6 +166,33 @@ div.part > div.titlepage {display:none;}
       font-size: x-large !important;
     }
   }
+  &.calculator {
+    page-break-inside: avoid;
+    .x-feature(#336633, @white, calculator, 0.42in);
+  }
+  &.interactive {
+    page-break-inside: avoid; //no breaks within this feature
+    .x-feature(#993333, @gray, interactive, 0.42in);
+
+    img {   //center qr code
+      display: block;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    .link {
+      color: @blue !important;
+      font-weight: bold;
+    }
+
+    &.um {
+      .x-feature(#993333, @gray, interactive_UM, 0.50in);
+      page-break-inside: auto !important; //override no break breaks from interactive feature L#197
+    }
+  }
+  // The .try box has a bunch of customizations:
+  // - Special-handling of the finger icon
+  // - Exercises should not affect numbering and solutions should not show up in the content
   &.try {
     page-break-inside: avoid;
     .x-feature(#336600, @gray, try, 0.35in);
@@ -220,30 +247,6 @@ div.part > div.titlepage {display:none;}
 
       // don't display solutions for try it feature
       .solution { display: none; }
-    }
-  }
-  &.calculator {
-    page-break-inside: avoid;
-    .x-feature(#336633, @white, calculator, 0.42in);
-  }
-  &.interactive {
-    page-break-inside: avoid; //no breaks within this feature
-    .x-feature(#993333, @gray, interactive, 0.42in);
-
-    img {   //center qr code
-      display: block;
-      margin-left: auto;
-      margin-right: auto
-    }
-
-    .link {
-      color: @blue !important;
-      font-weight: bold;
-    }
-
-    &.um {
-      .x-feature(#993333, @gray, interactive_UM, 0.50in);
-      page-break-inside: auto !important; //override no break breaks from interactive feature L#197
     }
   }
 }
