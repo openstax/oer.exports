@@ -35,12 +35,41 @@
 // For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
 @qr: 1.25in;
 
+
+// Most cases of `.finger` use the `.x-finger()` macro
+// (the finger is on the 1st para of the thing with the `.finger` class)
+//
+// But there are a couple of corner cases:
+// - `.try`
+// - `.exercise`
+//
+// In both of these cases the `.finger` class is on the Note or Exercise
+// instead of on the element that contains the para that will have the finger.
+@finger-url: "ccap-statistics/pointer.svg";
+
 // macro for handling instances of adding finger icon to assorted features
+//
+// TODO: Update Docbook to 1.77+ to clean up this finger stuff
+// The reason for not putting the finger class directly on the element that will have
+// the finger is a bug in Docbook 1.76 (fixed in 1.77).
+// Docbook does not copy the classes over to the HTML
 .x-finger() {
+  // Example CNXML:
+  //
+  //     <note class="collab finger">
+  //       <para>This is the thing that will actually get the finger icon</para>
+  //     </note>
+
+  // Example markup (generated from the CNXML above):
+  //
+  //     <div class="note collab finger">
+  //       <div class="body">
+  //         <p>This is the thing that will actually get the finger icon</p>
+
   // Make sure the finger only applies to paragraphs inside things with the finger class on them
   &.finger {
     p:nth-of-type(1):before  {
-      content:url("ccap-statistics/pointer.svg");
+      content:url(@finger-url);
       float: left;
       padding-right: 5px;
       padding-top: 2px;
@@ -155,7 +184,7 @@
 
             // insert pointer icon in front of numbering
             &::before {
-              content: url("ccap-statistics/pointer.svg");
+              content: url(@finger-url);
               vertical-align: bottom;
             }
           }
@@ -625,7 +654,7 @@ img, figure, subfigure  { margin: 1em; }
 
     // insert pointer icon in front of header
     &::before {
-      content: url("ccap-statistics/pointer.svg");
+      content: url(@finger-url);
       vertical-align: bottom;
     }
   }
