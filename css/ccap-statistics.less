@@ -35,6 +35,16 @@
 // For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
 @qr: 1.25in;
 
+// macro for handling instances of adding finger icon to assorted features
+.x-finger (@url, @padding-right, @padding-top, @position) {
+  p:nth-of-type(1):before  {
+    content:url("ccap-statistics/@{url}.svg");
+    float: @position;
+    padding-right: @padding-right;
+    padding-top: @padding-top;
+  }
+}
+
 // .note class override - bottom margin not being picked up in base.less
 .note {
   padding-bottom: 1em !important;
@@ -207,15 +217,6 @@ div.part > div.titlepage {display:none;}
   }
 }
 
-// macro for handling instances of adding finger icon to assorted features
-.x-finger (@url, @padding-right, @padding-top, @position) {
-  p:nth-of-type(1):before  {
-    content:url("ccap-statistics/@{url}.svg");
-    float: @position;
-    padding-right: @padding-right;
-    padding-top: @padding-top;
-  }
-}
 
 /******************************************************
  * End of chapter customizations
