@@ -1668,6 +1668,9 @@ div.part > div.titlepage {
   padding-right: 5px;
   padding-top: 2px;
 }
+.statistics.collab .body p:nth-of-type(1) {
+  margin-top: 1em;
+}
 .statistics.lab {
   page-break-inside: avoid;
   background-color: #ecf1ef;
@@ -1714,6 +1717,10 @@ div.part > div.titlepage {
 .statistics.try {
   page-break-inside: avoid;
   background-color: #ecf1ef;
+  /******************************************************
+     * Try-It Feature styling/finger icon implementation
+     ******************************************************/
+
 }
 .statistics.try p:nth-of-type(2) {
   text-indent: 0em;
@@ -1753,6 +1760,35 @@ div.part > div.titlepage {
 .statistics.try .figure > .title {
   font-size: x-small;
   color: #26397f;
+}
+.statistics.try > .body .title {
+  content: "" " " counter(chapter, decimal) "." counter(example, decimal) " " "" !important;
+  color: #000000;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: medium;
+  font-weight: bold;
+  float: left;
+  position: relative;
+  top: -7px;
+  padding-right: 5px;
+}
+.statistics.try.finger > .body .title {
+  top: -3px;
+  margin: 0;
+  height: 14px !important;
+}
+.statistics.try.finger > .body .title::before {
+  content: url("ccap-statistics/pointer.svg");
+  vertical-align: bottom;
+}
+.statistics.try.finger > .body > p {
+  padding-left: 28px;
+}
+.statistics.try.finger > .body > p:nth-of-type(2) {
+  text-indent: 2em;
+}
+.statistics.try .exercise {
+  counter-increment: none !important;
 }
 .statistics.try .exercise .solution {
   display: none;
@@ -2117,9 +2153,6 @@ blockquote::after {
 p:nth-of-type(1) {
   text-indent: 0em;
 }
-.statistics.collab .body p:nth-of-type(1) {
-  margin-top: 1em;
-}
 p {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   /* subsequent paragraphs are indented */
@@ -2201,9 +2234,6 @@ subfigure {
   color: #26397f;
   font-weight: bold;
 }
-.statistics.try .exercise {
-  counter-increment: none !important;
-}
 /******************************************************
  * Finger icon implementation for generic notes
  ******************************************************/
@@ -2231,35 +2261,6 @@ subfigure {
   font-weight: bold;
   page-break-after: avoid;
   border-bottom: 1px solid #26397f;
-}
-/******************************************************
- * Try-It Feature styling/finger icon implementation
- ******************************************************/
-.statistics.try > .body .title {
-  content: "" " " counter(chapter, decimal) "." counter(example, decimal) " " "" !important;
-  color: #000000;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  font-size: medium;
-  font-weight: bold;
-  float: left;
-  position: relative;
-  top: -7px;
-  padding-right: 5px;
-}
-.statistics.try.finger > .body .title {
-  top: -3px;
-  margin: 0;
-  height: 14px !important;
-}
-.statistics.try.finger > .body .title::before {
-  content: url("ccap-statistics/pointer.svg");
-  vertical-align: bottom;
-}
-.statistics.try.finger > .body > p {
-  padding-left: 28px;
-}
-.statistics.try.finger > .body > p:nth-of-type(2) {
-  text-indent: 2em;
 }
 /******************************************************
  * Direction Line styling/finger icon implementation
