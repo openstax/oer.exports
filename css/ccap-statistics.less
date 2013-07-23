@@ -540,24 +540,32 @@ img, figure, subfigure  { margin: 1em; }
 
   // place finger pointer before numbering and position properly
   &.finger {
-    > .body .title {
-      top: -3px;
-      margin: 0;
-      height: 14px !important;
+    > .body {
+      .title {
+        top: -3px;
+        margin: 0;
+        height: 14px !important;
 
-      // insert pointer icon in front of numbering
-      &::before {
-        content: url("ccap-statistics/pointer.svg");
-        vertical-align: bottom;
+        // This is one case where the finger icon is not added to the element that
+        // has the `.finger` class.
+        // Instead, it is added to the title element.
+
+        // insert pointer icon in front of numbering
+        &::before {
+          content: url("ccap-statistics/pointer.svg");
+          vertical-align: bottom;
+        }
       }
+
+      // compensate spacing to have numbering as part of paragraph
+      > p { padding-left: 28px; }
+
+      // indent the second paragarph in this particular feature - may not be needed.
+      > p:nth-of-type(2) { text-indent: 2em; }
+
     }
   }
 
-  // compensate spacing to have numbering as part of paragraph
-  &.finger > .body > p { padding-left: 28px; }
-
-  // indent the second paragarph in this particular feature - may not be needed.
-  &.finger > .body > p:nth-of-type(2) { text-indent: 2em; }
 }
 
 /******************************************************
