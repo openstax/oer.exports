@@ -137,6 +137,49 @@ div.part > div.titlepage {display:none;}
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
 
+.x-feature (@color, @bg-color, @svg, @padding-top) {
+  // 1st semantic paragraph is title of feature. Indention removed for second semantic paragraph
+  // which is first real paragraph.  Subsequent paragraphs are indented.
+  p:nth-of-type(2) {
+    text-indent: 0em;
+    page-break-before: avoid;
+  }
+  &::before {
+    padding-top: @padding-top; //from the SVG files
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-position: top outside;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+    background-color: white;
+    content: "";
+    display: block;
+    // the following are tweaked so the overlays really do over lay
+    margin-left: -1.05em;
+    margin-right: -1.05em;
+    margin-top: -0.05in;
+  }
+
+  background-color: @bg-color;
+  &::before { background-image: url("ccap-statistics/@{svg}.svg"); }
+
+  > .title { display: none; } //supress title in pdf
+
+  .body .title {
+    text-align: left !important;
+    font-size: large;
+    margin: .25em 0;
+    color: black;
+    font-weight:bold;
+    page-break-after: avoid;
+   }
+
+  .figure {
+    img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
+    > .title { font-size: x-small; color: @blue; }
+  }
+}
+
 // The args are title color, background color, path to SVG, top-padding value from svg
 .statistics {
   &.calculator {
@@ -250,50 +293,6 @@ div.part > div.titlepage {display:none;}
     }
   }
 }
-
-.x-feature (@color, @bg-color, @svg, @padding-top) {
-  // 1st semantic paragraph is title of feature. Indention removed for second semantic paragraph
-  // which is first real paragraph.  Subsequent paragraphs are indented.
-  p:nth-of-type(2) {
-    text-indent: 0em;
-    page-break-before: avoid;
-  }
-  &::before {
-    padding-top: @padding-top; //from the SVG files
-    background-repeat: no-repeat;
-    background-position: top left;
-    background-position: top outside;
-    page-break-inside: avoid;
-    page-break-after: avoid;
-    background-color: white;
-    content: "";
-    display: block;
-    // the following are tweaked so the overlays really do over lay
-    margin-left: -1.05em;
-    margin-right: -1.05em;
-    margin-top: -0.05in;
-  }
-
-  background-color: @bg-color;
-  &::before { background-image: url("ccap-statistics/@{svg}.svg"); }
-
-  > .title { display: none; } //supress title in pdf
-
-  .body .title {
-    text-align: left !important;
-    font-size: large;
-    margin: .25em 0;
-    color: black;
-    font-weight:bold;
-    page-break-after: avoid;
-   }
-
-  .figure {
-    img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
-    > .title { font-size: x-small; color: @blue; }
-  }
-}
-
 
 /******************************************************
  * End of chapter customizations
