@@ -130,7 +130,7 @@ div.part > div.titlepage {display:none;}
     page-break-inside: avoid;
     .x-feature(#330033, @gray, collab, 0.42in); 
   &.finger { 
-    p:nth-of-type(1):before { .x-finger(pointer, 5px, 2px, left); }
+    .x-finger(pointer, 5px, 2px, left); 
     }
   }
   &.lab { 
@@ -207,12 +207,14 @@ div.part > div.titlepage {display:none;}
   }
 }
 
-// macro for handling finger insertion into multiple areas
+// macro for handling instances of adding finger icon to assorted features
 .x-finger (@url, @padding-right, @padding-top, @position) {
-  content:url("ccap-statistics/@{url}.svg"); 
-  float: @position;
-  padding-right: @padding-right;
-  padding-top: @padding-top;
+  p:nth-of-type(1):before  {  
+    content:url("ccap-statistics/@{url}.svg"); 
+    float: @position;
+    padding-right: @padding-right;
+    padding-top: @padding-top;
+  }
 }
 
 /******************************************************
@@ -442,7 +444,7 @@ img, figure, subfigure  { margin: 1em; }
 // Example using finger icon
 .example {
   &.finger { 
-    p:nth-of-type(1):before { .x-finger(pointer, 5px, 2px, left); }
+   .x-finger(pointer, 5px, 2px, left);
   }
 }
 
@@ -496,7 +498,7 @@ img, figure, subfigure  { margin: 1em; }
   background-color: @gray;
 
   &.finger { 
-    p:nth-of-type(1):before { .x-finger(pointer, 5px, 2px, left); }
+    .x-finger(pointer, 5px, 2px, left);
 
     p {
       font-family: @font-family !important;  // utilize san-serif font from base for generic notes
@@ -563,8 +565,7 @@ img, figure, subfigure  { margin: 1em; }
 
 .direction-line-finger {
   color: black;
-
-  p:nth-of-type(1):before { .x-finger(pointer, 5px, 2px, left); }
+  .x-finger(pointer, 5px, 2px, left);
 }
 
 /******************************************************
@@ -650,19 +651,7 @@ img, figure, subfigure  { margin: 1em; }
     padding-left: .25em !important;
   }
 
-/* don't need this for stats stable - discard later
-  tr:first-child > th:first-child  {
-    padding: .25em !important;
-    color: @black !important;
-    font-size:medium;
-    margin-left: -1em;
-    text-align: left !important;
-    border-style: none !important;
-    background-color: transparent !important;
-  }
-*/
-
-   table {
+  table {
     border-bottom: @table-border !important;
   }
 
@@ -861,8 +850,3 @@ div.end-of-book-references {
     }
   } 
 }
-
-
-
-
-
