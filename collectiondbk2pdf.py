@@ -9,7 +9,7 @@ See LICENSE.txt for details.
 
 import sys
 import os
-import Image
+from PIL import Image
 import shutil
 from StringIO import StringIO
 from tempfile import mkdtemp
