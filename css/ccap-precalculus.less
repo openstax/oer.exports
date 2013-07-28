@@ -27,7 +27,7 @@
 @page-width: 8.5in;
 
 // The base CCAP books use sans fonts but the statistics book uses serif fonts.
-@font-family-statistics: Liberation Serif, serif, @stix-fonts;
+@font-family-precalculus: Liberation Serif, serif, @stix-fonts;
 
 @page { margin: 1in 1in; }
 // Finished printed size of the QR code is dependent on: 1-distance between qr code and scanning device
@@ -102,57 +102,11 @@
       // top spacing for collaborative exercises
       .body p:nth-of-type(1) { margin-top: 1em; }
     }
-    &.try {
-      page-break-inside: avoid;
-      .x-feature(#006666, @white, try, 0.34in);
-
-      /******************************************************
-       * Statistics Lab Feature Heading/SubHeading styling
-       ******************************************************/
-      .title {
-        display: block;
-        padding-top: .5em;
-        color: @medium-blue !important;
-        font-size: medium !important;
-        font-weight: bold !important;
-      }
-      > .title {
-        font-size: x-large !important;
-      }
-    }
     &.media {
       page-break-inside: avoid;
       .x-feature(#330033, @white, media, 0.42in);
       .x-finger();
     }  
-    /******************************************************
-     * Direction Line styling/finger icon implementation
-     ******************************************************/
-    &.direction-line {
-      color: black;
-      .x-finger();
-    }
-    // TODO: a final decision has not yet been made on whether this will be used in the statistics book
-    &.interactive {
-      page-break-inside: avoid; //no breaks within this feature
-      .x-feature(#993333, @white, interactive, 0.42in);
-
-      img {   //center qr code
-        display: block;
-        margin-left: auto;
-        margin-right: auto
-      }
-
-      .link {
-        color: @medium-blue !important;
-        font-weight: bold;
-      }
-
-      &.um {
-        .x-feature(#993333, @white, interactive_UM, 0.50in);
-        page-break-inside: auto !important; //override no break breaks from interactive feature L#197
-      }
-    }
     // The .try box has a bunch of customizations:
     // - Special-handling of the finger icon
     // - Exercises should not affect numbering and solutions should not show up in the content
@@ -167,7 +121,7 @@
         // counter-increment: exercise !important;
         content: "" " " counter(chapter, decimal) "." counter(example, decimal) " " "" !important;
         color: @black;
-        font-family: @font-family-statistics;
+        font-family: @font-family-precalculus;
         font-size: medium;
         font-weight: bold;
         float: left;
@@ -182,17 +136,7 @@
           .title {
             top: -3px;
             margin: 0;
-            height: 14px !important;
-
-            // This is one case where the finger icon is not added to the element that
-            // has the `.finger` class.
-            // Instead, it is added to the title element.
-
-            // insert pointer icon in front of numbering
-            &::before {
-              content: url(@finger-url);
-              vertical-align: bottom;
-            }
+            height: 14px !important;    
           }
 
           // compensate spacing to have numbering as part of paragraph
@@ -207,13 +151,32 @@
       .exercise {
         // Keep Try It Feature excercise numbering to match subsequent example
         counter-increment: none !important;
+        
+      .solution {
+        // override cnxml default lable with Answer
+        prince-text-replace: "Solution" "Answer:";
+        color: @orange;
 
-        // don't display solutions for try it feature
-        .solution { display: none; }
+        // must override color so entire solution won't be orange, just the Answer label
+        p { color: black; }
+
+        // There may be a nifty way to do this in PrinceXML. Defaulting back
+        // to my trusty web toolbox for a solution
+        // Flip answer text upside down
+        font-family: @font-family;
+        font-weight: normal;
+        font-size: x-small;
+        -webkit-transform: rotate(-180deg);
+        -moz-transform: rotate(-180deg); 
+        -o-transform: rotate(-180deg); 
+        transform: rotate(-180deg);
+        ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
+        filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+       }
       }
     }
   }
-  // End of .statistics notes
+  // End of .precalculus notes
 
   /******************************************************
    * Finger icon implementation for generic notes
@@ -555,7 +518,7 @@ img { max-height:9.5in; }
   }
 }
 
-a { font-weight: bold; color: @medium-blue;}
+a { font-weight: bold; color: @orange;}
 
 
 h1, h2, h3, h4, h5, h6 {
@@ -612,7 +575,7 @@ blockquote {
 
 
 p {
-  font-family: @font-family-statistics;
+  font-family: @font-family-precalculus;
   /* subsequent paragraphs are indented */
   text-indent: 2em;
   /*reset margins so subsequent paragraphs start next line  */
@@ -715,7 +678,7 @@ img, figure, subfigure  { margin: 1em; }
 .cnx-eoc .exercise {
   &.finger > .title .cnx-gentext-n {
     color: @black;
-    font-family: @font-family-statistics;
+    font-family: @font-family-precalculus;
 
     // insert pointer icon in front of header
     &::before {
@@ -751,7 +714,7 @@ img, figure, subfigure  { margin: 1em; }
     text-align: center; //center subfigure caption
     * {
       font-weight: normal !important; //override strong tag
-      font-family: @font-family-statistics;
+      font-family: @font-family-precalculus;
     }
   }
 
@@ -798,7 +761,7 @@ img, figure, subfigure  { margin: 1em; }
 
   > .title {
     display: inline;
-    color: @medium-blue;
+    color: @orange;
     font-weight: bold;
     text-align:center;
     margin-right: .5em;
@@ -825,7 +788,7 @@ img, figure, subfigure  { margin: 1em; }
   text-align: center; //center subfigure caption
   * {
     font-weight: normal !important; //override strong tag
-    font-family: @font-family-statistics;
+    font-family: @font-family-precalculus;
   }
 }
 
@@ -930,7 +893,7 @@ div.end-of-book-solutions {
   }
 
   .chapter-area {
-    font-family: @font-family-statistics;
+    font-family: @font-family-precalculus;
     a {
       &.solution { color: black; }
       &.chapter * {
@@ -962,7 +925,7 @@ div.end-of-book-references {
       text-indent: 0em;
       margin: .5em 0em;
       > a.link {
-        color: @medium-blue;
+        color: @orange;
         font-weight: normal;
         text-decoration: underline;
       }
