@@ -17,7 +17,7 @@
 @medium-blue:   #528CBE;
 @light-blue:    #DBE8F2;  // Template color in question. Note backgrounds seem blue not light green.
 @light-green:   #D3ECED;
-@cream:         #EFD8B0;
+@light-orange:  #EFD8B0;
 @orange:        #D7562C;
 
 @white:       #FFF;
@@ -79,7 +79,7 @@
 
 
 /******************************************************
- * Statistics Custom elements
+ * Precalculus Custom elements
  *
  * Most of the customizations are
  * `.note` elements with specific classes
@@ -229,6 +229,16 @@
 }
 
 /******************************************************
+ * Preface
+ ******************************************************/
+.preface {
+  > .titlepage {
+    padding-bottom: 1em;
+    h1.title { background-color: @medium-blue; }
+  }
+}
+
+/******************************************************
  * Book Table of Contents
   ******************************************************/
 .book > .toc {
@@ -249,7 +259,7 @@ div.part > div.titlepage {display:none;}
 
 
 /******************************************************
- * CHAPTER INTRODUCTION
+ * Chapter Introduction
  ******************************************************/
 .chapter > .introduction {
   >.title {
@@ -257,25 +267,31 @@ div.part > div.titlepage {display:none;}
     font-size: x-large;
   }
 
-  /******************************************************
-  * Manual Chapter Objectives -
-  * special note ".chapter-objectives" contains
-  * list within para
-  ******************************************************/
-  > .toc { display: none; } // hide default chapter objectives toc
+  // Note to me: refactor the toc sections during broom up
 
-  .chapter-objectives {
+  // numbering is bold and medium blue for precalculus
+  > .toc a {
+    color: @medium-blue;
+    font-weight: bold;
+  }
+
+  // overide hyperlink medium blue color must be back and normal weight
+  > .toc .toc-section .cnx-gentext-t {
+    color: @black;
+    font-weight: normal;
+  }
+
+  // Take away default colon display after number
+  > .toc .toc-section .cnx-gentext-n:after {
+    content: "";
+  }
+
+  >.toc { //Chapter Outline
+    width: 100%;
     border: 1px solid @medium-blue;
 
-    // we have to set this explicitly because of .note:not(.precalculus);
-    // it turns this note to a light blue background since chapter objectives
-    // is a generic note also
-    background-color: @white;
-
-    //add reset to left/right margins ensure appearance of solid background
-    padding: 0em;
-
-    > .title { //chapter objectives
+    >.title {
+      content: "Chapter Outline"; //override content string from base
       padding-top: .1em;
       padding-bottom: .2em;
       background-color: @medium-blue;
@@ -284,24 +300,8 @@ div.part > div.titlepage {display:none;}
       font-weight: bold;
       font-size: large;
     }
-
-    p { margin: 1em 0em .75em 1em; }
-
-    .itemizedlist > .listitem > p { margin: 0em 2em; }
-  }
+  }  
 }
-
-
-/******************************************************
- * Preface
- ******************************************************/
-.preface {
-  > .titlepage {
-    padding-bottom: 1em;
-    h1.title { background-color: @medium-blue; }
-  }
-}
-
 
 /******************************************************
  * Section Level Learning Objectives
@@ -309,31 +309,42 @@ div.part > div.titlepage {display:none;}
 
 .section > .titlepage {
   .abstract {
+    counter-reset: learning-objectives;
     border: 1px solid @medium-blue;
-    //add reset to left/right margins ensure appearance of solid background
     padding: 0em;
 
     &::before {
+      content: "Learning Objectives";
       display: inline-block;
       width: 100%;
       padding-top: .1em;
       padding-bottom: .2em;
-      font-family: @font-family;
       background-color: @medium-blue;
       color: white;
       text-align: center;
       font-weight: bold;
-      font-size: large;
-      content: "Learning Objectives";
+      font-size: large;   
     }
 
-     p { margin: 1em 0em .75em 1em; }
 
-    .itemizedlist > .listitem > p { margin: 0em 2em; }
+    p { font-family: @font-family; margin: 1em 0em .75em 1em; }
 
+    .itemizedlist > .listitem > p { margin: 0em .3em; display: inline-block; }
+
+
+    // Special three-part numbering for Learning Objective chapter.section.learning-objectives
+    .itemizedlist > .listitem {
+      counter-increment: learning-objectives;
+      display: block;
+
+      &::before { 
+        content: "" " " counter(chapter, decimal) "." counter(section, decimal) "." counter(learning-objectives) " " ""; 
+        color: @medium-blue;
+        font-weight: bold;
+      }
+    }
   }
 }
-
 
 /******************************************************
  * Features args(title color, bkgrnd color, path to svg)
@@ -663,7 +674,10 @@ img, figure, subfigure  { margin: 1em; }
       color: @dark-blue;
       font-weight: bold;
     }
-  }
+}
+
+// This is for the Analysis special title in example problem/solutions
+.example > .body > .title { color: @dark-blue; }
 
 
 /******************************************************
@@ -751,7 +765,15 @@ img, figure, subfigure  { margin: 1em; }
 
 }
 
+//  Add a class for tables that have special characteristics
+.table.color {
+  th { background-color: @light-orange; text-align: center !important; }
 
+  tr { height: 1em !important; }
+
+  tr td:first-child { background-color: @light-orange; width: 2.5in; font-weight: bold; }
+}
+    
 /******************************************************
  * Figures/Subfigures
  ******************************************************/
@@ -768,7 +790,6 @@ img, figure, subfigure  { margin: 1em; }
   }
 
   & img {
-    padding-top: 2em;
     margin: 0 !important; //override auto  left/right margins from base
     max-width: @page-width !important; //overrides width value figures/subfigures ensuring imgs do not bleed off page
   }
