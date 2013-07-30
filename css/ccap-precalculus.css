@@ -1545,7 +1545,7 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   margin: 1in 1in;
 }
 /******************************************************
- * Statistics Custom elements
+ * Precalculus Custom elements
  *
  * Most of the customizations are
  * `.note` elements with specific classes
@@ -1864,6 +1864,15 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   padding-bottom: 1em !important;
 }
 /******************************************************
+ * Preface
+ ******************************************************/
+.preface > .titlepage {
+  padding-bottom: 1em;
+}
+.preface > .titlepage h1.title {
+  background-color: #528cbe;
+}
+/******************************************************
  * Book Table of Contents
   ******************************************************/
 .book > .toc > .title {
@@ -1881,29 +1890,29 @@ div.part > div.titlepage {
   display: none;
 }
 /******************************************************
- * CHAPTER INTRODUCTION
+ * Chapter Introduction
  ******************************************************/
-.chapter > .introduction {
-  /******************************************************
-  * Manual Chapter Objectives -
-  * special note ".chapter-objectives" contains
-  * list within para
-  ******************************************************/
-
-}
 .chapter > .introduction > .title {
   content: "Introduction";
   font-size: x-large;
 }
+.chapter > .introduction > .toc a {
+  color: #528cbe;
+  font-weight: bold;
+}
+.chapter > .introduction > .toc .toc-section .cnx-gentext-t {
+  color: #000000;
+  font-weight: normal;
+}
+.chapter > .introduction > .toc .toc-section .cnx-gentext-n:after {
+  content: "";
+}
 .chapter > .introduction > .toc {
-  display: none;
-}
-.chapter > .introduction .chapter-objectives {
+  width: 100%;
   border: 1px solid #528cbe;
-  background-color: #ffffff;
-  padding: 0em;
 }
-.chapter > .introduction .chapter-objectives > .title {
+.chapter > .introduction > .toc > .title {
+  content: "Chapter Outline";
   padding-top: .1em;
   padding-bottom: .2em;
   background-color: #528cbe;
@@ -1911,47 +1920,43 @@ div.part > div.titlepage {
   text-align: center;
   font-weight: bold;
   font-size: large;
-}
-.chapter > .introduction .chapter-objectives p {
-  margin: 1em 0em .75em 1em;
-}
-.chapter > .introduction .chapter-objectives .itemizedlist > .listitem > p {
-  margin: 0em 2em;
-}
-/******************************************************
- * Preface
- ******************************************************/
-.preface > .titlepage {
-  padding-bottom: 1em;
-}
-.preface > .titlepage h1.title {
-  background-color: #528cbe;
 }
 /******************************************************
  * Section Level Learning Objectives
 ******************************************************/
 .section > .titlepage .abstract {
+  counter-reset: learning-objectives;
   border: 1px solid #528cbe;
   padding: 0em;
 }
 .section > .titlepage .abstract::before {
+  content: "Learning Objectives";
   display: inline-block;
   width: 100%;
   padding-top: .1em;
   padding-bottom: .2em;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   background-color: #528cbe;
   color: white;
   text-align: center;
   font-weight: bold;
   font-size: large;
-  content: "Learning Objectives";
 }
 .section > .titlepage .abstract p {
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   margin: 1em 0em .75em 1em;
 }
 .section > .titlepage .abstract .itemizedlist > .listitem > p {
-  margin: 0em 2em;
+  margin: 0em .3em;
+  display: inline-block;
+}
+.section > .titlepage .abstract .itemizedlist > .listitem {
+  counter-increment: learning-objectives;
+  display: block;
+}
+.section > .titlepage .abstract .itemizedlist > .listitem::before {
+  content: "" " " counter(chapter, decimal) "." counter(section, decimal) "." counter(learning-objectives) " " "";
+  color: #528cbe;
+  font-weight: bold;
 }
 /******************************************************
  * Features args(title color, bkgrnd color, path to svg)
@@ -2251,6 +2256,9 @@ subfigure {
   color: #233a67;
   font-weight: bold;
 }
+.example > .body > .title {
+  color: #233a67;
+}
 /******************************************************
  * EOC Exercise Finger icon implementation
  ******************************************************/
@@ -2317,6 +2325,18 @@ subfigure {
 .table .itemizedlist > .listitem > p {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1 !important;
 }
+.table.color th {
+  background-color: #efd8b0;
+  text-align: center !important;
+}
+.table.color tr {
+  height: 1em !important;
+}
+.table.color tr td:first-child {
+  background-color: #efd8b0;
+  width: 2.5in;
+  font-weight: bold;
+}
 /******************************************************
  * Figures/Subfigures
  ******************************************************/
@@ -2332,7 +2352,6 @@ subfigure {
   margin-right: .5em;
 }
 .figure img {
-  padding-top: 2em;
   margin: 0 !important;
   max-width: 8.5in !important;
 }
