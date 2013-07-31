@@ -679,6 +679,48 @@ img, figure, subfigure  { margin: 1em; }
 // This is for the Analysis special title in example problem/solutions
 .example > .body > .title { color: @dark-blue; }
 
+/******************************************************
+ * End of Section Exercise Styling
+ ******************************************************/
+
+// Headers are san-serif but the text of exercises are serif
+.section .exercise {
+   font-family: @font-family-precalculus;
+}
+
+.section.section-exercises {
+  page-break-before: always;
+  page-break-after: always;
+  column-count: 2;
+
+  .exercise {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+
+  .exercise .title {
+    content: counter(exercise) ".";
+    float: left;
+  }
+
+  .exercise .problem { text-indent: 1em; }
+
+  // Create Exercises Title above sections
+  &::before {
+    content: "" " " counter(chapter, decimal) "." counter(section, decimal) " exercises" " " ""; 
+    text-transform: uppercase;
+    font-size: 17pt; 
+    color: @medium-blue;
+    font-weight: bold;
+  }
+
+  // turn off default display for exercises that displays "Exercise x.x"
+  .exercise:not(.labeled) > .title > span:first-child:not(.labeled):before {
+    display: none;
+  }
+  
+
+}
 
 /******************************************************
  * EOC Exercise Finger icon implementation
