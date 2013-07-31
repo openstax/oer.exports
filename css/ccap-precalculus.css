@@ -2260,6 +2260,38 @@ subfigure {
   color: #233a67;
 }
 /******************************************************
+ * End of Section Exercise Styling
+ ******************************************************/
+.section .exercise {
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+.section.section-exercises {
+  page-break-before: always;
+  page-break-after: always;
+  column-count: 2;
+}
+.section.section-exercises .exercise {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.section.section-exercises .exercise .title {
+  content: counter(exercise) ".";
+  float: left;
+}
+.section.section-exercises .exercise .problem {
+  text-indent: 1em;
+}
+.section.section-exercises::before {
+  content: "" " " counter(chapter, decimal) "." counter(section, decimal) " exercises" " " "";
+  text-transform: uppercase;
+  font-size: 17pt;
+  color: #528cbe;
+  font-weight: bold;
+}
+.section.section-exercises .exercise:not(.labeled) > .title > span:first-child:not(.labeled):before {
+  display: none;
+}
+/******************************************************
  * EOC Exercise Finger icon implementation
  ******************************************************/
 .cnx-eoc .exercise .problem > .title {
