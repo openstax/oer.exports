@@ -87,126 +87,126 @@
  * At the bottom of this block is the default styling
  * notes that are not marked up with special classes.
  ******************************************************/
-.note {
-  .statistics {
-    &.calculator {
-      page-break-inside: avoid;
-      .x-feature(#336633, @white, calculator, 0.42in);
-    }
-    &.collab {
-      page-break-inside: avoid;
-      .x-feature(#330033, @gray, collab, 0.42in);
-      .x-finger();
 
-      // top spacing for collaborative exercises
-      .body p:nth-of-type(1) { margin-top: 1em; }
-    }
-    &.lab {
-      page-break-inside: avoid;
-      .x-feature(#006666, @gray, lab, 0.34in);
+.statistics {
+  &.calculator {
+    page-break-inside: avoid;
+    .x-feature(#336633, @white, calculator, 0.42in);
+  }
+  &.collab {
+    page-break-inside: avoid;
+    .x-feature(#330033, @gray, collab, 0.42in);
+    .x-finger();
 
-      /******************************************************
-       * Statistics Lab Feature Heading/SubHeading styling
-       ******************************************************/
-      .title {
-        display: block;
-        padding-top: .5em;
-        color: @blue !important;
-        font-size: medium !important;
-        font-weight: bold !important;
-      }
-      > .title {
-        font-size: x-large !important;
-      }
-    }
+    // top spacing for collaborative exercises
+    .body p:nth-of-type(1) { margin-top: 1em; }
+  }
+  &.lab {
+    page-break-inside: avoid;
+    .x-feature(#006666, @gray, lab, 0.34in);
+
     /******************************************************
-     * Direction Line styling/finger icon implementation
+     * Statistics Lab Feature Heading/SubHeading styling
      ******************************************************/
-    &.direction-line {
-      color: black;
-      .x-finger();
+    .title {
+      display: block;
+      padding-top: .5em;
+      color: @blue !important;
+      font-size: medium !important;
+      font-weight: bold !important;
     }
-    // TODO: a final decision has not yet been made on whether this will be used in the statistics book
-    &.interactive {
-      page-break-inside: avoid; //no breaks within this feature
-      .x-feature(#993333, @gray, interactive, 0.42in);
-
-      img {   //center qr code
-        display: block;
-        margin-left: auto;
-        margin-right: auto
-      }
-
-      .link {
-        color: @blue !important;
-        font-weight: bold;
-      }
-
-      &.um {
-        .x-feature(#993333, @gray, interactive_UM, 0.50in);
-        page-break-inside: auto !important; //override no break breaks from interactive feature L#197
-      }
-    }
-    // The .try box has a bunch of customizations:
-    // - Special-handling of the finger icon
-    // - Exercises should not affect numbering and solutions should not show up in the content
-    &.try {
-      page-break-inside: avoid;
-      .x-feature(#336600, @gray, try, 0.35in);
-
-      /******************************************************
-       * Try-It Feature styling/finger icon implementation
-       ******************************************************/
-      > .body .title {
-        // counter-increment: exercise !important;
-        content: "" " " counter(chapter, decimal) "." counter(example, decimal) " " "" !important;
-        color: @black;
-        font-family: @font-family-statistics;
-        font-size: medium;
-        font-weight: bold;
-        float: left;
-        position: relative;
-        top: -7px;
-        padding-right: 5px;
-      }
-
-      // place finger pointer before numbering and position properly
-      &.finger {
-        > .body {
-          .title {
-            top: -3px;
-            margin: 0;
-            height: 14px !important;
-
-            // This is one case where the finger icon is not added to the element that
-            // has the `.finger` class.
-            // Instead, it is added to the title element.
-
-            // insert pointer icon in front of numbering
-            &::before {
-              content: url(@finger-url);
-              vertical-align: bottom;
-            }
-          }
-
-          // compensate spacing to have numbering as part of paragraph
-          > p { padding-left: 28px; }
-
-          // indent the second paragarph in this particular feature - may not be needed.
-          > p:nth-of-type(2) { text-indent: 2em; }
-
-        }
-      }
-
-      .exercise {
-        // Keep Try It Feature excercise numbering to match subsequent example
-        counter-increment: none !important;
-
-        // don't display solutions for try it feature
-        .solution { display: none; }
-      }
+    > .title {
+      font-size: x-large !important;
     }
   }
+  /******************************************************
+   * Direction Line styling/finger icon implementation
+   ******************************************************/
+  &.direction-line {
+    color: black;
+    .x-finger();
+  }
+  // TODO: a final decision has not yet been made on whether this will be used in the statistics book
+  &.interactive {
+    page-break-inside: avoid; //no breaks within this feature
+    .x-feature(#993333, @gray, interactive, 0.42in);
+
+    img {   //center qr code
+      display: block;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    .link {
+      color: @blue !important;
+      font-weight: bold;
+    }
+
+    &.um {
+      .x-feature(#993333, @gray, interactive_UM, 0.50in);
+      page-break-inside: auto !important; //override no break breaks from interactive feature L#197
+    }
+  }
+  // The .try box has a bunch of customizations:
+  // - Special-handling of the finger icon
+  // - Exercises should not affect numbering and solutions should not show up in the content
+  &.try {
+    page-break-inside: avoid;
+    .x-feature(#336600, @gray, try, 0.35in);
+
+    /******************************************************
+     * Try-It Feature styling/finger icon implementation
+     ******************************************************/
+    > .body .title {
+      // counter-increment: exercise !important;
+      content: "" " " counter(chapter, decimal) "." counter(example, decimal) " " "" !important;
+      color: @black;
+      font-family: @font-family-statistics;
+      font-size: medium;
+      font-weight: bold;
+      float: left;
+      position: relative;
+      top: -7px;
+      padding-right: 5px;
+    }
+
+    // place finger pointer before numbering and position properly
+    &.finger {
+      > .body {
+        .title {
+          top: -3px;
+          margin: 0;
+          height: 14px !important;
+
+          // This is one case where the finger icon is not added to the element that
+          // has the `.finger` class.
+          // Instead, it is added to the title element.
+
+          // insert pointer icon in front of numbering
+          &::before {
+            content: url(@finger-url);
+            vertical-align: bottom;
+          }
+        }
+
+        // compensate spacing to have numbering as part of paragraph
+        > p { padding-left: 28px; }
+
+        // indent the second paragarph in this particular feature - may not be needed.
+        > p:nth-of-type(2) { text-indent: 2em; }
+
+      }
+    }
+
+    .exercise {
+      // Keep Try It Feature excercise numbering to match subsequent example
+      counter-increment: none !important;
+
+      // don't display solutions for try it feature
+      .solution { display: none; }
+    }
+  }
+
   // End of .statistics notes
 
   /******************************************************
