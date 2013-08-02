@@ -187,21 +187,10 @@
     color: #000;
     background-color: @light-blue;
 
-    .x-finger();
-
-    // Additionally, change the font of all content on a note with the finger class
-    &.finger {
-      p {
-        font-family: @font-family !important;  // utilize san-serif font from base for generic notes
-      }
-    }
-
     // Styling for Generic Note title block and border
-    &.finger .body .title,
-    .body .title {
+    .title {
       text-align: left !important;
-      text-transform: uppercase;
-      font-size: small;
+      font-size: small; 
       margin-top: .25em;
       margin-bottom: .5em;
       color: @medium-blue;
@@ -210,18 +199,6 @@
       border-bottom: 1px solid @medium-blue;
     }
   }
- // }
-
-
-/*  No finger on examples - don't meed this
-
-// Example using finger icon
-.example {
-  .x-finger();
-}
-*/
-
-
 
 // .note class override - bottom margin not being picked up in base.less
 .note {
@@ -659,9 +636,10 @@ img, figure, subfigure  { margin: 1em; }
     // In this book, the title in the cnxml needs to display and without numbering.
     //  content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
     
-
+      font-family: @font-family;
       color: @dark-blue;
       font-weight: bold;
+      padding-bottom: 3em;
     }
 
     .solution > .title {
@@ -859,13 +837,16 @@ img, figure, subfigure  { margin: 1em; }
 /******************************************************
  * Equations
  ******************************************************/
-// Hide equation numbers in the entire book
+// Turn off equation hiding for pre-calculus text
 div.book,
 div.book > div.part {
   > div.preface,
   > div.chapter,
   > div.appendix {
-    > div.section div.equation > *:last-child::after { content: ""; }
+    > div.section div.equation > *:last-child::after { 
+      color: @orange;
+      font-weight: bold;
+    }
   }
 }
 
