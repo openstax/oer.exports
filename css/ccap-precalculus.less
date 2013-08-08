@@ -88,8 +88,8 @@
  * notes that are not marked up with special classes.
  ******************************************************/
 
-// .note { for some reason it doesn't like this find out later
-  .precalculus {
+.note {
+  &.precalculus {
     &.howto {
       page-break-inside: avoid;
       .x-feature(#336633, @white, howto, 0.42in);
@@ -152,30 +152,33 @@
         // Keep Try It Feature excercise numbering to match subsequent example
         counter-increment: none !important;
         
-      .solution {
-        // override cnxml default lable with Answer
-        prince-text-replace: "Solution" "Answer:";
-        color: @orange;
+        .solution {
+          // override cnxml default lable with Answer
+          prince-text-replace: "Solution" "Answer:";
+          color: @orange;
 
-        // must override color so entire solution won't be orange, just the Answer label
-        p { color: black; }
+          // must override color so entire solution won't be orange, just the Answer label
+          p { color: black; }
 
-        // There may be a nifty way to do this in PrinceXML. Defaulting back
-        // to my trusty web toolbox for a solution
-        // Flip answer text upside down
-        font-family: @font-family;
-        font-weight: normal;
-        font-size: x-small;
-        -webkit-transform: rotate(-180deg);
-        -moz-transform: rotate(-180deg); 
-        -o-transform: rotate(-180deg); 
-        transform: rotate(-180deg);
-        ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
-        filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
-       }
+          // There may be a nifty way to do this in PrinceXML. Defaulting back
+          // to my trusty web toolbox for a solution
+          // Flip answer text upside down
+          font-family: @font-family;
+          font-weight: normal;
+          font-size: x-small;
+
+            // This is cross browser may only need one that Prince can pick up and no more
+            -webkit-transform: rotate(-180deg);
+            -moz-transform: rotate(-180deg); 
+            -o-transform: rotate(-180deg); 
+            transform: rotate(-180deg);
+            ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
+            filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+        }
       }
     }
   }
+}
   // End of .precalculus notes
 
   /******************************************************
@@ -624,38 +627,67 @@ img, figure, subfigure  { margin: 1em; }
     padding: 1em 2em .5em 2em;
 }
 
-.example .solution { padding-top: 2em; }
+.example .solution { padding-top: 1em; padding-bottom: 1em; }
 
 // for examples that have a problem/solution structure that need numbered headings
 .example .exercise {
-    counter-increment: none !important;
-    .problem > .title {
-    
-    
-    // We now have to turn the numbering off that was created for Statistics
-    // In this book, the title in the cnxml needs to display and without numbering.
-    //  content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
-    
-      font-family: @font-family;
-      color: @dark-blue;
-      font-weight: bold;
-      padding-bottom: 3em;
-    }
+  counter-increment: none !important;
+  margin-top: 0 !important;
 
-    .solution > .title {
+  .problem > .title {
+  
+  // We now have to turn the numbering off that was created for Statistics
+  // In this book, the title in the cnxml needs to display and without numbering.
+  //  content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
+  
+    font-family: @font-family;
+    font-size: 11pt;
+    color: @dark-blue;
+    font-weight: bold;
+    padding-bottom: 1em;
+  }
 
-    // We now have to turn the numbering off that was created for Statistics
-    // In this book, the title in the cnxml needs to display and without numbering.
-    //  content: "" "Solution " counter(chapter, decimal) "." counter(example, decimal) " " "";
-      
+  .solution > .title {
 
-      color: @dark-blue;
-      font-weight: bold;
-    }
+  // We now have to turn the numbering off that was created for Statistics
+  // In this book, the title in the cnxml needs to display and without numbering.
+  //  content: "" "Solution " counter(chapter, decimal) "." counter(example, decimal) " " "";
+
+    // Why oh WHY is the <title> for the <solution> tag set to display: none?
+    content: "Solution";
+    font-family: @font-family;
+    font-size: 10pt;
+    color: @dark-blue;
+    font-weight: bold;
+    float: left;
+    margin-right: .2em;
+    height: .9em;
+    border: 1px solid red;
+  }
+
+  .solution > .title > p {
+    float: left;
+  }
+
+
+  // Create styles for Analysis sections for exercises in examples
+  .commentary > .title {
+    font-family: @font-family;
+    font-size: 10pt;
+    color: @dark-blue;
+    font-weight: bold;
+    float: left;
+    margin-right: .2em;
+    height: .9em;
+    border: 1px solid red;
+  } 
+
+  .commentary > .title > p {
+    float: left;
+  }
+
 }
 
-// This is for the Analysis special title in example problem/solutions
-.example > .body > .title { color: @dark-blue; }
 
 /******************************************************
  * End of Section Exercise Styling
