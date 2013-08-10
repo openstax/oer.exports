@@ -35,49 +35,6 @@
 // For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
 @qr: 1.25in;
 
-
-// Most cases of `.finger` use the `.x-finger()` macro
-// (the finger is on the 1st para of the thing with the `.finger` class)
-//
-// But there are a couple of corner cases:
-// - `.try`
-// - `.exercise`
-//
-// In both of these cases the `.finger` class is on the Note or Exercise
-// instead of on the element that contains the para that will have the finger.
-@finger-url: "ccap-statistics/pointer.svg";
-
-// macro for handling instances of adding finger icon to assorted features
-//
-// TODO: Update Docbook to 1.77+ to clean up this finger stuff
-// The reason for not putting the finger class directly on the element that will have
-// the finger is a bug in Docbook 1.76 (fixed in 1.77).
-// Docbook does not copy the classes over to the HTML
-.x-finger() {
-  // Example CNXML:
-  //
-  //     <note class="collab finger">
-  //       <para>This is the thing that will actually get the finger icon</para>
-  //     </note>
-
-  // Example markup (generated from the CNXML above):
-  //
-  //     <div class="note collab finger">
-  //       <div class="body">
-  //         <p>This is the thing that will actually get the finger icon</p>
-
-  // Make sure the finger only applies to paragraphs inside things with the finger class on them
-  &.finger {
-    p:nth-of-type(1):before  {
-      content:url(@finger-url);
-      float: left;
-      padding-right: 5px;
-      padding-top: 2px;
-    }
-  }
-}
-
-
 /******************************************************
  * Precalculus Custom elements
  *
@@ -97,18 +54,15 @@
     &.qa {
       page-break-inside: avoid;
       .x-feature(#330033, @white, qa, 0.42in);
-      .x-finger();
-
+    
       // top spacing for collaborative exercises
       .body p:nth-of-type(1) { margin-top: 1em; }
     }
     &.media {
       page-break-inside: avoid;
       .x-feature(#330033, @white, media, 0.42in);
-      .x-finger();
     }  
     // The .try box has a bunch of customizations:
-    // - Special-handling of the finger icon
     // - Exercises should not affect numbering and solutions should not show up in the content
     &.try {
       page-break-inside: avoid;
@@ -118,62 +72,49 @@
        * Try-It Feature styling/finger icon implementation
        ******************************************************/
       > .body .title {
-        // counter-increment: exercise !important;
-        content: "" " " counter(chapter, decimal) "." counter(example, decimal) " " "" !important;
+        
+        content: "" " " counter(chapter, decimal) "." counter(exercise, decimal) " " "" !important;
         color: @black;
         font-family: @font-family-precalculus;
-        font-size: medium;
+        font-size: 10pt;
         font-weight: bold;
         float: left;
-        position: relative;
-        top: -7px;
-        padding-right: 5px;
-      }
-
-      // place finger pointer before numbering and position properly
-      &.finger {
-        > .body {
-          .title {
-            top: -3px;
-            margin: 0;
-            height: 14px !important;    
-          }
-
-          // compensate spacing to have numbering as part of paragraph
-          > p { padding-left: 28px; }
-
-          // indent the second paragarph in this particular feature - may not be needed.
-          > p:nth-of-type(2) { text-indent: 2em; }
-
-        }
+        padding-left: 1.5em;
+        padding-right: .3em;
+        border: 1px solid red;
       }
 
       .exercise {
-        // Keep Try It Feature excercise numbering to match subsequent example
-        counter-increment: none !important;
+       
+        counter-increment: exercise !important;
         
         .solution {
           // override cnxml default lable with Answer
           prince-text-replace: "Solution" "Answer:";
           color: @orange;
-
-          // must override color so entire solution won't be orange, just the Answer label
-          p { color: black; }
-
-          // There may be a nifty way to do this in PrinceXML. Defaulting back
-          // to my trusty web toolbox for a solution
-          // Flip answer text upside down
           font-family: @font-family;
           font-weight: normal;
           font-size: x-small;
 
-            // This is cross browser may only need one that Prince can pick up and no more
-            -webkit-transform: rotate(-180deg);
-            -moz-transform: rotate(-180deg); 
-            -o-transform: rotate(-180deg); 
-            transform: rotate(-180deg);
-            ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
-            filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+          // This is cross browser may only need one that Prince can pick up and no more
+         
+         /*
+          -webkit-transform: rotate(-180deg);
+          -moz-transform: rotate(-180deg); 
+          -o-transform: rotate(-180deg); 
+          transform: rotate(-180deg);
+          ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
+          filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+        */
+
+          border: 1px solid green;
+
+          // must override color so entire solution won't be orange, just the Answer label
+          p { color: black; }
+
+
+
+
         }
       }
     }
@@ -345,43 +286,6 @@ div.part > div.titlepage {display:none;}
   margin-top: 0;
   background: url("ccap-precalculus/@{svg}.svg") no-repeat;
   background-position: 0 .2em;
-
-  // The Bulk of the .x-feature function is not going to be needed
-  // because the features are so simple.  They do not have borders or headers.
-  // Check with Phil, but I think we can minimize this function and incorporate the 
-  // finger code for the one place where it comes in front of a number (try it)
-
-  /*
-  &::before {
-    padding-top: @padding-top; //from the SVG files
-    background-repeat: no-repeat;
-    background-position: top left;
-    background-position: top outside;
-    page-break-inside: avoid;
-    page-break-after: avoid;
-    background-color: white;
-    content: "";
-    display: block;
-    // the following are tweaked so the overlays really do over lay
-    margin-left: -1.05em;
-    margin-right: -1.05em;
-    margin-top: -0.05in;
-  }
-
-  background-color: @bg-color;
-  &::before { background-image: url("ccap-precalculus/@{svg}.svg"); }
-
-  > .title { display: none; } //supress title in pdf
-
-  .body .title {
-    text-align: left !important;
-    font-size: large;
-    margin: .25em 0;
-    color: black;
-    font-weight:bold;
-    page-break-after: avoid;
-   }
-*/
 
   .figure {
     img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
@@ -730,28 +634,6 @@ img, figure, subfigure  { margin: 1em; }
   }
   
 
-}
-
-/******************************************************
- * EOC Exercise Finger icon implementation
- ******************************************************/
-
-// Depending on final markup structure this may change
-.cnx-eoc .exercise .problem > .title {
-  font-weight: normal;
-}
-
-.cnx-eoc .exercise {
-  &.finger > .title .cnx-gentext-n {
-    color: @black;
-    font-family: @font-family-precalculus;
-
-    // insert pointer icon in front of header
-    &::before {
-      content: url(@finger-url);
-      vertical-align: bottom;
-    }
-  }
 }
 
 /******************************************************
