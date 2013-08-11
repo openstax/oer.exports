@@ -317,7 +317,9 @@ div.part > div.titlepage {display:none;}
 
   &.summary {
     .x-column-count(1);
-    > .title { content: "Chapter Review"; margin-top: 1em; }
+    > .title { 
+      content: "" "Chapter " counter(chapter, decimal) " Review";
+    }
     > .section .title > a { color: @medium-blue; page-break-after: avoid; }
     p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
     p { text-indent: 2em; }
@@ -364,19 +366,21 @@ div.part > div.titlepage {display:none;}
 }
 
 // not using this - remove later
+
 &.interactive-exercise > div.title {
   content: "Interactive Link Questions";
   column-span: all !important;  // added override to resolve bug on staging where titles
   margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
 }
 
-&.formula-review > div.title {
-  content: "Formula Review";
+.key-equations > div.title {
+  content: "Key Equations";
   column-span: all !important;  // added override to resolve bug on staging where titles
   margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
 }
 
-.multiple-choice, .interactive-exercise, .formula-review {
+// This is for disabling the section number and title being shown
+.multiple-choice, .interactive-exercise, .key-equations, .summary {
   > .section > .title { display: none; }
 }
 
