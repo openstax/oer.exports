@@ -61,6 +61,12 @@
     &.media {
       page-break-inside: avoid;
       .x-feature(#330033, @white, media, 0.42in);
+      
+      // weblinks included in media list need to be orange and bold
+      .itemizedlist > .listitem {
+        color: @orange;
+        font-weight: bold;
+      }
     }  
     // The .try box has a bunch of customizations:
     // - Exercises should not affect numbering and solutions should not show up in the content
@@ -98,23 +104,18 @@
 
           // This is cross browser may only need one that Prince can pick up and no more
          
-         /*
+         
           -webkit-transform: rotate(-180deg);
           -moz-transform: rotate(-180deg); 
           -o-transform: rotate(-180deg); 
           transform: rotate(-180deg);
           ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
           filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
-        */
-
+        
           border: 1px solid green;
 
           // must override color so entire solution won't be orange, just the Answer label
           p { color: black; }
-
-
-
-
         }
       }
     }
@@ -317,9 +318,7 @@ div.part > div.titlepage {display:none;}
 
   &.summary {
     .x-column-count(1);
-    > .title { 
-      content: "" "Chapter " counter(chapter, decimal) " Review";
-    }
+    > .title { content: "" "Chapter " counter(chapter, decimal) " Review"; }
     > .section .title > a { color: @medium-blue; page-break-after: avoid; }
     p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
     p { text-indent: 2em; }
@@ -334,12 +333,34 @@ div.part > div.titlepage {display:none;}
     }
   }
 
-  &.practice-test {
+  &.key-concepts {
     .x-column-count(1);
-    > .title { content: "" "Chapter " counter(chapter, decimal) " Practice Test"; margin-top: 1em; }
-    > .section .title > a { color: @medium-blue; page-break-after: avoid; }
-    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
-    p { text-indent: 2em; }
+    > div.title {
+      content: "Key Concepts";
+      column-span: all !important;  // added override to resolve bug on staging where titles
+      margin-top: 1em;   // are spanning single column. cannot replicate locally or on naginata
+    }
+    > .section > .title {
+        color: @medium-blue;
+    }
+  }
+
+  &.review-exercises {
+    .x-column-count(2);
+    > .title {
+      content: "" "Chapter " counter(chapter, decimal) " Review Exercises";
+      column-span: all !important; // added override to resolve bug on staging where titles
+      margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginat
+    }
+  }
+
+  &.practice-test {
+    .x-column-count(2);
+    > .title {
+      content: "" "Chapter " counter(chapter, decimal) " Practice Test";
+      column-span: all !important; // added override to resolve bug on staging where titles
+      margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginat
+    }
   }
 
   &.solutions {
@@ -349,8 +370,6 @@ div.part > div.titlepage {display:none;}
     p { text-indent: 2em; }
   }
 
-
-
   //ccap-base sets this so override it here
   .references p { text-indent: 0em; }
 
@@ -359,35 +378,8 @@ div.part > div.titlepage {display:none;}
   .empty { display: hidden; } //hide element but count it   *didn't use visibility property which would cause element to still take up space on page
 }
 
-// not using this remove
-.multiple-choice > .title {
-  content: "Review Questions";
-  column-span: all !important; // added override to resolve bug on staging where titles
-  margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginata
-}
-
-// this is the homework eoc piece.  Has to be fixed and renamed
-.free-response {
-  .x-column-count(1);
-}
-.free-response > .title {
-  content: "Homework";
-  column-span: all !important; // added override to resolve bug on staging where titles
-  margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginata
-}
-
-// not using this - remove later
-
-&.interactive-exercise > div.title {
-  content: "Interactive Link Questions";
-  column-span: all !important;  // added override to resolve bug on staging where titles
-  margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
-}
-
-
-
-// This is for disabling the section number and title being shown
-.multiple-choice, .interactive-exercise, .free-response, .key-equations, .practice-test {
+// Turn off section numbering and title for eoc collations
+.review-exercises, .practice-test, .key-equations, .summary {
   > .section > .title { display: none; }
 }
 
@@ -503,6 +495,17 @@ p {
     text-transform:uppercase;
   }
 
+/* Perhaps this way is a start on the boilerplate text 
+  .title::before {
+    content: "" "Chapter " counter(chapter, decimal) " Review";
+    color: @medium-blue;
+    font-size: large !important;
+    padding: 0em !important;
+    display: block !important;
+    text-transform:uppercase;
+  }
+*/
+
   // Remove ":"
   dt::after { content: " " !important; }
 }
@@ -577,7 +580,6 @@ img, figure, subfigure  { margin: 1em; }
     float: left;
     margin-right: .2em;
     height: .9em;
-    border: 1px solid red;
   }
 
   .solution > .title > p {
@@ -594,7 +596,6 @@ img, figure, subfigure  { margin: 1em; }
     float: left;
     margin-right: .2em;
     height: .9em;
-    border: 1px solid red;
   } 
 
   .commentary > .title > p {
