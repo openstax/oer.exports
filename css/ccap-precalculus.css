@@ -1619,6 +1619,10 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   font-size: x-small;
   color: #d7562c;
 }
+.note.precalculus.media .itemizedlist > .listitem {
+  color: #d7562c;
+  font-weight: bold;
+}
 .note.precalculus.try {
   page-break-inside: avoid;
   padding-top: 0;
@@ -1664,15 +1668,12 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-weight: normal;
   font-size: x-small;
-  /*
-          -webkit-transform: rotate(-180deg);
-          -moz-transform: rotate(-180deg); 
-          -o-transform: rotate(-180deg); 
-          transform: rotate(-180deg);
-          ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
-          filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
-        */
-
+  -webkit-transform: rotate(-180deg);
+  -moz-transform: rotate(-180deg);
+  -o-transform: rotate(-180deg);
+  transform: rotate(-180deg);
+  ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
   border: 1px solid green;
 }
 .note.precalculus.try .exercise .solution p {
@@ -1852,26 +1853,41 @@ div.part > div.titlepage {
   column-span: all !important;
   margin-top: 1em;
 }
-.cnx-eoc.practice-test {
+.cnx-eoc.key-concepts {
   -webkit-column-count: 1;
   column-count: 1;
   columns: 1;
   column-fill: auto;
 }
+.cnx-eoc.key-concepts > div.title {
+  content: "Key Concepts";
+  column-span: all !important;
+  margin-top: 1em;
+}
+.cnx-eoc.key-concepts > .section > .title {
+  color: #528cbe;
+}
+.cnx-eoc.review-exercises {
+  -webkit-column-count: 2;
+  column-count: 2;
+  columns: 2;
+  column-fill: auto;
+}
+.cnx-eoc.review-exercises > .title {
+  content: "" "Chapter " counter(chapter, decimal) " Review Exercises";
+  column-span: all !important;
+  margin-top: 1em;
+}
+.cnx-eoc.practice-test {
+  -webkit-column-count: 2;
+  column-count: 2;
+  columns: 2;
+  column-fill: auto;
+}
 .cnx-eoc.practice-test > .title {
   content: "" "Chapter " counter(chapter, decimal) " Practice Test";
+  column-span: all !important;
   margin-top: 1em;
-}
-.cnx-eoc.practice-test > .section .title > a {
-  color: #528cbe;
-  page-break-after: avoid;
-}
-.cnx-eoc.practice-test p:nth-of-type(1) {
-  text-indent: 0em;
-  margin-top: 1em;
-}
-.cnx-eoc.practice-test p {
-  text-indent: 2em;
 }
 .cnx-eoc.solutions {
   -webkit-column-count: 1;
@@ -1899,32 +1915,10 @@ div.part > div.titlepage {
 .cnx-eoc .empty {
   display: hidden;
 }
-.multiple-choice > .title {
-  content: "Review Questions";
-  column-span: all !important;
-  margin-top: 1em;
-}
-.free-response {
-  -webkit-column-count: 1;
-  column-count: 1;
-  columns: 1;
-  column-fill: auto;
-}
-.free-response > .title {
-  content: "Homework";
-  column-span: all !important;
-  margin-top: 1em;
-}
-.interactive-exercise > div.title {
-  content: "Interactive Link Questions";
-  column-span: all !important;
-  margin-top: 1em;
-}
-.multiple-choice > .section > .title,
-.interactive-exercise > .section > .title,
-.free-response > .section > .title,
+.review-exercises > .section > .title,
+.practice-test > .section > .title,
 .key-equations > .section > .title,
-.practice-test > .section > .title {
+.summary > .section > .title {
   display: none;
 }
 /******************************************************
@@ -2037,6 +2031,17 @@ p {
 .glossary {
   page-break-before: always;
   display: inline;
+  /* Perhaps this way is a start on the boilerplate text 
+  .title::before {
+    content: "" "Chapter " counter(chapter, decimal) " Review";
+    color: @medium-blue;
+    font-size: large !important;
+    padding: 0em !important;
+    display: block !important;
+    text-transform:uppercase;
+  }
+*/
+
 }
 .glossary .title {
   /* Change "Glossary" to "Key Terms" */
@@ -2108,7 +2113,6 @@ subfigure {
   float: left;
   margin-right: .2em;
   height: .9em;
-  border: 1px solid red;
 }
 .example .exercise .solution > .title > p {
   float: left;
@@ -2121,7 +2125,6 @@ subfigure {
   float: left;
   margin-right: .2em;
   height: .9em;
-  border: 1px solid red;
 }
 .example .exercise .commentary > .title > p {
   float: left;
