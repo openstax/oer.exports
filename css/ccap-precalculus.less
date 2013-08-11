@@ -325,9 +325,18 @@ div.part > div.titlepage {display:none;}
     p { text-indent: 2em; }
   }
 
-  &.practice {
+  &.key-equations {
     .x-column-count(1);
-    > .title { content: "Practice"; margin-top: 1em; }
+    > div.title {
+      content: "Key Equations";
+      column-span: all !important;  // added override to resolve bug on staging where titles
+      margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
+    }
+  }
+
+  &.practice-test {
+    .x-column-count(1);
+    > .title { content: "" "Chapter " counter(chapter, decimal) " Practice Test"; margin-top: 1em; }
     > .section .title > a { color: @medium-blue; page-break-after: avoid; }
     p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
     p { text-indent: 2em; }
@@ -339,6 +348,8 @@ div.part > div.titlepage {display:none;}
     p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
     p { text-indent: 2em; }
   }
+
+
 
   //ccap-base sets this so override it here
   .references p { text-indent: 0em; }
@@ -373,14 +384,10 @@ div.part > div.titlepage {display:none;}
   margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
 }
 
-.key-equations > div.title {
-  content: "Key Equations";
-  column-span: all !important;  // added override to resolve bug on staging where titles
-  margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
-}
+
 
 // This is for disabling the section number and title being shown
-.multiple-choice, .interactive-exercise, .key-equations, .summary {
+.multiple-choice, .interactive-exercise, .free-response, .key-equations, .practice-test {
   > .section > .title { display: none; }
 }
 
