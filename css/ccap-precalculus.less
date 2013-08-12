@@ -49,18 +49,18 @@
   &.precalculus {
     &.howto {
       page-break-inside: avoid;
-      .x-feature(#336633, @white, howto, 0.42in);
+      .x-feature(howto);
     }
     &.qa {
       page-break-inside: avoid;
-      .x-feature(#330033, @white, qa, 0.42in);
+      .x-feature(qa);
     
       // top spacing for collaborative exercises
       .body p:nth-of-type(1) { margin-top: 1em; }
     }
     &.media {
       page-break-inside: avoid;
-      .x-feature(#330033, @white, media, 0.42in);
+      .x-feature(media);
       
       // weblinks included in media list need to be orange and bold
       .itemizedlist > .listitem {
@@ -72,11 +72,8 @@
     // - Exercises should not affect numbering and solutions should not show up in the content
     &.try {
       page-break-inside: avoid;
-      .x-feature(#336600, @white, try, 0.35in);
+      .x-feature(try);
 
-      /******************************************************
-       * Try-It Feature styling/finger icon implementation
-       ******************************************************/
       > .body .title {
         
         content: "" " " counter(chapter, decimal) "." counter(exercise, decimal) " " "" !important;
@@ -87,35 +84,34 @@
         float: left;
         padding-left: 1.5em;
         padding-right: .3em;
-        border: 1px solid red;
       }
 
       .exercise {
-       
         counter-increment: exercise !important;
-        
+       
         .solution {
           // override cnxml default lable with Answer
-          prince-text-replace: "Solution" "Answer:";
+          //prince-text-replace: "Solution" "Answer:";
           color: @orange;
           font-family: @font-family;
           font-weight: normal;
           font-size: x-small;
-
-          // This is cross browser may only need one that Prince can pick up and no more
-         
-         
-          -webkit-transform: rotate(-180deg);
-          -moz-transform: rotate(-180deg); 
-          -o-transform: rotate(-180deg); 
-          transform: rotate(-180deg);
-          ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
-          filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
-        
-          border: 1px solid green;
+          border: 1px solid red;
 
           // must override color so entire solution won't be orange, just the Answer label
-          p { color: black; }
+          .body { 
+            color: @black;
+            border: 1px solid green;
+            padding-left: 0;   
+            margin-left: 50px;     
+          }
+
+          .title { 
+            border: 1px solid blue; 
+            float: left; 
+            padding-left: 0;
+            margin-left: 50px; }
+
         }
       }
     }
@@ -272,7 +268,7 @@ div.part > div.titlepage {display:none;}
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
 
-.x-feature (@color, @bg-color, @svg, @padding-top) {
+.x-feature (@svg) {
   // 1st semantic paragraph is title of feature. Indention removed for second semantic paragraph
   // which is first real paragraph.  Subsequent paragraphs are indented.
   
