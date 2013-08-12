@@ -90,28 +90,43 @@
         counter-increment: exercise !important;
        
         .solution {
-          // override cnxml default lable with Answer
-          //prince-text-replace: "Solution" "Answer:";
+          // override cnxml default label with Answer
+          prince-text-replace: "Solution" "Answer:";
           color: @orange;
           font-family: @font-family;
           font-weight: normal;
           font-size: x-small;
-          border: 1px solid red;
 
-          // must override color so entire solution won't be orange, just the Answer label
+          // flip answer to solution 180 degrees per template. Utilize web extensions
+          // for use inside the browser for troubleshooting if needed.
+          transform: rotate(180deg);
+            // Chrome and Safari
+            -webkit-transform: rotate(180deg); 
+            // Firefox
+            -moz-transform: rotate(180deg); 
+            // Opera
+            -o-transform: rotate(180deg);
+            // IE9 and above
+            -ms-transform: rotate(180deg); 
+            // support for IE 8 and lower
+            filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2.0);
+
+          // font and color override from solution text to match template
           .body { 
+            font-family: @font-family-precalculus;
             color: @black;
-            border: 1px solid green;
-            padding-left: 0;   
-            margin-left: 50px;     
+            padding-left: 0; 
+            width: 50%;       
           }
 
           .title { 
-            border: 1px solid blue; 
             float: left; 
             padding-left: 0;
-            margin-left: 50px; }
+            margin-left: .3em;
+          }
 
+          // alignment of Answer tag with rest of solution 
+          &::before { float: left; }
         }
       }
     }
@@ -722,6 +737,10 @@ img, figure, subfigure  { margin: 1em; }
 .figure {
   font-size: 9pt;
   padding-bottom: 1em;
+  border: 1px solid green;
+
+  @width: `$(.figure.img).width()`;
+  width: @width;
 
   > .title {
     display: inline;
@@ -734,6 +753,7 @@ img, figure, subfigure  { margin: 1em; }
   & img {
     margin: 0 !important; //override auto  left/right margins from base
     max-width: @page-width !important; //overrides width value figures/subfigures ensuring imgs do not bleed off page
+    border: 1px solid red;
   }
 
   > .caption {
