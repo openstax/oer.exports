@@ -86,7 +86,7 @@
 
       .exercise {
         // increment the exercise even though we don't show it because try it is an exercise
-        counter-increment: exercise !important;
+        counter-increment: exercise;
         margin-top: 0;
         margin-bottom: 0;
         
@@ -104,26 +104,26 @@
           // flip answer to solution 180 degrees per template. Utilize web extensions
           // for use inside the browser for troubleshooting if needed.
           transform: rotate(180deg);
-            // Chrome and Safari
-            -webkit-transform: rotate(180deg); 
-            // Firefox
-            -moz-transform: rotate(180deg); 
-            // Opera
-            -o-transform: rotate(180deg);
-            // IE9 and above
-            -ms-transform: rotate(180deg); 
-            // support for IE 8 and lower
-            filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2.0);
+          // Chrome and Safari
+          -webkit-transform: rotate(180deg); 
+          // Firefox
+          -moz-transform: rotate(180deg); 
+          // Opera
+          -o-transform: rotate(180deg);
+          // IE9 and above
+          -ms-transform: rotate(180deg); 
+          // support for IE 8 and lower
+          filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2.0);
  
           // font and color override from solution text to match template
-          .body { 
+          > .body { 
             font-family: @font-family-precalculus;
             color: @black;
             padding-left: 0; 
             width: 50%;       
           }
 
-          .title { 
+          > .title { 
             float: left; 
             padding-left: 0;
             margin-left: .3em;
@@ -146,9 +146,10 @@
   .note:not(.precalculus) {
     color: #000;
     background-color: @light-blue;
+    padding-bottom: 1em !important;
 
     // Styling for Generic Note title block and border
-    .title {
+   > .title {
       text-align: left !important;
       font-size: small; 
       margin-top: .25em;
@@ -159,11 +160,6 @@
       border-bottom: 1px solid @medium-blue;
     }
   }
-
-// .note class override - bottom margin not being picked up in base.less
-.note {
-  padding-bottom: 1em !important;
-}
 
 /******************************************************
  * Preface

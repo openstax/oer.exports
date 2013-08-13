@@ -1418,54 +1418,24 @@ div.book div.chapter > div.titlepage > div > div:not(:first-child),
 div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
   display: none;
 }
-div.book {
-  /* --------------------------------------
-   *  Define how counters are incremented
-   * --------------------------------------
-   */
-
-  /* -------------------------------------
-   *  All the rules for elements need to be prefixed
-   *  according to slightly different rules
-   *  - Preface isn't numbered
-   *  - Chapters are numbered
-   *  - Appendixes are lettered
-   *
-   * ie: "Figure 4.3" in chapters but "Figure A3" in an appendix
-   * -------------------------------------
-   */
-
-  /* -------------------------------------
- *  The bulk of numbering!
- *
- *
- *  To handle slight variations in prefixing:
- *  @part-label is used in page headers ie "Chapter 3"
- *  @part-counter is the prefix to things like "Table A4"
- *  @part-target is CSS3 for making links to elements
- *  @part-separator is the little dot in "Table 4.3"
- * -------------------------------------
- */
-
-}
 div.book div.chapter {
   counter-increment: chapter;
 }
 div.book > div.preface {
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section try;
-  /* ------------------------------------------
-   *  Increment the counter for try it feature
-   * -------------------------------------------
-   */
-
   /* --------------------------------------
-   *  Define where counters are displayed
+   *  CUSTOMIZED: added reset for try-it;
    * --------------------------------------
    */
 
-  /* ------------------------------------------
-   *  Display the counter for statistics lab
-   * -------------------------------------------
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section try;
+  /* -----------------------------------------------------
+   *   CUSTOMIZED: Increment the counter for try it feature
+   * ------------------------------------------------------
+   */
+
+  /* ---------------------------------------------------
+   *  CUSTOMIZED: Display the counter for try-it feature
+   * ---------------------------------------------------
    */
 
 }
@@ -1482,20 +1452,20 @@ div.book > div.preface .precalculus.try > .title:not(.labeled)::before {
   content: "" "" "" "" counter(try) " " "";
 }
 div.book div.chapter {
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section try;
-  /* ------------------------------------------
-   *  Increment the counter for try it feature
-   * -------------------------------------------
-   */
-
   /* --------------------------------------
-   *  Define where counters are displayed
+   *  CUSTOMIZED: added reset for try-it;
    * --------------------------------------
    */
 
-  /* ------------------------------------------
-   *  Display the counter for statistics lab
-   * -------------------------------------------
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section try;
+  /* -----------------------------------------------------
+   *   CUSTOMIZED: Increment the counter for try it feature
+   * ------------------------------------------------------
+   */
+
+  /* ---------------------------------------------------
+   *  CUSTOMIZED: Display the counter for try-it feature
+   * ---------------------------------------------------
    */
 
 }
@@ -1512,20 +1482,20 @@ div.book div.chapter .precalculus.try > .title:not(.labeled)::before {
   content: "" "" counter(chapter, decimal) "." counter(try) " " "";
 }
 div.book > div.appendix {
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section try;
-  /* ------------------------------------------
-   *  Increment the counter for try it feature
-   * -------------------------------------------
-   */
-
   /* --------------------------------------
-   *  Define where counters are displayed
+   *  CUSTOMIZED: added reset for try-it;
    * --------------------------------------
    */
 
-  /* ------------------------------------------
-   *  Display the counter for statistics lab
-   * -------------------------------------------
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section try;
+  /* -----------------------------------------------------
+   *   CUSTOMIZED: Increment the counter for try it feature
+   * ------------------------------------------------------
+   */
+
+  /* ---------------------------------------------------
+   *  CUSTOMIZED: Display the counter for try-it feature
+   * ---------------------------------------------------
    */
 
 }
@@ -1654,7 +1624,7 @@ div.book > div.appendix .precalculus.try > .title:not(.labeled)::before {
   padding-right: .3em;
 }
 .note.precalculus.try .exercise {
-  counter-increment: exercise !important;
+  counter-increment: exercise;
   margin-top: 0;
   margin-bottom: 0;
 }
@@ -1674,13 +1644,13 @@ div.book > div.appendix .precalculus.try > .title:not(.labeled)::before {
   -ms-transform: rotate(180deg);
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
 }
-.note.precalculus.try .exercise .solution .body {
+.note.precalculus.try .exercise .solution > .body {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: #000000;
   padding-left: 0;
   width: 50%;
 }
-.note.precalculus.try .exercise .solution .title {
+.note.precalculus.try .exercise .solution > .title {
   float: left;
   padding-left: 0;
   margin-left: .3em;
@@ -1694,8 +1664,9 @@ div.book > div.appendix .precalculus.try > .title:not(.labeled)::before {
 .note:not(.precalculus) {
   color: #000;
   background-color: #dbe8f2;
+  padding-bottom: 1em !important;
 }
-.note:not(.precalculus) .title {
+.note:not(.precalculus) > .title {
   text-align: left !important;
   font-size: small;
   margin-top: .25em;
@@ -1704,9 +1675,6 @@ div.book > div.appendix .precalculus.try > .title:not(.labeled)::before {
   font-weight: bold;
   page-break-after: avoid;
   border-bottom: 1px solid #528cbe;
-}
-.note {
-  padding-bottom: 1em !important;
 }
 /******************************************************
  * Preface
