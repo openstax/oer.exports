@@ -54,20 +54,20 @@
     &.qa {
       page-break-inside: avoid;
       .x-feature(qa);
-    
+
       // top spacing for collaborative exercises
       .body p:nth-of-type(1) { margin-top: 1em; }
     }
     &.media {
       page-break-inside: avoid;
       .x-feature(media);
-      
+
       // weblinks included in media list need to be orange and bold
       .itemizedlist > .listitem {
         color: @orange;
         font-weight: bold;
       }
-    }  
+    }
     // The .try box has a bunch of customizations:
     // - Exercises should not affect numbering and solutions should not show up in the content
     &.try {
@@ -89,7 +89,7 @@
         counter-increment: exercise;
         margin-top: 0;
         margin-bottom: 0;
-        
+
         // turn off the display of exercise text label and number
         > .title { display: none; }
 
@@ -105,31 +105,31 @@
           // for use inside the browser for troubleshooting if needed.
           transform: rotate(180deg);
           // Chrome and Safari
-          -webkit-transform: rotate(180deg); 
+          -webkit-transform: rotate(180deg);
           // Firefox
-          -moz-transform: rotate(180deg); 
+          -moz-transform: rotate(180deg);
           // Opera
           -o-transform: rotate(180deg);
           // IE9 and above
-          -ms-transform: rotate(180deg); 
+          -ms-transform: rotate(180deg);
           // support for IE 8 and lower
           filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2.0);
- 
+
           // font and color override from solution text to match template
-          > .body { 
+          > .body {
             font-family: @font-family-precalculus;
             color: @black;
-            padding-left: 0; 
-            width: 50%;       
+            padding-left: 0;
+            width: 50%;
           }
 
-          > .title { 
-            float: left; 
+          > .title {
+            float: left;
             padding-left: 0;
             margin-left: .3em;
           }
 
-          // alignment of Answer tag with rest of solution 
+          // alignment of Answer tag with rest of solution
           &::before { float: left; }
         }
       }
@@ -145,7 +145,7 @@
     // Styling for Generic Note title block and border
    > .title {
       text-align: left !important;
-      font-size: small; 
+      font-size: small;
       margin-top: .25em;
       margin-bottom: .5em;
       color: @medium-blue;
@@ -159,13 +159,13 @@
 
 
 /*********************************************************************************************************************
- *  Changes Below This line                                                                                          *                                                                        
+ *  Changes Below This line                                                                                          *
  *                                                                                                                   *
  *  Lines 239-250 Styling for Chapter Outline Box                                                                    *
  *  Lines 262-291 Styling for Learning Objectives Box                                                                *
  *  Lines 295-315 Refactor of .x-feature() function to utilize only one paramter for simplified PreCalculus features *
  *  Line  328     Styling link colors for eoc solution numbering                                                     *
- *  Lines 330-412 Organization and naming of collation sections for eoc collations                                   * 
+ *  Lines 330-412 Organization and naming of collation sections for eoc collations                                   *
  *  Lines 594-609 Addition of .commentary selector styling for Analysis header in problem/solutions in examples      *
  *  Lines 657-728 Styling for modified table design (2 tables, one plain and one colored)                            *
  *  Lines 729-768 Breakout of figure code into 3 sizes (large, medium, small) for left aligned figure text           *
@@ -242,7 +242,7 @@ div.part > div.titlepage {display:none;}
       font-weight: bold;
       font-size: large;
     }
-  }  
+  }
 }
 
 /******************************************************
@@ -265,7 +265,7 @@ div.part > div.titlepage {display:none;}
       color: white;
       text-align: center;
       font-weight: bold;
-      font-size: large;   
+      font-size: large;
     }
 
 
@@ -279,8 +279,8 @@ div.part > div.titlepage {display:none;}
       counter-increment: learning-objectives;
       display: block;
 
-      &::before { 
-        content: "" " " counter(chapter, decimal) "." counter(section, decimal) "." counter(learning-objectives) " " ""; 
+      &::before {
+        content: "" " " counter(chapter, decimal) "." counter(section, decimal) "." counter(learning-objectives) " " "";
         color: @medium-blue;
         font-weight: bold;
       }
@@ -295,7 +295,7 @@ div.part > div.titlepage {display:none;}
 .x-feature (@svg) {
   // 1st semantic paragraph is title of feature. Indention removed for second semantic paragraph
   // which is first real paragraph.  Subsequent paragraphs are indented.
-  
+
   p { margin-left: 2em; }
 
   p:nth-of-type(2) {
@@ -363,9 +363,9 @@ div.part > div.titlepage {display:none;}
       column-span: all !important;  // added override to resolve bug on staging where titles
       margin-top: 1em;   // are spanning single column. cannot replicate locally or on naginata
     }
-    
+
     > .section > .title > a { color: @medium-blue; }
-    
+
   }
 
   &.review-exercises {
@@ -564,7 +564,7 @@ img, figure, subfigure  { margin: 1em; }
   counter-increment: none !important;
   margin-top: 0 !important;
 
-  .problem > .title {  
+  .problem > .title {
     font-family: @font-family;
     font-size: 11pt;
     color: @dark-blue;
@@ -596,7 +596,7 @@ img, figure, subfigure  { margin: 1em; }
     float: left;
     margin-right: .2em;
     height: .9em;
-  } 
+  }
 
   .commentary > .title > p {
     float: left;
@@ -633,9 +633,9 @@ img, figure, subfigure  { margin: 1em; }
 
   // Create Exercises Title above sections
   &::before {
-    content: "" " " counter(chapter, decimal) "." counter(section, decimal) " exercises" " " ""; 
+    content: "" " " counter(chapter, decimal) "." counter(section, decimal) " exercises" " " "";
     text-transform: uppercase;
-    font-size: 17pt; 
+    font-size: 17pt;
     color: @medium-blue;
     font-weight: bold;
   }
@@ -644,7 +644,7 @@ img, figure, subfigure  { margin: 1em; }
   .exercise:not(.labeled) > .title > span:first-child:not(.labeled):before {
     display: none;
   }
-  
+
 
 }
 
@@ -719,7 +719,7 @@ img, figure, subfigure  { margin: 1em; }
 
   tr td:first-child { background-color: @light-orange; width: 2.5in; font-weight: bold; }
 }
-    
+
 /******************************************************
  * Figures/Subfigures
  ******************************************************/
@@ -733,8 +733,8 @@ img, figure, subfigure  { margin: 1em; }
 .figure {
   font-size: 9pt;
   padding-bottom: 1em;
-  
-  // size the surrounding container to the size of the image container to allow the 
+
+  // size the surrounding container to the size of the image container to allow the
   // left justified alignment of the Figure numbering and associated caption
   // default width is (hero) full size @ 625px. Specifying no class or width defaults
   // to full size.
@@ -796,7 +796,7 @@ div.book > div.part {
   > div.preface,
   > div.chapter,
   > div.appendix {
-    > div.section div.equation > *:last-child::after { 
+    > div.section div.equation > *:last-child::after {
       color: @orange;
       font-weight: bold;
     }
