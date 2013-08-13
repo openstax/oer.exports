@@ -10,7 +10,7 @@
 // Import general page headers/footers, bookmark calculation, etc
 @import url('ccap-base.less');
 @import url('ccap-numbering.less');
-@import url('ccap-statistics-numbering.less');
+@import url('ccap-precalculus-numbering.less');
 
 // color palette for pre-calculus
 @dark-blue:     #233A67;
@@ -74,9 +74,7 @@
       page-break-inside: avoid;
       .x-feature(try);
 
-      > .body .title {
-        
-        content: "" " " counter(chapter, decimal) "." counter(exercise, decimal) " " "" !important;
+      > .title {
         color: @black;
         font-family: @font-family-precalculus;
         font-size: 10pt;
@@ -87,8 +85,14 @@
       }
 
       .exercise {
+        // increment the exercise even though we don't show it because try it is an exercise
         counter-increment: exercise !important;
-       
+        margin-top: 0;
+        margin-bottom: 0;
+        
+        // turn off the display of exercise text label and number
+        > .title { display: none; }
+
         .solution {
           // override cnxml default label with Answer
           prince-text-replace: "Solution" "Answer:";
@@ -110,7 +114,7 @@
             -ms-transform: rotate(180deg); 
             // support for IE 8 and lower
             filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2.0);
-
+ 
           // font and color override from solution text to match template
           .body { 
             font-family: @font-family-precalculus;
@@ -199,8 +203,6 @@ div.part > div.titlepage {display:none;}
     content: "Introduction";
     font-size: x-large;
   }
-
-  // Note to me: refactor the toc sections during broom up
 
   // numbering is bold and medium blue for precalculus
   > .toc a {
@@ -311,6 +313,9 @@ div.part > div.titlepage {display:none;}
 
 .cnx-eoc > .title > * { font-size: large !important; padding: 0 !important; }
 
+// eoc solution number links color
+.cnx-eoc > .solution > a.number { color: @medium-blue; }
+
 .cnx-eoc {
   .x-column-count(2);
   column-width: auto !important;
@@ -351,9 +356,9 @@ div.part > div.titlepage {display:none;}
       column-span: all !important;  // added override to resolve bug on staging where titles
       margin-top: 1em;   // are spanning single column. cannot replicate locally or on naginata
     }
-    > .section > .title {
-        color: @medium-blue;
-    }
+    
+    > .section > .title > a { color: @medium-blue; }
+    
   }
 
   &.review-exercises {
@@ -506,17 +511,6 @@ p {
     text-transform:uppercase;
   }
 
-/* Perhaps this way is a start on the boilerplate text 
-  .title::before {
-    content: "" "Chapter " counter(chapter, decimal) " Review";
-    color: @medium-blue;
-    font-size: large !important;
-    padding: 0em !important;
-    display: block !important;
-    text-transform:uppercase;
-  }
-*/
-
   // Remove ":"
   dt::after { content: " " !important; }
 }
@@ -563,12 +557,7 @@ img, figure, subfigure  { margin: 1em; }
   counter-increment: none !important;
   margin-top: 0 !important;
 
-  .problem > .title {
-  
-  // We now have to turn the numbering off that was created for Statistics
-  // In this book, the title in the cnxml needs to display and without numbering.
-  //  content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
-  
+  .problem > .title {  
     font-family: @font-family;
     font-size: 11pt;
     color: @dark-blue;
@@ -577,12 +566,6 @@ img, figure, subfigure  { margin: 1em; }
   }
 
   .solution > .title {
-
-  // We now have to turn the numbering off that was created for Statistics
-  // In this book, the title in the cnxml needs to display and without numbering.
-  //  content: "" "Solution " counter(chapter, decimal) "." counter(example, decimal) " " "";
-
-    // Why oh WHY is the <title> for the <solution> tag set to display: none?
     content: "Solution";
     font-family: @font-family;
     font-size: 10pt;
@@ -596,7 +579,6 @@ img, figure, subfigure  { margin: 1em; }
   .solution > .title > p {
     float: left;
   }
-
 
   // Create styles for Analysis sections for exercises in examples
   .commentary > .title {
@@ -734,13 +716,36 @@ img, figure, subfigure  { margin: 1em; }
 /******************************************************
  * Figures/Subfigures
  ******************************************************/
+
+// Set figure container width for left aligned figure and caption
+// These are placeholder pixel widths until W&N gives use actuals
+@figure-width-large:  470px;
+@figure-width-medium: 312px;
+@figure-width-small:  156px;
+
 .figure {
   font-size: 9pt;
   padding-bottom: 1em;
-  border: 1px solid green;
+  
+  // size the surrounding container to the size of the image container to allow the 
+  // left justified alignment of the Figure numbering and associated caption
+  // default width is (hero) full size @ 625px. Specifying no class or width defaults
+  // to full size.
 
-  @width: `$(.figure.img).width()`;
-  width: @width;
+  // 3/4 size art
+  &.large {
+    width: @figure-width-large;
+  }
+
+  // 1/2 size art
+  &.medium {
+    width: @figure-width-medium;
+  }
+
+  // 1/4 size art
+  &.small {
+    width: @figure-width-small;
+  }
 
   > .title {
     display: inline;
@@ -753,7 +758,6 @@ img, figure, subfigure  { margin: 1em; }
   & img {
     margin: 0 !important; //override auto  left/right margins from base
     max-width: @page-width !important; //overrides width value figures/subfigures ensuring imgs do not bleed off page
-    border: 1px solid red;
   }
 
   > .caption {
