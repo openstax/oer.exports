@@ -16,6 +16,7 @@
 @table: "Table ";
 @example: "Example ";
 @exercise: "Exercise ";
+@equation: "Equation ";
 
 div.book {
   /* --------------------------------------
@@ -78,7 +79,7 @@ div.book {
     prince-text-replace: "*" ""; //remove asterisk from page header epub has a nice way to navigate to the appendix section.
   }
 
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section equation-inlineequation;
 
   > div.cnx-eoc { counter-reset: exercise eoc-section -1; } // eoc-section starts at -1 so we can include introduction content
   // .cnx-eoc + .cnx-eoc { counter-reset: none; }  /* Don't reset for each eoc section */
@@ -189,11 +190,13 @@ div.book {
   .x-link (@label, @counter-name, @suffix: "") {
     &:not(.labeled) { content: @S @label @part-target @part-separator target-counter(attr(href), @counter-name) @suffix @E; }
   }
-  a.target-figure     { .x-link(@figure, figure); }
-  a.target-subfigure  { .x-link(@figure, figure, target-counter(attr(href), subfigure, lower-latin)); }
-  a.target-table      { .x-link(@table, table); }
-  a.target-example    { .x-link(@example, example); }
-  a.target-exercise   { .x-link(@exercise, exercise); }
+  a.target-figure               { .x-link(@figure, figure); }
+  a.target-subfigure            { .x-link(@figure, figure, target-counter(attr(href), subfigure, lower-latin)); }
+  a.target-table                { .x-link(@table, table); }
+  a.target-example              { .x-link(@example, example); }
+  a.target-exercise             { .x-link(@exercise, exercise); }
+  a.target-equation             { .x-link(@equation, equation); }
+  a.target-inlineequation       { .x-link(@equation, equation); }
  // a.target-section  { .x-link(@section, section); }
 } // .x-prefixed()
 
