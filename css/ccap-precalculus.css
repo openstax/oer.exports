@@ -634,7 +634,7 @@ div.book > div.appendix {
   counter-increment: appendix;
 }
 div.book > div.preface {
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section equation-inlineequation;
   /* Cases where sections are referenced */
 
   /* --------------------------------------
@@ -853,6 +853,12 @@ div.book > div.preface a.target-example:not(.labeled) {
 div.book > div.preface a.target-exercise:not(.labeled) {
   content: "" "Exercise " "" "" target-counter(attr(href), exercise) "" "";
 }
+div.book > div.preface a.target-equation:not(.labeled) {
+  content: "" "Equation " "" "" target-counter(attr(href), equation) "" "";
+}
+div.book > div.preface a.target-inlineequation:not(.labeled) {
+  content: "" "Equation " "" "" target-counter(attr(href), equation) "" "";
+}
 div.book > div.preface > div.section > div.titlepage h2::before {
   display: none !important;
 }
@@ -860,7 +866,7 @@ div.book > div.preface > div.titlepage > div > div h1.title {
   string-set: cnx-header "" content() "";
 }
 div.book div.chapter {
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section equation-inlineequation;
   /* Cases where sections are referenced */
 
   /* --------------------------------------
@@ -1079,8 +1085,14 @@ div.book div.chapter a.target-example:not(.labeled) {
 div.book div.chapter a.target-exercise:not(.labeled) {
   content: "" "Exercise " target-counter(attr(href), chapter) "." target-counter(attr(href), exercise) "" "";
 }
+div.book div.chapter a.target-equation:not(.labeled) {
+  content: "" "Equation " target-counter(attr(href), chapter) "." target-counter(attr(href), equation) "" "";
+}
+div.book div.chapter a.target-inlineequation:not(.labeled) {
+  content: "" "Equation " target-counter(attr(href), chapter) "." target-counter(attr(href), equation) "" "";
+}
 div.book > div.appendix {
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section equation-inlineequation;
   /* Cases where sections are referenced */
 
   /* --------------------------------------
@@ -1299,6 +1311,12 @@ div.book > div.appendix a.target-example:not(.labeled) {
 div.book > div.appendix a.target-exercise:not(.labeled) {
   content: "" "Exercise " target-counter(attr(href), appendix, upper-latin) "" target-counter(attr(href), exercise) "" "";
 }
+div.book > div.appendix a.target-equation:not(.labeled) {
+  content: "" "Equation " target-counter(attr(href), appendix, upper-latin) "" target-counter(attr(href), equation) "" "";
+}
+div.book > div.appendix a.target-inlineequation:not(.labeled) {
+  content: "" "Equation " target-counter(attr(href), appendix, upper-latin) "" target-counter(attr(href), equation) "" "";
+}
 div.book .empty {
   visibility: hidden;
   max-height: 0em;
@@ -1431,7 +1449,7 @@ div.book > div.preface {
      * --------------------------------------
      */
 
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section try;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section try equation-inlineequation;
   /* -----------------------------------------------------
      *   CUSTOMIZED: Increment the counter for try-it feature
      * ------------------------------------------------------
@@ -1461,7 +1479,7 @@ div.book div.chapter {
      * --------------------------------------
      */
 
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section try;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section try equation-inlineequation;
   /* -----------------------------------------------------
      *   CUSTOMIZED: Increment the counter for try-it feature
      * ------------------------------------------------------
@@ -1491,7 +1509,7 @@ div.book > div.appendix {
      * --------------------------------------
      */
 
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section try;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section try equation-inlineequation;
   /* -----------------------------------------------------
      *   CUSTOMIZED: Increment the counter for try-it feature
      * ------------------------------------------------------
@@ -1597,6 +1615,9 @@ div.book > div.appendix .precalculus.try > .title:not(.labeled)::before {
   color: #d7562c;
   font-weight: bold;
 }
+.note.precalculus.media .itemizedlist > .listitem .link.only-show-once {
+  content: content();
+}
 .note.precalculus.try {
   page-break-inside: avoid;
   padding-top: 0;
@@ -1640,7 +1661,7 @@ div.book > div.appendix .precalculus.try > .title:not(.labeled)::before {
   color: #d7562c;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-weight: normal;
-  font-size: x-small;
+  font-size: 8pt;
   transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
@@ -1661,6 +1682,7 @@ div.book > div.appendix .precalculus.try > .title:not(.labeled)::before {
 }
 .note.precalculus.try .exercise .solution::before {
   float: left;
+  padding-right: .5em;
 }
 .note:not(.precalculus) {
   color: #000;
@@ -2252,14 +2274,11 @@ subfigure {
   font-size: 9pt;
   padding-bottom: 1em;
 }
-.figure.large {
-  width: 470px;
-}
 .figure.medium {
-  width: 312px;
+  width: 468px;
 }
 .figure.small {
-  width: 156px;
+  width: 312px;
 }
 .figure > .title {
   display: inline;

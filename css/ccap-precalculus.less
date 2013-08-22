@@ -67,6 +67,13 @@
         color: @orange;
         font-weight: bold;
       }
+
+      // Supress the extra url generated from base that is wrapped with parentheses
+      .itemizedlist > .listitem .link.only-show-once { 
+        content: content();
+      }
+     
+
     }
     // The .try box has a bunch of customizations:
     // - Exercises should not affect numbering and solutions should not show up in the content
@@ -99,7 +106,7 @@
           color: @orange;
           font-family: @font-family;
           font-weight: normal;
-          font-size: x-small;
+          font-size: 8pt;
 
           // flip answer to solution 180 degrees per template. Utilize web extensions
           // for use inside the browser for troubleshooting if needed.
@@ -130,7 +137,10 @@
           }
 
           // alignment of Answer tag with rest of solution
-          &::before { float: left; }
+          &::before { 
+            float: left; 
+            padding-right: .5em;
+          }
         }
       }
     }
@@ -231,6 +241,7 @@ div.part > div.titlepage {display:none;}
   > .toc .toc-section .cnx-gentext-n:after {
     content: "";
   }
+
 
 
 
@@ -830,11 +841,8 @@ img, figure, subfigure  { margin: 1em; }
  * ---------------------------------------------------
  */
 
-// Set figure container width for left aligned figure and caption
-// These are placeholder pixel widths until W&N gives use actuals
-@figure-width-large:  470px;
-@figure-width-medium: 312px;
-@figure-width-small:  156px;
+@figure-width-medium: 468px;  // Width of 3/4 size art 
+@figure-width-small:  312px;  // Width of 1/2 size art
 
 .figure {
   font-size: 9pt;
@@ -846,16 +854,11 @@ img, figure, subfigure  { margin: 1em; }
   // to full size.
 
   // 3/4 size art
-  &.large {
-    width: @figure-width-large;
-  }
-
-  // 1/2 size art
   &.medium {
     width: @figure-width-medium;
   }
 
-  // 1/4 size art
+  // 1/2 size art
   &.small {
     width: @figure-width-small;
   }
