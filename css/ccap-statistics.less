@@ -125,6 +125,7 @@
      ******************************************************/
     &.direction-line {
       color: black;
+      font-style: italic;
       .x-finger();
     }
     // TODO: a final decision has not yet been made on whether this will be used in the statistics book
@@ -837,12 +838,13 @@ div.end-of-book-solutions {
   a { font-weight: bold; }
 }
 
-// Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
+// Normally in previous books we did not reset the exercise counter.  Here for statistics it is needed
+// So problem questions can begin with the number (1) one.
 // originally defined in ccap-numbering.less
 // The hierarchy is copied from ccap-numbering so the selectors (and priority for which to apply) are the same
 
 .x-duplicate-hierarchy() {
-  > div.cnx-eoc { counter-reset: /*exercise*/ eoc-section -1; }
+  > div.cnx-eoc { counter-reset: exercise eoc-section -1; }
  }
 
 div.book, div.book > div.part {
