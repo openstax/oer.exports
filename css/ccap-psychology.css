@@ -2424,10 +2424,20 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
  *   Psychology notes/features
  *
  ******************************************************/
+/*
+  The majority of section text is serif.
+*/
+p {
+  hyphens: auto;
+  text-align: justify;
+}
 .section > p {
   font-family: FreeSerif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  hyphens: auto;
 }
+/*
+   Nested section titles are sans-serif, outer sections 
+   are uppercase. 
+*/
 .section h3,
 .section h4 {
   font: 700 normal normal 10pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2437,4 +2447,142 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
 }
 .note.psychology p {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+/******************************************************
+ * Custom psychology elements
+ *
+ * Most of the customizations are
+ * `.note` elements with specific classes to create
+ * the different styles of Feature elements:
+ *
+ * Everyday Connection, Dig Deeper, Link to Learning,
+ * Connect the Concepts
+ *
+ ******************************************************/
+.note.psychology {
+  page-break-inside: avoid;
+  padding: 15px;
+  background-color: #ffffff;
+}
+.note.psychology.everyday-connection {
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #25408f;
+  border-radius: 15px;
+  margin-top: 25px;
+}
+.note.psychology.everyday-connection::before {
+  text-transform: uppercase;
+  color: #25408f;
+  content: "everyday connection";
+  background-color: #eead58;
+  border: 1px solid #25408f;
+  border-radius: 10px;
+  width: 60%;
+  position: absolute;
+  margin-top: -35px;
+  padding: 5px;
+}
+.note.psychology.dig-deeper {
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #25408f;
+  border-radius: 15px;
+  margin-top: 25px;
+}
+.note.psychology.dig-deeper::before {
+  text-transform: uppercase;
+  color: #eead58;
+  content: "dig deeper";
+  background-color: #25408f;
+  border: 1px solid #eead58;
+  border-radius: 10px;
+  width: 60%;
+  position: absolute;
+  margin-top: -35px;
+  padding: 5px;
+}
+.note.psychology.what-do-you-think {
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #25408f;
+  border-radius: 15px;
+  margin-top: 25px;
+}
+.note.psychology.what-do-you-think::before {
+  text-transform: uppercase;
+  color: #ffffff;
+  content: "what do you think?";
+  background-color: #3f989b;
+  border: 1px solid #25408f;
+  border-radius: 10px;
+  width: 60%;
+  position: absolute;
+  margin-top: -35px;
+  padding: 5px;
+}
+.note.psychology.connect-the-concepts {
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #007196;
+  border-radius: 15px;
+  margin-top: 25px;
+  padding: 0px;
+}
+.note.psychology.connect-the-concepts::before {
+  text-transform: uppercase;
+  color: #007196;
+  content: "connect the concepts";
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  width: 60%;
+  position: absolute;
+  margin-top: -35px;
+  padding: 5px;
+}
+.note.psychology.connect-the-concepts::before,
+.note.psychology.connect-the-concepts > .title::before {
+  width: 100%;
+  text-align: center;
+  display: inline-block;
+}
+.note.psychology.connect-the-concepts::before {
+  border-bottom: 1px solid #007196;
+  border-radius: 0px;
+  padding: 0px;
+  margin-top: 5px;
+  position: relative;
+}
+.note.psychology.connect-the-concepts > .title::before {
+  text-transform: uppercase;
+  color: #007196;
+  content: "connect the concepts";
+  transform: scaleY(-1);
+}
+.note.psychology.link-to-learning {
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #b8292f;
+  border-radius: 15px;
+  margin-top: 25px;
+}
+.note.psychology.link-to-learning::before {
+  text-transform: uppercase;
+  color: #ffffff;
+  content: "link to learning";
+  background-color: #b8292f;
+  border: 1px solid #eead58;
+  border-radius: 10px;
+  width: 60%;
+  position: absolute;
+  margin-top: -35px;
+  padding: 5px;
+}
+.note.psychology.link-to-learning > .body::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.note.psychology.link-to-learning .figure {
+  float: left;
+  width: 94px;
+}
+.note.psychology.link-to-learning .figure .title {
+  display: none;
 }

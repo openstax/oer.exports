@@ -31,19 +31,120 @@
 @font-family-sans-serif: Liberation Sans, sans-serif, @stix-fonts;
 @font-family-serif: FreeSerif, serif, @stix-fonts;
 
+/*
+  The majority of section text is serif.
+*/
+p {
+  hyphens: auto;
+  text-align: justify;
+}
 .section > p {
   font-family: @font-family-serif;
-  hyphens: auto;
 }
 
+/*
+   Nested section titles are sans-serif, outer sections 
+   are uppercase. 
+*/
 .section h3, .section h4 {
   font: 700 normal normal 10pt @font-family-sans-serif;
 }
-
 .section h3 {
   text-transform: uppercase;
 }
 
 .note.psychology p {
   font-family: @font-family-sans-serif;
+}
+
+/******************************************************
+ * Custom psychology elements
+ *
+ * Most of the customizations are
+ * `.note` elements with specific classes to create
+ * the different styles of Feature elements:
+ *
+ * Everyday Connection, Dig Deeper, Link to Learning,
+ * Connect the Concepts
+ *
+ ******************************************************/
+.x-feature-before-color(@title-color, @title) {
+  text-transform: uppercase;
+  color: @title-color;
+  content: @title;
+}
+.x-feature-color(@border-color, @title-border-color, @title-color, @background-color, @title) {
+  box-shadow: 10px 10px 5px @shadow; // On the roadmap for PrinceXML 9.1
+  border: 1px solid @border-color;
+  border-radius: 15px;
+  
+  margin-top: 25px; // Clear the title ::before.
+  &::before {
+    .x-feature-before-color(@title-color, @title);
+    background-color: @background-color;
+    border: 1px solid @title-border-color;
+    border-radius: 10px;
+    width: 60%;
+
+    // Reposition the titles
+    position: absolute;
+    margin-top: -35px;
+    padding: 5px;
+  }
+}
+.note {
+  &.psychology {
+    page-break-inside: avoid;
+    padding: 15px;
+
+    // Override .note:not(.precalculus) (ccap-precalculus.less)
+    background-color: @white;
+
+    &.everyday-connection {
+      .x-feature-color(@dark-blue, @dark-blue, @dark-blue, @orange, "everyday connection");
+    }
+    &.dig-deeper {
+      .x-feature-color(@dark-blue, @orange, @orange, @dark-blue, "dig deeper");
+    }
+    &.what-do-you-think {
+      .x-feature-color(@dark-blue, @dark-blue, @white, @teal, "what do you think?");
+    }
+    &.connect-the-concepts {
+      .x-feature-color(@light-blue, transparent, @light-blue, transparent, "connect the concepts");
+      padding: 0px;
+
+      &::before, > .title::before {
+        width: 100%;
+        text-align: center;
+        display: inline-block;
+      }
+      &::before {
+        border-bottom: 1px solid @light-blue;
+        border-radius: 0px;
+        padding: 0px;
+        margin-top: 5px;
+        position: relative;
+      }
+      > .title::before {
+        .x-feature-before-color(@light-blue, "connect the concepts");
+        transform: scaleY(-1);      }
+    }
+    &.link-to-learning {
+      .x-feature-color(@red, @orange, @white, @red, "link to learning");
+
+      //clearfix
+      > .body::after {
+        content: "";
+        display: table;
+        clear: both;  
+      }
+      .figure {
+        float: left;
+        width: @qr-code-width;
+        .title {
+          display: none;
+        }
+      }
+    }
+  }
 }
