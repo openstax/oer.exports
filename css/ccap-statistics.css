@@ -1998,8 +1998,8 @@ div.part > div.titlepage {
 /******************************************************
  * Section Level Learning Objectives
 ******************************************************/
-.section > .titlepage .abstract::before {
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+.section > .titlepage .abstract {
+  display: none;
 }
 /******************************************************
  * Features args(title color, bkgrnd color, path to svg)
@@ -2289,6 +2289,7 @@ subfigure {
   padding-top: 2em;
 }
 .example .exercise {
+  margin: 0;
   counter-increment: none !important;
 }
 .example .exercise .problem > .title {
@@ -2415,11 +2416,9 @@ div.book > div.part > div.appendix > div.section div.equation > *:last-child::af
 /******************************************************
  * End of Book Solutions
  ******************************************************/
-div.end-of-book-solutions div.solution {
-  display: inline;
-}
 div.end-of-book-solutions div.solution > div.title {
   display: inline;
+  margin-right: 5px;
 }
 div.end-of-book-solutions div.solution > div.title a.solution {
   color: black;
@@ -2427,9 +2426,6 @@ div.end-of-book-solutions div.solution > div.title a.solution {
 }
 div.end-of-book-solutions div.solution > div.body {
   margin-right: .65em;
-  display: inline;
-}
-div.end-of-book-solutions div.solution > div.body * {
   display: inline;
 }
 div.end-of-book-solutions div.solution > div.body > a.target-figure {
@@ -2486,6 +2482,13 @@ div.end-of-book-solutions > .title {
 }
 div.end-of-book-solutions .chapter-area {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  -webkit-column-count: 2;
+  column-count: 2;
+  columns: 2;
+  column-fill: auto;
+}
+div.end-of-book-solutions .chapter-area > .title {
+  column-span: all;
 }
 div.end-of-book-solutions .chapter-area a.solution {
   color: black;
