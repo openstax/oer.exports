@@ -586,6 +586,19 @@ p {
     text-transform:uppercase;
   }
 
+  // For Precalculus it is desired to have main heading Chapter Review above the Key Terms
+  // At the top of the page.  This is possible by using psuedo-selector ::before to display
+  // this before the glossary title
+  .title::before {
+    content: "" "Chapter " counter(chapter, decimal) " Review";
+    color: @medium-blue;
+    font-size: x-large !important;
+    padding: 0em !important;
+    display: block !important;
+    text-transform:uppercase;
+    margin-bottom: 1.5em;
+  }
+
   // Remove ":"
   dt::after { content: " " !important; }
 }
@@ -934,17 +947,12 @@ div.book > div.part {
 // TODO: If this is used by other books it should probably be moved to ccap-numbering.less
 div.end-of-book-solutions {
   div.solution {
-    display:inline;
-    // Make the solutions pages span 2 columns
-    //.x-column-count(2);
 
-    // Make the solution show up horizontally next to the 1st paragraph of the solution
-    // This is a bit problematic for several reasons:
-    //   - the place it would ideally be displayed is .body::first-child::before BUT...
-    //   - the a.href with the exercise id (to look up the exercise number) is inside the .title (for EPUBs)
-    //   - single-letter solutions arent wrapped in a para so there is no .body::first-child
-    // I tried using string-set to squirrel away the exercise id but princexml does not support target-counter(string(...), counter-name)
-    // I tried moving the anchor but princexml also does not support move-to
+    // The Answer Key for the PreCalculus text was converted to be in (1) one column 
+    // and not inline due to the fact that some answers will be cartesian graphs (art).
+    // Not a good experience to be inline.
+    .x-column-count(1);
+
     > div.title {
       display: inline;
       a.solution {
