@@ -586,7 +586,9 @@ p {
     text-transform:uppercase;
   }
 
-  // Create boilerplate Chapter Review title above Key Terms
+  // For Precalculus it is desired to have main heading Chapter Review above the Key Terms
+  // At the top of the page.  This is possible by using psuedo-selector ::before to display
+  // this before the glossary title
   .title::before {
     content: "" "Chapter " counter(chapter, decimal) " Review";
     color: @medium-blue;
@@ -945,6 +947,10 @@ div.book > div.part {
 // TODO: If this is used by other books it should probably be moved to ccap-numbering.less
 div.end-of-book-solutions {
   div.solution {
+
+    // The Answer Key for the PreCalculus text was converted to be in (1) one column 
+    // and not inline due to the fact that some answers will be cartesian graphs (art).
+    // Not a good experience to be inline.
     .x-column-count(1);
 
     > div.title {
