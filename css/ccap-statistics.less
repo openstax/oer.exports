@@ -328,9 +328,8 @@ div.part > div.titlepage {display:none;}
 ******************************************************/
 .section > .titlepage {
   .abstract {
-    &::before {
-      font-family: @font-family-statistics;
-    }
+    // Section title abstracts are collated and displayed separately.
+    display: none;
   }
 }
 
@@ -623,6 +622,10 @@ img, figure, subfigure  { margin: 1em; }
 
 // for examples that have a problem/solution structure that need numbered headings
 .example .exercise {
+    // Examples with exercises don't need the margin-top or margin-bottom
+    // from .exercise (ccap-base.less)
+    margin: 0; 
+
     counter-increment: none !important;
     .problem > .title {
       content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
@@ -785,10 +788,6 @@ div.book > div.part {
 // TODO: If this is used by other books it should probably be moved to ccap-numbering.less
 div.end-of-book-solutions {
   div.solution {
-    display:inline;
-    // Make the solutions pages span 2 columns
-    //.x-column-count(2);
-
     // Make the solution show up horizontally next to the 1st paragraph of the solution
     // This is a bit problematic for several reasons:
     //   - the place it would ideally be displayed is .body::first-child::before BUT...
@@ -798,6 +797,7 @@ div.end-of-book-solutions {
     // I tried moving the anchor but princexml also does not support move-to
     > div.title {
       display: inline;
+      margin-right: 5px;
       a.solution {
         color: black;
         font-weight: bold;
@@ -806,7 +806,6 @@ div.end-of-book-solutions {
     > div.body {
       margin-right: .65em;
       display: inline;
-      * { display: inline; }
       > a.target-figure { margin: 0em .25em; } //add margin for .xref in solution body
     }
   }
@@ -867,6 +866,14 @@ div.end-of-book-solutions {
 
   .chapter-area {
     font-family: @font-family-statistics;
+
+    // Make answer key solutions display in two columns.
+    .x-column-count(2);
+
+    > .title {
+      column-span: all;
+    }
+
     a {
       &.solution { color: black; }
       &.chapter * {
