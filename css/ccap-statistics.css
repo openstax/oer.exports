@@ -1561,7 +1561,7 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
 }
 .note.statistics.calculator {
   page-break-inside: avoid;
-  background-color: #ffffff;
+  background-color: transparent;
 }
 .note.statistics.calculator p:nth-of-type(2) {
   text-indent: 0em;
@@ -1601,6 +1601,9 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
 .note.statistics.calculator .figure > .title {
   font-size: x-small;
   color: #26397f;
+}
+.note.statistics.calculator::before {
+  background-color: transparent;
 }
 .note.statistics.collab {
   page-break-inside: avoid;
@@ -1928,6 +1931,10 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
 }
 .note {
   padding-bottom: 1em !important;
+}
+.note .table th {
+  background-color: transparent;
+  font-weight: normal;
 }
 /******************************************************
  * Book Table of Contents
@@ -2288,9 +2295,20 @@ subfigure {
 .example .solution {
   padding-top: 2em;
 }
+/*
+  W&N wanted table numbering in example exercise problems/solutions
+  to show up. We need a very large specificity value for this rule.
+*/
+.book .chapter > .section .example .exercise .table table caption::before {
+  display: inline;
+}
 .example .exercise {
   margin: 0;
   counter-increment: none !important;
+}
+.example .exercise .problem p,
+.example .exercise .solution p {
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .example .exercise .problem > .title {
   content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";

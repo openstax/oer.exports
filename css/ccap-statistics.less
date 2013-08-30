@@ -92,7 +92,14 @@
   &.statistics {
     &.calculator {
       page-break-inside: avoid;
-      .x-feature(#336633, @white, calculator, 0.42in);
+      .x-feature(#336633, transparent, calculator, 0.42in);
+
+      // Reset this here so other feature headers retain their
+      // 'transparent top' by being white. (For an example see
+      // Try It or Collaborative Exercise headers.)
+      &::before {
+        background-color: transparent;
+      }
     }
     &.collab {
       page-break-inside: avoid;
@@ -249,6 +256,12 @@
 // .note class override - bottom margin not being picked up in base.less
 .note {
   padding-bottom: 1em !important;
+}
+
+// Tables inside notes do not need header styling
+.note .table th {
+  background-color: transparent;
+  font-weight: normal;
 }
 
 /******************************************************
@@ -620,11 +633,24 @@ img, figure, subfigure  { margin: 1em; }
 
 .example .solution { padding-top: 2em; }
 
+/*
+  W&N wanted table numbering in example exercise problems/solutions
+  to show up. We need a very large specificity value for this rule.
+*/
+.book .chapter > .section .example .exercise .table table caption::before {
+        display: inline;
+}
+
 // for examples that have a problem/solution structure that need numbered headings
 .example .exercise {
     // Examples with exercises don't need the margin-top or margin-bottom
     // from .exercise (ccap-base.less)
     margin: 0; 
+
+    // Use Sans-Serif fonts from base.less for example exercise problems/solutions.
+    .problem p, .solution p {
+      font-family: @font-family;
+    }
 
     counter-increment: none !important;
     .problem > .title {
