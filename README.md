@@ -10,17 +10,21 @@ Tested with python 2.4 and python 2.7 but it will probably work with all version
 
 ## For Ubuntu/Debian
 
-    sudo apt-get install python-virtualenv        # for the following commands
-    sudo apt-get install libxslt1-dev libxml2-dev # For lxml to compile
-    sudo apt-get install librsvg2-bin             # To convert SVG and math to PNG
+    sudo apt-get install python-virtualenv                   # for the following commands
+    sudo apt-get install libxslt1-dev libxml2-dev zlib1g-dev # For lxml to compile
+    sudo apt-get install librsvg2-bin                        # To convert SVG and math to PNG
     sudo apt-get install otf-stix
 
 also:
+
     apt-get install imagemagick                    # PNG resizing
     apt-get install inkscape                       # svg processing
     apt-get install ruby                           # Hmmm...
     apt-get install libxml2-utils                  # for xmllint
     apt-get install zip                            # building the zip
+    apt-get install openjdk-7-jre-headless
+    apt-get install docbook-xsl-ns
+    apt-get install xsltproc                       # for generating epub
     
 # For Osx
 
@@ -43,13 +47,13 @@ This will set up the virtual environment in your terminal (all packages are not 
     cd oer.exports
     virtualenv .
     source bin/activate
-    easy_install lxml argparse pil
+    easy_install lxml argparse pillow
 
 Once you run these steps, every time you open a terminal you will need to run `source bin/activate`.
 
 ## Install PrinceXML
 
-Finally, you will need to install http://princexml.com (remember the path to where it gets installed).
+Finally, you will need to install http://princexml.com (remember the path to where it gets installed, or use "which prince").
 
 ## Optional: Local docbook-xsl files
 
