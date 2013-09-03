@@ -159,50 +159,49 @@
       /******************************************************
        * Try-It Feature styling/finger icon implementation
        ******************************************************/
-      > .body .title {
+      >.title {
         // counter-increment: exercise !important;
-        content: "" " " counter(chapter, decimal) "." counter(example, decimal) " " "" !important;
+        content: "" " " counter(chapter, decimal) "." counter(example, decimal) " " "";
         color: @black;
         font-family: @font-family-statistics;
         font-size: medium;
         font-weight: bold;
-        float: left;
-        position: relative;
-        top: -7px;
-        padding-right: 5px;
+        display: run-in;   
       }
 
       // place finger pointer before numbering and position properly
       &.finger {
-        > .body {
-          .title {
-            top: -3px;
-            margin: 0;
-            height: 14px !important;
+        >.title {
+          top: -3px;
+          margin: 0;
+          height: 14px !important;
 
-            // This is one case where the finger icon is not added to the element that
-            // has the `.finger` class.
-            // Instead, it is added to the title element.
+          // This is one case where the finger icon is not added to the element that
+          // has the `.finger` class.
+          // Instead, it is added to the title element.
 
-            // insert pointer icon in front of numbering
-            &::before {
-              content: url(@finger-url);
-              vertical-align: bottom;
-            }
+          // insert pointer icon in front of numbering
+          &::before {
+            content: url(@finger-url);
+            vertical-align: bottom;
           }
-
-          // compensate spacing to have numbering as part of paragraph
-          > p { padding-left: 28px; }
-
-          // indent the second paragarph in this particular feature - may not be needed.
-          > p:nth-of-type(2) { text-indent: 2em; }
-
         }
+
+        // compensate spacing to have numbering as part of paragraph
+        > p { padding-left: 28px; }
+
+        // indent the second paragarph in this particular feature - may not be needed.
+        > p:nth-of-type(2) { text-indent: 2em; }
       }
 
       .exercise {
         // Keep Try It Feature excercise numbering to match subsequent example
         counter-increment: none !important;
+        margin-top: 1em;  // Keep top margin in Try-it that contains exercises to a nice height
+
+        // Do not display the exercise title and corresponding number for Exercise.  We are using
+        // a Try-it counter here, so this one needs hiding
+        > .title { display: none; }
 
         // don't display solutions for try it feature
         .solution { display: none; }
@@ -422,7 +421,6 @@ div.part > div.titlepage {display:none;}
     .x-column-count(1);
     > .section .title > a { color: @blue; page-break-after: avoid; }
     p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
-    p { text-indent: 2em; }
   }
 
   //ccap-base sets this so override it here
