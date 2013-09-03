@@ -241,7 +241,7 @@
     </xsl:for-each>
   </xsl:variable>
   <xsl:if test="count($solutions) != 0">
-    <div class="cnx-eoc solutions">
+    <div class="cnx-eoc cnx-solutions">
       <div class="title">Solutions</div>
       <xsl:copy-of select="$solutions" />
     </div>
@@ -258,42 +258,11 @@
   <xsl:if test="count($context//*[contains(@class,$attribute)]) &gt; 0">
     <xsl:comment>CNX: Start Area: "<xsl:value-of select="$title"/>"</xsl:comment>
 
-    <div class="cnx-eoc {$attribute}">
-    <div class="title">
-      <span>
-        <xsl:copy-of select="$title"/>
-      </span>
-    </div>
-
+    <!-- Print solutions ordered by the cnx-eoc processing instruction -->
     <!-- This for-each is the main section (1.4 Newton) to print section title -->
-    <xsl:for-each select="$context/db:section">
-      <xsl:variable name="sectionId">
-        <xsl:call-template name="object.id"/>
-      </xsl:variable>
-      <div class="section">
-        <xsl:attribute name="class">
-          <xsl:text>section</xsl:text>
-          <xsl:if test="not(descendant::*[contains(@class,$attribute)])">
-            <xsl:text> empty</xsl:text>
-          </xsl:if>
-        </xsl:attribute>
-        <!-- Print the section title and link back to it -->
-        <div class="title">
-          <a href="#{$sectionId}">
-            <xsl:apply-templates select="." mode="object.title.markup">
-              <xsl:with-param name="allow-anchors" select="0"/>
-            </xsl:apply-templates>
-          </a>
-        </div>
-        <!-- This for-each renders all the sections and exercises and numbers them -->
-        <div class="body">
-          <xsl:apply-templates select="descendant::*[contains(@class,$attribute)]//ext:solution">
-            <xsl:with-param name="render" select="true()"/>
-          </xsl:apply-templates>
-        </div>
-      </div>
-    </xsl:for-each>
-    </div>
+    <xsl:apply-templates select="$context//db:section[contains(@class,$attribute)]//ext:solution">
+      <xsl:with-param name="render" select="true()"/>
+    </xsl:apply-templates>
   </xsl:if>
 </xsl:template>
 
