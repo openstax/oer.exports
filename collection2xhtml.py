@@ -2,7 +2,7 @@
 
 import sys
 import os
-import Image
+from PIL import Image
 from StringIO import StringIO
 from tempfile import mkdtemp
 import subprocess
