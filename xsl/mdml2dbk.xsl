@@ -82,7 +82,7 @@
 <xsl:template match="md:license">
 	<db:legalnotice>
 		<xsl:apply-templates/>
-        <xsl:text> </xsl:text>
+		<xsl:text> </xsl:text>
 		<db:ulink url="{@url}"><xsl:value-of select="@url"/></db:ulink>
 	</db:legalnotice>
 </xsl:template>
