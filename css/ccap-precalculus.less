@@ -1,0 +1,1064 @@
+/*******************************************************
+* Copyright (c) 2013 Rice University
+*  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+*  See LICENSE.txt for details.
+*******************************************************/
+
+ /* Styles used when generating a PDF from xhtml+css
+ ***************************************************/
+
+// Import general page headers/footers, bookmark calculation, etc
+@import url('ccap-base.less');
+@import url('ccap-numbering.less');
+@import url('ccap-precalculus-numbering.less');
+
+// color palette for pre-calculus
+@dark-blue:     #233A67;
+@medium-blue:   #528CBE;
+@light-blue:    #DBE8F2;  // Template color in question. Note backgrounds seem blue not light green.
+@light-green:   #D3ECED;
+@light-orange:  #EFD8B0;
+@orange:        #D7562C;
+
+@white:       #FFF;
+@black:       #000;
+
+@table-border: 1pt solid @black;
+@page-width: 8.5in;
+
+// The base CCAP books use sans fonts but the statistics book uses serif fonts.
+@font-family-precalculus: Liberation Serif, serif, @stix-fonts;
+
+@page { margin: 1in 1in; }
+// Finished printed size of the QR code is dependent on: 1-distance between qr code and scanning device
+// 2-size of dots in the code(amount of data inputed into the code, the smaller the dots become)
+// For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
+@qr: 1.25in;
+
+/******************************************************
+ * Precalculus Custom elements
+ *
+ * Most of the customizations are
+ * `.note` elements with specific classes
+ *
+ * At the bottom of this block is the default styling
+ * notes that are not marked up with special classes.
+ ******************************************************/
+
+.note {
+  &.precalculus {
+    &.howto {
+      page-break-inside: avoid;
+      .x-feature(howto);
+    }
+    &.qa {
+      page-break-inside: avoid;
+      .x-feature(qa);
+
+      // top spacing for collaborative exercises
+      .body p:nth-of-type(1) { margin-top: 1em; }
+    }
+    &.media {
+      page-break-inside: avoid;
+      .x-feature(media);
+
+      // weblinks included in media list need to be orange and bold
+      .itemizedlist > .listitem {
+        color: @orange;
+        font-weight: bold;
+      }
+
+      // Supress the extra url generated from base that is wrapped with parentheses
+      .itemizedlist > .listitem .link.only-show-once { 
+        content: content();
+      }
+     
+
+    }
+    // The .try box has a bunch of customizations:
+    // - Exercises should not affect numbering and solutions should not show up in the content
+    &.try {
+      page-break-inside: avoid;
+      .x-feature(try);
+
+      > .title {
+        color: @black;
+        font-family: @font-family-precalculus;
+        font-size: 10pt;
+        font-weight: bold;
+        float: left;
+        padding-left: 1.5em;
+        padding-right: .3em;
+      }
+
+      .exercise {
+        // increment the exercise even though we don't show it because try it is an exercise
+        counter-increment: exercise;
+        margin-top: 0;
+        margin-bottom: 0;
+
+        // turn off the display of exercise text label and number
+        > .title { display: none; }
+
+        .solution {
+          // override cnxml default label with Answer
+          prince-text-replace: "Solution" "Answer:";
+          color: @orange;
+          font-family: @font-family;
+          font-weight: normal;
+          font-size: 8pt;
+
+          // flip answer to solution 180 degrees per template. Utilize web extensions
+          // for use inside the browser for troubleshooting if needed.
+          transform: rotate(180deg);
+          // Chrome and Safari
+          -webkit-transform: rotate(180deg);
+          // Firefox
+          -moz-transform: rotate(180deg);
+          // Opera
+          -o-transform: rotate(180deg);
+          // IE9 and above
+          -ms-transform: rotate(180deg);
+          // support for IE 8 and lower
+          filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2.0);
+
+          // font and color override from solution text to match template
+          > .body {
+            font-family: @font-family-precalculus;
+            color: @black;
+            padding-left: 0;
+            width: 50%;
+          }
+
+          > .title {
+            float: left;
+            padding-left: 0;
+            margin-left: .3em;
+          }
+
+          // alignment of Answer tag with rest of solution
+          &::before { 
+            float: left; 
+            padding-right: .5em;
+          }
+        }
+      }
+    }
+  }
+
+  // styling for regular non-feature related note
+  &:not(.precalculus) {
+    color: #000;
+    background-color: @light-blue;
+    padding-bottom: 1em !important;
+
+    // Styling for Generic Note title block and border
+   > .title {
+      text-align: left !important;
+      font-size: small;
+      margin-top: .25em;
+      margin-bottom: .5em;
+      color: @medium-blue;
+      font-weight: bold;
+      page-break-after: avoid;
+      border-bottom: 1px solid @medium-blue;
+    }
+  }
+}
+ // End of .precalculus notes
+
+
+/******************************************************************************
+ *  Changes Below This line
+ *
+ *  Styling for Chapter Outline Box
+ *  Styling for Learning Objectives Box
+ *  Refactor of .x-feature() function to utilize only one paramter
+ *  Organization and naming of collation sections for eoc collations
+ *  Addition of .commentary selector styling for Analysis header in examples
+ *  Styling for modified table design (2 tables, one plain and one colored)
+ *  Breakout of figure code into 3 sizes for left aligned figure text
+ *  Misc Color changes
+ *
+ ******************************************************************************/
+
+/* -------------------------
+ * Preface
+ * -------------------------
+ */
+.preface {
+  > .titlepage {
+    padding-bottom: 1em;
+    h1.title { background-color: @medium-blue; }
+  }
+}
+
+/* -------------------------
+ * Book Table of Contents
+  * -------------------------
+  */
+.book > .toc {
+  > .title {
+    border-bottom-color: @medium-blue;
+    color: @medium-blue;
+    margin-bottom: .5em;
+  }
+
+  a { color: @medium-blue; }
+}
+
+
+/* -------------------------
+ * Unit Page
+ * -------------------------
+ */
+div.part > div.titlepage {display:none;}
+
+
+/* -------------------------
+ * Chapter Introduction
+ * -------------------------
+ */
+.chapter > .introduction {
+  >.title {
+    content: "Introduction";
+    font-size: x-large;
+  }
+
+  // numbering is bold and medium blue for precalculus
+  > .toc a {
+    color: @medium-blue;
+    font-weight: bold;
+  }
+
+  // overide hyperlink medium blue color must be back and normal weight
+  > .toc .toc-section .cnx-gentext-t {
+    color: @black;
+    font-weight: normal;
+  }
+
+  // Take away default colon display after number
+  > .toc .toc-section .cnx-gentext-n:after {
+    content: "";
+  }
+
+
+
+
+
+
+
+
+
+
+/******************************************************************************
+ * Styling for Chapter Outline Box
+ ******************************************************************************/
+
+  >.toc { 
+    width: 100%;
+    border: 1px solid @medium-blue;
+
+    >.title {
+      content: "Chapter Outline"; //override content string from base
+      padding-top: .1em;
+      padding-bottom: .2em;
+      background-color: @medium-blue;
+      color: white;
+      text-align: center;
+      font-weight: bold;
+      font-size: large;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+/******************************************************************************
+ * Styling for Learning Objectives Box
+ ******************************************************************************/
+
+/* -------------------------
+ * Section Level Learning Objectives
+* -------------------------
+*/
+
+.section > .titlepage {
+  .abstract {
+    counter-reset: learning-objectives;
+    border: 1px solid @medium-blue;
+    padding: 0em;
+
+    &::before {
+      content: "Learning Objectives";
+      display: inline-block;
+      width: 100%;
+      padding-top: .1em;
+      padding-bottom: .2em;
+      background-color: @medium-blue;
+      color: white;
+      text-align: center;
+      font-weight: bold;
+      font-size: large;
+    }
+
+
+    p { font-family: @font-family; margin: 1em 0em .75em 1em; }
+
+    .itemizedlist > .listitem > p { margin: 0em .3em; display: inline-block; }
+
+
+    // Special three-part numbering for Learning Objective chapter.section.learning-objectives
+    .itemizedlist > .listitem {
+      counter-increment: learning-objectives;
+      display: block;
+
+      &::before {
+        content: "" " " counter(chapter, decimal) "." counter(section, decimal) "." counter(learning-objectives) " " "";
+        color: @medium-blue;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+/******************************************************************************
+ * Refactor of .x-feature() function to utilize only one paramter
+ ******************************************************************************/
+
+/* -------------------------
+ * Features args(title color, bkgrnd color, path to svg)
+ * -------------------------
+ */
+
+.x-feature (@svg) {
+  // 1st semantic paragraph is title of feature. Indention removed for second semantic paragraph
+  // which is first real paragraph.  Subsequent paragraphs are indented.
+
+  p { margin-left: 2em; }
+
+  p:nth-of-type(2) {
+    text-indent: 0em;
+    page-break-before: avoid;
+  }
+
+  padding-top: 0;
+  margin-top: 0;
+  background: url("ccap-precalculus/@{svg}.svg") no-repeat;
+  background-position: 0 .2em;
+
+  .figure {
+    img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
+    > .title { font-size: x-small; color: @orange; }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+/******************************************************************************
+ * Organization and naming of collation sections for eoc collations
+ ******************************************************************************/
+
+/* -------------------------
+ * End of chapter customizations
+ * -------------------------
+ */
+
+.cnx-eoc > .title > * { font-size: large !important; padding: 0 !important; }
+
+// eoc solution number links color
+.cnx-eoc > .solution > a.number { color: @medium-blue; }
+
+.cnx-eoc {
+  .x-column-count(2);
+  column-width: auto !important;
+  column-fill: balance !important;
+  page-break-inside: auto;
+  column-break-inside: auto;
+
+  > .title  {
+    text-transform: uppercase !important;
+    text-align: left; //override from base .x-column-count
+    color: @medium-blue !important;
+    font-size: large !important;
+    font-weight: bold !important;
+    page-break-after: avoid;
+  }
+
+  &.summary {
+    .x-column-count(1);
+    > .title { content: "" "Chapter " counter(chapter, decimal) " Review"; }
+    > .section .title > a { color: @medium-blue; page-break-after: avoid; }
+    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
+    p { text-indent: 2em; }
+  }
+
+  &.key-equations {
+    .x-column-count(1);
+    > div.title {
+      content: "Key Equations";
+      column-span: all !important;  // added override to resolve bug on staging where titles
+      margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
+    }
+  }
+
+  &.key-concepts {
+    .x-column-count(1);
+    > div.title {
+      content: "Key Concepts";
+      column-span: all !important;  // added override to resolve bug on staging where titles
+      margin-top: 1em;   // are spanning single column. cannot replicate locally or on naginata
+    }
+
+    > .section > .title > a { color: @medium-blue; }
+
+  }
+
+  &.review-exercises {
+    .x-column-count(2);
+    > .title {
+      content: "" "Chapter " counter(chapter, decimal) " Review Exercises";
+      column-span: all !important; // added override to resolve bug on staging where titles
+      margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginat
+    }
+  }
+
+  &.practice-test {
+    .x-column-count(2);
+    > .title {
+      content: "" "Chapter " counter(chapter, decimal) " Practice Test";
+      column-span: all !important; // added override to resolve bug on staging where titles
+      margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginat
+    }
+  }
+
+  &.solutions {
+    .x-column-count(1);
+    > .section .title > a { color: @medium-blue; page-break-after: avoid; }
+    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
+    p { text-indent: 2em; }
+  }
+
+  //ccap-base sets this so override it here
+  .references p { text-indent: 0em; }
+
+  .problem .orderedlist { margin-left: 4em;}
+
+  .empty { display: hidden; } //hide element but count it   *didn't use visibility property which would cause element to still take up space on page
+}
+
+// Turn off section numbering and title for eoc collations
+.review-exercises, .practice-test, .key-equations, .summary {
+  > .section > .title { display: none; }
+}
+
+/* -------------------------
+ * Generic Elements
+ * -------------------------
+ */
+body {
+  font-size: 9.5pt;
+  text-align: justify !important;
+}
+
+img { max-height:9.5in; }
+
+.chapter h1.title {
+  /*reset left only*/
+  margin-left:0 !important;
+  padding-left: 0 !important;
+  font-size: 35pt; /* x-large; */
+  font-weight: bold;
+  text-align: left !important;
+  color: @medium-blue;
+
+  .cnx-gentext-n {
+    font-weight: bold;
+    padding-right: 0em;
+    color: @medium-blue;
+  }
+
+  .cnx-gentext-t {
+    &::before {
+      content: "| ";
+      color: black;
+    }
+  }
+}
+
+a { font-weight: bold; color: @orange;}
+
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0.5em 0em;
+  text-align: left !important; //overides text alignment set in
+}
+
+h2, h3, h4, h5, h6{
+  color: @medium-blue;
+  font-weight: bold;
+}
+
+h1 { font-size: 34pt; }
+
+// Module title
+h2 {
+  font-size: 17pt;
+  .cnx-gentext-n { color: @medium-blue; }
+
+  // Separate the section number and title with a pipe
+  .cnx-gentext-t::before {
+    color: black;
+    content: "| ";
+  }
+
+  &::before { color: @medium-blue; }
+}
+
+// Module section title
+h3 { font-size: 13pt; }
+
+// Module sub-section title
+h4 { font-size: 10pt; }
+
+h5 {
+  font-size: 10pt;
+  font-style: italic;
+}
+
+blockquote {
+  color: @light-blue;
+  font-size: 150%;
+
+  &::before, &::after {
+    font-weight: bold;
+    color: black;
+  }
+
+  &::before { content: "\201C" /* open-quote */; }
+  &::after { content: "\201D" /* close-quote; */; }
+}
+
+.cnx-eoc p, .notes p,p:nth-of-type(1) { text-indent: 0em; }
+
+
+p {
+  font-family: @font-family-precalculus;
+  /* subsequent paragraphs are indented */
+  text-indent: 2em;
+  /*reset margins so subsequent paragraphs start next line  */
+  margin:0;
+}
+
+.glossary {
+  // End-of-chapter material should start on a new page
+  page-break-before: always;
+  display:inline;
+
+  .title {
+    /* Change "Glossary" to "Key Terms" */
+    content: "Key Terms";
+    color: @medium-blue;
+    font-size: large !important;
+    padding: 0em !important;
+    display: block !important;
+    text-transform:uppercase;
+  }
+
+  // For Precalculus it is desired to have main heading Chapter Review above the Key Terms
+  // At the top of the page.  This is possible by using psuedo-selector ::before to display
+  // this before the glossary title
+  .title::before {
+    content: "" "Chapter " counter(chapter, decimal) " Review";
+    color: @medium-blue;
+    font-size: x-large !important;
+    padding: 0em !important;
+    display: block !important;
+    text-transform:uppercase;
+    margin-bottom: 1.5em;
+  }
+
+  // Remove ":"
+  dt::after { content: " " !important; }
+}
+
+.section > .title { page-break-after:avoid; }
+
+img, figure, subfigure  { margin: 1em; }
+
+.colophon > h1.title {
+  //this style Attributions and About Connections
+  color:white;
+  background-color: @medium-blue;
+  margin: .5em 0;
+ }
+
+/* -------------------------
+ * Example Elements Styling and Numbering
+ * -------------------------
+ */
+.example {
+  page-break-inside: avoid;
+}
+
+.example > .title {
+  background: @dark-blue;
+  padding-top: .3em;
+  padding-bottom: .3em;
+}
+
+.example > .title > * {
+    font-size: 130%;
+    font-weight: 500;
+    color: #fff;
+}
+
+.example > .body {
+    border-left: 1px solid @dark-blue;
+    padding: 1em 2em .5em 2em;
+}
+
+.example .solution { padding-top: 1em; padding-bottom: 1em; }
+
+// for examples that have a problem/solution structure that need numbered headings
+.example .exercise {
+  counter-increment: none !important;
+  margin-top: 0 !important;
+
+  .problem > .title {
+    font-family: @font-family;
+    font-size: 11pt;
+    color: @dark-blue;
+    font-weight: bold;
+    padding-bottom: 1em;
+  }
+
+  .solution > .title {
+    content: "Solution";
+    font-family: @font-family;
+    font-size: 10pt;
+    color: @dark-blue;
+    font-weight: bold;
+    float: left;
+    margin-right: .2em;
+    height: .9em;
+  }
+
+  .solution > .title > p {
+    float: left;
+  }
+
+
+
+
+
+
+
+
+
+
+/******************************************************************************
+ * Addition of .commentary selector styling for Analysis header in examples
+ ******************************************************************************/
+
+  // Create styles for Analysis sections for exercises in examples
+  .commentary > .title {
+    font-family: @font-family;
+    font-size: 10pt;
+    color: @dark-blue;
+    font-weight: bold;
+    float: left;
+    margin-right: .2em;
+    height: .9em;
+  }
+
+  .commentary > .title > p {
+    float: left;
+  }
+
+}
+
+
+
+
+
+
+
+/* -------------------------
+ * End of Section Exercise Styling
+ * -------------------------
+ */
+
+// Headers are san-serif but the text of exercises are serif
+.section .exercise {
+   font-family: @font-family-precalculus;
+}
+
+.section.section-exercises {
+  page-break-before: always;
+  page-break-after: always;
+  column-count: 2;
+
+  .exercise {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+
+  .exercise .title {
+    content: counter(exercise) ".";
+    float: left;
+  }
+
+  .exercise .problem { text-indent: 1em; }
+
+  // Create Exercises Title above sections
+  &::before {
+    content: "" " " counter(chapter, decimal) "." counter(section, decimal) " exercises" " " "";
+    text-transform: uppercase;
+    font-size: 17pt;
+    color: @medium-blue;
+    font-weight: bold;
+  }
+
+  // turn off default display for exercises that displays "Exercise x.x"
+  .exercise:not(.labeled) > .title > span:first-child:not(.labeled):before {
+    display: none;
+  }
+
+
+}
+
+
+
+
+
+
+
+
+/******************************************************************************
+ * Styling for modified table design (2 tables, one plain and one colored)
+ ******************************************************************************/
+
+/* -------------------------
+ * Tables TODO: simplify/regroup code block //latest
+ * -------------------------
+ */
+.table {
+  page-break-inside: auto;
+  // If a table spans more than 1 page then put caption on all following pages
+  prince-caption-page: all;
+
+  caption {
+    padding-top: .5em;
+    padding-bottom: 1em;
+    font-weight:bold;
+    color: @orange;
+    caption-side:bottom;
+  }
+
+  // Table caption text needs to be regular
+  .table-caption.caption {
+    color: @black;
+    font-weight: normal !important; //override strong tag
+    font-family: @font-family;
+  }
+  .cnx-figure-horizontal .informalfigure .caption {
+    text-align: center; //center subfigure caption
+    * {
+      font-weight: normal !important; //override strong tag
+      font-family: @font-family-precalculus;
+    }
+  }
+
+  // Add styling for table entries that should render as table headers
+  td.header {
+    background-color: @white;
+  }
+
+  tr { page-break-inside: avoid;}
+
+  th {
+    color: black;
+    background-color: @white;
+    font-size: small;
+    text-align: left !important;
+    padding-left: .25em !important;
+  }
+
+  table {
+    border-bottom: @table-border !important;
+  }
+
+  // This is just for looks for the template take out later
+  table td {
+    padding: 1em;
+  }
+
+  //handle lists inside tables
+  .itemizedlist {
+    margin: 0; //reset
+    list-style-type: none; //no bullets for lists inside tables
+    > .listitem > p { font-family: @font-family !important; } //overrides bio p font use font-family from base
+  }
+
+}
+
+//  Add a class for tables that have special characteristics
+.table.color {
+  th { background-color: @light-orange; text-align: center !important; }
+
+  tr { height: 1em !important; }
+
+  tr td:first-child { background-color: @light-orange; width: 2.5in; font-weight: bold; }
+}
+
+
+
+
+
+
+
+
+
+
+
+/******************************************************************************
+ * Breakout of figure code into 3 sizes (large, medium, small) for left aligned figure text
+ ******************************************************************************/
+
+
+
+/* ---------------------------------------------------
+ * Figures/Subfigures
+ * ---------------------------------------------------
+ */
+
+@figure-width-medium: 468px;  // Width of 3/4 size art 
+@figure-width-small:  312px;  // Width of 1/2 size art
+
+.figure {
+  font-size: 9pt;
+  padding-bottom: 1em;
+
+  // size the surrounding container to the size of the image container to allow the
+  // left justified alignment of the Figure numbering and associated caption
+  // default width is (hero) full size @ 625px. Specifying no class or width defaults
+  // to full size.
+
+  // 3/4 size art
+  &.medium {
+    width: @figure-width-medium;
+  }
+
+  // 1/2 size art
+  &.small {
+    width: @figure-width-small;
+  }
+
+  > .title {
+    display: inline;
+    color: @orange;
+    font-weight: bold;
+    text-align:center;
+    margin-right: .5em;
+  }
+
+  & img {
+    margin: 0 !important; //override auto  left/right margins from base
+    max-width: @page-width !important; //overrides width value figures/subfigures ensuring imgs do not bleed off page
+  }
+
+  > .caption {
+    display: inline;
+    text-align:center;
+  }
+}
+
+
+
+
+
+
+
+
+/****************************************************************************
+ * Misc Color changes
+ ****************************************************************************/
+
+//These should just be replacing @color1 with @color2
+
+.target-figure {
+  font-weight:bold;
+  color: @medium-blue;
+}
+
+.cnx-figure-horizontal .informalfigure .caption {
+  text-align: center; //center subfigure caption
+  * {
+    font-weight: normal !important; //override strong tag
+    font-family: @font-family-precalculus;
+  }
+}
+
+
+/* ---------------------------------------------------
+ * Equations
+ * ---------------------------------------------------
+ */
+// Turn off equation hiding for pre-calculus text
+div.book,
+div.book > div.part {
+  > div.preface,
+  > div.chapter,
+  > div.appendix {
+    > div.section div.equation > *:last-child::after {
+      color: @orange;
+      font-weight: bold;
+    }
+  }
+}
+
+
+/* ---------------------------------------------------
+ * End of Book Solutions
+ * ---------------------------------------------------
+ */
+// TODO: If this is used by other books it should probably be moved to ccap-numbering.less
+div.end-of-book-solutions {
+  div.solution {
+
+    // The Answer Key for the PreCalculus text was converted to be in (1) one column 
+    // and not inline due to the fact that some answers will be cartesian graphs (art).
+    // Not a good experience to be inline.
+    .x-column-count(1);
+
+    > div.title {
+      display: inline;
+      a.solution {
+        color: black;
+        font-weight: bold;
+      }
+    }
+    > div.body {
+      margin-right: .65em;
+      display: inline;
+      * { display: inline; }
+      > a.target-figure { margin: 0em .25em; } //add margin for .xref in solution body
+    }
+  }
+}
+
+
+/* ---------------------------------------------------
+ * Index
+ * ---------------------------------------------------
+ */
+.index {
+  text-align: left !important; //override text-alignment from base .x-column-count
+  column-width: auto !important;
+
+  .title h2 {
+    padding: 0;
+    color: @medium-blue;
+    text-transform: uppercase;
+    font-size: x-large;
+  }
+  h3.letter {
+    color: inherit;
+    font-weight: bold;
+    font-size: medium;
+    padding-top: .5em;
+  }
+
+ .index-term { font-size: small; }
+
+  a { font-weight: bold; }
+}
+
+// Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
+// originally defined in ccap-numbering.less
+// The hierarchy is copied from ccap-numbering so the selectors (and priority for which to apply) are the same
+
+.x-duplicate-hierarchy() {
+  > div.cnx-eoc { counter-reset: /*exercise*/ eoc-section -1; }
+ }
+
+div.book, div.book > div.part {
+  > div.preface  { .x-duplicate-hierarchy(); }
+  > div.chapter  { .x-duplicate-hierarchy(); }
+  > div.appendix { .x-duplicate-hierarchy(); }
+}
+
+div.end-of-book-solutions {
+
+  > .title {
+    content: "Answer Key";
+    color: @medium-blue;
+    margin-left: -.50em;
+    text-transform: uppercase;
+    font-size: x-large;
+    font-weight: bold;
+    background-color: transparent; //overwrite from .colophon title
+  }
+
+  .chapter-area {
+    font-family: @font-family-precalculus;
+    a {
+      &.solution { color: black; }
+      &.chapter * {
+        color: black;
+        font-size: medium;
+      }
+
+    }
+  }
+   prince-text-replace: "Answer:" ""; //strip out "Answer:" eob solutions for print_pdf
+}
+
+div.end-of-book-references {
+  > .title { //colophon titles are passed as h1's by default by docbook override properties here
+      font-size: x-large;
+      font-weight: bold;
+      background-color: transparent;
+      color: @medium-blue;
+      margin-left: -.50em;
+  }
+  > .chapter-area {
+    > .title {
+      color: @medium-blue;
+      font-weight: bold;
+      font-size: medium;
+      margin: .5em 0em;
+    }
+    > .body > p {
+      text-indent: 0em;
+      margin: .5em 0em;
+      > a.link {
+        color: @orange;
+        font-weight: normal;
+        text-decoration: underline;
+      }
+    }
+  }
+}

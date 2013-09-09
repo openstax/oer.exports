@@ -7,7 +7,7 @@ See LICENSE.txt for details.
 
 import os
 import sys
-import Image
+from PIL import Image
 
 def main(dir):
   print "<images>"

@@ -842,7 +842,7 @@ div.book > div.preface a.target-figure:not(.labeled) {
   content: "" "Figure " "" "" target-counter(attr(href), figure) "" "";
 }
 div.book > div.preface a.target-subfigure:not(.labeled) {
-  content: "" "Figure " "" "" target-counter(attr(href), figure) target-counter(attr(href), subfigure, lower-latin) "";
+  content: "" "Figure " "" "" target-counter(attr(href), target-counter(attr(href), subfigure, lower-alpha)) "" "";
 }
 div.book > div.preface a.target-table:not(.labeled) {
   content: "" "Table " "" "" target-counter(attr(href), table) "" "";
@@ -1068,7 +1068,7 @@ div.book div.chapter a.target-figure:not(.labeled) {
   content: "" "Figure " target-counter(attr(href), chapter) "." target-counter(attr(href), figure) "" "";
 }
 div.book div.chapter a.target-subfigure:not(.labeled) {
-  content: "" "Figure " target-counter(attr(href), chapter) "." target-counter(attr(href), figure) target-counter(attr(href), subfigure, lower-latin) "";
+  content: "" "Figure " target-counter(attr(href), chapter) "." target-counter(attr(href), target-counter(attr(href), subfigure, lower-alpha)) "" "";
 }
 div.book div.chapter a.target-table:not(.labeled) {
   content: "" "Table " target-counter(attr(href), chapter) "." target-counter(attr(href), table) "" "";
@@ -1288,7 +1288,7 @@ div.book > div.appendix a.target-figure:not(.labeled) {
   content: "" "Figure " target-counter(attr(href), appendix, upper-latin) "" target-counter(attr(href), figure) "" "";
 }
 div.book > div.appendix a.target-subfigure:not(.labeled) {
-  content: "" "Figure " target-counter(attr(href), appendix, upper-latin) "" target-counter(attr(href), figure) target-counter(attr(href), subfigure, lower-latin) "";
+  content: "" "Figure " target-counter(attr(href), appendix, upper-latin) "" target-counter(attr(href), target-counter(attr(href), subfigure, lower-alpha)) "" "";
 }
 div.book > div.appendix a.target-table:not(.labeled) {
   content: "" "Table " target-counter(attr(href), appendix, upper-latin) "" target-counter(attr(href), table) "" "";
@@ -1418,8 +1418,514 @@ div.book div.chapter > div.titlepage > div > div:not(:first-child),
 div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
   display: none;
 }
+div.book {
+  /* --------------------------------------
+   *  Define how counters are incremented
+   * --------------------------------------
+   */
+
+  /* -------------------------------------
+   *  All the rules for elements need to be prefixed
+   *  according to slightly different rules
+   *  - Preface isn't numbered
+   *  - Chapters are numbered
+   *  - Appendixes are lettered
+   *
+   * ie: "Figure 4.3" in chapters but "Figure A3" in an appendix
+   * -------------------------------------
+   */
+
+  /* -------------------------------------
+ *  The bulk of numbering!
+ *
+ *
+ *  To handle slight variations in prefixing:
+ *  @part-label is used in page headers ie "Chapter 3"
+ *  @part-counter is the prefix to things like "Table A4"
+ *  @part-target is CSS3 for making links to elements
+ *  @part-separator is the little dot in "Table 4.3"
+ * -------------------------------------
+ */
+
+}
+div.book div.chapter {
+  counter-increment: chapter;
+}
+div.book > div.preface {
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section stats-lab;
+  /* ------------------------------------------
+   *  Increment the counter for statistics lab
+   * -------------------------------------------
+   */
+
+  /* --------------------------------------
+   *  Define where counters are displayed
+   * --------------------------------------
+   */
+
+  /* ------------------------------------------
+   *  Display the counter for statistics lab
+   * -------------------------------------------
+   */
+
+}
+div.book > div.preface .statistics.lab {
+  counter-increment: stats-lab;
+}
+div.book > div.preface .statistics.lab:not(.labeled) {
+  counter-increment: stats-lab;
+}
+div.book > div.preface .statistics.lab.labeled {
+  counter-increment: none;
+}
+div.book > div.preface .statistics.lab > .title:not(.labeled)::before {
+  content: "" "" "" "" counter(stats-lab) " " "";
+}
+div.book div.chapter {
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section stats-lab;
+  /* ------------------------------------------
+   *  Increment the counter for statistics lab
+   * -------------------------------------------
+   */
+
+  /* --------------------------------------
+   *  Define where counters are displayed
+   * --------------------------------------
+   */
+
+  /* ------------------------------------------
+   *  Display the counter for statistics lab
+   * -------------------------------------------
+   */
+
+}
+div.book div.chapter .statistics.lab {
+  counter-increment: stats-lab;
+}
+div.book div.chapter .statistics.lab:not(.labeled) {
+  counter-increment: stats-lab;
+}
+div.book div.chapter .statistics.lab.labeled {
+  counter-increment: none;
+}
+div.book div.chapter .statistics.lab > .title:not(.labeled)::before {
+  content: "" "" counter(chapter, decimal) "." counter(stats-lab) " " "";
+}
+div.book > div.appendix {
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section stats-lab;
+  /* ------------------------------------------
+   *  Increment the counter for statistics lab
+   * -------------------------------------------
+   */
+
+  /* --------------------------------------
+   *  Define where counters are displayed
+   * --------------------------------------
+   */
+
+  /* ------------------------------------------
+   *  Display the counter for statistics lab
+   * -------------------------------------------
+   */
+
+}
+div.book > div.appendix .statistics.lab {
+  counter-increment: stats-lab;
+}
+div.book > div.appendix .statistics.lab:not(.labeled) {
+  counter-increment: stats-lab;
+}
+div.book > div.appendix .statistics.lab.labeled {
+  counter-increment: none;
+}
+div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
+  content: "" "" counter(appendix, upper-latin) "" counter(stats-lab) " " "";
+}
 @page  {
   margin: 0.5in 1in;
+}
+/******************************************************
+ * Statistics Custom elements
+ *
+ * Most of the customizations are
+ * `.note` elements with specific classes
+ *
+ * At the bottom of this block is the default styling
+ * notes that are not marked up with special classes.
+ ******************************************************/
+.note.statistics {
+  /******************************************************
+     * Direction Line styling/finger icon implementation
+     ******************************************************/
+
+}
+.note.statistics.calculator {
+  page-break-inside: avoid;
+  background-color: #ffffff;
+}
+.note.statistics.calculator p:nth-of-type(2) {
+  text-indent: 0em;
+  page-break-before: avoid;
+}
+.note.statistics.calculator::before {
+  padding-top: 0.42in;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  margin-left: -1.05em;
+  margin-right: -1.05em;
+  margin-top: -0.05in;
+}
+.note.statistics.calculator::before {
+  background-image: url("ccap-statistics/calculator.svg");
+}
+.note.statistics.calculator > .title {
+  display: none;
+}
+.note.statistics.calculator .body .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+  page-break-after: avoid;
+}
+.note.statistics.calculator .figure img {
+  max-width: 6.25in !important;
+}
+.note.statistics.calculator .figure > .title {
+  font-size: x-small;
+  color: #26397f;
+}
+.note.statistics.collab {
+  page-break-inside: avoid;
+  background-color: #ecf1ef;
+}
+.note.statistics.collab p:nth-of-type(2) {
+  text-indent: 0em;
+  page-break-before: avoid;
+}
+.note.statistics.collab::before {
+  padding-top: 0.42in;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  margin-left: -1.05em;
+  margin-right: -1.05em;
+  margin-top: -0.05in;
+}
+.note.statistics.collab::before {
+  background-image: url("ccap-statistics/collab.svg");
+}
+.note.statistics.collab > .title {
+  display: none;
+}
+.note.statistics.collab .body .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+  page-break-after: avoid;
+}
+.note.statistics.collab .figure img {
+  max-width: 6.25in !important;
+}
+.note.statistics.collab .figure > .title {
+  font-size: x-small;
+  color: #26397f;
+}
+.note.statistics.collab.finger p:nth-of-type(1):before {
+  content: url("ccap-statistics/finger.svg");
+  float: left;
+  padding-right: 5px;
+  padding-top: 2px;
+}
+.note.statistics.collab .body p:nth-of-type(1) {
+  margin-top: 1em;
+}
+.note.statistics.lab {
+  page-break-inside: avoid;
+  background-color: #ecf1ef;
+  /******************************************************
+       * Statistics Lab Feature Heading/SubHeading styling
+       ******************************************************/
+
+}
+.note.statistics.lab p:nth-of-type(2) {
+  text-indent: 0em;
+  page-break-before: avoid;
+}
+.note.statistics.lab::before {
+  padding-top: 0.34in;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  margin-left: -1.05em;
+  margin-right: -1.05em;
+  margin-top: -0.05in;
+}
+.note.statistics.lab::before {
+  background-image: url("ccap-statistics/lab.svg");
+}
+.note.statistics.lab > .title {
+  display: none;
+}
+.note.statistics.lab .body .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+  page-break-after: avoid;
+}
+.note.statistics.lab .figure img {
+  max-width: 6.25in !important;
+}
+.note.statistics.lab .figure > .title {
+  font-size: x-small;
+  color: #26397f;
+}
+.note.statistics.lab .title {
+  display: block;
+  padding-top: .5em;
+  color: #26397f !important;
+  font-size: medium !important;
+  font-weight: bold !important;
+}
+.note.statistics.lab > .title {
+  font-size: x-large !important;
+}
+.note.statistics.direction-line {
+  color: black;
+  font-style: italic;
+}
+.note.statistics.direction-line.finger p:nth-of-type(1):before {
+  content: url("ccap-statistics/finger.svg");
+  float: left;
+  padding-right: 5px;
+  padding-top: 2px;
+}
+.note.statistics.interactive {
+  page-break-inside: avoid;
+  background-color: #ecf1ef;
+}
+.note.statistics.interactive p:nth-of-type(2) {
+  text-indent: 0em;
+  page-break-before: avoid;
+}
+.note.statistics.interactive::before {
+  padding-top: 0.42in;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  margin-left: -1.05em;
+  margin-right: -1.05em;
+  margin-top: -0.05in;
+}
+.note.statistics.interactive::before {
+  background-image: url("ccap-statistics/interactive.svg");
+}
+.note.statistics.interactive > .title {
+  display: none;
+}
+.note.statistics.interactive .body .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+  page-break-after: avoid;
+}
+.note.statistics.interactive .figure img {
+  max-width: 6.25in !important;
+}
+.note.statistics.interactive .figure > .title {
+  font-size: x-small;
+  color: #26397f;
+}
+.note.statistics.interactive img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.note.statistics.interactive .link {
+  color: #26397f !important;
+  font-weight: bold;
+}
+.note.statistics.interactive.um {
+  background-color: #ecf1ef;
+  page-break-inside: auto !important;
+}
+.note.statistics.interactive.um p:nth-of-type(2) {
+  text-indent: 0em;
+  page-break-before: avoid;
+}
+.note.statistics.interactive.um::before {
+  padding-top: 0.5in;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  margin-left: -1.05em;
+  margin-right: -1.05em;
+  margin-top: -0.05in;
+}
+.note.statistics.interactive.um::before {
+  background-image: url("ccap-statistics/interactive_UM.svg");
+}
+.note.statistics.interactive.um > .title {
+  display: none;
+}
+.note.statistics.interactive.um .body .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+  page-break-after: avoid;
+}
+.note.statistics.interactive.um .figure img {
+  max-width: 6.25in !important;
+}
+.note.statistics.interactive.um .figure > .title {
+  font-size: x-small;
+  color: #26397f;
+}
+.note.statistics.try {
+  page-break-inside: avoid;
+  background-color: #ecf1ef;
+  /******************************************************
+       * Try-It Feature styling/finger icon implementation
+       ******************************************************/
+
+}
+.note.statistics.try p:nth-of-type(2) {
+  text-indent: 0em;
+  page-break-before: avoid;
+}
+.note.statistics.try::before {
+  padding-top: 0.35in;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  margin-left: -1.05em;
+  margin-right: -1.05em;
+  margin-top: -0.05in;
+}
+.note.statistics.try::before {
+  background-image: url("ccap-statistics/try.svg");
+}
+.note.statistics.try > .title {
+  display: none;
+}
+.note.statistics.try .body .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+  page-break-after: avoid;
+}
+.note.statistics.try .figure img {
+  max-width: 6.25in !important;
+}
+.note.statistics.try .figure > .title {
+  font-size: x-small;
+  color: #26397f;
+}
+.note.statistics.try > .title {
+  content: "" " " counter(chapter, decimal) "." counter(example, decimal) " " "";
+  color: #000000;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: medium;
+  font-weight: bold;
+  display: run-in;
+}
+.note.statistics.try.finger > .title {
+  top: -3px;
+  margin: 0;
+  height: 14px;
+}
+.note.statistics.try.finger > .title::before {
+  content: url("ccap-statistics/finger.svg");
+  vertical-align: bottom;
+}
+.note.statistics.try.finger > p {
+  padding-left: 28px;
+}
+.note.statistics.try.finger > p:nth-of-type(2) {
+  text-indent: 2em;
+}
+.note.statistics.try .exercise {
+  counter-increment: none !important;
+  margin-top: 1em;
+}
+.note.statistics.try .exercise > .title {
+  display: none;
+}
+.note.statistics.try .exercise .solution {
+  display: none;
+}
+/******************************************************
+ * Finger icon implementation for generic notes
+ ******************************************************/
+.note:not(.statistics) {
+  color: #000000;
+  background-color: #ecf1ef;
+}
+.note:not(.statistics).finger p:nth-of-type(1):before {
+  content: url("ccap-statistics/finger.svg");
+  float: left;
+  padding-right: 5px;
+  padding-top: 2px;
+}
+.note:not(.statistics) > .title {
+  text-align: left;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  text-transform: uppercase;
+  font-size: small;
+  margin-top: .25em;
+  margin-bottom: .5em;
+  color: #26397f;
+  font-weight: bold;
+  page-break-after: avoid;
+  border-bottom: 1px solid #26397f;
+}
+.example.finger p:nth-of-type(1):before {
+  content: url("ccap-statistics/finger.svg");
+  float: left;
+  padding-right: 5px;
+  padding-top: 2px;
 }
 .note {
   padding-bottom: 1em !important;
@@ -1428,10 +1934,12 @@ div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
  * Book Table of Contents
   ******************************************************/
 .book > .toc > .title {
-  border-bottom-color: #cc9900;
+  border-bottom-color: #26397f;
+  color: #26397f;
+  margin-bottom: .5em;
 }
 .book > .toc a {
-  color: #339999;
+  color: #26397f;
 }
 /*******************************************************
  * Unit Page
@@ -1458,16 +1966,18 @@ div.part > div.titlepage {
   display: none;
 }
 .chapter > .introduction .chapter-objectives {
-  border: 1px solid #339999;
-  margin-top: 0em;
-  margin-bottom: 1em;
+  border: 1px solid #26397f;
   padding: 0em;
+  background: inherit;
 }
 .chapter > .introduction .chapter-objectives > .title {
-  padding: .5em 0em;
-  background-color: #339999;
+  margin-top: 0;
+  padding-top: .1em;
+  padding-bottom: .2em;
+  background-color: #26397f;
   color: white;
   text-align: center;
+  text-transform: none;
   font-weight: bold;
   font-size: large;
 }
@@ -1480,370 +1990,28 @@ div.part > div.titlepage {
 /******************************************************
  * Preface
  ******************************************************/
+.preface > .titlepage {
+  padding-bottom: 1em;
+}
 .preface > .titlepage h1.title {
-  background-color: #339999;
+  background-color: #26397f;
+}
+/******************************************************
+ * Section Level Learning Objectives
+******************************************************/
+.section > .titlepage .abstract {
+  display: none;
 }
 /******************************************************
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
-/****** Features ******/
-.anatomy.aging {
-  page-break-inside: avoid;
-  background-color: #ffffcc;
-}
-.anatomy.aging p:nth-of-type(2) {
-  text-indent: 0em;
-  page-break-before: avoid;
-}
-.anatomy.aging::before {
-  padding-top: 0.53in;
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
-}
-.anatomy.aging::before {
-  background-image: url("ccap-anatomy/aging.svg");
-}
-.anatomy.aging > .title {
-  display: none;
-}
-.anatomy.aging .body .title {
-  text-align: left !important;
-  font-size: large;
-  margin: .25em 0;
-  color: black;
-  font-weight: bold;
-  page-break-after: avoid;
-}
-.anatomy.aging .figure img {
-  max-width: 5.75in !important;
-}
-.anatomy.aging .figure > .title {
-  font-size: x-small;
-  color: #cc9900;
-}
-.anatomy.career {
-  page-break-inside: avoid;
-  background-color: #ffffcc;
-}
-.anatomy.career p:nth-of-type(2) {
-  text-indent: 0em;
-  page-break-before: avoid;
-}
-.anatomy.career::before {
-  padding-top: 0.51in;
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
-}
-.anatomy.career::before {
-  background-image: url("ccap-anatomy/career.svg");
-}
-.anatomy.career > .title {
-  display: none;
-}
-.anatomy.career .body .title {
-  text-align: left !important;
-  font-size: large;
-  margin: .25em 0;
-  color: black;
-  font-weight: bold;
-  page-break-after: avoid;
-}
-.anatomy.career .figure img {
-  max-width: 5.75in !important;
-}
-.anatomy.career .figure > .title {
-  font-size: x-small;
-  color: #cc9900;
-}
-.anatomy.diseases {
-  page-break-inside: avoid;
-  background-color: #ffffcc;
-}
-.anatomy.diseases p:nth-of-type(2) {
-  text-indent: 0em;
-  page-break-before: avoid;
-}
-.anatomy.diseases::before {
-  padding-top: 0.59in;
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
-}
-.anatomy.diseases::before {
-  background-image: url("ccap-anatomy/diseases.svg");
-}
-.anatomy.diseases > .title {
-  display: none;
-}
-.anatomy.diseases .body .title {
-  text-align: left !important;
-  font-size: large;
-  margin: .25em 0;
-  color: black;
-  font-weight: bold;
-  page-break-after: avoid;
-}
-.anatomy.diseases .figure img {
-  max-width: 5.75in !important;
-}
-.anatomy.diseases .figure > .title {
-  font-size: x-small;
-  color: #cc9900;
-}
-.anatomy.disorders {
-  page-break-inside: avoid;
-  background-color: #ffffcc;
-}
-.anatomy.disorders p:nth-of-type(2) {
-  text-indent: 0em;
-  page-break-before: avoid;
-}
-.anatomy.disorders::before {
-  padding-top: 0.59in;
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
-}
-.anatomy.disorders::before {
-  background-image: url("ccap-anatomy/disorders.svg");
-}
-.anatomy.disorders > .title {
-  display: none;
-}
-.anatomy.disorders .body .title {
-  text-align: left !important;
-  font-size: large;
-  margin: .25em 0;
-  color: black;
-  font-weight: bold;
-  page-break-after: avoid;
-}
-.anatomy.disorders .figure img {
-  max-width: 5.75in !important;
-}
-.anatomy.disorders .figure > .title {
-  font-size: x-small;
-  color: #cc9900;
-}
-.anatomy.everyday {
-  page-break-inside: avoid;
-  background-color: #ffffcc;
-}
-.anatomy.everyday p:nth-of-type(2) {
-  text-indent: 0em;
-  page-break-before: avoid;
-}
-.anatomy.everyday::before {
-  padding-top: 0.44in;
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
-}
-.anatomy.everyday::before {
-  background-image: url("ccap-anatomy/everyday.svg");
-}
-.anatomy.everyday > .title {
-  display: none;
-}
-.anatomy.everyday .body .title {
-  text-align: left !important;
-  font-size: large;
-  margin: .25em 0;
-  color: black;
-  font-weight: bold;
-  page-break-after: avoid;
-}
-.anatomy.everyday .figure img {
-  max-width: 5.75in !important;
-}
-.anatomy.everyday .figure > .title {
-  font-size: x-small;
-  color: #cc9900;
-}
-.anatomy.homeostatic {
-  page-break-inside: avoid;
-  background-color: #ffffcc;
-}
-.anatomy.homeostatic p:nth-of-type(2) {
-  text-indent: 0em;
-  page-break-before: avoid;
-}
-.anatomy.homeostatic::before {
-  padding-top: 0.57in;
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
-}
-.anatomy.homeostatic::before {
-  background-image: url("ccap-anatomy/homeostatic.svg");
-}
-.anatomy.homeostatic > .title {
-  display: none;
-}
-.anatomy.homeostatic .body .title {
-  text-align: left !important;
-  font-size: large;
-  margin: .25em 0;
-  color: black;
-  font-weight: bold;
-  page-break-after: avoid;
-}
-.anatomy.homeostatic .figure img {
-  max-width: 5.75in !important;
-}
-.anatomy.homeostatic .figure > .title {
-  font-size: x-small;
-  color: #cc9900;
-}
-.anatomy.interactive {
-  page-break-inside: avoid;
-  background-color: #ffffcc;
-}
-.anatomy.interactive p:nth-of-type(2) {
-  text-indent: 0em;
-  page-break-before: avoid;
-}
-.anatomy.interactive::before {
-  padding-top: 0.43in;
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
-}
-.anatomy.interactive::before {
-  background-image: url("ccap-anatomy/interactive.svg");
-}
-.anatomy.interactive > .title {
-  display: none;
-}
-.anatomy.interactive .body .title {
-  text-align: left !important;
-  font-size: large;
-  margin: .25em 0;
-  color: black;
-  font-weight: bold;
-  page-break-after: avoid;
-}
-.anatomy.interactive .figure img {
-  max-width: 5.75in !important;
-}
-.anatomy.interactive .figure > .title {
-  font-size: x-small;
-  color: #cc9900;
-}
-.anatomy.interactive img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-.anatomy.interactive .link {
-  color: #cc9900 !important;
-  font-weight: bold;
-}
-.anatomy.interactive.um {
-  background-color: #ffffcc;
-  page-break-inside: auto !important;
-}
-.anatomy.interactive.um p:nth-of-type(2) {
-  text-indent: 0em;
-  page-break-before: avoid;
-}
-.anatomy.interactive.um::before {
-  padding-top: 0.5in;
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
-}
-.anatomy.interactive.um::before {
-  background-image: url("ccap-anatomy/interactive_UM.svg");
-}
-.anatomy.interactive.um > .title {
-  display: none;
-}
-.anatomy.interactive.um .body .title {
-  text-align: left !important;
-  font-size: large;
-  margin: .25em 0;
-  color: black;
-  font-weight: bold;
-  page-break-after: avoid;
-}
-.anatomy.interactive.um .figure img {
-  max-width: 5.75in !important;
-}
-.anatomy.interactive.um .figure > .title {
-  font-size: x-small;
-  color: #cc9900;
-}
 /******************************************************
-
  * End of chapter customizations
  ******************************************************/
+.cnx-eoc > .title > * {
+  font-size: large !important;
+  padding: 0 !important;
+}
 .cnx-eoc {
   -webkit-column-count: 2;
   column-count: 2;
@@ -1857,7 +2025,7 @@ div.part > div.titlepage {
 .cnx-eoc > .title {
   text-transform: uppercase !important;
   text-align: left;
-  color: #339999 !important;
+  color: #26397f !important;
   font-size: large !important;
   font-weight: bold !important;
   page-break-after: avoid;
@@ -1873,7 +2041,7 @@ div.part > div.titlepage {
   margin-top: 1em;
 }
 .cnx-eoc.summary > .section .title > a {
-  color: black;
+  color: #26397f;
   page-break-after: avoid;
 }
 .cnx-eoc.summary p:nth-of-type(1) {
@@ -1883,14 +2051,46 @@ div.part > div.titlepage {
 .cnx-eoc.summary p {
   text-indent: 2em;
 }
+.cnx-eoc.practice {
+  -webkit-column-count: 1;
+  column-count: 1;
+  columns: 1;
+  column-fill: auto;
+}
+.cnx-eoc.practice > .title {
+  content: "Practice";
+  margin-top: 1em;
+}
+.cnx-eoc.practice > .section .title > a {
+  color: #26397f;
+  page-break-after: avoid;
+}
+.cnx-eoc.practice p:nth-of-type(1) {
+  text-indent: 0em;
+  margin-top: 1em;
+}
+.cnx-eoc.practice p {
+  text-indent: 2em;
+}
+.cnx-eoc.solutions {
+  -webkit-column-count: 1;
+  column-count: 1;
+  columns: 1;
+  column-fill: auto;
+}
+.cnx-eoc.solutions > .section .title > a {
+  color: #26397f;
+  page-break-after: avoid;
+}
+.cnx-eoc.solutions p:nth-of-type(1) {
+  text-indent: 0em;
+  margin-top: 1em;
+}
 .cnx-eoc .references p {
   text-indent: 0em;
 }
 .cnx-eoc .problem .orderedlist {
   margin-left: 4em;
-}
-.cnx-eoc.solutions {
-  display: none !important;
 }
 .cnx-eoc .empty {
   display: hidden;
@@ -1900,8 +2100,14 @@ div.part > div.titlepage {
   column-span: all !important;
   margin-top: 1em;
 }
+.free-response {
+  -webkit-column-count: 1;
+  column-count: 1;
+  columns: 1;
+  column-fill: auto;
+}
 .free-response > .title {
-  content: "Critical Thinking Questions";
+  content: "Homework";
   column-span: all !important;
   margin-top: 1em;
 }
@@ -1910,9 +2116,14 @@ div.part > div.titlepage {
   column-span: all !important;
   margin-top: 1em;
 }
+.formula-review > div.title {
+  content: "Formula Review";
+  column-span: all !important;
+  margin-top: 1em;
+}
 .multiple-choice > .section > .title,
-.free-response > .section > .title,
-.interactive-exercise > .section > .title {
+.interactive-exercise > .section > .title,
+.formula-review > .section > .title {
   display: none;
 }
 /******************************************************
@@ -1935,12 +2146,12 @@ img {
 
   font-weight: bold;
   text-align: left !important;
-  color: #339999;
+  color: #26397f;
 }
 .chapter h1.title .cnx-gentext-n {
   font-weight: bold;
   padding-right: 0em;
-  color: #339999;
+  color: #26397f;
 }
 .chapter h1.title .cnx-gentext-t::before {
   content: "| ";
@@ -1948,7 +2159,7 @@ img {
 }
 a {
   font-weight: bold;
-  color: #cc9900;
+  color: #26397f;
 }
 h1,
 h2,
@@ -1964,21 +2175,24 @@ h3,
 h4,
 h5,
 h6 {
-  color: #339999;
+  color: #26397f;
   font-weight: bold;
+}
+h1 {
+  font-size: 34pt;
 }
 h2 {
   font-size: 17pt;
 }
 h2 .cnx-gentext-n {
-  color: #339999;
+  color: #26397f;
 }
 h2 .cnx-gentext-t::before {
   color: black;
   content: "| ";
 }
 h2::before {
-  color: #339999;
+  color: #26397f;
 }
 h3 {
   font-size: 13pt;
@@ -1990,13 +2204,8 @@ h5 {
   font-size: 10pt;
   font-style: italic;
 }
-h6 {
-  font-size: 10pt;
-  font-weight: normal;
-  font-style: italic;
-}
 blockquote {
-  color: #cccccc;
+  color: #ecf1ef;
   font-size: 150%;
 }
 blockquote::before,
@@ -2032,7 +2241,7 @@ p {
   /* Change "Glossary" to "Key Terms" */
 
   content: "Key Terms";
-  color: #339999;
+  color: #26397f;
   font-size: large !important;
   padding: 0em !important;
   display: block !important;
@@ -2051,8 +2260,59 @@ subfigure {
 }
 .colophon > h1.title {
   color: white;
-  background-color: #339999;
+  background-color: #26397f;
   margin: .5em 0;
+}
+/******************************************************
+ * Example Elements Styling and Numbering
+ ******************************************************/
+.example {
+  page-break-inside: avoid;
+}
+.example > .title {
+  background: #26397f;
+  padding-top: .3em;
+  padding-bottom: .3em;
+}
+.example > .title > * {
+  font-size: 130%;
+  font-weight: 500;
+  color: #fff;
+}
+.example > .body {
+  border-left: 1px solid #26397f;
+  padding: 1em 2em .5em 2em;
+}
+.example .solution {
+  padding-top: 2em;
+}
+.example .exercise {
+  margin: 0;
+  counter-increment: none !important;
+}
+.example .exercise .problem > .title {
+  content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
+  color: #26397f;
+  font-weight: bold;
+}
+.example .exercise .solution > .title {
+  content: "" "Solution " counter(chapter, decimal) "." counter(example, decimal) " " "";
+  color: #26397f;
+  font-weight: bold;
+}
+/******************************************************
+ * EOC Exercise Finger icon implementation
+ ******************************************************/
+.cnx-eoc .exercise .problem > .title {
+  font-weight: normal;
+}
+.cnx-eoc .exercise.finger > .title .cnx-gentext-n {
+  color: #000000;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+.cnx-eoc .exercise.finger > .title .cnx-gentext-n::before {
+  content: url("ccap-statistics/finger.svg");
+  vertical-align: bottom;
 }
 /******************************************************
  * Tables TODO: simplify/regroup code block //latest
@@ -2065,37 +2325,39 @@ subfigure {
   padding-top: .5em;
   padding-bottom: 1em;
   font-weight: bold;
-  color: #cc9900;
+  color: #26397f;
   caption-side: bottom;
 }
+.table .table-caption.caption {
+  color: #000000;
+  font-weight: normal !important;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+.table .cnx-figure-horizontal .informalfigure .caption {
+  text-align: center;
+}
+.table .cnx-figure-horizontal .informalfigure .caption * {
+  font-weight: normal !important;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
 .table td.header {
-  background-color: #ffffcc;
-  border-bottom: 1pt solid #339999;
+  background-color: #ffffff;
 }
 .table tr {
   page-break-inside: avoid;
 }
 .table th {
   color: black;
-  background-color: #ffffcc;
+  background-color: #ffffff;
   font-size: small;
-  border-style: none !important;
-  border-top: 1pt solid #339999 !important;
-  border-bottom: 1pt solid #339999 !important;
-  text-align: center !important;
-}
-.table tr:first-child > th:first-child {
-  padding: .25em !important;
-  color: #339999 !important;
-  font-size: medium;
-  margin-left: -1em;
-  text-align: center !important;
-  border-style: none !important;
-  background-color: transparent !important;
+  text-align: left !important;
+  padding-left: .25em !important;
 }
 .table table {
-  border: 0 !important;
-  border-bottom: 1pt solid #339999 !important;
+  border-bottom: 1pt solid #000000 !important;
+}
+.table table td {
+  padding: 1em;
 }
 .table .itemizedlist {
   margin: 0;
@@ -2113,14 +2375,15 @@ subfigure {
 }
 .figure > .title {
   display: inline;
-  color: #cc9900;
+  color: #26397f;
   font-weight: bold;
   text-align: center;
   margin-right: .5em;
 }
 .figure img {
-  margin: 1em 0;
-  max-width: 6in !important;
+  padding-top: 2em;
+  margin: 0 !important;
+  max-width: 6.5in !important;
 }
 .figure > .caption {
   display: inline;
@@ -2128,7 +2391,7 @@ subfigure {
 }
 .target-figure {
   font-weight: bold;
-  color: #cc9900;
+  color: #26397f;
 }
 .cnx-figure-horizontal .informalfigure .caption {
   text-align: center;
@@ -2151,11 +2414,9 @@ div.book > div.part > div.appendix > div.section div.equation > *:last-child::af
 /******************************************************
  * End of Book Solutions
  ******************************************************/
-div.end-of-book-solutions div.solution {
-  display: inline;
-}
 div.end-of-book-solutions div.solution > div.title {
   display: inline;
+  margin-right: 5px;
 }
 div.end-of-book-solutions div.solution > div.title a.solution {
   color: black;
@@ -2163,9 +2424,6 @@ div.end-of-book-solutions div.solution > div.title a.solution {
 }
 div.end-of-book-solutions div.solution > div.body {
   margin-right: .65em;
-  display: inline;
-}
-div.end-of-book-solutions div.solution > div.body * {
   display: inline;
 }
 div.end-of-book-solutions div.solution > div.body > a.target-figure {
@@ -2180,7 +2438,7 @@ div.end-of-book-solutions div.solution > div.body > a.target-figure {
 }
 .index .title h2 {
   padding: 0;
-  color: #339999;
+  color: #26397f;
   text-transform: uppercase;
   font-size: x-large;
 }
@@ -2198,22 +2456,22 @@ div.end-of-book-solutions div.solution > div.body > a.target-figure {
 }
 div.book > div.preface > div.cnx-eoc,
 div.book > div.part > div.preface > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
+  counter-reset: exercise eoc-section -1;
 }
 div.book > div.chapter > div.cnx-eoc,
 div.book > div.part > div.chapter > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
+  counter-reset: exercise eoc-section -1;
 }
 div.book > div.appendix > div.cnx-eoc,
 div.book > div.part > div.appendix > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
+  counter-reset: exercise eoc-section -1;
 }
 div.end-of-book-solutions {
   prince-text-replace: "Answer:" "";
 }
 div.end-of-book-solutions > .title {
   content: "Answer Key";
-  color: #339999;
+  color: #26397f;
   margin-left: -0.5em;
   text-transform: uppercase;
   font-size: x-large;
@@ -2222,46 +2480,40 @@ div.end-of-book-solutions > .title {
 }
 div.end-of-book-solutions .chapter-area {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  -webkit-column-count: 2;
+  column-count: 2;
+  columns: 2;
+  column-fill: auto;
+}
+div.end-of-book-solutions .chapter-area > .title {
+  column-span: all;
 }
 div.end-of-book-solutions .chapter-area a.solution {
   color: black;
 }
 div.end-of-book-solutions .chapter-area a.chapter * {
-  color: black;
+  color: #000000;
   font-size: medium;
-}
-/* Squash references if they show up at the end of a chapter.
-   They are special-cased and show up at the end of the book */
-.cnx-eoc.references {
-  display: none;
 }
 div.end-of-book-references > .title {
   font-size: x-large;
   font-weight: bold;
   background-color: transparent;
-  color: #339999;
+  color: #26397f;
   margin-left: -0.5em;
 }
 div.end-of-book-references > .chapter-area > .title {
-  display: none;
-}
-div.end-of-book-references > .chapter-area > .body > .section-area > .title {
-  font-size: 12pt;
+  color: #26397f;
   font-weight: bold;
+  font-size: medium;
   margin: .5em 0em;
 }
-div.end-of-book-references > .chapter-area > .body > .section-area > .title:before {
-  content: target-counter(attr(data-href), chapter) "." target-counter(attr(data-href), section) " ";
-}
-div.end-of-book-references > .chapter-area > .body > .section-area > .title sup {
-  display: none;
-}
-div.end-of-book-references > .chapter-area > .body > .section-area > .body > p {
+div.end-of-book-references > .chapter-area > .body > p {
   text-indent: 0em;
   margin: .5em 0em;
 }
-div.end-of-book-references > .chapter-area > .body > .section-area > .body > p > a.link {
-  color: #339999;
+div.end-of-book-references > .chapter-area > .body > p > a.link {
+  color: #26397f;
   font-weight: normal;
   text-decoration: underline;
 }
