@@ -1561,7 +1561,7 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
 }
 .note.statistics.calculator {
   page-break-inside: avoid;
-  background-color: #ffffff;
+  background-color: transparent;
 }
 .note.statistics.calculator p:nth-of-type(2) {
   text-indent: 0em;
@@ -1601,6 +1601,9 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
 .note.statistics.calculator .figure > .title {
   font-size: x-small;
   color: #26397f;
+}
+.note.statistics.calculator::before {
+  background-color: transparent;
 }
 .note.statistics.collab {
   page-break-inside: avoid;
@@ -1930,6 +1933,10 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
 .note {
   padding-bottom: 1em !important;
 }
+.note .table th {
+  background-color: transparent;
+  font-weight: normal;
+}
 /******************************************************
  * Book Table of Contents
   ******************************************************/
@@ -2094,6 +2101,12 @@ div.part > div.titlepage {
 }
 .cnx-eoc .empty {
   display: hidden;
+}
+.cnx-eoc.references {
+  -webkit-column-count: 1;
+  column-count: 1;
+  columns: 1;
+  column-fill: auto;
 }
 .multiple-choice > .title {
   content: "Review Questions";
@@ -2286,9 +2299,20 @@ subfigure {
 .example .solution {
   padding-top: 2em;
 }
+/*
+  W&N wanted table numbering in example exercise problems/solutions
+  to show up. We need a very large specificity value for this rule.
+*/
+.book .chapter > .section .example .exercise .table table caption::before {
+  display: inline;
+}
 .example .exercise {
   margin: 0;
   counter-increment: none !important;
+}
+.example .exercise .problem p,
+.example .exercise .solution p {
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .example .exercise .problem > .title {
   content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
@@ -2467,53 +2491,8 @@ div.book > div.part > div.appendix > div.cnx-eoc {
   counter-reset: exercise eoc-section -1;
 }
 div.end-of-book-solutions {
-  prince-text-replace: "Answer:" "";
+  display: none;
 }
-div.end-of-book-solutions > .title {
-  content: "Answer Key";
-  color: #26397f;
-  margin-left: -0.5em;
-  text-transform: uppercase;
-  font-size: x-large;
-  font-weight: bold;
-  background-color: transparent;
-}
-div.end-of-book-solutions .chapter-area {
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  -webkit-column-count: 2;
-  column-count: 2;
-  columns: 2;
-  column-fill: auto;
-}
-div.end-of-book-solutions .chapter-area > .title {
-  column-span: all;
-}
-div.end-of-book-solutions .chapter-area a.solution {
-  color: black;
-}
-div.end-of-book-solutions .chapter-area a.chapter * {
-  color: #000000;
-  font-size: medium;
-}
-div.end-of-book-references > .title {
-  font-size: x-large;
-  font-weight: bold;
-  background-color: transparent;
-  color: #26397f;
-  margin-left: -0.5em;
-}
-div.end-of-book-references > .chapter-area > .title {
-  color: #26397f;
-  font-weight: bold;
-  font-size: medium;
-  margin: .5em 0em;
-}
-div.end-of-book-references > .chapter-area > .body > p {
-  text-indent: 0em;
-  margin: .5em 0em;
-}
-div.end-of-book-references > .chapter-area > .body > p > a.link {
-  color: #26397f;
-  font-weight: normal;
-  text-decoration: underline;
+div.end-of-book-references {
+  display: none;
 }

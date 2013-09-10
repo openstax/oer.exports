@@ -92,7 +92,14 @@
   &.statistics {
     &.calculator {
       page-break-inside: avoid;
-      .x-feature(#336633, @white, calculator, 0.42in);
+      .x-feature(#336633, transparent, calculator, 0.42in);
+
+      // Reset this here so other feature headers retain their
+      // 'transparent top' by being white. (For an example see
+      // Try It or Collaborative Exercise headers.)
+      &::before {
+        background-color: transparent;
+      }
     }
     &.collab {
       page-break-inside: avoid;
@@ -253,6 +260,12 @@
 // .note class override - bottom margin not being picked up in base.less
 .note {
   padding-bottom: 1em !important;
+}
+
+// Tables inside notes do not need header styling
+.note .table th {
+  background-color: transparent;
+  font-weight: normal;
 }
 
 /******************************************************
@@ -434,6 +447,10 @@ div.part > div.titlepage {display:none;}
   .problem .orderedlist { margin-left: 4em;}
 
   .empty { display: hidden; } //hide element but count it   *didn't use visibility property which would cause element to still take up space on page
+
+  &.references {
+    .x-column-count(1);
+  }
 }
 
 // not using this remove
@@ -611,37 +628,50 @@ img, figure, subfigure  { margin: 1em; }
 }
 
 .example > .title > * {
-    font-size: 130%;
-    font-weight: 500;
-    color: #fff;
+  font-size: 130%;
+  font-weight: 500;
+  color: #fff;
 }
 
 .example > .body {
-    border-left: 1px solid @blue;
-    padding: 1em 2em .5em 2em;
+  border-left: 1px solid @blue;
+  padding: 1em 2em .5em 2em;
 }
 
 .example .solution { padding-top: 2em; }
 
+/*
+  W&N wanted table numbering in example exercise problems/solutions
+  to show up. We need a very large specificity value for this rule.
+*/
+.book .chapter > .section .example .exercise .table table caption::before {
+  display: inline;
+}
+
 // for examples that have a problem/solution structure that need numbered headings
 .example .exercise {
-    // Examples with exercises don't need the margin-top or margin-bottom
-    // from .exercise (ccap-base.less)
-    margin: 0; 
+  // Examples with exercises don't need the margin-top or margin-bottom
+  // from .exercise (ccap-base.less)
+  margin: 0; 
 
-    counter-increment: none !important;
-    .problem > .title {
-      content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
-      color: @blue;
-      font-weight: bold;
-    }
-
-    .solution > .title {
-      content: "" "Solution " counter(chapter, decimal) "." counter(example, decimal) " " "";
-      color: @blue;
-      font-weight: bold;
-    }
+  // Use Sans-Serif fonts from base.less for example exercise problems/solutions.
+  .problem p, .solution p {
+    font-family: @font-family;
   }
+
+  counter-increment: none !important;
+  .problem > .title {
+    content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
+    color: @blue;
+    font-weight: bold;
+  }
+
+  .solution > .title {
+    content: "" "Solution " counter(chapter, decimal) "." counter(example, decimal) " " "";
+    color: @blue;
+    font-weight: bold;
+  }
+}
 
 
 /******************************************************
@@ -855,63 +885,12 @@ div.book, div.book > div.part {
   > div.appendix { .x-duplicate-hierarchy(); }
 }
 
+// Hide end of book Answer Key
 div.end-of-book-solutions {
-
-  > .title {
-    content: "Answer Key";
-    color: @blue;
-    margin-left: -.50em;
-    text-transform: uppercase;
-    font-size: x-large;
-    font-weight: bold;
-    background-color: transparent; //overwrite from .colophon title
-  }
-
-  .chapter-area {
-    font-family: @font-family-statistics;
-
-    // Make answer key solutions display in two columns.
-    .x-column-count(2);
-
-    > .title {
-      column-span: all;
-    }
-
-    a {
-      &.solution { color: black; }
-      &.chapter * {
-        color: @black;
-        font-size: medium;
-      }
-
-    }
-  }
-   prince-text-replace: "Answer:" ""; //strip out "Answer:" eob solutions for print_pdf
+  display: none;
 }
 
+// Hide end of book references
 div.end-of-book-references {
-  > .title { //colophon titles are passed as h1's by default by docbook override properties here
-      font-size: x-large;
-      font-weight: bold;
-      background-color: transparent;
-      color: @blue;
-      margin-left: -.50em;
-  }
-  > .chapter-area {
-    > .title {
-      color: @blue;
-      font-weight: bold;
-      font-size: medium;
-      margin: .5em 0em;
-    }
-    > .body > p {
-      text-indent: 0em;
-      margin: .5em 0em;
-      > a.link {
-        color: @blue;
-        font-weight: normal;
-        text-decoration: underline;
-      }
-    }
-  }
+  display: none;
 }
