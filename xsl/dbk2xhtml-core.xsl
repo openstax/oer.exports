@@ -217,19 +217,55 @@
 
 <!-- Render the solutions to evercises at the end of the chapter -->
 <xsl:template name="cnx.solutions">
+  <xsl:variable name="context" select="."/>
   <xsl:variable name="solutions">
-    <xsl:apply-templates select=".//ext:solution" mode="cnx.eoc.solutions"/>
+    <!-- Order the solutions in the same order as the exercises (so numbering does not jump around) -->
+    <!-- NOTE: This is basically copy/pasta from end-of-chapter-problems -->
+    <xsl:for-each select=".//processing-instruction('cnx.eoc')">
+      <xsl:variable name="val" select="concat(' ', .)"/>
+      <xsl:variable name="class" select="substring-before(substring-after($val,' class=&quot;'), '&quot;')"/>
+      <xsl:variable name="title" select="substring-before(substring-after(.,' title=&quot;'),'&quot;')"/>
+
+        <xsl:message>LOG: INFO: Looking for some end-of-chapter solutions: class=[<xsl:value-of select="$class"/>] title=[<xsl:value-of select="$title"/>] inside a [<xsl:value-of select="name()"/>]</xsl:message>
+
+      <xsl:if test="string-length($class) &gt; 0 and $context//*[contains(@class,$class) and .//ext:solution]">
+        <xsl:message>LOG: INFO: Found some end-of-chapter solutions: class=[<xsl:value-of select="$class"/>] title=[<xsl:value-of select="$title"/>]</xsl:message>
+        <xsl:call-template name="cnx.end-of-chapter-solutions">
+          <xsl:with-param name="context" select="$context"/>
+          <xsl:with-param name="title">
+            <xsl:value-of select="$title"/>
+          </xsl:with-param>
+          <xsl:with-param name="attribute" select="$class"/>
+        </xsl:call-template>
+      </xsl:if>
+    </xsl:for-each>
   </xsl:variable>
   <xsl:if test="count($solutions) != 0">
-    <div class="cnx-eoc solutions">
+    <div class="cnx-eoc cnx-solutions">
       <div class="title">Solutions</div>
       <xsl:copy-of select="$solutions" />
     </div>
   </xsl:if>
 </xsl:template>
 
-<!-- By default, solutions are rendered in-place. -->
-<xsl:template mode="cnx.eoc.solutions" match="ext:solution" />
+
+<xsl:template name="cnx.end-of-chapter-solutions">
+  <xsl:param name="context" select="."/>
+  <xsl:param name="title"/>
+  <xsl:param name="attribute"/>
+
+  <!-- Create a 1-column Listing of "Conceptual Questions" or "end-of-chapter Problems" -->
+  <xsl:if test="count($context//*[contains(@class,$attribute)]) &gt; 0">
+    <xsl:comment>CNX: Start Area: "<xsl:value-of select="$title"/>"</xsl:comment>
+
+    <!-- Print solutions ordered by the cnx-eoc processing instruction -->
+    <!-- This for-each is the main section (1.4 Newton) to print section title -->
+    <xsl:apply-templates select="$context//db:section[contains(@class,$attribute)]//ext:solution">
+      <xsl:with-param name="render" select="true()"/>
+    </xsl:apply-templates>
+  </xsl:if>
+</xsl:template>
+
 <!-- If it's a solution that goes at the end of a chapter then give it a number -->
 <xsl:template mode="cnx.eoc.solutions" match="ext:solution
       [key('cnx.eoc-key', ancestor::*[@class]/@class)]
