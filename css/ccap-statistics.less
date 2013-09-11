@@ -215,8 +215,30 @@
         // a Try-it counter here, so this one needs hiding
         > .title { display: none; }
 
-        // don't display solutions for try it feature
-        .solution { display: none; }
+        // display try-it solution upside down since we cannot number them in eoc
+        .solution { 
+          prince-text-replace: "Solution" "Answer:";
+          font-family: @font-family;
+          font-weight: normal;
+          font-size: 8pt;
+
+          // flip answer to solution 180 degrees per template. Utilize web extensions
+          // for use inside the browser for troubleshooting if needed.
+          transform: rotate(180deg);
+          // Chrome and Safari
+          -webkit-transform: rotate(180deg);
+          // Firefox
+          -moz-transform: rotate(180deg);
+          // Opera
+          -o-transform: rotate(180deg);
+          // IE9 and above
+          -ms-transform: rotate(180deg);
+          // support for IE 8 and lower
+          filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2.0);
+
+          // make sure some space is added so solution and question don't touch
+          padding-bottom: 1em;
+        }
       }
     }
   }
@@ -483,7 +505,7 @@ div.part > div.titlepage {display:none;}
   margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
 }
 
-.multiple-choice, .interactive-exercise, .formula-review {
+.multiple-choice, .interactive-exercise {
   > .section > .title { display: none; }
 }
 
