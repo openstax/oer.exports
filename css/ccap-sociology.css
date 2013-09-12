@@ -2,7 +2,7 @@
 /*******************************************************
 * Copyright (c) 2013 Rice University
 *  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
-*  See LICENSE.txt for details. 
+*  See LICENSE.txt for details.
 *******************************************************/
 /***************************************************
  * Styles used when generating a PDF from xhtml+css
@@ -660,7 +660,7 @@ div.book > div.preface > div.titlepage > div > div h1.title span.cnx-gentext-t {
   prince-text-replace: "*" "";
 }
 div.book > div.preface > div.cnx-eoc {
-  counter-reset: exercise eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book > div.preface > div.section {
   counter-increment: section;
@@ -886,7 +886,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   prince-text-replace: "*" "";
 }
 div.book div.chapter > div.cnx-eoc {
-  counter-reset: exercise eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book div.chapter > div.section {
   counter-increment: section;
@@ -1106,7 +1106,7 @@ div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t 
   prince-text-replace: "*" "";
 }
 div.book > div.appendix > div.cnx-eoc {
-  counter-reset: exercise eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book > div.appendix > div.section {
   counter-increment: section;
@@ -1404,6 +1404,17 @@ div.colophon.end-of-book-solutions div.appendix-area div.solution > div.title a.
   content: 'TARGET_EXERCISE';
   content: target-counter(attr(href), exercise);
 }
+div.cnx-eoc.cnx-solutions div.solution > div.title .epub-only {
+  display: none;
+}
+div.cnx-eoc.cnx-solutions div.solution > div.title a.solution {
+  content: '';
+}
+div.cnx-eoc.cnx-solutions div.solution > div.title a.solution::before {
+  font-weight: bold;
+  content: 'TARGET_EXERCISE';
+  content: target-counter(attr(href), exercise);
+}
 /*******************
  * Hide the (Return to Exercise) when solution is inside the exercise
  *******************/
@@ -1421,6 +1432,31 @@ div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
 }
 @page  {
   margin: 0.5in 1.5in;
+}
+.chapter > .cnx-eoc.cnx-solutions {
+  display: block;
+  color: gray;
+  float: bottom;
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+}
+.chapter > .cnx-eoc.cnx-solutions > .title {
+  display: none;
+}
+.chapter > .cnx-eoc.cnx-solutions > .solution {
+  display: inline;
+}
+.chapter > .cnx-eoc.cnx-solutions > .solution > a {
+  color: gray;
+}
+.chapter > .cnx-eoc.cnx-solutions > .solution * {
+  display: inline;
+}
+.chapter > .cnx-eoc.cnx-solutions > .solution > div {
+  margin: 0em 0.5em;
+}
+.chapter > .cnx-eoc.cnx-solutions > .solution > div.title {
+  border: 0em;
 }
 /******************************************************
  * Book Table of Contents

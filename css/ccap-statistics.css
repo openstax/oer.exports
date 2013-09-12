@@ -659,7 +659,7 @@ div.book > div.preface > div.titlepage > div > div h1.title span.cnx-gentext-t {
   prince-text-replace: "*" "";
 }
 div.book > div.preface > div.cnx-eoc {
-  counter-reset: exercise eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book > div.preface > div.section {
   counter-increment: section;
@@ -842,7 +842,7 @@ div.book > div.preface a.target-figure:not(.labeled) {
   content: "" "Figure " "" "" target-counter(attr(href), figure) "" "";
 }
 div.book > div.preface a.target-subfigure:not(.labeled) {
-  content: "" "Figure " "" "" target-counter(attr(href), target-counter(attr(href), subfigure, lower-alpha)) "" "";
+  content: "" "Figure " "" "" target-counter(attr(href), figure) target-counter(attr(href), subfigure, lower-latin) "";
 }
 div.book > div.preface a.target-table:not(.labeled) {
   content: "" "Table " "" "" target-counter(attr(href), table) "" "";
@@ -885,7 +885,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   prince-text-replace: "*" "";
 }
 div.book div.chapter > div.cnx-eoc {
-  counter-reset: exercise eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book div.chapter > div.section {
   counter-increment: section;
@@ -1068,7 +1068,7 @@ div.book div.chapter a.target-figure:not(.labeled) {
   content: "" "Figure " target-counter(attr(href), chapter) "." target-counter(attr(href), figure) "" "";
 }
 div.book div.chapter a.target-subfigure:not(.labeled) {
-  content: "" "Figure " target-counter(attr(href), chapter) "." target-counter(attr(href), target-counter(attr(href), subfigure, lower-alpha)) "" "";
+  content: "" "Figure " target-counter(attr(href), chapter) "." target-counter(attr(href), figure) target-counter(attr(href), subfigure, lower-latin) "";
 }
 div.book div.chapter a.target-table:not(.labeled) {
   content: "" "Table " target-counter(attr(href), chapter) "." target-counter(attr(href), table) "" "";
@@ -1105,7 +1105,7 @@ div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t 
   prince-text-replace: "*" "";
 }
 div.book > div.appendix > div.cnx-eoc {
-  counter-reset: exercise eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book > div.appendix > div.section {
   counter-increment: section;
@@ -1288,7 +1288,7 @@ div.book > div.appendix a.target-figure:not(.labeled) {
   content: "" "Figure " target-counter(attr(href), appendix, upper-latin) "" target-counter(attr(href), figure) "" "";
 }
 div.book > div.appendix a.target-subfigure:not(.labeled) {
-  content: "" "Figure " target-counter(attr(href), appendix, upper-latin) "" target-counter(attr(href), target-counter(attr(href), subfigure, lower-alpha)) "" "";
+  content: "" "Figure " target-counter(attr(href), appendix, upper-latin) "" target-counter(attr(href), figure) target-counter(attr(href), subfigure, lower-latin) "";
 }
 div.book > div.appendix a.target-table:not(.labeled) {
   content: "" "Table " target-counter(attr(href), appendix, upper-latin) "" target-counter(attr(href), table) "" "";
@@ -1399,6 +1399,20 @@ div.colophon.end-of-book-solutions div.appendix-area div.solution > div.title a.
 div.colophon.end-of-book-solutions div.preface-area div.solution > div.title a.solution::before,
 div.colophon.end-of-book-solutions div.chapter-area div.solution > div.title a.solution::before,
 div.colophon.end-of-book-solutions div.appendix-area div.solution > div.title a.solution::before {
+  font-weight: bold;
+  content: 'TARGET_EXERCISE';
+  content: target-counter(attr(href), exercise);
+}
+/**********************
+ * End of chapter Solutions
+ **********************/
+div.cnx-eoc.cnx-solutions div.solution > div.title .epub-only {
+  display: none;
+}
+div.cnx-eoc.cnx-solutions div.solution > div.title a.solution {
+  content: '';
+}
+div.cnx-eoc.cnx-solutions div.solution > div.title a.solution::before {
   font-weight: bold;
   content: 'TARGET_EXERCISE';
   content: target-counter(attr(href), exercise);
@@ -1561,7 +1575,7 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
 }
 .note.statistics.calculator {
   page-break-inside: avoid;
-  background-color: #ffffff;
+  background-color: transparent;
 }
 .note.statistics.calculator p:nth-of-type(2) {
   text-indent: 0em;
@@ -1601,6 +1615,9 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
 .note.statistics.calculator .figure > .title {
   font-size: x-small;
   color: #26397f;
+}
+.note.statistics.calculator::before {
+  background-color: transparent;
 }
 .note.statistics.collab {
   page-break-inside: avoid;
@@ -1894,7 +1911,19 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   display: none;
 }
 .note.statistics.try .exercise .solution {
-  display: none;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-weight: normal;
+  font-size: 8pt;
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+  padding-bottom: 1em;
+}
+.note.statistics.try .exercise .solution::before {
+  content: "Answer:";
 }
 /******************************************************
  * Finger icon implementation for generic notes
@@ -1929,6 +1958,10 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
 }
 .note {
   padding-bottom: 1em !important;
+}
+.note .table th {
+  background-color: transparent;
+  font-weight: normal;
 }
 /******************************************************
  * Book Table of Contents
@@ -2086,6 +2119,28 @@ div.part > div.titlepage {
   text-indent: 0em;
   margin-top: 1em;
 }
+.cnx-eoc.cnx-solutions {
+  -webkit-column-count: 1;
+  column-count: 1;
+  columns: 1;
+  column-fill: auto;
+  padding-top: 2em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+.cnx-eoc.cnx-solutions > .solution {
+  padding-top: .5em;
+  padding-bottom: .5em;
+}
+.cnx-eoc.cnx-solutions > .solution > .title {
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  padding-right: .5em;
+  display: inline;
+}
+.cnx-eoc.cnx-solutions > .solution > .body,
+.cnx-eoc.cnx-solutions > .solution > .body > p {
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  display: inline;
+}
 .cnx-eoc .references p {
   text-indent: 0em;
 }
@@ -2094,6 +2149,12 @@ div.part > div.titlepage {
 }
 .cnx-eoc .empty {
   display: hidden;
+}
+.cnx-eoc.references {
+  -webkit-column-count: 1;
+  column-count: 1;
+  columns: 1;
+  column-fill: auto;
 }
 .multiple-choice > .title {
   content: "Review Questions";
@@ -2122,8 +2183,7 @@ div.part > div.titlepage {
   margin-top: 1em;
 }
 .multiple-choice > .section > .title,
-.interactive-exercise > .section > .title,
-.formula-review > .section > .title {
+.interactive-exercise > .section > .title {
   display: none;
 }
 /******************************************************
@@ -2286,9 +2346,20 @@ subfigure {
 .example .solution {
   padding-top: 2em;
 }
+/*
+  W&N wanted table numbering in example exercise problems/solutions
+  to show up. We need a very large specificity value for this rule.
+*/
+.book .chapter > .section .example .exercise .table table caption::before {
+  display: inline;
+}
 .example .exercise {
   margin: 0;
   counter-increment: none !important;
+}
+.example .exercise .problem p,
+.example .exercise .solution p {
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .example .exercise .problem > .title {
   content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
@@ -2467,53 +2538,8 @@ div.book > div.part > div.appendix > div.cnx-eoc {
   counter-reset: exercise eoc-section -1;
 }
 div.end-of-book-solutions {
-  prince-text-replace: "Answer:" "";
+  display: none;
 }
-div.end-of-book-solutions > .title {
-  content: "Answer Key";
-  color: #26397f;
-  margin-left: -0.5em;
-  text-transform: uppercase;
-  font-size: x-large;
-  font-weight: bold;
-  background-color: transparent;
-}
-div.end-of-book-solutions .chapter-area {
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  -webkit-column-count: 2;
-  column-count: 2;
-  columns: 2;
-  column-fill: auto;
-}
-div.end-of-book-solutions .chapter-area > .title {
-  column-span: all;
-}
-div.end-of-book-solutions .chapter-area a.solution {
-  color: black;
-}
-div.end-of-book-solutions .chapter-area a.chapter * {
-  color: #000000;
-  font-size: medium;
-}
-div.end-of-book-references > .title {
-  font-size: x-large;
-  font-weight: bold;
-  background-color: transparent;
-  color: #26397f;
-  margin-left: -0.5em;
-}
-div.end-of-book-references > .chapter-area > .title {
-  color: #26397f;
-  font-weight: bold;
-  font-size: medium;
-  margin: .5em 0em;
-}
-div.end-of-book-references > .chapter-area > .body > p {
-  text-indent: 0em;
-  margin: .5em 0em;
-}
-div.end-of-book-references > .chapter-area > .body > p > a.link {
-  color: #26397f;
-  font-weight: normal;
-  text-decoration: underline;
+div.end-of-book-references {
+  display: none;
 }
