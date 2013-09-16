@@ -21,10 +21,16 @@
 
 // Fixed widths
 @qr-code-width: 94px;
+@figure-size-one: 225px;
 
 /******************************************************
  * Set the colors used by various elements.
  ******************************************************/
+
+// Links/References
+a {
+  color: @red;
+}
 
 // Section titles
 h2, h3, h4, h5, h6 {
@@ -46,6 +52,13 @@ h1.title {
     border-top-color: @orange;
   }
 }
+// Section titles
+.chapter h2 {
+    border-bottom-color: @orange;
+}
+.chapter h2, .chapter h2::before {
+    color: @red;
+}
 
 // Chapter Outline/TOC
 .chapter > .introduction > .toc > .title {
@@ -55,9 +68,21 @@ h1.title {
   color: @black;
 }
 
+// Learning Objectives/Chapter Objectives
+.note.chapter-objectives {
+  background-color: transparent;
+  border-bottom-color: @orange;
+}
+
 // Figures
 .figure > .title {
   color: @red;
+}
+
+// Tables
+.table table,
+.table table td {
+  border-color: @orange !important; // td's have inline style=""
 }
 
 /******************************************************
@@ -81,6 +106,8 @@ p {
 }
 .section > p {
   font-family: @font-family-serif;
+  font-size: 10pt;
+  line-height: 13pt;
 }
 
 /*
@@ -88,15 +115,25 @@ p {
    are uppercase. 
 */
 .section h3, .section h4 {
-  font: 700 normal normal 10pt @font-family-sans-serif;
+  font: 700 normal normal 11pt/13pt @font-family-sans-serif;
 }
 .section h3 {
   text-transform: uppercase;
 }
 
-.note.psychology p {
-  font-family: @font-family-sans-serif;
+.note.psychology {
+  .body > .title {
+    font-weight: 700;
+    font-size: 10pt;
+    line-height: 13pt;
+  }
+  p {
+    font-family: @font-family-sans-serif;
+    font-size: 9pt;
+    line-height: 12pt;
+  }
 }
+
 
 h1.title {
   text-transform: none;
@@ -174,6 +211,37 @@ div.book div.chapter > div.titlepage > div > div h1.title {
 }
 
 /******************************************************
+ * Sections
+ ******************************************************/
+div.book div.chapter div.titlepage > div > div > h2 {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+
+  margin: 0;
+  padding: 0.5em 0em;
+
+  span.cnx-gentext-t {
+
+    &::before {
+      content: "";
+    }
+  }
+}
+
+.module > .section {
+  margin-bottom: 2ex;
+}
+
+.section > .section > p {
+  //clearfix
+  &::after {
+    content: "";
+    display: table;
+    clear: both;  
+  }
+}
+
+/******************************************************
  * Chapter Outline/TOC
  ******************************************************/
 // Reset (ccap-psychology.less)
@@ -184,6 +252,66 @@ div.book div.chapter > div.titlepage > div > div h1.title {
 }
 .chapter > .introduction > .toc {
   border: none;
+}
+
+/******************************************************
+ * Learning Objectives/Chapter Objectives
+ ******************************************************/
+.note.chapter-objectives {
+  padding-left: 0;
+
+  margin-top: 1em;
+
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+
+  > .title {
+    border: none;
+    margin-top: 0;
+  }
+}
+
+/******************************************************
+ * Notes
+ ******************************************************/
+.section .note {
+  > .title {
+    border: none;
+  }
+}
+
+/******************************************************
+ * Tables
+ ******************************************************/
+.table table {
+  border-width: 1px;
+  border-style: solid;
+
+  > caption {
+    caption-side: top;
+
+    border-width: 1px;
+    border-style: solid;
+    border-bottom: none;
+  }
+}
+
+/******************************************************
+ * Figures
+ ******************************************************/
+.figure .body {
+  padding: 15px 0px;
+}
+
+.section .right-figure {
+  width: @figure-size-one;
+  float: right;
+  margin: 0 0 25px 25px;
+
+  .body {
+    padding-left: 0px;
+    text-align: left;
+  }
 }
 
 /******************************************************
@@ -207,27 +335,37 @@ div.book div.chapter > div.titlepage > div > div h1.title {
   border: 1px solid @border-color;
   border-radius: 15px;
   
-  margin-top: 25px; // Clear the title ::before.
+  margin-top: 48px; // Clear the title ::before.
   &::before {
     .x-feature-before-color(@title-color, @title);
     background-color: @background-color;
     border: 1px solid @title-border-color;
-    border-radius: 10px;
+    border-radius: 15px;
     width: 60%;
 
     // Reposition the titles
     position: absolute;
-    margin-top: -35px;
-    padding: 5px;
+    margin-top: -48px;
+    margin-left: -5px;
+    padding: 8px;
+    padding-left: 0px;
+
+    // Text styles
+    font-weight: 700;
+    font-size: 12pt;
+    text-indent: 0.1875in;
   }
 }
 .note {
   &.psychology {
     page-break-inside: avoid;
-    padding: 15px;
+    padding: 20px !important; // Override ccap-precalculus, which uses !important
 
     // Override .note:not(.precalculus) (ccap-precalculus.less)
     background-color: @white;
+    > .title {
+      margin: 0px;
+    }
 
     &.everyday-connection {
       .x-feature-color(@dark-blue, @dark-blue, @dark-blue, @orange, "everyday connection");
@@ -261,6 +399,17 @@ div.book div.chapter > div.titlepage > div > div h1.title {
     &.link-to-learning {
       .x-feature-color(@red, @orange, @white, @red, "link to learning");
 
+      // Padding relating to Qr-codes
+      > .body {
+        padding: 10px 10px 0px 10px;
+      }
+      .figure {
+        padding: 0px 10px;
+        .body {
+          padding: 0;
+        }
+      }
+
       //clearfix
       > .body::after {
         content: "";
@@ -274,6 +423,15 @@ div.book div.chapter > div.titlepage > div > div h1.title {
           display: none;
         }
       }
+    }
+
+    .body > .title {
+      padding: 0px 0px 10px 0px;
+    }
+
+    .figure {
+      padding-bottom: 0;
+      padding-top: 15px;
     }
   }
 }

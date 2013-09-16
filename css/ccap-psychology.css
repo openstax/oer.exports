@@ -3832,6 +3832,9 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
 /******************************************************
  * Set the colors used by various elements.
  ******************************************************/
+a {
+  color: #b8292f;
+}
 h2,
 h3,
 h4,
@@ -3851,14 +3854,29 @@ h1.title {
   color: #000000;
   border-top-color: #eead58;
 }
+.chapter h2 {
+  border-bottom-color: #eead58;
+}
+.chapter h2,
+.chapter h2::before {
+  color: #b8292f;
+}
 .chapter > .introduction > .toc > .title {
   color: #007196;
 }
 .chapter > .introduction > .toc a {
   color: #000000;
 }
+.note.chapter-objectives {
+  background-color: transparent;
+  border-bottom-color: #eead58;
+}
 .figure > .title {
   color: #b8292f;
+}
+.table table,
+.table table td {
+  border-color: #eead58 !important;
 }
 /******************************************************
  *
@@ -3878,6 +3896,8 @@ p {
 }
 .section > p {
   font-family: FreeSerif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 10pt;
+  line-height: 13pt;
 }
 /*
    Nested section titles are sans-serif, outer sections 
@@ -3885,13 +3905,20 @@ p {
 */
 .section h3,
 .section h4 {
-  font: 700 normal normal 10pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font: 700 normal normal 11pt/13pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .section h3 {
   text-transform: uppercase;
 }
+.note.psychology .body > .title {
+  font-weight: 700;
+  font-size: 10pt;
+  line-height: 13pt;
+}
 .note.psychology p {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 9pt;
+  line-height: 12pt;
 }
 h1.title {
   text-transform: none;
@@ -3947,6 +3974,26 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::be
   content: "";
 }
 /******************************************************
+ * Sections
+ ******************************************************/
+div.book div.chapter div.titlepage > div > div > h2 {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  margin: 0;
+  padding: 0.5em 0em;
+}
+div.book div.chapter div.titlepage > div > div > h2 span.cnx-gentext-t::before {
+  content: "";
+}
+.module > .section {
+  margin-bottom: 2ex;
+}
+.section > .section > p::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/******************************************************
  * Chapter Outline/TOC
  ******************************************************/
 .chapter > .introduction > .toc > .title {
@@ -3956,6 +4003,53 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::be
 }
 .chapter > .introduction > .toc {
   border: none;
+}
+/******************************************************
+ * Learning Objectives/Chapter Objectives
+ ******************************************************/
+.note.chapter-objectives {
+  padding-left: 0;
+  margin-top: 1em;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+.note.chapter-objectives > .title {
+  border: none;
+  margin-top: 0;
+}
+/******************************************************
+ * Notes
+ ******************************************************/
+.section .note > .title {
+  border: none;
+}
+/******************************************************
+ * Tables
+ ******************************************************/
+.table table {
+  border-width: 1px;
+  border-style: solid;
+}
+.table table > caption {
+  caption-side: top;
+  border-width: 1px;
+  border-style: solid;
+  border-bottom: none;
+}
+/******************************************************
+ * Figures
+ ******************************************************/
+.figure .body {
+  padding: 15px 0px;
+}
+.section .right-figure {
+  width: 225px;
+  float: right;
+  margin: 0 0 25px 25px;
+}
+.section .right-figure .body {
+  padding-left: 0px;
+  text-align: left;
 }
 /******************************************************
  * Custom psychology elements
@@ -3970,14 +4064,17 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::be
  ******************************************************/
 .note.psychology {
   page-break-inside: avoid;
-  padding: 15px;
+  padding: 20px !important;
   background-color: #ffffff;
+}
+.note.psychology > .title {
+  margin: 0px;
 }
 .note.psychology.everyday-connection {
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #25408f;
   border-radius: 15px;
-  margin-top: 25px;
+  margin-top: 48px;
 }
 .note.psychology.everyday-connection::before {
   text-transform: uppercase;
@@ -3985,17 +4082,22 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::be
   content: "everyday connection";
   background-color: #eead58;
   border: 1px solid #25408f;
-  border-radius: 10px;
+  border-radius: 15px;
   width: 60%;
   position: absolute;
-  margin-top: -35px;
-  padding: 5px;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
 }
 .note.psychology.dig-deeper {
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #25408f;
   border-radius: 15px;
-  margin-top: 25px;
+  margin-top: 48px;
 }
 .note.psychology.dig-deeper::before {
   text-transform: uppercase;
@@ -4003,17 +4105,22 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::be
   content: "dig deeper";
   background-color: #25408f;
   border: 1px solid #eead58;
-  border-radius: 10px;
+  border-radius: 15px;
   width: 60%;
   position: absolute;
-  margin-top: -35px;
-  padding: 5px;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
 }
 .note.psychology.what-do-you-think {
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #25408f;
   border-radius: 15px;
-  margin-top: 25px;
+  margin-top: 48px;
 }
 .note.psychology.what-do-you-think::before {
   text-transform: uppercase;
@@ -4021,17 +4128,22 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::be
   content: "what do you think?";
   background-color: #3f989b;
   border: 1px solid #25408f;
-  border-radius: 10px;
+  border-radius: 15px;
   width: 60%;
   position: absolute;
-  margin-top: -35px;
-  padding: 5px;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
 }
 .note.psychology.connect-the-concepts {
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #007196;
   border-radius: 15px;
-  margin-top: 25px;
+  margin-top: 48px;
   padding: 0px;
 }
 .note.psychology.connect-the-concepts::before {
@@ -4040,11 +4152,16 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::be
   content: "connect the concepts";
   background-color: transparent;
   border: 1px solid transparent;
-  border-radius: 10px;
+  border-radius: 15px;
   width: 60%;
   position: absolute;
-  margin-top: -35px;
-  padding: 5px;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
 }
 .note.psychology.connect-the-concepts::before,
 .note.psychology.connect-the-concepts > .title::before {
@@ -4069,7 +4186,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::be
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #b8292f;
   border-radius: 15px;
-  margin-top: 25px;
+  margin-top: 48px;
 }
 .note.psychology.link-to-learning::before {
   text-transform: uppercase;
@@ -4077,11 +4194,25 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::be
   content: "link to learning";
   background-color: #b8292f;
   border: 1px solid #eead58;
-  border-radius: 10px;
+  border-radius: 15px;
   width: 60%;
   position: absolute;
-  margin-top: -35px;
-  padding: 5px;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.note.psychology.link-to-learning > .body {
+  padding: 10px 10px 0px 10px;
+}
+.note.psychology.link-to-learning .figure {
+  padding: 0px 10px;
+}
+.note.psychology.link-to-learning .figure .body {
+  padding: 0;
 }
 .note.psychology.link-to-learning > .body::after {
   content: "";
@@ -4094,6 +4225,13 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::be
 }
 .note.psychology.link-to-learning .figure .title {
   display: none;
+}
+.note.psychology .body > .title {
+  padding: 0px 0px 10px 0px;
+}
+.note.psychology .figure {
+  padding-bottom: 0;
+  padding-top: 15px;
 }
 /* ----------------------------------
  * End of chapter customizations
