@@ -659,7 +659,7 @@ div.book > div.preface > div.titlepage > div > div h1.title span.cnx-gentext-t {
   prince-text-replace: "*" "";
 }
 div.book > div.preface > div.cnx-eoc {
-  counter-reset: exercise eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book > div.preface > div.section {
   counter-increment: section;
@@ -853,6 +853,9 @@ div.book > div.preface a.target-example:not(.labeled) {
 div.book > div.preface a.target-exercise:not(.labeled) {
   content: "" "Exercise " "" "" target-counter(attr(href), exercise) "" "";
 }
+div.book > div.preface a.target-inlineequation {
+  content: "" "Equation " "" "" counter(equation) "";
+}
 div.book > div.preface > div.section > div.titlepage h2::before {
   display: none !important;
 }
@@ -885,7 +888,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   prince-text-replace: "*" "";
 }
 div.book div.chapter > div.cnx-eoc {
-  counter-reset: exercise eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book div.chapter > div.section {
   counter-increment: section;
@@ -1079,6 +1082,9 @@ div.book div.chapter a.target-example:not(.labeled) {
 div.book div.chapter a.target-exercise:not(.labeled) {
   content: "" "Exercise " target-counter(attr(href), chapter) "." target-counter(attr(href), exercise) "" "";
 }
+div.book div.chapter a.target-inlineequation {
+  content: "" "Equation " counter(chapter, decimal) "." counter(equation) "";
+}
 div.book > div.appendix {
   counter-reset: section figure subfigure table equation example exercise footnote toc-section;
   /* Cases where sections are referenced */
@@ -1105,7 +1111,7 @@ div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t 
   prince-text-replace: "*" "";
 }
 div.book > div.appendix > div.cnx-eoc {
-  counter-reset: exercise eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book > div.appendix > div.section {
   counter-increment: section;
@@ -1299,6 +1305,9 @@ div.book > div.appendix a.target-example:not(.labeled) {
 div.book > div.appendix a.target-exercise:not(.labeled) {
   content: "" "Exercise " target-counter(attr(href), appendix, upper-latin) "" target-counter(attr(href), exercise) "" "";
 }
+div.book > div.appendix a.target-inlineequation {
+  content: "" "Equation " counter(appendix, upper-latin) "" counter(equation) "";
+}
 div.book .empty {
   visibility: hidden;
   max-height: 0em;
@@ -1399,6 +1408,20 @@ div.colophon.end-of-book-solutions div.appendix-area div.solution > div.title a.
 div.colophon.end-of-book-solutions div.preface-area div.solution > div.title a.solution::before,
 div.colophon.end-of-book-solutions div.chapter-area div.solution > div.title a.solution::before,
 div.colophon.end-of-book-solutions div.appendix-area div.solution > div.title a.solution::before {
+  font-weight: bold;
+  content: 'TARGET_EXERCISE';
+  content: target-counter(attr(href), exercise);
+}
+/**********************
+ * End of chapter Solutions
+ **********************/
+div.cnx-eoc.cnx-solutions div.solution > div.title .epub-only {
+  display: none;
+}
+div.cnx-eoc.cnx-solutions div.solution > div.title a.solution {
+  content: '';
+}
+div.cnx-eoc.cnx-solutions div.solution > div.title a.solution::before {
   font-weight: bold;
   content: 'TARGET_EXERCISE';
   content: target-counter(attr(href), exercise);
