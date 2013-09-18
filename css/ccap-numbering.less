@@ -91,11 +91,14 @@ div.book {
   }
 
   > div.section               { .x-increment(section); }   // Only increment top-level sections
-  div.figure                  { .x-increment(figure); }
-  div.figure > div.body > div.figure {
+  div.figure                  { .x-increment(figure); counter-reset: subfigure; }  
+  // code for handling subfigures - assuming that this structure is the only way that figure/subfigure selectors are grouped
+  .figure .informalfigure     {
                                 .x-increment(subfigure);
-                                &:nth-of-type(1) { counter-reset: subfigure; }
+                                // Fix for chromium/webkit bug
+                                counter-reset: none-webkit-bug;
                               }
+  
   .table                      { .x-increment(table); }
   > div.section div.example   { .x-increment(example); }
   > div.cnx-eoc div.exercise,
@@ -194,7 +197,10 @@ div.book {
   a.target-table      { .x-link(@table, table); }
   a.target-example    { .x-link(@example, example); }
   a.target-exercise   { .x-link(@exercise, exercise); }
-  a.target-inlineequation { content: @S "Equation " @part-counter @part-separator counter(equation) @E; }
+  
+  a.target-equation, a.target-inlineequation, a.target-informalequation { 
+    content: @S "Equation " @part-counter @part-separator counter(equation) @E;
+  }
 
  // a.target-section  { .x-link(@section, section); }
 } // .x-prefixed()
@@ -345,3 +351,5 @@ div.book {
     }
   }
 }
+
+

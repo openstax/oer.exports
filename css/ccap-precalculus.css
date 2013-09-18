@@ -672,6 +672,7 @@ div.book > div.preface > div.section.labeled {
 }
 div.book > div.preface div.figure {
   counter-increment: figure;
+  counter-reset: subfigure;
 }
 div.book > div.preface div.figure:not(.labeled) {
   counter-increment: figure;
@@ -679,17 +680,15 @@ div.book > div.preface div.figure:not(.labeled) {
 div.book > div.preface div.figure.labeled {
   counter-increment: none;
 }
-div.book > div.preface div.figure > div.body > div.figure {
+div.book > div.preface .figure .informalfigure {
+  counter-increment: subfigure;
+  counter-reset: none-webkit-bug;
+}
+div.book > div.preface .figure .informalfigure:not(.labeled) {
   counter-increment: subfigure;
 }
-div.book > div.preface div.figure > div.body > div.figure:not(.labeled) {
-  counter-increment: subfigure;
-}
-div.book > div.preface div.figure > div.body > div.figure.labeled {
+div.book > div.preface .figure .informalfigure.labeled {
   counter-increment: none;
-}
-div.book > div.preface div.figure > div.body > div.figure:nth-of-type(1) {
-  counter-reset: subfigure;
 }
 div.book > div.preface .table {
   counter-increment: table;
@@ -853,7 +852,9 @@ div.book > div.preface a.target-example:not(.labeled) {
 div.book > div.preface a.target-exercise:not(.labeled) {
   content: "" "Exercise " "" "" target-counter(attr(href), exercise) "" "";
 }
-div.book > div.preface a.target-inlineequation {
+div.book > div.preface a.target-equation,
+div.book > div.preface a.target-inlineequation,
+div.book > div.preface a.target-informalequation {
   content: "" "Equation " "" "" counter(equation) "";
 }
 div.book > div.preface > div.section > div.titlepage h2::before {
@@ -901,6 +902,7 @@ div.book div.chapter > div.section.labeled {
 }
 div.book div.chapter div.figure {
   counter-increment: figure;
+  counter-reset: subfigure;
 }
 div.book div.chapter div.figure:not(.labeled) {
   counter-increment: figure;
@@ -908,17 +910,15 @@ div.book div.chapter div.figure:not(.labeled) {
 div.book div.chapter div.figure.labeled {
   counter-increment: none;
 }
-div.book div.chapter div.figure > div.body > div.figure {
+div.book div.chapter .figure .informalfigure {
+  counter-increment: subfigure;
+  counter-reset: none-webkit-bug;
+}
+div.book div.chapter .figure .informalfigure:not(.labeled) {
   counter-increment: subfigure;
 }
-div.book div.chapter div.figure > div.body > div.figure:not(.labeled) {
-  counter-increment: subfigure;
-}
-div.book div.chapter div.figure > div.body > div.figure.labeled {
+div.book div.chapter .figure .informalfigure.labeled {
   counter-increment: none;
-}
-div.book div.chapter div.figure > div.body > div.figure:nth-of-type(1) {
-  counter-reset: subfigure;
 }
 div.book div.chapter .table {
   counter-increment: table;
@@ -1082,7 +1082,9 @@ div.book div.chapter a.target-example:not(.labeled) {
 div.book div.chapter a.target-exercise:not(.labeled) {
   content: "" "Exercise " target-counter(attr(href), chapter) "." target-counter(attr(href), exercise) "" "";
 }
-div.book div.chapter a.target-inlineequation {
+div.book div.chapter a.target-equation,
+div.book div.chapter a.target-inlineequation,
+div.book div.chapter a.target-informalequation {
   content: "" "Equation " counter(chapter, decimal) "." counter(equation) "";
 }
 div.book > div.appendix {
@@ -1124,6 +1126,7 @@ div.book > div.appendix > div.section.labeled {
 }
 div.book > div.appendix div.figure {
   counter-increment: figure;
+  counter-reset: subfigure;
 }
 div.book > div.appendix div.figure:not(.labeled) {
   counter-increment: figure;
@@ -1131,17 +1134,15 @@ div.book > div.appendix div.figure:not(.labeled) {
 div.book > div.appendix div.figure.labeled {
   counter-increment: none;
 }
-div.book > div.appendix div.figure > div.body > div.figure {
+div.book > div.appendix .figure .informalfigure {
+  counter-increment: subfigure;
+  counter-reset: none-webkit-bug;
+}
+div.book > div.appendix .figure .informalfigure:not(.labeled) {
   counter-increment: subfigure;
 }
-div.book > div.appendix div.figure > div.body > div.figure:not(.labeled) {
-  counter-increment: subfigure;
-}
-div.book > div.appendix div.figure > div.body > div.figure.labeled {
+div.book > div.appendix .figure .informalfigure.labeled {
   counter-increment: none;
-}
-div.book > div.appendix div.figure > div.body > div.figure:nth-of-type(1) {
-  counter-reset: subfigure;
 }
 div.book > div.appendix .table {
   counter-increment: table;
@@ -1305,7 +1306,9 @@ div.book > div.appendix a.target-example:not(.labeled) {
 div.book > div.appendix a.target-exercise:not(.labeled) {
   content: "" "Exercise " target-counter(attr(href), appendix, upper-latin) "" target-counter(attr(href), exercise) "" "";
 }
-div.book > div.appendix a.target-inlineequation {
+div.book > div.appendix a.target-equation,
+div.book > div.appendix a.target-inlineequation,
+div.book > div.appendix a.target-informalequation {
   content: "" "Equation " counter(appendix, upper-latin) "" counter(equation) "";
 }
 div.book .empty {
