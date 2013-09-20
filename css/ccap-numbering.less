@@ -91,10 +91,12 @@ div.book {
   }
 
   > div.section               { .x-increment(section); }   // Only increment top-level sections
-  div.figure                  { .x-increment(figure); }
-  div.figure > div.body > div.figure {
+  div.figure                  { .x-increment(figure); counter-reset: subfigure; }  
+  // code for handling subfigures - assuming that this structure is the only way that figure/subfigure selectors are grouped
+  .figure .informalfigure     {
                                 .x-increment(subfigure);
-                                &:nth-of-type(1) { counter-reset: subfigure; }
+                                // Fix for chromium/webkit bug
+                                counter-reset: none-webkit-bug;
                               }
   .table                      { .x-increment(table); }
   > div.section div.example   { .x-increment(example); }
@@ -343,3 +345,5 @@ div.book {
     }
   }
 }
+
+
