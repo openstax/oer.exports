@@ -3842,6 +3842,10 @@ h5,
 h6 {
   color: #000000;
 }
+.introduction h3.title {
+  color: #b8292f;
+  border-bottom-color: #eead58;
+}
 h1.title {
   color: #b8292f;
   border-bottom-color: #eead58;
@@ -3878,6 +3882,24 @@ h1.title {
 .table table td {
   border-color: #eead58 !important;
 }
+.table table .table-caption.caption {
+  color: #b8292f;
+}
+.glossary .title,
+div.cnx-eoc > .title {
+  color: #b8292f !important;
+  border-bottom-color: #eead58;
+}
+div.cnx-eoc.summary > .section .title > a {
+  color: #000000;
+}
+div.end-of-book-solutions > h1.title,
+div.end-of-book-references > h1.title,
+.index .title,
+.index .title h2 {
+  color: #b8292f;
+  border-bottom-color: #eead58;
+}
 /******************************************************
  *
  * Font/Text styles.
@@ -3887,9 +3909,6 @@ h1.title {
  *   Psychology notes/features
  *
  ******************************************************/
-/*
-  The majority of section text is serif.
-*/
 p {
   hyphens: auto;
   text-align: justify;
@@ -3899,16 +3918,20 @@ p {
   font-size: 10pt;
   line-height: 13pt;
 }
-/*
-   Nested section titles are sans-serif, outer sections 
-   are uppercase. 
-*/
 .section h3,
 .section h4 {
   font: 700 normal normal 11pt/13pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .section h3 {
   text-transform: uppercase;
+}
+.preface > .section h2,
+.preface > .section h3 {
+  font-size: 11pt;
+  line-height: 13pt;
+}
+.preface > .section h3 {
+  text-transform: none;
 }
 .note.psychology .body > .title {
   font-weight: 700;
@@ -3920,7 +3943,10 @@ p {
   font-size: 9pt;
   line-height: 12pt;
 }
-h1.title {
+h1.title,
+div.end-of-book-solutions > h1.title,
+div.end-of-book-references > h1.title,
+.index .title h2 {
   text-transform: none;
   font-size: 18pt;
   font-weight: 700;
@@ -3947,6 +3973,52 @@ h1.title {
 .chapter > .introduction > .toc ul {
   margin-left: 0.125in;
 }
+.note.chapter-objectives {
+  font-size: 10pt;
+  line-height: 14pt;
+}
+.chapter h2,
+.chapter h2::before,
+.chapter > .introduction > h3.title {
+  font-size: 14pt;
+  line-height: 17pt;
+  font-weight: 700;
+}
+.table table .table-caption.caption {
+  font-size: 10pt;
+  font-weight: 700 !important;
+  line-height: 13pt;
+}
+.table table td {
+  font-family: FreeSerif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 10pt;
+  line-height: 14pt;
+}
+.glossary .title,
+div.cnx-eoc > .title {
+  font-size: 12pt !important;
+  font-weight: 700 !important;
+  text-transform: none !important;
+}
+div.cnx-eoc.summary > .section .title > a {
+  font-size: 10pt;
+  line-height: 13pt;
+  font-weight: 700;
+  font-family: FreeSerif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+.chapter .glossary,
+.chapter .summary,
+.chapter .review-questions,
+.chapter .critical-thinking,
+.chapter .personal-application,
+.chapter .solutions {
+  font-size: 10pt;
+  line-height: 13pt;
+}
+.index .letter,
+.index .index-term {
+  font-family: FreeSerif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
 /******************************************************
  * Preface
  ******************************************************/
@@ -3955,6 +4027,21 @@ h1.title {
   padding-left: 0;
   border-bottom-width: 1px;
   border-bottom-style: solid;
+}
+.preface .titlepage h2,
+.preface .titlepage h3 {
+  margin-top: 20px;
+}
+/******************************************************
+ * Introduction
+ ******************************************************/
+.chapter > .introduction .toc a {
+  margin: 0;
+}
+.chapter > .introduction > h3.title {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  padding: 0.2em 0em;
 }
 /******************************************************
  * Chapters
@@ -3967,11 +4054,17 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   padding-left: 0;
   border-top-width: 1px;
   border-top-style: solid;
-  margin-top: 10px;
+  margin-top: 5px;
   padding-top: 10px;
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::before {
   content: "";
+}
+div.figure.splash {
+  padding-bottom: 1.5em;
+}
+div.figure.splash .body {
+  padding-bottom: .45em;
 }
 /******************************************************
  * Sections
@@ -3980,18 +4073,25 @@ div.book div.chapter div.titlepage > div > div > h2 {
   border-bottom-width: 1px;
   border-bottom-style: solid;
   margin: 0;
-  padding: 0.5em 0em;
+  padding: 0.2em 0em;
 }
 div.book div.chapter div.titlepage > div > div > h2 span.cnx-gentext-t::before {
   content: "";
-}
-.module > .section {
-  margin-bottom: 2ex;
 }
 .section > .section > p::after {
   content: "";
   display: table;
   clear: both;
+}
+.chapter > .introduction,
+.chapter > .module {
+  margin: 1em 0;
+}
+.module:not(.introduction) > .section {
+  padding-top: 1.2em;
+}
+.module:not(.introduction) > .section > .section {
+  padding-top: 1.5em;
 }
 /******************************************************
  * Chapter Outline/TOC
@@ -4009,7 +4109,8 @@ div.book div.chapter div.titlepage > div > div > h2 span.cnx-gentext-t::before {
  ******************************************************/
 .note.chapter-objectives {
   padding-left: 0;
-  margin-top: 1em;
+  margin-top: 0em;
+  padding-top: 0;
   border-bottom-width: 1px;
   border-bottom-style: solid;
 }
@@ -4036,9 +4137,28 @@ div.book div.chapter div.titlepage > div > div > h2 span.cnx-gentext-t::before {
   border-style: solid;
   border-bottom: none;
 }
+.table table > caption .table-caption.caption {
+  padding-left: 5px;
+}
+.table table > caption,
+.table table td {
+  padding: 10px;
+}
+/******************************************************
+ * Lists
+ ******************************************************/
+div:not(.body) > .itemizedlist > .itemizedlist > .listitem {
+  padding-top: 15px;
+}
+div:not(.body) > .itemizedlist > .itemizedlist > .listitem:last-child {
+  padding-bottom: 15px;
+}
 /******************************************************
  * Figures
  ******************************************************/
+.figure {
+  padding-bottom: 3em;
+}
 .figure .body {
   padding: 15px 0px;
 }
@@ -4046,10 +4166,54 @@ div.book div.chapter div.titlepage > div > div > h2 span.cnx-gentext-t::before {
   width: 225px;
   float: right;
   margin: 0 0 25px 25px;
+  padding: 0px;
 }
 .section .right-figure .body {
   padding-left: 0px;
+  padding-top: 0px;
   text-align: left;
+}
+/******************************************************
+ * Collated titles
+ ******************************************************/
+.glossary .title,
+div.cnx-eoc > .title {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+/******************************************************
+ * Key Terms
+ ******************************************************/
+.glossary dl {
+  margin: 1em 0;
+}
+.glossary dd {
+  margin-left: 0px;
+}
+.cnx-eoc .title {
+  padding-bottom: 4px;
+}
+/******************************************************
+ * References/Solutions
+ ******************************************************/
+div.end-of-book-solutions > h1.title,
+div.end-of-book-references > h1.title {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  margin-left: 0px;
+  padding-left: 0px;
+}
+.index h3 {
+  margin: 1em 0em 0em;
+}
+.index .title {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  column-span: all;
+  margin-bottom: 1em;
+}
+.index .index-term {
+  padding-bottom: 5px;
 }
 /******************************************************
  * Custom psychology elements
