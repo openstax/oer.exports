@@ -881,7 +881,7 @@ Combination of formal.object and formal.object.heading -->
 
 <!-- Put the equation number on the RHS -->
 <xsl:template match="db:equation|db:inlineequation">
-  <div>
+  <div id="{@xml:id}">
     <xsl:call-template name="common.html.attributes"/>
 
     <!-- Put the label before the equation so it can float: right; -->

@@ -672,6 +672,7 @@ div.book > div.preface > div.section.labeled {
 }
 div.book > div.preface div.figure {
   counter-increment: figure;
+  counter-reset: subfigure;
 }
 div.book > div.preface div.figure:not(.labeled) {
   counter-increment: figure;
@@ -679,17 +680,15 @@ div.book > div.preface div.figure:not(.labeled) {
 div.book > div.preface div.figure.labeled {
   counter-increment: none;
 }
-div.book > div.preface div.figure > div.body > div.figure {
+div.book > div.preface .figure .informalfigure {
+  counter-increment: subfigure;
+  counter-reset: none-webkit-bug;
+}
+div.book > div.preface .figure .informalfigure:not(.labeled) {
   counter-increment: subfigure;
 }
-div.book > div.preface div.figure > div.body > div.figure:not(.labeled) {
-  counter-increment: subfigure;
-}
-div.book > div.preface div.figure > div.body > div.figure.labeled {
+div.book > div.preface .figure .informalfigure.labeled {
   counter-increment: none;
-}
-div.book > div.preface div.figure > div.body > div.figure:nth-of-type(1) {
-  counter-reset: subfigure;
 }
 div.book > div.preface .table {
   counter-increment: table;
@@ -853,6 +852,11 @@ div.book > div.preface a.target-example:not(.labeled) {
 div.book > div.preface a.target-exercise:not(.labeled) {
   content: "" "Exercise " "" "" target-counter(attr(href), exercise) "" "";
 }
+div.book > div.preface a.target-equation:not(.labeled),
+div.book > div.preface a.target-inlineequation:not(.labeled),
+div.book > div.preface a.target-informalequation:not(.labeled) {
+  content: "" "Equation " "" "" target-counter(attr(href), equation) "" "";
+}
 div.book > div.preface > div.section > div.titlepage h2::before {
   display: none !important;
 }
@@ -898,6 +902,7 @@ div.book div.chapter > div.section.labeled {
 }
 div.book div.chapter div.figure {
   counter-increment: figure;
+  counter-reset: subfigure;
 }
 div.book div.chapter div.figure:not(.labeled) {
   counter-increment: figure;
@@ -905,17 +910,15 @@ div.book div.chapter div.figure:not(.labeled) {
 div.book div.chapter div.figure.labeled {
   counter-increment: none;
 }
-div.book div.chapter div.figure > div.body > div.figure {
+div.book div.chapter .figure .informalfigure {
+  counter-increment: subfigure;
+  counter-reset: none-webkit-bug;
+}
+div.book div.chapter .figure .informalfigure:not(.labeled) {
   counter-increment: subfigure;
 }
-div.book div.chapter div.figure > div.body > div.figure:not(.labeled) {
-  counter-increment: subfigure;
-}
-div.book div.chapter div.figure > div.body > div.figure.labeled {
+div.book div.chapter .figure .informalfigure.labeled {
   counter-increment: none;
-}
-div.book div.chapter div.figure > div.body > div.figure:nth-of-type(1) {
-  counter-reset: subfigure;
 }
 div.book div.chapter .table {
   counter-increment: table;
@@ -1079,6 +1082,11 @@ div.book div.chapter a.target-example:not(.labeled) {
 div.book div.chapter a.target-exercise:not(.labeled) {
   content: "" "Exercise " target-counter(attr(href), chapter) "." target-counter(attr(href), exercise) "" "";
 }
+div.book div.chapter a.target-equation:not(.labeled),
+div.book div.chapter a.target-inlineequation:not(.labeled),
+div.book div.chapter a.target-informalequation:not(.labeled) {
+  content: "" "Equation " target-counter(attr(href), chapter) "." target-counter(attr(href), equation) "" "";
+}
 div.book > div.appendix {
   counter-reset: section figure subfigure table equation example exercise footnote toc-section;
   /* Cases where sections are referenced */
@@ -1118,6 +1126,7 @@ div.book > div.appendix > div.section.labeled {
 }
 div.book > div.appendix div.figure {
   counter-increment: figure;
+  counter-reset: subfigure;
 }
 div.book > div.appendix div.figure:not(.labeled) {
   counter-increment: figure;
@@ -1125,17 +1134,15 @@ div.book > div.appendix div.figure:not(.labeled) {
 div.book > div.appendix div.figure.labeled {
   counter-increment: none;
 }
-div.book > div.appendix div.figure > div.body > div.figure {
+div.book > div.appendix .figure .informalfigure {
+  counter-increment: subfigure;
+  counter-reset: none-webkit-bug;
+}
+div.book > div.appendix .figure .informalfigure:not(.labeled) {
   counter-increment: subfigure;
 }
-div.book > div.appendix div.figure > div.body > div.figure:not(.labeled) {
-  counter-increment: subfigure;
-}
-div.book > div.appendix div.figure > div.body > div.figure.labeled {
+div.book > div.appendix .figure .informalfigure.labeled {
   counter-increment: none;
-}
-div.book > div.appendix div.figure > div.body > div.figure:nth-of-type(1) {
-  counter-reset: subfigure;
 }
 div.book > div.appendix .table {
   counter-increment: table;
@@ -1298,6 +1305,11 @@ div.book > div.appendix a.target-example:not(.labeled) {
 }
 div.book > div.appendix a.target-exercise:not(.labeled) {
   content: "" "Exercise " target-counter(attr(href), appendix, upper-latin) "" target-counter(attr(href), exercise) "" "";
+}
+div.book > div.appendix a.target-equation:not(.labeled),
+div.book > div.appendix a.target-inlineequation:not(.labeled),
+div.book > div.appendix a.target-informalequation:not(.labeled) {
+  content: "" "Equation " target-counter(attr(href), appendix, upper-latin) "" target-counter(attr(href), equation) "" "";
 }
 div.book .empty {
   visibility: hidden;
@@ -1574,7 +1586,6 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
 
 }
 .note.statistics.calculator {
-  page-break-inside: avoid;
   background-color: transparent;
 }
 .note.statistics.calculator p:nth-of-type(2) {
@@ -1620,7 +1631,6 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   background-color: transparent;
 }
 .note.statistics.collab {
-  page-break-inside: avoid;
   background-color: #ecf1ef;
 }
 .note.statistics.collab p:nth-of-type(2) {
@@ -1672,7 +1682,6 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   margin-top: 1em;
 }
 .note.statistics.lab {
-  page-break-inside: avoid;
   background-color: #ecf1ef;
   /******************************************************
        * Statistics Lab Feature Heading/SubHeading styling
@@ -1739,7 +1748,6 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   padding-top: 2px;
 }
 .note.statistics.interactive {
-  page-break-inside: avoid;
   background-color: #ecf1ef;
 }
 .note.statistics.interactive p:nth-of-type(2) {
@@ -1834,7 +1842,6 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   color: #26397f;
 }
 .note.statistics.try {
-  page-break-inside: avoid;
   background-color: #ecf1ef;
   /******************************************************
        * Try-It Feature styling/finger icon implementation
@@ -1911,19 +1918,37 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   display: none;
 }
 .note.statistics.try .exercise .solution {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  font-weight: normal;
-  font-size: 8pt;
-  transform: rotate(180deg);
-  -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -o-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
-  padding-bottom: 1em;
-}
-.note.statistics.try .exercise .solution::before {
-  content: "Answer:";
+  display: none;
+  /* 
+          W&N Doesn't want solutions utilized in the text at this point
+          and plan on creating separate solutions manual(s) for text
+
+          font-family: @font-family;
+          font-weight: normal;
+          font-size: 8pt;
+
+          // flip answer to solution 180 degrees per template. Utilize web extensions
+          // for use inside the browser for troubleshooting if needed.
+          transform: rotate(180deg);
+          // Chrome and Safari
+          -webkit-transform: rotate(180deg);
+          // Firefox
+          -moz-transform: rotate(180deg);
+          // Opera
+          -o-transform: rotate(180deg);
+          // IE9 and above
+          -ms-transform: rotate(180deg);
+          // support for IE 8 and lower
+          filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2.0);
+
+          // make sure some space is added so solution and question don't touch
+          padding-bottom: 1em;
+
+          // Replace the default text that rendered with cnxml solution to Answer
+          &::before {
+            content: "Answer:";
+          }*/
+
 }
 /******************************************************
  * Finger icon implementation for generic notes
@@ -2326,8 +2351,8 @@ subfigure {
 /******************************************************
  * Example Elements Styling and Numbering
  ******************************************************/
-.example {
-  page-break-inside: avoid;
+.example > * {
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .example > .title {
   background: #26397f;
@@ -2356,10 +2381,6 @@ subfigure {
 .example .exercise {
   margin: 0;
   counter-increment: none !important;
-}
-.example .exercise .problem p,
-.example .exercise .solution p {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .example .exercise .problem > .title {
   content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
