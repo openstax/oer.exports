@@ -127,12 +127,18 @@ div.cnx-eoc.summary > .section .title > a {
   color: @black;
 }
 
-div.end-of-book-solutions > h1.title,
-div.end-of-book-references > h1.title,
+.colophon > h1.title,
+.colophon > h1.title,
+.book > .toc > .title,
 .index .title,
 .index .title h2{
   color: @red;
   border-bottom-color: @orange;
+  background-color: transparent;
+}
+
+.book > .toc a {
+  color: @red;
 }
 
 /******************************************************
@@ -145,15 +151,21 @@ div.end-of-book-references > h1.title,
  *
  ******************************************************/
 @font-family-sans-serif: Liberation Sans, sans-serif, @stix-fonts;
-@font-family-serif: FreeSerif, serif, @stix-fonts;
+@font-family-serif: URW Palladio L, serif, @stix-fonts;
 
 //  The majority of section text is serif.
 p {
   hyphens: auto;
   text-align: justify;
 }
+p,
 .section > p {
   font: 10pt/13pt @font-family-serif;
+}
+
+.book > .toc a,
+.book > .toc .toc-section > a {
+  font: 10pt/13pt @font-family-sans-serif;
 }
 
 .preface > .section h2,
@@ -193,12 +205,17 @@ p {
 }
 
 h1.title,
-div.end-of-book-solutions > h1.title,
-div.end-of-book-references > h1.title,
+.colophon > h1.title,
+.colophon > h1.title,
+.book > .toc > .title,
 .index .title h2 {
   text-transform: none;
   font-size: 18pt;
   font-weight: 700;
+  text-align: left;
+}
+.colophon > table {
+  font: 400 normal normal 10pt/13pt @font-family-serif;
 }
 
 .chapter h1.title {
@@ -381,15 +398,6 @@ div.book div.chapter div.titlepage > div > div > h2 {
   }
 }
 
-.section > .section > p {
-  //clearfix
-  &::after {
-    content: "";
-    display: table;
-    clear: both;  
-  }
-}
-
 .chapter > .introduction,
 .chapter > .module {
   margin: 1em 0;
@@ -430,6 +438,11 @@ div.book div.chapter div.titlepage > div > div > h2 {
   > .title {
     border: none;
     margin-top: 0;
+  }
+
+  ul.itemizedlist {
+    margin-left: 0;
+    padding-left: 20pt;
   }
 }
 
@@ -488,19 +501,6 @@ div:not(.body) > .itemizedlist > .itemizedlist > .listitem {
   padding: 15px 0px;
 }
 
-.section .right-figure {
-  width: @figure-size-one;
-  float: right;
-  margin: 0 0 25px 25px;
-  padding: 0px;
-
-  .body {
-    padding-left: 0px;
-    padding-top: 0px;
-    text-align: left;
-  }
-}
-
 /******************************************************
  * Collated titles
  ******************************************************/
@@ -527,8 +527,9 @@ div.cnx-eoc > .title {
 /******************************************************
  * References/Solutions
  ******************************************************/
-div.end-of-book-solutions > h1.title,
-div.end-of-book-references > h1.title,
+.colophon > h1.title,
+.colophon > h1.title,
+.book > .toc > .title
 {
   border-bottom-width: 1px;
   border-bottom-style: solid;
