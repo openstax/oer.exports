@@ -1,5 +1,3 @@
-As all documents, this is a work in progress
-
 # oer.exports
 
 To install and get it running:
@@ -57,6 +55,9 @@ The `docbook-xsl` has files that point to http://docbook.sourceforge.net . Loadi
 
 You can download the zip file from http://sourceforge.net/projects/docbook/files/docbook-xsl-ns/ (1.72 works) and replace the `docbook-xsl` directory with its contents.
 
+## Install Fonts
+
+The styles used in these books use openly licensed fonts found in Ubuntu. The fonts can be found at http://mountainbunker.org/~ew2/fonts/truetype-open-fonts.zip
 
 # Generate Books
 
