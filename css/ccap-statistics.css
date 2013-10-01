@@ -1727,15 +1727,21 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   font-size: x-small;
   color: #26397f;
 }
-.note.statistics.lab .title {
+.note.statistics.lab > .title {
+  font-size: x-large;
+}
+.note.statistics.lab > .body .title {
+  color: #26397f;
+}
+.note.statistics.lab > .body > .title {
   display: block;
   padding-top: .5em;
-  color: #26397f !important;
-  font-size: medium !important;
-  font-weight: bold !important;
+  font-size: medium;
+  font-weight: bold;
 }
-.note.statistics.lab > .title {
-  font-size: x-large !important;
+.note.statistics.lab > .body > .title > .figure > .title {
+  color: #26397f;
+  font-size: x-small;
 }
 .note.statistics.direction-line {
   color: black;
@@ -2208,8 +2214,13 @@ div.part > div.titlepage {
   margin-top: 1em;
 }
 .multiple-choice > .section > .title,
-.interactive-exercise > .section > .title {
+.interactive-exercise > .section > .title,
+.practice > .section > .title,
+.free-response > .section > .title {
   display: none;
+}
+.cnx-eoc .section .title a.solution-number {
+  content: "" counter(exercise, decimal) "." "";
 }
 /******************************************************
  * Generic Elements
@@ -2548,15 +2559,15 @@ div.end-of-book-solutions div.solution > div.body > a.target-figure {
 }
 div.book > div.preface > div.cnx-eoc,
 div.book > div.part > div.preface > div.cnx-eoc {
-  counter-reset: exercise eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book > div.chapter > div.cnx-eoc,
 div.book > div.part > div.chapter > div.cnx-eoc {
-  counter-reset: exercise eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book > div.appendix > div.cnx-eoc,
 div.book > div.part > div.appendix > div.cnx-eoc {
-  counter-reset: exercise eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.end-of-book-solutions {
   display: none;
