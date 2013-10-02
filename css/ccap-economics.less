@@ -1,0 +1,152 @@
+/*******************************************************
+* Copyright (c) 2013 Rice University
+*  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+*  See LICENSE.txt for details.
+*******************************************************/
+
+ /* Styles used when generating a PDF from xhtml+css
+ ***************************************************/
+
+// Import general page headers/footers, bookmark calculation, etc
+@import url('ccap-base.less');
+@import url('ccap-numbering.less');
+@import url('ccap-precalculus.less');
+
+// color palette for economics
+@dark-blue:     #3767B1;
+@medium-blue:   #83C6EE;
+@light-blue:    #CFE1F1; 
+@gray:          #D7D9D7;
+
+// Sans-serif font inherited from base as @font-family. Need serif font as well for econ
+@font-family-serif: Liberation Serif, serif, @stix-fonts;
+
+
+/******************************************************
+ * Economics Custom elements
+ *
+ * Most of the customizations are
+ * `.note` elements with specific classes
+ *
+ ******************************************************/
+
+
+/* -------------------------
+ * Note Features for Text
+ * -------------------------
+ */
+
+.note {
+  &.economics {
+    // Bring It Home Feature
+    &.bring {
+      page-break-inside: avoid;
+      .x-feature(bring);
+    }
+    // Clear It Up Feature
+    &.clear {
+      page-break-inside: avoid;
+      .x-feature(clear);
+    }
+    // Work It Out Feature
+    &.work {
+      page-break-inside: avoid;
+      .x-feature(work);
+
+      // weblinks included in media list need to be orange and bold
+      .itemizedlist > .listitem {
+        color: @orange;
+        font-weight: bold;
+      }
+
+      // Supress the extra url generated from base that is wrapped with parentheses
+      .itemizedlist > .listitem .link.only-show-once { 
+        content: content();
+      }
+    }
+    // Link It Up Feature
+    &.link {
+      page-break-inside: avoid;
+      .x-feature(link);
+
+      > .title {
+        color: @black;
+        font-family: @font-family-precalculus;
+        font-size: 10pt;
+        font-weight: bold;
+        float: left;
+        padding-left: 1.5em;
+        padding-right: .3em;
+      }
+
+      .exercise {
+        // increment the exercise even though we don't show it because try it is an exercise
+        counter-increment: exercise;
+        margin-top: 0;
+        margin-bottom: 0;
+
+        // turn off the display of exercise text label and number
+        > .title { display: none; }
+
+        .solution {
+          display: none; // W&N requested solutions be removed 9.24.13
+          
+        
+        }
+      }
+    }
+  }
+}
+ // End of .economics notes
+
+
+
+/* -------------------------
+ * .x-feature function from Anatomy text used due to identical features parameterization
+ * -------------------------
+ */
+
+.x-feature (@color, @bg-color, @svg, @padding-top) {
+  // 1st semantic paragraph is title of feature. Indention removed for second semantic paragraph
+  // which is first real paragraph.  Subsequent paragraphs are indented.
+  p:nth-of-type(2) {
+    text-indent: 0em;
+    page-break-before: avoid;
+  }
+  &::before {
+    padding-top: @padding-top; //from the SVG files
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-position: top outside;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+    background-color: white;
+    content: "";
+    display: block;
+    // the following are tweaked so the overlays really do over lay
+    margin-left: -1.05em;
+    margin-right: -1.05em;
+    margin-top: -0.05in;
+  }
+
+  background-color: @bg-color;
+  &::before { background-image: url("ccap-anatomy/@{svg}.svg"); }
+
+  > .title { display: none; } //supress title in pdf (webview only)
+
+  .body .title {
+    text-align: left !important;
+    font-size: large;
+    margin: .25em 0;
+    color: black;
+    font-weight:bold;
+    page-break-after: avoid;
+   }
+
+  .figure {
+    img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
+    > .title { font-size: x-small; color: @orange; }
+  }
+}
+
+
