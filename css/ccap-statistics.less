@@ -113,17 +113,28 @@
       /******************************************************
        * Statistics Lab Feature Heading/SubHeading styling
        ******************************************************/
-      .title {
+      
+      > .title {
+        font-size: x-large;
+      }
+
+      > .body .title {
+        color: @blue;
+      }
+
+      > .body > .title {
         display: block;
         padding-top: .5em;
-        color: @blue !important;
-        font-size: medium !important;
-        font-weight: bold !important;
-      }
-      > .title {
-        font-size: x-large !important;
+        font-size: medium;
+        font-weight: bold;
+
+        > .figure > .title {
+          color: @blue;
+          font-size: x-small;
+        }
       }
     }
+
     /******************************************************
      * Direction Line styling/finger icon implementation
      ******************************************************/
@@ -535,9 +546,24 @@ div.part > div.titlepage {display:none;}
   margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
 }
 
-.multiple-choice, .interactive-exercise {
+// Remove section headers from eoc problems
+.multiple-choice, 
+.interactive-exercise, 
+.practice, 
+.free-response {
   > .section > .title { display: none; }
 }
+
+// For the Bringing it Together subsections we must override the solution-number
+// attached to the class and use the counter for the parent solutions in order for 
+// numbering to remain in sequence.
+.cnx-eoc .section .title a.solution-number {
+  content: "" counter(exercise, decimal) "." "";
+}
+
+
+
+
 
 /******************************************************
  * Generic Elements
@@ -921,13 +947,11 @@ div.end-of-book-solutions {
   a { font-weight: bold; }
 }
 
-// Normally in previous books we did not reset the exercise counter.  Here for statistics it is needed
-// So problem questions can begin with the number (1) one.
+// Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
 // originally defined in ccap-numbering.less
 // The hierarchy is copied from ccap-numbering so the selectors (and priority for which to apply) are the same
-
 .x-duplicate-hierarchy() {
-  > div.cnx-eoc { counter-reset: exercise eoc-section -1; }
+  > div.cnx-eoc { counter-reset: /*exercise*/ eoc-section -1; }
  }
 
 div.book, div.book > div.part {
