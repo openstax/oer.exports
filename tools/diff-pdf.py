@@ -1,7 +1,7 @@
 """Usage:
-    pdfdiff.py fdiff <file1> <file2>
-    pdfdiff.py ddiff <dir1> <dir2>
-    pdfdiff.py (-h | --help)
+    diff-pdf.py fdiff <file1> <file2>
+    diff-pdf.py ddiff <dir1> <dir2>
+    diff-pdf.py (-h | --help)
 
 PDFdiff either two files or two directories containing *.pdf files.
 When comparing two directories the PDF filenames need to be the same.
@@ -60,6 +60,10 @@ def pdf_files_different(file1, file2):
         err('PDF file not found: ' + file2)
         sys.exit(1)
     infog('Comparing PDF files {0} and {1}'.format(path.basename(file1), path.basename(file2)))
+    diff_pdf_bin = path.join(os.path.dirname(os.path.realpath(__file__)), 'diff-pdf', 'diff-pdf')
+    if (not(path.isfile(diff_pdf_bin))):
+        err('Compiled diff-pdf not found! Is it not built yet?')
+        sys.exit(2)
     diff_pdf_cmd = ['./diff-pdf/diff-pdf','-v', file1, file2]
     p = Popen(diff_pdf_cmd , shell=False, stdout=PIPE, stderr=PIPE)
     out, errorout = p.communicate()
