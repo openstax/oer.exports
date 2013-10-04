@@ -10,13 +10,16 @@
 // Import general page headers/footers, bookmark calculation, etc
 @import url('ccap-base.less');
 @import url('ccap-numbering.less');
+
+// Import derived base book for override
 @import url('ccap-precalculus.less');
 
-// color palette for economics
+// Color palette for economics
 @dark-blue:     #3767B1;
 @medium-blue:   #83C6EE;
 @light-blue:    #CFE1F1; 
-@gray:          #D7D9D7;
+// @gray:          #D7D9D7;  This color is incorrect. background is merging with work-it-out header Talk to WN
+@gray:    #EFEFEF;  // This is closer to the template design note background
 
 // Sans-serif font inherited from base as @font-family. Need serif font as well for econ
 @font-family-serif: Liberation Serif, serif, @stix-fonts;
@@ -39,19 +42,19 @@
 .note {
   &.economics {
     // Bring It Home Feature
-    &.bring {
+    &.bringhome {
       page-break-inside: avoid;
-      .x-feature(bring);
+      .x-feature(black, @gray, bring, 0.36in); 
     }
     // Clear It Up Feature
-    &.clear {
+    &.clearup {
       page-break-inside: avoid;
-      .x-feature(clear);
+      .x-feature(black, @gray, clear, 0.40in); 
     }
     // Work It Out Feature
-    &.work {
+    &.workout {
       page-break-inside: avoid;
-      .x-feature(work);
+      .x-feature(black, @gray, work, 0.28in); 
 
       // weblinks included in media list need to be orange and bold
       .itemizedlist > .listitem {
@@ -65,50 +68,36 @@
       }
     }
     // Link It Up Feature
-    &.link {
+    &.linkup {
       page-break-inside: avoid;
-      .x-feature(link);
+      .x-feature(black, @gray, link, 0.28in); 
 
-      > .title {
-        color: @black;
-        font-family: @font-family-precalculus;
-        font-size: 10pt;
-        font-weight: bold;
-        float: left;
-        padding-left: 1.5em;
-        padding-right: .3em;
+      img {   //center qr code
+        display: block;
+        margin: auto;
       }
 
-      .exercise {
-        // increment the exercise even though we don't show it because try it is an exercise
-        counter-increment: exercise;
-        margin-top: 0;
-        margin-bottom: 0;
-
-        // turn off the display of exercise text label and number
-        > .title { display: none; }
-
-        .solution {
-          display: none; // W&N requested solutions be removed 9.24.13
-          
-        
-        }
+      .link { 
+        color: @dark-blue;
+        font-weight: normal;
       }
     }
   }
 }
  // End of .economics notes
 
-
-
 /* -------------------------
- * .x-feature function from Anatomy text used due to identical features parameterization
+ * Legacy .x-feature function from Anatomy text used due to identical features parameterization
  * -------------------------
  */
 
 .x-feature (@color, @bg-color, @svg, @padding-top) {
   // 1st semantic paragraph is title of feature. Indention removed for second semantic paragraph
   // which is first real paragraph.  Subsequent paragraphs are indented.
+
+  color: @color;
+  font-family: @font-family;
+
   p:nth-of-type(2) {
     text-indent: 0em;
     page-break-before: avoid;
@@ -116,36 +105,110 @@
   &::before {
     padding-top: @padding-top; //from the SVG files
     background-repeat: no-repeat;
-    background-position: top left;
-    background-position: top outside;
     page-break-inside: avoid;
     page-break-after: avoid;
     background-color: white;
     content: "";
     display: block;
     // the following are tweaked so the overlays really do over lay
-    margin-left: -1.05em;
-    margin-right: -1.05em;
+    margin-left: -1em;
+    margin-right: -1em;
     margin-top: -0.05in;
   }
 
   background-color: @bg-color;
-  &::before { background-image: url("ccap-anatomy/@{svg}.svg"); }
+  &::before { background-image: url("ccap-economics/@{svg}.svg"); }
 
-  > .title { display: none; } //supress title in pdf (webview only)
-
-  .body .title {
-    text-align: left !important;
+  > .title {
     font-size: large;
-    margin: .25em 0;
+    margin-top: .6em;
+    margin-bottom: .2em;
     color: black;
-    font-weight:bold;
-    page-break-after: avoid;
-   }
+    border: none;
+  }  
 
-  .figure {
-    img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
-    > .title { font-size: x-small; color: @orange; }
+  > .body > p { font-family: @font-family; } 
+}
+
+
+/* -------------------------
+ * Preface
+ * -------------------------
+ */
+.preface {
+  > .titlepage {
+    h1.title { background-color: @dark-blue; }
+  }
+}
+
+/* -------------------------
+ * Book Table of Contents
+  * -------------------------
+  */
+.book > .toc {
+  > .title {
+    border-bottom-color: @dark-blue;
+    color: @dark-blue;
+  }
+
+  a { color: @dark-blue; }
+}
+
+
+
+
+
+/* -------------------------
+ * Generic Elements
+ * -------------------------
+ */
+
+.chapter h1.title {
+  font-size: 34pt; 
+  color: @dark-blue;
+
+  // Chapter number
+  .cnx-gentext-n {
+    color: @dark-blue;
+  }
+}
+
+h2, h3, h4, h5, h6 {
+  color: @dark-blue;
+}
+
+// Module title
+h2 {
+  .cnx-gentext-n { color: @dark-blue; }
+
+  &::before { color: @dark-blue; }
+}
+
+
+
+
+
+/* -------------------------
+ * Chapter Introduction
+ * -------------------------
+ */
+.chapter > .introduction {
+  > .toc a {
+    color: @dark-blue;
+  }
+
+
+
+
+
+
+
+/******************************************************************************
+ * Styling for Chapter Outline Box
+ ******************************************************************************/
+
+  >.toc { 
+   display: none; 
   }
 }
 
