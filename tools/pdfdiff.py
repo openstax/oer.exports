@@ -64,7 +64,7 @@ def pdf_files_different(file1, file2):
     if (not(path.isfile(diff_pdf_bin))):
         err('Compiled diff-pdf not found! Is it not built yet?')
         sys.exit(2)
-    diff_pdf_cmd = ['./diff-pdf/diff-pdf','-v', file1, file2]
+    diff_pdf_cmd = [diff_pdf_bin,'-v', file1, file2]
     p = Popen(diff_pdf_cmd , shell=False, stdout=PIPE, stderr=PIPE)
     out, errorout = p.communicate()
     print out.rstrip(), errorout.rstrip()
