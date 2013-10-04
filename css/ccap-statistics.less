@@ -113,9 +113,14 @@
       /******************************************************
        * Statistics Lab Feature Heading/SubHeading styling
        ******************************************************/
-      
+    
+      // Stats Lab primary header
       > .title {
         font-size: x-large;
+        display: block;
+        color: @blue;
+        font-weight: bold;
+        padding-top: .5em;
       }
 
       > .body .title {
@@ -124,13 +129,27 @@
 
       > .body > .title {
         display: block;
-        padding-top: .5em;
+        padding-top: 1em;
         font-size: medium;
         font-weight: bold;
 
         > .figure > .title {
           color: @blue;
           font-size: x-small;
+        }
+
+        // They are putting generic notes inside stats labs what a nightmare
+        > .body .note:not(.statistics) .title {
+          text-align: left;
+          font-family: @font-family; // utilize san-serif font from base for generic notes
+          text-transform: uppercase;
+          font-size: small;
+          margin-top: .25em;
+          margin-bottom: .5em;
+          color: @blue;
+          font-weight: bold;
+          page-break-after: avoid;
+          border-bottom: 1px solid @blue;
         }
       }
     }
@@ -548,9 +567,7 @@ div.part > div.titlepage {display:none;}
 
 // Remove section headers from eoc problems
 .multiple-choice, 
-.interactive-exercise, 
-.practice, 
-.free-response {
+.interactive-exercise {
   > .section > .title { display: none; }
 }
 
@@ -710,6 +727,7 @@ img, figure, subfigure  { margin: 1em; }
 }
 
 .example > .title > * {
+  font-family: @font-family;
   font-size: 130%;
   font-weight: 500;
   color: #fff;
