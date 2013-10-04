@@ -2,8 +2,8 @@ pdfdiff python commandline-tool
 ================================
 
 Requirements:  
-- It only runs in Linux because diff-pdf needs to be compiled (only tested in Ubuntu 12.04)
-- Python 2.7+
+- comparepdf http://www.qtrac.eu/comparepdf.html
+- Python 2.6+ and Virtualenv
 
 Usage
 -----
@@ -15,23 +15,29 @@ Usage
 PDFdiff either two files or two directories containing *.pdf files.
 When comparing two directories the PDF filenames need to be the same.
 
-Installation on Ubuntu 12.04
-----------------------------
+Installation of comparepdf on Ubuntu
+------------------------------------
 
-Install this libraries:
+Starting with Ubuntu 12.10 (Quantal Quetzal) you can install it with
 
-    sudo apt-get install libwxgtk2.8-dev libcairo2-dev libpoppler-dev python-virtualenv
-    
-Compile diff-pdf binaries
+    sudo apt-get install comparepdf
 
-    cd diff-pdf
-    ./bootstrap
-    ./configure
-    make
+For older Ubuntu versions please build it from source from
+http://www.qtrac.eu/comparepdf.html
+
+Installation of comparepdf on OS X
+----------------------------------
+
+You can install comparepdf with [Homebrew](http://brew.sh/)
+
+    brew install comparepdf
+
+General installation
+--------------------
 
 Install Python-Virtualenv and libraries or install docopt globally
+If you need a good latest python OS X guide [look here](http://hackercodex.com/guide/python-virtualenv-on-mac-osx-mountain-lion-10.8/)
 
-    cd ..
     virtualenv .
     source bin/activate
     pip install docopt

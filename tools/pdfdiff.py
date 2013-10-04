@@ -52,6 +52,26 @@ def err(msg):
 
 # =================================
 
+# Check if program is available
+def which(program):
+    def is_exe(fpath):
+        return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
+
+    fpath, fname = os.path.split(program)
+    if fpath:
+        if is_exe(program):
+            return program
+    else:
+        for path in os.environ["PATH"].split(os.pathsep):
+            path = path.strip('"')
+            exe_file = os.path.join(path, program)
+            if is_exe(exe_file):
+                return exe_file
+
+    return None
+
+# =================================
+
 def pdf_files_different(file1, file2):
     if (not(path.isfile(file1))):
         err('PDF file not found: ' + file1)
@@ -60,18 +80,24 @@ def pdf_files_different(file1, file2):
         err('PDF file not found: ' + file2)
         sys.exit(1)
     infog('Comparing PDF files {0} and {1}'.format(path.basename(file1), path.basename(file2)))
-    diff_pdf_bin = path.join(os.path.dirname(os.path.realpath(__file__)), 'diff-pdf', 'diff-pdf')
-    if (not(path.isfile(diff_pdf_bin))):
-        err('Compiled diff-pdf not found! Is it not built yet?')
+    diff_pdf_bin = 'comparepdf'
+    if (which(diff_pdf_bin) == None):
+        err('comparepdf not found! Not installed yet?')
         sys.exit(2)
-    diff_pdf_cmd = [diff_pdf_bin,'-v', file1, file2]
+    diff_pdf_cmd = [diff_pdf_bin, '--verbose=1',file1, file2]
     p = Popen(diff_pdf_cmd , shell=False, stdout=PIPE, stderr=PIPE)
     out, errorout = p.communicate()
     print out.rstrip(), errorout.rstrip()
-    if (p.returncode!=0):
-        err('File differs!')
-    else:
+    if (p.returncode==0):
         info('OK!')
+    elif (p.returncode==10):
+        err('Files differ visually!')
+    elif (p.returncode==13):
+        err('Files differ textually!')
+    elif (p.returncode==15):
+        err('Files have different page counts!')
+    else: # 1 or 2
+        err('FATAL ERROR DURING COMPARING!')
     return (p.returncode!=0)
 
 # =================================
