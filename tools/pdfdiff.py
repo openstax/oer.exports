@@ -1,7 +1,7 @@
 """Usage:
-    diff-pdf.py fdiff <file1> <file2>
-    diff-pdf.py ddiff <dir1> <dir2>
-    diff-pdf.py (-h | --help)
+    pdfdiff.py fdiff <file1> <file2>
+    pdfdiff.py ddiff <dir1> <dir2>
+    pdfdiff.py (-h | --help)
 
 PDFdiff either two files or two directories containing *.pdf files.
 When comparing two directories the PDF filenames need to be the same.
@@ -69,7 +69,9 @@ def pdf_files_different(file1, file2):
     out, errorout = p.communicate()
     print out.rstrip(), errorout.rstrip()
     if (p.returncode!=0):
-        err("File differs!")
+        err('File differs!')
+    else:
+        info('OK!')
     return (p.returncode!=0)
 
 # =================================
