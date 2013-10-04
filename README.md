@@ -83,6 +83,10 @@ Alternative script for EPUB:
     # For just a module:
     python content2epub.py -c ./static/content.css -e ./xsl/dbk2epub.xsl -t "module" -o ./m123.epub -i "m123" ./test-ccap/m-section/
 
+## Testing PDF output for diffs
+
+In the /tools directory is a Ubuntu based pdfdiff tool for checking two files or two entire directories with PDFs for diffs in content and styling. Please look at the README.md in /tools .
+
 # License:
 
 This software is subject to the provisions of the GNU Affero General Public License Version 3.0 (AGPL). See license.txt for details. Copyright (c) 2012 Rice University
