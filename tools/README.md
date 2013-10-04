@@ -35,7 +35,7 @@ You can install comparepdf with [Homebrew](http://brew.sh/)
 General installation
 --------------------
 
-Install Python-Virtualenv and libraries or install docopt globally
+Install Python-Virtualenv and libraries or install docopt globally.  
 If you need a good latest python OS X guide [look here](http://hackercodex.com/guide/python-virtualenv-on-mac-osx-mountain-lion-10.8/)
 
     virtualenv .
