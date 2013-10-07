@@ -89,7 +89,7 @@ def pdf_files_different(file1, file2):
     out, errorout = p.communicate()
     print out.rstrip(), errorout.rstrip()
     if (p.returncode==0):
-        infog('OK!')
+        pass # "OK!" will be printed later
     elif (p.returncode==10):
         err('Files differ visually!')
     elif (p.returncode==13):
@@ -143,13 +143,23 @@ def pdf_dirs_different(dir1, dir2):
 
 # =================================
 
+def exit_message(exit_code):
+    if 0 == exit_code:
+        infog('OK!')
+    else:
+        sys.exit(exit_code)
+
+# =================================
+
 def main():
     arg = docopt(__doc__)
     if (arg['fdiff']):
-        sys.exit(pdf_files_different(arg['<file1>'], arg['<file2>']))
+        exit_code = pdf_files_different(arg['<file1>'], arg['<file2>'])
+        exit_message(exit_code)
     elif (arg['ddiff']):
         infog('Comparing two directories')
-        sys.exit(pdf_dirs_different(arg['<dir1>'], arg['<dir2>']))
+        exit_code = pdf_dirs_different(arg['<dir1>'], arg['<dir2>'])
+        exit_message(exit_code)
 
 # =================================
 
