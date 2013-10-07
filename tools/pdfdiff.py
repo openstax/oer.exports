@@ -79,7 +79,7 @@ def pdf_files_different(file1, file2):
     if (not(path.isfile(file2))):
         err('PDF file not found: ' + file2)
         sys.exit(1)
-    infog('Comparing PDF files {0} and {1}'.format(path.basename(file1), path.basename(file2)))
+    info('Comparing PDF files {0} and {1}'.format(path.basename(file1), path.basename(file2)))
     diff_pdf_bin = 'comparepdf'
     if (which(diff_pdf_bin) == None):
         err('comparepdf not found! Not installed yet?')
@@ -89,7 +89,7 @@ def pdf_files_different(file1, file2):
     out, errorout = p.communicate()
     print out.rstrip(), errorout.rstrip()
     if (p.returncode==0):
-        info('OK!')
+        infog('OK!')
     elif (p.returncode==10):
         err('Files differ visually!')
     elif (p.returncode==13):
@@ -98,11 +98,12 @@ def pdf_files_different(file1, file2):
         err('Files have different page counts!')
     else: # 1 or 2
         err('FATAL ERROR DURING COMPARING!')
-    return (p.returncode!=0)
+    return (p.returncode)
 
 # =================================
 
 def pdf_dirs_different(dir1, dir2):
+    exit_code = 0 # Assume no errors
     if (not(path.isdir(dir1))):
         err('Directory not found: ' + dir1)
         sys.exit(1)
@@ -123,7 +124,7 @@ def pdf_dirs_different(dir1, dir2):
         if fnmatch.fnmatch(file2, '*.pdf'):
             files2.append(file2)
     if (len(files1) != len(files2)):
-        warn('The number of *.pdfs in both directories do not match!')        
+        warn('The number of *.pdfs in both directories do not match!')
     sfiles1 = set(files1)
     sfiles2 = set(files2)
     only_in_onedir = list(sfiles1.union(sfiles2) - sfiles1.intersection(sfiles2))
@@ -136,17 +137,19 @@ def pdf_dirs_different(dir1, dir2):
     for f in in_both_dirs:
         f1 = path.join(dir1, f)
         f2 = path.join(dir2, f)
-        pdf_files_different(f1, f2)
+        exit_code = exit_code or pdf_files_different(f1, f2)
+
+    return exit_code
 
 # =================================
 
 def main():
     arg = docopt(__doc__)
     if (arg['fdiff']):
-        pdf_files_different(arg['<file1>'], arg['<file2>'])
+        sys.exit(pdf_files_different(arg['<file1>'], arg['<file2>']))
     elif (arg['ddiff']):
         infog('Comparing two directories')
-        pdf_dirs_different(arg['<dir1>'], arg['<dir2>'])
+        sys.exit(pdf_dirs_different(arg['<dir1>'], arg['<dir2>']))
 
 # =================================
 
