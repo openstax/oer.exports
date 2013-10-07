@@ -855,23 +855,29 @@ div.cnx-eoc > .title {
   > .section > .title { display: block; }
 }
 
-/* Squash references if they show up at the end of a chapter.
-   They are special-cased and show up at the end of the book */
-.cnx-eoc.references { display: none; }
-
-// Glossary styles
-
-// This should be CSS3's text-replace, but prince doesn't support it.
-dt .glossterm {
-  prince-text-replace: "Definition: " "";
+/* Squash references and solutions if they show up at the end of 
+   a chapter. They are special-cased and show up at the end of the book */
+.cnx-eoc.references,
+.cnx-eoc.cnx-solutions, { 
+  display: none; 
 }
+
+.glossary .title::before {
+  display: none !important; // !important is used here befcause !important was used in
+                            // ccap-precalculus.less.
+}
+
 
 /******************************************************
  * EOB Customizations
  ******************************************************/
 
-div.end-of-book-solutions div.solution > div.title a.solution {
-  padding-right: .5em;
+div.end-of-book-solutions div.solution {
+  display: inline;
+
+  > div.title a.solution {
+    padding-right: .5em;
+  }
 }
 
 div.end-of-book-references .chapter-area {

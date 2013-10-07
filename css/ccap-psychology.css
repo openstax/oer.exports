@@ -4690,35 +4690,21 @@ div.cnx-eoc > .title {
 .summary > .section > .title {
   display: block;
 }
-/* Squash references if they show up at the end of a chapter.
-   They are special-cased and show up at the end of the book */
-.cnx-eoc.references {
+/* Squash references and solutions if they show up at the end of 
+   a chapter. They are special-cased and show up at the end of the book */
+.cnx-eoc.references,
+.cnx-eoc.cnx-solutions {
   display: none;
 }
-dt .glossterm {
-  prince-text-replace: "Definition: " "";
+.glossary .title::before {
+  display: none !important;
 }
-/*
-// Turn off EOC glossary that is NOT due to cnx.eoc
-.chapter > .glossary {
-  display: none;
-}
-
-// hide empty glossary sections as well as
-// multiple glossary headers
-.chapter > .cnx-eoc.glossary .section.empty,
-.chapter > .cnx-eoc.glossary .section > .title {
-  display: none !important; // Important to override !important in ccap-precalculus.
-}
-*/
-/*
-.section.module > .section.glossary {
-  display: none;
-}
-*/
 /******************************************************
  * EOB Customizations
  ******************************************************/
+div.end-of-book-solutions div.solution {
+  display: inline;
+}
 div.end-of-book-solutions div.solution > div.title a.solution {
   padding-right: .5em;
 }
