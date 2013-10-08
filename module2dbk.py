@@ -7,7 +7,10 @@ See LICENSE.txt for details.
 
 import sys
 import os
-from PIL import Image
+try:
+  import Image
+except:
+  from PIL import Image
 from StringIO import StringIO
 import subprocess
 
@@ -63,7 +66,7 @@ def makeTransform(file):
     xml = xsl(xml, **params)
     errors = extractLog(xsl.error_log)
     return xml, {}, errors
-  return t    
+  return t
 
 # Main method. Doing all steps for the Google Docs to CNXML transformation
 def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2svg=True, reduce_quality=False):
@@ -83,20 +86,20 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
       formularList = MATH_XPATH(xml)
       strErr = ''
       if len(formularList) > 0:
-        
+
         # Take XML from stdin and output to stdout
         # -s:$DOCBOOK1 -xsl:$MATH2SVG_PATH -o:$DOCBOOK2
         strCmd = ['java','-jar', SAXON_PATH, '-s:-', '-xsl:%s' % MATH2SVG_PATH]
-    
+
         # run the program with subprocess and pipe the input and output to variables
         p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True)
         # set STDIN and STDOUT and wait untill the program finishes
         stdOut, strErr = p.communicate(etree.tostring(xml))
-    
+
         #xml = etree.fromstring(stdOut, recover=True) # @xml:id is set to '' so we need a lax parser
         parser = etree.XMLParser(recover=True)
         xml = etree.parse(StringIO(stdOut), parser)
-  
+
         if strErr:
           print >> sys.stderr, strErr.encode('utf-8')
     return xml, {}, [] # xml, newFiles, log messages
@@ -112,7 +115,7 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
         try:
           bytes = files[filename]
           img = Image.open(StringIO(bytes))
-          
+
           width = img.size[0]
           height = img.size[1]
           if reduce_quality: # Only resize when in DEBUG mode (so content entry sees the High Resolution PDFs)
@@ -129,7 +132,7 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
             image.getparent().set('format', 'JPEG')
 
             newFiles[fname] = bytesFile.getvalue()
-          
+
         except IOError:
           print >> sys.stderr, 'LOG: WARNING: Malformed image %s' % filename
       else:
@@ -184,7 +187,7 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
     origAndNewFiles.update(newFiles2)
 
   origAndNewFiles.update(newFiles)
-  
+
   # Write out all files to the temp dir so they don't stay in memory
   for (key, value) in origAndNewFiles.items():
     print >> sys.stderr, "Writing out " + os.path.join(temp_dir, key)
@@ -192,7 +195,7 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
     f.write(value)
     f.close()
   newFiles = {}
-  
+
   # Create a standalone db:book file for the module
   dbkStandalone = DOCBOOK_BOOK_XSL(xml)
   newFiles['index.standalone.dbk'] = etree.tostring(dbkStandalone)
