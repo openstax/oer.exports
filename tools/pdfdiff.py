@@ -45,7 +45,7 @@ def info(msg):
     print OKBLUE + msg + ENDC
 
 def warn(msg):
-    print WARNING + msg + ENDC
+    print WARNING + 'WARNING: ' + msg + ENDC
 
 def err(msg):
     print FAIL + 'ERROR: ' + msg + ENDC
@@ -72,7 +72,8 @@ def which(program):
 
 # =================================
 
-def pdf_files_different(file1, file2):
+# diffs two pdf files and returns 0 when no difference
+def diff_pdf_files(file1, file2):
     if (not(path.isfile(file1))):
         err('PDF file not found: ' + file1)
         sys.exit(1)
@@ -102,7 +103,8 @@ def pdf_files_different(file1, file2):
 
 # =================================
 
-def pdf_dirs_different(dir1, dir2):
+# diffs two directories with pdf files and returns 0 when no difference
+def diff_pdf_dirs(dir1, dir2):
     exit_code = 0 # Assume no errors
     if (not(path.isdir(dir1))):
         err('Directory not found: ' + dir1)
@@ -137,7 +139,7 @@ def pdf_dirs_different(dir1, dir2):
     for f in in_both_dirs:
         f1 = path.join(dir1, f)
         f2 = path.join(dir2, f)
-        exit_code = exit_code or pdf_files_different(f1, f2)
+        exit_code = exit_code or diff_pdf_files(f1, f2)
 
     return exit_code
 
@@ -154,11 +156,11 @@ def exit_message(exit_code):
 def main():
     arg = docopt(__doc__)
     if (arg['fdiff']):
-        exit_code = pdf_files_different(arg['<file1>'], arg['<file2>'])
+        exit_code = diff_pdf_files(arg['<file1>'], arg['<file2>'])
         exit_message(exit_code)
     elif (arg['ddiff']):
         infog('Comparing two directories')
-        exit_code = pdf_dirs_different(arg['<dir1>'], arg['<dir2>'])
+        exit_code = diff_pdf_dirs(arg['<dir1>'], arg['<dir2>'])
         exit_message(exit_code)
 
 # =================================
