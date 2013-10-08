@@ -1989,10 +1989,10 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   text-align: left;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   text-transform: uppercase;
-  font-size: small;
+  font-size: small !important;
   margin-top: .25em;
   margin-bottom: .5em;
-  color: #26397f;
+  color: #26397f !important;
   font-weight: bold;
   page-break-after: avoid;
   border-bottom: 1px solid #26397f;
@@ -2400,6 +2400,15 @@ subfigure {
 */
 .book .chapter > .section .example .exercise .table table caption::before {
   display: inline;
+  counter-increment: table;
+}
+/*
+  W&N wanted figure numbering in example exercise problems/solutions
+  to show up. We need a very large specificity value for this rule.
+*/
+.book .chapter > .section .example .exercise .figure > .title > span.cnx-gentext-t::before {
+  display: inline;
+  counter-increment: figure;
 }
 .example .exercise {
   margin: 0;
@@ -2414,6 +2423,9 @@ subfigure {
   content: "" "Solution " counter(chapter, decimal) "." counter(example, decimal) " " "";
   color: #26397f;
   font-weight: bold;
+}
+.example .exercise .solution > .table {
+  counter-increment: table;
 }
 /******************************************************
  * EOC Exercise Finger icon implementation

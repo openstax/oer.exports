@@ -291,15 +291,17 @@
 
   .x-finger();
 
-  // Styling for Generic Note title block and border
+  // Styling for Generic Note title block and border.  We must use an !important here
+  // on the color and font-size due to content placing notes within notes. The numerous
+  // .body > .title selectors are overriding our size/color. In this case must be used.
   > .title {
     text-align: left;
     font-family: @font-family; // utilize san-serif font from base for generic notes
     text-transform: uppercase;
-    font-size: small;
+    font-size: small !important;
     margin-top: .25em;
     margin-bottom: .5em;
-    color: @blue;
+    color: @blue !important;
     font-weight: bold;
     page-break-after: avoid;
     border-bottom: 1px solid @blue;
@@ -739,6 +741,16 @@ img, figure, subfigure  { margin: 1em; }
 */
 .book .chapter > .section .example .exercise .table table caption::before {
   display: inline;
+  counter-increment: table; // must increment table within to keep numbering correct
+}
+
+/*
+  W&N wanted figure numbering in example exercise problems/solutions
+  to show up. We need a very large specificity value for this rule.
+*/
+.book .chapter > .section .example .exercise .figure > .title > span.cnx-gentext-t::before{
+    display: inline;
+    counter-increment: figure; // must increment figure within to keep numbering correct
 }
 
 // for examples that have a problem/solution structure that need numbered headings
@@ -759,6 +771,8 @@ img, figure, subfigure  { margin: 1em; }
     color: @blue;
     font-weight: bold;
   }
+
+  .solution > .table { counter-increment: table; }
 }
 
 
