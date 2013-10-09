@@ -1729,19 +1729,35 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
 }
 .note.statistics.lab > .title {
   font-size: x-large;
+  display: block;
+  color: #26397f;
+  font-weight: bold;
+  padding-top: .5em;
 }
 .note.statistics.lab > .body .title {
   color: #26397f;
 }
 .note.statistics.lab > .body > .title {
   display: block;
-  padding-top: .5em;
+  padding-top: 1em;
   font-size: medium;
   font-weight: bold;
 }
 .note.statistics.lab > .body > .title > .figure > .title {
   color: #26397f;
   font-size: x-small;
+}
+.note.statistics.lab > .body > .title > .body .note:not(.statistics) .title {
+  text-align: left;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  text-transform: uppercase;
+  font-size: small;
+  margin-top: .25em;
+  margin-bottom: .5em;
+  color: #26397f;
+  font-weight: bold;
+  page-break-after: avoid;
+  border-bottom: 1px solid #26397f;
 }
 .note.statistics.direction-line {
   color: black;
@@ -1973,10 +1989,10 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   text-align: left;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   text-transform: uppercase;
-  font-size: small;
+  font-size: small !important;
   margin-top: .25em;
   margin-bottom: .5em;
-  color: #26397f;
+  color: #26397f !important;
   font-weight: bold;
   page-break-after: avoid;
   border-bottom: 1px solid #26397f;
@@ -2214,9 +2230,7 @@ div.part > div.titlepage {
   margin-top: 1em;
 }
 .multiple-choice > .section > .title,
-.interactive-exercise > .section > .title,
-.practice > .section > .title,
-.free-response > .section > .title {
+.interactive-exercise > .section > .title {
   display: none;
 }
 .cnx-eoc .section .title a.solution-number {
@@ -2362,15 +2376,13 @@ subfigure {
 /******************************************************
  * Example Elements Styling and Numbering
  ******************************************************/
-.example > * {
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
 .example > .title {
   background: #26397f;
   padding-top: .3em;
   padding-bottom: .3em;
 }
 .example > .title > * {
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 130%;
   font-weight: 500;
   color: #fff;
@@ -2388,6 +2400,15 @@ subfigure {
 */
 .book .chapter > .section .example .exercise .table table caption::before {
   display: inline;
+  counter-increment: table;
+}
+/*
+  W&N wanted figure numbering in example exercise problems/solutions
+  to show up. We need a very large specificity value for this rule.
+*/
+.book .chapter > .section .example .exercise .figure > .title > span.cnx-gentext-t::before {
+  display: inline;
+  counter-increment: figure;
 }
 .example .exercise {
   margin: 0;
