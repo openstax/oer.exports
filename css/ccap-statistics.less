@@ -113,9 +113,14 @@
       /******************************************************
        * Statistics Lab Feature Heading/SubHeading styling
        ******************************************************/
-      
+    
+      // Stats Lab primary header
       > .title {
         font-size: x-large;
+        display: block;
+        color: @blue;
+        font-weight: bold;
+        padding-top: .5em;
       }
 
       > .body .title {
@@ -124,13 +129,27 @@
 
       > .body > .title {
         display: block;
-        padding-top: .5em;
+        padding-top: 1em;
         font-size: medium;
         font-weight: bold;
 
         > .figure > .title {
           color: @blue;
           font-size: x-small;
+        }
+
+        // They are putting generic notes inside stats labs what a nightmare
+        > .body .note:not(.statistics) .title {
+          text-align: left;
+          font-family: @font-family; // utilize san-serif font from base for generic notes
+          text-transform: uppercase;
+          font-size: small;
+          margin-top: .25em;
+          margin-bottom: .5em;
+          color: @blue;
+          font-weight: bold;
+          page-break-after: avoid;
+          border-bottom: 1px solid @blue;
         }
       }
     }
@@ -272,15 +291,17 @@
 
   .x-finger();
 
-  // Styling for Generic Note title block and border
+  // Styling for Generic Note title block and border.  We must use an !important here
+  // on the color and font-size due to content placing notes within notes. The numerous
+  // .body > .title selectors are overriding our size/color. In this case must be used.
   > .title {
     text-align: left;
     font-family: @font-family; // utilize san-serif font from base for generic notes
     text-transform: uppercase;
-    font-size: small;
+    font-size: small !important;
     margin-top: .25em;
     margin-bottom: .5em;
-    color: @blue;
+    color: @blue !important;
     font-weight: bold;
     page-break-after: avoid;
     border-bottom: 1px solid @blue;
@@ -548,9 +569,7 @@ div.part > div.titlepage {display:none;}
 
 // Remove section headers from eoc problems
 .multiple-choice, 
-.interactive-exercise, 
-.practice, 
-.free-response {
+.interactive-exercise {
   > .section > .title { display: none; }
 }
 
@@ -696,13 +715,6 @@ img, figure, subfigure  { margin: 1em; }
  * Example Elements Styling and Numbering
  ******************************************************/
 
-// There are myriad markup elements that can be contained in a problem or solution tag that
-// is a part of examples in this book. (i.e. tables, simplelist, paragraphs, etc) Everything
-// is requested to be serif font, even numbering. 
-.example > * { 
-  font-family: @font-family-statistics; 
-}
-
 .example > .title {
   background: @blue;
   padding-top: .3em;
@@ -710,6 +722,7 @@ img, figure, subfigure  { margin: 1em; }
 }
 
 .example > .title > * {
+  font-family: @font-family;
   font-size: 130%;
   font-weight: 500;
   color: #fff;
@@ -728,6 +741,16 @@ img, figure, subfigure  { margin: 1em; }
 */
 .book .chapter > .section .example .exercise .table table caption::before {
   display: inline;
+  counter-increment: table; // must increment table within to keep numbering correct
+}
+
+/*
+  W&N wanted figure numbering in example exercise problems/solutions
+  to show up. We need a very large specificity value for this rule.
+*/
+.book .chapter > .section .example .exercise .figure > .title > span.cnx-gentext-t::before{
+    display: inline;
+    counter-increment: figure; // must increment figure within to keep numbering correct
 }
 
 // for examples that have a problem/solution structure that need numbered headings

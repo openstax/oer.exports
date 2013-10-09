@@ -7,7 +7,10 @@ See LICENSE.txt for details.
 
 import sys
 import os
-from PIL import Image
+try:
+  import Image
+except:
+  from PIL import Image
 from StringIO import StringIO
 from tempfile import mkdtemp
 import subprocess
@@ -61,18 +64,18 @@ def convert(dbk1, temp_dir, cssFile, epubFile):
   # Step 1 (Convert Docbook to EPUB HTML)
   # The epub script will generate HTML files in temp_dir
   # It will not return anything
-  orig_dir = os.getcwd()  
+  orig_dir = os.getcwd()
   # $RUBY $ROOT/docbook-xsl/epub/bin/dbtoepub --stylesheet $DBK_TO_HTML_XSL -c $CSS_FILE $EMBEDDED_FONTS_ARGS -o $EPUB_FILE -d $DBK_FILE
 
   RUBY_BIN = 'ruby'
   DBK_TO_EPUB_BIN = './docbook-xsl/epub/bin/dbtoepub'
   DBK_FILE_NAME = 'collection.dbk'
   DBK_TO_HTML_XSL_PATH = os.path.join(orig_dir, 'xsl/dbk2epub.xsl')
-  
+
   EMBED_FONT_ARGS = [['--font', os.path.join(os.getcwd(), path)] for path in EMBED_FONTS]
-  
+
   DBK_FILE = os.path.join(temp_dir, DBK_FILE_NAME)
-  
+
   f = open(DBK_FILE, 'w')
   f.write(etree.tostring(dbk1))
   f.close()
@@ -81,7 +84,7 @@ def convert(dbk1, temp_dir, cssFile, epubFile):
   strCmd = flatten(strCmd)
   strCmd.insert(0, DBK_TO_EPUB_BIN)
   strCmd.insert(0, RUBY_BIN)
-  
+
   p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True)
   (stdOut, stdErr) = p.communicate()
 
@@ -102,18 +105,18 @@ def main():
   # parser.add_argument('-t', dest='temp_dir', help='Path to store temporary files to (default is a temp dir that will be removed)', nargs='?')
   parser.add_argument('-o', dest='output', nargs='?') # , type=argparse.FileType('w'), default=sys.stdout)
   args = parser.parse_args()
-  
+
   temp_dir = args.directory
 
   p = util.Progress()
 
   cnxml, allFiles = util.loadModule(args.directory)
-                                    
+
   dbk, newFiles = module2dbk.convert(args.module_id, cnxml, allFiles, {}, temp_dir, svg2png=True, math2svg=True, reduce_quality=args.reduce_quality)
   allFiles.update(newFiles)
 
   nothing = convert(etree.parse(StringIO(dbk)), temp_dir, args.css_file, args.output)
-  
+
   # Write out all the added files
   for name in newFiles:
     f = open(os.path.join(temp_dir, name), 'w')

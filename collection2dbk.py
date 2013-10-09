@@ -7,7 +7,10 @@ See LICENSE.txt for details.
 
 import sys
 import os
-from PIL import Image
+try:
+  import Image
+except:
+  from PIL import Image
 from StringIO import StringIO
 from tempfile import mkstemp
 #try:
@@ -79,10 +82,10 @@ def convert(p, collxml, modulesDict, temp_dir, svg2png=True, math2svg=True, redu
       module.getparent().replace(module, modDbkDict[id])
     else:
       print >> sys.stderr, "ERROR: Didn't find module source!!!!"
-  
+
   # Clean up image paths
   dbk2 = transform(DOCBOOK_NORMALIZE_PATHS_XSL, dbk1)
-  
+
   dbk3 = transform(DOCBOOK_CLEANUP_XSL, dbk2)
   dbk4 = transform(DOCBOOK_NORMALIZE_GLOSSARY_XSL, dbk3)
 
