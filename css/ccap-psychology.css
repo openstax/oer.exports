@@ -4177,7 +4177,8 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
   string-set: cnx-chapter-string content();
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-n {
-  content: string(cnx-chapter-string) " " content();
+  string-set: cnx-chapter-number-string string(cnx-chapter-string) " " content();
+  content: string(cnx-chapter-number-string);
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   display: block;
@@ -4186,6 +4187,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   border-top-style: solid;
   margin-top: 5px;
   padding-top: 10px;
+  string-set: cnx-header string(cnx-chapter-number-string) " " content();
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::before {
   content: "";
@@ -4702,12 +4704,13 @@ div.cnx-eoc > .title {
 /******************************************************
  * EOB Customizations
  ******************************************************/
-div.end-of-book-solutions div.solution {
-  display: inline;
+div.end-of-book-solutions {
+  column-count: 2;
 }
-div.end-of-book-solutions div.solution > div.title {
-  padding-right: .5em;
+div.end-of-book-solutions .title {
+  column-span: all;
 }
+div.end-of-book-solutions div.solution > div.title,
 div.end-of-book-solutions div.solution > div.body {
   padding-right: .5em;
 }
