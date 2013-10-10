@@ -28,7 +28,9 @@ http://www.qtrac.eu/comparepdf.html
 Installation of comparepdf on OS X
 ----------------------------------
 
-You can install comparepdf with [Homebrew](http://brew.sh/)
+You can install comparepdf with [Homebrew](http://brew.sh/).  
+Note: If you have an older installation of Homebrew you might have to
+update it before installing comparepdf with `brew update`.
 
     brew install comparepdf
 
