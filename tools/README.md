@@ -29,10 +29,11 @@ Installation of comparepdf on OS X
 ----------------------------------
 
 You can install comparepdf with [Homebrew](http://brew.sh/).  
-Note: If you have an older installation of Homebrew you might have to
-update it before installing comparepdf with `brew update`.
 
     brew install comparepdf
+
+Note: If `brew install comparepdf` does not work you may need to
+update Homebrew by running `brew update` first.
 
 General installation
 --------------------
