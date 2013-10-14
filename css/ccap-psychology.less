@@ -90,6 +90,11 @@ h1.title {
 }
 
 // Learning Objectives/Chapter Objectives
+div.section div.titlepage div.abstract::before {
+  color: @light-blue;
+}
+div.section div.titlepage div.abstract,
+div.section div.titlepage div.abstract::before,
 .note.chapter-objectives {
   background-color: transparent;
   border-bottom-color: @orange;
@@ -143,6 +148,15 @@ div.cnx-eoc.summary > .section .title > a {
 
 .book > .toc a {
   color: @red;
+}
+
+.section .note > .title {
+  color: @black;
+}
+
+// EOB References chapter titles
+div.end-of-book-references > .chapter-area > .title {
+  color: @black;
 }
 
 /******************************************************
@@ -240,6 +254,15 @@ h1.title,
   }
 }
 
+div.section div.titlepage div.abstract {
+  p {
+    font: 10pt/14pt @font-family-serif;
+  }
+  &::before {
+    font: normal normal 700 10pt @font-family-sans-serif;
+    text-align: left;
+  }
+}
 .note.chapter-objectives {
   font: 10pt/14pt @font-family-serif;
 
@@ -273,8 +296,16 @@ div.cnx-eoc > .title { // Important to override !important in ccap-precalculus.l
   font-weight: 700 !important;
   text-transform: none !important;
 }
+div.end-of-book-solutions div.solution > div.title a.solution,
+div.end-of-book-solutions .chapter-area a.chapter *,
+div.end-of-book-references > .chapter-area > .title,
 div.cnx-eoc.summary > .section .title > a {
   font: normal normal 700 10pt/13pt @font-family-serif;
+}
+
+div.end-of-book-references > .chapter-area > .body,
+div.end-of-book-solutions div.solution > div.body {
+  font: normal normal 400 10pt/13pt @font-family-serif;
 }
 
 // Key Terms
@@ -289,6 +320,9 @@ div.cnx-eoc.summary > .section .title > a {
     line-height: 13pt;
   }
 }
+.glossterm.no-emphasis {
+  font-weight: 400;
+}
 
 .index {
   .letter,
@@ -296,6 +330,11 @@ div.cnx-eoc.summary > .section .title > a {
     font-family: @font-family-serif;
   }
 }
+
+.glossary .glossterm {
+  font: normal normal 700 10pt/13pt @font-family-serif;
+}
+
 
 /******************************************************
  * Preface
@@ -347,7 +386,8 @@ div.book div.chapter > div.titlepage > div > div h1.title {
     string-set: cnx-chapter-string content();
   }
   span.cnx-gentext-n {
-    content: string(cnx-chapter-string) " " content();
+    string-set: cnx-chapter-number-string string(cnx-chapter-string) " " content();
+    content: string(cnx-chapter-number-string);
   }
 
   span.cnx-gentext-t {
@@ -359,6 +399,10 @@ div.book div.chapter > div.titlepage > div > div h1.title {
     // Spacing around border.
     margin-top: 5px;
     padding-top: 10px;
+
+    // Replace the default page header "Chapter number | Title", removing
+    // the "|"
+    string-set: cnx-header string(cnx-chapter-number-string) " " content();
 
     &::before {
       content: "";
@@ -421,6 +465,22 @@ div.book div.chapter div.titlepage > div > div > h2 {
 /******************************************************
  * Learning Objectives/Chapter Objectives
  ******************************************************/
+div.section div.titlepage div.abstract::before {
+  margin: .75em 0 .5em;
+}
+div.section div.titlepage div.abstract {
+  // These have to be individually set otherwise
+  // a color would have to be specified here.
+  border-top-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+
+
+  p {
+    margin: 0;
+  }
+}
+div.section div.titlepage div.abstract,
 .note.chapter-objectives {
   padding-left: 0;
 
@@ -438,6 +498,23 @@ div.book div.chapter div.titlepage > div > div > h2 {
   ul.itemizedlist {
     margin-left: 0;
     padding-left: 20pt;
+
+    > .listitem {
+      display: list-item;
+      padding-top: 0;
+      margin: 0;
+
+      p {
+        margin: 0;
+      }
+
+      &::before {
+        display: none;
+      }
+      &:last-child {
+        padding-bottom: .75em;
+      }
+    }
   }
 }
 
@@ -447,6 +524,7 @@ div.book div.chapter div.titlepage > div > div > h2 {
 .section .note {
   > .title {
     border: none;
+    padding-bottom: 1em;
   }
 }
 
@@ -597,7 +675,6 @@ div.cnx-eoc > .title {
 }
 .note {
   &.psychology {
-    page-break-inside: avoid;
     padding: 20px !important; // Override ccap-precalculus, which uses !important
 
     // Override .note:not(.precalculus) (ccap-precalculus.less)
@@ -628,6 +705,15 @@ div.cnx-eoc > .title {
         }
         &:last-of-type {
           padding-bottom: 20px;
+        }
+      }
+      // paragraph titles
+      > .title {
+        padding-bottom: 0;
+
+        span.cnx-gentext-tip-t {
+          padding: 10px 20px 0;
+          display: block;
         }
       }
 
@@ -691,14 +777,9 @@ div.cnx-eoc > .title {
 }
 
 
-
-
-
-/* ----------------------------------
- * End of chapter customizations
- * ----------------------------------
- */
-
+/******************************************************
+ * EOC Customizations
+ ******************************************************/
 .cnx-eoc > .title > * { font-size: large !important; padding: 0 !important; }
 
 // eoc solution number links color
@@ -744,6 +825,9 @@ div.cnx-eoc > .title {
       column-span: all !important; // added override to resolve bug on staging where titles
       margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginat
     }
+    .section > .body > .exercise {
+      margin-bottom: 1em;
+    }
   }
 
   &.personal-application {
@@ -780,6 +864,51 @@ div.cnx-eoc > .title {
   > .section > .title { display: block; }
 }
 
+/* Squash references and solutions if they show up at the end of 
+   a chapter. They are special-cased and show up at the end of the book */
+.cnx-eoc.references,
+.cnx-eoc.cnx-solutions, { 
+  display: none; 
+}
+
+.glossary .title::before {
+  display: none !important; // !important is used here befcause !important was used in
+                            // ccap-precalculus.less.
+}
 
 
+/******************************************************
+ * EOB Customizations
+ ******************************************************/
+div.end-of-book-solutions {
+  column-count: 2;
 
+  .title {
+    column-span: all;
+  }
+
+  div.solution {
+    > div.title,
+    > div.body {
+      padding-right: .5em;
+    }
+
+    padding-bottom: .5em;
+  }
+}
+
+div.end-of-book-references .chapter-area {
+  margin: 1em 0;
+
+  .section-area { 
+    > .title {
+      // Hide module titles in references. Only Chapter numbers
+      // are displayed for each set of references.
+      display: none;
+    }
+    > .body p {
+      text-indent: 0;
+      margin: 1em 0;
+    }
+  }
+}
