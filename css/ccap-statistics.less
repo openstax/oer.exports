@@ -326,7 +326,6 @@
 // Tables inside notes do not need header styling
 .note .table th {
   background-color: transparent;
-  font-weight: normal;
 }
 
 /******************************************************
@@ -429,7 +428,7 @@ div.part > div.titlepage {display:none;}
     background-position: top outside;
     page-break-inside: avoid;
     page-break-after: avoid;
-    background-color: white;
+    background-color: @bg-color;
     content: "";
     display: block;
     // the following are tweaked so the overlays really do over lay
@@ -714,6 +713,14 @@ img, figure, subfigure  { margin: 1em; }
   margin: .5em 0;
  }
 
+// A nice way to keep superscripts from affecting line height in text.
+sup {
+   vertical-align: baseline;
+   position: relative;
+   top: -0.2em;
+}
+
+
 /******************************************************
  * Example Elements Styling and Numbering
  ******************************************************/
@@ -776,6 +783,15 @@ img, figure, subfigure  { margin: 1em; }
   }
 }
 
+// embedding of calculator feature inside example problems
+.example > .body > .exercise > .body > .problem > .note.statistics.calculator {
+  .x-feature(#336633, transparent, calculator, 0.42in);
+}
+
+// embedding of calculator feature inside example solutions
+.example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator {
+  .x-feature(#336633, transparent, calculator, 0.42in);
+}
 
 /******************************************************
  * EOC Exercise Finger icon implementation
