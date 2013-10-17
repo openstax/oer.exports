@@ -23,6 +23,11 @@
 
 <xsl:param name="header.rule" select="0"/>
 
+<!-- This cleanup makes sure there are no divs or paras inside para tags -->
+<!-- It is '1' by default. -->
+<xsl:param name="html.cleanup" select="1"/>
+
+
 <xsl:param name="generate.toc">
 appendix  toc,title
 chapter   toc,title
@@ -46,9 +51,9 @@ procedure before
 
 <!-- The PDF has a nice way of handling footnotes so override Docbook's method -->
 <xsl:template match="db:footnote">
-  <div class="footnote" id="{@xml:id}">
+  <span class="footnote" id="{@xml:id}">
     <xsl:apply-templates select="node()"/>
-  </div>
+  </span>
 </xsl:template>
 
 <!-- from docbook-xsl/xhtml/footnote.xsl. Docbook adds a "[#]" in front of the para -->
