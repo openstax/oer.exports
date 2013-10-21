@@ -30,6 +30,7 @@
 @font-family-statistics: Liberation Serif, serif, @stix-fonts;
 
 @page { margin: 0.5in 1in; }
+  
 // Finished printed size of the QR code is dependent on: 1-distance between qr code and scanning device
 // 2-size of dots in the code(amount of data inputed into the code, the smaller the dots become)
 // For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
@@ -91,6 +92,7 @@
 .note {
   &.statistics {
     &.calculator {
+      page-break-inside: auto;
       .x-feature(#336633, transparent, calculator, 0.42in);
 
       // Reset this here so other feature headers retain their
@@ -101,6 +103,7 @@
       }
     }
     &.collab {
+      page-break-indside: avoid;
       .x-feature(#330033, @gray, collab, 0.42in);
       .x-finger();
 
@@ -108,15 +111,15 @@
       .body p:nth-of-type(1) { margin-top: 1em; }
     }
     &.lab {
+      // Request for Stats lab to always be on new page
+      page-break-before: always;
+      page-break-inside: avoid;
       .x-feature(#006666, @gray, lab, 0.34in);
 
       /******************************************************
        * Statistics Lab Feature Heading/SubHeading styling
        ******************************************************/
     
-      // Request for Stats lab to always be on new page
-      page-break-before: always;
-
       // Stats Lab primary header
       > .title {
         font-size: x-large;
@@ -165,26 +168,7 @@
       font-style: italic;
       .x-finger();
     }
-    // TODO: a final decision has not yet been made on whether this will be used in the statistics book
-    &.interactive {
-      .x-feature(#993333, @gray, interactive, 0.42in);
 
-      img {   //center qr code
-        display: block;
-        margin-left: auto;
-        margin-right: auto
-      }
-
-      .link {
-        color: @blue !important;
-        font-weight: bold;
-      }
-
-      &.um {
-        .x-feature(#993333, @gray, interactive_UM, 0.50in);
-        page-break-inside: auto !important; //override no break breaks from interactive feature L#197
-      }
-    }
     // The .try box has a bunch of customizations:
     // - Special-handling of the finger icon
     // - Exercises should not affect numbering and solutions should not show up in the content
@@ -306,7 +290,6 @@
     margin-bottom: .5em;
     color: @blue !important;
     font-weight: bold;
-    page-break-after: avoid;
     border-bottom: 1px solid @blue;
   }
 }
@@ -428,7 +411,7 @@ div.part > div.titlepage {display:none;}
     background-position: top outside;
     page-break-inside: avoid;
     page-break-after: avoid;
-    background-color: @bg-color;
+    background-color: @white;
     content: "";
     display: block;
     // the following are tweaked so the overlays really do over lay
@@ -448,7 +431,6 @@ div.part > div.titlepage {display:none;}
     margin: .25em 0;
     color: black;
     font-weight:bold;
-    page-break-after: avoid;
    }
 
   .figure {
@@ -467,7 +449,6 @@ div.part > div.titlepage {display:none;}
   .x-column-count(2);
   column-width: auto !important;
   column-fill: balance !important;
-  page-break-inside: auto;
   column-break-inside: auto;
 
   > .title  {
@@ -495,6 +476,22 @@ div.part > div.titlepage {display:none;}
     p { text-indent: 2em; }
   }
 
+  &.bring-together-homework {
+     .x-column-count(1);
+    > .title { content: "Bringing It Together : Homework"; margin-top: 1em; }
+    > .section .title > a { color: @blue; page-break-after: avoid; }
+    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
+    p { text-indent: 2em; }
+  }
+
+  &.bring-together-practice {
+     .x-column-count(1);
+    > .title { content: "Bringing It Together : Practice"; margin-top: 1em; }
+    > .section .title > a { color: @blue; page-break-after: avoid; }
+    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
+    p { text-indent: 2em; }
+  }
+
   &.solutions {
     .x-column-count(1);
     > .section .title > a { color: @blue; page-break-after: avoid; }
@@ -510,6 +507,7 @@ div.part > div.titlepage {display:none;}
     font-family: @font-family;
 
     > .solution {
+        counter-increment: figure;
         padding-top: .5em;
         padding-bottom: .5em;
       
@@ -519,6 +517,10 @@ div.part > div.titlepage {display:none;}
         display: inline;
       }
 
+      > .body > .figure {
+        font-family: @font-family;
+      }
+
       > .body,
       > .body > p {
         font-family: @font-family-statistics;
@@ -526,6 +528,8 @@ div.part > div.titlepage {display:none;}
       }
     }
   }
+
+  //html > body > div#idm3358944.book > div#idp11653664.chapter > div.cnx-eoc.cnx-solutions > div#m10159-eip-307.solution > div.body > div#m10159-fs-idm133416208.figure > div.title > span.cnx-gentext-figure.cnx-gentext-t
 
   //ccap-base sets this so override it here
   .references p { text-indent: 0em; }
@@ -556,13 +560,6 @@ div.part > div.titlepage {display:none;}
   margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginata
 }
 
-// not using this - remove later
-&.interactive-exercise > div.title {
-  content: "Interactive Link Questions";
-  column-span: all !important;  // added override to resolve bug on staging where titles
-  margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
-}
-
 &.formula-review > div.title {
   content: "Formula Review";
   column-span: all !important;  // added override to resolve bug on staging where titles
@@ -571,7 +568,9 @@ div.part > div.titlepage {display:none;}
 
 // Remove section headers from eoc problems
 .multiple-choice, 
-.interactive-exercise {
+.interactive-exercise,
+.bring-together-practice,
+.bring-together-homework {
   > .section > .title { display: none; }
 }
 
@@ -619,7 +618,10 @@ img { max-height:9.5in; }
   }
 }
 
-a { font-weight: bold; color: @blue;}
+a { 
+  font-family: @font-family;
+  font-weight: bold; color: @blue;
+}
 
 
 h1, h2, h3, h4, h5, h6 {
@@ -713,17 +715,20 @@ img, figure, subfigure  { margin: 1em; }
   margin: .5em 0;
  }
 
-// A nice way to keep superscripts from affecting line height in text.
-sup {
-   vertical-align: baseline;
-   position: relative;
-   top: -0.2em;
-}
-
-
 /******************************************************
  * Example Elements Styling and Numbering
  ******************************************************/
+ 
+// We must stop the blue header bumper from breaking off at bottom of pages
+.example, 
+.example *:first-child { page-break-before: avoid; }
+
+// Table caption text needs to be regular
+.example .table-caption.caption {
+    color: @black;
+    font-weight: normal !important; //override strong tag
+    font-family: @font-family;
+}
 
 .example > .title {
   background: @blue;
@@ -782,6 +787,8 @@ sup {
     font-weight: bold;
   }
 }
+
+// refactor and consolidate these two below before submitting 
 
 // embedding of calculator feature inside example problems
 .example > .body > .exercise > .body > .problem > .note.statistics.calculator {
@@ -850,7 +857,7 @@ sup {
     background-color: @white;
   }
 
-  tr { page-break-inside: avoid;}
+  tr { page-break-inside: auto;}
 
   th {
     color: black;
