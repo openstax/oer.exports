@@ -659,7 +659,7 @@ div.book > div.preface > div.titlepage > div > div h1.title span.cnx-gentext-t {
   prince-text-replace: "*" "";
 }
 div.book > div.preface > div.cnx-eoc {
-  counter-reset: exercise eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book > div.preface > div.section {
   counter-increment: section;
@@ -672,6 +672,7 @@ div.book > div.preface > div.section.labeled {
 }
 div.book > div.preface div.figure {
   counter-increment: figure;
+  counter-reset: subfigure;
 }
 div.book > div.preface div.figure:not(.labeled) {
   counter-increment: figure;
@@ -679,17 +680,15 @@ div.book > div.preface div.figure:not(.labeled) {
 div.book > div.preface div.figure.labeled {
   counter-increment: none;
 }
-div.book > div.preface div.figure > div.body > div.figure {
+div.book > div.preface .figure .informalfigure {
+  counter-increment: subfigure;
+  counter-reset: none-webkit-bug;
+}
+div.book > div.preface .figure .informalfigure:not(.labeled) {
   counter-increment: subfigure;
 }
-div.book > div.preface div.figure > div.body > div.figure:not(.labeled) {
-  counter-increment: subfigure;
-}
-div.book > div.preface div.figure > div.body > div.figure.labeled {
+div.book > div.preface .figure .informalfigure.labeled {
   counter-increment: none;
-}
-div.book > div.preface div.figure > div.body > div.figure:nth-of-type(1) {
-  counter-reset: subfigure;
 }
 div.book > div.preface .table {
   counter-increment: table;
@@ -738,7 +737,6 @@ div.book > div.preface > div.cnx-eoc > div.section {
 }
 div.book > div.preface > div.glossary *,
 div.book > div.preface > div.section div.example div.exercise *,
-div.book > div.preface > div.cnx-eoc div.solution div.figure,
 div.book > div.preface > div.cnx-eoc div.solution table,
 div.book > div.preface > div.cnx-eoc div.solution div.exercise,
 div.book > div.preface > div.cnx-eoc div.solution div.example,
@@ -749,7 +747,6 @@ div.book > div.preface > div.cnx-eoc div.solution div.equation {
 }
 div.book > div.preface > div.glossary *::before,
 div.book > div.preface > div.section div.example div.exercise *::before,
-div.book > div.preface > div.cnx-eoc div.solution div.figure::before,
 div.book > div.preface > div.cnx-eoc div.solution table::before,
 div.book > div.preface > div.cnx-eoc div.solution div.exercise::before,
 div.book > div.preface > div.cnx-eoc div.solution div.example::before,
@@ -758,7 +755,6 @@ div.book > div.preface > div.cnx-eoc div.solution div.equation::before {
 }
 div.book > div.preface > div.glossary *::after,
 div.book > div.preface > div.section div.example div.exercise *::after,
-div.book > div.preface > div.cnx-eoc div.solution div.figure::after,
 div.book > div.preface > div.cnx-eoc div.solution table::after,
 div.book > div.preface > div.cnx-eoc div.solution div.exercise::after,
 div.book > div.preface > div.cnx-eoc div.solution div.example::after,
@@ -853,6 +849,11 @@ div.book > div.preface a.target-example:not(.labeled) {
 div.book > div.preface a.target-exercise:not(.labeled) {
   content: "" "Exercise " "" "" target-counter(attr(href), exercise) "" "";
 }
+div.book > div.preface a.target-equation:not(.labeled),
+div.book > div.preface a.target-inlineequation:not(.labeled),
+div.book > div.preface a.target-informalequation:not(.labeled) {
+  content: "" "Equation " "" "" target-counter(attr(href), equation) "" "";
+}
 div.book > div.preface > div.section > div.titlepage h2::before {
   display: none !important;
 }
@@ -885,7 +886,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   prince-text-replace: "*" "";
 }
 div.book div.chapter > div.cnx-eoc {
-  counter-reset: exercise eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book div.chapter > div.section {
   counter-increment: section;
@@ -898,6 +899,7 @@ div.book div.chapter > div.section.labeled {
 }
 div.book div.chapter div.figure {
   counter-increment: figure;
+  counter-reset: subfigure;
 }
 div.book div.chapter div.figure:not(.labeled) {
   counter-increment: figure;
@@ -905,17 +907,15 @@ div.book div.chapter div.figure:not(.labeled) {
 div.book div.chapter div.figure.labeled {
   counter-increment: none;
 }
-div.book div.chapter div.figure > div.body > div.figure {
+div.book div.chapter .figure .informalfigure {
+  counter-increment: subfigure;
+  counter-reset: none-webkit-bug;
+}
+div.book div.chapter .figure .informalfigure:not(.labeled) {
   counter-increment: subfigure;
 }
-div.book div.chapter div.figure > div.body > div.figure:not(.labeled) {
-  counter-increment: subfigure;
-}
-div.book div.chapter div.figure > div.body > div.figure.labeled {
+div.book div.chapter .figure .informalfigure.labeled {
   counter-increment: none;
-}
-div.book div.chapter div.figure > div.body > div.figure:nth-of-type(1) {
-  counter-reset: subfigure;
 }
 div.book div.chapter .table {
   counter-increment: table;
@@ -964,7 +964,6 @@ div.book div.chapter > div.cnx-eoc > div.section {
 }
 div.book div.chapter > div.glossary *,
 div.book div.chapter > div.section div.example div.exercise *,
-div.book div.chapter > div.cnx-eoc div.solution div.figure,
 div.book div.chapter > div.cnx-eoc div.solution table,
 div.book div.chapter > div.cnx-eoc div.solution div.exercise,
 div.book div.chapter > div.cnx-eoc div.solution div.example,
@@ -975,7 +974,6 @@ div.book div.chapter > div.cnx-eoc div.solution div.equation {
 }
 div.book div.chapter > div.glossary *::before,
 div.book div.chapter > div.section div.example div.exercise *::before,
-div.book div.chapter > div.cnx-eoc div.solution div.figure::before,
 div.book div.chapter > div.cnx-eoc div.solution table::before,
 div.book div.chapter > div.cnx-eoc div.solution div.exercise::before,
 div.book div.chapter > div.cnx-eoc div.solution div.example::before,
@@ -984,7 +982,6 @@ div.book div.chapter > div.cnx-eoc div.solution div.equation::before {
 }
 div.book div.chapter > div.glossary *::after,
 div.book div.chapter > div.section div.example div.exercise *::after,
-div.book div.chapter > div.cnx-eoc div.solution div.figure::after,
 div.book div.chapter > div.cnx-eoc div.solution table::after,
 div.book div.chapter > div.cnx-eoc div.solution div.exercise::after,
 div.book div.chapter > div.cnx-eoc div.solution div.example::after,
@@ -1079,6 +1076,11 @@ div.book div.chapter a.target-example:not(.labeled) {
 div.book div.chapter a.target-exercise:not(.labeled) {
   content: "" "Exercise " target-counter(attr(href), chapter) "." target-counter(attr(href), exercise) "" "";
 }
+div.book div.chapter a.target-equation:not(.labeled),
+div.book div.chapter a.target-inlineequation:not(.labeled),
+div.book div.chapter a.target-informalequation:not(.labeled) {
+  content: "" "Equation " target-counter(attr(href), chapter) "." target-counter(attr(href), equation) "" "";
+}
 div.book > div.appendix {
   counter-reset: section figure subfigure table equation example exercise footnote toc-section;
   /* Cases where sections are referenced */
@@ -1105,7 +1107,7 @@ div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t 
   prince-text-replace: "*" "";
 }
 div.book > div.appendix > div.cnx-eoc {
-  counter-reset: exercise eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book > div.appendix > div.section {
   counter-increment: section;
@@ -1118,6 +1120,7 @@ div.book > div.appendix > div.section.labeled {
 }
 div.book > div.appendix div.figure {
   counter-increment: figure;
+  counter-reset: subfigure;
 }
 div.book > div.appendix div.figure:not(.labeled) {
   counter-increment: figure;
@@ -1125,17 +1128,15 @@ div.book > div.appendix div.figure:not(.labeled) {
 div.book > div.appendix div.figure.labeled {
   counter-increment: none;
 }
-div.book > div.appendix div.figure > div.body > div.figure {
+div.book > div.appendix .figure .informalfigure {
+  counter-increment: subfigure;
+  counter-reset: none-webkit-bug;
+}
+div.book > div.appendix .figure .informalfigure:not(.labeled) {
   counter-increment: subfigure;
 }
-div.book > div.appendix div.figure > div.body > div.figure:not(.labeled) {
-  counter-increment: subfigure;
-}
-div.book > div.appendix div.figure > div.body > div.figure.labeled {
+div.book > div.appendix .figure .informalfigure.labeled {
   counter-increment: none;
-}
-div.book > div.appendix div.figure > div.body > div.figure:nth-of-type(1) {
-  counter-reset: subfigure;
 }
 div.book > div.appendix .table {
   counter-increment: table;
@@ -1184,7 +1185,6 @@ div.book > div.appendix > div.cnx-eoc > div.section {
 }
 div.book > div.appendix > div.glossary *,
 div.book > div.appendix > div.section div.example div.exercise *,
-div.book > div.appendix > div.cnx-eoc div.solution div.figure,
 div.book > div.appendix > div.cnx-eoc div.solution table,
 div.book > div.appendix > div.cnx-eoc div.solution div.exercise,
 div.book > div.appendix > div.cnx-eoc div.solution div.example,
@@ -1195,7 +1195,6 @@ div.book > div.appendix > div.cnx-eoc div.solution div.equation {
 }
 div.book > div.appendix > div.glossary *::before,
 div.book > div.appendix > div.section div.example div.exercise *::before,
-div.book > div.appendix > div.cnx-eoc div.solution div.figure::before,
 div.book > div.appendix > div.cnx-eoc div.solution table::before,
 div.book > div.appendix > div.cnx-eoc div.solution div.exercise::before,
 div.book > div.appendix > div.cnx-eoc div.solution div.example::before,
@@ -1204,7 +1203,6 @@ div.book > div.appendix > div.cnx-eoc div.solution div.equation::before {
 }
 div.book > div.appendix > div.glossary *::after,
 div.book > div.appendix > div.section div.example div.exercise *::after,
-div.book > div.appendix > div.cnx-eoc div.solution div.figure::after,
 div.book > div.appendix > div.cnx-eoc div.solution table::after,
 div.book > div.appendix > div.cnx-eoc div.solution div.exercise::after,
 div.book > div.appendix > div.cnx-eoc div.solution div.example::after,
@@ -1298,6 +1296,11 @@ div.book > div.appendix a.target-example:not(.labeled) {
 }
 div.book > div.appendix a.target-exercise:not(.labeled) {
   content: "" "Exercise " target-counter(attr(href), appendix, upper-latin) "" target-counter(attr(href), exercise) "" "";
+}
+div.book > div.appendix a.target-equation:not(.labeled),
+div.book > div.appendix a.target-inlineequation:not(.labeled),
+div.book > div.appendix a.target-informalequation:not(.labeled) {
+  content: "" "Equation " target-counter(attr(href), appendix, upper-latin) "" target-counter(attr(href), equation) "" "";
 }
 div.book .empty {
   visibility: hidden;
@@ -1399,6 +1402,20 @@ div.colophon.end-of-book-solutions div.appendix-area div.solution > div.title a.
 div.colophon.end-of-book-solutions div.preface-area div.solution > div.title a.solution::before,
 div.colophon.end-of-book-solutions div.chapter-area div.solution > div.title a.solution::before,
 div.colophon.end-of-book-solutions div.appendix-area div.solution > div.title a.solution::before {
+  font-weight: bold;
+  content: 'TARGET_EXERCISE';
+  content: target-counter(attr(href), exercise);
+}
+/**********************
+ * End of chapter Solutions
+ **********************/
+div.cnx-eoc.cnx-solutions div.solution > div.title .epub-only {
+  display: none;
+}
+div.cnx-eoc.cnx-solutions div.solution > div.title a.solution {
+  content: '';
+}
+div.cnx-eoc.cnx-solutions div.solution > div.title a.solution::before {
   font-weight: bold;
   content: 'TARGET_EXERCISE';
   content: target-counter(attr(href), exercise);
@@ -2078,7 +2095,7 @@ div.book > div.preface > div.titlepage > div > div h1.title span.cnx-gentext-t {
   prince-text-replace: "*" "";
 }
 div.book > div.preface > div.cnx-eoc {
-  counter-reset: exercise eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book > div.preface > div.section {
   counter-increment: section;
@@ -2091,6 +2108,7 @@ div.book > div.preface > div.section.labeled {
 }
 div.book > div.preface div.figure {
   counter-increment: figure;
+  counter-reset: subfigure;
 }
 div.book > div.preface div.figure:not(.labeled) {
   counter-increment: figure;
@@ -2098,17 +2116,15 @@ div.book > div.preface div.figure:not(.labeled) {
 div.book > div.preface div.figure.labeled {
   counter-increment: none;
 }
-div.book > div.preface div.figure > div.body > div.figure {
+div.book > div.preface .figure .informalfigure {
+  counter-increment: subfigure;
+  counter-reset: none-webkit-bug;
+}
+div.book > div.preface .figure .informalfigure:not(.labeled) {
   counter-increment: subfigure;
 }
-div.book > div.preface div.figure > div.body > div.figure:not(.labeled) {
-  counter-increment: subfigure;
-}
-div.book > div.preface div.figure > div.body > div.figure.labeled {
+div.book > div.preface .figure .informalfigure.labeled {
   counter-increment: none;
-}
-div.book > div.preface div.figure > div.body > div.figure:nth-of-type(1) {
-  counter-reset: subfigure;
 }
 div.book > div.preface .table {
   counter-increment: table;
@@ -2157,7 +2173,6 @@ div.book > div.preface > div.cnx-eoc > div.section {
 }
 div.book > div.preface > div.glossary *,
 div.book > div.preface > div.section div.example div.exercise *,
-div.book > div.preface > div.cnx-eoc div.solution div.figure,
 div.book > div.preface > div.cnx-eoc div.solution table,
 div.book > div.preface > div.cnx-eoc div.solution div.exercise,
 div.book > div.preface > div.cnx-eoc div.solution div.example,
@@ -2168,7 +2183,6 @@ div.book > div.preface > div.cnx-eoc div.solution div.equation {
 }
 div.book > div.preface > div.glossary *::before,
 div.book > div.preface > div.section div.example div.exercise *::before,
-div.book > div.preface > div.cnx-eoc div.solution div.figure::before,
 div.book > div.preface > div.cnx-eoc div.solution table::before,
 div.book > div.preface > div.cnx-eoc div.solution div.exercise::before,
 div.book > div.preface > div.cnx-eoc div.solution div.example::before,
@@ -2177,7 +2191,6 @@ div.book > div.preface > div.cnx-eoc div.solution div.equation::before {
 }
 div.book > div.preface > div.glossary *::after,
 div.book > div.preface > div.section div.example div.exercise *::after,
-div.book > div.preface > div.cnx-eoc div.solution div.figure::after,
 div.book > div.preface > div.cnx-eoc div.solution table::after,
 div.book > div.preface > div.cnx-eoc div.solution div.exercise::after,
 div.book > div.preface > div.cnx-eoc div.solution div.example::after,
@@ -2272,6 +2285,11 @@ div.book > div.preface a.target-example:not(.labeled) {
 div.book > div.preface a.target-exercise:not(.labeled) {
   content: "" "Exercise " "" "" target-counter(attr(href), exercise) "" "";
 }
+div.book > div.preface a.target-equation:not(.labeled),
+div.book > div.preface a.target-inlineequation:not(.labeled),
+div.book > div.preface a.target-informalequation:not(.labeled) {
+  content: "" "Equation " "" "" target-counter(attr(href), equation) "" "";
+}
 div.book > div.preface > div.section > div.titlepage h2::before {
   display: none !important;
 }
@@ -2304,7 +2322,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   prince-text-replace: "*" "";
 }
 div.book div.chapter > div.cnx-eoc {
-  counter-reset: exercise eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book div.chapter > div.section {
   counter-increment: section;
@@ -2317,6 +2335,7 @@ div.book div.chapter > div.section.labeled {
 }
 div.book div.chapter div.figure {
   counter-increment: figure;
+  counter-reset: subfigure;
 }
 div.book div.chapter div.figure:not(.labeled) {
   counter-increment: figure;
@@ -2324,17 +2343,15 @@ div.book div.chapter div.figure:not(.labeled) {
 div.book div.chapter div.figure.labeled {
   counter-increment: none;
 }
-div.book div.chapter div.figure > div.body > div.figure {
+div.book div.chapter .figure .informalfigure {
+  counter-increment: subfigure;
+  counter-reset: none-webkit-bug;
+}
+div.book div.chapter .figure .informalfigure:not(.labeled) {
   counter-increment: subfigure;
 }
-div.book div.chapter div.figure > div.body > div.figure:not(.labeled) {
-  counter-increment: subfigure;
-}
-div.book div.chapter div.figure > div.body > div.figure.labeled {
+div.book div.chapter .figure .informalfigure.labeled {
   counter-increment: none;
-}
-div.book div.chapter div.figure > div.body > div.figure:nth-of-type(1) {
-  counter-reset: subfigure;
 }
 div.book div.chapter .table {
   counter-increment: table;
@@ -2383,7 +2400,6 @@ div.book div.chapter > div.cnx-eoc > div.section {
 }
 div.book div.chapter > div.glossary *,
 div.book div.chapter > div.section div.example div.exercise *,
-div.book div.chapter > div.cnx-eoc div.solution div.figure,
 div.book div.chapter > div.cnx-eoc div.solution table,
 div.book div.chapter > div.cnx-eoc div.solution div.exercise,
 div.book div.chapter > div.cnx-eoc div.solution div.example,
@@ -2394,7 +2410,6 @@ div.book div.chapter > div.cnx-eoc div.solution div.equation {
 }
 div.book div.chapter > div.glossary *::before,
 div.book div.chapter > div.section div.example div.exercise *::before,
-div.book div.chapter > div.cnx-eoc div.solution div.figure::before,
 div.book div.chapter > div.cnx-eoc div.solution table::before,
 div.book div.chapter > div.cnx-eoc div.solution div.exercise::before,
 div.book div.chapter > div.cnx-eoc div.solution div.example::before,
@@ -2403,7 +2418,6 @@ div.book div.chapter > div.cnx-eoc div.solution div.equation::before {
 }
 div.book div.chapter > div.glossary *::after,
 div.book div.chapter > div.section div.example div.exercise *::after,
-div.book div.chapter > div.cnx-eoc div.solution div.figure::after,
 div.book div.chapter > div.cnx-eoc div.solution table::after,
 div.book div.chapter > div.cnx-eoc div.solution div.exercise::after,
 div.book div.chapter > div.cnx-eoc div.solution div.example::after,
@@ -2498,6 +2512,11 @@ div.book div.chapter a.target-example:not(.labeled) {
 div.book div.chapter a.target-exercise:not(.labeled) {
   content: "" "Exercise " target-counter(attr(href), chapter) "." target-counter(attr(href), exercise) "" "";
 }
+div.book div.chapter a.target-equation:not(.labeled),
+div.book div.chapter a.target-inlineequation:not(.labeled),
+div.book div.chapter a.target-informalequation:not(.labeled) {
+  content: "" "Equation " target-counter(attr(href), chapter) "." target-counter(attr(href), equation) "" "";
+}
 div.book > div.appendix {
   counter-reset: section figure subfigure table equation example exercise footnote toc-section;
   /* Cases where sections are referenced */
@@ -2524,7 +2543,7 @@ div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t 
   prince-text-replace: "*" "";
 }
 div.book > div.appendix > div.cnx-eoc {
-  counter-reset: exercise eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book > div.appendix > div.section {
   counter-increment: section;
@@ -2537,6 +2556,7 @@ div.book > div.appendix > div.section.labeled {
 }
 div.book > div.appendix div.figure {
   counter-increment: figure;
+  counter-reset: subfigure;
 }
 div.book > div.appendix div.figure:not(.labeled) {
   counter-increment: figure;
@@ -2544,17 +2564,15 @@ div.book > div.appendix div.figure:not(.labeled) {
 div.book > div.appendix div.figure.labeled {
   counter-increment: none;
 }
-div.book > div.appendix div.figure > div.body > div.figure {
+div.book > div.appendix .figure .informalfigure {
+  counter-increment: subfigure;
+  counter-reset: none-webkit-bug;
+}
+div.book > div.appendix .figure .informalfigure:not(.labeled) {
   counter-increment: subfigure;
 }
-div.book > div.appendix div.figure > div.body > div.figure:not(.labeled) {
-  counter-increment: subfigure;
-}
-div.book > div.appendix div.figure > div.body > div.figure.labeled {
+div.book > div.appendix .figure .informalfigure.labeled {
   counter-increment: none;
-}
-div.book > div.appendix div.figure > div.body > div.figure:nth-of-type(1) {
-  counter-reset: subfigure;
 }
 div.book > div.appendix .table {
   counter-increment: table;
@@ -2603,7 +2621,6 @@ div.book > div.appendix > div.cnx-eoc > div.section {
 }
 div.book > div.appendix > div.glossary *,
 div.book > div.appendix > div.section div.example div.exercise *,
-div.book > div.appendix > div.cnx-eoc div.solution div.figure,
 div.book > div.appendix > div.cnx-eoc div.solution table,
 div.book > div.appendix > div.cnx-eoc div.solution div.exercise,
 div.book > div.appendix > div.cnx-eoc div.solution div.example,
@@ -2614,7 +2631,6 @@ div.book > div.appendix > div.cnx-eoc div.solution div.equation {
 }
 div.book > div.appendix > div.glossary *::before,
 div.book > div.appendix > div.section div.example div.exercise *::before,
-div.book > div.appendix > div.cnx-eoc div.solution div.figure::before,
 div.book > div.appendix > div.cnx-eoc div.solution table::before,
 div.book > div.appendix > div.cnx-eoc div.solution div.exercise::before,
 div.book > div.appendix > div.cnx-eoc div.solution div.example::before,
@@ -2623,7 +2639,6 @@ div.book > div.appendix > div.cnx-eoc div.solution div.equation::before {
 }
 div.book > div.appendix > div.glossary *::after,
 div.book > div.appendix > div.section div.example div.exercise *::after,
-div.book > div.appendix > div.cnx-eoc div.solution div.figure::after,
 div.book > div.appendix > div.cnx-eoc div.solution table::after,
 div.book > div.appendix > div.cnx-eoc div.solution div.exercise::after,
 div.book > div.appendix > div.cnx-eoc div.solution div.example::after,
@@ -2717,6 +2732,11 @@ div.book > div.appendix a.target-example:not(.labeled) {
 }
 div.book > div.appendix a.target-exercise:not(.labeled) {
   content: "" "Exercise " target-counter(attr(href), appendix, upper-latin) "" target-counter(attr(href), exercise) "" "";
+}
+div.book > div.appendix a.target-equation:not(.labeled),
+div.book > div.appendix a.target-inlineequation:not(.labeled),
+div.book > div.appendix a.target-informalequation:not(.labeled) {
+  content: "" "Equation " target-counter(attr(href), appendix, upper-latin) "" target-counter(attr(href), equation) "" "";
 }
 div.book .empty {
   visibility: hidden;
@@ -2818,6 +2838,20 @@ div.colophon.end-of-book-solutions div.appendix-area div.solution > div.title a.
 div.colophon.end-of-book-solutions div.preface-area div.solution > div.title a.solution::before,
 div.colophon.end-of-book-solutions div.chapter-area div.solution > div.title a.solution::before,
 div.colophon.end-of-book-solutions div.appendix-area div.solution > div.title a.solution::before {
+  font-weight: bold;
+  content: 'TARGET_EXERCISE';
+  content: target-counter(attr(href), exercise);
+}
+/**********************
+ * End of chapter Solutions
+ **********************/
+div.cnx-eoc.cnx-solutions div.solution > div.title .epub-only {
+  display: none;
+}
+div.cnx-eoc.cnx-solutions div.solution > div.title a.solution {
+  content: '';
+}
+div.cnx-eoc.cnx-solutions div.solution > div.title a.solution::before {
   font-weight: bold;
   content: 'TARGET_EXERCISE';
   content: target-counter(attr(href), exercise);
@@ -2948,6 +2982,7 @@ div.book > div.appendix .precalculus.try > .title:not(.labeled)::before {
  ******************************************************/
 .note.precalculus.howto {
   page-break-inside: avoid;
+  min-height: 45px;
   padding-top: 0;
   margin-top: 0;
   background: url("ccap-precalculus/howto.svg") no-repeat;
@@ -2969,6 +3004,7 @@ div.book > div.appendix .precalculus.try > .title:not(.labeled)::before {
 }
 .note.precalculus.qa {
   page-break-inside: avoid;
+  min-height: 45px;
   padding-top: 0;
   margin-top: 0;
   background: url("ccap-precalculus/qa.svg") no-repeat;
@@ -2988,11 +3024,9 @@ div.book > div.appendix .precalculus.try > .title:not(.labeled)::before {
   font-size: x-small;
   color: #eead58;
 }
-.note.precalculus.qa .body p:nth-of-type(1) {
-  margin-top: 1em;
-}
 .note.precalculus.media {
   page-break-inside: avoid;
+  min-height: 45px;
   padding-top: 0;
   margin-top: 0;
   background: url("ccap-precalculus/media.svg") no-repeat;
@@ -3021,6 +3055,7 @@ div.book > div.appendix .precalculus.try > .title:not(.labeled)::before {
 }
 .note.precalculus.try {
   page-break-inside: avoid;
+  min-height: 45px;
   padding-top: 0;
   margin-top: 0;
   background: url("ccap-precalculus/try.svg") no-repeat;
@@ -3058,32 +3093,52 @@ div.book > div.appendix .precalculus.try > .title:not(.labeled)::before {
   display: none;
 }
 .note.precalculus.try .exercise .solution {
-  prince-text-replace: "Solution" "Answer:";
-  color: #eead58;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  font-weight: normal;
-  font-size: 8pt;
-  transform: rotate(180deg);
-  -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -o-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
-}
-.note.precalculus.try .exercise .solution > .body {
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  color: #000000;
-  padding-left: 0;
-  width: 50%;
-}
-.note.precalculus.try .exercise .solution > .title {
-  float: left;
-  padding-left: 0;
-  margin-left: .3em;
-}
-.note.precalculus.try .exercise .solution::before {
-  float: left;
-  padding-right: .5em;
+  display: none;
+  /* 
+          W&N Doesn't want solutions utilized in the text at this point
+          and plan on creating separate solutions manual(s) for text
+
+          // override cnxml default label with Answer
+          prince-text-replace: "Solution" "Answer:";
+          color: @orange;
+          font-family: @font-family;
+          font-weight: normal;
+          font-size: 8pt;
+
+          // flip answer to solution 180 degrees per template. Utilize web extensions
+          // for use inside the browser for troubleshooting if needed.
+          transform: rotate(180deg);
+          // Chrome and Safari
+          -webkit-transform: rotate(180deg);
+          // Firefox
+          -moz-transform: rotate(180deg);
+          // Opera
+          -o-transform: rotate(180deg);
+          // IE9 and above
+          -ms-transform: rotate(180deg);
+          // support for IE 8 and lower
+          filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2.0);
+
+          // font and color override from solution text to match template
+          > .body {
+            font-family: @font-family-precalculus;
+            color: @black;
+            padding-left: 0;
+            width: 50%;
+          }
+
+          > .title {
+            float: left;
+            padding-left: 0;
+            margin-left: .3em;
+          }
+
+          // alignment of Answer tag with rest of solution
+          &::before { 
+            float: left; 
+            padding-right: .5em;
+          }*/
+
 }
 .note:not(.precalculus) {
   color: #000;
@@ -3482,6 +3537,15 @@ p {
   display: block !important;
   text-transform: uppercase;
 }
+.glossary .title::before {
+  content: "" "Chapter " counter(chapter, decimal) " Review";
+  color: #528cbe;
+  font-size: x-large !important;
+  padding: 0em !important;
+  display: block !important;
+  text-transform: uppercase;
+  margin-bottom: 1.5em;
+}
 .glossary dt::after {
   content: " " !important;
 }
@@ -3728,7 +3792,10 @@ div.book > div.part > div.appendix > div.section div.equation > *:last-child::af
  * ---------------------------------------------------
  */
 div.end-of-book-solutions div.solution {
-  display: inline;
+  -webkit-column-count: 1;
+  column-count: 1;
+  columns: 1;
+  column-fill: auto;
 }
 div.end-of-book-solutions div.solution > div.title {
   display: inline;

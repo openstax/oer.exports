@@ -494,6 +494,7 @@ div.part > div.titlepage {display:none;}
 
   &.solutions {
     .x-column-count(1);
+    counter-increment: figure;
     > .section .title > a { color: @blue; page-break-after: avoid; }
     p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
   }
@@ -507,9 +508,8 @@ div.part > div.titlepage {display:none;}
     font-family: @font-family;
 
     > .solution {
-        counter-increment: figure;
-        padding-top: .5em;
-        padding-bottom: .5em;
+      padding-top: .5em;
+      padding-bottom: .5em;
       
       > .title { 
         font-family: @font-family;
@@ -520,7 +520,7 @@ div.part > div.titlepage {display:none;}
       > .body > .figure {
         font-family: @font-family;
       }
-
+      
       > .body,
       > .body > p {
         font-family: @font-family-statistics;
@@ -720,7 +720,6 @@ img, figure, subfigure  { margin: 1em; }
  ******************************************************/
  
 // We must stop the blue header bumper from breaking off at bottom of pages
-.example, 
 .example *:first-child { page-break-before: avoid; }
 
 // Table caption text needs to be regular
@@ -825,7 +824,7 @@ img, figure, subfigure  { margin: 1em; }
 /******************************************************
  * Tables TODO: simplify/regroup code block //latest
  ******************************************************/
-.table {
+.table  {
   page-break-inside: auto;
   // If a table spans more than 1 page then put caption on all following pages
   prince-caption-page: all;
