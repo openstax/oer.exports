@@ -506,43 +506,13 @@ div.part > div.titlepage { display:none; }
     p { text-indent: 2em; }
   }
 
-  &.bring-together-homework {
-     .x-column-count(1);
-    > .title { 
-      content: "Bringing It Together : Homework"; 
-      margin-top: 1em; 
-    }
-    > .section .title > a { 
-      color: @blue; 
-      page-break-after: avoid; 
-    }
-    p:nth-of-type(1) { 
-      text-indent: 0em; 
-      margin-top: 1em; 
-    }
-    p { text-indent: 2em; }
-  }
-
-  &.bring-together-practice {
-     .x-column-count(1);
-    > .title { 
-      content: "Bringing It Together : Practice"; 
-      margin-top: 1em; 
-    }
-    > .section .title > a { 
-      color: @blue; 
-      page-break-after: avoid; 
-    }
-    p:nth-of-type(1) { 
-      text-indent: 0em; 
-      margin-top: 1em; 
-    }
-    p { text-indent: 2em; }
-  }
-
-  &.solutions {
+  // Mix-in to set Bringing It Together title and set similiar related elements
+  .x-bring-together(@title) {
     .x-column-count(1);
-    counter-increment: figure;
+    > .title { 
+      content: @title; 
+      margin-top: 1em; 
+    }
     > .section .title > a { 
       color: @blue; 
       page-break-after: avoid; 
@@ -551,7 +521,12 @@ div.part > div.titlepage { display:none; }
       text-indent: 0em; 
       margin-top: 1em; 
     }
+    p { text-indent: 2em; }
   }
+
+  // Set Bringing It Together Homework and Practice titles
+  &.bring-together-homework { .x-bring-together("Bringing It Together : Homework"); }
+  &.bring-together-practice { .x-bring-together("Bringing It Together : Practice"); }
 
 
   // Styles for general solutions for the rest of exercises
