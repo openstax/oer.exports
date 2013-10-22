@@ -93,7 +93,7 @@
   &.statistics {
     &.calculator {
       page-break-inside: auto;
-      .x-feature(#336633, transparent, calculator, 0.42in);
+      .x-feature(transparent, calculator, 0.42in);
 
       // Reset this here so other feature headers retain their
       // 'transparent top' by being white. (For an example see
@@ -104,7 +104,7 @@
     }
     &.collab {
       page-break-indside: avoid;
-      .x-feature(#330033, @gray, collab, 0.42in);
+      .x-feature(@gray, collab, 0.42in);
       .x-finger();
 
       // top spacing for collaborative exercises
@@ -114,7 +114,7 @@
       // Request for Stats lab to always be on new page
       page-break-before: always;
       page-break-inside: avoid;
-      .x-feature(#006666, @gray, lab, 0.34in);
+      .x-feature(@gray, lab, 0.34in);
 
       /******************************************************
        * Statistics Lab Feature Heading/SubHeading styling
@@ -173,7 +173,7 @@
     // - Special-handling of the finger icon
     // - Exercises should not affect numbering and solutions should not show up in the content
     &.try {
-      .x-feature(#336600, @gray, try, 0.35in);
+      .x-feature(@gray, try, 0.35in);
 
       /******************************************************
        * Try-It Feature styling/finger icon implementation
@@ -328,7 +328,7 @@
 /*******************************************************
  * Unit Page
  ******************************************************/
-div.part > div.titlepage {display:none;}
+div.part > div.titlepage { display:none; }
 
 
 /******************************************************
@@ -402,7 +402,7 @@ div.part > div.titlepage {display:none;}
 // color backgrounds of headers when improperly sized imagery is received.
 // are to be used.  Remove this param from features and function below.
 
-.x-feature (@color, @bg-color, @svg, @padding-top) {
+.x-feature (@bg-color, @svg, @padding-top) {
   // 1st semantic paragraph is title of feature. Indention removed for second semantic paragraph
   // which is first real paragraph.  Subsequent paragraphs are indented.
   p:nth-of-type(2) {
@@ -440,7 +440,10 @@ div.part > div.titlepage {display:none;}
 
   .figure {
     img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
-    > .title { font-size: x-small; color: @blue; }
+    > .title { 
+      font-size: x-small; 
+      color: @blue; 
+    }
   }
 }
 
@@ -448,7 +451,10 @@ div.part > div.titlepage {display:none;}
  * End of chapter customizations
  ******************************************************/
 
-.cnx-eoc > .title > * { font-size: large !important; padding: 0 !important; }
+.cnx-eoc > .title > * { 
+  font-size: large !important; 
+  padding: 0 !important; 
+}
 
 .cnx-eoc {
   .x-column-count(2);
@@ -616,8 +622,6 @@ div.part > div.titlepage {display:none;}
 .cnx-eoc .section .title a.solution-number {
   content: "" counter(exercise, decimal) "." "";
 }
-
-
 
 
 
@@ -827,14 +831,14 @@ img, figure, subfigure  { margin: 1em; }
 
 // embedding of calculator feature inside example problems
 .example > .body > .exercise > .body > .problem > .note.statistics.calculator {
-  .x-feature(#336633, transparent, calculator, 0.42in);
+  .x-feature(transparent, calculator, 0.42in);
 }
 
 // embedding of calculator feature inside example solutions
 .example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator {
-  .x-feature(#336633, transparent, calculator, 0.42in);
+  .x-feature(transparent, calculator, 0.42in);
 }
-
+ 
 /******************************************************
  * EOC Exercise Finger icon implementation
  ******************************************************/
