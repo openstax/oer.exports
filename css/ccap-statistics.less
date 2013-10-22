@@ -397,6 +397,11 @@ div.part > div.titlepage {display:none;}
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
 
+// As a part of cleanup, refactor this function to not use @color because
+// full width feature headers are now being used, and no more tricks to 
+// color backgrounds of headers when improperly sized imagery is received.
+// are to be used.  Remove this param from features and function below.
+
 .x-feature (@color, @bg-color, @svg, @padding-top) {
   // 1st semantic paragraph is title of feature. Indention removed for second semantic paragraph
   // which is first real paragraph.  Subsequent paragraphs are indented.
@@ -462,41 +467,83 @@ div.part > div.titlepage {display:none;}
 
   &.summary {
     .x-column-count(1);
-    > .title { content: "Chapter Review"; margin-top: 1em; }
-    > .section .title > a { color: @blue; page-break-after: avoid; }
-    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
+    > .title { 
+      content: "Chapter Review"; 
+      margin-top: 1em; 
+    }
+    > .section .title > a { 
+      color: @blue; 
+      page-break-after: avoid; 
+    }
+    p:nth-of-type(1) { 
+      text-indent: 0em; 
+      margin-top: 1em; 
+    }
     p { text-indent: 2em; }
   }
 
   &.practice {
     .x-column-count(1);
-    > .title { content: "Practice"; margin-top: 1em; }
-    > .section .title > a { color: @blue; page-break-after: avoid; }
-    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
+    > .title { 
+      content: "Practice"; 
+      margin-top: 1em; 
+    }
+    > .section .title > a { 
+      color: @blue; 
+      page-break-after: avoid; 
+    }
+    p:nth-of-type(1) { 
+      text-indent: 0em; 
+      margin-top: 1em; 
+    }
     p { text-indent: 2em; }
   }
 
   &.bring-together-homework {
      .x-column-count(1);
-    > .title { content: "Bringing It Together : Homework"; margin-top: 1em; }
-    > .section .title > a { color: @blue; page-break-after: avoid; }
-    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
+    > .title { 
+      content: "Bringing It Together : Homework"; 
+      margin-top: 1em; 
+    }
+    > .section .title > a { 
+      color: @blue; 
+      page-break-after: avoid; 
+    }
+    p:nth-of-type(1) { 
+      text-indent: 0em; 
+      margin-top: 1em; 
+    }
     p { text-indent: 2em; }
   }
 
   &.bring-together-practice {
      .x-column-count(1);
-    > .title { content: "Bringing It Together : Practice"; margin-top: 1em; }
-    > .section .title > a { color: @blue; page-break-after: avoid; }
-    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
+    > .title { 
+      content: "Bringing It Together : Practice"; 
+      margin-top: 1em; 
+    }
+    > .section .title > a { 
+      color: @blue; 
+      page-break-after: avoid; 
+    }
+    p:nth-of-type(1) { 
+      text-indent: 0em; 
+      margin-top: 1em; 
+    }
     p { text-indent: 2em; }
   }
 
   &.solutions {
     .x-column-count(1);
     counter-increment: figure;
-    > .section .title > a { color: @blue; page-break-after: avoid; }
-    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
+    > .section .title > a { 
+      color: @blue; 
+      page-break-after: avoid; 
+    }
+    p:nth-of-type(1) { 
+      text-indent: 0em; 
+      margin-top: 1em; 
+    }
   }
 
 
@@ -529,8 +576,6 @@ div.part > div.titlepage {display:none;}
     }
   }
 
-  //html > body > div#idm3358944.book > div#idp11653664.chapter > div.cnx-eoc.cnx-solutions > div#m10159-eip-307.solution > div.body > div#m10159-fs-idm133416208.figure > div.title > span.cnx-gentext-figure.cnx-gentext-t
-
   //ccap-base sets this so override it here
   .references p { text-indent: 0em; }
 
@@ -543,14 +588,7 @@ div.part > div.titlepage {display:none;}
   }
 }
 
-// not using this remove
-.multiple-choice > .title {
-  content: "Review Questions";
-  column-span: all !important; // added override to resolve bug on staging where titles
-  margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginata
-}
-
-// this is the homework eoc piece.  Has to be fixed and renamed
+// Homework eoc questions class
 .free-response {
   .x-column-count(1);
 }
@@ -567,8 +605,6 @@ div.part > div.titlepage {display:none;}
 }
 
 // Remove section headers from eoc problems
-.multiple-choice, 
-.interactive-exercise,
 .bring-together-practice,
 .bring-together-homework {
   > .section > .title { display: none; }
