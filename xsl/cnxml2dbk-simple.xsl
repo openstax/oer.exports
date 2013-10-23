@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
-<xsl:stylesheet 
-  xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+<xsl:stylesheet
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:mml="http://www.w3.org/1998/Math/MathML"
   xmlns:c="http://cnx.rice.edu/cnxml"
   xmlns:db="http://docbook.org/ns/docbook"
@@ -9,7 +9,7 @@
   xmlns:ext="http://cnx.org/ns/docbook+"
   version="1.0">
 
-<!-- 
+<!--
 	Much of cnxml can be converted to docbook just by converting element names
 	and attribute values. This file contains the straightforward conversions
  -->
@@ -18,7 +18,7 @@
 <!-- Block elements in docbook cannot have free-floating text. they need to be wrapped in a db:para -->
 <xsl:template name="block-id-and-children">
 	<xsl:apply-templates select="@*"/>
-	
+
 	<!-- If something like a note has a label, add it. -->
 	<xsl:if test="(c:title or c:label) and not(c:title and c:label != '')">
     	<db:title>
@@ -29,7 +29,7 @@
 	<xsl:if test="c:title and c:label">
 		<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: c:label and c:title found in <xsl:value-of select="local-name()"/></xsl:with-param></xsl:call-template>
 	</xsl:if>
-	
+
 	<xsl:choose>
 		<xsl:when test="normalize-space(text()) != ''">
 			<db:para>
@@ -59,7 +59,7 @@
 </xsl:template>
 
 
- 
+
 <xsl:template match="c:note/@*">
     <xsl:attribute name="{local-name()}">
         <xsl:value-of select="."/>
@@ -67,9 +67,6 @@
 </xsl:template>
 <xsl:template match="c:footnote">
     <db:footnote><xsl:apply-templates select="@*|node()"/></db:footnote>
-</xsl:template>
-<xsl:template match="c:footnote[text()]">
-    <db:footnote><xsl:apply-templates select="@*"/><db:para><xsl:apply-templates select="node()"/></db:para></db:footnote>
 </xsl:template>
 <xsl:template match="c:section">
     <db:section><xsl:call-template name="block-id-and-children"/></db:section>
@@ -237,7 +234,7 @@
                         <xsl:text>/</xsl:text>
                         <xsl:value-of select="$version"/>
                         <xsl:text>/</xsl:text>
-                        <xsl:value-of select="@resource"/>    		
+                        <xsl:value-of select="@resource"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:variable>
@@ -378,7 +375,7 @@
 	</db:emphasis>
 	<!-- /db:citetitle -->
 </xsl:template>
-<!-- 
+<!--
 	c: @pub-type (optional): The type of publication cited. May be any of the following: "article", "book", "booklet", "conference",
 	   "inbook", "incollection", "inproceedings", "mastersthesis", "manual", "misc", "phdthesis", "proceedings", "techreport", "unpublished".
 	db: @pubwork (enumeration)
@@ -401,7 +398,7 @@
     * "set"
     * "webpage"
     * "wiki"
- --> 
+ -->
 <xsl:template match="c:cite-title/@pub-type">
 	<xsl:variable name="pubwork">
 		<xsl:choose>
@@ -427,7 +424,7 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
-	
+
 	<xsl:if test="$pubwork != ''">
 		<xsl:attribute name="pubwork"><xsl:value-of select="$pubwork"/></xsl:attribute>
 	</xsl:if>
