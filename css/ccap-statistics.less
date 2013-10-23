@@ -20,6 +20,7 @@
 @teal:        #5FC8C1;
 @dark-gray:   #08212D;
 
+// not really needed in the grand scope of things remove at refactor
 @white:       #FFF;
 @black:       #000;
 
@@ -30,6 +31,7 @@
 @font-family-statistics: Liberation Serif, serif, @stix-fonts;
 
 @page { margin: 0.5in 1in; }
+  
 // Finished printed size of the QR code is dependent on: 1-distance between qr code and scanning device
 // 2-size of dots in the code(amount of data inputed into the code, the smaller the dots become)
 // For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
@@ -91,7 +93,8 @@
 .note {
   &.statistics {
     &.calculator {
-      .x-feature(#336633, transparent, calculator, 0.42in);
+      page-break-inside: auto;
+      .x-feature(transparent, calculator, 0.42in);
 
       // Reset this here so other feature headers retain their
       // 'transparent top' by being white. (For an example see
@@ -101,14 +104,18 @@
       }
     }
     &.collab {
-      .x-feature(#330033, @gray, collab, 0.42in);
+      page-break-indside: avoid;
+      .x-feature(@gray, collab, 0.42in);
       .x-finger();
 
       // top spacing for collaborative exercises
       .body p:nth-of-type(1) { margin-top: 1em; }
     }
     &.lab {
-      .x-feature(#006666, @gray, lab, 0.34in);
+      // Request for Stats lab to always be on new page
+      page-break-before: always;
+      page-break-inside: avoid;
+      .x-feature(@gray, lab, 0.34in);
 
       /******************************************************
        * Statistics Lab Feature Heading/SubHeading styling
@@ -162,31 +169,12 @@
       font-style: italic;
       .x-finger();
     }
-    // TODO: a final decision has not yet been made on whether this will be used in the statistics book
-    &.interactive {
-      .x-feature(#993333, @gray, interactive, 0.42in);
 
-      img {   //center qr code
-        display: block;
-        margin-left: auto;
-        margin-right: auto
-      }
-
-      .link {
-        color: @blue !important;
-        font-weight: bold;
-      }
-
-      &.um {
-        .x-feature(#993333, @gray, interactive_UM, 0.50in);
-        page-break-inside: auto !important; //override no break breaks from interactive feature L#197
-      }
-    }
     // The .try box has a bunch of customizations:
     // - Special-handling of the finger icon
     // - Exercises should not affect numbering and solutions should not show up in the content
     &.try {
-      .x-feature(#336600, @gray, try, 0.35in);
+      .x-feature(@gray, try, 0.35in);
 
       /******************************************************
        * Try-It Feature styling/finger icon implementation
@@ -303,7 +291,6 @@
     margin-bottom: .5em;
     color: @blue !important;
     font-weight: bold;
-    page-break-after: avoid;
     border-bottom: 1px solid @blue;
   }
 }
@@ -323,7 +310,6 @@
 // Tables inside notes do not need header styling
 .note .table th {
   background-color: transparent;
-  font-weight: normal;
 }
 
 /******************************************************
@@ -343,7 +329,7 @@
 /*******************************************************
  * Unit Page
  ******************************************************/
-div.part > div.titlepage {display:none;}
+div.part > div.titlepage { display:none; }
 
 
 /******************************************************
@@ -412,7 +398,12 @@ div.part > div.titlepage {display:none;}
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
 
-.x-feature (@color, @bg-color, @svg, @padding-top) {
+// As a part of cleanup, refactor this function to not use @color because
+// full width feature headers are now being used, and no more tricks to 
+// color backgrounds of headers when improperly sized imagery is received.
+// are to be used.  Remove this param from features and function below.
+
+.x-feature (@bg-color, @svg, @padding-top) {
   // 1st semantic paragraph is title of feature. Indention removed for second semantic paragraph
   // which is first real paragraph.  Subsequent paragraphs are indented.
   p:nth-of-type(2) {
@@ -426,7 +417,7 @@ div.part > div.titlepage {display:none;}
     background-position: top outside;
     page-break-inside: avoid;
     page-break-after: avoid;
-    background-color: white;
+    background-color: @white;
     content: "";
     display: block;
     // the following are tweaked so the overlays really do over lay
@@ -446,12 +437,14 @@ div.part > div.titlepage {display:none;}
     margin: .25em 0;
     color: black;
     font-weight:bold;
-    page-break-after: avoid;
    }
 
   .figure {
     img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
-    > .title { font-size: x-small; color: @blue; }
+    > .title { 
+      font-size: x-small; 
+      color: @blue; 
+    }
   }
 }
 
@@ -459,13 +452,15 @@ div.part > div.titlepage {display:none;}
  * End of chapter customizations
  ******************************************************/
 
-.cnx-eoc > .title > * { font-size: large !important; padding: 0 !important; }
+.cnx-eoc > .title > * { 
+  font-size: large !important; 
+  padding: 0 !important; 
+}
 
 .cnx-eoc {
   .x-column-count(2);
   column-width: auto !important;
   column-fill: balance !important;
-  page-break-inside: auto;
   column-break-inside: auto;
 
   > .title  {
@@ -479,25 +474,59 @@ div.part > div.titlepage {display:none;}
 
   &.summary {
     .x-column-count(1);
-    > .title { content: "Chapter Review"; margin-top: 1em; }
-    > .section .title > a { color: @blue; page-break-after: avoid; }
-    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
+    > .title { 
+      content: "Chapter Review"; 
+      margin-top: 1em; 
+    }
+    > .section .title > a { 
+      color: @blue; 
+      page-break-after: avoid; 
+    }
+    p:nth-of-type(1) { 
+      text-indent: 0em; 
+      margin-top: 1em; 
+    }
     p { text-indent: 2em; }
   }
 
   &.practice {
     .x-column-count(1);
-    > .title { content: "Practice"; margin-top: 1em; }
-    > .section .title > a { color: @blue; page-break-after: avoid; }
-    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
+    > .title { 
+      content: "Practice"; 
+      margin-top: 1em; 
+    }
+    > .section .title > a { 
+      color: @blue; 
+      page-break-after: avoid; 
+    }
+    p:nth-of-type(1) { 
+      text-indent: 0em; 
+      margin-top: 1em; 
+    }
     p { text-indent: 2em; }
   }
 
-  &.solutions {
+  // Mix-in to set Bringing It Together title and set similiar related elements
+  .x-bring-together(@title) {
     .x-column-count(1);
-    > .section .title > a { color: @blue; page-break-after: avoid; }
-    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
+    > .title { 
+      content: @title; 
+      margin-top: 1em; 
+    }
+    > .section .title > a { 
+      color: @blue; 
+      page-break-after: avoid; 
+    }
+    p:nth-of-type(1) { 
+      text-indent: 0em; 
+      margin-top: 1em; 
+    }
+    p { text-indent: 2em; }
   }
+
+  // Set Bringing It Together Homework and Practice titles
+  &.bring-together-homework { .x-bring-together("Bringing It Together : Homework"); }
+  &.bring-together-practice { .x-bring-together("Bringing It Together : Practice"); }
 
 
   // Styles for general solutions for the rest of exercises
@@ -508,8 +537,8 @@ div.part > div.titlepage {display:none;}
     font-family: @font-family;
 
     > .solution {
-        padding-top: .5em;
-        padding-bottom: .5em;
+      padding-top: .5em;
+      padding-bottom: .5em;
       
       > .title { 
         font-family: @font-family;
@@ -517,6 +546,10 @@ div.part > div.titlepage {display:none;}
         display: inline;
       }
 
+      > .body > .figure {
+        font-family: @font-family;
+      }
+      
       > .body,
       > .body > p {
         font-family: @font-family-statistics;
@@ -537,28 +570,14 @@ div.part > div.titlepage {display:none;}
   }
 }
 
-// not using this remove
-.multiple-choice > .title {
-  content: "Review Questions";
-  column-span: all !important; // added override to resolve bug on staging where titles
-  margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginata
-}
-
-// this is the homework eoc piece.  Has to be fixed and renamed
+// Homework eoc questions class
 .free-response {
   .x-column-count(1);
-}
-.free-response > .title {
+> .title {
   content: "Homework";
   column-span: all !important; // added override to resolve bug on staging where titles
   margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginata
-}
-
-// not using this - remove later
-&.interactive-exercise > div.title {
-  content: "Interactive Link Questions";
-  column-span: all !important;  // added override to resolve bug on staging where titles
-  margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
+  }
 }
 
 &.formula-review > div.title {
@@ -568,8 +587,8 @@ div.part > div.titlepage {display:none;}
 }
 
 // Remove section headers from eoc problems
-.multiple-choice, 
-.interactive-exercise {
+.bring-together-practice,
+.bring-together-homework {
   > .section > .title { display: none; }
 }
 
@@ -579,8 +598,6 @@ div.part > div.titlepage {display:none;}
 .cnx-eoc .section .title a.solution-number {
   content: "" counter(exercise, decimal) "." "";
 }
-
-
 
 
 
@@ -617,7 +634,10 @@ img { max-height:9.5in; }
   }
 }
 
-a { font-weight: bold; color: @blue;}
+a { 
+  font-family: @font-family;
+  font-weight: bold; color: @blue;
+}
 
 
 h1, h2, h3, h4, h5, h6 {
@@ -714,6 +734,16 @@ img, figure, subfigure  { margin: 1em; }
 /******************************************************
  * Example Elements Styling and Numbering
  ******************************************************/
+ 
+// We must stop the blue header bumper from breaking off at bottom of pages
+.example *:first-child { page-break-before: avoid; }
+
+// Table caption text needs to be regular
+.example .table-caption.caption {
+    color: @black;
+    font-weight: normal !important; //override strong tag
+    font-family: @font-family;
+}
 
 .example > .title {
   background: @blue;
@@ -773,7 +803,18 @@ img, figure, subfigure  { margin: 1em; }
   }
 }
 
+// refactor and consolidate these two below before submitting 
 
+// embedding of calculator feature inside example problems
+.example > .body > .exercise > .body > .problem > .note.statistics.calculator {
+  .x-feature(transparent, calculator, 0.42in);
+}
+
+// embedding of calculator feature inside example solutions
+.example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator {
+  .x-feature(transparent, calculator, 0.42in);
+}
+ 
 /******************************************************
  * EOC Exercise Finger icon implementation
  ******************************************************/
@@ -799,7 +840,7 @@ img, figure, subfigure  { margin: 1em; }
 /******************************************************
  * Tables TODO: simplify/regroup code block //latest
  ******************************************************/
-.table {
+.table  {
   page-break-inside: auto;
   // If a table spans more than 1 page then put caption on all following pages
   prince-caption-page: all;
@@ -831,7 +872,7 @@ img, figure, subfigure  { margin: 1em; }
     background-color: @white;
   }
 
-  tr { page-break-inside: avoid;}
+  tr { page-break-inside: auto;}
 
   th {
     color: black;
