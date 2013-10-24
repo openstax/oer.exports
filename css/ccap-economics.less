@@ -21,8 +21,10 @@
 // @gray:          #D7D9D7;  This color is incorrect. background is merging with work-it-out header Talk to WN
 @gray:    #EFEFEF;  // This is closer to the template design note background
 
-// Sans-serif font inherited from base as @font-family. Need serif font as well for econ
-@font-family-serif: Liberation Serif, serif, @stix-fonts;
+// A mixture of serif and sans-serif fonts.
+@font-family-sans-serif: Arial, sans-serif, @stix-fonts;
+@font-family-serif: Times New Roman, serif, @stix-fonts;
+
 
 
 /******************************************************
@@ -184,7 +186,26 @@ h2 {
   &::before { color: @dark-blue; }
 }
 
+// Tables
+.table table {
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-top: 1px solid @dark-blue !important; // !important used to override inline-style...
 
+  caption span,
+  caption::before,
+  caption span.table-caption.caption {
+    color: @dark-blue;
+    font-weight: 700 !important; // !important used in ccap-precalculus.
+  }
+
+  thead {
+    th {
+      background-color: @light-blue;
+      border-bottom: 1px solid @dark-blue !important; //!important used in ccap-precalculus.
+    }
+  }
+}
 
 
 
@@ -213,3 +234,114 @@ h2 {
 }
 
 
+/******************************************************************************
+ * EOC Styling
+ ******************************************************************************/
+
+// Key Terms
+.glossary > .titlepage h2.title {
+  color: @dark-blue;
+}
+.glossary {
+  > .titlepage h2.title {
+    font: normal normal 700 13pt/1em @font-family-sans-serif;
+  }
+
+  > dl dt {
+    font: normal normal 700 10pt/1em @font-family-sans-serif;
+  }
+  > dl dd {
+    font: normal normal 400 10pt/12pt @font-family-serif;
+  }
+}
+.glossary {
+  // Hide "Chapter x Review" title.
+  > .titlepage h2.title::before {
+    display: none !important; // !important is used in ccap-precalculus.
+  }
+
+  > dl {
+    margin: 0;
+
+    > dt, > dd {
+      padding-top: 1em;
+    }
+  }
+}
+
+.cnx-eoc {
+  &.summary,
+  &.self-check-questions,
+  &.review-questions,
+  &.critical-thinking,
+  &.problems {
+    > .title {
+      color: @dark-blue !important; // !important used in ccap-precalculus.
+    }
+    > .section > .title > a {
+      color: @dark-blue;
+    }
+  }
+}
+.cnx-eoc {
+  > .title {
+    font: normal normal 700 13pt/1em @font-family-sans-serif;
+  }
+  > .section {
+    > .title {
+      font: normal normal 700 10pt/1em @font-family-sans-serif;
+    }
+    > .body {
+      font: normal normal 400 10pt/12pt @font-family-serif;
+    }
+  }
+}
+.cnx-eoc {
+  .title {
+    margin-top: 1em;
+    column-span: all;
+  }
+  > .section > .title {
+    display: none;
+  }
+  > .section.empty {
+    display: none; // Get rid of extra spacing from padding
+  }
+
+// Key Concepts & Summary
+  &.summary {
+    > .title {
+      content: "Key Concepts and Summary";
+      text-transform: uppercase;
+    }
+
+    > .section > .title {
+      display: block;
+    }
+  }
+
+// Self-Check Questions
+  &.self-check-questions {
+    column-count: 1;
+  }
+// Review Questions
+
+// Critical Thinking Questions
+
+// Problems
+
+// Hide EOC Solutions
+  &.cnx-solutions {
+    display: none;
+  }
+
+}
+
+/******************************************************************************
+ * EOB Styling
+ ******************************************************************************/
+
+// References
+
+
+// Answer Key
