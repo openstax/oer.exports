@@ -77,20 +77,26 @@ def which(program):
 
 # =================================
 
+def _check_pdf_exist(filename):
+    if (not(path.isfile(filename))):
+        err('PDF file not found: ' + filename)
+        sys.exit(1)
+
+def _check_poppler_helper(program_bin):
+    if (which(program_bin) == None):
+        err(program_bin + ' not found! Not installed Poppler yet?')
+        sys.exit(2)
+
+# =================================
+
 # diffs two pdf files and returns 0 when no difference
 def diff_pdf_files(file1, file2):
     print_single_seperator()
-    if (not(path.isfile(file1))):
-        err('PDF file not found: ' + file1)
-        sys.exit(1)
-    if (not(path.isfile(file2))):
-        err('PDF file not found: ' + file2)
-        sys.exit(1)
+    _check_pdf_exist(file1)
+    _check_pdf_exist(file2)
     info('Comparing PDF files {0} and {1}'.format(path.basename(file1), path.basename(file2)))
     diff_pdf_bin = 'comparepdf'
-    if (which(diff_pdf_bin) == None):
-        err('comparepdf not found! Not installed yet?')
-        sys.exit(2)
+    _check_poppler_helper(diff_pdf_bin):
     diff_pdf_cmd = [diff_pdf_bin, '--verbose=1',file1, file2]
     p = Popen(diff_pdf_cmd , shell=False, stdout=PIPE, stderr=PIPE)
     out, errorout = p.communicate()
@@ -112,17 +118,11 @@ def diff_pdf_files(file1, file2):
 
 # diff only pdf text differences
 def diff_pdf_text(file1, file2):
-    if (not(path.isfile(file1))):
-        err('PDF file not found: ' + file1)
-        sys.exit(1)
-    if (not(path.isfile(file2))):
-        err('PDF file not found: ' + file2)
-        sys.exit(1)
+    _check_pdf_exist(file1)
+    _check_pdf_exist(file2)
     #info('Comparing PDF text between {0} and {1}'.format(path.basename(file1), path.basename(file2)))
     pdftotext_bin = 'pdftotext'
-    if (which(pdftotext_bin) == None):
-        err('pdftotext not found! Not installed Poppler?')
-        sys.exit(2)
+    _check_poppler_helper(pdftotext_bin)
     # create temporary directory
     try:
         tmp_dir = tempfile.mkdtemp()
