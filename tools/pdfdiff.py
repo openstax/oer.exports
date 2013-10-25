@@ -20,6 +20,8 @@ from docopt import docopt
 from subprocess import Popen, PIPE
 import shutil
 import tempfile
+from itertools import izip
+from PIL import Image
 
 # =================================
 # just some fancy colors for output
@@ -96,7 +98,7 @@ def diff_pdf_files(file1, file2):
     _check_pdf_exist(file2)
     info('Comparing PDF files {0} and {1}'.format(path.basename(file1), path.basename(file2)))
     diff_pdf_bin = 'comparepdf'
-    _check_poppler_helper(diff_pdf_bin):
+    _check_poppler_helper(diff_pdf_bin)
     diff_pdf_cmd = [diff_pdf_bin, '--verbose=1',file1, file2]
     p = Popen(diff_pdf_cmd , shell=False, stdout=PIPE, stderr=PIPE)
     out, errorout = p.communicate()
@@ -104,10 +106,12 @@ def diff_pdf_files(file1, file2):
     if (p.returncode==0):
         pass # "OK!" will be printed later
     elif (p.returncode==10):
-        err('Files differ visually!')
+        err('Files differ only visually (no text affected)!')
+        diff_pdf_graphics(file1, file2)
     elif (p.returncode==13):
-        err('Files differ textually! Diff:')
+        err('Files differ textually and maybe visually! Diff:')
         diff_pdf_text(file1, file2)
+        diff_pdf_graphics(file1, file2)
     elif (p.returncode==15):
         err('Files have different page counts!')
     else: # 1 or 2
@@ -116,7 +120,7 @@ def diff_pdf_files(file1, file2):
 
 # =================================
 
-# diff only pdf text differences
+# diff only pdf text differences.
 def diff_pdf_text(file1, file2):
     _check_pdf_exist(file1)
     _check_pdf_exist(file2)
@@ -147,6 +151,92 @@ def diff_pdf_text(file1, file2):
     finally:
         try:
             shutil.rmtree(tmp_dir)  # delete directory
+        except OSError as exc:
+            if exc.errno != 2:  # code 2 - no such file or directory
+                raise  # re-raise exception
+
+# =================================
+
+# returns difference between two files in percentage. 0 = no difference, 1 = 100% difference
+def _diff_images(file1, file2):
+    if (not(path.isfile(file1))):
+        err('Wow this should never happen. A temporary extracted pdf image file was not found! ' + file1)
+        sys.exit(1)
+    if (not(path.isfile(file2))):
+        err('Wow this should never happen. A temporary extracted pdf image file was not found! ' + file2)
+        sys.exit(1)
+
+    i1 = Image.open(file1)
+    i2 = Image.open(file2)
+    assert i1.mode == i2.mode, "Different kinds of images."
+    assert i1.size == i2.size, "Different image sizes."
+     
+    pairs = izip(i1.getdata(), i2.getdata())
+    if len(i1.getbands()) == 1:
+        # for gray-scale jpegs
+        dif = sum(abs(p1-p2) for p1,p2 in pairs)
+    else:
+        dif = sum(abs(c1-c2) for p1,p2 in pairs for c1,c2 in zip(p1,p2))
+     
+    ncomponents = i1.size[0] * i1.size[1] * 3
+    return (dif / 255.0) / ncomponents
+
+# diff only pdf image differences.
+# Info: Only do this if pdfs have same amount of pages!
+def diff_pdf_graphics(file1, file2):
+    _check_pdf_exist(file1)
+    _check_pdf_exist(file2)
+    pdftoimg_bin = 'pdftoppm'
+    _check_poppler_helper(pdftoimg_bin)
+    # extract earch pdf to png images in a temporary directory and compare them visually (by percentage)
+    try:
+        tmp_dir1 = tempfile.mkdtemp()
+        tmp_dir2 = tempfile.mkdtemp()
+        # convert first pdf to png images in temp dir
+        pdf_img_filebase1 = path.join(tmp_dir1, 'pdfimage')
+        pdftoimg_cmd1 = [pdftoimg_bin, '-png', file1, pdf_img_filebase1]
+        p = Popen(pdftoimg_cmd1 , shell=False, stdout=PIPE, stderr=PIPE)
+        out, errorout = p.communicate()
+        print out.rstrip(), errorout.rstrip()
+        # convert second pdf to png images in temp dir
+        pdf_img_filebase2 = path.join(tmp_dir2, 'pdfimage')
+        pdftoimg_cmd2 = [pdftoimg_bin, '-png', file2, pdf_img_filebase2]
+        p = Popen(pdftoimg_cmd2 , shell=False, stdout=PIPE, stderr=PIPE)
+        out, errorout = p.communicate()
+        print out.rstrip(), errorout.rstrip()
+
+        # list all files in tmp_dir1 and assume that we have the same amount in tmp_dir2. Otherwise error!
+        files1 = []
+        for file1 in os.listdir(tmp_dir1):
+            if fnmatch.fnmatch(file1, '*.png'):
+                files1.append(file1)
+        files2 = []
+        for file2 in os.listdir(tmp_dir2):
+            if fnmatch.fnmatch(file2, '*.png'):
+                files2.append(file2)
+        if (len(files1) != len(files2)):
+            err('The number of extracted images do not match. Disk out of space? This error should not happen!')
+            sys.exit(2)
+        sfiles1 = set(files1)
+        sfiles2 = set(files2)
+        only_in_onedir = list(sfiles1.union(sfiles2) - sfiles1.intersection(sfiles2))
+        if (len(only_in_onedir) > 0):
+            err('Different filenames in temp directory 1 and 2. Fatal error. This should never happen!')
+            sys.exit(2)
+        info('Diffing PDF graphically {0} and {1}'.format(path.basename(file1), path.basename(file2)))
+        diff_overall = 0
+        for page, f in enumerate(files1): # use files1 list. It is has the same values as files2 now (we checked that above).
+            f1 = path.join(tmp_dir1, f)
+            f2 = path.join(tmp_dir2, f)
+            difference = _diff_images(f1, f2)
+            diff_overall += difference
+            print "Page {0} difference: {1}".format(page+1, difference)
+        diff_overall /= len(files1) # divide the sum of diffs by page number
+        info("Overall percentage % difference: {0}%".format(diff_overall * 100))
+    finally:
+        try:
+            shutil.rmtree(tmp_dir1)  # delete directory
+            shutil.rmtree(tmp_dir2)
         except OSError as exc:
             if exc.errno != 2:  # code 2 - no such file or directory
                 raise  # re-raise exception
