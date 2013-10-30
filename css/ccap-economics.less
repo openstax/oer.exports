@@ -1,0 +1,347 @@
+/*******************************************************
+* Copyright (c) 2013 Rice University
+*  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+*  See LICENSE.txt for details.
+*******************************************************/
+
+ /* Styles used when generating a PDF from xhtml+css
+ ***************************************************/
+
+// Import general page headers/footers, bookmark calculation, etc
+@import url('ccap-base.less');
+@import url('ccap-numbering.less');
+
+// Import derived base book for override
+@import url('ccap-precalculus.less');
+
+// Color palette for economics
+@dark-blue:     #3767B1;
+@medium-blue:   #83C6EE;
+@light-blue:    #CFE1F1; 
+// @gray:          #D7D9D7;  This color is incorrect. background is merging with work-it-out header Talk to WN
+@gray:    #EFEFEF;  // This is closer to the template design note background
+
+// A mixture of serif and sans-serif fonts.
+@font-family-sans-serif: Arial, sans-serif, @stix-fonts;
+@font-family-serif: Times New Roman, serif, @stix-fonts;
+
+
+
+/******************************************************
+ * Economics Custom elements
+ *
+ * Most of the customizations are
+ * `.note` elements with specific classes
+ *
+ ******************************************************/
+
+
+/* -------------------------
+ * Note Features for Text
+ * -------------------------
+ */
+
+.note {
+  &.economics {
+    // Bring It Home Feature
+    &.bringhome {
+      page-break-inside: avoid;
+      .x-feature(black, @gray, bring, 0.36in); 
+    }
+    // Clear It Up Feature
+    &.clearup {
+      page-break-inside: avoid;
+      .x-feature(black, @gray, clear, 0.40in); 
+    }
+    // Work It Out Feature
+    &.workout {
+      page-break-inside: avoid;
+      .x-feature(black, @gray, work, 0.28in); 
+
+      // weblinks included in media list need to be orange and bold
+      .itemizedlist > .listitem {
+        color: @orange;
+        font-weight: bold;
+      }
+
+      // Supress the extra url generated from base that is wrapped with parentheses
+      .itemizedlist > .listitem .link.only-show-once { 
+        content: content();
+      }
+    }
+    // Link It Up Feature
+    &.linkup {
+      page-break-inside: avoid;
+      .x-feature(black, @gray, link, 0.28in); 
+
+      img {   //center qr code
+        display: block;
+        margin: auto;
+      }
+
+      .link { 
+        color: @dark-blue;
+        font-weight: normal;
+      }
+    }
+  }
+}
+ // End of .economics notes
+
+/* -------------------------
+ * Legacy .x-feature function from Anatomy text used due to identical features parameterization
+ * -------------------------
+ */
+
+.x-feature (@color, @bg-color, @svg, @padding-top) {
+  // 1st semantic paragraph is title of feature. Indention removed for second semantic paragraph
+  // which is first real paragraph.  Subsequent paragraphs are indented.
+
+  color: @color;
+  font-family: @font-family;
+
+  p:nth-of-type(2) {
+    text-indent: 0em;
+    page-break-before: avoid;
+  }
+  &::before {
+    padding-top: @padding-top; //from the SVG files
+    background-repeat: no-repeat;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+    background-color: white;
+    content: "";
+    display: block;
+    // the following are tweaked so the overlays really do over lay
+    margin-left: -1em;
+    margin-right: -1em;
+    margin-top: -0.05in;
+  }
+
+  background-color: @bg-color;
+  &::before { background-image: url("ccap-economics/@{svg}.svg"); }
+
+  > .title {
+    font-size: large;
+    margin-top: .6em;
+    margin-bottom: .2em;
+    color: black;
+    border: none;
+  }  
+
+  > .body > p { font-family: @font-family; } 
+}
+
+
+/* -------------------------
+ * Preface
+ * -------------------------
+ */
+.preface {
+  > .titlepage {
+    h1.title { background-color: @dark-blue; }
+  }
+}
+
+/* -------------------------
+ * Book Table of Contents
+  * -------------------------
+  */
+.book > .toc {
+  > .title {
+    border-bottom-color: @dark-blue;
+    color: @dark-blue;
+  }
+
+  a { color: @dark-blue; }
+}
+
+
+
+
+
+/* -------------------------
+ * Generic Elements
+ * -------------------------
+ */
+
+.chapter h1.title {
+  font-size: 34pt; 
+  color: @dark-blue;
+
+  // Chapter number
+  .cnx-gentext-n {
+    color: @dark-blue;
+  }
+}
+
+h2, h3, h4, h5, h6 {
+  color: @dark-blue;
+}
+
+// Module title
+h2 {
+  .cnx-gentext-n { color: @dark-blue; }
+
+  &::before { color: @dark-blue; }
+}
+
+// Tables
+.table table {
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-top: 1px solid @dark-blue !important; // !important used to override inline-style...
+
+  caption span,
+  caption::before,
+  caption span.table-caption.caption {
+    color: @dark-blue;
+    font-weight: 700 !important; // !important used in ccap-precalculus.
+  }
+
+  thead {
+    th {
+      background-color: @light-blue;
+      border-bottom: 1px solid @dark-blue !important; //!important used in ccap-precalculus.
+    }
+  }
+}
+
+
+
+/* -------------------------
+ * Chapter Introduction
+ * -------------------------
+ */
+.chapter > .introduction {
+  > .toc a {
+    color: @dark-blue;
+  }
+
+
+
+
+
+
+
+/******************************************************************************
+ * Styling for Chapter Outline Box
+ ******************************************************************************/
+
+  >.toc { 
+   display: none; 
+  }
+}
+
+
+/******************************************************************************
+ * EOC Styling
+ ******************************************************************************/
+
+// Key Terms
+.glossary > .titlepage h2.title {
+  color: @dark-blue;
+}
+.glossary {
+  > .titlepage h2.title {
+    font: normal normal 700 13pt/1em @font-family-sans-serif;
+  }
+
+  > dl dt {
+    font: normal normal 700 10pt/1em @font-family-sans-serif;
+  }
+  > dl dd {
+    font: normal normal 400 10pt/12pt @font-family-serif;
+  }
+}
+.glossary {
+  // Hide "Chapter x Review" title.
+  > .titlepage h2.title::before {
+    display: none !important; // !important is used in ccap-precalculus.
+  }
+
+  > dl {
+    margin: 0;
+
+    > dt, > dd {
+      padding-top: 1em;
+    }
+  }
+}
+
+.cnx-eoc {
+  &.summary,
+  &.self-check-questions,
+  &.review-questions,
+  &.critical-thinking,
+  &.problems {
+    > .title {
+      color: @dark-blue !important; // !important used in ccap-precalculus.
+    }
+    > .section > .title > a {
+      color: @dark-blue;
+    }
+  }
+}
+.cnx-eoc {
+  > .title {
+    font: normal normal 700 13pt/1em @font-family-sans-serif;
+  }
+  > .section {
+    > .title {
+      font: normal normal 700 10pt/1em @font-family-sans-serif;
+    }
+    > .body {
+      font: normal normal 400 10pt/12pt @font-family-serif;
+    }
+  }
+}
+.cnx-eoc {
+  .title {
+    margin-top: 1em;
+    column-span: all;
+  }
+  > .section > .title {
+    display: none;
+  }
+  > .section.empty {
+    display: none; // Get rid of extra spacing from padding
+  }
+
+// Key Concepts & Summary
+  &.summary {
+    > .title {
+      content: "Key Concepts and Summary";
+      text-transform: uppercase;
+    }
+
+    > .section > .title {
+      display: block;
+    }
+  }
+
+// Self-Check Questions
+  &.self-check-questions {
+    column-count: 1;
+  }
+// Review Questions
+
+// Critical Thinking Questions
+
+// Problems
+
+// Hide EOC Solutions
+  &.cnx-solutions {
+    display: none;
+  }
+
+}
+
+/******************************************************************************
+ * EOB Styling
+ ******************************************************************************/
+
+// References
+
+
+// Answer Key
