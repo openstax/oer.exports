@@ -397,9 +397,8 @@ div.part > div.titlepage { display:none; }
 
 .x-feature (@bg-color, @svg, @padding-top) {
 
-   p:nth-of-type(1) {
-    page-break-before: avoid; // 1st para contains feature body title no break after
-    page-break-after: avoid;
+  p:nth-of-type(2) {
+    page-break-before: avoid;
   }
 
   &::before {
@@ -718,39 +717,54 @@ img, figure, subfigure  { margin: 1em; }
  * Example Elements Styling and Numbering
  ******************************************************/
 
-.example *:first-child { page-break-before: avoid; }
+// Blue header for example
+.example {
 
-// Table caption text needs to be regular
-.example .table-caption.caption {
-    color: @black;
-    font-weight: normal !important; //override strong tag
+  *:first-child { page-break-before: avoid; }
+
+  > .title {
+    background: @blue;
+    padding-top: .3em;
+    padding-bottom: .3em;
+  }
+
+  // Styling for Example text inside blue header
+  > .title span {
     font-family: @font-family;
+    font-size: medium;
+    font-weight: normal;
+    color: @white;
+  }
+
+  > .body {
+    border-left: 1px solid @blue;
+    padding: 1em 2em .5em 2em;
+  }
+
+  .solution { 
+    padding-top: 1em; 
+  }
+
+  // for examples that have a problem/solution structure that need numbered headings
+  .exercise {
+    // Examples with exercises don't need the margin-top or margin-bottom
+    // from .exercise (ccap-base.less)
+    margin: 0; 
+    counter-increment: none !important;
+  
+    .problem > .title {
+      content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
+      color: @blue;
+      font-weight: bold;
+    }
+
+    .solution > .title {
+      content: "" "Solution " counter(chapter, decimal) "." counter(example, decimal) " " "";
+      color: @blue;
+      font-weight: bold;
+    }
+  }
 }
-
-.example > .title {
-  background: @blue;
-  padding-top: .3em;
-  padding-bottom: .3em;
-}
-
-.example > .title > * {
-  font-family: @font-family;
-  font-size: 130%;
-  font-weight: 500;
-  color: #fff;
-}
-
-.example > .title > *:first-child { page-break-before: avoid; }
-
-.example > .body {
-  border-left: 1px solid @blue;
-  padding: 1em 2em .5em 2em;
-}
-
-.example .solution { 
-  padding-top: 1em; 
-}
-
 
 /*
   W&N wanted table numbering in example exercise problems/solutions
@@ -770,38 +784,12 @@ img, figure, subfigure  { margin: 1em; }
     counter-increment: figure; // must increment figure within to keep numbering correct
 }
 
-// for examples that have a problem/solution structure that need numbered headings
-.example .exercise {
-  // Examples with exercises don't need the margin-top or margin-bottom
-  // from .exercise (ccap-base.less)
-  margin: 0; 
-
-  counter-increment: none !important;
-  .problem > .title {
-    content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
-    color: @blue;
-    font-weight: bold;
-  }
-
-  .solution > .title {
-    content: "" "Solution " counter(chapter, decimal) "." counter(example, decimal) " " "";
-    color: @blue;
-    font-weight: bold;
-  }
-}
-
-// refactor and consolidate these two below before submitting 
-
-// embedding of calculator feature inside example problems
-.example > .body > .exercise > .body > .problem > .note.statistics.calculator {
-  .x-feature(transparent, calculator, 0.42in);
-}
-
-// embedding of calculator feature inside example solutions
+// embedding of calculator feature inside example problems and solutions
+.example > .body > .exercise > .body > .problem > .note.statistics.calculator,
 .example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator {
   .x-feature(transparent, calculator, 0.42in);
 }
- 
+
 /******************************************************
  * EOC Exercise Finger icon implementation
  ******************************************************/

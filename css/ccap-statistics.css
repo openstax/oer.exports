@@ -1593,9 +1593,8 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
 .note.statistics.calculator {
   background-color: transparent;
 }
-.note.statistics.calculator p:nth-of-type(1) {
+.note.statistics.calculator p:nth-of-type(2) {
   page-break-before: avoid;
-  page-break-after: avoid;
 }
 .note.statistics.calculator::before {
   padding-top: 0.42in;
@@ -1635,9 +1634,8 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
 .note.statistics.collab {
   background-color: #ecf1ef;
 }
-.note.statistics.collab p:nth-of-type(1) {
+.note.statistics.collab p:nth-of-type(2) {
   page-break-before: avoid;
-  page-break-after: avoid;
 }
 .note.statistics.collab::before {
   padding-top: 0.42in;
@@ -1688,9 +1686,8 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
        ******************************************************/
 
 }
-.note.statistics.lab p:nth-of-type(1) {
+.note.statistics.lab p:nth-of-type(2) {
   page-break-before: avoid;
-  page-break-after: avoid;
 }
 .note.statistics.lab::before {
   padding-top: 0.34in;
@@ -1772,9 +1769,8 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
        ******************************************************/
 
 }
-.note.statistics.try p:nth-of-type(1) {
+.note.statistics.try p:nth-of-type(2) {
   page-break-before: avoid;
-  page-break-after: avoid;
 }
 .note.statistics.try::before {
   padding-top: 0.35in;
@@ -2269,24 +2265,16 @@ subfigure {
 .example *:first-child {
   page-break-before: avoid;
 }
-.example .table-caption.caption {
-  color: #000000;
-  font-weight: normal !important;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
 .example > .title {
   background: #26397f;
   padding-top: .3em;
   padding-bottom: .3em;
 }
-.example > .title > * {
+.example > .title span {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  font-size: 130%;
-  font-weight: 500;
-  color: #fff;
-}
-.example > .title > *:first-child {
-  page-break-before: avoid;
+  font-size: medium;
+  font-weight: normal;
+  color: #ffffff;
 }
 .example > .body {
   border-left: 1px solid #26397f;
@@ -2294,6 +2282,20 @@ subfigure {
 }
 .example .solution {
   padding-top: 1em;
+}
+.example .exercise {
+  margin: 0;
+  counter-increment: none !important;
+}
+.example .exercise .problem > .title {
+  content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
+  color: #26397f;
+  font-weight: bold;
+}
+.example .exercise .solution > .title {
+  content: "" "Solution " counter(chapter, decimal) "." counter(example, decimal) " " "";
+  color: #26397f;
+  font-weight: bold;
 }
 /*
   W&N wanted table numbering in example exercise problems/solutions
@@ -2311,66 +2313,15 @@ subfigure {
   display: inline;
   counter-increment: figure;
 }
-.example .exercise {
-  margin: 0;
-  counter-increment: none !important;
-}
-.example .exercise .problem > .title {
-  content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
-  color: #26397f;
-  font-weight: bold;
-}
-.example .exercise .solution > .title {
-  content: "" "Solution " counter(chapter, decimal) "." counter(example, decimal) " " "";
-  color: #26397f;
-  font-weight: bold;
-}
-.example > .body > .exercise > .body > .problem > .note.statistics.calculator {
-  background-color: transparent;
-}
-.example > .body > .exercise > .body > .problem > .note.statistics.calculator p:nth-of-type(1) {
-  page-break-before: avoid;
-  page-break-after: avoid;
-}
-.example > .body > .exercise > .body > .problem > .note.statistics.calculator::before {
-  padding-top: 0.42in;
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-image: url("ccap-statistics/calculator.svg");
-  background-color: #ffffff;
-  content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
-}
-.example > .body > .exercise > .body > .problem > .note.statistics.calculator > .title {
-  display: none;
-}
-.example > .body > .exercise > .body > .problem > .note.statistics.calculator .body .title {
-  text-align: left !important;
-  font-size: large;
-  margin: .25em 0;
-  color: black;
-  font-weight: bold;
-}
-.example > .body > .exercise > .body > .problem > .note.statistics.calculator .figure img {
-  max-width: 6.25in !important;
-}
-.example > .body > .exercise > .body > .problem > .note.statistics.calculator .figure > .title {
-  font-size: x-small;
-  color: #26397f;
-}
+.example > .body > .exercise > .body > .problem > .note.statistics.calculator,
 .example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator {
   background-color: transparent;
 }
-.example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator p:nth-of-type(1) {
+.example > .body > .exercise > .body > .problem > .note.statistics.calculator p:nth-of-type(2),
+.example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator p:nth-of-type(2) {
   page-break-before: avoid;
-  page-break-after: avoid;
 }
+.example > .body > .exercise > .body > .problem > .note.statistics.calculator::before,
 .example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator::before {
   padding-top: 0.42in;
   background-repeat: no-repeat;
@@ -2386,9 +2337,11 @@ subfigure {
   margin-right: -1.05em;
   margin-top: -0.05in;
 }
+.example > .body > .exercise > .body > .problem > .note.statistics.calculator > .title,
 .example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator > .title {
   display: none;
 }
+.example > .body > .exercise > .body > .problem > .note.statistics.calculator .body .title,
 .example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator .body .title {
   text-align: left !important;
   font-size: large;
@@ -2396,9 +2349,11 @@ subfigure {
   color: black;
   font-weight: bold;
 }
+.example > .body > .exercise > .body > .problem > .note.statistics.calculator .figure img,
 .example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator .figure img {
   max-width: 6.25in !important;
 }
+.example > .body > .exercise > .body > .problem > .note.statistics.calculator .figure > .title,
 .example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator .figure > .title {
   font-size: x-small;
   color: #26397f;
