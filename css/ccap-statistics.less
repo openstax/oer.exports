@@ -79,7 +79,6 @@
   }
 }
 
-
 /******************************************************
  * Statistics Custom elements
  *
@@ -93,7 +92,6 @@
 .note {
   &.statistics {
     &.calculator {
-      page-break-inside: auto;
       .x-feature(transparent, calculator, 0.42in);
 
       // Reset this here so other feature headers retain their
@@ -104,7 +102,6 @@
       }
     }
     &.collab {
-      page-break-indside: avoid;
       .x-feature(@gray, collab, 0.42in);
       .x-finger();
 
@@ -114,7 +111,6 @@
     &.lab {
       // Request for Stats lab to always be on new page
       page-break-before: always;
-      page-break-inside: avoid;
       .x-feature(@gray, lab, 0.34in);
 
       /******************************************************
@@ -155,7 +151,6 @@
           margin-bottom: .5em;
           color: @blue;
           font-weight: bold;
-          page-break-after: avoid;
           border-bottom: 1px solid @blue;
         }
       }
@@ -179,6 +174,7 @@
       /******************************************************
        * Try-It Feature styling/finger icon implementation
        ******************************************************/
+
       > .title {
         // counter-increment: exercise !important;
         content: "" " " counter(chapter, decimal) "." counter(example, decimal) " " "";
@@ -216,13 +212,14 @@
         > p { padding-left: 28px; }
 
         // indent the second paragarph in this particular feature - may not be needed.
-        > p:nth-of-type(2) { text-indent: 2em; }
+        // > p:nth-of-type(2) { text-indent: 2em; }
       }
 
       .exercise {
         // Keep Try It Feature excercise numbering to match subsequent example
         counter-increment: none !important;
         margin-top: 1em;  // Keep top margin in Try-it that contains exercises to a nice height
+        margin-bottom: 0; 
 
         // Do not display the exercise title and corresponding number for Exercise.  We are using
         // a Try-it counter here, so this one needs hiding
@@ -398,18 +395,12 @@ div.part > div.titlepage { display:none; }
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
 
-// As a part of cleanup, refactor this function to not use @color because
-// full width feature headers are now being used, and no more tricks to 
-// color backgrounds of headers when improperly sized imagery is received.
-// are to be used.  Remove this param from features and function below.
-
 .x-feature (@bg-color, @svg, @padding-top) {
-  // 1st semantic paragraph is title of feature. Indention removed for second semantic paragraph
-  // which is first real paragraph.  Subsequent paragraphs are indented.
+
   p:nth-of-type(2) {
-    text-indent: 0em;
     page-break-before: avoid;
   }
+
   &::before {
     padding-top: @padding-top; //from the SVG files
     background-repeat: no-repeat;
@@ -417,6 +408,7 @@ div.part > div.titlepage { display:none; }
     background-position: top outside;
     page-break-inside: avoid;
     page-break-after: avoid;
+    background-image: url("ccap-statistics/@{svg}.svg");
     background-color: @white;
     content: "";
     display: block;
@@ -425,9 +417,7 @@ div.part > div.titlepage { display:none; }
     margin-right: -1.05em;
     margin-top: -0.05in;
   }
-
-  background-color: @bg-color;
-  &::before { background-image: url("ccap-statistics/@{svg}.svg"); }
+    background-color: @bg-color;
 
   > .title { display: none; } //supress title in pdf
 
@@ -486,7 +476,7 @@ div.part > div.titlepage { display:none; }
       text-indent: 0em; 
       margin-top: 1em; 
     }
-    p { text-indent: 2em; }
+    // p { text-indent: 2em; }
   }
 
   &.practice {
@@ -503,7 +493,7 @@ div.part > div.titlepage { display:none; }
       text-indent: 0em; 
       margin-top: 1em; 
     }
-    p { text-indent: 2em; }
+    // p { text-indent: 2em; }
   }
 
   // Mix-in to set Bringing It Together title and set similiar related elements
@@ -521,7 +511,7 @@ div.part > div.titlepage { display:none; }
       text-indent: 0em; 
       margin-top: 1em; 
     }
-    p { text-indent: 2em; }
+    // p { text-indent: 2em; }
   }
 
   // Set Bringing It Together Homework and Practice titles
@@ -690,15 +680,9 @@ blockquote {
   &::after { content: "\201D" /* close-quote; */; }
 }
 
-.cnx-eoc p, .notes p,p:nth-of-type(1) { text-indent: 0em; }
-
-
-p {
-  font-family: @font-family-statistics;
-  /* subsequent paragraphs are indented */
-  text-indent: 2em;
-  /*reset margins so subsequent paragraphs start next line  */
-  margin:0;
+// Now just a simple rule for paragraphs. This might can be extracted as well now.
+p { 
+  font-family: @font-family-statistics; 
 }
 
 .glossary {
@@ -720,8 +704,6 @@ p {
   dt::after { content: " " !important; }
 }
 
-.section > .title { page-break-after:avoid; }
-
 img, figure, subfigure  { margin: 1em; }
 
 .colophon > h1.title {
@@ -734,36 +716,54 @@ img, figure, subfigure  { margin: 1em; }
 /******************************************************
  * Example Elements Styling and Numbering
  ******************************************************/
- 
-// We must stop the blue header bumper from breaking off at bottom of pages
-.example *:first-child { page-break-before: avoid; }
 
-// Table caption text needs to be regular
-.example .table-caption.caption {
-    color: @black;
-    font-weight: normal !important; //override strong tag
+// Blue header for example
+.example {
+  > .title {
+    background: @blue;
+    padding-top: .3em;
+    padding-bottom: .3em;
+
+    &::before { page-break-before: avoid; page-break-after: avoid; }
+  }
+
+  // Styling for Example text inside blue header
+  > .title span {
     font-family: @font-family;
-}
+    font-size: medium;
+    font-weight: normal;
+    color: @white;
+  }
 
-.example > .title {
-  background: @blue;
-  padding-top: .3em;
-  padding-bottom: .3em;
-}
+  > .body {
+    border-left: 1px solid @blue;
+    padding: 1em 2em .5em 2em;
+  }
 
-.example > .title > * {
-  font-family: @font-family;
-  font-size: 130%;
-  font-weight: 500;
-  color: #fff;
-}
+  .solution { 
+    padding-top: 1em; 
+  }
 
-.example > .body {
-  border-left: 1px solid @blue;
-  padding: 1em 2em .5em 2em;
-}
+  // for examples that have a problem/solution structure that need numbered headings
+  .exercise {
+    // Examples with exercises don't need the margin-top or margin-bottom
+    // from .exercise (ccap-base.less)
+    margin: 0; 
+    counter-increment: none !important;
+  
+    .problem > .title {
+      content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
+      color: @blue;
+      font-weight: bold;
+    }
 
-.example .solution { padding-top: 2em; }
+    .solution > .title {
+      content: "" "Solution " counter(chapter, decimal) "." counter(example, decimal) " " "";
+      color: @blue;
+      font-weight: bold;
+    }
+  }
+}
 
 /*
   W&N wanted table numbering in example exercise problems/solutions
@@ -783,38 +783,12 @@ img, figure, subfigure  { margin: 1em; }
     counter-increment: figure; // must increment figure within to keep numbering correct
 }
 
-// for examples that have a problem/solution structure that need numbered headings
-.example .exercise {
-  // Examples with exercises don't need the margin-top or margin-bottom
-  // from .exercise (ccap-base.less)
-  margin: 0; 
-
-  counter-increment: none !important;
-  .problem > .title {
-    content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
-    color: @blue;
-    font-weight: bold;
-  }
-
-  .solution > .title {
-    content: "" "Solution " counter(chapter, decimal) "." counter(example, decimal) " " "";
-    color: @blue;
-    font-weight: bold;
-  }
-}
-
-// refactor and consolidate these two below before submitting 
-
-// embedding of calculator feature inside example problems
-.example > .body > .exercise > .body > .problem > .note.statistics.calculator {
-  .x-feature(transparent, calculator, 0.42in);
-}
-
-// embedding of calculator feature inside example solutions
+// embedding of calculator feature inside example problems and solutions
+.example > .body > .exercise > .body > .problem > .note.statistics.calculator,
 .example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator {
   .x-feature(transparent, calculator, 0.42in);
 }
- 
+
 /******************************************************
  * EOC Exercise Finger icon implementation
  ******************************************************/

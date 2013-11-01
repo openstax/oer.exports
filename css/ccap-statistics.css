@@ -578,6 +578,20 @@ em.glossterm {
   font-weight: bold;
   display: block;
 }
+/***************************************************
+ * Indentation
+ ***************************************************/
+p,
+p:nth-of-type(1),
+p:nth-of-type(2),
+.note p,
+.notes p,
+.references p,
+.cnx-eoc p,
+.body p {
+  text-indent: 0;
+  margin-bottom: .5em;
+}
 div.book {
   /* --------------------------------------
    *  Define how counters are incremented
@@ -1315,7 +1329,6 @@ div.book div.solution > a.number {
 div.book *.footnote {
   counter-increment: footnote;
   float: footnote;
-  text-indent: 0;
 }
 div.book *.footnote::footnote-marker,
 div.book *.footnote > * {
@@ -1578,11 +1591,9 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
 
 }
 .note.statistics.calculator {
-  page-break-inside: auto;
   background-color: transparent;
 }
 .note.statistics.calculator p:nth-of-type(2) {
-  text-indent: 0em;
   page-break-before: avoid;
 }
 .note.statistics.calculator::before {
@@ -1592,15 +1603,13 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   background-position: top outside;
   page-break-inside: avoid;
   page-break-after: avoid;
+  background-image: url("ccap-statistics/calculator.svg");
   background-color: #ffffff;
   content: "";
   display: block;
   margin-left: -1.05em;
   margin-right: -1.05em;
   margin-top: -0.05in;
-}
-.note.statistics.calculator::before {
-  background-image: url("ccap-statistics/calculator.svg");
 }
 .note.statistics.calculator > .title {
   display: none;
@@ -1623,11 +1632,9 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   background-color: transparent;
 }
 .note.statistics.collab {
-  page-break-indside: avoid;
   background-color: #ecf1ef;
 }
 .note.statistics.collab p:nth-of-type(2) {
-  text-indent: 0em;
   page-break-before: avoid;
 }
 .note.statistics.collab::before {
@@ -1637,15 +1644,13 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   background-position: top outside;
   page-break-inside: avoid;
   page-break-after: avoid;
+  background-image: url("ccap-statistics/collab.svg");
   background-color: #ffffff;
   content: "";
   display: block;
   margin-left: -1.05em;
   margin-right: -1.05em;
   margin-top: -0.05in;
-}
-.note.statistics.collab::before {
-  background-image: url("ccap-statistics/collab.svg");
 }
 .note.statistics.collab > .title {
   display: none;
@@ -1675,7 +1680,6 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
 }
 .note.statistics.lab {
   page-break-before: always;
-  page-break-inside: avoid;
   background-color: #ecf1ef;
   /******************************************************
        * Statistics Lab Feature Heading/SubHeading styling
@@ -1683,7 +1687,6 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
 
 }
 .note.statistics.lab p:nth-of-type(2) {
-  text-indent: 0em;
   page-break-before: avoid;
 }
 .note.statistics.lab::before {
@@ -1693,15 +1696,13 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   background-position: top outside;
   page-break-inside: avoid;
   page-break-after: avoid;
+  background-image: url("ccap-statistics/lab.svg");
   background-color: #ffffff;
   content: "";
   display: block;
   margin-left: -1.05em;
   margin-right: -1.05em;
   margin-top: -0.05in;
-}
-.note.statistics.lab::before {
-  background-image: url("ccap-statistics/lab.svg");
 }
 .note.statistics.lab > .title {
   display: none;
@@ -1749,7 +1750,6 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   margin-bottom: .5em;
   color: #26397f;
   font-weight: bold;
-  page-break-after: avoid;
   border-bottom: 1px solid #26397f;
 }
 .note.statistics.direction-line {
@@ -1770,7 +1770,6 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
 
 }
 .note.statistics.try p:nth-of-type(2) {
-  text-indent: 0em;
   page-break-before: avoid;
 }
 .note.statistics.try::before {
@@ -1780,15 +1779,13 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   background-position: top outside;
   page-break-inside: avoid;
   page-break-after: avoid;
+  background-image: url("ccap-statistics/try.svg");
   background-color: #ffffff;
   content: "";
   display: block;
   margin-left: -1.05em;
   margin-right: -1.05em;
   margin-top: -0.05in;
-}
-.note.statistics.try::before {
-  background-image: url("ccap-statistics/try.svg");
 }
 .note.statistics.try > .title {
   display: none;
@@ -1827,12 +1824,10 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
 .note.statistics.try.finger > p {
   padding-left: 28px;
 }
-.note.statistics.try.finger > p:nth-of-type(2) {
-  text-indent: 2em;
-}
 .note.statistics.try .exercise {
   counter-increment: none !important;
   margin-top: 1em;
+  margin-bottom: 0;
 }
 .note.statistics.try .exercise > .title {
   display: none;
@@ -2023,9 +2018,6 @@ div.part > div.titlepage {
   text-indent: 0em;
   margin-top: 1em;
 }
-.cnx-eoc.summary p {
-  text-indent: 2em;
-}
 .cnx-eoc.practice {
   -webkit-column-count: 1;
   column-count: 1;
@@ -2043,9 +2035,6 @@ div.part > div.titlepage {
 .cnx-eoc.practice p:nth-of-type(1) {
   text-indent: 0em;
   margin-top: 1em;
-}
-.cnx-eoc.practice p {
-  text-indent: 2em;
 }
 .cnx-eoc.bring-together-homework {
   -webkit-column-count: 1;
@@ -2065,9 +2054,6 @@ div.part > div.titlepage {
   text-indent: 0em;
   margin-top: 1em;
 }
-.cnx-eoc.bring-together-homework p {
-  text-indent: 2em;
-}
 .cnx-eoc.bring-together-practice {
   -webkit-column-count: 1;
   column-count: 1;
@@ -2085,9 +2071,6 @@ div.part > div.titlepage {
 .cnx-eoc.bring-together-practice p:nth-of-type(1) {
   text-indent: 0em;
   margin-top: 1em;
-}
-.cnx-eoc.bring-together-practice p {
-  text-indent: 2em;
 }
 .cnx-eoc.cnx-solutions {
   -webkit-column-count: 1;
@@ -2246,19 +2229,8 @@ blockquote::before {
 blockquote::after {
   content: "\201D" /* close-quote; */;
 }
-.cnx-eoc p,
-.notes p,
-p:nth-of-type(1) {
-  text-indent: 0em;
-}
 p {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  /* subsequent paragraphs are indented */
-
-  text-indent: 2em;
-  /*reset margins so subsequent paragraphs start next line  */
-
-  margin: 0;
 }
 .glossary {
   page-break-before: always;
@@ -2277,9 +2249,6 @@ p {
 .glossary dt::after {
   content: " " !important;
 }
-.section > .title {
-  page-break-after: avoid;
-}
 img,
 figure,
 subfigure {
@@ -2293,31 +2262,41 @@ subfigure {
 /******************************************************
  * Example Elements Styling and Numbering
  ******************************************************/
-.example *:first-child {
-  page-break-before: avoid;
-}
-.example .table-caption.caption {
-  color: #000000;
-  font-weight: normal !important;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
 .example > .title {
   background: #26397f;
   padding-top: .3em;
   padding-bottom: .3em;
 }
-.example > .title > * {
+.example > .title::before {
+  page-break-before: avoid;
+  page-break-after: avoid;
+}
+.example > .title span {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  font-size: 130%;
-  font-weight: 500;
-  color: #fff;
+  font-size: medium;
+  font-weight: normal;
+  color: #ffffff;
 }
 .example > .body {
   border-left: 1px solid #26397f;
   padding: 1em 2em .5em 2em;
 }
 .example .solution {
-  padding-top: 2em;
+  padding-top: 1em;
+}
+.example .exercise {
+  margin: 0;
+  counter-increment: none !important;
+}
+.example .exercise .problem > .title {
+  content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
+  color: #26397f;
+  font-weight: bold;
+}
+.example .exercise .solution > .title {
+  content: "" "Solution " counter(chapter, decimal) "." counter(example, decimal) " " "";
+  color: #26397f;
+  font-weight: bold;
 }
 /*
   W&N wanted table numbering in example exercise problems/solutions
@@ -2335,68 +2314,15 @@ subfigure {
   display: inline;
   counter-increment: figure;
 }
-.example .exercise {
-  margin: 0;
-  counter-increment: none !important;
-}
-.example .exercise .problem > .title {
-  content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
-  color: #26397f;
-  font-weight: bold;
-}
-.example .exercise .solution > .title {
-  content: "" "Solution " counter(chapter, decimal) "." counter(example, decimal) " " "";
-  color: #26397f;
-  font-weight: bold;
-}
-.example > .body > .exercise > .body > .problem > .note.statistics.calculator {
-  background-color: transparent;
-}
-.example > .body > .exercise > .body > .problem > .note.statistics.calculator p:nth-of-type(2) {
-  text-indent: 0em;
-  page-break-before: avoid;
-}
-.example > .body > .exercise > .body > .problem > .note.statistics.calculator::before {
-  padding-top: 0.42in;
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: #ffffff;
-  content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
-}
-.example > .body > .exercise > .body > .problem > .note.statistics.calculator::before {
-  background-image: url("ccap-statistics/calculator.svg");
-}
-.example > .body > .exercise > .body > .problem > .note.statistics.calculator > .title {
-  display: none;
-}
-.example > .body > .exercise > .body > .problem > .note.statistics.calculator .body .title {
-  text-align: left !important;
-  font-size: large;
-  margin: .25em 0;
-  color: black;
-  font-weight: bold;
-}
-.example > .body > .exercise > .body > .problem > .note.statistics.calculator .figure img {
-  max-width: 6.25in !important;
-}
-.example > .body > .exercise > .body > .problem > .note.statistics.calculator .figure > .title {
-  font-size: x-small;
-  color: #26397f;
-}
+.example > .body > .exercise > .body > .problem > .note.statistics.calculator,
 .example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator {
   background-color: transparent;
 }
+.example > .body > .exercise > .body > .problem > .note.statistics.calculator p:nth-of-type(2),
 .example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator p:nth-of-type(2) {
-  text-indent: 0em;
   page-break-before: avoid;
 }
+.example > .body > .exercise > .body > .problem > .note.statistics.calculator::before,
 .example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator::before {
   padding-top: 0.42in;
   background-repeat: no-repeat;
@@ -2404,6 +2330,7 @@ subfigure {
   background-position: top outside;
   page-break-inside: avoid;
   page-break-after: avoid;
+  background-image: url("ccap-statistics/calculator.svg");
   background-color: #ffffff;
   content: "";
   display: block;
@@ -2411,12 +2338,11 @@ subfigure {
   margin-right: -1.05em;
   margin-top: -0.05in;
 }
-.example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator::before {
-  background-image: url("ccap-statistics/calculator.svg");
-}
+.example > .body > .exercise > .body > .problem > .note.statistics.calculator > .title,
 .example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator > .title {
   display: none;
 }
+.example > .body > .exercise > .body > .problem > .note.statistics.calculator .body .title,
 .example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator .body .title {
   text-align: left !important;
   font-size: large;
@@ -2424,9 +2350,11 @@ subfigure {
   color: black;
   font-weight: bold;
 }
+.example > .body > .exercise > .body > .problem > .note.statistics.calculator .figure img,
 .example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator .figure img {
   max-width: 6.25in !important;
 }
+.example > .body > .exercise > .body > .problem > .note.statistics.calculator .figure > .title,
 .example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator .figure > .title {
   font-size: x-small;
   color: #26397f;
