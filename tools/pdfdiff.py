@@ -18,6 +18,8 @@ import sys
 import re
 from docopt import docopt
 from subprocess import Popen, PIPE
+import shutil
+import tempfile
 
 # =================================
 # just some fancy colors for output
@@ -37,6 +39,9 @@ def disable():
     WARNING = ''
     FAIL = ''
     ENDC = ''
+
+def print_single_seperator():
+    print '-' * 79
 
 def infog(msg):
     print OKGREEN + msg + ENDC
@@ -74,6 +79,7 @@ def which(program):
 
 # diffs two pdf files and returns 0 when no difference
 def diff_pdf_files(file1, file2):
+    print_single_seperator()
     if (not(path.isfile(file1))):
         err('PDF file not found: ' + file1)
         sys.exit(1)
@@ -94,12 +100,56 @@ def diff_pdf_files(file1, file2):
     elif (p.returncode==10):
         err('Files differ visually!')
     elif (p.returncode==13):
-        err('Files differ textually!')
+        err('Files differ textually! Diff:')
+        diff_pdf_text(file1, file2)
     elif (p.returncode==15):
         err('Files have different page counts!')
     else: # 1 or 2
         err('FATAL ERROR DURING COMPARING!')
     return (p.returncode)
+
+# =================================
+
+# diff only pdf text differences
+def diff_pdf_text(file1, file2):
+    if (not(path.isfile(file1))):
+        err('PDF file not found: ' + file1)
+        sys.exit(1)
+    if (not(path.isfile(file2))):
+        err('PDF file not found: ' + file2)
+        sys.exit(1)
+    #info('Comparing PDF text between {0} and {1}'.format(path.basename(file1), path.basename(file2)))
+    pdftotext_bin = 'pdftotext'
+    if (which(pdftotext_bin) == None):
+        err('pdftotext not found! Not installed Poppler?')
+        sys.exit(2)
+    # create temporary directory
+    try:
+        tmp_dir = tempfile.mkdtemp()
+        # convert first file to text
+        pdftextfile1 = path.join(tmp_dir, path.basename(file1) + ".txt")
+        pdftotext_cmd = [pdftotext_bin, file1, pdftextfile1]
+        p = Popen(pdftotext_cmd , shell=False, stdout=PIPE, stderr=PIPE)
+        out, errorout = p.communicate()
+        print out.rstrip(), errorout.rstrip()
+        # convert second file to text
+        pdftextfile2 = path.join(tmp_dir, path.basename(file2) + ".txt")
+        pdftotext_cmd = [pdftotext_bin, file2, pdftextfile2]
+        p = Popen(pdftotext_cmd , shell=False, stdout=PIPE, stderr=PIPE)
+        out, errorout = p.communicate()
+        print out.rstrip(), errorout.rstrip()
+        # diff the two pdf texts
+        info('Diffing PDF text between {0} and {1}'.format(path.basename(file1), path.basename(file2)))
+        diff_cmd = ['diff', pdftextfile1, pdftextfile2]
+        p = Popen(diff_cmd , shell=False, stdout=PIPE, stderr=PIPE)
+        out, errorout = p.communicate()
+        print out.rstrip(), errorout.rstrip()
+    finally:
+        try:
+            shutil.rmtree(tmp_dir)  # delete directory
+        except OSError as exc:
+            if exc.errno != 2:  # code 2 - no such file or directory
+                raise  # re-raise exception
 
 # =================================
 
