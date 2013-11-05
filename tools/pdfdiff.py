@@ -1,6 +1,6 @@
 """Usage:
-    pdfdiff.py fdiff <file1> <file2>
-    pdfdiff.py ddiff <dir1> <dir2>
+    pdfdiff.py fdiff [-g|--graphical] <file1> <file2>
+    pdfdiff.py ddiff [-g|--graphical] <dir1> <dir2>
     pdfdiff.py (-h | --help)
 
 PDFdiff either two files or two directories containing *.pdf files.
@@ -22,6 +22,7 @@ import shutil
 import tempfile
 from itertools import izip
 from PIL import Image
+from difflib import SequenceMatcher
 
 # =================================
 # just some fancy colors for output
@@ -92,7 +93,7 @@ def _check_poppler_helper(program_bin):
 # =================================
 
 # diffs two pdf files and returns 0 when no difference
-def diff_pdf_files(file1, file2):
+def diff_pdf_files(file1, file2, diffgraphic=False):
     print_single_seperator()
     _check_pdf_exist(file1)
     _check_pdf_exist(file2)
@@ -107,11 +108,13 @@ def diff_pdf_files(file1, file2):
         pass # "OK!" will be printed later
     elif (p.returncode==10):
         err('Files differ only visually (no text affected)!')
-        diff_pdf_graphics(file1, file2)
+        if diffgraphic:
+            diff_pdf_graphics(file1, file2)
     elif (p.returncode==13):
         err('Files differ textually and maybe visually! Diff:')
         diff_pdf_text(file1, file2)
-        diff_pdf_graphics(file1, file2)
+        if diffgraphic:
+            diff_pdf_graphics(file1, file2)
     elif (p.returncode==15):
         err('Files have different page counts!')
     else: # 1 or 2
@@ -131,13 +134,13 @@ def diff_pdf_text(file1, file2):
     try:
         tmp_dir = tempfile.mkdtemp()
         # convert first file to text
-        pdftextfile1 = path.join(tmp_dir, path.basename(file1) + ".txt")
+        pdftextfile1 = path.join(tmp_dir, path.basename(file1) + "1.txt")
         pdftotext_cmd = [pdftotext_bin, file1, pdftextfile1]
         p = Popen(pdftotext_cmd , shell=False, stdout=PIPE, stderr=PIPE)
         out, errorout = p.communicate()
         print out.rstrip(), errorout.rstrip()
         # convert second file to text
-        pdftextfile2 = path.join(tmp_dir, path.basename(file2) + ".txt")
+        pdftextfile2 = path.join(tmp_dir, path.basename(file2) + "2.txt")
         pdftotext_cmd = [pdftotext_bin, file2, pdftextfile2]
         p = Popen(pdftotext_cmd , shell=False, stdout=PIPE, stderr=PIPE)
         out, errorout = p.communicate()
@@ -148,6 +151,11 @@ def diff_pdf_text(file1, file2):
         p = Popen(diff_cmd , shell=False, stdout=PIPE, stderr=PIPE)
         out, errorout = p.communicate()
         print out.rstrip(), errorout.rstrip()
+        # calculate percentage difference of text:
+        text1 = open(pdftextfile1).read()
+        text2 = open(pdftextfile2).read()
+        m = SequenceMatcher(None, text1, text2)
+        info("Text percentage % difference: {0:.2f}%".format((1 - m.ratio()) * 100))
     finally:
         try:
             shutil.rmtree(tmp_dir)  # delete directory
@@ -206,33 +214,33 @@ def diff_pdf_graphics(file1, file2):
         print out.rstrip(), errorout.rstrip()
 
         # list all files in tmp_dir1 and assume that we have the same amount in tmp_dir2. Otherwise error!
-        files1 = []
-        for file1 in os.listdir(tmp_dir1):
-            if fnmatch.fnmatch(file1, '*.png'):
-                files1.append(file1)
-        files2 = []
-        for file2 in os.listdir(tmp_dir2):
-            if fnmatch.fnmatch(file2, '*.png'):
-                files2.append(file2)
-        if (len(files1) != len(files2)):
+        imgfiles1 = []
+        for imgfile1 in os.listdir(tmp_dir1):
+            if fnmatch.fnmatch(imgfile1, '*.png'):
+                imgfiles1.append(imgfile1)
+        imgfiles2 = []
+        for imgfile2 in os.listdir(tmp_dir2):
+            if fnmatch.fnmatch(imgfile2, '*.png'):
+                imgfiles2.append(imgfile2)
+        if (len(imgfiles1) != len(imgfiles2)):
             err('The number of extracted images do not match. Disk out of space? This error should not happen!')
             sys.exit(2)
-        sfiles1 = set(files1)
-        sfiles2 = set(files2)
-        only_in_onedir = list(sfiles1.union(sfiles2) - sfiles1.intersection(sfiles2))
+        simgfiles1 = set(imgfiles1)
+        simgfiles2 = set(imgfiles2)
+        only_in_onedir = list(simgfiles1.union(simgfiles2) - simgfiles1.intersection(simgfiles2))
         if (len(only_in_onedir) > 0):
             err('Different filenames in temp directory 1 and 2. Fatal error. This should never happen!')
             sys.exit(2)
         info('Diffing PDF graphically {0} and {1}'.format(path.basename(file1), path.basename(file2)))
         diff_overall = 0
-        for page, f in enumerate(files1): # use files1 list. It is has the same values as files2 now (we checked that above).
+        for page, f in enumerate(imgfiles1): # use files1 list. It is has the same values as files2 now (we checked that above).
             f1 = path.join(tmp_dir1, f)
             f2 = path.join(tmp_dir2, f)
             difference = _diff_images(f1, f2)
             diff_overall += difference
-            print "Page {0} difference: {1}".format(page+1, difference)
-        diff_overall /= len(files1) # divide the sum of diffs by page number
-        info("Overall percentage % difference: {0}%".format(diff_overall * 100))
+            print "Page {0} difference: {1:.5f}%".format(page+1, difference * 100)
+        diff_overall /= len(imgfiles1) # divide the sum of diffs by page number
+        info("Graphic percentage % difference: {0:.2f}%".format(diff_overall * 100))
     finally:
         try:
             shutil.rmtree(tmp_dir1)  # delete directory
@@ -244,7 +252,7 @@ def diff_pdf_graphics(file1, file2):
 # =================================
 
 # diffs two directories with pdf files and returns 0 when no difference
-def diff_pdf_dirs(dir1, dir2):
+def diff_pdf_dirs(dir1, dir2, diffgraphic=False):
     exit_code = 0 # Assume no errors
     if (not(path.isdir(dir1))):
         err('Directory not found: ' + dir1)
@@ -279,7 +287,7 @@ def diff_pdf_dirs(dir1, dir2):
     for f in in_both_dirs:
         f1 = path.join(dir1, f)
         f2 = path.join(dir2, f)
-        exit_code = exit_code or diff_pdf_files(f1, f2)
+        exit_code = exit_code or diff_pdf_files(f1, f2, diffgraphic)
 
     return exit_code
 
@@ -295,12 +303,13 @@ def exit_message(exit_code):
 
 def main():
     arg = docopt(__doc__)
+    make_graphicdiff = arg['-g'] or arg['--graphical']
     if (arg['fdiff']):
-        exit_code = diff_pdf_files(arg['<file1>'], arg['<file2>'])
+        exit_code = diff_pdf_files(arg['<file1>'], arg['<file2>'], diffgraphic=make_graphicdiff)
         exit_message(exit_code)
     elif (arg['ddiff']):
         infog('Comparing two directories')
-        exit_code = diff_pdf_dirs(arg['<dir1>'], arg['<dir2>'])
+        exit_code = diff_pdf_dirs(arg['<dir1>'], arg['<dir2>'], diffgraphic=make_graphicdiff)
         exit_message(exit_code)
 
 # =================================
