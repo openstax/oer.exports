@@ -3,7 +3,7 @@ pdfdiff python commandline-tool
 
 Requirements:  
 - comparepdf http://www.qtrac.eu/comparepdf.html
-- Python 2.6+ and Virtualenv
+- Own installed Python 2.7+ (not OS X internal) and Virtualenv
 
 Usage
 -----
@@ -44,6 +44,7 @@ If you need a good latest python OS X guide [look here](http://hackercodex.com/g
     virtualenv .
     source bin/activate
     pip install docopt
+    pip install pillow
 
 Hint: Everytime you want to use pdfdiff.py you need to activate virtualenv.
 Activation and deactivation of virtualenv:
