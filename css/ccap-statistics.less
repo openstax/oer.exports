@@ -92,7 +92,7 @@
 .note {
   &.statistics {
     &.calculator {
-      .x-feature(transparent, calculator, 0.42in);
+      .x-feature(transparent, calculator, 34px);
 
       // Reset this here so other feature headers retain their
       // 'transparent top' by being white. (For an example see
@@ -102,7 +102,7 @@
       }
     }
     &.collab {
-      .x-feature(@gray, collab, 0.42in);
+      .x-feature(@gray, collab, 40px);
       .x-finger();
 
       // top spacing for collaborative exercises
@@ -111,7 +111,7 @@
     &.lab {
       // Request for Stats lab to always be on new page
       page-break-before: always;
-      .x-feature(@gray, lab, 0.34in);
+      .x-feature(@gray, lab, 34px);
 
       /******************************************************
        * Statistics Lab Feature Heading/SubHeading styling
@@ -169,7 +169,9 @@
     // - Special-handling of the finger icon
     // - Exercises should not affect numbering and solutions should not show up in the content
     &.try {
-      .x-feature(@gray, try, 0.35in);
+      border: 1px solid blue;
+      .x-feature(@gray, try, 34px);
+
 
       /******************************************************
        * Try-It Feature styling/finger icon implementation
@@ -307,6 +309,53 @@
 }
 
 /******************************************************
+ * Features args(title color, bkgrnd color, path to svg)
+ ******************************************************/
+
+.x-feature (@bg-color, @svg, @padding-top) {
+  page-break-before: avoid;
+  &::before {
+    border: 1px solid blue;
+    padding-top: @padding-top; //from the SVG files
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-position: top outside;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+    background-image: url("ccap-statistics/@{svg}.svg");
+    background-color: @white;
+    content: "";
+    display: block;
+   
+    // the following are tweaked so the overlays really do over lay
+    margin-left: -1.05em;
+    margin-right: -1.05em;
+    margin-top: -0.05in;
+  }
+    background-color: @bg-color;
+
+  > .title { display: none; } //supress title in pdf
+
+  .body .title {
+    text-align: left !important;
+    font-size: large;
+    margin: .25em 0;
+    color: black;
+    font-weight:bold;
+   }
+
+  .figure {
+    img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
+    > .title { 
+      font-size: x-small; 
+      color: @blue; 
+    }
+  }
+}
+
+
+
+/******************************************************
  * Book Table of Contents
   ******************************************************/
 .book > .toc {
@@ -388,52 +437,7 @@ div.part > div.titlepage { display:none; }
   }
 }
 
-/******************************************************
- * Features args(title color, bkgrnd color, path to svg)
- ******************************************************/
 
-.x-feature (@bg-color, @svg, @padding-top) {
-
-  p:nth-of-type(2) {
-    page-break-before: avoid;
-  }
-
-  &::before {
-    padding-top: @padding-top; //from the SVG files
-    background-repeat: no-repeat;
-    background-position: top left;
-    background-position: top outside;
-    page-break-inside: avoid;
-    page-break-after: avoid;
-    background-image: url("ccap-statistics/@{svg}.svg");
-    background-color: @white;
-    content: "";
-    display: block;
-    // the following are tweaked so the overlays really do over lay
-    margin-left: -1.05em;
-    margin-right: -1.05em;
-    margin-top: -0.05in;
-  }
-    background-color: @bg-color;
-
-  > .title { display: none; } //supress title in pdf
-
-  .body .title {
-    text-align: left !important;
-    font-size: large;
-    margin: .25em 0;
-    color: black;
-    font-weight:bold;
-   }
-
-  .figure {
-    img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
-    > .title { 
-      font-size: x-small; 
-      color: @blue; 
-    }
-  }
-}
 
 /******************************************************
  * End of chapter customizations
@@ -712,7 +716,10 @@ img, figure, subfigure  { margin: 1em; }
  ******************************************************/
 
 // Blue header for example
+
 .example {
+  page-break-after: avoid;
+  border: 1px solid green;
   > .title {
     background: @blue;
     padding-top: .3em;
@@ -732,12 +739,19 @@ img, figure, subfigure  { margin: 1em; }
     padding: 1em 2em .5em 2em;
   }
 
+
   .solution { 
     padding-top: 1em; 
+    border: 1px solid red;
+
+    > .body {
+      page-break-inside: auto;
+    }
   }
 
   // for examples that have a problem/solution structure that need numbered headings
   .exercise {
+  
     // Examples with exercises don't need the margin-top or margin-bottom
     // from .exercise (ccap-base.less)
     margin: 0; 
