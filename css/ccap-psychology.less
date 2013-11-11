@@ -24,7 +24,7 @@
 @black:         #000;
 
 // Fixed widths
-@qr-code-width: 94px;
+@qr: 1.25in;
 @figure-size-one: 225px;
 
 // Static strings
@@ -159,6 +159,10 @@ div.end-of-book-references > .chapter-area > .title {
   color: @black;
 }
 
+blockquote {
+  color: @black;
+}
+
 /******************************************************
  * Font/Text styles.
  ******************************************************/
@@ -169,6 +173,10 @@ p {
 }
 p,
 .section > p {
+  font: 10pt/13pt @font-family-serif;
+}
+
+blockquote {
   font: 10pt/13pt @font-family-serif;
 }
 
@@ -469,6 +477,8 @@ div.section div.titlepage div.abstract::before {
   margin: .75em 0 .5em;
 }
 div.section div.titlepage div.abstract {
+  margin: 0 0 1.5em;
+
   // These have to be individually set otherwise
   // a color would have to be specified here.
   border-top-width: 0;
@@ -505,6 +515,7 @@ div.section div.titlepage div.abstract,
       margin: 0;
 
       p {
+        display: block;
         margin: 0;
       }
 
@@ -548,7 +559,7 @@ div.section div.titlepage div.abstract,
   }
 
   > caption, td {
-    padding: 10px;
+    padding: 5px 10px;
   }
 }
 
@@ -556,19 +567,20 @@ div.section div.titlepage div.abstract,
  * Lists
  ******************************************************/
 div:not(.body) > .itemizedlist > .itemizedlist > .listitem {
-  padding-top: 15px;
+  padding-top: 10px;
 
   &:last-child {
-    padding-bottom: 15px;
+    padding-bottom: 10px;
   }
+}
+
+.orderedlist {
+  margin-left: 2em;
 }
 
 /******************************************************
  * Figures
  ******************************************************/
-.figure {
-  padding-bottom: 3em;
-}
 
 .figure .body {
   padding: 15px 0px;
@@ -591,6 +603,24 @@ div.cnx-eoc > .title {
 }
 .glossary dd {
   margin-left: 0px;
+}
+
+/**
+  These two sets of selectors are a part of a bug fix for glossary terms which
+  were not properly wrapping around floated dt elements. Here we get rid 
+  of floats, set all elements inline, and then force breaks after term definitions
+  using preformatted whitespace in dd::after.
+ **/
+.glossary *,
+.glossary .glossterm,
+.glossary dt {
+  display: inline;
+  float: none;
+}
+div.book div.chapter > div.glossary dd::after {
+  display: inherit;
+  white-space: pre; 
+  content: '\A';
 }
 
 .cnx-eoc .title {
@@ -712,7 +742,7 @@ div.cnx-eoc > .title {
         padding-bottom: 0;
 
         span.cnx-gentext-tip-t {
-          padding: 10px 20px 0;
+          padding: 5px 20px 0;
           display: block;
         }
       }
@@ -739,15 +769,10 @@ div.cnx-eoc > .title {
     &.link-to-learning {
       .x-feature-color(@red, @orange, @white, @red, @cnx-string-link-to-learning);
 
-      // Padding relating to Qr-codes
+      page-break-inside: avoid;
+
       > .body {
-        padding: 10px 10px 0px 10px;
-      }
-      .figure {
         padding: 0px 10px;
-        .body {
-          padding: 0;
-        }
       }
 
       //clearfix
@@ -756,13 +781,19 @@ div.cnx-eoc > .title {
         display: table;
         clear: both;  
       }
-      .figure {
+      .mediaobject {
         float: left;
-        width: @qr-code-width;
-        .title {
-          display: none;
+        width: @qr;
+        img {
+          margin: 0;
+          width: @qr;
+          height: @qr;
         }
       }
+    }
+
+    > title {
+      padding: 0;
     }
 
     .body > .title {
@@ -813,7 +844,10 @@ div.cnx-eoc > .title {
     > .title {
       content: @cnx-string-review-questions;
       column-span: all !important; // added override to resolve bug on staging where titles
-      margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginat
+      margin-top: 2em;             // are spanning single column. cannot replicate locally or on naginat
+    }
+    p { 
+      text-align: left; //W&N does not want Review Questions justified.
     }
   }
 
@@ -822,7 +856,7 @@ div.cnx-eoc > .title {
     > .title {
       content: @cnx-string-critical-thinking-questions;
       column-span: all !important; // added override to resolve bug on staging where titles
-      margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginat
+      margin-top: 2em;             // are spanning single column. cannot replicate locally or on naginat
     }
     .section > .body > .exercise {
       margin-bottom: 1em;
@@ -834,7 +868,7 @@ div.cnx-eoc > .title {
     > .title {
       content: @cnx-string-personal-application-questions;
       column-span: all !important; // added override to resolve bug on staging where titles
-      margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginat
+      margin-top: 2em;             // are spanning single column. cannot replicate locally or on naginat
     }
   }
 
@@ -905,5 +939,31 @@ div.end-of-book-references .chapter-area {
     > .body p {
       margin: 1em 0;
     }
+  }
+}
+
+/******************************************************
+ * Folio Customizations
+ ******************************************************/
+
+// Make page numbers and header texts display on opposite
+// sides of the page.
+@page :left {
+  @top-left {
+    content: " ";
+  }
+  @top-right {
+    content: string(cnx-header);
+    text-transform: uppercase;
+  }
+}
+
+@page :right {
+  @top-right {
+    content: " ";
+  }
+  @top-left {
+    content: string(cnx-header);
+    text-transform: uppercase;
   }
 }
