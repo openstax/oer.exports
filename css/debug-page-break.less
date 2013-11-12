@@ -1,0 +1,54 @@
+// Page Breaking Debugging Macro for CCAP texts
+
+@DEBUG: 0;
+
+// # Visual Page Breaks (debugging)
+
+// Color:
+// - blue: always
+// - red: avoid
+// - yellow: auto
+
+// Border/Fill:
+// - background: inside
+// - dashed: before
+// - dotted: after
+
+.x-pb-inside-x(@value, @color) {
+  page-break-inside: @value;
+  // Only put in the DEBUG rule when DEBUG is ON
+  .x-pb-debug(@color) when (@DEBUG > 0) {
+    background-color: @color !important;
+  }
+  .x-pb-debug(@color);
+}
+
+.x-pb-before-x(@value, @color) {
+  page-break-before: @value;
+  // Only put in the DEBUG rule when DEBUG is ON
+  .x-pb-debug(@color) when (@DEBUG > 0) {
+    border-left: 0.9px dotted @color !important;
+  }
+  .x-pb-debug(@color);
+}
+
+.x-pb-after-x(@value, @color) {
+  page-break-after: @value;
+  // Only put in the DEBUG rule when DEBUG is ON
+  .x-pb-debug(@color) when (@DEBUG > 0) {
+    border-right: 0.9px dotted @color !important;
+  }
+  .x-pb-debug(@color);
+}
+
+.x-pb-inside(avoid)   { .x-pb-inside-x(avoid,   #f99); }
+.x-pb-inside(always)  { .x-pb-inside-x(always,  #99f); }
+.x-pb-inside(auto)    { .x-pb-inside-x(auto,    #ff9); }
+
+.x-pb-before(avoid)   { .x-pb-before-x(avoid,   #f33); }
+.x-pb-before(always)  { .x-pb-before-x(always,  #33f); }
+.x-pb-before(auto)    { .x-pb-before-x(auto,    #ff3); }
+
+.x-pb-after(avoid)    { .x-pb-after-x(avoid,    #f33); }
+.x-pb-after(always)   { .x-pb-after-x(always,   #33f); }
+.x-pb-after(auto)     { .x-pb-after-x(auto,     #ff3); }

@@ -11,6 +11,7 @@
 @import url('ccap-base.less');
 @import url('ccap-numbering.less');
 @import url('ccap-statistics-numbering.less');
+@import url('debug-page-break.less');
 
 // color palette for statistics
 @blue:        #26397F;
@@ -31,12 +32,11 @@
 @font-family-statistics: Liberation Serif, serif, @stix-fonts;
 
 @page { margin: 0.5in 1in; }
-  
+
 // Finished printed size of the QR code is dependent on: 1-distance between qr code and scanning device
 // 2-size of dots in the code(amount of data inputed into the code, the smaller the dots become)
 // For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
 @qr: 1.25in;
-
 
 // Most cases of `.finger` use the `.x-finger()` macro
 // (the finger is on the 1st para of the thing with the `.finger` class)
@@ -92,6 +92,7 @@
 .note {
   &.statistics {
     &.calculator {
+      .x-pb-inside(auto);
       .x-feature(transparent, calculator, 0.42in);
 
       // Reset this here so other feature headers retain their
@@ -102,6 +103,7 @@
       }
     }
     &.collab {
+      .x-pb-inside(auto);
       .x-feature(@gray, collab, 0.42in);
       .x-finger();
 
@@ -109,14 +111,15 @@
       .body p:nth-of-type(1) { margin-top: 1em; }
     }
     &.lab {
+      .x-pb-inside(auto);
       // Request for Stats lab to always be on new page
-      page-break-before: always;
+      .x-pb-before(always);
       .x-feature(@gray, lab, 0.34in);
 
       /******************************************************
        * Statistics Lab Feature Heading/SubHeading styling
        ******************************************************/
-    
+
       // Stats Lab primary header
       > .title {
         font-size: x-large;
@@ -169,6 +172,7 @@
     // - Special-handling of the finger icon
     // - Exercises should not affect numbering and solutions should not show up in the content
     &.try {
+      .x-pb-inside(auto);
       .x-feature(@gray, try, 0.35in);
 
       /******************************************************
@@ -187,7 +191,7 @@
         // smoothly underneath elements that are often larger than surrounding text
         // such as headers.  This allows text to flow underneath the larger numbering
         // in the Try-It
-        display: run-in;   
+        display: run-in;
       }
 
       // place finger pointer before numbering and position properly
@@ -216,16 +220,16 @@
         // Keep Try It Feature excercise numbering to match subsequent example
         counter-increment: none !important;
         margin-top: 1em;  // Keep top margin in Try-it that contains exercises to a nice height
-        margin-bottom: 0; 
+        margin-bottom: 0;
 
         // Do not display the exercise title and corresponding number for Exercise.  We are using
         // a Try-it counter here, so this one needs hiding
         > .title { display: none; }
 
         // display try-it solution upside down since we cannot number them in eoc
-        .solution { 
+        .solution {
           display: none;
-          /* 
+          /*
           W&N Doesn't want solutions utilized in the text at this point
           and plan on creating separate solutions manual(s) for text
 
@@ -375,6 +379,9 @@ div.part > div.titlepage { display:none; }
     padding-bottom: 1em;
     h1.title { background-color: @blue; }
   }
+
+  ul > li { list-style-type: disc; }
+
 }
 
 
@@ -395,7 +402,7 @@ div.part > div.titlepage { display:none; }
 .x-feature (@bg-color, @svg, @padding-top) {
 
   p:nth-of-type(2) {
-    page-break-before: avoid;
+    .x-pb-before(avoid);
   }
 
   &::before {
@@ -403,10 +410,9 @@ div.part > div.titlepage { display:none; }
     background-repeat: no-repeat;
     background-position: top left;
     background-position: top outside;
-    page-break-inside: avoid;
-    page-break-after: avoid;
     background-image: url("ccap-statistics/@{svg}.svg");
     background-color: @white;
+    .x-pb-after(avoid);
     content: "";
     display: block;
     // the following are tweaked so the overlays really do over lay
@@ -414,7 +420,7 @@ div.part > div.titlepage { display:none; }
     margin-right: -1.05em;
     margin-top: -0.05in;
   }
-    background-color: @bg-color;
+  background-color: @bg-color;
 
   > .title { display: none; } //supress title in pdf
 
@@ -428,9 +434,9 @@ div.part > div.titlepage { display:none; }
 
   .figure {
     img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
-    > .title { 
-      font-size: x-small; 
-      color: @blue; 
+    > .title {
+      font-size: x-small;
+      color: @blue;
     }
   }
 }
@@ -439,9 +445,9 @@ div.part > div.titlepage { display:none; }
  * End of chapter customizations
  ******************************************************/
 
-.cnx-eoc > .title > * { 
-  font-size: large !important; 
-  padding: 0 !important; 
+.cnx-eoc > .title > * {
+  font-size: large !important;
+  padding: 0 !important;
 }
 
 .cnx-eoc {
@@ -456,55 +462,55 @@ div.part > div.titlepage { display:none; }
     color: @blue !important;
     font-size: large !important;
     font-weight: bold !important;
-    page-break-after: avoid;
+    .x-pb-after(avoid);
   }
 
   &.summary {
     .x-column-count(1);
-    > .title { 
-      content: "Chapter Review"; 
-      margin-top: 1em; 
+    > .title {
+      content: "Chapter Review";
+      margin-top: 1em;
     }
-    > .section .title > a { 
-      color: @blue; 
-      page-break-after: avoid; 
+    > .section .title > a {
+      color: @blue;
+      .x-pb-after(avoid);
     }
-    p:nth-of-type(1) { 
-      text-indent: 0em; 
-      margin-top: 1em; 
+    p:nth-of-type(1) {
+      text-indent: 0em;
+      margin-top: 1em;
     }
   }
 
   &.practice {
     .x-column-count(1);
-    > .title { 
-      content: "Practice"; 
-      margin-top: 1em; 
+    > .title {
+      content: "Practice";
+      margin-top: 1em;
     }
-    > .section .title > a { 
-      color: @blue; 
-      page-break-after: avoid; 
+    > .section .title > a {
+      color: @blue;
+      .x-pb-after(avoid);
     }
-    p:nth-of-type(1) { 
-      text-indent: 0em; 
-      margin-top: 1em; 
+    p:nth-of-type(1) {
+      text-indent: 0em;
+      margin-top: 1em;
     }
   }
 
   // Mix-in to set Bringing It Together title and set similiar related elements
   .x-bring-together(@title) {
     .x-column-count(1);
-    > .title { 
-      content: @title; 
-      margin-top: 1em; 
+    > .title {
+      content: @title;
+      margin-top: 1em;
     }
-    > .section .title > a { 
-      color: @blue; 
-      page-break-after: avoid; 
+    > .section .title > a {
+      color: @blue;
+      .x-pb-after(avoid);
     }
-    p:nth-of-type(1) { 
-      text-indent: 0em; 
-      margin-top: 1em; 
+    p:nth-of-type(1) {
+      text-indent: 0em;
+      margin-top: 1em;
     }
   }
 
@@ -523,22 +529,25 @@ div.part > div.titlepage { display:none; }
     > .solution {
       padding-top: .5em;
       padding-bottom: .5em;
-      
-      > .title { 
+
+      > .title {
         font-family: @font-family;
-        padding-right: .5em; 
+        padding-right: .5em;
         display: inline;
       }
 
       > .body > .figure {
         font-family: @font-family;
       }
-      
+
       > .body,
       > .body > p {
         font-family: @font-family-statistics;
-        display: inline; 
+        display: inline;
       }
+
+      // Solutions table captions must be San-serif
+      .table caption { font-family: @font-family; }
     }
   }
 
@@ -577,7 +586,7 @@ div.part > div.titlepage { display:none; }
 }
 
 // For the Bringing it Together subsections we must override the solution-number
-// attached to the class and use the counter for the parent solutions in order for 
+// attached to the class and use the counter for the parent solutions in order for
 // numbering to remain in sequence.
 .cnx-eoc .section .title a.solution-number {
   content: "" counter(exercise, decimal) "." "";
@@ -618,7 +627,7 @@ img { max-height:9.5in; }
   }
 }
 
-a { 
+a {
   font-family: @font-family;
   font-weight: bold; color: @blue;
 }
@@ -675,13 +684,13 @@ blockquote {
 }
 
 // Now just a simple rule for paragraphs. This might can be extracted as well now.
-p { 
-  font-family: @font-family-statistics; 
+p {
+  font-family: @font-family-statistics;
 }
 
 .glossary {
   // End-of-chapter material should start on a new page
-  page-break-before: always;
+  .x-pb-before(always);
   display:inline;
 
   .title {
@@ -713,7 +722,11 @@ img, figure, subfigure  { margin: 1em; }
 
 // Blue header for example
 .example {
+
+  border-left: 1px solid @blue;
+
   > .title {
+    .x-pb-after(avoid);
     background: @blue;
     padding-top: .3em;
     padding-bottom: .3em;
@@ -728,26 +741,32 @@ img, figure, subfigure  { margin: 1em; }
   }
 
   > .body {
-    border-left: 1px solid @blue;
     padding: 1em 2em .5em 2em;
+    .x-pb-before(avoid);
+    .x-pb-inside(auto);
   }
 
-  .solution { 
-    padding-top: 1em; 
+  .solution {
+    // stop problem/solution sections inside examples from splitting erratically in the middle of pages
+    .x-pb-inside(auto);
+    padding-top: 1em;
   }
 
   // for examples that have a problem/solution structure that need numbered headings
   .exercise {
     // Examples with exercises don't need the margin-top or margin-bottom
     // from .exercise (ccap-base.less)
-    margin: 0; 
+    margin: 0;
     counter-increment: none !important;
-  
+
     .problem > .title {
       content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
       color: @blue;
       font-weight: bold;
     }
+
+    // This stops the example header from breaking away from rest of example
+    .problem > p:nth-of-type(1) { .x-pb-before(avoid); }
 
     .solution > .title {
       content: "" "Solution " counter(chapter, decimal) "." counter(example, decimal) " " "";
@@ -807,7 +826,7 @@ img, figure, subfigure  { margin: 1em; }
  * Tables TODO: simplify/regroup code block //latest
  ******************************************************/
 .table  {
-  page-break-inside: auto;
+  .x-pb-inside(auto);
   // If a table spans more than 1 page then put caption on all following pages
   prince-caption-page: all;
 
@@ -838,7 +857,7 @@ img, figure, subfigure  { margin: 1em; }
     background-color: @white;
   }
 
-  tr { page-break-inside: auto;}
+  tr { .x-pb-inside(auto);}
 
   th {
     color: black;
