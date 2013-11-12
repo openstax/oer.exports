@@ -333,9 +333,6 @@ ul {
 dl {
   margin: 0.5em;
 }
-p {
-  margin: 0.5em 0em;
-}
 .table {
   page-break-inside: avoid;
   margin: auto;
@@ -1575,6 +1572,9 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
 @page  {
   margin: 0.5in 1in;
 }
+br {
+  display: none;
+}
 /******************************************************
  * Statistics Custom elements
  *
@@ -1591,19 +1591,20 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
 
 }
 .note.statistics.calculator {
-  page-break-before: avoid;
+  page-break-inside: auto;
   background-color: transparent;
 }
+.note.statistics.calculator p:nth-of-type(2) {
+  page-break-before: avoid;
+}
 .note.statistics.calculator::before {
-  border: 1px solid blue;
-  padding-top: 34px;
+  padding-top: 0.42in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
   background-image: url("ccap-statistics/calculator.svg");
   background-color: #ffffff;
+  page-break-after: avoid;
   content: "";
   display: block;
   margin-left: -1.05em;
@@ -1631,19 +1632,20 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   background-color: transparent;
 }
 .note.statistics.collab {
-  page-break-before: avoid;
+  page-break-inside: auto;
   background-color: #ecf1ef;
 }
+.note.statistics.collab p:nth-of-type(2) {
+  page-break-before: avoid;
+}
 .note.statistics.collab::before {
-  border: 1px solid blue;
-  padding-top: 40px;
+  padding-top: 0.42in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
   background-image: url("ccap-statistics/collab.svg");
   background-color: #ffffff;
+  page-break-after: avoid;
   content: "";
   display: block;
   margin-left: -1.05em;
@@ -1677,24 +1679,25 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   margin-top: 1em;
 }
 .note.statistics.lab {
+  page-break-inside: auto;
   page-break-before: always;
-  page-break-before: avoid;
   background-color: #ecf1ef;
   /******************************************************
        * Statistics Lab Feature Heading/SubHeading styling
        ******************************************************/
 
 }
+.note.statistics.lab p:nth-of-type(2) {
+  page-break-before: avoid;
+}
 .note.statistics.lab::before {
-  border: 1px solid blue;
-  padding-top: 34px;
+  padding-top: 0.34in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
   background-image: url("ccap-statistics/lab.svg");
   background-color: #ffffff;
+  page-break-after: avoid;
   content: "";
   display: block;
   margin-left: -1.05em;
@@ -1760,24 +1763,24 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   padding-top: 2px;
 }
 .note.statistics.try {
-  border: 1px solid blue;
-  page-break-before: avoid;
+  page-break-inside: auto;
   background-color: #ecf1ef;
   /******************************************************
        * Try-It Feature styling/finger icon implementation
        ******************************************************/
 
 }
+.note.statistics.try p:nth-of-type(2) {
+  page-break-before: avoid;
+}
 .note.statistics.try::before {
-  border: 1px solid blue;
-  padding-top: 34px;
+  padding-top: 0.35in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
   background-image: url("ccap-statistics/try.svg");
   background-color: #ffffff;
+  page-break-after: avoid;
   content: "";
   display: block;
   margin-left: -1.05em;
@@ -1831,7 +1834,7 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
 }
 .note.statistics.try .exercise .solution {
   display: none;
-  /* 
+  /*
           W&N Doesn't want solutions utilized in the text at this point
           and plan on creating separate solutions manual(s) for text
 
@@ -1899,9 +1902,6 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   background-color: transparent;
 }
 /******************************************************
- * Features args(title color, bkgrnd color, path to svg)
- ******************************************************/
-/******************************************************
  * Book Table of Contents
   ******************************************************/
 .book > .toc > .title {
@@ -1967,12 +1967,18 @@ div.part > div.titlepage {
 .preface > .titlepage h1.title {
   background-color: #26397f;
 }
+.preface ul > li {
+  list-style-type: disc;
+}
 /******************************************************
  * Section Level Learning Objectives
 ******************************************************/
 .section > .titlepage .abstract {
   display: none;
 }
+/******************************************************
+ * Features args(title color, bkgrnd color, path to svg)
+ ******************************************************/
 /******************************************************
  * End of chapter customizations
  ******************************************************/
@@ -2093,6 +2099,9 @@ div.part > div.titlepage {
 .cnx-eoc.cnx-solutions > .solution > .body > p {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   display: inline;
+}
+.cnx-eoc.cnx-solutions > .solution .table caption {
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .cnx-eoc .references p {
   text-indent: 0em;
@@ -2260,10 +2269,10 @@ subfigure {
  * Example Elements Styling and Numbering
  ******************************************************/
 .example {
-  page-break-after: avoid;
-  border: 1px solid green;
+  border-left: 1px solid #26397f;
 }
 .example > .title {
+  page-break-after: avoid;
   background: #26397f;
   padding-top: .3em;
   padding-bottom: .3em;
@@ -2275,15 +2284,13 @@ subfigure {
   color: #ffffff;
 }
 .example > .body {
-  border-left: 1px solid #26397f;
   padding: 1em 2em .5em 2em;
+  page-break-before: avoid;
+  page-break-inside: auto;
 }
 .example .solution {
-  padding-top: 1em;
-  border: 1px solid red;
-}
-.example .solution > .body {
   page-break-inside: auto;
+  padding-top: 1em;
 }
 .example .exercise {
   margin: 0;
@@ -2293,6 +2300,9 @@ subfigure {
   content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
   color: #26397f;
   font-weight: bold;
+}
+.example .exercise .problem > p:nth-of-type(1) {
+  page-break-before: avoid;
 }
 .example .exercise .solution > .title {
   content: "" "Solution " counter(chapter, decimal) "." counter(example, decimal) " " "";
@@ -2317,20 +2327,21 @@ subfigure {
 }
 .example > .body > .exercise > .body > .problem > .note.statistics.calculator,
 .example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator {
-  page-break-before: avoid;
   background-color: transparent;
+}
+.example > .body > .exercise > .body > .problem > .note.statistics.calculator p:nth-of-type(2),
+.example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator p:nth-of-type(2) {
+  page-break-before: avoid;
 }
 .example > .body > .exercise > .body > .problem > .note.statistics.calculator::before,
 .example > .body > .exercise > .body > .solution > .body > .note.statistics.calculator::before {
-  border: 1px solid blue;
   padding-top: 0.42in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
   background-image: url("ccap-statistics/calculator.svg");
   background-color: #ffffff;
+  page-break-after: avoid;
   content: "";
   display: block;
   margin-left: -1.05em;
