@@ -150,7 +150,6 @@ div.part > div.titlepage {display:none;}
   // 1st semantic paragraph is title of feature. Indention removed for second semantic paragraph
   // which is first real paragraph.  Subsequent paragraphs are indented.
   p:nth-of-type(2) {
-    text-indent: 0em;
     page-break-before: avoid;
   }
   &::before {
@@ -214,12 +213,8 @@ div.part > div.titlepage {display:none;}
     .x-column-count(1);
     > .title { content: "Chapter Review"; margin-top: 1em; }
     > .section .title > a { color: black; page-break-after: avoid; }
-    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
-    p { text-indent: 2em; }
+    p:nth-of-type(1) { margin-top: 1em; }
   }
-
-  //ccap-base sets this so override it here
-  .references p { text-indent: 0em; }
 
   .problem .orderedlist { margin-left: 4em;}
 
@@ -341,15 +336,7 @@ blockquote {
   &::after { content: "\201D" /* close-quote; */; }
 }
 
-.cnx-eoc p, .notes p,p:nth-of-type(1) { text-indent: 0em; }
-
-p {
-  font-family: @font-family-anatomy;
-  /* subsequent paragraphs are indented */
-  text-indent: 2em;
-  /*reset margins so subsequent paragraphs start next line  */
-  margin:0;
-}
+p { font-family: @font-family-anatomy; }
 
 .glossary {
   // End-of-chapter material should start on a new page
@@ -621,7 +608,6 @@ div.end-of-book-references {
       }
 
       > .body > p {
-        text-indent: 0em;
         margin: .5em 0em;
         > a.link {
           color: @teal;

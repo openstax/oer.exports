@@ -7,7 +7,10 @@ See LICENSE.txt for details.
 
 import sys
 import os
-from PIL import Image
+try:
+  import Image
+except:
+  from PIL import Image
 from StringIO import StringIO
 from tempfile import mkdtemp
 import subprocess
@@ -65,7 +68,7 @@ def main():
   # parser.add_argument('-t', dest='temp_dir', help='Path to store temporary files to (default is a temp dir that will be removed)', nargs='?')
   parser.add_argument('-o', dest='output', nargs='?', type=argparse.FileType('w'), default=sys.stdout)
   args = parser.parse_args()
-  
+
   temp_dir = args.directory
 
   p = util.Progress()
@@ -77,7 +80,7 @@ def main():
   dbk, files = convert(dbk, allFiles)
 
   args.output.write(etree.tostring(dbk))
-  
+
   # Write out all the added files
   for name in newFiles:
     f = open(os.path.join(args.directory, name), 'w')

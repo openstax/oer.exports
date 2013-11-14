@@ -7,7 +7,10 @@ See LICENSE.txt for details.
 
 import sys
 import os
-from PIL import Image
+try:
+  import Image
+except:
+  from PIL import Image
 from StringIO import StringIO
 from tempfile import mkdtemp
 import subprocess

@@ -352,6 +352,9 @@ ol, ul { margin-top: 0px; }
 
 dl { margin: 0.5em; }
 
+// TODO: This needs to be removed as it produces three levels of settings
+// for paragraph leading. Our indentation mixin, the default prince style and this
+// Need to reduce to just one override, our mixin overridding prince default style
 p { margin: 0.5em 0em; }
 
 .table {
@@ -617,3 +620,28 @@ em.glossterm {
   font-weight: bold;
   display: block;
 }
+
+
+/***************************************************
+ * Indentation
+ ***************************************************/
+.cnx-indentation(@indent: 0) {
+  text-indent: @indent;
+  margin-bottom: .5em; //Leading between paragraphs
+}
+
+.cnx-indentation-base() {
+  p,
+  p:nth-of-type(1),
+  p:nth-of-type(2),
+  .note p,
+  .notes p,
+  .references p,
+  .cnx-eoc p,
+  .body p {
+    .cnx-indentation;
+  }
+}
+
+
+.cnx-indentation-base;

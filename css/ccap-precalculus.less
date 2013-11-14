@@ -352,12 +352,6 @@ div.part > div.titlepage {display:none;}
   // 1st semantic paragraph is title of feature. Indention removed for second semantic paragraph
   // which is first real paragraph.  Subsequent paragraphs are indented.
 
-  p { margin-left: 2em; }
-
-  p:nth-of-type(2) {
-    text-indent: 0em;
-    page-break-before: avoid;
-  }
 
   // If feature is only one line prevent clipping of icon
   min-height: 45px;
@@ -417,7 +411,6 @@ div.part > div.titlepage {display:none;}
     > .title { content: "" "Chapter " counter(chapter, decimal) " Review"; }
     > .section .title > a { color: @medium-blue; page-break-after: avoid; }
     p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
-    p { text-indent: 2em; }
   }
 
   &.key-equations {
@@ -463,7 +456,6 @@ div.part > div.titlepage {display:none;}
     .x-column-count(1);
     > .section .title > a { color: @medium-blue; page-break-after: avoid; }
     p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
-    p { text-indent: 2em; }
   }
 
   //ccap-base sets this so override it here
@@ -566,15 +558,10 @@ blockquote {
   &::after { content: "\201D" /* close-quote; */; }
 }
 
-.cnx-eoc p, .notes p,p:nth-of-type(1) { text-indent: 0em; }
 
 
 p {
   font-family: @font-family-precalculus;
-  /* subsequent paragraphs are indented */
-  text-indent: 2em;
-  /*reset margins so subsequent paragraphs start next line  */
-  margin:0;
 }
 
 .glossary {
@@ -595,6 +582,9 @@ p {
   // For Precalculus it is desired to have main heading Chapter Review above the Key Terms
   // At the top of the page.  This is possible by using psuedo-selector ::before to display
   // this before the glossary title
+
+  // During PreCalculus build or refactor fix glossary section to remove
+  // !importants and cleanup.
   .title::before {
     content: "" "Chapter " counter(chapter, decimal) " Review";
     color: @medium-blue;
