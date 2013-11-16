@@ -3,14 +3,10 @@
 @page {
   #page>.style();
   // Less complains about @footnotes{...} so use value escaping to inject it into the CSS
-  // Ideally, it would be:
-  //
-  //    @footnotes {
-  //      #page>.footnotes();
-  //    }
-  hack-rule-1: ~"none; @footnotes { hack-rule-2: none";
+  @footnotes: ~"@footnotes";
+  @{footnotes} {
     #page>.footnotes();
-  hack-rule-3: ~"none; }";
+  }
 
 }
 
