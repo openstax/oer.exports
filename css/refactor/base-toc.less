@@ -1,0 +1,60 @@
+#toc {
+  .style() {
+    page-break-before: right;
+    page-break-after: always;
+  }
+  .title() {
+    page-break-after: avoid;
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    margin-bottom: 0em;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+  }
+
+  #entry {
+
+    // Possible values for @scope:
+    // - default
+    // - top
+    // - X unit
+    // - X preface
+    // - X chapter
+    // - X appendix
+    // - section
+    .title(@scope) {}
+    .title(default) {
+      font-weight: medium;
+      text-decoration: none;
+      color: black;
+    }
+    .title(top) {
+      // TOC Units/Chapter
+      font-size: 12pt;
+    }
+    .title(section) {
+      // Sections
+      font-weight: normal;
+      color: black;
+    }
+    .page() {
+      // Chapter 3 : Type Systems ........................ 213
+      content: leader(' . ') target-counter(attr(href), page);
+    }
+  }
+
+  // Possible values for @scope:
+  // - X default
+  // - X top
+  // - X unit
+  // - preface
+  // - X chapter
+  // - appendix
+  // - section
+  .show-sections-in(@scope)   {} // By default show sections in all scopes
+  .show-sections-in(preface)  { display: none; }
+  .show-sections-in(appendix) { display: none; }
+  .show-sections-in(section)  { display: none; }
+
+}
