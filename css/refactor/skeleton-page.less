@@ -1,0 +1,25 @@
+// This file calls all the mixins and "constructs" the CSS
+
+@page {
+  #page>.style();
+  // Less complains about @footnotes{...} so use value escaping to inject it into the CSS
+  @footnotes: ~"@footnotes";
+  @{footnotes} {
+    #page>.footnotes();
+  }
+
+}
+
+// LessCSS does not support `@page { &:left {...}}` as a nested selector
+// so they are included separately here
+@page:left {
+  // Note: If needed, slots in here should use inside/outside instead of left/right
+  @top-left-corner { #page>#left>.top-corner(); }
+  @top-left        { #page>#left>.top(); }
+  @bottom-left     { #page>#left>.bottom(); }
+}
+
+@page:right {
+  @top-right-corner { #page>#right>.top-corner(); }
+  @top-right        { #page>#right>.top(); }
+}
