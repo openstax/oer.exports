@@ -3995,6 +3995,9 @@ div.cnx-eoc.summary > .section .title > a {
 div.end-of-book-references > .chapter-area > .title {
   color: #000000;
 }
+blockquote {
+  color: #000000;
+}
 /******************************************************
  * Font/Text styles.
  ******************************************************/
@@ -4004,6 +4007,9 @@ p {
 }
 p,
 .section > p {
+  font: 10pt/13pt URW Palladio L, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+blockquote {
   font: 10pt/13pt URW Palladio L, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .book > .toc a,
@@ -4228,6 +4234,7 @@ div.section div.titlepage div.abstract::before {
   margin: .75em 0 .5em;
 }
 div.section div.titlepage div.abstract {
+  margin: 0 0 1.5em;
   border-top-width: 0;
   border-left-width: 0;
   border-right-width: 0;
@@ -4261,6 +4268,7 @@ div.section div.titlepage div.abstract ul.itemizedlist > .listitem,
 }
 div.section div.titlepage div.abstract ul.itemizedlist > .listitem p,
 .note.chapter-objectives ul.itemizedlist > .listitem p {
+  display: block;
   margin: 0;
 }
 div.section div.titlepage div.abstract ul.itemizedlist > .listitem::before,
@@ -4296,23 +4304,23 @@ div.section div.titlepage div.abstract ul.itemizedlist > .listitem:last-child,
 }
 .table table > caption,
 .table table td {
-  padding: 10px;
+  padding: 5px 10px;
 }
 /******************************************************
  * Lists
  ******************************************************/
 div:not(.body) > .itemizedlist > .itemizedlist > .listitem {
-  padding-top: 15px;
+  padding-top: 10px;
 }
 div:not(.body) > .itemizedlist > .itemizedlist > .listitem:last-child {
-  padding-bottom: 15px;
+  padding-bottom: 10px;
+}
+.orderedlist {
+  margin-left: 2em;
 }
 /******************************************************
  * Figures
  ******************************************************/
-.figure {
-  padding-bottom: 3em;
-}
 .figure .body {
   padding: 15px 0px;
 }
@@ -4332,6 +4340,26 @@ div.cnx-eoc > .title {
 }
 .glossary dd {
   margin-left: 0px;
+}
+div.book div.chapter div.titlepage > div > div > h2.title {
+  margin-bottom: 1em;
+}
+/**
+  These two sets of selectors are a part of a bug fix for glossary terms which
+  were not properly wrapping around floated dt elements. Here we get rid 
+  of floats, set all elements inline, and then force breaks after term definitions
+  using preformatted whitespace in dd::after.
+ **/
+.glossary *,
+.glossary .glossterm,
+.glossary dt {
+  display: inline;
+  float: none;
+}
+div.book div.chapter > div.glossary dd::after {
+  display: inherit;
+  white-space: pre;
+  content: '\A\A';
 }
 .cnx-eoc .title {
   padding-bottom: 4px;
@@ -4479,17 +4507,14 @@ div.cnx-eoc > .title {
 .note.psychology.connect-the-concepts p {
   padding: 0 20px;
 }
-.note.psychology.connect-the-concepts p:first-of-type {
-  padding-top: 10px;
-}
 .note.psychology.connect-the-concepts p:last-of-type {
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 .note.psychology.connect-the-concepts > .title {
   padding-bottom: 0;
 }
 .note.psychology.connect-the-concepts > .title span.cnx-gentext-tip-t {
-  padding: 10px 20px 0;
+  padding: 5px 20px 0;
   display: block;
 }
 .note.psychology.connect-the-concepts::before,
@@ -4517,6 +4542,7 @@ div.cnx-eoc > .title {
   border: 1px solid #b8292f;
   border-radius: 15px;
   margin-top: 48px;
+  page-break-inside: avoid;
 }
 .note.psychology.link-to-learning::before {
   text-transform: uppercase;
@@ -4536,25 +4562,24 @@ div.cnx-eoc > .title {
   text-indent: 0.1875in;
 }
 .note.psychology.link-to-learning > .body {
-  padding: 10px 10px 0px 10px;
-}
-.note.psychology.link-to-learning .figure {
   padding: 0px 10px;
-}
-.note.psychology.link-to-learning .figure .body {
-  padding: 0;
 }
 .note.psychology.link-to-learning > .body::after {
   content: "";
   display: table;
   clear: both;
 }
-.note.psychology.link-to-learning .figure {
+.note.psychology.link-to-learning .mediaobject {
   float: left;
-  width: 94px;
+  width: 1.25in;
 }
-.note.psychology.link-to-learning .figure .title {
-  display: none;
+.note.psychology.link-to-learning .mediaobject img {
+  margin: 0;
+  width: 1.25in;
+  height: 1.25in;
+}
+.note.psychology > title {
+  padding: 0;
 }
 .note.psychology .body > .title {
   padding: 0px 0px 10px 0px;
@@ -4599,6 +4624,8 @@ div.cnx-eoc > .title {
 }
 .cnx-eoc.summary > .title {
   content: "Summary";
+  padding-bottom: 0;
+  margin-bottom: 1em;
 }
 .cnx-eoc.summary > .section .title > a {
   color: #528cbe;
@@ -4606,6 +4633,9 @@ div.cnx-eoc > .title {
 }
 .cnx-eoc.summary p:nth-of-type(1) {
   margin-top: 0;
+}
+.cnx-eoc.summary > div.section:nth-of-type(3) .title {
+  padding-top: 0;
 }
 .cnx-eoc.review-questions {
   -webkit-column-count: 2;
@@ -4616,7 +4646,11 @@ div.cnx-eoc > .title {
 .cnx-eoc.review-questions > .title {
   content: "Review Questions";
   column-span: all !important;
-  margin-top: 1em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+.cnx-eoc.review-questions p {
+  text-align: left;
 }
 .cnx-eoc.critical-thinking {
   -webkit-column-count: 1;
@@ -4627,7 +4661,8 @@ div.cnx-eoc > .title {
 .cnx-eoc.critical-thinking > .title {
   content: "Critical Thinking Questions";
   column-span: all !important;
-  margin-top: 1em;
+  margin-top: 2em;
+  margin-bottom: 1em;
 }
 .cnx-eoc.critical-thinking .section > .body > .exercise {
   margin-bottom: 1em;
@@ -4641,7 +4676,11 @@ div.cnx-eoc > .title {
 .cnx-eoc.personal-application > .title {
   content: "Personal Application Questions";
   column-span: all !important;
-  margin-top: 1em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+.cnx-eoc.personal-application .section > .body > .exercise {
+  margin-bottom: 1em;
 }
 .cnx-eoc.solutions {
   -webkit-column-count: 1;
@@ -4703,4 +4742,25 @@ div.end-of-book-references .chapter-area .section-area > .title {
 }
 div.end-of-book-references .chapter-area .section-area > .body p {
   margin: 1em 0;
+}
+/******************************************************
+ * Folio Customizations
+ ******************************************************/
+@page :left {
+  @top-left {
+    content: "";
+  }
+  @top-right {
+    content: string(cnx-header);
+    text-transform: uppercase;
+  }
+}
+@page :right {
+  @top-right {
+    content: "";
+  }
+  @top-left {
+    content: string(cnx-header);
+    text-transform: uppercase;
+  }
 }
