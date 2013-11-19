@@ -362,7 +362,10 @@ blockquote {
   &.cnx-solutions {
     display: none;
   }
-
+// Hide EOC References
+  &.references {
+    display: none;
+  }
 }
 
 /******************************************************************************
@@ -370,8 +373,47 @@ blockquote {
  ******************************************************************************/
 
 // References
-.end-of-book-references .chapter-area .body .section-area .title {
-  display: none; // Do not display section titles.
+div.colophon.end-of-book-references .chapter-area {
+  .body .section-area .title {
+    display: none; // Do not display section titles.
+  }
+
+  > .title {
+    color: @black;
+  }
 }
 
 // Answer Key
+div.colophon.end-of-book-solutions div.chapter-area {
+  div.solution {
+    padding-bottom: .2em;
+    > div.title a.solution {
+      padding-right: .2em;
+
+      &::before {
+        content: target-counter(attr(href), exercise) ".";
+      }
+    }
+
+    &:nth-of-type(1) {
+      padding-top: .5em;
+    }
+  }
+}
+
+// Titles
+.end-of-book-references,
+.end-of-book-solutions {
+  h1.title {
+    color: @dark-blue;
+  }
+}
+div.index div.title h2 {
+  color: @dark-blue;
+}
+
+
+
+div.book div.chapter > div.section div.note div.exercise {
+  counter-increment: none;
+}
