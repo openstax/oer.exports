@@ -28,6 +28,14 @@
 @font-family-sans-serif: Arial, sans-serif, @stix-fonts;
 @font-family-serif: Times New Roman, serif, @stix-fonts;
 
+@page-width: 6in;
+// The base CCAP books use sans fonts but the anatomy books use serif fonts.
+@font-family-economics: Liberation Serif, serif, @stix-fonts;
+@page { margin: 0.5in 1in; }
+// Finished printed size of the QR code is dependent on: 1-distance between qr code and scanning device
+// 2-size of dots in the code(amount of data inputed into the code, the smaller the dots become)
+// For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
+@qr: 1.25in;
 
 
 /******************************************************
@@ -87,6 +95,18 @@
         font-weight: normal;
       }
     }
+    // Manual Chapter Objectives Note Utilized as Introduction Header as well in Economics
+    &.chapter-objectives {
+      background-color: white;
+      padding: 0;
+      margin: 0;
+
+      > .title {
+        font-size: x-large;
+        color: @dark-blue;
+        border: none;
+      }
+    }
   }
 }
  // End of .economics notes
@@ -144,8 +164,8 @@
 
 /* -------------------------
  * Book Table of Contents
-  * -------------------------
-  */
+ * -------------------------
+ */
 .book > .toc {
   > .title {
     border-bottom-color: @dark-blue;
@@ -156,6 +176,28 @@
 }
 
 
+/* ----------------------------------------------
+ * Chapter Introduction & Learning Objectives
+ * ----------------------------------------------
+ */
+
+// Utilize string selector attribution to target any occurence of Introduction
+// in section title and hide to allow Feature Note to go above Introduction Header. 
+// Introduction header displayed as a part of the Manual Chapter Objectives section.
+.chapter .section[title$="Introduction"] > .titlepage { content: ""; }
+
+
+/* -------------------------
+ * Section Level Learning Objectives
+* -------------------------
+*/
+
+// This must be turned off from PreCalculus since Economics 
+// doesn't use section level learning objectives, only Chapter level
+.section > .titlepage {
+  .abstract { display: none; }
+}
+
 
 
 
@@ -165,6 +207,8 @@
  */
 
 .chapter h1.title {
+  margin-top: 0;
+  padding-top: 0;
   font-size: 34pt; 
   color: @dark-blue;
 
