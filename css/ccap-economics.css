@@ -3929,6 +3929,10 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
  * Note Features for Text
  * -------------------------
  */
+.note > .title,
+.note > .body {
+  padding: 0px .8em;
+}
 .note.economics.bringhome {
   page-break-inside: auto;
   color: #000000;
@@ -4242,7 +4246,7 @@ blockquote::after {
   font: normal normal 700 10pt/1em Arial, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .glossary > dl dd {
-  font: normal normal 400 10pt/12pt Times New Roman, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font: normal normal 400 10pt/1em Times New Roman, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .glossary > .titlepage h2.title::before {
   display: none !important;
@@ -4252,6 +4256,10 @@ blockquote::after {
 }
 .glossary > dl > dt,
 .glossary > dl > dd {
+  padding-top: .2em;
+}
+.glossary > dl > dt:first-of-type,
+.glossary > dl > dd:first-of-type {
   padding-top: 1em;
 }
 .cnx-eoc.summary > .title,
@@ -4328,6 +4336,13 @@ div.colophon.end-of-book-references .chapter-area > .title {
 }
 div.colophon.end-of-book-solutions div.chapter-area div.solution {
   padding-bottom: .2em;
+  /*
+    * This is a bug-fix related to 
+    *    display: inline;
+    *    * { display: inline; }
+    * being used in ccap-precalculus.less.
+    */
+
 }
 div.colophon.end-of-book-solutions div.chapter-area div.solution > div.title a.solution {
   padding-right: .2em;
@@ -4337,6 +4352,22 @@ div.colophon.end-of-book-solutions div.chapter-area div.solution > div.title a.s
 }
 div.colophon.end-of-book-solutions div.chapter-area div.solution:nth-of-type(1) {
   padding-top: .5em;
+}
+div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body .table,
+div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body table {
+  display: table;
+}
+div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body .table caption,
+div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body table caption {
+  display: table-caption;
+}
+div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body .table tr,
+div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body table tr {
+  display: table-row;
+}
+div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body .table td,
+div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body table td {
+  display: table-cell;
 }
 .end-of-book-references h1.title,
 .end-of-book-solutions h1.title {

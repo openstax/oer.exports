@@ -50,6 +50,10 @@
  */
 
 .note {
+  > .title,
+  > .body {
+    padding: 0px .8em;
+  }
   &.economics {
     // Bring It Home Feature
     &.bringhome {
@@ -343,7 +347,7 @@ blockquote {
     font: normal normal 700 10pt/1em @font-family-sans-serif;
   }
   > dl dd {
-    font: normal normal 400 10pt/12pt @font-family-serif;
+    font: normal normal 400 10pt/1em @font-family-serif;
   }
 }
 .glossary {
@@ -356,7 +360,10 @@ blockquote {
     margin: 0;
 
     > dt, > dd {
-      padding-top: 1em;
+      &:first-of-type {
+        padding-top: 1em;
+      }
+      padding-top: .2em;
     }
   }
 }
@@ -490,6 +497,22 @@ div.colophon.end-of-book-solutions div.chapter-area {
 
     &:nth-of-type(1) {
       padding-top: .5em;
+    }
+
+    /*
+    * This is a bug-fix related to 
+    *    display: inline;
+    *    * { display: inline; }
+    * being used in ccap-precalculus.less.
+    */
+    > div.body {
+      .table,
+      table {
+        display: table;
+        caption { display: table-caption; }
+        tr { display: table-row; }
+        td { display: table-cell; }
+      }
     }
   }
 }
