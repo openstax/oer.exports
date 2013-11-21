@@ -23,7 +23,7 @@ also:
     apt-get install openjdk-7-jre-headless
     apt-get install docbook-xsl-ns
     apt-get install xsltproc                       # for generating epub
-    
+
 # For Osx
 
 Install http://mxcl.github.com/homebrew/
@@ -61,7 +61,17 @@ You can download the zip file from http://sourceforge.net/projects/docbook/files
 
 ## Install Fonts
 
-The styles used in these books use openly licensed fonts found in Ubuntu. The fonts can be found at http://mountainbunker.org/~ew2/fonts/truetype-open-fonts.zip
+These are the fonts used in generating the PDF and EPUB files.
+Prince uses TTF and OTF fonts (not Type-1 fonts which are used in newer systems).
+Many are openly licensed fonts found in Ubuntu.
+Some fonts can be found at http://mountainbunker.org/~ew2/fonts/truetype-open-fonts.zip
+
+* `URW Palladio L`: http://svn.ghostscript.com/ghostscript/trunk/ghostpdl/urwfonts/ (download all 4 variants)
+
+To test that the TTF/OTF (note Type-1) fonts were installed, run the following and verify there are no differences:
+
+    prince -v -o /dev/null ./test-fonts.html 2>&1 | diff test-fonts.out -
+
 
 # Generate Books
 
