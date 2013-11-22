@@ -1,0 +1,184 @@
+// Take a look at the generated CSS (they are equivalent)
+// Uncomment the .preface and .appendix lines to see why the @scope is necessary.
+#part {
+  .content-counter(preface;  @before; @after) { content: @before @after; }
+  .content-counter(chapter;  @before; @after) { content: @before counter(chapter) '.' @after; }
+  .content-counter(appendix; @before; @after) { content: @before counter(appendix, upper-alpha) @after; }
+}
+
+@Example:   'Example';
+@Exercise:  'Exercise';
+@Figure:    'Figure';
+@Note:      'Note';
+
+/* --------- Option 1 ------- */
+
+
+// Parts Code
+#content {
+  #note {
+    .counter-increment(default) { counter-increment: note; }
+    .number(@scope; default) { #part>.content-counter(@scope; @Note ' '; counter(note)); }
+  }
+  #example {
+    .counter-reset(@context) {}
+    .counter-increment(default) { counter-increment: example; }
+    .number(@scope; default) { #part>.content-counter(@scope; @Exercise ' '; counter(exercise)); }
+  }
+
+  #exercise {
+    .counter-increment(@context) {}
+    .counter-increment(default) { counter-increment: exercise; }
+    // do not increment Exercises inside an example
+    .counter-increment(example) { }
+    .number(@scope; default) { #part>.content-counter(@scope; @Exercise ' '; counter(exercise)); }
+    // do not number Exercises inside an example
+    .number(@scope; example) { content: @Exercise }
+  }
+
+  #figure {
+    .counter-reset(default) { counter-reset: subfigure; }
+    // Do not reset the subfigure counter when this is a subfigure
+    .counter-reset(figure) {}
+    .counter-increment(default) { counter-increment: figure; counter-reset: subfigure; }
+    .counter-increment(figure)  { counter-increment: subfigure; }
+    .number(@scope; @context) { #part>.content-counter(@scope; @Figure ' '; counter(figure)); }
+    // For subfigures add a letter representing the figure
+    .number(@scope; figure) { #part>.content-counter(@scope; @Figure ' '; counter(figure) counter(subfigure, lower-alpha)); }
+  }
+}
+
+
+// Skeleton code
+.build-part(@scope) {
+  @context: default;
+
+  .note {
+    #content>#note>.counter-increment(@context);
+    #content>#note>.counter-increment(@context);
+    #content>#note>.number(@scope; @context);
+  }
+  .example {
+    #content>#example>.counter-increment(@context);
+    #content>#example>.counter-increment(@context);
+    #content>#example>.number(@scope; @context);
+  }
+  .exercise {
+    #content>#exercise>.counter-increment(@context);
+    #content>#exercise>.counter-increment(@context);
+    #content>#exercise>.number(@scope; @context);
+  }
+  .figure {
+    #content>#figure>.counter-increment(@context);
+    #content>#figure>.counter-increment(@context);
+    #content>#figure>.number(@scope; @context);
+  }
+  // ... More elements removed for brevity
+
+  .example {
+    @context: example;
+    .exercise {
+      #content>#exercise>.counter-increment(@context);
+      #content>#exercise>.counter-increment(@context);
+      #content>#exercise>.number(@scope; @context);
+    }
+    // ... More elements removed for brevity
+  }
+
+  .figure {
+    @context: figure;
+    .figure {
+      #content>#figure>.counter-increment(@context);
+      #content>#figure>.counter-increment(@context);
+      #content>#figure>.number(@scope; @context);
+    }
+    // ... More elements removed for brevity
+  }
+}
+//.preface  { .build-part(preface); }
+.chapter  { .build-part(chapter); }
+//.appendix { .build-part(appendix); }
+
+
+/* --------- Option 2 ------- */
+
+// All mixins involving Content types take the type as the first parameter
+
+
+// Parts Code
+#content {
+  // Empty Defaults
+  .counter-reset(@type; @context) {}
+  .counter-increment(@type; @context) {}
+  .number(@type; @scope; @context) {}
+
+  .note() {
+    .counter-increment(note; default) { counter-increment: note; }
+    .number(note; @scope; default) { #part>.content-counter(@scope; @Note ' '; counter(note)); }
+  }
+
+  .example() {
+    .counter-increment(example; default) { counter-increment: example; }
+    .number(example; @scope; default) { #part>.content-counter(@scope; @Example ' '; counter(example)); }
+  }
+
+  .exercise() {
+    .counter-increment(exercise; default) { counter-increment: exercise; }
+    // do not increment Exercises inside an example
+    .counter-increment(exercise; example) { counter-increment: none; }
+
+    .number(exercise; @scope; default) { #part>.content-counter(@scope; @Exercise ' '; counter(exercise)); }
+    // do not number Exercises inside an example
+    .number(exercise; @scope; example) { content: @Exercise }
+  }
+
+  .figure() {
+    .counter-reset(figure; default) { counter-reset: subfigure; }
+    // Do not reset the subfigure counter when this is a subfigure
+    .counter-reset(figure; figure) { counter-reset: none; }
+
+    .counter-increment(figure; default) { counter-increment: figure; counter-reset: subfigure; }
+    .counter-increment(figure; figure)  { counter-increment: subfigure; }
+
+    .number(figure; @scope; default) { #part>.content-counter(@scope; @Figure ' '; counter(figure)); }
+    // For subfigures add a letter representing the figure
+    .number(figure; @scope; figure) { #part>.content-counter(@scope; @Figure ' '; counter(figure) counter(subfigure, lower-alpha)); }
+  }
+
+  // Unlock the types
+  .note();
+  .example();
+  .exercise();
+  .figure();
+}
+
+
+// Skeleton code
+.build-part(@scope) {
+
+  .x-produce-children(@type; false; false) {}
+  .x-produce-children(@type; true; @includeChildren) {
+
+    .x-produce-all(example;   @type; @includeChildren);
+    .x-produce-all(exercise;  @type; @includeChildren);
+    .x-produce-all(figure;    @type; @includeChildren);
+    .x-produce-all(note;      @type; @includeChildren);
+    // ... More elements removed for brevity
+  }
+
+  // Customize these for different elements
+  .x-produce-all(@type; @context; @includeChildren) {
+    .@{type} {
+      #content>.counter-reset(@type; @context);
+      #content>.counter-increment(@type; @context);
+      #content>.number(@type; @scope; @context);
+      .x-produce-children(@type; @includeChildren; false);
+    }
+  }
+
+  .x-produce-children(default; true; true);
+}
+
+//.preface  { .build-part(preface); }
+.chapter  { .build-part(chapter); }
+//.appendix { .build-part(appendix); }
