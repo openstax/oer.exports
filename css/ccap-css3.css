@@ -1,14 +1,11 @@
-//Copyright (c) 2013 Rice University
-// This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
-// See LICENSE.txt for details.
 /***************************************************
  * Styles used when generating a PDF from xhtml+css
  ***************************************************/
-
 /* Hide MathML elements */
 @namespace mml "http://www.w3.org/1998/Math/MathML";
-mml|math { display: none; }
-
+mml|math {
+  display: none;
+}
 /* Prince BUG: SVG in a table heading doesn't use the correct fonts.
    Unfortunately, this isn't the place to fix it. search for "th *"
    in the other .less files
@@ -17,21 +14,17 @@ svg|g {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 */
-
-
 /* General css3 for print/online (lesscss does not parse these) */
-
 @page {
   margin: 5em;
   font-size: xx-small;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-
+  
   @footnotes {
     border-top: solid black thin;
     padding-top: 1em;
   }
 }
-
 @page :left {
   @top-left-corner {
     content: counter(page);
@@ -42,16 +35,12 @@ svg|g {
     text-transform: uppercase;
   }
   @bottom-left {
-  	 color: grey;
+    color: grey;
     font-weight: thin;
     content: "This content is available for free at " string(cnx-collection-url);
-    // The following line doesn't work because prince-link can aonly take a attr() or url()
-    // Fortunately prince auto-detects the http://... and makes it a link
-    // prince-link: string(cnx-collection-url);
     prince-text-replace: ":9680" "\2019";
   }
 }
-
 @page :right {
   @top-right-corner {
     content: counter(page);
@@ -62,11 +51,8 @@ svg|g {
     text-transform: uppercase;
   }
 }
-
 /* hides the table caption in caption to place at bottom of table */
-		div.table-caption.caption {
-			display:none;
-			string-set: caption-bottom content();
-			}
-		
-
+div.table-caption.caption {
+  display: none;
+  string-set: caption-bottom content();
+}
