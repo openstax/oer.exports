@@ -354,10 +354,15 @@ div.part > div.titlepage { display:none; }
 
     > .title { //chapter objectives
       margin-top: 0;
-      padding-top: .1em;
+      padding-top: .2em;
       padding-bottom: .2em;
       background-color: @blue;
-      color: white;
+      // The use of !important in .note:not(.statistics) color because of other styles overriding
+      // it is causing a conflict with this manual chapter objectives note. We didn't know we would
+      // need a custom chapter objectives note till after markup was completed, which should have been
+      // note.statistics.chapter-objectives.  Because of this we must use !important below for the 
+      // color due to generic note color using @blue and making it vanish.
+      color: white !important;  
       text-align: center;
       text-transform: none;
       font-weight: bold;
@@ -515,8 +520,8 @@ div.part > div.titlepage { display:none; }
   }
 
   // Set Bringing It Together Homework and Practice titles
-  &.bring-together-homework { .x-bring-together("Bringing It Together : Homework"); }
-  &.bring-together-practice { .x-bring-together("Bringing It Together : Practice"); }
+  &.bring-together-homework { .x-bring-together("Bringing It Together: Homework"); }
+  &.bring-together-practice { .x-bring-together("Bringing It Together: Practice"); }
 
 
   // Styles for general solutions for the rest of exercises
@@ -722,11 +727,14 @@ img, figure, subfigure  { margin: 1em; }
 
 // Blue header for example
 .example {
-
+  // Utilize Serif font at top level of container and then only change the delta to San Serif 
+  // that is needed for titles of problems, solutions and figures.
+  font-family: @font-family-statistics;
   border-left: 1px solid @blue;
 
   > .title {
     .x-pb-after(avoid);
+    font-family: @font-family;
     background: @blue;
     padding-top: .3em;
     padding-bottom: .3em;
@@ -746,6 +754,9 @@ img, figure, subfigure  { margin: 1em; }
     .x-pb-inside(auto);
   }
 
+  // All figure descendants need to be Sans-Serif font
+  .figure .title { font-family: @font-family; }
+
   .solution {
     // stop problem/solution sections inside examples from splitting erratically in the middle of pages
     .x-pb-inside(auto);
@@ -761,6 +772,7 @@ img, figure, subfigure  { margin: 1em; }
 
     .problem > .title {
       content: "" "Part " counter(chapter, decimal) "." counter(example, decimal) " " "";
+      font-family: @font-family;
       color: @blue;
       font-weight: bold;
     }
@@ -770,11 +782,14 @@ img, figure, subfigure  { margin: 1em; }
 
     .solution > .title {
       content: "" "Solution " counter(chapter, decimal) "." counter(example, decimal) " " "";
+      font-family: @font-family;
       color: @blue;
       font-weight: bold;
     }
   }
 }
+
+
 
 /*
   W&N wanted table numbering in example exercise problems/solutions
@@ -869,11 +884,6 @@ img, figure, subfigure  { margin: 1em; }
 
   table {
     border-bottom: @table-border !important;
-  }
-
-  // This is just for looks for the template take out later
-  table td {
-    padding: 1em;
   }
 
   //handle lists inside tables
