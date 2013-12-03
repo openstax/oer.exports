@@ -1,0 +1,230 @@
+//Copyright (c) 2013 Rice University
+// This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+// See LICENSE.txt for details.
+
+@import url('utils.less');
+
+#toc {
+  .style() {
+    #utils>#pb>.before(right);
+    #utils>#pb>.after(always);
+  }
+  .title() {
+    #utils>#pb>.after(avoid);
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    margin-bottom: 0em;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+  }
+
+  #entry {
+
+    // Possible values for @scope:
+    // - default
+    // - top
+    // - X unit
+    // - X preface
+    // - X chapter
+    // - X appendix
+    // - section
+    .title(@scope) {}
+    .title(default) {
+      font-weight: medium;
+      text-decoration: none;
+      color: black;
+    }
+    .title(top) {
+      // TOC Units/Chapter
+      font-size: 12pt;
+    }
+    .title(section) {
+      // Sections
+      font-weight: normal;
+      color: black;
+    }
+    .page() {
+      // Chapter 3 : Type Systems ........................ 213
+      content: leader(' . ') target-counter(attr(href), page);
+    }
+  }
+
+  // Possible values for @scope:
+  // - X default
+  // - X top
+  // - X unit
+  // - preface
+  // - X chapter
+  // - appendix
+  // - section
+  .show-sections-in(@scope)   {} // By default show sections in all scopes
+  .show-sections-in(preface)  { display: none; }
+  .show-sections-in(appendix) { display: none; }
+  .show-sections-in(section)  { display: none; }
+
+}
+
+#index {
+  .style() {
+    #utils>#pb>.before(always);
+    #utils>#pb>.after(always);
+    #utils>#pb>.inside(auto);
+    string-set: cnx-header "Index";
+    .x-column-count(3);
+  }
+  .title() {
+    display: inline;
+    string-set: cnx-header content();
+  }
+  .letter() {
+    font-weight: bold; 
+  }
+  .term() {
+  }
+  .link() {
+  }
+}
+
+#part {
+
+  #title {
+    //NOTE: Use separate Mixins (instead of @scope:default) when you do not want the default CSS to be used for all scopes
+    .style(@scope) {}
+    .style(default) {
+      margin-bottom: 0em; //1st span contains the 'chapter'
+      padding: 0.25em 0.5em;
+      font-size: 2.5em; // xx-large;
+      font-weight: normal;
+      text-transform: uppercase;
+      color: white;
+    }
+    .style(preface) {
+      padding-left: .25em;
+    }
+
+    .number(@scope:default) {
+      color: black;
+      padding-right: 1em;
+    }
+  }
+
+  #introduction {
+    .title(chapter) {
+      padding-right: 3em;
+      font-weight: bold;
+      font-size: normal;
+    }
+    #splash-figure {
+      // .style() {}
+      // .caption() {}
+      .image(chapter) {
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        max-width: none;
+      }
+    }
+  }
+
+  // This is the ToC inside the Introduction
+  #toc {
+    .style() {
+      display: table;
+      margin: auto;
+      margin-bottom: 1em;
+      border-spacing: 0px;
+      page-break-inside: avoid;
+    }
+    .title() {
+      color: white;
+      font-size: large;
+      font-weight: bold;
+      text-align: center;
+      padding: 0.25em;
+      margin: 0em;
+    }
+    .title-content() {
+      content: "Learning Objectives";
+    }
+    .children() {
+      padding-left: 0em;
+      margin-left: 1em;
+    }
+    #entry {
+      .style() {
+        list-style-type: none;
+        margin: 0.50em 0em;
+      }
+      .title() {
+        color: inherit;
+        font-weight: bold;
+        padding: 0.25em 0em;
+        margin: 0em 1em 0em 0.5em;
+      }
+      .children-indent() {
+        margin-left: 0.25em;
+      }
+      // This next line is deprecated and should be moved elsewhere
+      .d-section-colon() {
+        content: ":"; //add : after section #
+      }
+
+      // Each Chapter ToC entry contains the abstract in addition to the title
+      #abstract {
+        .style() {
+          margin-left: 2.5em;
+          padding-left: 0em;
+        }
+        .list() {
+          margin-left: 0em;
+          padding-left: 1.5em;
+        }
+        .list-item() {
+          list-style-type: disc;
+        }
+      }
+    }
+  }
+
+  // End-of-chapter parts
+  #end {
+    .title() { // .cnx-eoc > .title
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+    }
+
+    #glossary {
+      .dl() {}
+      .dt() {
+        float: left;
+        font-weight: bold;
+      }
+      .dd() {}
+    }
+    #section {
+      .title() {
+        padding-top: 1em;
+      }
+    }
+  }
+
+}
+
+.cnx-indentation(@indent: 0) {
+  text-indent: @indent;
+  margin-bottom: .5em; //Leading between paragraphs
+}
+
+.cnx-indentation-base() {
+  p,
+  p:nth-of-type(1),
+  p:nth-of-type(2),
+  .note p,
+  .notes p,
+  .references p,
+  .cnx-eoc p,
+  .body p {
+    .cnx-indentation;
+  }
+}
