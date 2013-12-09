@@ -952,6 +952,56 @@ div.book > div.part {
 
 
 /******************************************************
+ * Appendix 
+ ******************************************************/
+
+// The Statistics Text is unlike all other CCAP books in that it contains
+// a greatly expanded Appendix section encompassing almost a dozen separate
+// appendix modules that have subsections.  Since we cannot have subcollection
+// style appendices we have to do some custom setting of title headers, not
+// showing numbering for subsections, and a small customization of the toc
+// target to display correctly
+
+.appendix h1.title {
+  margin-left:0;
+  padding-left: 0;
+  font-size: 35pt; /* x-large; */
+  font-weight: bold;
+  text-align: left;
+  color: @blue;
+
+  // Removal of number is required for custom Appendices
+  > .cnx-gentext-n { display: none; }
+
+  // Unfortunately the code generates a specific left padding of .25em here and
+  // since it is at the .div h1 level it will take an !important to override it
+  // This is an actual bonafide occurrence where !important is needed.
+  span.cnx-gentext-t {
+    padding-left: 0em !important;
+  }
+}
+
+// Since these appendices have been created with subsections we must stop
+// the counter from showing and the pipe text decoration (|) per W&N design
+.appendix .section > .titlepage h2::before,
+.appendix .section > .titlepage h2 .cnx-gentext-t:before { 
+  display: none;
+}
+
+// For the custom stats appendix hiding the Appendix header number
+// is needed along with any leading Appendix header
+div.book > div.toc > ul > li > a.target-appendix {
+  &::before { 
+    display: none;
+  }
+
+  .cnx-gentext-n {
+    display: none;
+  }
+}
+
+
+/******************************************************
  * End of Book Solutions
  ******************************************************/
 // TODO: If this is used by other books it should probably be moved to ccap-numbering.less
