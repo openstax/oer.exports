@@ -416,9 +416,7 @@ h6 {
   padding-left: 1em;
   padding-right: 1em;
   /* To fully support row/col spans in CALS tables borders are calculated for each cell and inherit the color of the text in the cell */
-
   /* By default the color in the PDF is the same color as the text so set it to black. */
-
   border-color: black !important;
 }
 div.table-caption.caption {
@@ -428,7 +426,6 @@ div.table-caption.caption {
 /**************** CNXML ELements ***********/
 .note {
   /* page-break-inside: avoid; Per David's request, less whitespace is better. */
-
   padding-left: 1em;
   padding-right: 1em;
   padding-top: 0.2em;
@@ -534,13 +531,10 @@ em.glossterm {
 /* Exercises have the number in bold, followed by the 1st paragraph inline, not "Exercise 3 \n sldkfj" */
 .cnx-eoc .exercise {
   /*** Exercises normally have more margins around them ***/
-
   margin-top: 0.5em;
   margin-bottom: 0.0em;
   /* Hide the "Exercise " prefix */
-
   /*** Make sure the default background colors for things like exercise body don't seep through ***/
-
 }
 .cnx-eoc .exercise div,
 .cnx-eoc .exercise p:first-of-type {
@@ -597,7 +591,6 @@ div.book {
    *  Define how counters are incremented
    * --------------------------------------
    */
-
   counter-reset: chapter appendix;
   /* -------------------------------------
    *  All the rules for elements need to be prefixed
@@ -609,9 +602,7 @@ div.book {
    * ie: "Figure 4.3" in chapters but "Figure A3" in an appendix
    * -------------------------------------
    */
-
   /* Still count the element but don't show it */
-
   /* -------------------------------------
  *  The bulk of numbering!
  *
@@ -623,23 +614,16 @@ div.book {
  *  @part-separator is the little dot in "Table 4.3"
  * -------------------------------------
  */
-
   /* look up the exercise number */
-
   /******************************
  * Handle footnotes
  ******************************/
-
   /******************************
  * Number the book-level TOC
  ******************************/
-
   /* Chapters/Appendixes */
-
   /* Don't render nested sections in the toc */
-
   /* Don't render the TOC for preface or appendix at all */
-
 }
 div.book div.chapter {
   counter-increment: chapter;
@@ -650,22 +634,17 @@ div.book > div.appendix {
 div.book > div.preface {
   counter-reset: section figure subfigure table equation example exercise footnote toc-section;
   /* Cases where sections are referenced */
-
   /* --------------------------------------
    *  Exceptions for incrementing/displaying
    *  Note: "div.glossary *" is by far the most time-consuming rule
    * --------------------------------------
    */
-
   /* --------------------------------------
    *  Define where counters are displayed
    * --------------------------------------
    */
-
   /** Each thing appears 3 times because 1 implements the new numbering and the next 2 lines hide the docbook-generated text **/
-
   /* Number links to different elements */
-
 }
 div.book > div.preface > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Preface" " " "" " | " content() "";
@@ -757,7 +736,6 @@ div.book > div.preface > div.cnx-eoc div.solution div.example,
 div.book > div.preface > div.cnx-eoc div.solution div.equation {
   counter-increment: none !important;
   /* Don't display the labels in glossaries, solutions, etc */
-
 }
 div.book > div.preface > div.glossary *::before,
 div.book > div.preface > div.section div.example div.exercise *::before,
@@ -877,22 +855,17 @@ div.book > div.preface > div.titlepage > div > div h1.title {
 div.book div.chapter {
   counter-reset: section figure subfigure table equation example exercise footnote toc-section;
   /* Cases where sections are referenced */
-
   /* --------------------------------------
    *  Exceptions for incrementing/displaying
    *  Note: "div.glossary *" is by far the most time-consuming rule
    * --------------------------------------
    */
-
   /* --------------------------------------
    *  Define where counters are displayed
    * --------------------------------------
    */
-
   /** Each thing appears 3 times because 1 implements the new numbering and the next 2 lines hide the docbook-generated text **/
-
   /* Number links to different elements */
-
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Chapter" " " counter(chapter, decimal) " | " content() "";
@@ -984,7 +957,6 @@ div.book div.chapter > div.cnx-eoc div.solution div.example,
 div.book div.chapter > div.cnx-eoc div.solution div.equation {
   counter-increment: none !important;
   /* Don't display the labels in glossaries, solutions, etc */
-
 }
 div.book div.chapter > div.glossary *::before,
 div.book div.chapter > div.section div.example div.exercise *::before,
@@ -1098,22 +1070,17 @@ div.book div.chapter a.target-informalequation:not(.labeled) {
 div.book > div.appendix {
   counter-reset: section figure subfigure table equation example exercise footnote toc-section;
   /* Cases where sections are referenced */
-
   /* --------------------------------------
    *  Exceptions for incrementing/displaying
    *  Note: "div.glossary *" is by far the most time-consuming rule
    * --------------------------------------
    */
-
   /* --------------------------------------
    *  Define where counters are displayed
    * --------------------------------------
    */
-
   /** Each thing appears 3 times because 1 implements the new numbering and the next 2 lines hide the docbook-generated text **/
-
   /* Number links to different elements */
-
 }
 div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Appendix" " " counter(appendix, upper-latin) " | " content() "";
@@ -1205,7 +1172,6 @@ div.book > div.appendix > div.cnx-eoc div.solution div.example,
 div.book > div.appendix > div.cnx-eoc div.solution div.equation {
   counter-increment: none !important;
   /* Don't display the labels in glossaries, solutions, etc */
-
 }
 div.book > div.appendix > div.glossary *::before,
 div.book > div.appendix > div.section div.example div.exercise *::before,
@@ -1347,11 +1313,8 @@ div.book *.footnote::footnote-marker {
 }
 div.book > div.toc {
   /* Units */
-
   /* A Chapter could be part of a Part, hence the extra "> li > ul" */
-
   /* Sections */
-
 }
 div.book > div.toc > ul > li > a.target-part::after {
   content: "";
@@ -1396,7 +1359,6 @@ div.colophon.end-of-book-solutions div.appendix-area {
         .cnx-gentext-autogenerated, cnx-gentext-n { display: none; }
       }
     */
-
 }
 div.colophon.end-of-book-solutions div.preface-area > div.section-area > h3.title,
 div.colophon.end-of-book-solutions div.chapter-area > div.section-area > h3.title,
@@ -1454,7 +1416,6 @@ div.book {
    *  Define how counters are incremented
    * --------------------------------------
    */
-
   /* -------------------------------------
    *  All the rules for elements need to be prefixed
    *  according to slightly different rules
@@ -1465,7 +1426,6 @@ div.book {
    * ie: "Figure 4.3" in chapters but "Figure A3" in an appendix
    * -------------------------------------
    */
-
   /* -------------------------------------
  *  The bulk of numbering!
  *
@@ -1477,7 +1437,6 @@ div.book {
  *  @part-separator is the little dot in "Table 4.3"
  * -------------------------------------
  */
-
 }
 div.book div.chapter {
   counter-increment: chapter;
@@ -1488,17 +1447,14 @@ div.book > div.preface {
    *  Increment the counter for statistics lab
    * -------------------------------------------
    */
-
   /* --------------------------------------
    *  Define where counters are displayed
    * --------------------------------------
    */
-
   /* ------------------------------------------
    *  Display the counter for statistics lab
    * -------------------------------------------
    */
-
 }
 div.book > div.preface .statistics.lab {
   counter-increment: stats-lab;
@@ -1518,17 +1474,14 @@ div.book div.chapter {
    *  Increment the counter for statistics lab
    * -------------------------------------------
    */
-
   /* --------------------------------------
    *  Define where counters are displayed
    * --------------------------------------
    */
-
   /* ------------------------------------------
    *  Display the counter for statistics lab
    * -------------------------------------------
    */
-
 }
 div.book div.chapter .statistics.lab {
   counter-increment: stats-lab;
@@ -1548,17 +1501,14 @@ div.book > div.appendix {
    *  Increment the counter for statistics lab
    * -------------------------------------------
    */
-
   /* --------------------------------------
    *  Define where counters are displayed
    * --------------------------------------
    */
-
   /* ------------------------------------------
    *  Display the counter for statistics lab
    * -------------------------------------------
    */
-
 }
 div.book > div.appendix .statistics.lab {
   counter-increment: stats-lab;
@@ -1572,7 +1522,7 @@ div.book > div.appendix .statistics.lab.labeled {
 div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   content: "" "" counter(appendix, upper-latin) "" counter(stats-lab) " " "";
 }
-@page  {
+@page {
   margin: 0.5in 1in;
 }
 /******************************************************
@@ -1588,7 +1538,6 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   /******************************************************
      * Direction Line styling/finger icon implementation
      ******************************************************/
-
 }
 .note.statistics.calculator {
   page-break-inside: auto;
@@ -1685,7 +1634,6 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   /******************************************************
        * Statistics Lab Feature Heading/SubHeading styling
        ******************************************************/
-
 }
 .note.statistics.lab p:nth-of-type(2) {
   page-break-before: avoid;
@@ -1768,7 +1716,6 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   /******************************************************
        * Try-It Feature styling/finger icon implementation
        ******************************************************/
-
 }
 .note.statistics.try p:nth-of-type(2) {
   page-break-before: avoid;
@@ -1863,7 +1810,6 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
           &::before {
             content: "Answer:";
           }*/
-
 }
 /******************************************************
  * Finger icon implementation for generic notes
@@ -1927,7 +1873,6 @@ div.part > div.titlepage {
   * special note ".chapter-objectives" contains
   * list within para
   ******************************************************/
-
 }
 .chapter > .introduction > .title {
   content: "Introduction";
@@ -2153,12 +2098,10 @@ img {
 }
 .chapter h1.title {
   /*reset left only*/
-
   margin-left: 0 !important;
   padding-left: 0 !important;
   font-size: 35pt;
   /* x-large; */
-
   font-weight: bold;
   text-align: left !important;
   color: #26397f;
@@ -2244,7 +2187,6 @@ p {
 }
 .glossary .title {
   /* Change "Glossary" to "Key Terms" */
-
   content: "Key Terms";
   color: #26397f;
   font-size: large !important;
@@ -2483,6 +2425,34 @@ div.book > div.part > div.chapter > div.section div.equation > *:last-child::aft
 div.book > div.appendix > div.section div.equation > *:last-child::after,
 div.book > div.part > div.appendix > div.section div.equation > *:last-child::after {
   content: "";
+}
+/******************************************************
+ * Appendix 
+ ******************************************************/
+.appendix h1.title {
+  margin-left: 0;
+  padding-left: 0;
+  font-size: 35pt;
+  /* x-large; */
+  font-weight: bold;
+  text-align: left;
+  color: #26397f;
+}
+.appendix h1.title > .cnx-gentext-n {
+  display: none;
+}
+.appendix h1.title span.cnx-gentext-t {
+  padding-left: 0em !important;
+}
+.appendix .section > .titlepage h2::before,
+.appendix .section > .titlepage h2 .cnx-gentext-t:before {
+  display: none;
+}
+div.book > div.toc > ul > li > a.target-appendix::before {
+  display: none;
+}
+div.book > div.toc > ul > li > a.target-appendix .cnx-gentext-n {
+  display: none;
 }
 /******************************************************
  * End of Book Solutions
