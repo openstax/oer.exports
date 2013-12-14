@@ -26,7 +26,7 @@
 @table-border: 1pt solid @black;
 @page-width: 6.5in;
 
-// The base CCAP books use sans fonts but the statistics book uses serif fonts.
+// The base CCAP books use sans fonts but the precalculus book uses serif fonts.
 @font-family-precalculus: Liberation Serif, serif, @stix-fonts;
 
 @page { margin: 1in 1in; }
@@ -153,11 +153,10 @@
   &:not(.precalculus) {
     color: #000;
     background-color: @light-blue;
-    padding-bottom: 1em !important;
 
     // Styling for Generic Note title block and border
    > .title {
-      text-align: left !important;
+      text-align: left;
       font-size: small;
       margin-top: .25em;
       margin-bottom: .5em;
@@ -362,7 +361,7 @@ div.part > div.titlepage {display:none;}
   background-position: 0 .2em;
 
   .figure {
-    img { max-width: (@page-width - .25em) !important; }   //overrides priority over generic img rule set L#432
+    img { max-width: (@page-width - .25em); }   //overrides priority over generic img rule set L#432
     > .title { font-size: x-small; color: @orange; }
   }
 }
@@ -385,24 +384,22 @@ div.part > div.titlepage {display:none;}
  * -------------------------
  */
 
-.cnx-eoc > .title > * { font-size: large !important; padding: 0 !important; }
-
 // eoc solution number links color
 .cnx-eoc > .solution > a.number { color: @medium-blue; }
 
 .cnx-eoc {
   .x-column-count(2);
-  column-width: auto !important;
-  column-fill: balance !important;
+  column-width: auto;
+  column-fill: balance;
   page-break-inside: auto;
   column-break-inside: auto;
 
   > .title  {
-    text-transform: uppercase !important;
+    text-transform: uppercase;
     text-align: left; //override from base .x-column-count
-    color: @medium-blue !important;
-    font-size: large !important;
-    font-weight: bold !important;
+    color: @medium-blue;
+    font-size: large;
+    font-weight: bold;
     page-break-after: avoid;
   }
 
@@ -417,7 +414,7 @@ div.part > div.titlepage {display:none;}
     .x-column-count(1);
     > div.title {
       content: "Key Equations";
-      column-span: all !important;  // added override to resolve bug on staging where titles
+      column-span: all;  // added override to resolve bug on staging where titles
       margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
     }
   }
@@ -426,7 +423,7 @@ div.part > div.titlepage {display:none;}
     .x-column-count(1);
     > div.title {
       content: "Key Concepts";
-      column-span: all !important;  // added override to resolve bug on staging where titles
+      column-span: all;  // added override to resolve bug on staging where titles
       margin-top: 1em;   // are spanning single column. cannot replicate locally or on naginata
     }
 
@@ -438,7 +435,7 @@ div.part > div.titlepage {display:none;}
     .x-column-count(2);
     > .title {
       content: "" "Chapter " counter(chapter, decimal) " Review Exercises";
-      column-span: all !important; // added override to resolve bug on staging where titles
+      column-span: all; // added override to resolve bug on staging where titles
       margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginat
     }
   }
@@ -447,7 +444,7 @@ div.part > div.titlepage {display:none;}
     .x-column-count(2);
     > .title {
       content: "" "Chapter " counter(chapter, decimal) " Practice Test";
-      column-span: all !important; // added override to resolve bug on staging where titles
+      column-span: all; // added override to resolve bug on staging where titles
       margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginat
     }
   }
@@ -477,18 +474,18 @@ div.part > div.titlepage {display:none;}
  */
 body {
   font-size: 9.5pt;
-  text-align: justify !important;
+  text-align: justify;
 }
 
 img { max-height:9.5in; }
 
 .chapter h1.title {
   /*reset left only*/
-  margin-left:0 !important;
-  padding-left: 0 !important;
+  margin-left:0;
+  padding-left: 0;
   font-size: 35pt; /* x-large; */
   font-weight: bold;
-  text-align: left !important;
+  text-align: left;
   color: @medium-blue;
 
   .cnx-gentext-n {
@@ -510,7 +507,7 @@ a { font-weight: bold; color: @orange;}
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0.5em 0em;
-  text-align: left !important; //overides text alignment set in
+  text-align: left; //overides text alignment set in
 }
 
 h2, h3, h4, h5, h6{
@@ -573,9 +570,9 @@ p {
     /* Change "Glossary" to "Key Terms" */
     content: "Key Terms";
     color: @medium-blue;
-    font-size: large !important;
-    padding: 0em !important;
-    display: block !important;
+    font-size: large;
+    padding: 0em;
+    display: block;
     text-transform:uppercase;
   }
 
@@ -588,15 +585,15 @@ p {
   .title::before {
     content: "" "Chapter " counter(chapter, decimal) " Review";
     color: @medium-blue;
-    font-size: x-large !important;
-    padding: 0em !important;
-    display: block !important;
+    font-size: x-large;
+    padding: 0em;
+    display: block;
     text-transform:uppercase;
     margin-bottom: 1.5em;
   }
 
   // Remove ":"
-  dt::after { content: " " !important; }
+  dt::after { content: " "; }
 }
 
 .section > .title { page-break-after:avoid; }
@@ -639,8 +636,8 @@ img, figure, subfigure  { margin: 1em; }
 
 // for examples that have a problem/solution structure that need numbered headings
 .example .exercise {
-  counter-increment: none !important;
-  margin-top: 0 !important;
+  counter-increment: none;
+  margin-top: 0;
 
   .problem > .title {
     font-family: @font-family;
@@ -776,13 +773,13 @@ img, figure, subfigure  { margin: 1em; }
   // Table caption text needs to be regular
   .table-caption.caption {
     color: @black;
-    font-weight: normal !important; //override strong tag
+    font-weight: normal; //override strong tag
     font-family: @font-family;
   }
   .cnx-figure-horizontal .informalfigure .caption {
     text-align: center; //center subfigure caption
     * {
-      font-weight: normal !important; //override strong tag
+      font-weight: normal; //override strong tag
       font-family: @font-family-precalculus;
     }
   }
@@ -798,12 +795,12 @@ img, figure, subfigure  { margin: 1em; }
     color: black;
     background-color: @white;
     font-size: small;
-    text-align: left !important;
-    padding-left: .25em !important;
+    text-align: left;
+    padding-left: .25em;
   }
 
   table {
-    border-bottom: @table-border !important;
+    border-bottom: @table-border;
   }
 
   // This is just for looks for the template take out later
@@ -815,14 +812,14 @@ img, figure, subfigure  { margin: 1em; }
   .itemizedlist {
     margin: 0; //reset
     list-style-type: none; //no bullets for lists inside tables
-    > .listitem > p { font-family: @font-family !important; } //overrides bio p font use font-family from base
+    > .listitem > p { font-family: @font-family; } //overrides bio p font use font-family from base
   }
 
 }
 
 //  Add a class for tables that have special characteristics
 .table.color {
-  th { background-color: @light-orange; text-align: center !important; }
+  th { background-color: @light-orange; text-align: center; }
 
   tr { height: 1em !important; }
 
@@ -881,8 +878,8 @@ img, figure, subfigure  { margin: 1em; }
   }
 
   & img {
-    margin: 0 !important; //override auto  left/right margins from base
-    max-width: @page-width !important; //overrides width value figures/subfigures ensuring imgs do not bleed off page
+    margin: 0; //override auto  left/right margins from base
+    max-width: @page-width; //overrides width value figures/subfigures ensuring imgs do not bleed off page
   }
 
   > .caption {
@@ -912,7 +909,7 @@ img, figure, subfigure  { margin: 1em; }
 .cnx-figure-horizontal .informalfigure .caption {
   text-align: center; //center subfigure caption
   * {
-    font-weight: normal !important; //override strong tag
+    font-weight: normal; //override strong tag
     font-family: @font-family-precalculus;
   }
 }
@@ -971,8 +968,8 @@ div.end-of-book-solutions {
  * ---------------------------------------------------
  */
 .index {
-  text-align: left !important; //override text-alignment from base .x-column-count
-  column-width: auto !important;
+  text-align: left; //override text-alignment from base .x-column-count
+  column-width: auto;
 
   .title h2 {
     padding: 0;
