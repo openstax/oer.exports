@@ -88,6 +88,8 @@
 
 #part {
 
+  // TODO: Remove #title in favor of .title() mixins
+  // inside individual part/content namespaces.
   #title {
     //NOTE: Use separate Mixins (instead of @scope:default) when you do not want the default CSS to be used for all scopes
     .style(@scope) {}
@@ -103,7 +105,7 @@
       padding-left: .25em;
     }
 
-    .number(@scope:default) {
+    .number(@scope: default) {
       color: black;
       padding-right: 1em;
     }
@@ -111,8 +113,14 @@
 
   #preface {
     .style() {}
-    .titlepage() {}
-    .title() {}
+
+    #titlepage {
+      .style() {
+      }
+      .title() {
+        padding-left: .25em;
+      }
+    }
   }
 
   #introduction {
@@ -195,6 +203,8 @@
 
   // End-of-chapter parts
   #end {
+    .style() {
+    }
     .title() { // .cnx-eoc > .title
       margin-top: 0.5em;
       margin-bottom: 0.5em;
@@ -212,6 +222,11 @@
       .title() {
         padding-top: 1em;
       }
+    }
+    #summary {
+      .style() {}
+      .title() {}
+      .title-link() {}
     }
   }
 
