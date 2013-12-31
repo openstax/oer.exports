@@ -1,0 +1,147 @@
+// Set as global variables so other languages can override
+@Preface: "Preface";
+@Chapter: "Chapter";
+@Appendix: "Appendix";
+@Section: "Section ";
+@Figure: "Figure ";
+@Table: "Table ";
+@Example: "Example ";
+@Exercise: "Exercise ";
+@Equation: "Equation ";
+
+@Note:      "Note ";
+
+
+// For debugging, mark start and end brackets
+@DEBUG_START: ""; //" ["; // "S"tart and "E"nd marking text for debugging
+@DEBUG_END: ""; //"] ";
+
+
+#part {
+
+  // Counters for the various parts of a book
+  //
+  // - book
+  // - preface
+  // - chapter
+  // - appendix
+  .counters(@scope)   {}
+  .counters(book)     { counter-reset: chapter appendix; }
+  .counters(chapter)  { counter-increment: chapter; }
+  .counters(appendix) { counter-increment: appendix; }
+
+  // TODO: Move this into `.counters()`. Separated now as `default` because it occurs elsewhere in the CSS
+  .counters(default) { counter-reset: section figure subfigure table equation example exercise footnote toc-section; }
+
+  // eoc-section starts at -1 so we can include introduction content
+  .counters(end) { counter-reset: /*exercise*/ eoc-section -1; }
+
+
+  // TODO: Revisit once I get the content labels done
+  // .label(@scope)    {}
+  // .label(preface)   { content: }
+  // .label(chapter)   {}
+  // .label(appendix)  {}
+
+
+  // Internal mixins that are used to prefix the label on a piece of content.
+  // Some Examples:
+  //
+  // - Note in a chapter is labeled `Note 2.7`
+  // - Figure in an Appendix is labeled `Figure B4`
+  .x-content-counter(@part;    @before; @after) {}
+  .x-content-counter(preface;  @before; @after) { content: @DEBUG_START @before "" "" @after @DEBUG_END; }
+  .x-content-counter(chapter;  @before; @after) { content: @DEBUG_START @before counter(chapter,  decimal) "." @after @DEBUG_END; }
+  .x-content-counter(appendix; @before; @after) { content: @DEBUG_START @before counter(appendix, upper-latin) "" @after @DEBUG_END; }
+
+  // To set the page header to have the current chapter title
+  // we need to squirrel away the title.
+  // Eventually, this should have a `@part` argument.
+
+  .x-string-set-content(@before; @counter) {
+    string-set: cnx-header @S @before " " @counter " | " content() @E;
+  }
+
+  .squirrel-page-title(@scope)    {}
+  .squirrel-page-title(default)   { string-set: cnx-header @S content() @E; }
+  .squirrel-page-title(preface)   { .x-string-set-content(@Preface;   "") }
+  .squirrel-page-title(chapter)   { .x-string-set-content(@Chapter;   counter(chapter,  decimal)) }
+  .squirrel-page-title(appendix)  { .x-string-set-content(@Appendix;  counter(appendix, upper-latin)) }
+
+}
+
+
+
+
+// Parts Code
+#content {
+
+
+  .counters(@type;    @context) {}
+  .counters(section;  default)  { counter-increment: section; }
+  .counters(table;    default)  { counter-increment: table; }
+  .counters(example;  default)  { counter-increment: example; }
+  .counters(exercise; default)  { counter-increment: exercise; }
+  .counters(equation; default)  { counter-increment: equation; }
+  // Figures are a bit more complicated because:
+  //
+  // - each new figure resets the subfigure
+  // - each subfigure increments subfigure and resets nothing
+  .counters(figure;   default)  { counter-increment: figure;
+                                  counter-reset: subfigure; }
+  .counters(figure;   figure)   { counter-increment: subfigure;
+                                  // Fix for chromium/webkit bug
+                                  counter-reset: none-webkit-bug; }
+
+
+
+  .label(@type;     @scope; @context) {}
+  .label(section;   @scope; @context) { #part>.x-content-counter(@scope; "";        counter(section) " "); }
+  .label(figure;    @scope; default)  { #part>.x-content-counter(@scope; @Figure;   counter(figure) " "); }
+  .label(figure;    @scope; figure)   { content: @DEBUG_START "(" counter(subfigure, lower-alpha) ") " @DEBUG_END; }
+  .label(table;     @scope; @context) { #part>.x-content-counter(@scope; @Table;    counter(table) " "); }
+  .label(example;   @scope; @context) { #part>.x-content-counter(@scope; @Example;  counter(example) " "); }
+  .label(exercise;  @scope; @context) { #part>.x-content-counter(@scope; @Exercise; counter(exercise) " "); }
+  .label(equation;  @scope; @context) { #part>.x-content-counter(@scope; "(";       counter(equation) ")"); }
+  .label(toc-section;@scope; @context){ #part>.x-content-counter(@scope; "";        counter(toc-section) " "); }
+  .label(eoc-section;@scope; @context){ #part>.x-content-counter(@scope; "";        counter(eoc-section) " "); }
+
+  // End-of-chapter exercises just have the exercise number, not the chapter number
+  .label(problem; @scope; eoc)       { content: @DEBUG_START counter(exercise) "." @DEBUG_END; }
+
+
+  // Each Piece of content has 2 mixins regarding numbering:
+  //
+  // - `.counters(@context)` : Which counters to reset or increment
+  // - `.label(@scope; @context)`: Text of the label (like `Example 3.5`)
+
+  #note {
+    .counters(default) { counter-increment: note; }
+    .number(@scope; default) { #part>.x-content-counter(@scope; @Note ' '; counter(note)); }
+  }
+  #example {
+    .counters(default) { counter-increment: example; }
+    .number(@scope; default) { #part>.x-content-counter(@scope; @Exercise ' '; counter(exercise)); }
+  }
+
+  #exercise {
+    .counters(@context) {}
+    .counters(default) { counter-increment: exercise; }
+    // do not increment Exercises inside an example
+    .counters(example) { }
+    .number(@scope; default) { #part>.x-content-counter(@scope; @Exercise ' '; counter(exercise)); }
+    // do not number Exercises inside an example
+    .number(@scope; example) { content: @Exercise }
+  }
+
+  #figure {
+    .counter-reset(default) { counter-reset: subfigure; }
+    // Do not reset the subfigure counter when this is a subfigure
+    .counter-reset(figure) {}
+    .counters(default) { counter-increment: figure; counter-reset: subfigure; }
+    .counters(figure)  { counter-increment: subfigure; }
+    .number(@scope; @context) { #part>.x-content-counter(@scope; @Figure ' '; counter(figure)); }
+    // For subfigures add a letter representing the figure
+    .number(@scope; figure) { #part>.x-content-counter(@scope; @Figure ' '; counter(figure) counter(subfigure, lower-alpha)); }
+  }
+}
