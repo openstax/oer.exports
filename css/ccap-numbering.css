@@ -3,7 +3,6 @@ div.book {
    *  Define how counters are incremented
    * --------------------------------------
    */
-
   counter-reset: chapter appendix;
   /* -------------------------------------
    *  All the rules for elements need to be prefixed
@@ -15,9 +14,7 @@ div.book {
    * ie: "Figure 4.3" in chapters but "Figure A3" in an appendix
    * -------------------------------------
    */
-
   /* Still count the element but don't show it */
-
   /* -------------------------------------
  *  The bulk of numbering!
  *
@@ -29,23 +26,16 @@ div.book {
  *  @part-separator is the little dot in "Table 4.3"
  * -------------------------------------
  */
-
   /* look up the exercise number */
-
   /******************************
  * Handle footnotes
  ******************************/
-
   /******************************
  * Number the book-level TOC
  ******************************/
-
   /* Chapters/Appendixes */
-
   /* Don't render nested sections in the toc */
-
   /* Don't render the TOC for preface or appendix at all */
-
 }
 div.book div.chapter {
   counter-increment: chapter;
@@ -56,22 +46,17 @@ div.book > div.appendix {
 div.book > div.preface {
   counter-reset: section figure subfigure table equation example exercise footnote toc-section;
   /* Cases where sections are referenced */
-
   /* --------------------------------------
    *  Exceptions for incrementing/displaying
    *  Note: "div.glossary *" is by far the most time-consuming rule
    * --------------------------------------
    */
-
   /* --------------------------------------
    *  Define where counters are displayed
    * --------------------------------------
    */
-
   /** Each thing appears 3 times because 1 implements the new numbering and the next 2 lines hide the docbook-generated text **/
-
   /* Number links to different elements */
-
 }
 div.book > div.preface > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Preface" " " "" " | " content() "";
@@ -157,18 +142,15 @@ div.book > div.preface > div.cnx-eoc > div.section {
 }
 div.book > div.preface > div.glossary *,
 div.book > div.preface > div.section div.example div.exercise *,
-div.book > div.preface > div.cnx-eoc div.solution div.figure,
 div.book > div.preface > div.cnx-eoc div.solution table,
 div.book > div.preface > div.cnx-eoc div.solution div.exercise,
 div.book > div.preface > div.cnx-eoc div.solution div.example,
 div.book > div.preface > div.cnx-eoc div.solution div.equation {
   counter-increment: none !important;
   /* Don't display the labels in glossaries, solutions, etc */
-
 }
 div.book > div.preface > div.glossary *::before,
 div.book > div.preface > div.section div.example div.exercise *::before,
-div.book > div.preface > div.cnx-eoc div.solution div.figure::before,
 div.book > div.preface > div.cnx-eoc div.solution table::before,
 div.book > div.preface > div.cnx-eoc div.solution div.exercise::before,
 div.book > div.preface > div.cnx-eoc div.solution div.example::before,
@@ -177,7 +159,6 @@ div.book > div.preface > div.cnx-eoc div.solution div.equation::before {
 }
 div.book > div.preface > div.glossary *::after,
 div.book > div.preface > div.section div.example div.exercise *::after,
-div.book > div.preface > div.cnx-eoc div.solution div.figure::after,
 div.book > div.preface > div.cnx-eoc div.solution table::after,
 div.book > div.preface > div.cnx-eoc div.solution div.exercise::after,
 div.book > div.preface > div.cnx-eoc div.solution div.example::after,
@@ -272,6 +253,11 @@ div.book > div.preface a.target-example:not(.labeled) {
 div.book > div.preface a.target-exercise:not(.labeled) {
   content: "" "Exercise " "" "" target-counter(attr(href), exercise) "" "";
 }
+div.book > div.preface a.target-equation:not(.labeled),
+div.book > div.preface a.target-inlineequation:not(.labeled),
+div.book > div.preface a.target-informalequation:not(.labeled) {
+  content: "" "Equation " "" "" target-counter(attr(href), equation) "" "";
+}
 div.book > div.preface > div.section > div.titlepage h2::before {
   display: none !important;
 }
@@ -281,22 +267,17 @@ div.book > div.preface > div.titlepage > div > div h1.title {
 div.book div.chapter {
   counter-reset: section figure subfigure table equation example exercise footnote toc-section;
   /* Cases where sections are referenced */
-
   /* --------------------------------------
    *  Exceptions for incrementing/displaying
    *  Note: "div.glossary *" is by far the most time-consuming rule
    * --------------------------------------
    */
-
   /* --------------------------------------
    *  Define where counters are displayed
    * --------------------------------------
    */
-
   /** Each thing appears 3 times because 1 implements the new numbering and the next 2 lines hide the docbook-generated text **/
-
   /* Number links to different elements */
-
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Chapter" " " counter(chapter, decimal) " | " content() "";
@@ -382,18 +363,15 @@ div.book div.chapter > div.cnx-eoc > div.section {
 }
 div.book div.chapter > div.glossary *,
 div.book div.chapter > div.section div.example div.exercise *,
-div.book div.chapter > div.cnx-eoc div.solution div.figure,
 div.book div.chapter > div.cnx-eoc div.solution table,
 div.book div.chapter > div.cnx-eoc div.solution div.exercise,
 div.book div.chapter > div.cnx-eoc div.solution div.example,
 div.book div.chapter > div.cnx-eoc div.solution div.equation {
   counter-increment: none !important;
   /* Don't display the labels in glossaries, solutions, etc */
-
 }
 div.book div.chapter > div.glossary *::before,
 div.book div.chapter > div.section div.example div.exercise *::before,
-div.book div.chapter > div.cnx-eoc div.solution div.figure::before,
 div.book div.chapter > div.cnx-eoc div.solution table::before,
 div.book div.chapter > div.cnx-eoc div.solution div.exercise::before,
 div.book div.chapter > div.cnx-eoc div.solution div.example::before,
@@ -402,7 +380,6 @@ div.book div.chapter > div.cnx-eoc div.solution div.equation::before {
 }
 div.book div.chapter > div.glossary *::after,
 div.book div.chapter > div.section div.example div.exercise *::after,
-div.book div.chapter > div.cnx-eoc div.solution div.figure::after,
 div.book div.chapter > div.cnx-eoc div.solution table::after,
 div.book div.chapter > div.cnx-eoc div.solution div.exercise::after,
 div.book div.chapter > div.cnx-eoc div.solution div.example::after,
@@ -497,25 +474,25 @@ div.book div.chapter a.target-example:not(.labeled) {
 div.book div.chapter a.target-exercise:not(.labeled) {
   content: "" "Exercise " target-counter(attr(href), chapter) "." target-counter(attr(href), exercise) "" "";
 }
+div.book div.chapter a.target-equation:not(.labeled),
+div.book div.chapter a.target-inlineequation:not(.labeled),
+div.book div.chapter a.target-informalequation:not(.labeled) {
+  content: "" "Equation " target-counter(attr(href), chapter) "." target-counter(attr(href), equation) "" "";
+}
 div.book > div.appendix {
   counter-reset: section figure subfigure table equation example exercise footnote toc-section;
   /* Cases where sections are referenced */
-
   /* --------------------------------------
    *  Exceptions for incrementing/displaying
    *  Note: "div.glossary *" is by far the most time-consuming rule
    * --------------------------------------
    */
-
   /* --------------------------------------
    *  Define where counters are displayed
    * --------------------------------------
    */
-
   /** Each thing appears 3 times because 1 implements the new numbering and the next 2 lines hide the docbook-generated text **/
-
   /* Number links to different elements */
-
 }
 div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Appendix" " " counter(appendix, upper-latin) " | " content() "";
@@ -601,18 +578,15 @@ div.book > div.appendix > div.cnx-eoc > div.section {
 }
 div.book > div.appendix > div.glossary *,
 div.book > div.appendix > div.section div.example div.exercise *,
-div.book > div.appendix > div.cnx-eoc div.solution div.figure,
 div.book > div.appendix > div.cnx-eoc div.solution table,
 div.book > div.appendix > div.cnx-eoc div.solution div.exercise,
 div.book > div.appendix > div.cnx-eoc div.solution div.example,
 div.book > div.appendix > div.cnx-eoc div.solution div.equation {
   counter-increment: none !important;
   /* Don't display the labels in glossaries, solutions, etc */
-
 }
 div.book > div.appendix > div.glossary *::before,
 div.book > div.appendix > div.section div.example div.exercise *::before,
-div.book > div.appendix > div.cnx-eoc div.solution div.figure::before,
 div.book > div.appendix > div.cnx-eoc div.solution table::before,
 div.book > div.appendix > div.cnx-eoc div.solution div.exercise::before,
 div.book > div.appendix > div.cnx-eoc div.solution div.example::before,
@@ -621,7 +595,6 @@ div.book > div.appendix > div.cnx-eoc div.solution div.equation::before {
 }
 div.book > div.appendix > div.glossary *::after,
 div.book > div.appendix > div.section div.example div.exercise *::after,
-div.book > div.appendix > div.cnx-eoc div.solution div.figure::after,
 div.book > div.appendix > div.cnx-eoc div.solution table::after,
 div.book > div.appendix > div.cnx-eoc div.solution div.exercise::after,
 div.book > div.appendix > div.cnx-eoc div.solution div.example::after,
@@ -716,6 +689,11 @@ div.book > div.appendix a.target-example:not(.labeled) {
 div.book > div.appendix a.target-exercise:not(.labeled) {
   content: "" "Exercise " target-counter(attr(href), appendix, upper-latin) "" target-counter(attr(href), exercise) "" "";
 }
+div.book > div.appendix a.target-equation:not(.labeled),
+div.book > div.appendix a.target-inlineequation:not(.labeled),
+div.book > div.appendix a.target-informalequation:not(.labeled) {
+  content: "" "Equation " target-counter(attr(href), appendix, upper-latin) "" target-counter(attr(href), equation) "" "";
+}
 div.book .empty {
   visibility: hidden;
   max-height: 0em;
@@ -747,11 +725,8 @@ div.book *.footnote::footnote-marker {
 }
 div.book > div.toc {
   /* Units */
-
   /* A Chapter could be part of a Part, hence the extra "> li > ul" */
-
   /* Sections */
-
 }
 div.book > div.toc > ul > li > a.target-part::after {
   content: "";
@@ -796,7 +771,6 @@ div.colophon.end-of-book-solutions div.appendix-area {
         .cnx-gentext-autogenerated, cnx-gentext-n { display: none; }
       }
     */
-
 }
 div.colophon.end-of-book-solutions div.preface-area > div.section-area > h3.title,
 div.colophon.end-of-book-solutions div.chapter-area > div.section-area > h3.title,
