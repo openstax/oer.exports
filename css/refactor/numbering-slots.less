@@ -116,7 +116,9 @@
   // End-of-chapter exercises just have the exercise number, not the chapter number
   .label(problem;  @scope; eoc)       { content: @DEBUG_START counter(exercise) "." @DEBUG_END; }
   // TODO: This should probably ONLY be for eoc solutions.
-  .label(solution; @scope; @context)  { content: @DEBUG_START target-counter(attr(href, url), exercise) @DEBUG_END; }
+  .label(solution; default;  default)   { content: @DEBUG_START target-counter(attr(href, url), exercise) @DEBUG_END; }
+  .label(solution; colophon; @context)  { content: 'TARGET_EXERCISE'; content: target-counter(attr(href), exercise); }
+  .label(solution; chapter;  eoc)       { content: 'TARGET_EXERCISE'; content: target-counter(attr(href), exercise); }
 
   // xref is an internal link to another piece of content.
   // TODO: This should use target-text instead of relying on a specific class on the anchor tag.
