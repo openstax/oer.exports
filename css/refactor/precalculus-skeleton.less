@@ -35,6 +35,9 @@
         #content>#exercise>.style(@scope; feature-try);
         > .title { #content>#exercise>.title(@scope; feature-try); }
 
+        .problem {
+          #content>#problem>.style(@scope; @context);
+        }
         .solution {
           #content>#solution>.style(@scope; @context);
         }
@@ -384,7 +387,16 @@ img, figure, subfigure  { margin: 1em; }
     float: left;
   }
 
+  .solution {
+    // For solutions that use lists do not display inline with solution header
+    // as paragraphs. Lists need to be inset below
+    ol,ul {
+      margin-left: 2em;
+      margin-top: 2em;
+    }
+  }
 
+                  
 
 
 
@@ -446,6 +458,11 @@ img, figure, subfigure  { margin: 1em; }
   }
 
   .exercise .problem { text-indent: 1em; }
+
+  // The end-of-section exercises should not display solutions
+  // It will be either this if they wish to do a solutions manual, or we will
+  // collate to end-of-book
+  .exercise .solution { display: none; }
 
   // Create Exercises Title above sections
   &::before {
