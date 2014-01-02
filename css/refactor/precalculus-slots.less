@@ -183,6 +183,9 @@
     }
   }
   #section {
+    .title(@scope; default) {
+      #utils>#pb>.after(avoid);
+    }
     #abstract {
       .style() {
         counter-reset: learning-objectives;
@@ -226,6 +229,36 @@
     .style(@scope; feature-try-exercise) {
       // W&N requested solutions be removed 9.24.13
       display: none;
+    }
+  }
+  #blockquote {
+    .style(@scope; default) {
+      color: @light-blue;
+      font-size: 150%;
+
+      &::before, &::after {
+        font-weight: bold;
+        color: black;
+      }
+
+      &::before { content: "\201C" /* open-quote */; }
+      &::after { content: "\201D" /* close-quote; */; }
+    }
+  }
+  #glossary {
+    .style(@scope; default) {
+      // End-of-chapter material should start on a new page
+      #utils>#pb>.before(always);
+      display:inline;
+    }
+    .title() {
+      /* Change "Glossary" to "Key Terms" */
+      content: "Key Terms";
+      color: @medium-blue;
+      font-size: large;
+      padding: 0em;
+      display: block;
+      text-transform:uppercase;
     }
   }
 }

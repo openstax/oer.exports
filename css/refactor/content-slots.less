@@ -11,16 +11,13 @@
     }
   }
   #note {
-    .style() {
+    .style(@scope; @context) {
       padding-left: 1em;
       padding-right: 1em;
       padding-top: 0.2em;
       padding-bottom: 0.2em;
       margin-top: 1.5em;
       margin-bottom: 1.5em;
-    }
-    .style(@scope; default) {
-      .style();
     }
     .title() {
       margin-top: 0.5em;
@@ -32,7 +29,7 @@
     }
   }
   #footnote {
-    .style() {
+    .style(@scope; @context) {
       text-align: left;
       margin-top: 0em;
       margin-bottom: 0em;
@@ -45,12 +42,11 @@
         padding-bottom: 0em;
       }
     }
-    .style(@scope; default) {
-      .style();
-    }
   }
   #section {
-    .style(@scope; default) {
+    .style(@scope; @context) {
+    }
+    .title(@scope; @context) {
     }
     #abstract {
       .style() {
@@ -70,12 +66,9 @@
     }
   }
   #example {
-    .style() {
+    .style(@scope; @context) {
       margin-top: 1.5em;
       margin-bottom: 1.5em;
-    }
-    .style(@scope; default) {
-      .style();
     }
     .title() {
     }
@@ -83,52 +76,40 @@
     }
   }
   #exercise {
-    .style() {
+    .style(@scope; @context) {
       margin-top: 1.5em;
       margin-bottom: 1.5em;
-    }
-    .style(@scope; default) {
-      .style();
     }
     .style(@scope; example) {
       .style(@scope; default);
     }
   }
   #problem {
-    .style() {
-    }
-    .style(@scope; default) {
-      .style();
+    .style(@scope; @context) {
     }
     .style(@scope; exercise) {
       .style(@scope; default);
     }
   }
   #solution {
-    .style() {
-    }
-    .style(@scope; default) {
-      .style();
+    .style(@scope; @context) {
     }
     .style(@scope; exercise) {
       .style(@scope; default);
     }
   }
   #equation {
-    .style() {
+    .style(@scope; @context) {
       #utils>#pb>.inside(avoid);
       text-align: center;
       display: block;
-    }
-    .style(@scope; default) {
-      .style();
     }
     .label() {
       float: right;
     }
   }
   #figure {
-    .style() { 
+    .style(@scope; @context) {
       font-size: xx-small;
       padding-bottom: 0.5em;
       margin-left: auto;
@@ -136,17 +117,11 @@
       #utils>#pb>.inside(avoid);
       column-break-inside: avoid;
     }
-    .style(@scope; default) {
-      .style();
-    }
   }
   #table {
-    .style() {
+    .style(@scope; @context) {
       #utils>#pb>.inside(avoid);
       margin: auto;
-    }
-    .style(@scope; default) {
-      .style();
     }
     .header() { 
       color: white;
@@ -165,26 +140,19 @@
     }
   }
   #list {
-    .style() {
+    .style(@scope; @context) {
     }
-    .style(@scope; default) {
-      .style();
-    }
-    .item() {
-    }
-    .item(@scope; default) {
-      .item();
+    .item(@scope; @context) {
     }
   }
   #glossary {
-    .style(@scope; default) {
+    .style(@scope; @context) {
     }
     .title() {
-    }
-    
+    }    
   }
   #description-list {
-    .style(@scope; default) {
+    .style(@scope; @context) {
     }
     .style(@scope; glossary) {
       .style(@scope; default);
@@ -192,6 +160,12 @@
     .term() {
     }
     .description() {
+    }
+  }
+  #blockquote {
+    .style(@scope; @context) {
+    }
+    .style(@scope; default) {
     }
   }
 }
