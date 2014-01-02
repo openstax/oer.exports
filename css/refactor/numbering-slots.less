@@ -49,13 +49,13 @@
   //
   // - Note in a chapter is labeled `Note 2.7`
   // - Figure in an Appendix is labeled `Figure B4`
-  .x-content-counter(@part;    @before; @after) {}
+  .x-content-counter(@scope;   @before; @after) {}
   .x-content-counter(preface;  @before; @after) { content: @DEBUG_START @before "" "" @after @DEBUG_END; }
   .x-content-counter(chapter;  @before; @after) { content: @DEBUG_START @before counter(chapter,  decimal) "." @after @DEBUG_END; }
   .x-content-counter(appendix; @before; @after) { content: @DEBUG_START @before counter(appendix, upper-latin) "" @after @DEBUG_END; }
 
   // Links to other pieces of content require looking up the target-counter instead of just the counter.
-  .x-content-target-counter(@part;    @before; @after) {}
+  .x-content-target-counter(@scope;   @before; @after) {}
   .x-content-target-counter(preface;  @before; @after) { content: @DEBUG_START @before "" "" @after @DEBUG_END; }
   .x-content-target-counter(chapter;  @before; @after) { content: @DEBUG_START @before target-counter(attr(href), chapter) "." @after @DEBUG_END; }
   .x-content-target-counter(appendix; @before; @after) { content: @DEBUG_START @before target-counter(attr(href), appendix, upper-latin) "" @after @DEBUG_END; }
@@ -89,6 +89,7 @@
   .counters(example;  default)  { counter-increment: example; }
   .counters(exercise; default)  { counter-increment: exercise; }
   .counters(equation; default)  { counter-increment: equation; }
+  .counters(footnote; default)  { counter-increment: footnote; }
   // Figures are a bit more complicated because:
   //
   // - each new figure resets the subfigure
@@ -113,8 +114,9 @@
   .label(eoc-section;@scope; @context){ #part>.x-content-counter(@scope; "";        counter(eoc-section) " "); }
 
   // End-of-chapter exercises just have the exercise number, not the chapter number
-  .label(problem; @scope; eoc)       { content: @DEBUG_START counter(exercise) "." @DEBUG_END; }
-
+  .label(problem;  @scope; eoc)       { content: @DEBUG_START counter(exercise) "." @DEBUG_END; }
+  // TODO: This should probably ONLY be for eoc solutions.
+  .label(solution; @scope; @context)  { content: @DEBUG_START target-counter(attr(href, url), exercise) @DEBUG_END; }
 
   // xref is an internal link to another piece of content.
   // TODO: This should use target-text instead of relying on a specific class on the anchor tag.
@@ -132,8 +134,39 @@
     .content(figure;   @scope; default)  { .x-helper(@scope; @Figure; figure); }
     // Subfigure
     .content(figure;   @scope; figure)   { .x-helper(@scope; @Figure; figure; target-counter(attr(href), subfigure, lower-latin)); }
+
+    .content(chapter;  toc) {
+      content: @Chapter ": ";
+      content: @DEBUG_START target-counter(attr(href), chapter, decimal) " " @DEBUG_END;
+    }
+    .content(appendix; toc) {
+      content: @Appendix ": ";
+      content: @DEBUG_START target-counter(attr(href), appendix, upper-latin) " " @DEBUG_END;
+    }
   }
 
+
+  #footnote {
+    // Float to the bottom of the page (or maybe `move-to:` for EPUB)
+    .style() { float: footnote; }
+    .descendants-style() {
+      color: black;
+      font-weight: normal;
+    }
+    .marker-style() {
+      .descendants-style();
+      margin-right: 0.5em;
+    }
+    .call-content() { content: "[" counter(footnote) "]"; }
+    .call-style() {
+      // The following are defaults
+      font-size: 83%;
+      vertical-align: super;
+      line-height: none;
+      margin-before: 0.5em;
+    }
+
+  }
 
 
   // Each Piece of content has 2 mixins regarding numbering:
