@@ -1,0 +1,292 @@
+@cnx-string-introduction: "Introduction";
+@cnx-string-chapter-outline: "Chapter Outline";
+@cnx-string-learning-objectives: "Learning Objectives";
+@cnx-string-key-equations: "Key Equations";
+@cnx-string-key-concepts: "Key Concepts";
+
+#toc {
+  .style() {
+    border-bottom-color: @medium-blue;
+    color: @medium-blue;
+    margin-bottom: .5em;
+  }
+}
+#part {
+  #preface {
+    #titlepage {
+      .style() {
+        padding-bottom: 1em;
+      }
+      .title() {
+        background-color: @medium-blue; 
+      }
+    }
+  }
+  #introduction {
+    .title() {
+      content: @cnx-string-introduction;
+      font-size: x-large;
+    }
+  }
+
+  #toc {
+    .style() {
+      width: 100%;
+      border: 1px solid @medium-blue;
+    }
+    .title() {
+      content: @cnx-string-chapter-outline;
+      padding-top: .1em;
+      padding-bottom: .2em;
+      background-color: @medium-blue;
+    }
+    #entry {
+      .title() {
+        color: @medium-blue;
+        font-weight: bold;
+      }
+    }
+  }
+  // End-of-chapter parts
+  #end {
+    .style() {
+      .x-column-count(2);
+      column-width: auto;
+      column-fill: balance;
+      #utils>#pb>.inside(auto);
+      column-break-inside: auto;
+    }
+    .title() {
+      text-transform: uppercase;
+      text-align: left;
+      color: @medium-blue;
+      font-size: large;
+      font-weight: bold;
+      #utils>#pb>.after(avoid);
+    }
+    #summary {
+      .style() {
+        .x-column-count(1);
+      }
+      .title() {
+        content: "Chapter " counter(chapter, decimal) " Review"; 
+      }
+      .title-link() {
+        color: @medium-blue;
+        #utils>#pb>.after(avoid);
+      }
+    }
+    #key-equations {
+      .style() {
+        .x-column-count(1);
+      }
+      .title() {
+        content: @cnx-string-key-equations;
+        column-span: all;  // staging bug-fix.
+        margin-top: 1em;   // this too.
+      }
+    }
+    #key-concepts {
+      .style() {
+        .x-column-count(1);
+      }
+      .title() {
+        content: @cnx-string-key-concepts;
+        column-span: all;  // staging bug-fix.
+        margin-top: 1em;   // this too.
+      }
+      .title-link() {
+        color: @medium-blue;
+      }
+    }
+    #review-exercises {
+      .style() {
+        .x-column-count(2);
+      }
+      .title() {
+        content: "Chapter " counter(chapter, decimal) " Review Exercises";
+        column-span: all;  // staging bug-fix.
+        margin-top: 1em;   // this too.
+      }
+    }
+    #practice-test {
+      .style() {
+        .x-column-count(2);
+      }
+      .title() {
+        content: "Chapter " counter(chapter, decimal) " Practice Test";
+        column-span: all;  // staging bug-fix.
+        margin-top: 1em;   // this too.
+      }
+    }
+    #solutions {
+      .style() {
+        .x-column-count(1);
+      }
+      .title() {}
+      .title-link() {
+        color: @medium-blue;
+        #utils>#pb>.after(avoid);
+      }
+    }
+  }
+}
+#content {
+  #note {
+    .style() {
+      color: @black;
+      background-color: @light-blue;
+    }
+    .title() {
+      #utils>#pb>.after(avoid);
+      text-align: left;
+      font-size: small;
+      margin-top: .25em;
+      margin-bottom: .5em;
+      color: @medium-blue;
+      font-weight: bold;
+      border-bottom: 1px solid @medium-blue;
+    }
+
+    #howto {
+      .style() {
+        #utils>#pb>.inside(avoid);
+        .x-feature(howto);
+      }
+    }
+    #qa {
+      .style() {
+        #utils>#pb>.inside(avoid);
+        .x-feature(qa);
+      }
+    }
+    #media {
+      .style() {
+        #utils>#pb>.inside(avoid);
+        .x-feature(media);
+      }
+    }
+    #try {
+      .style() {
+        #utils>#pb>.inside(avoid);
+        .x-feature(try);
+      }
+      .title() {
+        color: @black;
+        font-family: @font-family-precalculus;
+        font-size: 10pt;
+        font-weight: bold;
+        float: left;
+        padding-left: 1.5em;
+        padding-right: .3em;
+      }
+    }
+  }
+  #section {
+    .title(@scope; default) {
+      #utils>#pb>.after(avoid);
+    }
+    #abstract {
+      .style() {
+        counter-reset: learning-objectives;
+        border: 1px solid @medium-blue;
+        padding: 0em;
+      }
+      .title() {
+        content: @cnx-string-learning-objectives;
+        display: inline-block;
+        width: 100%;
+        padding-top: .1em;
+        padding-bottom: .2em;
+        background-color: @medium-blue;
+        color: white;
+        text-align: center;
+        font-weight: bold;
+        font-size: large;
+      }
+    }
+  }
+  #list {
+    .item(@scope; feature-media) {
+        color: @orange;
+        font-weight: bold;
+    }
+  }
+  #exercise {
+    .style(@scope; feature-try) {
+      // Try-it features are considered exercises.
+      // Increment counters even though they aren't displayed.
+      counter-increment: exercise;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .title(@scope; feature-try) {
+      // turn off the display of exercise text label and number
+      display: none;
+    }
+  }
+  #problem {
+    .style(@scope; feature-try-exercise) {
+      // Template design asks for lists to be set apart
+      ol,ul {
+        margin-left: 4em;
+        margin-top: 1em;
+      }
+    }
+  }
+  #solution {
+    .style(@scope; feature-try-exercise) {
+      // W&N requested solutions be removed 9.24.13
+      display: none;
+    }
+  }
+  #blockquote {
+    .style(@scope; default) {
+      color: @light-blue;
+      font-size: 150%;
+
+      &::before, &::after {
+        font-weight: bold;
+        color: black;
+      }
+
+      &::before { content: "\201C" /* open-quote */; }
+      &::after { content: "\201D" /* close-quote; */; }
+    }
+  }
+  #glossary {
+    .style(@scope; default) {
+      // End-of-chapter material should start on a new page
+      #utils>#pb>.before(always);
+      display:inline;
+    }
+    .title() {
+      /* Change "Glossary" to "Key Terms" */
+      content: "Key Terms";
+      color: @medium-blue;
+      font-size: large;
+      padding: 0em;
+      display: block;
+      text-transform:uppercase;
+    }
+  }
+}
+
+/********************************************************************
+ * Refactor of .x-feature() function to utilize only one paramter
+ ********************************************************************/
+
+.x-feature (@svg) {
+  // If feature is only one line prevent clipping of icon
+  min-height: 45px;
+
+  padding-top: 0;
+  margin-top: 0;
+  background: url("ccap-precalculus/@{svg}.svg") no-repeat;
+  background-position: 0 .2em;
+
+  .figure {
+    img { max-width: (@page-width - .25em); }
+    > .title { font-size: x-small; color: @orange; }
+  }
+}
