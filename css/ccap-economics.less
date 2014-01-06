@@ -49,10 +49,6 @@
  */
 
 .note {
-  > .title,
-  > .body {
-    padding: 0px .8em;
-  }
   &.economics {
     // Bring It Home Feature
     &.bringhome {
@@ -111,6 +107,15 @@
         border: none;
         padding-left: 0;
       }
+
+      // They wish to have a counter on chapter objectives that generates module numbers and titles
+      // This isn't working but is close to something we might have to do.
+      &::before {
+        content: "" " " counter(chapter, decimal) "." counter(section, decimal) "." counter(learning-objectives) " " "";
+        color: @medium-blue;
+        font-weight: bold;
+      }
+
     }
   }
 }
@@ -148,12 +153,19 @@
     font-size: large;
     margin-top: .6em;
     margin-bottom: .2em;
+    padding: 0px .4em;
     color: black;
     border: none;
   }  
 
-  > .body > p { font-family: @font-family; } 
+  > .body > p { 
+    font-family: @font-family; 
+    padding: 0px .8em;
+  } 
 }
+
+ 
+
 
 
 /* -------------------------
@@ -195,9 +207,73 @@
 
 // This must be turned off from PreCalculus since Economics 
 // doesn't use section level learning objectives, only Chapter level
+
+/*
 .section > .titlepage {
   .abstract { display: none; }
 }
+*/
+
+
+
+
+
+
+.section > .titlepage {
+  .abstract {
+    counter-reset: learning-objectives;
+    border: none;
+
+    // For Economics there is no blue header/background or border box. Just a simple list
+    &::before {
+      display: none;
+    }
+
+
+    p { font-family: @font-family; margin: 1em 0em .75em 1em; }
+
+    .itemizedlist > .listitem > p { margin: 0em .3em; display: inline-block; }
+
+
+    // Special three-part numbering for Learning Objective chapter.section.learning-objectives
+    .itemizedlist > .listitem {
+      counter-increment: learning-objectives;
+      display: block;
+
+      // Economics doesn't need a counter for modules to be displaying like PreCalculus - turning off
+      &::before {
+        display: none;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* -------------------------
  * Generic Elements
@@ -416,10 +492,16 @@ blockquote {
     > .title {
       content: "Key Concepts and Summary";
       text-transform: uppercase;
+      margin-bottom: 0;
     }
 
     > .section > .title {
       display: block;
+      padding-top: 0;
+    }
+
+    p:nth-of-type(1) {
+      margin-top: .5em;
     }
   }
 
@@ -463,9 +545,7 @@ div.book > div.part {
   > div.chapter,
   > div.appendix {
     > div.section div.equation > *:last-child::after {
-      font-family: @font-family;
-      color: @dark-blue;
-      font-weight: bold;
+      display: none;
     }
   }
 }
@@ -533,5 +613,15 @@ div.colophon.end-of-book-solutions div.chapter-area {
 div.index div.title h2 {
   color: @dark-blue;
 }
+
+
+
+
+
+
+
+
+
+
 
 
