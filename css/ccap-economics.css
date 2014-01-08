@@ -2387,7 +2387,7 @@ div.end-of-book-references > .chapter-area > .title {
   margin: .5em 0em;
 }
 div.end-of-book-references > .chapter-area > .body > p {
-  text-indent: 0em;
+  text-indent: 2em;
   margin: .5em 0em;
 }
 div.end-of-book-references > .chapter-area > .body > p > a.link {
@@ -2440,9 +2440,12 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
   color: black;
   border: none;
 }
-.note.economics.bringhome > .body > p {
+.note.economics.bringhome > .body p {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   padding: 0px .8em;
+}
+.note.economics.bringhome .figure img {
+  max-width: 6.5in !important;
 }
 .note.economics.clearup {
   page-break-inside: auto;
@@ -2475,9 +2478,12 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
   color: black;
   border: none;
 }
-.note.economics.clearup > .body > p {
+.note.economics.clearup > .body p {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   padding: 0px .8em;
+}
+.note.economics.clearup .figure img {
+  max-width: 6.5in !important;
 }
 .note.economics.workout {
   page-break-inside: auto;
@@ -2510,9 +2516,12 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
   color: black;
   border: none;
 }
-.note.economics.workout > .body > p {
+.note.economics.workout > .body p {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   padding: 0px .8em;
+}
+.note.economics.workout .figure img {
+  max-width: 6.5in !important;
 }
 .note.economics.workout .itemizedlist > .listitem {
   color: #d7562c;
@@ -2552,9 +2561,12 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
   color: black;
   border: none;
 }
-.note.economics.linkup > .body > p {
+.note.economics.linkup > .body p {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   padding: 0px .8em;
+}
+.note.economics.linkup .figure img {
+  max-width: 6.5in !important;
 }
 .note.economics.linkup img {
   display: block;
@@ -2602,21 +2614,24 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
 .book > .toc a {
   color: #3767b1;
 }
-/* ----------------------------------------------
- * Chapter Introduction & Learning Objectives
- * ----------------------------------------------
+/* -------------------------
+ * Chapter Introduction
+ * -------------------------
  */
-.chapter > .introduction > .title {
-  display: none;
+.chapter > .introduction > .toc a {
+  color: #3767b1;
+}
+.chapter > .introduction > .toc {
+  border: 2pt solid #3767b1;
+}
+.chapter > .introduction > .toc > .title {
+  content: "Chapter Outline";
+  background-color: #3767b1;
+  min-width: 5.40in;
 }
 /* -------------------------
  * Section Level Learning Objectives
 * -------------------------
-*/
-/*
-.section > .titlepage {
-  .abstract { display: none; }
-}
 */
 .section > .titlepage .abstract {
   counter-reset: learning-objectives;
@@ -2713,7 +2728,6 @@ blockquote::after {
 .table table caption span.table-caption.caption {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: #3767b1;
-  font-weight: 700 !important;
 }
 .table table thead th {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2726,23 +2740,11 @@ blockquote::after {
  * Figure/Subfigures
  * -------------------------
  */
+.figure {
+  font-size: 9.5pt;
+}
 .figure > .title {
   color: #3767b1;
-}
-/* -------------------------
- * Chapter Introduction
- * -------------------------
- */
-.chapter > .introduction {
-  /******************************************************************************
- * Styling for Chapter Outline Box
- ******************************************************************************/
-}
-.chapter > .introduction > .toc a {
-  color: #3767b1;
-}
-.chapter > .introduction > .toc {
-  display: none;
 }
 /******************************************************************************
  * EOC Styling
@@ -2842,6 +2844,11 @@ div.book > div.appendix > div.section div.equation > *:last-child::after,
 div.book > div.part > div.appendix > div.section div.equation > *:last-child::after {
   display: none;
 }
+div.colophon.end-of-book-references .chapter-area .body .section-area p {
+  text-align: left;
+  padding-left: 1.5em;
+  text-indent: -1.5em;
+}
 div.colophon.end-of-book-references .chapter-area .body .section-area .title {
   display: none;
 }
@@ -2898,26 +2905,4 @@ div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body tabl
 }
 div.index div.title h2 {
   color: #3767b1;
-}
-.end-of-book-references > .chapter-area > .title {
-  display: none;
-}
-.end-of-book-references > .chapter-area > .body > .section-area > .title {
-  font-size: 12pt;
-  font-weight: bold;
-  margin: .5em 0em;
-}
-.end-of-book-references > .chapter-area > .body > .section-area > .title:before {
-  content: target-counter(attr(data-href), chapter) "." target-counter(attr(data-href), section) " ";
-}
-.end-of-book-references > .chapter-area > .body > .section-area > .title sup {
-  display: none;
-}
-.end-of-book-references > .chapter-area > .body > .section-area > .body > p {
-  margin: .5em 0em;
-}
-.end-of-book-references > .chapter-area > .body > .section-area > .body > p > a.link {
-  color: #3767b1;
-  font-weight: normal;
-  text-decoration: underline;
 }
