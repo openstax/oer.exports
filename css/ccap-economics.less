@@ -49,10 +49,6 @@
  */
 
 .note {
-  > .title,
-  > .body {
-    padding: 0px .8em;
-  }
   &.economics {
     // Bring It Home Feature
     &.bringhome {
@@ -148,12 +144,18 @@
     font-size: large;
     margin-top: .6em;
     margin-bottom: .2em;
+    padding: 0px .4em;
     color: black;
     border: none;
   }  
 
-  > .body > p { font-family: @font-family; } 
+  > .body p { 
+    font-family: @font-family; 
+    padding: 0px .8em;
+  }
 }
+
+
 
 
 /* -------------------------
@@ -188,6 +190,38 @@
 // to stand it as Introduction header to allow specialized content above header
 .chapter > .introduction > .title { display: none; }
 
+/*
+  For Chapter Introduction and Learning Objectives there is a possible decision
+  to use the default Chapter Outline box that aggregates module numbers and titles
+  and forgo the use of the manual chapter objectives box that we have currently.
+  Also, section level learning objectives might be used.  In both cases intial code
+  has been added below to create these if needed.
+*/
+
+/* -------------------------
+ * Chapter Introduction
+ * -------------------------
+ */
+
+/* Save this section in case the deciscion is to revert to aggregated modules in Chapter Outline
+.chapter > .introduction {
+  > .toc a {
+    color: @dark-blue;
+  }
+
+  // Styling for Chapter Outline Box
+  >.toc { 
+    border: 2pt solid @dark-blue;
+  
+    > .title {
+      content: "Chapter Outline"; //override content string from base
+      background-color: @dark-blue;
+      min-width: 5.40in;
+    }
+  }
+}
+*/
+
 /* -------------------------
  * Section Level Learning Objectives
 * -------------------------
@@ -198,6 +232,42 @@
 .section > .titlepage {
   .abstract { display: none; }
 }
+
+
+/* Save this section in case the deciscion is to revert to aggregated modules in Chapter Outline
+   and utilize section level learning objectives
+.section > .titlepage {
+  .abstract {
+    counter-reset: learning-objectives;
+    border: none;
+
+    // For Economics there is no blue header/background or border box. Just a simple list
+    &::before {
+      display: none;
+    }
+
+
+    p { font-family: @font-family; margin: 1em 0em .75em 1em; }
+
+    .itemizedlist > .listitem > p { margin: 0em .3em; display: inline-block; }
+
+
+    // Special three-part numbering for Learning Objective chapter.section.learning-objectives
+    .itemizedlist > .listitem {
+      counter-increment: learning-objectives;
+      display: block;
+
+      // Economics doesn't need a counter for modules to be displaying like PreCalculus - turning off
+      &::before {
+        display: none;
+      }
+    }
+  }
+}
+*/
+
+
+
 
 /* -------------------------
  * Generic Elements
@@ -284,7 +354,6 @@ blockquote {
     // font added here so down cascade table captions will render well inside eoc question sections
     font-family: @font-family;
     color: @dark-blue;
-    font-weight: 700 !important; // !important used in ccap-precalculus.
   }
 
   thead {
@@ -309,9 +378,13 @@ blockquote {
  * -------------------------
  */
 
+
 .figure {
-  >.title { color: @dark-blue; }
+  font-size: 9.5pt;
+  > .title { color: @dark-blue; }
 }
+
+
 
 
 
@@ -416,10 +489,16 @@ blockquote {
     > .title {
       content: "Key Concepts and Summary";
       text-transform: uppercase;
+      margin-bottom: 0;
     }
 
     > .section > .title {
       display: block;
+      padding-top: 0;
+    }
+
+    p:nth-of-type(1) {
+      margin-top: .5em;
     }
   }
 
@@ -463,9 +542,7 @@ div.book > div.part {
   > div.chapter,
   > div.appendix {
     > div.section div.equation > *:last-child::after {
-      font-family: @font-family;
-      color: @dark-blue;
-      font-weight: bold;
+      display: none;
     }
   }
 }
@@ -478,6 +555,15 @@ div.book > div.part {
 
 // References
 div.colophon.end-of-book-references .chapter-area {
+  // Indentation of second line of reference requested by W&N along with no full justification on items
+  .body .section-area {
+    p {
+      text-align: left;
+      padding-left: 1.5em; 
+      text-indent: -1.5em;
+    }
+  }
+
   .body .section-area .title {
     display: none; // Do not display section titles.
   }
@@ -533,5 +619,15 @@ div.colophon.end-of-book-solutions div.chapter-area {
 div.index div.title h2 {
   color: @dark-blue;
 }
+
+
+
+
+
+
+
+
+
+
 
 
