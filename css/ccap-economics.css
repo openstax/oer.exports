@@ -1819,7 +1819,6 @@ div.part > div.titlepage {
 }
 .section > .titlepage .abstract .itemizedlist > .listitem {
   counter-increment: learning-objectives;
-  display: block;
 }
 .section > .titlepage .abstract .itemizedlist > .listitem::before {
   content: "" " " counter(chapter, decimal) "." counter(section, decimal) "." counter(learning-objectives) " " "";
@@ -2672,39 +2671,17 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
 * -------------------------
 */
 .section > .titlepage .abstract {
+  border: none;
+}
+.section > .titlepage .abstract::before {
   display: none;
 }
-/* Save this section in case the deciscion is to revert to aggregated modules in Chapter Outline
-   and utilize section level learning objectives
-.section > .titlepage {
-  .abstract {
-    counter-reset: learning-objectives;
-    border: none;
-
-    // For Economics there is no blue header/background or border box. Just a simple list
-    &::before {
-      display: none;
-    }
-
-
-    p { font-family: @font-family; margin: 1em 0em .75em 1em; }
-
-    .itemizedlist > .listitem > p { margin: 0em .3em; display: inline-block; }
-
-
-    // Special three-part numbering for Learning Objective chapter.section.learning-objectives
-    .itemizedlist > .listitem {
-      counter-increment: learning-objectives;
-      display: block;
-
-      // Economics doesn't need a counter for modules to be displaying like PreCalculus - turning off
-      &::before {
-        display: none;
-      }
-    }
-  }
+.section > .titlepage .abstract .itemizedlist > .listitem {
+  display: disc;
 }
-*/
+.section > .titlepage .abstract .itemizedlist > .listitem::before {
+  display: none;
+}
 /* -------------------------
  * Generic Elements
  * -------------------------
@@ -2778,6 +2755,7 @@ blockquote::after {
 .table table caption span.table-caption.caption {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: #3767b1;
+  padding-bottom: 0;
 }
 .table table thead th {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2839,6 +2817,12 @@ blockquote::after {
 .glossary > dl > dt:first-of-type,
 .glossary > dl > dd:first-of-type {
   padding-top: 1em;
+}
+.glossary .glossterm {
+  font: normal normal 700 10pt/13pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+.glossterm.no-emphasis {
+  font-weight: 400;
 }
 .cnx-eoc.summary > .title,
 .cnx-eoc.self-check-questions > .title,
@@ -2937,9 +2921,6 @@ div.colophon.end-of-book-solutions div.chapter-area div.solution > div.title a.s
 }
 div.colophon.end-of-book-solutions div.chapter-area div.solution:nth-of-type(1) {
   padding-top: .5em;
-}
-div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body .figure > .title {
-  border: 1px solid red;
 }
 div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body li {
   display: list-item;
