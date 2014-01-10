@@ -1281,9 +1281,9 @@ div.part > div.titlepage {
   color: #528cbe;
 }
 .cnx-eoc.review-exercises {
-  -webkit-column-count: 2;
-  column-count: 2;
-  columns: 2;
+  -webkit-column-count: 1;
+  column-count: 1;
+  columns: 1;
   column-fill: auto;
 }
 .cnx-eoc.review-exercises > .title {
@@ -1292,9 +1292,9 @@ div.part > div.titlepage {
   margin-top: 1em;
 }
 .cnx-eoc.practice-test {
-  -webkit-column-count: 2;
-  column-count: 2;
-  columns: 2;
+  -webkit-column-count: 1;
+  column-count: 1;
+  columns: 1;
   column-fill: auto;
 }
 .cnx-eoc.practice-test > .title {
@@ -1302,17 +1302,18 @@ div.part > div.titlepage {
   column-span: all;
   margin-top: 1em;
 }
-.cnx-eoc.solutions {
+.cnx-eoc.cnx-solutions {
+  display: none;
   -webkit-column-count: 1;
   column-count: 1;
   columns: 1;
   column-fill: auto;
 }
-.cnx-eoc.solutions > .section .title > a {
+.cnx-eoc.cnx-solutions > .section .title > a {
   color: #528cbe;
   page-break-after: avoid;
 }
-.cnx-eoc.solutions p:nth-of-type(1) {
+.cnx-eoc.cnx-solutions p:nth-of-type(1) {
   margin-top: 1em;
 }
 .cnx-eoc .problem .orderedlist {
@@ -1458,6 +1459,18 @@ subfigure {
   padding-top: 1em;
   padding-bottom: 1em;
 }
+div.book div.chapter > div.section div.example div.exercise .problem .table > table > caption::before {
+  display: block;
+}
+div.book div.chapter > div.section div.example div.exercise .problem .table {
+  counter-increment: table !important;
+}
+div.book div.chapter > div.section div.example div.exercise .problem .figure {
+  counter-increment: figure !important;
+}
+div.book div.chapter > div.section div.example div.exercise .problem .figure .title ::before {
+  display: block;
+}
 .example .exercise {
   counter-increment: none;
   margin-top: 0;
@@ -1519,12 +1532,15 @@ subfigure {
   margin-top: 1em;
   margin-bottom: 1em;
 }
-.section.section-exercises .exercise .title {
+.section.section-exercises .exercise > .title {
   content: counter(exercise) ".";
   float: left;
 }
 .section.section-exercises .exercise .problem {
   text-indent: 1em;
+}
+.section.section-exercises .exercise .problem .figure {
+  text-indent: 0;
 }
 .section.section-exercises .exercise .solution {
   display: none;
@@ -1537,6 +1553,16 @@ subfigure {
   font-weight: bold;
 }
 .section.section-exercises .exercise:not(.labeled) > .title > span:first-child:not(.labeled):before {
+  display: none;
+}
+/* -------------------------
+ * End of Section/Chapter Exercise Solution Styling
+ * -------------------------
+ */
+.section[title="Section Exercises"] .section .exercise .body .solution {
+  display: none;
+}
+.section[title="Section Exercises"] .exercise .body .solution {
   display: none;
 }
 /******************************************************************************

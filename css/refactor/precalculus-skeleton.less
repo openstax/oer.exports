@@ -195,7 +195,7 @@ div.part > div.titlepage { display: none; }
     }
   }
 
-  &.solutions {
+  &.cnx-solutions {
     #part>#end>#solutions>.style();
     > .section .title > a { #part>#end>#solutions>.title-link(); }
     p:nth-of-type(1) { margin-top: 1em; }
@@ -359,6 +359,22 @@ img, figure, subfigure  { margin: 1em; }
 
 .example .solution { padding-top: 1em; padding-bottom: 1em; }
 
+// This lengthy selector is required to override a display:none.
+div.book div.chapter > div.section div.example div.exercise .problem {
+  .table > table > caption::before {
+    display: block;
+  }
+  .table {
+    counter-increment: table !important; // Overrides !important from base.
+  }
+  .figure {
+    counter-increment: figure !important; // Overrides !important from base.
+  }
+  .figure .title ::before {
+    display: block;
+  }
+}
+
 // for examples that have a problem/solution structure that need numbered headings
 .example .exercise {
   counter-increment: none;
@@ -452,12 +468,13 @@ img, figure, subfigure  { margin: 1em; }
     margin-bottom: 1em;
   }
 
-  .exercise .title {
+  .exercise > .title {
     content: counter(exercise) ".";
     float: left;
   }
 
   .exercise .problem { text-indent: 1em; }
+  .exercise .problem .figure { text-indent: 0; }
 
   // The end-of-section exercises should not display solutions
   // It will be either this if they wish to do a solutions manual, or we will
@@ -481,7 +498,18 @@ img, figure, subfigure  { margin: 1em; }
 
 }
 
-
+/* -------------------------
+ * End of Section/Chapter Exercise Solution Styling
+ * -------------------------
+ */
+.section[title="Section Exercises"] {
+  .section .exercise .body .solution {
+    display: none;
+  }
+  .exercise .body .solution {
+    display: none;
+  }
+}
 
 
 
