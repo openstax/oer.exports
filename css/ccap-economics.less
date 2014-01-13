@@ -263,12 +263,15 @@
   padding-top: 0;
   font-size: 34pt; 
   color: @dark-blue;
-
+  text-transform: none; 
+  
   // Chapter number
   .cnx-gentext-n {
     color: @dark-blue;
   }
 }
+
+
 
 h2, h3, h4, h5, h6 {
   color: @dark-blue;
@@ -365,11 +368,10 @@ blockquote {
 
 
 .figure {
+  font-family: @font-family;
   font-size: 9.5pt;
   > .title { color: @dark-blue; }
 }
-
-
 
 
 
@@ -583,12 +585,14 @@ div.colophon.end-of-book-solutions div.chapter-area {
       padding-top: .5em;
     }
 
+
     /*
     * This is a bug-fix related to 
     *    display: inline;
     *    * { display: inline; }
     * being used in ccap-precalculus.less.
     */
+    
     > div.body {
       // lists must not be inline 
       li { display: list-item; }
@@ -602,6 +606,14 @@ div.colophon.end-of-book-solutions div.chapter-area {
         tr { display: table-row; }
         td, th { display: table-cell; }
       }
+
+      // Can't remove period because "Figure " text is part of these selectors as well, so we will
+      // display Figure text and counter using content to avoid a possible Docbook change to stop
+      // the period generation being a part of Figure text.
+      > div.figure > div.title  {
+        counter-increment: figure;
+        content: "" "Figure " counter(chapter, decimal) "." counter(figure, decimal) " " "";
+      }
     }
   }
 }
@@ -612,6 +624,9 @@ div.colophon.end-of-book-solutions div.chapter-area {
   h1.title {
     color: @dark-blue;
   }
+
+  // Must remove full justification of text from Answer Key entries
+  text-align: left;
 }
 div.index div.title h2 {
   color: @dark-blue;
