@@ -153,6 +153,11 @@
     font-family: @font-family; 
     padding: 0px .8em;
   }
+
+  .figure {
+    img { max-width: (@page-width - .25em); }   
+    > .title { font-size: x-small; color: @dark-blue; }
+  }
 }
 
 
@@ -367,9 +372,13 @@ blockquote {
 
 
 .figure {
+  border: 1px solid green;
   font-family: @font-family;
   font-size: 9.5pt;
+
   > .title { color: @dark-blue; }
+
+  & img { border: 1px solid red; }
 }
 
 
@@ -568,6 +577,7 @@ div.colophon.end-of-book-references .chapter-area {
   }
 }
 
+
 // Answer Key
 div.colophon.end-of-book-solutions div.chapter-area {
   div.solution {
@@ -607,22 +617,44 @@ div.colophon.end-of-book-solutions div.chapter-area {
         td, th { display: table-cell; }
       }
 
-      // Can't remove period because "Figure " text is part of these selectors as well, so we will
-      // display Figure text and counter using content to avoid a possible Docbook change to stop
-      // the period generation being a part of Figure text.
-      > div.figure > div.title  {
-        counter-increment: figure;
-        content: "" "Figure " counter(chapter, decimal) "." counter(figure, decimal) " " "";
-      }
+      // Since up till now Answer Key has been just a blob of inline text, we must some how undo
+      // the multitude of display:inline to allow the myriad new elements that are now a part of Answer Key.
+      // Figures must be converted to block level elements and then
+      // styled accordingly
+      .figure { 
+        // Stop outer container from collapsing
+        display: block;
+        margin-top: 1em;
 
-      > div.figure { 
+        .title {
+          border: 1px solid green;
+          display: inline;
+          text-align: left;
+          // Can't remove period because "Figure " text is part of these selectors as well, so we will
+          // display Figure text and counter using content to avoid a possible Docbook change to stop
+          // the period generation being a part of Figure text.
+          counter-increment: figure;
+          content: "" "Figure " counter(chapter, decimal) "." counter(figure, decimal) " " "";
+        }
 
-        border: 1px solid green;
-      }
+        .caption:before {
+          display: inline;
+          margin-bottom: 0.25em;
+          margin-top: 0.25em;
+        }
 
-      > div.figure img { 
-        border: 1px solid red; 
-      }
+        .caption {
+          display: inline;
+          text-align: center;
+        }
+
+        & img {
+          max-width: ( @page-width - .25em ) !important;
+          display: block;
+          margin: 0 auto;
+          border: 1px solid red;
+        }
+      }       
     }
   }
 }
