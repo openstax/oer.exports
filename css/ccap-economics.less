@@ -581,6 +581,7 @@ div.colophon.end-of-book-references .chapter-area {
 // Answer Key
 div.colophon.end-of-book-solutions div.chapter-area {
   div.solution {
+    border: 1px solid green;
     padding-bottom: .2em;
 
     > div.title a.solution {
@@ -588,6 +589,7 @@ div.colophon.end-of-book-solutions div.chapter-area {
 
       &::before {
         content: target-counter(attr(href), exercise) ".";
+        display: inline-block;
       }  
     }
 
@@ -596,17 +598,39 @@ div.colophon.end-of-book-solutions div.chapter-area {
     }
 
 
-    /*
-    * This is a bug-fix related to 
-    *    display: inline;
-    *    * { display: inline; }
-    * being used in ccap-precalculus.less.
-    */
+   
     
     > div.body {
       // lists must not be inline 
       li { display: list-item; }
+
+      ol, ul { 
+        border: 1px solid red;
+      }
+
+      // W&N requests that these ordered lists do not begin on a new line, but are displayed just
+      // after the solution number.  This seems the only way to do this without adding extra divs
+      // around the solution number.  Also, all other solutions (tables, figures, etc) have carriage
+      // returns (vertical space) after the number before the solution begins.  It seems if we do
+      // this styling to lists we should also do it for all possible answers, which will cause very
+      // bad layout problems due to table size, wrapping, etc.  Leaving solution in place for now
+      // The final decision might be to decide that this isn't a bug, but a new feature they want.
+      // Extra code will need to be written for tables, figures if this is needed, and possibly
+      // migrated to all books. 
+      .orderedlist { 
+        position: relative;
+        display: inline-block;
+        margin-top: -8px;
+        margin-left: 15px;
+      }
       
+      /*
+      * This is a bug-fix related to 
+      *    display: inline;
+      *    * { display: inline; }
+      * being used in ccap-precalculus.less.
+      */
+
       .table,
       table {
         display: table;
