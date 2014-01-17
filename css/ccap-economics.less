@@ -581,7 +581,6 @@ div.colophon.end-of-book-references .chapter-area {
 // Answer Key
 div.colophon.end-of-book-solutions div.chapter-area {
   div.solution {
-    border: 1px solid green;
     padding-bottom: .2em;
 
     > div.title a.solution {
@@ -601,26 +600,6 @@ div.colophon.end-of-book-solutions div.chapter-area {
       // lists must not be inline 
       li { display: list-item; }
 
-      ol, ul { 
-        border: 1px solid red;
-      }
-
-      // W&N requests that these ordered lists do not begin on a new line, but are displayed just
-      // after the solution number.  This seems the only way to do this without adding extra divs
-      // around the solution number.  Also, all other solutions (tables, figures, etc) have carriage
-      // returns (vertical space) after the number before the solution begins.  It seems if we do
-      // this styling to lists we should also do it for all possible answers, which will cause very
-      // bad layout problems due to table size, wrapping, etc.  Leaving solution in place for now
-      // The final decision might be to decide that this isn't a bug, but a new feature they want.
-      // Extra code will need to be written for tables, figures if this is needed, and possibly
-      // migrated to all books. 
-      .orderedlist { 
-        position: relative;
-        display: inline-block;
-        margin-top: -7px;
-        margin-left: 15px;
-      }
-      
       /*
       * This is a bug-fix related to 
       *    display: inline;
@@ -648,7 +627,6 @@ div.colophon.end-of-book-solutions div.chapter-area {
         margin-top: 1em;
 
         .title {
-          border: 1px solid green;
           display: inline;
           text-align: left;
           // Can't remove period because "Figure " text is part of these selectors as well, so we will
@@ -673,7 +651,6 @@ div.colophon.end-of-book-solutions div.chapter-area {
           max-width: ( @page-width - .25em ) !important;
           display: block;
           margin: 0 auto;
-          border: 1px solid red;
         }
       }       
     }
@@ -682,7 +659,13 @@ div.colophon.end-of-book-solutions div.chapter-area {
   // The target-exercise link-target class must be added to answer key to allow for correct numbering
   // when exercise link-targets are created.
   a.target-exercise {
+    counter-increment: target-exercise;
     content: "" "Exercise " target-counter(attr(href), chapter) "." target-counter(attr(href), exercise) "" "";
+  }
+
+  a.target-table {
+    counter-increment: target-table;
+    content: "" "Table " target-counter(attr(href), chapter) "." target-counter(attr(href), table) "" "";
   }
 
   // W&N requested to have table numbering to be consecutive throughout text. Existing numbering of tables
