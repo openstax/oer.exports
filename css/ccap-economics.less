@@ -617,7 +617,7 @@ div.colophon.end-of-book-solutions div.chapter-area {
       .orderedlist { 
         position: relative;
         display: inline-block;
-        margin-top: -8px;
+        margin-top: -7px;
         margin-left: 15px;
       }
       
@@ -684,10 +684,17 @@ div.colophon.end-of-book-solutions div.chapter-area {
   a.target-exercise {
     content: "" "Exercise " target-counter(attr(href), chapter) "." target-counter(attr(href), exercise) "" "";
   }
+
+  // W&N requested to have table numbering to be consecutive throughout text. Existing numbering of tables
+  // displaying in answer key is based upon the module that the original question resided. Utilization
+  // of counter below to replace current numbering as desired.  Old numbering has been turned off.
+  .table > table > caption > span { display: none; }
+
+  .table > table > caption:before {
+    counter-increment: table;
+    content: "" "Table " counter(chapter, decimal) "." counter(table, decimal) " " "";
+  }
 }
-
-
-
 
 
 // Titles
