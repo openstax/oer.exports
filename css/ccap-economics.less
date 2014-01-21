@@ -372,13 +372,10 @@ blockquote {
 
 
 .figure {
-  border: 1px solid green;
   font-family: @font-family;
   font-size: 9.5pt;
 
   > .title { color: @dark-blue; }
-
-  & img { border: 1px solid red; }
 }
 
 
@@ -578,18 +575,13 @@ div.colophon.end-of-book-references .chapter-area {
 }
 
 
-// Answer Key
+// Answer Key 
 div.colophon.end-of-book-solutions div.chapter-area {
   div.solution {
     padding-bottom: .2em;
 
     > div.title a.solution {
-      padding-right: .2em;
-
-      &::before {
-        content: target-counter(attr(href), exercise) ".";
-        display: inline-block;
-      }  
+      padding-right: .2em;  
     }
 
     &:nth-of-type(1) {
@@ -626,56 +618,21 @@ div.colophon.end-of-book-solutions div.chapter-area {
         display: block;
         margin-top: 1em;
 
+        // Figures are not to be numbered for Answer Key so associated caption/title are not displayed
         .title {
-          display: inline;
-          text-align: left;
-          // Can't remove period because "Figure " text is part of these selectors as well, so we will
-          // display Figure text and counter using content to avoid a possible Docbook change to stop
-          // the period generation being a part of Figure text.
-          counter-increment: figure;
-          content: "" "Figure " counter(chapter, decimal) "." counter(figure, decimal) " " "";
-        }
-
-        .caption:before {
-          display: inline;
-          margin-bottom: 0.25em;
-          margin-top: 0.25em;
-        }
-
-        .caption {
-          display: inline;
-          text-align: center;
+          display: none;
         }
 
         & img {
-          max-width: ( @page-width - .25em ) !important;
+          // For figure imagery in Answer Key we need to center figures
           display: block;
           margin: 0 auto;
         }
-      }       
-    }
-  }
+      }   
 
-  // The target-exercise link-target class must be added to answer key to allow for correct numbering
-  // when exercise link-targets are created.
-  a.target-exercise {
-    counter-increment: target-exercise;
-    content: "" "Exercise " target-counter(attr(href), chapter) "." target-counter(attr(href), exercise) "" "";
-  }
-
-  a.target-table {
-    counter-increment: target-table;
-    content: "" "Table " target-counter(attr(href), chapter) "." target-counter(attr(href), table) "" "";
-  }
-
-  // W&N requested to have table numbering to be consecutive throughout text. Existing numbering of tables
-  // displaying in answer key is based upon the module that the original question resided. Utilization
-  // of counter below to replace current numbering as desired.  Old numbering has been turned off.
-  .table > table > caption > span { display: none; }
-
-  .table > table > caption:before {
-    counter-increment: table;
-    content: "" "Table " counter(chapter, decimal) "." counter(table, decimal) " " "";
+      // Tables are not to be numbered for Answer Key so we shall not display
+      .table > table > caption > span { display: none; }
+    }    
   }
 }
 
