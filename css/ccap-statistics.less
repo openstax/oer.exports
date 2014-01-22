@@ -519,9 +519,19 @@ div.part > div.titlepage { display:none; }
     }
   }
 
+  /* Originally the class for supplemental practice exercises was .bring-together-practice
+     There is an issue in the XSLT transform that if there is another CSS class with part of 
+     the string the same name as another class duplication of content occurs in the other
+     class with the same string in the class (practice) Will eventually need to alter
+     the XSLT to allow identical strings in multiple classes.  Changing class to 
+     .bring-together-exercises to patch and stop content duplication.  Homework Bringing
+     it together is safe, because the homework class is .free-response and doesn't contain
+     homework string as practice did.
+  */
+
   // Set Bringing It Together Homework and Practice titles
-  &.bring-together-homework { .x-bring-together("Bringing It Together: Homework"); }
-  &.bring-together-practice { .x-bring-together("Bringing It Together: Practice"); }
+  &.bring-together-homework   { .x-bring-together("Bringing It Together: Homework"); }
+  &.bring-together-exercises  { .x-bring-together("Bringing It Together: Practice"); }
 
 
   // Styles for general solutions for the rest of exercises
@@ -585,7 +595,7 @@ div.part > div.titlepage { display:none; }
 }
 
 // Remove section headers from eoc problems
-.bring-together-practice,
+.bring-together-exercises,
 .bring-together-homework {
   > .section > .title { display: none; }
 }
