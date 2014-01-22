@@ -149,9 +149,14 @@
     border: none;
   }  
 
-  > .body p { 
+  > .body p, blockquote { 
     font-family: @font-family; 
     padding: 0px .8em;
+  }
+
+  .figure {
+    img { max-width: (@page-width - .25em); }   
+    > .title { font-size: x-small; color: @dark-blue; }
   }
 }
 
@@ -263,7 +268,8 @@
   padding-top: 0;
   font-size: 34pt; 
   color: @dark-blue;
-
+  text-transform: none; 
+  
   // Chapter number
   .cnx-gentext-n {
     color: @dark-blue;
@@ -291,6 +297,7 @@ p { font-family: @font-family-serif; }
 
 blockquote {
   color: black;
+  font-family: @font-family-serif;
   font-size: inherit;
   margin-top: inherit;
   margin-bottom: inherit;
@@ -365,11 +372,11 @@ blockquote {
 
 
 .figure {
+  font-family: @font-family;
   font-size: 9.5pt;
+
   > .title { color: @dark-blue; }
 }
-
-
 
 
 
@@ -403,6 +410,7 @@ blockquote {
 .glossary {
   > .titlepage h2.title {
     font: normal normal 700 13pt/1em @font-family;
+    padding-left: 0;
   }
 
   > dl dt {
@@ -439,6 +447,15 @@ blockquote {
   font-weight: 400;
 }
 
+// In base-skeleton.less some former precalculus universal selector cruft from precalcuus
+// exists. We have to target the span here to fix the header sizes and remove a little padding
+// to comply with economics template.
+
+.cnx-eoc > .title > span {
+  padding-left: 0;
+  font-size: 13pt;
+}
+
 .cnx-eoc {
   &.summary,
   &.self-check-questions,
@@ -447,6 +464,7 @@ blockquote {
   &.problems {
     > .title {
       color: @dark-blue !important; // !important used in ccap-precalculus.
+      font-size: 13pt;
     }
     > .section > .title > a {
       color: @dark-blue;
@@ -459,7 +477,7 @@ blockquote {
   }
   > .section {
     > .title {
-      font: normal normal 700 10pt/1em @font-family;
+      font: normal normal 700 13pt/1em @font-family;
     }
     > .body {
       font: normal normal 400 10pt/12pt @font-family-serif;
@@ -470,6 +488,7 @@ blockquote {
   .title {
     margin-top: 1em;
     column-span: all;
+    padding-left: 0;
   }
   > .section > .title {
     display: none;
@@ -567,32 +586,31 @@ div.colophon.end-of-book-references .chapter-area {
   }
 }
 
-// Answer Key
+
+// Answer Key 
 div.colophon.end-of-book-solutions div.chapter-area {
   div.solution {
     padding-bottom: .2em;
-    > div.title a.solution {
-      padding-right: .2em;
 
-      &::before {
-        content: target-counter(attr(href), exercise) ".";
-      }
+    > div.title a.solution {
+      padding-right: .2em;  
     }
 
     &:nth-of-type(1) {
       padding-top: .5em;
     }
 
-    /*
-    * This is a bug-fix related to 
-    *    display: inline;
-    *    * { display: inline; }
-    * being used in ccap-precalculus.less.
-    */
     > div.body {
       // lists must not be inline 
       li { display: list-item; }
-      
+
+      /*
+      * This is a bug-fix related to 
+      *    display: inline;
+      *    * { display: inline; }
+      * being used in ccap-precalculus.less.
+      */
+
       .table,
       table {
         display: table;
@@ -602,9 +620,34 @@ div.colophon.end-of-book-solutions div.chapter-area {
         tr { display: table-row; }
         td, th { display: table-cell; }
       }
-    }
+
+      // Since up till now Answer Key has been just a blob of inline text, we must some how undo
+      // the multitude of display:inline to allow the myriad new elements that are now a part of Answer Key.
+      // Figures must be converted to block level elements and then
+      // styled accordingly
+      .figure { 
+        // Stop outer container from collapsing
+        display: block;
+        margin-top: 1em;
+
+        // Figures are not to be numbered for Answer Key so associated caption/title are not displayed
+        .title {
+          display: none;
+        }
+
+        & img {
+          // For figure imagery in Answer Key we need to center figures
+          display: block;
+          margin: 0 auto;
+        }
+      }   
+
+      // Tables are not to be numbered for Answer Key so we shall not display
+      .table > table > caption > span { display: none; }
+    }    
   }
 }
+
 
 // Titles
 .end-of-book-references,
@@ -612,6 +655,9 @@ div.colophon.end-of-book-solutions div.chapter-area {
   h1.title {
     color: @dark-blue;
   }
+
+  // Must remove full justification of text from Answer Key entries
+  text-align: left;
 }
 div.index div.title h2 {
   color: @dark-blue;
