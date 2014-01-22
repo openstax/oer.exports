@@ -1,188 +1,54 @@
-/*******************************************************
-* Copyright (c) 2013 Rice University
-*  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
-*  See LICENSE.txt for details.
-*******************************************************/
-
- /* Styles used when generating a PDF from xhtml+css
- ***************************************************/
-
-// Import general page headers/footers, bookmark calculation, etc
-@import url('ccap-base.less');
-@import url('ccap-numbering.less');
-@import url('ccap-precalculus-numbering.less');
-
-// color palette for pre-calculus
-@dark-blue:     #233A67;
-@medium-blue:   #528CBE;
-@light-blue:    #DBE8F2;  // Template color in question. Note backgrounds seem blue not light green.
-@light-green:   #D3ECED;
-@light-orange:  #EFD8B0;
-@orange:        #D7562C;
-
-@white:       #FFF;
-@black:       #000;
-
-@table-border: 1pt solid @black;
-@page-width: 6.5in;
-
-// The base CCAP books use sans fonts but the precalculus book uses serif fonts.
-@font-family-precalculus: Liberation Serif, serif, @stix-fonts;
-
-@page { margin: 1in 1in; }
-// Finished printed size of the QR code is dependent on: 1-distance between qr code and scanning device
-// 2-size of dots in the code(amount of data inputed into the code, the smaller the dots become)
-// For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
-@qr: 1.25in;
-
-/******************************************************
- * Precalculus Custom elements
- *
- * Most of the customizations are
- * `.note` elements with specific classes
- *
- * At the bottom of this block is the default styling
- * notes that are not marked up with special classes.
- ******************************************************/
+@scope: chapter;
+@context: default;
 
 .note {
-  &.precalculus {
+  &.@{book-title} {
     &.howto {
-      page-break-inside: avoid;
-      .x-feature(howto);
+      #content>#note>#howto>.style();
     }
     &.qa {
-      page-break-inside: avoid;
-      .x-feature(qa);
+      #content>#note>#qa>.style();
     }
     &.media {
-      page-break-inside: avoid;
-      .x-feature(media);
+      @context: feature-media;
+      #content>#note>#media>.style();
 
-      // weblinks included in media list need to be orange and bold
       .itemizedlist > .listitem {
-        color: @orange;
-        font-weight: bold;
+        #content>#list>.item(@scope, @context);
       }
 
       // Supress the extra url generated from base that is wrapped with parentheses
       .itemizedlist > .listitem .link.only-show-once { 
         content: content();
       }
-     
-
     }
-    // The .try box has a bunch of customizations:
-    // - Exercises should not affect numbering and solutions should not show up in the content
     &.try {
-      page-break-inside: avoid;
-      .x-feature(try);
+      @context: feature-try;
+      #content>#note>#try>.style();
 
       > .title {
-        color: @black;
-        font-family: @font-family-precalculus;
-        font-size: 10pt;
-        font-weight: bold;
-        float: left;
-        padding-left: 1.5em;
-        padding-right: .3em;
+        #content>#note>#try>.title();
       }
 
       .exercise {
-        // increment the exercise even though we don't show it because try it is an exercise
-        counter-increment: exercise;
-        margin-top: 0;
-        margin-bottom: 0;
+        @context: feature-try-exercise;
+        #content>#exercise>.style(@scope; feature-try);
+        > .title { #content>#exercise>.title(@scope; feature-try); }
 
-        // turn off the display of exercise text label and number
-        > .title { display: none; }
-
+        .problem {
+          #content>#problem>.style(@scope; @context);
+        }
         .solution {
-          display: none; // W&N requested solutions be removed 9.24.13
-          
-          /* 
-          W&N Doesn't want solutions utilized in the text at this point
-          and plan on creating separate solutions manual(s) for text
-
-          // override cnxml default label with Answer
-          prince-text-replace: "Solution" "Answer:";
-          color: @orange;
-          font-family: @font-family;
-          font-weight: normal;
-          font-size: 8pt;
-
-          // flip answer to solution 180 degrees per template. Utilize web extensions
-          // for use inside the browser for troubleshooting if needed.
-          transform: rotate(180deg);
-          // Chrome and Safari
-          -webkit-transform: rotate(180deg);
-          // Firefox
-          -moz-transform: rotate(180deg);
-          // Opera
-          -o-transform: rotate(180deg);
-          // IE9 and above
-          -ms-transform: rotate(180deg);
-          // support for IE 8 and lower
-          filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2.0);
-
-          // font and color override from solution text to match template
-          > .body {
-            font-family: @font-family-precalculus;
-            color: @black;
-            padding-left: 0;
-            width: 50%;
-          }
-
-          > .title {
-            float: left;
-            padding-left: 0;
-            margin-left: .3em;
-          }
-
-          // alignment of Answer tag with rest of solution
-          &::before { 
-            float: left; 
-            padding-right: .5em;
-          }*/
+          #content>#solution>.style(@scope; @context);
         }
       }
     }
   }
-
-  // styling for regular non-feature related note
-  &:not(.precalculus) {
-    color: #000;
-    background-color: @light-blue;
-
-    // Styling for Generic Note title block and border
-   > .title {
-      text-align: left;
-      font-size: small;
-      margin-top: .25em;
-      margin-bottom: .5em;
-      color: @medium-blue;
-      font-weight: bold;
-      page-break-after: avoid;
-      border-bottom: 1px solid @medium-blue;
-    }
+  &:not(.@{book-title}) {
+    #content>#note>.style();
+    > .title { #content>#note>.title(); }
   }
 }
- // End of .precalculus notes
-
-
-/******************************************************************************
- *  Changes Below This line
- *
- *  Styling for Chapter Outline Box
- *  Styling for Learning Objectives Box
- *  Refactor of .x-feature() function to utilize only one paramter
- *  Organization and naming of collation sections for eoc collations
- *  Addition of .commentary selector styling for Analysis header in examples
- *  Styling for modified table design (2 tables, one plain and one colored)
- *  Breakout of figure code into 3 sizes for left aligned figure text
- *  Misc Color changes
- *
- ******************************************************************************/
 
 /* -------------------------
  * Preface
@@ -190,32 +56,28 @@
  */
 .preface {
   > .titlepage {
-    padding-bottom: 1em;
-    h1.title { background-color: @medium-blue; }
+    #part>#preface>#titlepage>.style();
+    h1.title { #part>#preface>#titlepage>.title(); }
   }
 }
 
 /* -------------------------
  * Book Table of Contents
-  * -------------------------
-  */
+ * -------------------------
+ */
 .book > .toc {
   > .title {
-    border-bottom-color: @medium-blue;
-    color: @medium-blue;
-    margin-bottom: .5em;
+    #toc>.style();
   }
 
   a { color: @medium-blue; }
 }
 
-
 /* -------------------------
  * Unit Page
  * -------------------------
  */
-div.part > div.titlepage {display:none;}
-
+div.part > div.titlepage { display: none; }
 
 /* -------------------------
  * Chapter Introduction
@@ -223,14 +85,11 @@ div.part > div.titlepage {display:none;}
  */
 .chapter > .introduction {
   >.title {
-    content: "Introduction";
-    font-size: x-large;
+    #part>#introduction>.title();
   }
 
-  // numbering is bold and medium blue for precalculus
   > .toc a {
-    color: @medium-blue;
-    font-weight: bold;
+    #part>#toc>#entry>.title();
   }
 
   // overide hyperlink medium blue color must be back and normal weight
@@ -245,69 +104,29 @@ div.part > div.titlepage {display:none;}
   }
 
 
-
-
-
-
-
-
-
-
-/******************************************************************************
- * Styling for Chapter Outline Box
- ******************************************************************************/
-
+  /******************************************************************
+   * Styling for Chapter Outline Box
+   ******************************************************************/
   >.toc { 
-    width: 100%;
-    border: 1px solid @medium-blue;
+    #part>#toc>.style();
 
     >.title {
-      content: "Chapter Outline"; //override content string from base
-      padding-top: .1em;
-      padding-bottom: .2em;
-      background-color: @medium-blue;
-      color: white;
-      text-align: center;
-      font-weight: bold;
-      font-size: large;
+      #part>#toc>.title();
     }
   }
 }
 
 
-
-
-
-
-
-
-
-/******************************************************************************
+/********************************************************************
  * Styling for Learning Objectives Box
- ******************************************************************************/
-
-/* -------------------------
- * Section Level Learning Objectives
-* -------------------------
-*/
+ ********************************************************************/
 
 .section > .titlepage {
   .abstract {
-    counter-reset: learning-objectives;
-    border: 1px solid @medium-blue;
-    padding: 0em;
+    #content>#section>#abstract>.style();
 
     &::before {
-      content: "Learning Objectives";
-      display: inline-block;
-      width: 100%;
-      padding-top: .1em;
-      padding-bottom: .2em;
-      background-color: @medium-blue;
-      color: white;
-      text-align: center;
-      font-weight: bold;
-      font-size: large;
+     #content>#section>#abstract>.title();
     }
 
 
@@ -330,137 +149,62 @@ div.part > div.titlepage {display:none;}
   }
 }
 
-
-
-
-
-
-
-
-
-/******************************************************************************
- * Refactor of .x-feature() function to utilize only one paramter
- ******************************************************************************/
-
-/* -------------------------
- * Features args(title color, bkgrnd color, path to svg)
- * -------------------------
- */
-
-.x-feature (@svg) {
-  // 1st semantic paragraph is title of feature. Indention removed for second semantic paragraph
-  // which is first real paragraph.  Subsequent paragraphs are indented.
-
-
-  // If feature is only one line prevent clipping of icon
-  min-height: 45px;
-
-  padding-top: 0;
-  margin-top: 0;
-  background: url("ccap-precalculus/@{svg}.svg") no-repeat;
-  background-position: 0 .2em;
-
-  .figure {
-    img { max-width: (@page-width - .25em); }   //overrides priority over generic img rule set L#432
-    > .title { font-size: x-small; color: @orange; }
-  }
-}
-
-
-
-
-
-
-
-
-
-
-/******************************************************************************
- * Organization and naming of collation sections for eoc collations
- ******************************************************************************/
-
-/* -------------------------
+/********************************************************************
  * End of chapter customizations
- * -------------------------
- */
+ ********************************************************************/
 
 // eoc solution number links color
 .cnx-eoc > .solution > a.number { color: @medium-blue; }
 
 .cnx-eoc {
-  .x-column-count(2);
-  column-width: auto;
-  column-fill: balance;
-  page-break-inside: auto;
-  column-break-inside: auto;
+  #part>#end>.style();
 
-  > .title  {
-    text-transform: uppercase;
-    text-align: left; //override from base .x-column-count
-    color: @medium-blue;
-    font-size: large;
-    font-weight: bold;
-    page-break-after: avoid;
+  > .title {
+    #part>#end>.title();
   }
 
   &.summary {
-    .x-column-count(1);
-    > .title { content: "" "Chapter " counter(chapter, decimal) " Review"; }
-    > .section .title > a { color: @medium-blue; page-break-after: avoid; }
-    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
+    #part>#end>#summary>.style();
+    > .title { #part>#end>#summary>.title(); }
+    > .section .title > a { #part>#end>#summary>.title-link(); }
+    p:nth-of-type(1) { margin-top: 1em; }
   }
 
   &.key-equations {
-    .x-column-count(1);
-    > div.title {
-      content: "Key Equations";
-      column-span: all;  // added override to resolve bug on staging where titles
-      margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
-    }
+    #part>#end>#key-equations>.style();
+    > div.title { #part>#end>#key-equations>.title(); }
   }
 
   &.key-concepts {
-    .x-column-count(1);
-    > div.title {
-      content: "Key Concepts";
-      column-span: all;  // added override to resolve bug on staging where titles
-      margin-top: 1em;   // are spanning single column. cannot replicate locally or on naginata
-    }
-
-    > .section > .title > a { color: @medium-blue; }
-
+    #part>#end>#key-concepts>.style();
+    > div.title { #part>#end>#key-concepts>.title(); }
+    > .section > .title > a { #part>#end>#key-concepts>.title-link(); }
   }
 
   &.review-exercises {
-    .x-column-count(2);
+    #part>#end>#review-exercises>.style();
     > .title {
-      content: "" "Chapter " counter(chapter, decimal) " Review Exercises";
-      column-span: all; // added override to resolve bug on staging where titles
-      margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginat
+      #part>#end>#review-exercises>.title();
     }
   }
 
   &.practice-test {
-    .x-column-count(2);
+    #part>#end>#practice-test>.style();
     > .title {
-      content: "" "Chapter " counter(chapter, decimal) " Practice Test";
-      column-span: all; // added override to resolve bug on staging where titles
-      margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginat
+      #part>#end>#practice-test>.title();
     }
   }
 
-  &.solutions {
-    .x-column-count(1);
-    > .section .title > a { color: @medium-blue; page-break-after: avoid; }
-    p:nth-of-type(1) { text-indent: 0em; margin-top: 1em; }
+  &.cnx-solutions {
+    #part>#end>#solutions>.style();
+    > .section .title > a { #part>#end>#solutions>.title-link(); }
+    p:nth-of-type(1) { margin-top: 1em; }
   }
 
-  //ccap-base sets this so override it here
-  .references p { text-indent: 0em; }
 
-  .problem .orderedlist { margin-left: 4em;}
+  .problem .orderedlist { margin-left: 4em; }
 
-  .empty { display: hidden; } //hide element but count it   *didn't use visibility property which would cause element to still take up space on page
+  .empty { display: hidden; } // hide, but count, empty elements.
 }
 
 // Turn off section numbering and title for eoc collations
@@ -468,16 +212,29 @@ div.part > div.titlepage {display:none;}
   > .section > .title { display: none; }
 }
 
-/* -------------------------
+
+//
+//
+// Below these lines things are in a "require more thought"
+// state. These pieces need to be refactored, but we need
+// to decide how they should be structured.
+//
+// A lot of this just needs to move into content slots.
+//
+//
+
+
+/********************************************************************
  * Generic Elements
- * -------------------------
- */
+ ********************************************************************/
 body {
   font-size: 9.5pt;
   text-align: justify;
 }
-
-img { max-height:9.5in; }
+.book > .cnx-title h1 {
+  text-align: left;
+}
+img { max-height: 9.5in; }
 
 .chapter h1.title {
   /*reset left only*/
@@ -542,46 +299,16 @@ h5 {
   font-style: italic;
 }
 
-blockquote {
-  color: @light-blue;
-  font-size: 150%;
-
-  &::before, &::after {
-    font-weight: bold;
-    color: black;
-  }
-
-  &::before { content: "\201C" /* open-quote */; }
-  &::after { content: "\201D" /* close-quote; */; }
-}
-
-
-
 p {
   font-family: @font-family-precalculus;
 }
 
 .glossary {
-  // End-of-chapter material should start on a new page
-  page-break-before: always;
-  display:inline;
-
-  .title {
-    /* Change "Glossary" to "Key Terms" */
-    content: "Key Terms";
-    color: @medium-blue;
-    font-size: large;
-    padding: 0em;
-    display: block;
-    text-transform:uppercase;
-  }
 
   // For Precalculus it is desired to have main heading Chapter Review above the Key Terms
   // At the top of the page.  This is possible by using psuedo-selector ::before to display
   // this before the glossary title
 
-  // During PreCalculus build or refactor fix glossary section to remove
-  // !importants and cleanup.
   .title::before {
     content: "" "Chapter " counter(chapter, decimal) " Review";
     color: @medium-blue;
@@ -595,8 +322,6 @@ p {
   // Remove ":"
   dt::after { content: " "; }
 }
-
-.section > .title { page-break-after:avoid; }
 
 img, figure, subfigure  { margin: 1em; }
 
@@ -634,6 +359,22 @@ img, figure, subfigure  { margin: 1em; }
 
 .example .solution { padding-top: 1em; padding-bottom: 1em; }
 
+// This lengthy selector is required to override a display:none.
+div.book div.chapter > div.section div.example div.exercise .problem {
+  .table > table > caption::before {
+    display: block;
+  }
+  .table {
+    counter-increment: table !important; // Overrides !important from base.
+  }
+  .figure {
+    counter-increment: figure !important; // Overrides !important from base.
+  }
+  .figure .title ::before {
+    display: block;
+  }
+}
+
 // for examples that have a problem/solution structure that need numbered headings
 .example .exercise {
   counter-increment: none;
@@ -662,7 +403,16 @@ img, figure, subfigure  { margin: 1em; }
     float: left;
   }
 
+  .solution {
+    // For solutions that use lists do not display inline with solution header
+    // as paragraphs. Lists need to be inset below
+    ol,ul {
+      margin-left: 2em;
+      margin-top: 2em;
+    }
+  }
 
+                  
 
 
 
@@ -718,12 +468,18 @@ img, figure, subfigure  { margin: 1em; }
     margin-bottom: 1em;
   }
 
-  .exercise .title {
+  .exercise > .title {
     content: counter(exercise) ".";
     float: left;
   }
 
   .exercise .problem { text-indent: 1em; }
+  .exercise .problem .figure { text-indent: 0; }
+
+  // The end-of-section exercises should not display solutions
+  // It will be either this if they wish to do a solutions manual, or we will
+  // collate to end-of-book
+  .exercise .solution { display: none; }
 
   // Create Exercises Title above sections
   &::before {
@@ -742,7 +498,18 @@ img, figure, subfigure  { margin: 1em; }
 
 }
 
-
+/* -------------------------
+ * End of Section/Chapter Exercise Solution Styling
+ * -------------------------
+ */
+.section[title="Section Exercises"] {
+  .section .exercise .body .solution {
+    display: none;
+  }
+  .exercise .body .solution {
+    display: none;
+  }
+}
 
 
 
