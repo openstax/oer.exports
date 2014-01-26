@@ -65,12 +65,6 @@
       .x-pb-inside(auto);
       .x-feature(black, @gray, work, 0.38in); 
 
-      // weblinks included in media list need to be orange and bold
-      .itemizedlist > .listitem {
-        color: @orange;
-        font-weight: bold;
-      }
-
       // Supress the extra url generated from base that is wrapped with parentheses
       .itemizedlist > .listitem .link.only-show-once { 
         content: content();
@@ -149,7 +143,9 @@
     border: none;
   }  
 
-  > .body p, blockquote { 
+  // Must apply padding to all elements in body not just blockquote and para, tables 
+  // are being stuffed inside features as well and must play nice with text alignment
+  > .body { 
     font-family: @font-family; 
     padding: 0px .8em;
   }
@@ -159,8 +155,6 @@
     > .title { font-size: x-small; color: @dark-blue; }
   }
 }
-
-
 
 
 /* -------------------------
@@ -241,11 +235,14 @@
       display: none;
     }
 
-    // Learning objectives fort for economics is in serif and doesn't have left indent like PreCalculus
+    // Learning objectives font for economics is in serif and doesn't have left indent like PreCalculus
     p { 
       font-family: @font-family-serif;
-      margin-left: 0; 
+      // destroy margin shorthand from PreCalc and then reduce margin space on top per W&N
+      margin: 0;
+      margin-top: .2em; 
     }
+
 
     // Economics doesn't need a counter for modules to display like PreCalculus - turning off
     .itemizedlist > .listitem {
@@ -254,15 +251,22 @@
       // For Economics we need just garden variety bullets for list.  
       display: list-item;
       list-style-type: disc;
+      margin-top: 0;
 
       &::before {
         display: none;
       }
+
+      // styling must be overriden in PreCalculus to compensate for numbering that has been turned off
+      // Bulleted items must never display on second line of text, always first line of text. Do not
+      // need any margins from PreCalc as well.
+      p { 
+        display: inline; 
+        margin: 0; 
+      }
     }
   }
 }
-
-
 
 /* -------------------------
  * Generic Elements
@@ -443,8 +447,6 @@ blockquote {
       padding-top: .2em;
       margin:0; 
       padding:0;
-
-      p { border: 1px solid red; text-align: left; margin:0; padding:0; }
     }
 
     > dt::after { float: left; }
