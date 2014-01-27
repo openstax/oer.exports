@@ -413,61 +413,22 @@ blockquote {
  * EOC Styling
  ******************************************************************************/
 
-// Key Terms
-.glossary > .titlepage h2.title {
-  color: @dark-blue;
-}
+ // Key Terms
 .glossary {
   > .titlepage h2.title {
-    display: inline;
     font: normal normal 700 13pt/1em @font-family;
+    color: @dark-blue;
     padding-left: 0;
   }
 
-  > dl dt {
-    font: normal normal 700 10pt/1em @font-family;
-  }
-  > dl dd {
-    font: normal normal 400 10pt/1em @font-family-serif;
-  }
-}
-.glossary {
-  // Hide "Chapter x Review" title.
-  > .titlepage h2.title::before {
+  &:before {
     display: none !important; // !important is used in ccap-precalculus.
   }
-
-  > dl {
-    margin: 0;
-
-    > dt, > dd {
-      &:first-of-type {
-        padding-top: 1em;
-      }
-      padding-top: .2em;
-      margin:0; 
-      padding:0;
-    }
-
-    > dt::after { float: left; }
-
-  }
-}
-
-
-// Glossary Term and Non-bolded Glossary Term
-.glossary .glossterm {
-  font: normal normal 700 10pt/13pt @font-family-serif;
-}
-
-.glossterm.no-emphasis {
-  font-weight: 400;
 }
 
 // In base-skeleton.less some former precalculus universal selector cruft from precalcuus
 // exists. We have to target the span here to fix the header sizes and remove a little padding
 // to comply with economics template.
-
 .cnx-eoc > .title > span {
   padding-left: 0;
   font-size: 13pt;
