@@ -65,12 +65,6 @@
       .x-pb-inside(auto);
       .x-feature(black, @gray, work, 0.38in); 
 
-      // weblinks included in media list need to be orange and bold
-      .itemizedlist > .listitem {
-        color: @orange;
-        font-weight: bold;
-      }
-
       // Supress the extra url generated from base that is wrapped with parentheses
       .itemizedlist > .listitem .link.only-show-once { 
         content: content();
@@ -149,7 +143,9 @@
     border: none;
   }  
 
-  > .body p, blockquote { 
+  // Must apply padding to all elements in body not just blockquote and para, tables 
+  // are being stuffed inside features as well and must play nice with text alignment
+  > .body { 
     font-family: @font-family; 
     padding: 0px .8em;
   }
@@ -159,8 +155,6 @@
     > .title { font-size: x-small; color: @dark-blue; }
   }
 }
-
-
 
 
 /* -------------------------
@@ -241,6 +235,15 @@
       display: none;
     }
 
+    // Learning objectives font for economics is in serif and doesn't have left indent like PreCalculus
+    p { 
+      font-family: @font-family-serif;
+      // destroy margin shorthand from PreCalc and then reduce margin space on top per W&N
+      margin: 0;
+      margin-top: .2em; 
+    }
+
+
     // Economics doesn't need a counter for modules to display like PreCalculus - turning off
     .itemizedlist > .listitem {
 
@@ -248,15 +251,22 @@
       // For Economics we need just garden variety bullets for list.  
       display: list-item;
       list-style-type: disc;
+      margin-top: 0;
 
       &::before {
         display: none;
       }
+
+      // styling must be overriden in PreCalculus to compensate for numbering that has been turned off
+      // Bulleted items must never display on second line of text, always first line of text. Do not
+      // need any margins from PreCalc as well.
+      p { 
+        display: inline; 
+        margin: 0; 
+      }
     }
   }
 }
-
-
 
 /* -------------------------
  * Generic Elements
@@ -403,54 +413,22 @@ blockquote {
  * EOC Styling
  ******************************************************************************/
 
-// Key Terms
-.glossary > .titlepage h2.title {
-  color: @dark-blue;
-}
+ // Key Terms
 .glossary {
   > .titlepage h2.title {
     font: normal normal 700 13pt/1em @font-family;
+    color: @dark-blue;
     padding-left: 0;
   }
 
-  > dl dt {
-    font: normal normal 700 10pt/1em @font-family;
-  }
-  > dl dd {
-    font: normal normal 400 10pt/1em @font-family-serif;
-  }
-}
-.glossary {
-  // Hide "Chapter x Review" title.
-  > .titlepage h2.title::before {
+  &:before {
     display: none !important; // !important is used in ccap-precalculus.
   }
-
-  > dl {
-    margin: 0;
-
-    > dt, > dd {
-      &:first-of-type {
-        padding-top: 1em;
-      }
-      padding-top: .2em;
-    }
-  }
-}
-
-// Glossary Term and Non-bolded Glossary Term
-.glossary .glossterm {
-  font: normal normal 700 10pt/13pt @font-family-serif;
-}
-
-.glossterm.no-emphasis {
-  font-weight: 400;
 }
 
 // In base-skeleton.less some former precalculus universal selector cruft from precalcuus
 // exists. We have to target the span here to fix the header sizes and remove a little padding
 // to comply with economics template.
-
 .cnx-eoc > .title > span {
   padding-left: 0;
   font-size: 13pt;
