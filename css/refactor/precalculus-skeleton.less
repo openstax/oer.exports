@@ -116,6 +116,20 @@ div.part > div.titlepage { display: none; }
   }
 }
 
+/********************************************************************
+ * Styling for Chapter Titles
+ ********************************************************************/
+.chapter h1.title {
+  #part>#chapter>.title();
+  .cnx-gentext-n {
+    #part>#chapter>.title-number();
+  }
+  .cnx-gentext-t {
+    &::before {
+      #part>#chapter>.title-divider();
+    }
+  }
+}
 
 /********************************************************************
  * Styling for Learning Objectives Box
@@ -236,29 +250,6 @@ body {
 }
 img { max-height: 9.5in; }
 
-.chapter h1.title {
-  /*reset left only*/
-  margin-left:0;
-  padding-left: 0;
-  font-size: 35pt; /* x-large; */
-  font-weight: bold;
-  text-align: left;
-  color: @medium-blue;
-
-  .cnx-gentext-n {
-    font-weight: bold;
-    padding-right: 0em;
-    color: @medium-blue;
-  }
-
-  .cnx-gentext-t {
-    &::before {
-      content: "| ";
-      color: black;
-    }
-  }
-}
-
 a { font-weight: bold; color: @orange;}
 
 
@@ -300,7 +291,7 @@ h5 {
 }
 
 p {
-  font-family: @font-family-precalculus;
+  font-family: @font-family-serif;
 }
 
 .glossary {
@@ -455,7 +446,7 @@ div.book div.chapter > div.section div.example div.exercise .problem {
 
 // Headers are san-serif but the text of exercises are serif
 .section .exercise {
-   font-family: @font-family-precalculus;
+   font-family: @font-family-serif;
 }
 
 .section.section-exercises {
@@ -547,7 +538,7 @@ div.book div.chapter > div.section div.example div.exercise .problem {
     text-align: center; //center subfigure caption
     * {
       font-weight: normal; //override strong tag
-      font-family: @font-family-precalculus;
+      font-family: @font-family-serif;
     }
   }
 
@@ -677,7 +668,7 @@ div.book div.chapter > div.section div.example div.exercise .problem {
   text-align: center; //center subfigure caption
   * {
     font-weight: normal; //override strong tag
-    font-family: @font-family-precalculus;
+    font-family: @font-family-serif;
   }
 }
 
@@ -783,7 +774,7 @@ div.end-of-book-solutions {
   }
 
   .chapter-area {
-    font-family: @font-family-precalculus;
+    font-family: @font-family-serif;
     a {
       &.solution { color: black; }
       &.chapter * {
