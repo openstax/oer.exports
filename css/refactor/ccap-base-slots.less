@@ -9,14 +9,16 @@
     #utils>#pb>.before(right);
     #utils>#pb>.after(always);
   }
-  .title() {
-    #utils>#pb>.after(avoid);
-    text-align: center;
-    font-size: large;
-    font-weight: bold;
-    margin-bottom: 0em;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
+  #title {
+    .style() {
+      #utils>#pb>.after(avoid);
+      text-align: center;
+      font-size: large;
+      font-weight: bold;
+      margin-bottom: 0em;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+    }
   }
 
   #entry {
@@ -73,9 +75,11 @@
     string-set: cnx-header "Index";
     .x-column-count(3);
   }
-  .title() {
-    display: inline;
-    string-set: cnx-header content();
+  #title {
+    .style() {
+      display: inline;
+      string-set: cnx-header content();
+    }
   }
   .letter() {
     font-weight: bold; 
@@ -87,9 +91,6 @@
 }
 
 #part {
-
-  // TODO: Remove #title in favor of .title() mixins
-  // inside individual part/content namespaces.
   #title {
     //NOTE: Use separate Mixins (instead of @scope:default) when you do not want the default CSS to be used for all scopes
     .style(@scope) {}
@@ -114,6 +115,7 @@
   #preface {
     .style() {}
 
+    // How does this fit into #title> namespaces?
     #titlepage {
       .style() {
       }
@@ -124,10 +126,12 @@
   }
 
   #introduction {
-    .title(chapter) {
-      padding-right: 3em;
-      font-weight: bold;
-      font-size: normal;
+    #title {
+      .style(chapter) {
+        padding-right: 3em;
+        font-weight: bold;
+        font-size: normal;
+      }
     }
     #splash-figure {
       // .style() {}
@@ -150,16 +154,18 @@
       border-spacing: 0px;
       #utils>#pb>.inside(avoid);
     }
-    .title() {
-      color: white;
-      font-size: large;
-      font-weight: bold;
-      text-align: center;
-      padding: 0.25em;
-      margin: 0em;
-    }
-    .title-content() {
-      content: "Learning Objectives";
+    #title {
+      .style() {
+        color: white;
+        font-size: large;
+        font-weight: bold;
+        text-align: center;
+        padding: 0.25em;
+        margin: 0em;
+      }
+      .content() {
+        content: "Learning Objectives";
+      }
     }
     .children() {
       padding-left: 0em;
@@ -170,11 +176,13 @@
         list-style-type: none;
         margin: 0.50em 0em;
       }
-      .title() {
-        color: inherit;
-        font-weight: bold;
-        padding: 0.25em 0em;
-        margin: 0em 1em 0em 0.5em;
+      #title {
+        .style() {
+          color: inherit;
+          font-weight: bold;
+          padding: 0.25em 0em;
+          margin: 0em 1em 0em 0.5em;
+        }
       }
       .children-indent() {
         margin-left: 0.25em;
@@ -203,10 +211,12 @@
 
   #chapter {
     .style() {}
-    .title() {}
-    .title-text() {}
-    .title-number() {}
-    .title-divider() {}
+    #title {
+      .style() {}
+      .text() {}
+      .number() {}
+      .divider() {}
+    }
   }
 
   // End-of-chapter parts

@@ -15,14 +15,14 @@
     #content>#section>.style(@scope; @context);
 
     > .title {
-      #content>#section>.title(@scope; @context);
+      #content>#section>#title>.style(@scope; @context);
     }
   }
   .example { 
     @context: example;
 
     #content>#example>.style(@scope; default);
-    > .title { #content>#example>.title(); }
+    > .title { #content>#example>#title>.style(); }
     > .body { #content>#example>.body(); }
 
     .exercise {
@@ -49,7 +49,7 @@
     @context: glossary;
 
     #content>#glossary>.style(@scope; default);
-    .titlepage h2 { #content>#glossary>.title(); }
+    .titlepage h2 { #content>#glossary>#title>.style(); }
     dl {
       #content>#description-list>.style(@scope; @context);
       dt { #content>#description-list>.term(); }

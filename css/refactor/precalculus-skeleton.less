@@ -27,13 +27,13 @@
       #content>#note>#try>.style();
 
       > .title {
-        #content>#note>#try>.title();
+        #content>#note>#try>#title>.style();
       }
 
       .exercise {
         @context: feature-try-exercise;
         #content>#exercise>.style(@scope; feature-try);
-        > .title { #content>#exercise>.title(@scope; feature-try); }
+        > .title { #content>#exercise>#title>.style(@scope; feature-try); }
 
         .problem {
           #content>#problem>.style(@scope; @context);
@@ -46,7 +46,7 @@
   }
   &:not(.@{book-title}) {
     #content>#note>.style();
-    > .title { #content>#note>.title(); }
+    > .title { #content>#note>#title>.style(); }
   }
 }
 
@@ -85,11 +85,11 @@ div.part > div.titlepage { display: none; }
  */
 .chapter > .introduction {
   >.title {
-    #part>#introduction>.title();
+    #part>#introduction>#title>.style();
   }
 
   > .toc a {
-    #part>#toc>#entry>.title();
+    #part>#toc>#entry>#title>.style();
   }
 
   // overide hyperlink medium blue color must be back and normal weight
@@ -111,7 +111,7 @@ div.part > div.titlepage { display: none; }
     #part>#toc>.style();
 
     >.title {
-      #part>#toc>.title();
+      #part>#toc>#title>.style();
     }
   }
 }
@@ -120,13 +120,13 @@ div.part > div.titlepage { display: none; }
  * Styling for Chapter Titles
  ********************************************************************/
 .chapter h1.title {
-  #part>#chapter>.title();
+  #part>#chapter>#title>.style();
   .cnx-gentext-n {
-    #part>#chapter>.title-number();
+    #part>#chapter>#title>.number();
   }
   .cnx-gentext-t {
     &::before {
-      #part>#chapter>.title-divider();
+      #part>#chapter>#title>.divider();
     }
   }
 }
@@ -140,7 +140,7 @@ div.part > div.titlepage { display: none; }
     #content>#section>#abstract>.style();
 
     &::before {
-     #content>#section>#abstract>.title();
+     #content>#section>#abstract>#title>.style();
     }
 
 
