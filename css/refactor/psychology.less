@@ -50,6 +50,7 @@
 @cnx-string-critical-thinking-questions: "Critical Thinking Questions";
 @cnx-string-personal-application-questions: "Personal Application Questions";
 
+
 /******************************************************
  * Set the colors used by various elements.
  ******************************************************/
@@ -123,15 +124,6 @@ div.section div.titlepage div.abstract::before,
   border-color: @orange;
 }
 
-// Collated colors
-.glossary .title,
-div.cnx-eoc > .title {
-  color: @red !important; // Important to override !important in ccap-precalculus.
-  border-bottom-color: @orange;
-}
-div.cnx-eoc.summary > .section .title > a {
-  color: @black;
-}
 
 .colophon > h1.title,
 .colophon > h1.title,
@@ -295,12 +287,7 @@ div.section div.titlepage div.abstract {
 }
 
 // Collated font styles
-.glossary .title,
-div.cnx-eoc > .title { // Important to override !important in ccap-precalculus.less
-  font-size: 12pt !important;
-  font-weight: 700 !important;
-  text-transform: none !important;
-}
+
 div.end-of-book-solutions div.solution > div.title a.solution,
 div.end-of-book-solutions .chapter-area a.chapter *,
 div.end-of-book-references > .chapter-area > .title,
@@ -325,9 +312,7 @@ div.end-of-book-solutions div.solution > div.body {
     line-height: 13pt;
   }
 }
-.glossterm.no-emphasis {
-  font-weight: 400;
-}
+
 
 .index {
   .letter,
@@ -336,9 +321,7 @@ div.end-of-book-solutions div.solution > div.body {
   }
 }
 
-.glossary .glossterm {
-  font: normal normal 700 10pt/13pt @font-family-serif;
-}
+
 
 
 /******************************************************
@@ -583,52 +566,7 @@ div:not(.body) > .itemizedlist > .itemizedlist > .listitem {
   padding: 15px 0px;
 }
 
-/******************************************************
- * Collated titles
- ******************************************************/
-.glossary .title,
-div.cnx-eoc > .title {
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-}
 
-/******************************************************
- * Key Terms
- ******************************************************/
-.glossary {
-  dl {
-    margin: 1em 0;
-  }
-  dd {
-    margin-left: 0px;
-  }
-}
-
-div.book div.chapter div.titlepage > div > div > h2.title {
-  margin-bottom: 1em;
-}
-
-/**
-  These two sets of selectors are a part of a bug fix for glossary terms which
-  were not properly wrapping around floated dt elements. Here we get rid 
-  of floats, set all elements inline, and then force breaks after term definitions
-  using preformatted whitespace in dd::after.
- **/
-.glossary *,
-.glossary .glossterm,
-.glossary dt {
-  display: inline;
-  float: none;
-}
-div.book div.chapter > div.glossary dd::after {
-  display: inherit;
-  white-space: pre; 
-  content: '\A\A';
-}
-
-.cnx-eoc .title {
-  padding-bottom: 4px;
-}
 
 /******************************************************
  * References/Solutions
@@ -811,24 +749,24 @@ div.book div.chapter > div.glossary dd::after {
 /******************************************************
  * EOC Customizations
  ******************************************************/
-.cnx-eoc > .title > * { font-size: large !important; padding: 0 !important; }
+.cnx-eoc > .title > * { font-size: large; padding: 0; }
 
 // eoc solution number links color
 .cnx-eoc > .solution > a.number { color: @medium-blue; }
 
 .cnx-eoc {
   .x-column-count(2);
-  column-width: auto !important;
-  column-fill: balance !important;
+  column-width: auto;
+  column-fill: balance;
   page-break-inside: auto;
   column-break-inside: auto;
 
   > .title  {
-    text-transform: uppercase !important;
+    text-transform: uppercase;
     text-align: left; //override from base .x-column-count
-    color: @medium-blue !important;
-    font-size: large !important;
-    font-weight: bold !important;
+    color: @medium-blue;
+    font-size: large;
+    font-weight: bold;
     page-break-after: avoid;
   }
 
@@ -846,6 +784,9 @@ div.book div.chapter > div.glossary dd::after {
                       // The first div is a title, and the second is ".section .empty".
     }
   }
+
+  /* refactored into skeleton/slot - Stacey - 1/31/2014
+  /* This was refactored into psychology-skeleton.less and psychology-slots.less for use in the History text
 
   &.review-questions {
     .x-column-count(2);
@@ -885,6 +826,7 @@ div.book div.chapter > div.glossary dd::after {
       margin-bottom: 1em;
     }
   }
+*/
 
   &.solutions {
     .x-column-count(1);
@@ -915,15 +857,12 @@ div.book div.chapter > div.glossary dd::after {
   display: none; 
 }
 
-.glossary .title::before {
-  display: none !important; // !important is used here befcause !important was used in
-                            // ccap-precalculus.less.
-}
-
 
 /******************************************************
  * EOB Customizations
  ******************************************************/
+
+/* Refactored into skeleton / slot for psychology. Stacey - 2/3/14
 div.end-of-book-solutions {
   column-count: 2;
 
@@ -940,6 +879,7 @@ div.end-of-book-solutions {
     padding-bottom: .5em;
   }
 }
+*/
 
 div.end-of-book-references .chapter-area {
   margin: 1em 0;
@@ -981,6 +921,140 @@ div.end-of-book-references .chapter-area {
     text-transform: uppercase;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// We may need to refactor for our history book.  I found in economics that in theory
+// we should be able to make Mr. Glossary display correctly just inhertined from base.
+// Biology and Anatomy are using very little code for Glossary. 
+
+
+
+/******************************************************
+ * Collated titles
+ ******************************************************/
+.glossary .title,
+div.cnx-eoc > .title {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+
+/******************************************************
+ * Key Terms
+ ******************************************************/
+.glossary {
+  dl {
+    margin: 1em 0;
+  }
+  dd {
+    margin-left: 0px;
+  }
+}
+
+div.book div.chapter div.titlepage > div > div > h2.title {
+  margin-bottom: 1em;
+}
+
+/**
+  These two sets of selectors are a part of a bug fix for glossary terms which
+  were not properly wrapping around floated dt elements. Here we get rid 
+  of floats, set all elements inline, and then force breaks after term definitions
+  using preformatted whitespace in dd::after.
+ **/
+.glossary *,
+.glossary .glossterm,
+.glossary dt {
+  display: inline;
+  float: none;
+}
+div.book div.chapter > div.glossary dd::after {
+  display: inherit;
+  white-space: pre; 
+  content: '\A\A';
+}
+
+.cnx-eoc .title {
+  padding-bottom: 4px;
+}
+
+
+// Collated colors
+.glossary .title,
+div.cnx-eoc > .title {
+  color: @red;
+  border-bottom-color: @orange;
+}
+div.cnx-eoc.summary > .section .title > a {
+  color: @black;
+}
+
+.glossary .title,
+div.cnx-eoc > .title { // Important to override !important in ccap-precalculus.less
+  font-size: 12pt;
+  font-weight: 700;
+  text-transform: none;
+}
+
+
+.glossary .title::before {
+  display: none !important; // !important is used here befcause !important was used in
+                            // ccap-precalculus.less.
+}
+
+.glossterm.no-emphasis {
+  font-weight: 400;
+}
+
+.glossary .glossterm {
+  font: normal normal 700 10pt/13pt @font-family-serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @import url('ccap-base-skeleton.less');
 @import url('content-skeleton.less');
