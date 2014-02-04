@@ -19,6 +19,17 @@ h1.title {
  ********************************************************************/
 
 .cnx-eoc {
+  &.summary {
+    #part>#chapter-end>#summary>.style();
+    > .title { #part>#chapter-end>#summary>.title(); }
+
+    p:nth-of-type(1) {  margin-top:0; }
+    > div.section:nth-of-type(3) .title {
+      padding-top: 0; // nth-of-type here is strange, but there is no nth-of-class, etc.
+                      // The first div is a title, and the second is ".section .empty".
+    }
+  }
+
   &.review-questions {
     #part>#chapter-end>#review-questions>.style();
     > .title { #part>#chapter-end>#review-questions>.title(); }
@@ -42,6 +53,23 @@ h1.title {
       margin-bottom: 1em;
     }
   }
+}
+
+// Turn off section numbering and title for eoc collations
+.review-questions, .critical-thinking, .personal-application {
+  > .section > .title { display: none; }
+}
+
+// Override must be applied from PreCalculus to view headers
+.summary {
+  > .section > .title { display: block; }
+}
+
+/* Squash references and solutions if they show up at the end of 
+   a chapter. They are special-cased and show up at the end of the book */
+.cnx-eoc.references,
+.cnx-eoc.cnx-solutions, { 
+  display: none; 
 }
 
 

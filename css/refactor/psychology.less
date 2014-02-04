@@ -719,74 +719,6 @@ div:not(.body) > .itemizedlist > .itemizedlist > .listitem {
 
 
 /******************************************************
- * EOC Customizations
- ******************************************************/
-.cnx-eoc > .title > * { font-size: large; padding: 0; }
-
-// eoc solution number links color
-.cnx-eoc > .solution > a.number { color: @medium-blue; }
-
-.cnx-eoc {
-  .x-column-count(2);
-  column-width: auto;
-  column-fill: balance;
-  page-break-inside: auto;
-  column-break-inside: auto;
-
-  > .title  {
-    text-transform: uppercase;
-    text-align: left; //override from base .x-column-count
-    color: @medium-blue;
-    font-size: large;
-    font-weight: bold;
-    page-break-after: avoid;
-  }
-
-  &.summary {
-    .x-column-count(1);
-    > .title { 
-      content: @cnx-string-summary; 
-      padding-bottom: 0;
-      margin-bottom: 1em;
-    }
-    > .section .title > a { color: @medium-blue; page-break-after: avoid; }
-    p:nth-of-type(1) {  margin-top:0; }
-    > div.section:nth-of-type(3) .title {
-      padding-top: 0; // nth-of-type here is strange, but there is no nth-of-class, etc.
-                      // The first div is a title, and the second is ".section .empty".
-    }
-  }
-
-  &.solutions {
-    .x-column-count(1);
-    > .section .title > a { color: @medium-blue; page-break-after: avoid; }
-    p:nth-of-type(1) { margin-top: 1em; }
-  }
-
-
-  .problem .orderedlist { margin-left: 4em;}
-
-  .empty { display: hidden; } //hide element but count it   *didn't use visibility property which would cause element to still take up space on page
-}
-
-// Turn off section numbering and title for eoc collations
-.review-questions, .critical-thinking, .personal-application {
-  > .section > .title { display: none; }
-}
-
-// Override must be applied from PreCalculus to view headers
-.summary {
-  > .section > .title { display: block; }
-}
-
-/* Squash references and solutions if they show up at the end of 
-   a chapter. They are special-cased and show up at the end of the book */
-.cnx-eoc.references,
-.cnx-eoc.cnx-solutions, { 
-  display: none; 
-}
-
-/******************************************************
  * Folio Customizations
  ******************************************************/
 
@@ -811,27 +743,6 @@ div:not(.body) > .itemizedlist > .itemizedlist > .listitem {
     text-transform: uppercase;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /******************************************************
