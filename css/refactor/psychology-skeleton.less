@@ -46,12 +46,15 @@ h1.title {
 
 
 /******************************************************
- * EOB Customizations
+ * End-of-Book Solution Customizations
  ******************************************************/
 
 div.end-of-book-solutions {
   #part>#book-end>#end-of-book-solutions>.style();
-  #part>#book-end>#end-of-book-solutions>.title();
+  
+  > .title {
+    #part>#book-end>#end-of-book-solutions>.title();
+  }
 
   div.solution {
     padding-bottom: .5em;
@@ -59,6 +62,50 @@ div.end-of-book-solutions {
     > div.body {
       padding-right: .5em;
     }
+  }
+}
+
+div.end-of-book-references .chapter-area {
+  #part>#book-end>#end-of-book-references>.style();
+  
+  .section-area { 
+    > .title {
+      // Hide module titles in references. Only Chapter numbers
+      // are displayed for each set of references.
+      display: none;
+    }
+    > .body p {
+      margin: 1em 0;
+    }
+  }
+}
+
+/******************************************************
+ * End-of-Book References Customizations
+ ******************************************************/
+.colophon > h1.title,
+.colophon > h1.title,
+.book > .toc > .title
+{
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  margin-left: 0px;
+  padding-left: 0px;
+}
+
+
+/******************************************************
+ * End-of-Book Index Customizations
+ ******************************************************/
+.index {
+  #part>#book-end>#index>.style();
+
+  .title {
+    #part>#book-end>#index>.title();
+  }
+  
+  .index-term {
+    padding-bottom: 10px;
   }
 }
 
