@@ -5,7 +5,7 @@
 @cnx-string-key-concepts: "Key Concepts";
 
 #toc {
-  .style() {
+  .style(...) {
     border-bottom-color: @medium-blue;
     color: @medium-blue;
     margin-bottom: .5em;
@@ -14,17 +14,17 @@
 #part {
   #preface {
     #titlepage {
-      .style() {
+      .style(...) {
         padding-bottom: 1em;
       }
-      .title() {
+      .title(...) {
         background-color: @medium-blue; 
       }
     }
   }
   #introduction {
     #title {
-      .style() {
+      .style(...) {
         content: @cnx-string-introduction;
         font-size: x-large;
       }
@@ -32,12 +32,12 @@
   }
 
   #toc {
-    .style() {
+    .style(...) {
       width: 100%;
       border: 1px solid @medium-blue;
     }
     #title {
-      .style() {
+      .style(...) {
         content: @cnx-string-chapter-outline;
         padding-top: .1em;
         padding-bottom: .2em;
@@ -46,7 +46,7 @@
     }
     #entry {
       #title {
-        .style() {
+        .style(...) {
           color: @medium-blue;
           font-weight: bold;
         }
@@ -56,7 +56,7 @@
   
   #chapter {
     #title {
-      .style() {
+      .style(...) {
         /*reset left only*/
         margin-left:0;
         padding-left: 0;
@@ -65,12 +65,12 @@
         text-align: left;
         color: @medium-blue;
       }
-      .number() {
+      .number(...) {
         font-weight: bold;
         padding-right: 0em;
         color: @medium-blue;
       }
-      .divider() {
+      .divider(...) {
         content: "| ";
         color: black;
       }
@@ -79,103 +79,117 @@
 
   // End-of-chapter parts
   #chapter-end {
-    .style() {
+    .style(...) {
       .x-column-count(2);
       column-width: auto;
       column-fill: balance;
       #utils>#pb>.inside(auto);
       column-break-inside: auto;
     }
-    .title() {
-      text-transform: uppercase;
-      text-align: left;
-      color: @medium-blue;
-      font-size: large;
-      font-weight: bold;
-      #utils>#pb>.after(avoid);
-    }
-    #summary {
-      .style() {
-        .x-column-count(1);
-      }
-      .title() {
-        content: "Chapter " counter(chapter, decimal) " Review"; 
-      }
-      .title-link() {
+    #title {
+      .style(...) {
+        text-transform: uppercase;
+        text-align: left;
         color: @medium-blue;
+        font-size: large;
+        font-weight: bold;
         #utils>#pb>.after(avoid);
       }
     }
-    #key-equations {
-      .style() {
+    #summary {
+      .style(...) {
         .x-column-count(1);
       }
-      .title() {
-        content: @cnx-string-key-equations;
-        column-span: all;  // staging bug-fix.
-        margin-top: 1em;   // this too.
+      #title {
+        .style(...) {
+          content: "Chapter " counter(chapter, decimal) " Review"; 
+        }
+        .link(...) {
+          color: @medium-blue;
+          #utils>#pb>.after(avoid);
+        }
+      }
+    }
+    #key-equations {
+      .style(...) {
+        .x-column-count(1);
+      }
+      #title {
+        .style(...) {
+          content: @cnx-string-key-equations;
+          column-span: all;  // staging bug-fix.
+          margin-top: 1em;   // this too.
+        }
       }
     }
     #key-concepts {
-      .style() {
+      .style(...) {
         .x-column-count(1);
       }
-      .title() {
-        content: @cnx-string-key-concepts;
-        column-span: all;  // staging bug-fix.
-        margin-top: 1em;   // this too.
-      }
-      .title-link() {
-        color: @medium-blue;
+      #title {
+        .style(...) {
+          content: @cnx-string-key-concepts;
+          column-span: all;  // staging bug-fix.
+          margin-top: 1em;   // this too.
+        }
+        .link(...) {
+          color: @medium-blue;
+        }
       }
     }
     #review-exercises {
-      .style() {
+      .style(...) {
         .x-column-count(1);
       }
-      .title() {
-        content: "Chapter " counter(chapter, decimal) " Review Exercises";
-        column-span: all;  // staging bug-fix.
-        margin-top: 1em;   // this too.
+      #title {
+        .style(...) {
+          content: "Chapter " counter(chapter, decimal) " Review Exercises";
+          column-span: all;  // staging bug-fix.
+          margin-top: 1em;   // this too.
+        }
       }
     }
     #practice-test {
-      .style() {
+      .style(...) {
         .x-column-count(1);
       }
-      .title() {
-        content: "Chapter " counter(chapter, decimal) " Practice Test";
-        column-span: all;  // staging bug-fix.
-        margin-top: 1em;   // this too.
+      #title {
+        .style(...) {
+          content: "Chapter " counter(chapter, decimal) " Practice Test";
+          column-span: all;  // staging bug-fix.
+          margin-top: 1em;   // this too.
+        }
       }
     }
     #solutions {
-      .style() {
+      .style(...) {
         display: none; // W&N Requested these be removed 10/25/2013
                        // since they are collated to EOB.
         .x-column-count(1);
       }
-      .title() {}
-      .title-link() {
-        color: @medium-blue;
-        #utils>#pb>.after(avoid);
+      #title {
+        .style(...) {}
+        .link(...) {
+          color: @medium-blue;
+          #utils>#pb>.after(avoid);
+        }
       }
     }
   }
   // End-of-book parts
   #book-end {
-    .style {}
+    .style(...) {}
   }
 }
 #content {
   #note {
-    .style() {
+    .style(...) {
       color: @black;
       background-color: @light-blue;
       padding-bottom: 1em;
     }
     #title {
-      .style() {
+      .style(...) {
         #utils>#pb>.after(avoid);
         text-align: left;
         font-size: small;
@@ -187,30 +201,30 @@
       }
     }
     #howto {
-      .style() {
+      .style(...) {
         #utils>#pb>.inside(avoid);
         .x-feature(howto);
       }
     }
     #qa {
-      .style() {
+      .style(...) {
         #utils>#pb>.inside(avoid);
         .x-feature(qa);
       }
     }
     #media {
-      .style() {
+      .style(...) {
         #utils>#pb>.inside(avoid);
         .x-feature(media);
       }
     }
     #try {
-      .style() {
+      .style(...) {
         #utils>#pb>.inside(avoid);
         .x-feature(try);
       }
       #title {
-        .style() {
+        .style(...) {
           color: @black;
           font-family: @font-family-serif;
           font-size: 10pt;
@@ -224,18 +238,18 @@
   }
   #section {
     #title {
-      .style(@scope; default) {
+      .style(@kind; @part; ...) {
         #utils>#pb>.after(avoid);
       }
     }
     #abstract {
-      .style() {
+      .style(...) {
         counter-reset: learning-objectives;
         border: 1px solid @medium-blue;
         padding: 0em;
       }
       #title {
-        .style() {
+        .style(...) {
           content: @cnx-string-learning-objectives;
           display: inline-block;
           width: 100%;
@@ -251,30 +265,30 @@
     }
   }
   #list {
-    .item(@scope; feature-media) {
+    .item(@kind; @part; feature-media) {
         color: @orange;
         font-weight: bold;
     }
   }
   #exercise {
-    .style(@scope; @context) {
+    .style(...) {
       margin-top: 0;
     }
-    .style(@scope; feature-try) {
+    .style(@kind; @part; feature-try) {
       // Try-it features are considered exercises.
       // Increment counters even though they aren't displayed.
       counter-increment: exercise;
       margin-bottom: 0;
     }
     #title {
-      .style(@scope; feature-try) {
+      .style(@kind; @part; feature-try) {
         // turn off the display of exercise text label and number
         display: none;
       }
     }
   }
   #problem {
-    .style(@scope; feature-try-exercise) {
+    .style(@kind; @part; feature-try; exercise) {
       // Template design asks for lists to be set apart
       ol,ul {
         margin-left: 4em;
@@ -283,13 +297,13 @@
     }
   }
   #solution {
-    .style(@scope; feature-try-exercise) {
+    .style(@kind; @part; feature-try; exercise) {
       // W&N requested solutions be removed 9.24.13
       display: none;
     }
   }
   #blockquote {
-    .style(@scope; default) {
+    .style(...) {
       color: @light-blue;
       font-size: 150%;
 
@@ -303,13 +317,13 @@
     }
   }
   #glossary {
-    .style(@scope; default) {
+    .style(...) {
       // End-of-chapter material should start on a new page
       #utils>#pb>.before(always);
       display:inline;
     }
     #title {
-      .style() {
+      .style(...) {
         /* Change "Glossary" to "Key Terms" */
         content: "Key Terms";
         color: @medium-blue;
