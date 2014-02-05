@@ -179,6 +179,74 @@
   // End-of-book parts
   #book-end {
     .style(...) {}
+    
+    // End of Book Solutions
+    #end-of-book-solutions {
+      .style(...) {}
+
+      #title {
+        .style(...) {
+          content: "Answer Key";
+          color: @medium-blue;
+          margin-left: -.50em;
+          text-transform: uppercase;
+          font-size: x-large;
+          font-weight: bold;
+          background-color: transparent; //overwrite from .colophon title
+        }
+      }
+      #solution {
+        .style(...) {
+          // The Answer Key for the PreCalculus text was converted to be in (1) one column 
+          // and not inline due to the fact that some answers will be cartesian graphs (art).
+          // Not a good experience to be inline.
+          .x-column-count(1);
+        }
+        #title {
+          .style(...) {
+            display: inline;
+            a.solution {
+              color: black;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+
+    // End of Book References
+    #end-of-book-references {
+      .style(...) {}
+
+      #title {
+        .style(...) { //colophon titles are passed as h1's by default by docbook override properties here
+          font-size: x-large;
+          font-weight: bold;
+          background-color: transparent;
+          color: @medium-blue;
+          margin-left: -.50em;
+        }
+      }
+    }
+
+    // End of Book Index
+    #index {
+      .style(...) {
+        text-align: left; //override text-alignment from base .x-column-count
+        column-width: auto;
+      }
+
+      #title {
+        .style(...) {
+          h2 { // Need to find solution for this targeting. Remove h2 from slot
+            padding: 0;
+            color: @medium-blue;
+            text-transform: uppercase;
+            font-size: x-large;
+          } 
+        }
+      }
+    }
   }
 }
 #content {

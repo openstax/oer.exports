@@ -227,6 +227,122 @@ div.part > div.titlepage { display: none; }
 }
 
 
+
+
+
+/* ---------------------------------------------------
+ * End of Book Solutions
+ * ---------------------------------------------------
+ */
+div.end-of-book-solutions {
+  prince-text-replace: "Answer:" ""; //strip out "Answer:" eob solutions for print_pdf
+  #part>#book-end>#end-of-book-solutions>.style();
+
+   > .title {
+    #part>#book-end>#end-of-book-solutions>#title>.style();
+  }
+
+  // Some miscellaneous stuff we will have to decide on
+  .chapter-area {
+    font-family: @font-family-serif;
+    a {
+      &.solution { color: black; }
+      &.chapter * {
+        color: black;
+        font-size: medium;
+      }
+    }
+  }
+
+  div.solution {
+    #part>#book-end>#end-of-book-solutions>#solution>.style();
+    
+    > div.title {
+      #part>#book-end>#end-of-book-solutions>#solution>#title>.style();
+    }
+
+    // We will need to make decision on how to handle ye old generic body stuff
+    > div.body {
+      margin-right: .65em;
+      display: inline;
+      * { display: inline; }
+      > a.target-figure { margin: 0em .25em; } //add margin for .xref in solution body
+    }
+  }
+}
+
+
+/* ---------------------------------------------------
+ * End of Book References
+ * ---------------------------------------------------
+ */
+div.end-of-book-references {
+  #part>#book-end>#end-of-book-references>.style();
+
+  > .title {
+    #part>#book-end>#end-of-book-references>#title>.style();
+  }
+
+  // As with .chapter-area in solutions above, we will have to 
+  // decide on what type of slot we wish to create.
+  > .chapter-area {
+    > .title {
+      color: @medium-blue;
+      font-weight: bold;
+      font-size: medium;
+      margin: .5em 0em;
+    }
+    > .body > p {
+      text-indent: 0em;
+      margin: .5em 0em;
+      > a.link {
+        color: @orange;
+        font-weight: normal;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+
+/* ---------------------------------------------------
+ * Index
+ * ---------------------------------------------------
+ */
+.index {
+  #part>#book-end>#index>.style();
+  #part>#book-end>#index>#title>.style();
+ 
+  h3.letter {
+    color: inherit;
+    font-weight: bold;
+    font-size: medium;
+    padding-top: .5em;
+  }
+
+ .index-term { font-size: small; }
+
+  a { font-weight: bold; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //
 //
 // Below these lines things are in a "require more thought"
@@ -690,63 +806,6 @@ div.book > div.part {
   }
 }
 
-
-/* ---------------------------------------------------
- * End of Book Solutions
- * ---------------------------------------------------
- */
-// TODO: If this is used by other books it should probably be moved to ccap-numbering.less
-div.end-of-book-solutions {
-  div.solution {
-
-    // The Answer Key for the PreCalculus text was converted to be in (1) one column 
-    // and not inline due to the fact that some answers will be cartesian graphs (art).
-    // Not a good experience to be inline.
-    .x-column-count(1);
-
-    > div.title {
-      display: inline;
-      a.solution {
-        color: black;
-        font-weight: bold;
-      }
-    }
-    > div.body {
-      margin-right: .65em;
-      display: inline;
-      * { display: inline; }
-      > a.target-figure { margin: 0em .25em; } //add margin for .xref in solution body
-    }
-  }
-}
-
-
-/* ---------------------------------------------------
- * Index
- * ---------------------------------------------------
- */
-.index {
-  text-align: left; //override text-alignment from base .x-column-count
-  column-width: auto;
-
-  .title h2 {
-    padding: 0;
-    color: @medium-blue;
-    text-transform: uppercase;
-    font-size: x-large;
-  }
-  h3.letter {
-    color: inherit;
-    font-weight: bold;
-    font-size: medium;
-    padding-top: .5em;
-  }
-
- .index-term { font-size: small; }
-
-  a { font-weight: bold; }
-}
-
 // Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
 // originally defined in ccap-numbering.less
 // The hierarchy is copied from ccap-numbering so the selectors (and priority for which to apply) are the same
@@ -761,55 +820,3 @@ div.book, div.book > div.part {
   > div.appendix { .x-duplicate-hierarchy(); }
 }
 
-div.end-of-book-solutions {
-
-  > .title {
-    content: "Answer Key";
-    color: @medium-blue;
-    margin-left: -.50em;
-    text-transform: uppercase;
-    font-size: x-large;
-    font-weight: bold;
-    background-color: transparent; //overwrite from .colophon title
-  }
-
-  .chapter-area {
-    font-family: @font-family-serif;
-    a {
-      &.solution { color: black; }
-      &.chapter * {
-        color: black;
-        font-size: medium;
-      }
-
-    }
-  }
-   prince-text-replace: "Answer:" ""; //strip out "Answer:" eob solutions for print_pdf
-}
-
-div.end-of-book-references {
-  > .title { //colophon titles are passed as h1's by default by docbook override properties here
-      font-size: x-large;
-      font-weight: bold;
-      background-color: transparent;
-      color: @medium-blue;
-      margin-left: -.50em;
-  }
-  > .chapter-area {
-    > .title {
-      color: @medium-blue;
-      font-weight: bold;
-      font-size: medium;
-      margin: .5em 0em;
-    }
-    > .body > p {
-      text-indent: 0em;
-      margin: .5em 0em;
-      > a.link {
-        color: @orange;
-        font-weight: normal;
-        text-decoration: underline;
-      }
-    }
-  }
-}

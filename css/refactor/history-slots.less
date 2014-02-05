@@ -12,6 +12,8 @@
   }
 
   // End of chapter section slots
+  // These sections #summary, #review-questions, and #critical-thinking
+  // can be refactored to use new factory mixin later. Leaving for now.
   #chapter-end {
     .style(...) {}
 
@@ -27,7 +29,6 @@
         }
       }
     }
-
     #review-questions {
       .style(...) {}
 
@@ -40,7 +41,6 @@
         }
       }
     }
-
     #critical-thinking {
       .style(...) {}
 
@@ -64,23 +64,45 @@
       }
       .title() {
         column-span: all;
+        color: @red;
+        font-size: 18pt;
+        text-transform: none;
+        border: none;
       }
     }
+
     // End of book references
     #end-of-book-references {
-      // ToDo
+      .style() {}
+
+      .title() {
+        color: @red;
+        margin-left: 0;
+      }
+    }
+    #index {
+      .style() {}
+
+      .title() {
+        border: none;
+        h2 {
+          color: @red;
+          text-transform: none;
+        }
+      }
     }
   }
 }
-
 #content {
   #glossary {
-   .style(@scope; default) {
-   }
-    .title() {
-      color: @red;
-      font-size: 13pt;
-      text-transform: none;
+   .style(@scope; default) {}
+   
+    #title {
+      .style() {
+        color: @red;
+        font-size: 13pt;
+        text-transform: none;
+      }
     }
   }
 }

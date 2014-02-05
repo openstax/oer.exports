@@ -6,7 +6,10 @@
   &.summary {
     > .section .title {
       display: block;
+      padding-bottom: 0;
     }
+
+    p:nth-of-type(1) {  margin-top: 0; }
   }
 }
 
@@ -17,3 +20,27 @@ div.book div.chapter div.titlepage > div > div > h2.title {
   border: none;
 }
 
+// Not sure how this can be made into skeleton/slot
+.colophon > h1.title { border: none; }
+
+div.end-of-book-references {
+  #part>#book-end>#end-of-book-references>.style();
+  
+  > .title {
+    #part>#book-end>#end-of-book-references>.title();
+  }
+
+  // Chapter numbers subtitle "Chapter 1", "Chapter 2", etc.
+  .chapter-area {
+    > .title { 
+      color: @black; 
+    }
+  }
+}
+
+// Once book-wide link color is set we can remove
+// this below. index-term link will inherit it Placing here for now 
+// for template build and testing
+.index {
+  .index-term a { color: @red; }
+}
