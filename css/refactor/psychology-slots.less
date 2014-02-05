@@ -98,9 +98,46 @@
     }
   }
 }
+#content {
+  #solution {
+    .style(...) {}
 
+    .style(@kind; book-end) {
+      display: inline;
+      padding: 0;
+    }
+    #title {
+      .style(...) {}
 
+      .style(@kind; book-end) {
+        display: inline;
+        padding: 0;
 
+        &::before { 
+          // We must blow up "TARGET-EXERCISE" text coming from ::before
+          // in numbering.less This is the major culprit in inline-solutions bug.
+          content: " "; 
+          display: inline;
+          padding: 0;
+        }
+        &::after {
+          // We need period after numbering
+          content: ".";
+          margin-right: .15em;
+        }
+      }
 
+      .link(...) {}
+    }
+    #body {
+      .style(...) {}
 
+      .style(@kind; book-end) {
+        //border: 1px solid green;
+        display: inline;
+        margin-right: .15em;
+      }
+    }
+  }
+}
 

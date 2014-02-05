@@ -161,7 +161,7 @@
         }
       }
     }
-    #solutions {
+    #solution {
       .style(...) {
         display: none; // W&N Requested these be removed 10/25/2013
                        // since they are collated to EOB.
@@ -365,9 +365,32 @@
     }
   }
   #solution {
+    .style(...) {}
+
     .style(@kind; @part; feature-try; exercise) {
       // W&N requested solutions be removed 9.24.13
       display: none;
+    }
+    .style(@kind; book-end) {
+      // style any PreCalc solution that occurs in #book-end
+    }
+    #title {
+      .style(...) {}
+
+      .style(@kind, book-end);
+
+      .link(...) {}
+    }
+    #body {
+      .style(...) {}
+
+      .style(@kind, book-end) {
+        margin-right: .65em;
+        display: inline;
+        * { display: inline; } // OUCH - place in .body() mixin for now.
+        // will need to change - include in .body mixin for now
+        > a.target-figure { margin: 0em .25em; } //add margin for .xref in solution body
+      }
     }
   }
   #blockquote {
