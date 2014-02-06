@@ -3,50 +3,48 @@
 @context: default;
 
 .note {
-  &.@{book-title} {
-    &.howto {
-      #content>#note>#howto>.style();
+  &.howto {
+    #content>#note>.style(howto);
+  }
+  &.qa {
+    #content>#note>.style(qa);
+  }
+  &.media {
+    @context: feature-media;
+    #content>#note>.style(media);
+
+    .itemizedlist > .listitem {
+      #content>#list>.item(@kind, @part, @context);
     }
-    &.qa {
-      #content>#note>#qa>.style();
+
+    // Supress the extra url generated from base that is wrapped with parentheses
+    .itemizedlist > .listitem .link.only-show-once { 
+      content: content();
     }
-    &.media {
-      @context: feature-media;
-      #content>#note>#media>.style();
+  }
+  &.try {
+    @context: feature-try;
+    #content>#note>.style(try);
 
-      .itemizedlist > .listitem {
-        #content>#list>.item(@kind, @part, @context);
-      }
-
-      // Supress the extra url generated from base that is wrapped with parentheses
-      .itemizedlist > .listitem .link.only-show-once { 
-        content: content();
-      }
+    > .title {
+      #content>#note>#title>.style(@kind; @part; @context);
     }
-    &.try {
-      @context: feature-try;
-      #content>#note>#try>.style();
 
-      > .title {
-        #content>#note>#try>#title>.style();
+    .exercise {
+      #content>#exercise>.style(@kind; @part; @context);
+      > .title { #content>#exercise>#title>.style(@kind; @part; @context); }
+
+      .problem {
+        #content>#problem>.style(@kind; @part; @context; exercise);
       }
-
-      .exercise {
-        #content>#exercise>.style(@kind; @part; @context);
-        > .title { #content>#exercise>#title>.style(@kind; @part; @context); }
-
-        .problem {
-          #content>#problem>.style(@kind; @part; @context; exercise);
-        }
-        .solution {
-          #content>#solution>.style(@kind; @part; @context; exercise);
-        }
+      .solution {
+        #content>#solution>.style(@kind; @part; @context; exercise);
       }
     }
   }
   &:not(.@{book-title}) {
-    #content>#note>.style();
-    > .title { #content>#note>#title>.style(); }
+    #content>#note>.style(non-feature);
+    > .title { #content>#note>#title>.style(non-feature); }
   }
 }
 

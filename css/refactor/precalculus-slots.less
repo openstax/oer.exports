@@ -251,13 +251,31 @@
 }
 #content {
   #note {
-    .style(...) {
+    .style(...) {}
+    .style(non-feature) {
       color: @black;
       background-color: @light-blue;
       padding-bottom: 1em;
     }
+    .style(howto; ...) {
+      #utils>#pb>.inside(avoid);
+      .x-feature(howto);
+    }
+    .style(qa; ...) {
+      #utils>#pb>.inside(avoid);
+      .x-feature(qa);
+    }
+    .style(media; ...) {
+      #utils>#pb>.inside(avoid);
+      .x-feature(media);
+    }
+    .style(try; ...) {
+      #utils>#pb>.inside(avoid);
+      .x-feature(try);
+    }
     #title {
-      .style(...) {
+      .style(...) {}
+      .style(non-feature) {
         #utils>#pb>.after(avoid);
         text-align: left;
         font-size: small;
@@ -267,46 +285,21 @@
         font-weight: bold;
         border-bottom: 1px solid @medium-blue;
       }
-    }
-    #howto {
-      .style(...) {
-        #utils>#pb>.inside(avoid);
-        .x-feature(howto);
-      }
-    }
-    #qa {
-      .style(...) {
-        #utils>#pb>.inside(avoid);
-        .x-feature(qa);
-      }
-    }
-    #media {
-      .style(...) {
-        #utils>#pb>.inside(avoid);
-        .x-feature(media);
-      }
-    }
-    #try {
-      .style(...) {
-        #utils>#pb>.inside(avoid);
-        .x-feature(try);
-      }
-      #title {
-        .style(...) {
-          color: @black;
-          font-family: @font-family-serif;
-          font-size: 10pt;
-          font-weight: bold;
-          float: left;
-          padding-left: 1.5em;
-          padding-right: .3em;
-        }
+      .style(@kind; @part; feature-try) {
+        margin-top: 0;
+        color: @black;
+        font-family: @font-family-serif;
+        font-size: 10pt;
+        font-weight: bold;
+        float: left;
+        padding-left: 1.5em;
+        padding-right: .3em;
       }
     }
   }
   #section {
     #title {
-      .style(@kind; @part; ...) {
+      .style(...) {
         #utils>#pb>.after(avoid);
       }
     }

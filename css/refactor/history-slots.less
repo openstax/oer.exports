@@ -93,7 +93,57 @@
     }
   }
 }
+
+.x-history-feature(@left-color, @header-text) {
+  border-left: 2.5em solid @left-color;
+
+  &::before {
+    background-color: @light-gray;
+    border-bottom: 1px solid @orange;
+    content: @header-text;
+    text-transform: uppercase;
+    width: 100%;
+    padding: .5em 0 .5em 0; // Center text vertically
+    display: block;
+    text-align: center;
+    font: normal bold 14pt/1em @font-family-sans-serif;
+    color: @dark-blue;
+  }
+
+  > .body, > .title { 
+    margin-right: 20px;
+    padding: 5px 0 0 20px;
+  }
+  > .title {
+    font: italic bold 14pt/17pt @font-family-serif;
+  }
+  > .body, > .body p {
+    font: normal normal 9pt/12pt @font-family-sans-serif;
+  }
+}
+
 #content {
+  #note {
+    .style(...) {
+      padding: 0;
+    }
+    .style(my-story; ...) {
+      .x-history-feature(@dark-blue, @cnx-string-my-story);
+    }
+    .style(defining-american; ...) {
+      .x-history-feature(@orange, @cnx-string-defining-american);
+    }
+    .style(americana; ...) {
+      .x-history-feature(@red, @cnx-string-americana);
+    }
+    .style(click-and-explore; ...) {
+    }
+    #title {
+      .style(non-feature) {
+        border: none;
+      }
+    }
+  }
   #glossary {
    .style(@scope; default) {}
    
