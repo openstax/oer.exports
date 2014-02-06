@@ -34,7 +34,15 @@ div.book div.chapter div.titlepage > div > div > h2.title {
 }
 
 // Not sure how this can be made into skeleton/slot
-.colophon > h1.title { border: none; }
+.colophon > h1.title { 
+  background: none;
+}
+
+div.end-of-book-solutions {
+  > h1.title {
+    #part>#book-end>#end-of-book-solutions>#title>.style();
+  }
+}
 
 div.end-of-book-references {
   #part>#book-end>#end-of-book-references>.style();
@@ -55,5 +63,8 @@ div.end-of-book-references {
 // this below. index-term link will inherit it Placing here for now 
 // for template build and testing
 .index {
+  > .title h2 {
+    #part>#book-end>#index>#title>.style();
+  }
   .index-term a { color: @red; }
 }

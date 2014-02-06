@@ -208,8 +208,8 @@ div.part > div.titlepage { display: none; }
   }
 
   &.cnx-solutions {
-    #part>#chapter-end>#solutions>.style();
-    > .section .title > a { #part>#chapter-end>#solutions>#title>.link(); }
+    #content>#solution>.style(@kind; chapter);
+    > .section .title > a { #content>#solution>#title>.link(); }
     p:nth-of-type(1) { margin-top: 1em; }
   }
 
@@ -236,7 +236,7 @@ div.end-of-book-solutions {
   prince-text-replace: "Answer:" ""; //strip out "Answer:" eob solutions for print_pdf
   #part>#book-end>#end-of-book-solutions>.style();
 
-   > .title {
+  > .title {
     #part>#book-end>#end-of-book-solutions>#title>.style();
   }
 
@@ -253,18 +253,14 @@ div.end-of-book-solutions {
   }
 
   div.solution {
-    #part>#book-end>#end-of-book-solutions>#solution>.style();
+    #content>#solution>.style(@kind; book-end);
     
     > div.title {
-      #part>#book-end>#end-of-book-solutions>#solution>#title>.style();
+      #content>#solution>#title>.style(@kind; book-end);
     }
 
-    // We will need to make decision on how to handle ye old generic body stuff
     > div.body {
-      margin-right: .65em;
-      display: inline;
-      * { display: inline; }
-      > a.target-figure { margin: 0em .25em; } //add margin for .xref in solution body
+      #content>#solution>#body>.style(@kind; book-end);
     }
   }
 }
@@ -309,24 +305,23 @@ div.end-of-book-references {
  */
 .index {
   #part>#book-end>#index>.style();
-  #part>#book-end>#index>#title>.style();
+  
+  > .title {
+    #part>#book-end>#index>#title>.style();
+  }
  
   h3.letter {
-    color: inherit;
-    font-weight: bold;
-    font-size: medium;
-    padding-top: .5em;
+    #part>#book-end>#index>.letter();
   }
 
- .index-term { font-size: small; }
+  .index-term { 
+    #part>#book-end>#index>.term();
+  }
 
-  a { font-weight: bold; }
+  a { 
+    #part>#book-end>#index>.link();
+  }
 }
-
-
-
-
-
 
 
 
