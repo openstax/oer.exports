@@ -124,9 +124,6 @@ div.section div.titlepage div.abstract::before,
 div.end-of-book-references > .chapter-area > .title {
   color: #000000;
 }
-blockquote {
-  color: #000000;
-}
 /******************************************************
  * Font/Text styles.
  ******************************************************/
@@ -136,9 +133,6 @@ p {
 }
 p,
 .section > p {
-  font: 10pt/13pt URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-blockquote {
   font: 10pt/13pt URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .book > .toc a,
@@ -1217,6 +1211,12 @@ p:nth-of-type(2),
 .introduction blockquote {
   color: #0067ac;
   font-size: 150%;
+  font: 10pt/13pt URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  color: #000000;
+  color: red;
+  font-size: inherit;
+  margin-top: inherit;
+  margin-bottom: inherit;
 }
 .introduction blockquote::before,
 .introduction blockquote::after {
@@ -1228,6 +1228,10 @@ p:nth-of-type(2),
 }
 .introduction blockquote::after {
   content: "\201D" /* close-quote; */;
+}
+.introduction blockquote::before,
+.introduction blockquote::after {
+  content: "";
 }
 .chapter .note {
   padding-left: 1em;
@@ -1306,6 +1310,12 @@ p:nth-of-type(2),
 .chapter blockquote {
   color: #0067ac;
   font-size: 150%;
+  font: 10pt/13pt URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  color: #000000;
+  color: red;
+  font-size: inherit;
+  margin-top: inherit;
+  margin-bottom: inherit;
 }
 .chapter blockquote::before,
 .chapter blockquote::after {
@@ -1317,6 +1327,10 @@ p:nth-of-type(2),
 }
 .chapter blockquote::after {
   content: "\201D" /* close-quote; */;
+}
+.chapter blockquote::before,
+.chapter blockquote::after {
+  content: "";
 }
 .cnx-eoc .note {
   padding-left: 1em;
@@ -1395,6 +1409,12 @@ p:nth-of-type(2),
 .cnx-eoc blockquote {
   color: #0067ac;
   font-size: 150%;
+  font: 10pt/13pt URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  color: #000000;
+  color: red;
+  font-size: inherit;
+  margin-top: inherit;
+  margin-bottom: inherit;
 }
 .cnx-eoc blockquote::before,
 .cnx-eoc blockquote::after {
@@ -1406,6 +1426,10 @@ p:nth-of-type(2),
 }
 .cnx-eoc blockquote::after {
   content: "\201D" /* close-quote; */;
+}
+.cnx-eoc blockquote::before,
+.cnx-eoc blockquote::after {
+  content: "";
 }
 .colophon .note {
   padding-left: 1em;
@@ -1484,6 +1508,12 @@ p:nth-of-type(2),
 .colophon blockquote {
   color: #0067ac;
   font-size: 150%;
+  font: 10pt/13pt URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  color: #000000;
+  color: red;
+  font-size: inherit;
+  margin-top: inherit;
+  margin-bottom: inherit;
 }
 .colophon blockquote::before,
 .colophon blockquote::after {
@@ -1495,6 +1525,10 @@ p:nth-of-type(2),
 }
 .colophon blockquote::after {
   content: "\201D" /* close-quote; */;
+}
+.colophon blockquote::before,
+.colophon blockquote::after {
+  content: "";
 }
 .note.howto {
   padding-left: 1em;
@@ -2047,6 +2081,66 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
 .index a {
   font-weight: bold;
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0.5em 0em;
+  text-align: left;
+}
+h1 {
+  margin: 0.5em 0em;
+  text-align: left;
+  font-size: 34pt;
+}
+h2 {
+  margin: 0.5em 0em;
+  text-align: left;
+  color: #528cbe;
+  font-size: 17pt;
+  font-weight: bold;
+}
+h2 .cnx-gentext-n {
+  color: #528cbe;
+}
+h2 .cnx-gentext-t::before {
+  color: black;
+  content: "| ";
+}
+h2::before {
+  color: #528cbe;
+}
+h3 {
+  margin: 0.5em 0em;
+  text-align: left;
+  color: #528cbe;
+  font-size: 13pt;
+  font-weight: bold;
+  color: #a63c1d;
+}
+h4 {
+  margin: 0.5em 0em;
+  text-align: left;
+  color: #528cbe;
+  font-size: 10pt;
+  font-weight: bold;
+}
+h5 {
+  margin: 0.5em 0em;
+  text-align: left;
+  color: #528cbe;
+  font-size: 10pt;
+  font-weight: bold;
+  font-style: italic;
+}
+h6 {
+  margin: 0.5em 0em;
+  text-align: left;
+  color: #528cbe;
+  font-weight: bold;
+}
 /********************************************************************
  * Generic Elements
  ********************************************************************/
@@ -2063,49 +2157,6 @@ img {
 a {
   font-weight: bold;
   color: #e28f26;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0.5em 0em;
-  text-align: left;
-}
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: #528cbe;
-  font-weight: bold;
-}
-h1 {
-  font-size: 34pt;
-}
-h2 {
-  font-size: 17pt;
-}
-h2 .cnx-gentext-n {
-  color: #528cbe;
-}
-h2 .cnx-gentext-t::before {
-  color: black;
-  content: "| ";
-}
-h2::before {
-  color: #528cbe;
-}
-h3 {
-  font-size: 13pt;
-}
-h4 {
-  font-size: 10pt;
-}
-h5 {
-  font-size: 10pt;
-  font-style: italic;
 }
 p {
   font-family: URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2989,6 +3040,14 @@ div.end-of-book-references .chapter-area > .title {
   text-transform: none;
 }
 .index .index-term a {
+  color: #a63c1d;
+}
+.section h3 {
+  margin: 0.5em 0em;
+  text-align: left;
+  color: #528cbe;
+  font-size: 13pt;
+  font-weight: bold;
   color: #a63c1d;
 }
 div.book {
