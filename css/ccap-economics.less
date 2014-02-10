@@ -23,6 +23,7 @@
 @light-blue:    #CFE1F1; 
 @gray:          #EFEFEF;  
 
+
 // A mixture of serif and sans-serif fonts.
 @font-family-serif: Liberation Serif, serif, @stix-fonts;
 
@@ -138,7 +139,7 @@
     font-size: large;
     margin-top: .6em;
     margin-bottom: .2em;
-    padding: 0px .4em;
+    padding: 0px .5em;
     color: black;
     border: none;
   }  
@@ -146,13 +147,15 @@
   // Must apply padding to all elements in body not just blockquote and para, tables 
   // are being stuffed inside features as well and must play nice with text alignment
   > .body { 
-    font-family: @font-family; 
     padding: 0px .8em;
+
+    // W&N requests that all inline elements inside feature be sans-serif
+    p, ol, li { font-family: @font-family; }
   }
 
   .figure {
     img { max-width: (@page-width - .25em); }   
-    > .title { font-size: x-small; color: @dark-blue; }
+    > .title { font-size: 9.5pt; color: @dark-blue; }
   }
 }
 
@@ -350,13 +353,15 @@ blockquote {
 
   caption,
   caption span,
-  caption::before,
-  caption span.table-caption.caption {
+  caption::before {
     // font added here so down cascade table captions will render well inside eoc question sections
     font-family: @font-family;
     color: @dark-blue;
     padding-bottom: 0;
   }
+
+  // table numbering/caption must be dark blue, but any associated caption should be black;
+  caption span.table-caption.caption { color: black; }
 
   thead {
     th {
@@ -370,6 +375,13 @@ blockquote {
       background-color: @light-blue;
       border-bottom: 2px solid @dark-blue !important; //!important used in ccap-precalculus.
     }
+  }
+
+  // Format and style lists there are being used inside tables
+  .itemizedlist {
+    list-style-type: disc;
+    margin-top: .5em;
+    margin-left: 1em;
   }
 }
 
@@ -424,6 +436,18 @@ blockquote {
   &:before {
     display: none !important; // !important is used in ccap-precalculus.
   }
+}
+
+.glossterm.no-emphasis {
+  font-weight: 400;
+}
+
+// Stop indentation of Key terms and force adherence to 6.5in page width - avoidance of CSS shorthand
+.glossary > dl { 
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: .5em;
+  margin-bottom: .5em;
 }
 
 // In base-skeleton.less some former precalculus universal selector cruft from precalcuus
@@ -560,9 +584,10 @@ div.colophon.end-of-book-references .chapter-area {
   }
 
   > .title {
-    color: @black;
+    color: black;
   }
 }
+
 
 
 // Answer Key 
@@ -572,6 +597,11 @@ div.colophon.end-of-book-solutions div.chapter-area {
 
     > div.title a.solution {
       padding-right: .2em;  
+
+      // Solution in Answer Key needs to have period after number.
+      &::after {
+        content: ". ";
+      }
     }
 
     &:nth-of-type(1) {
@@ -581,6 +611,16 @@ div.colophon.end-of-book-solutions div.chapter-area {
     > div.body {
       // lists must not be inline 
       li { display: list-item; }
+
+      
+      .equation {
+        // Equations need to be on their own line.  We must override inline style for equations.
+        display: block;
+        // Equation numbering turned off in Appendix/Answer Key.  There is no default setting/code
+        // in numbering.less that turns off equation numbering by default for all sections of book.
+        // We will need to extract this part later so we turn off equation numbering for all books.
+        > span.label { display: none; }
+      }
 
       /*
       * This is a bug-fix related to 
@@ -625,7 +665,6 @@ div.colophon.end-of-book-solutions div.chapter-area {
     }    
   }
 }
-
 
 // Titles
 .end-of-book-references,
