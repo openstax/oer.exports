@@ -1,4 +1,25 @@
 #part {
+  // Chapter outline
+  #toc {
+    .style(...) {
+      border: none;
+    }
+    #title {
+      .style(...) {
+        text-align: left;
+        background-color: initial;
+        font: bold normal 11pt/1em @font-family-sans-serif;
+        color: @dark-blue;
+      }
+    }
+    #entry {
+      #title { // "1.1"
+        .style(...) {
+          color: black;
+        }
+      }
+    }
+  }
   #chapter {
     #title {
       .style() {
@@ -7,6 +28,12 @@
       }
       .text() {
         border: none;
+	border-top-style: none;
+        padding-left: 0;
+        color: @dark-blue;
+      }
+      .label() {
+        display: inline;
       }
     }
   }
@@ -141,6 +168,58 @@
       .x-history-feature(@red, @cnx-string-americana);
     }
     .style(click-and-explore; ...) {
+      #utils>#pb>.inside(avoid);
+      background-color: @yellow-35;
+
+      > .body {
+        padding: 20px 0 20px 20px;
+      }
+
+      > .body, > .body p {
+        font: normal normal 9pt/12pt @font-family-sans-serif;
+      }
+
+      &::before {
+        display: block;
+        height: 30px;
+        padding-top: 1.8em;
+        content: @cnx-string-click-and-explore;
+        background-image: linear-gradient(
+          to bottom,
+          @yellow-35 0%,
+
+          @yellow-35 40%,
+          @orange 40%,
+
+          @orange 44%,
+          @dark-blue 44%,
+
+          @dark-blue 96%,
+          @orange 96%          
+        );
+        color: @yellow-50;
+        text-align: center;
+        font: bold normal 16pt/1em @font-family-serif;
+      }
+
+
+
+      //clearfix
+      > .body::after {
+        content: "";
+        display: table;
+        clear: both;  
+      }
+      .mediaobject {
+        float: left;
+        width: @qr;
+        margin-right: 1em;
+        img {
+          margin: 0;
+          width: @qr;
+          height: @qr;
+        }
+      }
     }
     #title {
       .style(non-feature) {
