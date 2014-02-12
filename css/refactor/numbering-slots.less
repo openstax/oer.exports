@@ -86,18 +86,18 @@
 #content {
 
 
-  .counters(@type;    @context) {}
-  .counters(section;  default)  { counter-increment: section; }
-  .counters(table;    default)  { counter-increment: table; }
-  .counters(example;  default)  { counter-increment: example; }
-  .counters(exercise; default)  { counter-increment: exercise; }
-  .counters(equation; default)  { counter-increment: equation; }
-  .counters(footnote; default)  { counter-increment: footnote; }
+  // .counters(@type;    @context) {}
+  .counters(section;          ) { counter-increment: section; }
+  .counters(table;            ) { counter-increment: table; }
+  .counters(example;          ) { counter-increment: example; }
+  .counters(exercise;         ) { counter-increment: exercise; }
+  .counters(equation;         ) { counter-increment: equation; }
+  .counters(footnote;         ) { counter-increment: footnote; }
   // Figures are a bit more complicated because:
   //
   // - each new figure resets the subfigure
   // - each subfigure increments subfigure and resets nothing
-  .counters(figure;   default)  { counter-increment: figure;
+  .counters(figure;           ) { counter-increment: figure;
                                   counter-reset: subfigure; }
   .counters(figure;   figure)   { counter-increment: subfigure;
                                   // Fix for chromium/webkit bug
@@ -119,7 +119,7 @@
   // End-of-chapter exercises just have the exercise number, not the chapter number
   .label(problem;  @part; end-part)     { content: @DEBUG_START counter(exercise) "." @DEBUG_END; }
   // TODO: This should probably ONLY be for end-part solutions.
-  .label(solution; default;  default)   { content: @DEBUG_START target-counter(attr(href, url), exercise) @DEBUG_END; }
+  .label(solution; default          )   { content: @DEBUG_START target-counter(attr(href, url), exercise) @DEBUG_END; }
   .label(solution; colophon; @context)  { content: 'TARGET_EXERCISE'; content: target-counter(attr(href), exercise); }
   .label(solution; chapter;  end-part)  { content: 'TARGET_EXERCISE'; content: target-counter(attr(href), exercise); }
 

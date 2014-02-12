@@ -78,22 +78,31 @@ div.book {
   > div.cnx-eoc { #part>.counters(@part; end-part); }
   // .cnx-eoc + .cnx-eoc { counter-reset: none; }  /* Don't reset for each eoc section */
 
+  // FIXME: Combine these into 1 mixin when mixin calls support `...`
+  .x-increment(@type) {
+    // Only increment if we're going to use the number (ie it's noot labeled)
+    &:not(.labeled) { #content>.counters(@type); }
+    // FIXME: This next line is redundant. Remove it.
+    #content>.counters(@type);
+    &.labeled { counter-increment: none; }
+  }
   .x-increment(@type; @context) {
     // Only increment if we're going to use the number (ie it's noot labeled)
     &:not(.labeled) { #content>.counters(@type; @context); }
+    // FIXME: This next line is redundant. Remove it.
     #content>.counters(@type; @context);
     &.labeled { counter-increment: none; }
   }
 
-  > div.section               { .x-increment(section; default); }   // Only increment top-level sections
-  div.figure                  { .x-increment(figure; default); }
+  > div.section               { .x-increment(section); }   // Only increment top-level sections
+  div.figure                  { .x-increment(figure); }
   // code for handling subfigures - assuming that this structure is the only way that figure/subfigure selectors are grouped
   .figure .informalfigure     { .x-increment(figure; figure); }
-  .table                      { .x-increment(table; default); }
-  > div.section div.example   { .x-increment(example; default); }
+  .table                      { .x-increment(table); }
+  > div.section div.example   { .x-increment(example); }
   > div.cnx-eoc div.exercise,
-  > div.section div.exercise  { .x-increment(exercise; default); }
-  > div.section div.equation  { .x-increment(equation; default); }
+  > div.section div.exercise  { .x-increment(exercise); }
+  > div.section div.equation  { .x-increment(equation); }
 
   /* Cases where sections are referenced */
   // TODO: toc-section could just be looked up via CSS3 taarget-counter (but then epub would break)
@@ -204,7 +213,7 @@ div.book {
 
 /* look up the exercise number */
 // TODO: This should be moved into .x-prefixed() so it has a @part variable
-div.solution > a.number::before { #content>.label(solution; default; default); }
+div.solution > a.number::before { #content>.label(solution; default); }
 div.solution > a.number { content: ""; }
 
 /******************************
@@ -212,7 +221,7 @@ div.solution > a.number { content: ""; }
  ******************************/
 // TODO: This should be moved into .x-prefixed() so it has a @part variable
 *.footnote {
-  #content>.counters(footnote; default);
+  #content>.counters(footnote);
 
   #content>#footnote>.style();
 
