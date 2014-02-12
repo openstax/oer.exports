@@ -17,6 +17,9 @@
 @DEBUG_END: ""; //"] ";
 
 
+// TODO: Convert eoc to end-part
+// TODO: remove `default` context
+
 #part {
 
   // Counters for the various parts of a book
@@ -25,7 +28,7 @@
   // - preface
   // - chapter
   // - appendix
-  .counters(@scope)   {}
+  .counters(@part)   {}
   .counters(book)     { counter-reset: chapter appendix; }
   .counters(chapter)  { counter-increment: chapter; }
   .counters(appendix) { counter-increment: appendix; }
@@ -34,11 +37,11 @@
   .counters(default) { counter-reset: section figure subfigure table equation example exercise footnote toc-section; }
 
   // eoc-section starts at -1 so we can include introduction content
-  .counters(end) { counter-reset: /*exercise*/ eoc-section -1; }
+  .counters(@part; end-part) { counter-reset: /*exercise*/ eoc-section -1; }
 
 
   // TODO: Revisit once I get the content labels done
-  // .label(@scope)    {}
+  // .label(@part)     {}
   // .label(preface)   { content: }
   // .label(chapter)   {}
   // .label(appendix)  {}
@@ -49,13 +52,13 @@
   //
   // - Note in a chapter is labeled `Note 2.7`
   // - Figure in an Appendix is labeled `Figure B4`
-  .x-content-counter(@scope;   @before; @after) {}
+  .x-content-counter(@part;    @before; @after) {}
   .x-content-counter(preface;  @before; @after) { content: @DEBUG_START @before "" "" @after @DEBUG_END; }
   .x-content-counter(chapter;  @before; @after) { content: @DEBUG_START @before counter(chapter,  decimal) "." @after @DEBUG_END; }
   .x-content-counter(appendix; @before; @after) { content: @DEBUG_START @before counter(appendix, upper-latin) "" @after @DEBUG_END; }
 
   // Links to other pieces of content require looking up the target-counter instead of just the counter.
-  .x-content-target-counter(@scope;   @before; @after) {}
+  .x-content-target-counter(@part;    @before; @after) {}
   .x-content-target-counter(preface;  @before; @after) { content: @DEBUG_START @before "" "" @after @DEBUG_END; }
   .x-content-target-counter(chapter;  @before; @after) { content: @DEBUG_START @before target-counter(attr(href), chapter) "." @after @DEBUG_END; }
   .x-content-target-counter(appendix; @before; @after) { content: @DEBUG_START @before target-counter(attr(href), appendix, upper-latin) "" @after @DEBUG_END; }
@@ -68,7 +71,7 @@
     string-set: cnx-header @S @before " " @counter " | " content() @E;
   }
 
-  .squirrel-page-title(@scope)    {}
+  .squirrel-page-title(@part)     {}
   .squirrel-page-title(default)   { string-set: cnx-header @S content() @E; }
   .squirrel-page-title(preface)   { .x-string-set-content(@Preface;   "") }
   .squirrel-page-title(chapter)   { .x-string-set-content(@Chapter;   counter(chapter,  decimal)) }
@@ -102,19 +105,19 @@
 
 
 
-  .label(@type;     @scope; @context) {}
-  .label(section;   @scope; @context) { #part>.x-content-counter(@scope; "";        counter(section) " "); }
-  .label(figure;    @scope; default)  { #part>.x-content-counter(@scope; @Figure;   counter(figure) " "); }
-  .label(figure;    @scope; figure)   { content: @DEBUG_START "(" counter(subfigure, lower-alpha) ") " @DEBUG_END; }
-  .label(table;     @scope; @context) { #part>.x-content-counter(@scope; @Table;    counter(table) " "); }
-  .label(example;   @scope; @context) { #part>.x-content-counter(@scope; @Example;  counter(example) " "); }
-  .label(exercise;  @scope; @context) { #part>.x-content-counter(@scope; @Exercise; counter(exercise) " "); }
-  .label(equation;  @scope; @context) { #part>.x-content-counter(@scope; "(";       counter(equation) ")"); }
-  .label(toc-section;@scope; @context){ #part>.x-content-counter(@scope; "";        counter(toc-section) " "); }
-  .label(eoc-section;@scope; @context){ #part>.x-content-counter(@scope; "";        counter(eoc-section) " "); }
+  .label(@type;      @part; @context) {}
+  .label(section;    @part; @context) { #part>.x-content-counter(@part; "";        counter(section) " "); }
+  .label(figure;     @part; default)  { #part>.x-content-counter(@part; @Figure;   counter(figure) " "); }
+  .label(figure;     @part; figure)   { content: @DEBUG_START "(" counter(subfigure, lower-alpha) ") " @DEBUG_END; }
+  .label(table;      @part; @context) { #part>.x-content-counter(@part; @Table;    counter(table) " "); }
+  .label(example;    @part; @context) { #part>.x-content-counter(@part; @Example;  counter(example) " "); }
+  .label(exercise;   @part; @context) { #part>.x-content-counter(@part; @Exercise; counter(exercise) " "); }
+  .label(equation;   @part; @context) { #part>.x-content-counter(@part; "(";       counter(equation) ")"); }
+  .label(toc-section;@part; @context) { #part>.x-content-counter(@part; "";        counter(toc-section) " "); }
+  .label(eoc-section;@part; @context) { #part>.x-content-counter(@part; "";        counter(eoc-section) " "); }
 
   // End-of-chapter exercises just have the exercise number, not the chapter number
-  .label(problem;  @scope; eoc)       { content: @DEBUG_START counter(exercise) "." @DEBUG_END; }
+  .label(problem;  @part; eoc)          { content: @DEBUG_START counter(exercise) "." @DEBUG_END; }
   // TODO: This should probably ONLY be for eoc solutions.
   .label(solution; default;  default)   { content: @DEBUG_START target-counter(attr(href, url), exercise) @DEBUG_END; }
   .label(solution; colophon; @context)  { content: 'TARGET_EXERCISE'; content: target-counter(attr(href), exercise); }
@@ -123,19 +126,19 @@
   // xref is an internal link to another piece of content.
   // TODO: This should use target-text instead of relying on a specific class on the anchor tag.
   #xref {
-    .x-helper(@scope; @before; @counter-name; @after:"") {
-      #part>.x-content-target-counter(@scope; @before; target-counter(attr(href), @counter-name) @after);
+    .x-helper(@part; @before; @counter-name; @after:"") {
+      #part>.x-content-target-counter(@part; @before; target-counter(attr(href), @counter-name) @after);
     }
 
-    .content(table;    @scope; @context) { .x-helper(@scope; @Table;    table); }
-    .content(example;  @scope; @context) { .x-helper(@scope; @Example;  example); }
-    .content(exercise; @scope; @context) { .x-helper(@scope; @Exercise; exercise); }
-    .content(equation; @scope; @context) { .x-helper(@scope; @Equation; equation); }
+    .content(table;    @part; @context) { .x-helper(@part; @Table;    table); }
+    .content(example;  @part; @context) { .x-helper(@part; @Example;  example); }
+    .content(exercise; @part; @context) { .x-helper(@part; @Exercise; exercise); }
+    .content(equation; @part; @context) { .x-helper(@part; @Equation; equation); }
     // TODO: Text for links to sections
-    .content(section;  @scope; @context) { }
-    .content(figure;   @scope; default)  { .x-helper(@scope; @Figure; figure); }
+    .content(section;  @part; @context) { }
+    .content(figure;   @part; default)  { .x-helper(@part; @Figure; figure); }
     // Subfigure
-    .content(figure;   @scope; figure)   { .x-helper(@scope; @Figure; figure; target-counter(attr(href), subfigure, lower-latin)); }
+    .content(figure;   @part; figure)   { .x-helper(@part; @Figure; figure; target-counter(attr(href), subfigure, lower-latin)); }
 
     .content(chapter;  toc) {
       content: @Chapter ": ";

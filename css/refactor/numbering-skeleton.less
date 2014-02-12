@@ -7,15 +7,9 @@
 @S: ""; //" ["; // "S"tart and "E"nd marking text for debugging
 @E: ""; //"] ";
 // Strings that are used (note some have spaces at the end)
-@preface: "Preface";
-@chapter: "Chapter";
-@appendix: "Appendix";
-@section: "Section ";
-@figure: "Figure ";
-@table: "Table ";
-@example: "Example ";
-@exercise: "Exercise ";
-@equation: "Equation ";
+@text-preface: "Preface";
+@text-chapter: "Chapter";
+@text-appendix: "Appendix";
 
 
 div.book {
@@ -40,7 +34,7 @@ div.book {
    * ie: "Figure 4.3" in chapters but "Figure A3" in an appendix
    * -------------------------------------
    */
-  > div.preface { .x-prefixed(preface; @preface; ""; "");
+  > div.preface { .x-prefixed(preface; @text-preface; ""; "");
     //Also, disable numbering on Preface sections
     > div.section > div.titlepage h2::before { display: none !important; }
 
@@ -48,8 +42,8 @@ div.book {
     > div.titlepage > div > div h1.title { #part>.squirrel-page-title(default); }
   }
 
-  div.chapter { .x-prefixed(chapter; @chapter;  counter(chapter, decimal); target-counter(attr(href), chapter); "." ); }
-  > div.appendix { .x-prefixed(appendix; @appendix; counter(appendix, upper-latin); target-counter(attr(href), appendix, upper-latin) ); }
+  div.chapter { .x-prefixed(chapter; @text-chapter;  counter(chapter, decimal); target-counter(attr(href), chapter); "." ); }
+  > div.appendix { .x-prefixed(appendix; @text-appendix; counter(appendix, upper-latin); target-counter(attr(href), appendix, upper-latin) ); }
 
 
 
@@ -70,18 +64,18 @@ div.book {
  *  @part-separator is the little dot in "Table 4.3"
  * -------------------------------------
  */
-.x-prefixed(@scope; @part-label; @part-counter; @part-target; @part-separator: "") {
+.x-prefixed(@part; @part-label; @part-counter; @part-target; @part-separator: "") {
 
   //This convoluted path is used to suck up (via the "content()") the title of the chapter into the page header
   > div.titlepage > div > div h1.title span.cnx-gentext-t {
-    #part>.squirrel-page-title(@scope);
+    #part>.squirrel-page-title(@part);
     padding-left: .25em;
     prince-text-replace: "*" ""; //remove asterisk from page header epub has a nice way to navigate to the appendix section.
   }
 
   #part>.counters(default);
 
-  > div.cnx-eoc { #part>.counters(end); }
+  > div.cnx-eoc { #part>.counters(@part; end-part); }
   // .cnx-eoc + .cnx-eoc { counter-reset: none; }  /* Don't reset for each eoc section */
 
   .x-increment(@type; @context) {
@@ -134,7 +128,7 @@ div.book {
    */
   // This handle the common case of "Exercise 4.2" or "Appendix A3"
   .x-test-text(@type; @context: default) {
-    &:not(.labeled)::before { #content>.label(@type; @scope; @context); }
+    &:not(.labeled)::before { #content>.label(@type; @part; @context); }
   }
 
 
@@ -166,10 +160,10 @@ div.book {
   > div.section div.exercise > .title > span:first-child .cnx-gentext-n { display: none; }
 
 
-  > div.cnx-eoc > div.section > div.body > div.exercise:not(.labeled) > div.body > div.problem::before { #content>.label(problem; @scope; eoc); font-weight: bold; }
+  > div.cnx-eoc > div.section > div.body > div.exercise:not(.labeled) > div.body > div.problem::before { #content>.label(problem; @part; eoc); font-weight: bold; }
   > div.cnx-eoc > div.section > div.body > div.exercise:not(.labeled) > div.title { display: none; }
 
-  > div.section div.equation > *:last-child::after { #content>.label(equation; @scope; default); float: right; }
+  > div.section div.equation > *:last-child::after { #content>.label(equation; @part; default); float: right; }
   // Equations can occur in many places:
   // - Normal content
   // - End-of-chapter sections
@@ -186,33 +180,33 @@ div.book {
   > div.cnx-eoc > div.section > .title .cnx-gentext-n { display: none; }
 
   /* Number links to different elements */
-  .x-link (@type; @scope; @context) {
-    &:not(.labeled) { #content>#xref>.content(@type; @scope; @context) }
+  .x-link (@type; @part; @context) {
+    &:not(.labeled) { #content>#xref>.content(@type; @part; @context) }
   }
-  a.target-figure           { .x-link(figure;   @scope; default); }
-  a.target-subfigure        { .x-link(figure;   @scope; figure); }
-  a.target-table            { .x-link(table;    @scope; default); }
-  a.target-example          { .x-link(example;  @scope; default); }
-  a.target-exercise         { .x-link(exercise; @scope; default); }
+  a.target-figure           { .x-link(figure;   @part; default); }
+  a.target-subfigure        { .x-link(figure;   @part; figure); }
+  a.target-table            { .x-link(table;    @part; default); }
+  a.target-example          { .x-link(example;  @part; default); }
+  a.target-exercise         { .x-link(exercise; @part; default); }
 
   // equation selectors change depending on how cnxml markup is created, i.e inline, wrapped in para
   // before a title, etc. So we need to target each possible occurence.
   a.target-equation,
   a.target-inlineequation,
-  a.target-informalequation { .x-link(equation; @scope; default); }
+  a.target-informalequation { .x-link(equation; @part; default); }
 
-  a.target-section  { .x-link(section; @scope; default); }
+  a.target-section  { .x-link(section; @part; default); }
 } // .x-prefixed()
 
 /* look up the exercise number */
-// TODO: This should be moved into .x-prefixed() so it has a @scope variable
+// TODO: This should be moved into .x-prefixed() so it has a @part variable
 div.solution > a.number::before { #content>.label(solution; default; default); }
 div.solution > a.number { content: ""; }
 
 /******************************
  * Handle footnotes
  ******************************/
-// TODO: This should be moved into .x-prefixed() so it has a @scope variable
+// TODO: This should be moved into .x-prefixed() so it has a @part variable
 *.footnote {
   #content>.counters(footnote; default);
 
