@@ -105,16 +105,16 @@
 
 
 
-  .label(@type;      @part; @context) {}
-  .label(section;    @part; @context) { #part>.x-content-counter(@part; "";        counter(section) " "); }
-  .label(figure;     @part; default)  { #part>.x-content-counter(@part; @Figure;   counter(figure) " "); }
+  .label(@type;      @part; @contexts...) {}
+  .label(section;    @part;         ) { #part>.x-content-counter(@part; "";        counter(section) " "); }
+  .label(figure;     @part;         ) { #part>.x-content-counter(@part; @Figure;   counter(figure) " "); }
   .label(figure;     @part; figure)   { content: @DEBUG_START "(" counter(subfigure, lower-alpha) ") " @DEBUG_END; }
-  .label(table;      @part; @context) { #part>.x-content-counter(@part; @Table;    counter(table) " "); }
-  .label(example;    @part; @context) { #part>.x-content-counter(@part; @Example;  counter(example) " "); }
-  .label(exercise;   @part; @context) { #part>.x-content-counter(@part; @Exercise; counter(exercise) " "); }
-  .label(equation;   @part; @context) { #part>.x-content-counter(@part; "(";       counter(equation) ")"); }
-  .label(toc-section;@part; @context) { #part>.x-content-counter(@part; "";        counter(toc-section) " "); }
-  .label(eoc-section;@part; @context) { #part>.x-content-counter(@part; "";        counter(eoc-section) " "); }
+  .label(table;      @part;         ) { #part>.x-content-counter(@part; @Table;    counter(table) " "); }
+  .label(example;    @part;         ) { #part>.x-content-counter(@part; @Example;  counter(example) " "); }
+  .label(exercise;   @part;         ) { #part>.x-content-counter(@part; @Exercise; counter(exercise) " "); }
+  .label(equation;   @part;         ) { #part>.x-content-counter(@part; "(";       counter(equation) ")"); }
+  .label(toc-section;@part;         ) { #part>.x-content-counter(@part; "";        counter(toc-section) " "); }
+  .label(section;    @part; end-part) { #part>.x-content-counter(@part; "";        counter(eoc-section) " "); }
 
   // End-of-chapter exercises just have the exercise number, not the chapter number
   .label(problem;  @part; end-part)     { content: @DEBUG_START counter(exercise) "." @DEBUG_END; }
