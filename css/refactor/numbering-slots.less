@@ -17,7 +17,6 @@
 @DEBUG_END: ""; //"] ";
 
 
-// TODO: Convert eoc to end-part
 // TODO: remove `default` context
 
 #part {
@@ -37,6 +36,7 @@
   .counters(default) { counter-reset: section figure subfigure table equation example exercise footnote toc-section; }
 
   // eoc-section starts at -1 so we can include introduction content
+  // TODO: Should `end-part` be in #part or in #content. it is used as a `@context` variable
   .counters(@part; end-part) { counter-reset: /*exercise*/ eoc-section -1; }
 
 
@@ -117,11 +117,11 @@
   .label(eoc-section;@part; @context) { #part>.x-content-counter(@part; "";        counter(eoc-section) " "); }
 
   // End-of-chapter exercises just have the exercise number, not the chapter number
-  .label(problem;  @part; eoc)          { content: @DEBUG_START counter(exercise) "." @DEBUG_END; }
-  // TODO: This should probably ONLY be for eoc solutions.
+  .label(problem;  @part; end-part)     { content: @DEBUG_START counter(exercise) "." @DEBUG_END; }
+  // TODO: This should probably ONLY be for end-part solutions.
   .label(solution; default;  default)   { content: @DEBUG_START target-counter(attr(href, url), exercise) @DEBUG_END; }
   .label(solution; colophon; @context)  { content: 'TARGET_EXERCISE'; content: target-counter(attr(href), exercise); }
-  .label(solution; chapter;  eoc)       { content: 'TARGET_EXERCISE'; content: target-counter(attr(href), exercise); }
+  .label(solution; chapter;  end-part)  { content: 'TARGET_EXERCISE'; content: target-counter(attr(href), exercise); }
 
   // xref is an internal link to another piece of content.
   // TODO: This should use target-text instead of relying on a specific class on the anchor tag.
