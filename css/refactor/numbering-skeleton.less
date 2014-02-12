@@ -193,22 +193,23 @@ div.book {
   > div.cnx-eoc > div.section > .title .cnx-gentext-n { display: none; }
 
   /* Number links to different elements */
-  .x-link (@type; @part; @context) {
-    &:not(.labeled) { #content>#xref>.content(@type; @part; @context) }
-  }
-  a.target-figure           { .x-link(figure;   @part; default); }
+  // FIXME: Combine these into 1 mixin when mixin calls support `...`
+  .x-link (@type; @part)           { &:not(.labeled) { #content>#xref>.content(@type; @part) } }
+  .x-link (@type; @part; @context) { &:not(.labeled) { #content>#xref>.content(@type; @part; @context) } }
+
+  a.target-figure           { .x-link(figure;   @part); }
   a.target-subfigure        { .x-link(figure;   @part; figure); }
-  a.target-table            { .x-link(table;    @part; default); }
-  a.target-example          { .x-link(example;  @part; default); }
-  a.target-exercise         { .x-link(exercise; @part; default); }
+  a.target-table            { .x-link(table;    @part); }
+  a.target-example          { .x-link(example;  @part); }
+  a.target-exercise         { .x-link(exercise; @part); }
 
   // equation selectors change depending on how cnxml markup is created, i.e inline, wrapped in para
   // before a title, etc. So we need to target each possible occurence.
   a.target-equation,
   a.target-inlineequation,
-  a.target-informalequation { .x-link(equation; @part; default); }
+  a.target-informalequation { .x-link(equation; @part); }
 
-  a.target-section  { .x-link(section; @part; default); }
+  a.target-section  { .x-link(section; @part); }
 } // .x-prefixed()
 
 /* look up the exercise number */
