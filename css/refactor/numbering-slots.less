@@ -27,7 +27,8 @@
   // - preface
   // - chapter
   // - appendix
-  .counters(@part)   {}
+
+  // `.counters(@part)   {}`
   .counters(book)     { counter-reset: chapter appendix; }
   .counters(chapter)  { counter-increment: chapter; }
   .counters(appendix) { counter-increment: appendix; }
@@ -52,7 +53,7 @@
   //
   // - Note in a chapter is labeled `Note 2.7`
   // - Figure in an Appendix is labeled `Figure B4`
-  .x-content-counter(@part;    @before; @after) {}
+  // `.x-content-counter(@part;    @before; @after) {}`
   .x-content-counter(preface;  @before; @after) { content: @DEBUG_START @before "" "" @after @DEBUG_END; }
   .x-content-counter(chapter;  @before; @after) { content: @DEBUG_START @before counter(chapter,  decimal) "." @after @DEBUG_END; }
   .x-content-counter(appendix; @before; @after) { content: @DEBUG_START @before counter(appendix, upper-latin) "" @after @DEBUG_END; }
@@ -71,8 +72,7 @@
     string-set: cnx-header @S @before " " @counter " | " content() @E;
   }
 
-  .squirrel-page-title(@part)     {}
-  .squirrel-page-title(default)   { string-set: cnx-header @S content() @E; }
+  //.squirrel-page-title(@part)     {}
   .squirrel-page-title(preface)   { .x-string-set-content(@Preface;   "") }
   .squirrel-page-title(chapter)   { .x-string-set-content(@Chapter;   counter(chapter,  decimal)) }
   .squirrel-page-title(appendix)  { .x-string-set-content(@Appendix;  counter(appendix, upper-latin)) }
@@ -105,7 +105,7 @@
 
 
 
-  .label(@type;      @part; @contexts...) {}
+  // .label(@type;      @part; @contexts...) {}
   .label(section;    @part;         ) { #part>.x-content-counter(@part; "";        counter(section) " "); }
   .label(figure;     @part;         ) { #part>.x-content-counter(@part; @Figure;   counter(figure) " "); }
   .label(figure;     @part; figure)   { content: @DEBUG_START "(" counter(subfigure, lower-alpha) ") " @DEBUG_END; }
