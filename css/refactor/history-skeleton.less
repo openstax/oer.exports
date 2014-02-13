@@ -132,6 +132,25 @@ div.book div.chapter div.titlepage > div > div > h2 {
   }
 }
 
+/* The timeline figure will appear in first module after
+   introduction and must snap to the bottom of page. 
+   Coded to function this way:
+ 
+   1. If there is right amount of content on page 1, and figure
+   will fit it will snap to bottom of page as designed.
+
+   2. If there is too much content timeline will snap to the
+   bottom of the next page.  Working with footnote as well.
+
+   We cannot use display:block; here, because using any type
+   of float causes an inline element to render as a block (inline-block).
+   This simple rule below gets us where we need to be.
+*/
+
+.figure.timeline {    
+  float: bottom;
+}
+
 // Blockquotes are being placed inside features. Must
 // render in San Serif font. Need to also stop feature headers
 // from breaking away at bottom of page.
