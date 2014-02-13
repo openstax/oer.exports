@@ -15,6 +15,10 @@ module.exports = (grunt) ->
         timeout: 0
         stdout: true
 
+      'compile':
+        command: (bookName) ->
+          return "lessc css/ccap-#{bookName}.less > css/ccap-#{bookName}.css"
+
       # 1. Generate a PDF and more importantly, the huge HTML file
       'regress-pdf':
         command: (bookName, branchName='new') ->
@@ -110,6 +114,24 @@ module.exports = (grunt) ->
   # Tasks
   # =====
 
+  # Used for lessc compiling
+  allBooks = [
+    'physics'
+    'sociology'
+    'anatomy'
+    'biology'
+    'precalculus'
+    'statistics'
+    'economics'
+    'psychology'
+  ]
+  compileBooks = []
+  for bookName in allBooks
+    compileBooks.push("shell:compile:#{bookName}")
+  grunt.registerTask('compile', compileBooks)
+  grunt.registerTask('default', ['compile'])
+
+
   masterBooks = []
   diffBooks = []
   for bookName of config.books
@@ -119,6 +141,7 @@ module.exports = (grunt) ->
   if masterBooks.length
     grunt.registerTask('master-all', masterBooks)
     grunt.registerTask('regress-all', diffBooks)
+
 
   else
     grunt.log.writeln('Configure at least one book path in config.yml')
