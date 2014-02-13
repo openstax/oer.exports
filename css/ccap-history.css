@@ -55,9 +55,6 @@
 /******************************************************
  * Set the colors used by various elements.
  ******************************************************/
-a {
-  color: #a63c1d;
-}
 h2,
 h3,
 h4,
@@ -2119,10 +2116,9 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
 .index a {
   font-weight: bold;
 }
-/* ---------------------------------------------------
- * Header definitions
- * ---------------------------------------------------
- */
+/********************************************************************
+ * Generic Elements
+ ********************************************************************/
 h1,
 h2,
 h3,
@@ -2188,6 +2184,11 @@ h6 {
   color: #528cbe;
   font-weight: bold;
 }
+a {
+  font-weight: bold;
+  color: #e28f26;
+  color: #a63c1d;
+}
 /* ---------------------------------------------------
  * End of book Attributions and About Connexions
  * ---------------------------------------------------
@@ -2196,6 +2197,7 @@ h6 {
   color: white;
   background-color: #528cbe;
   margin: .5em 0;
+  background-color: none;
   border-bottom-width: 1px;
   border-bottom-style: solid;
   margin-left: 0px;
@@ -2215,10 +2217,6 @@ body {
 }
 img {
   max-height: 9.5in;
-}
-a {
-  font-weight: bold;
-  color: #e28f26;
 }
 p {
   font-family: URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2807,6 +2805,9 @@ h1.title {
   column-count: 2;
   columns: 2;
   column-fill: auto;
+  column-width: auto;
+  column-fill: balance;
+  column-break-inside: auto;
 }
 .cnx-eoc.review-questions > .title {
   content: "Review Questions";
@@ -3043,18 +3044,22 @@ div.end-of-book-references .section-area > .body p {
   background-color: #fbeab3;
 }
 .chapter .note.click-and-explore > .body {
-  padding: 20px 0 20px 20px;
+  padding: 35px 20px 20px 20px;
 }
 .chapter .note.click-and-explore > .body,
 .chapter .note.click-and-explore > .body p {
   font: normal normal 9pt/12pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
-.chapter .note.click-and-explore::before {
+.chapter .note.click-and-explore > .title {
+  position: relative;
+  top: 20px;
+  border-top: 3px solid #e28f26;
+  border-bottom: 3px solid #e28f26;
   display: block;
   height: 30px;
-  padding-top: 1.8em;
+  padding-top: .3em;
   content: "Click and Explore";
-  background-image: linear-gradient(to bottom, #fbeab3 0%, #fbeab3 40%, #e28f26 40%, #e28f26 44%, #004b74 44%, #004b74 96%, #e28f26 96%);
+  background: #004b74;
   color: #efc18a;
   text-align: center;
   font: bold normal 16pt/1em URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -3143,6 +3148,52 @@ div.end-of-book-references .chapter-area > .title {
   color: #004b74;
   font-size: 11pt;
   text-transform: none;
+}
+/***************************************
+  Stacey's Corner - clean up into slots
+****************************************/
+.book > .toc > .title {
+  color: #a63c1d;
+  border-bottom: 1px solid #a63c1d;
+  page-break-after: avoid;
+  page-break-before: avoid;
+}
+.book > .toc a {
+  color: #a63c1d;
+}
+.chapter > .introduction > h3.title {
+  border: none;
+}
+div.book div.chapter div.titlepage > div > div > h2 {
+  border: none;
+}
+.figure > .title {
+  font-size: 9pt;
+  font-weight: bold;
+  color: #a63c1d;
+}
+.figure > .caption {
+  font-size: 9pt;
+  color: black;
+}
+.chapter .note.my-story,
+.chapter .note.defining-american,
+.chapter .note.americana,
+.chapter .note.click-and-explore {
+  page-break-inside: avoid;
+}
+.chapter .note.my-story .blockquote,
+.chapter .note.defining-american .blockquote,
+.chapter .note.americana .blockquote,
+.chapter .note.click-and-explore .blockquote {
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+.preface > .titlepage h1.title {
+  background-color: transparent;
+  padding-left: 0;
+  font-size: 18pt;
+  border: none;
+  text-transform: capitalize;
 }
 div.book {
   /* --------------------------------------
