@@ -86,7 +86,7 @@ module.exports = (grunt) ->
     grunt.log.writeln('Use --verbose to see the output because these take a while.')
     grunt.task.run("shell:regress-pdf:#{bookName}:#{branchName}")
     grunt.task.run("shell:regress-coverage:#{bookName}:#{branchName}")
-    grunt.task.run("shell:regress-coverage-report:#{bookName}:#{branchName}")
+    # grunt.task.run("shell:regress-coverage-report:#{bookName}:#{branchName}")
     grunt.task.run("shell:regress-baked-html:#{bookName}:#{branchName}")
     grunt.task.run("shell:regress-create-diff:#{bookName}:#{branchName}")
 
@@ -95,7 +95,7 @@ module.exports = (grunt) ->
     grunt.log.writeln('Use --verbose to see the output because these take a while.')
     grunt.task.run("shell:regress-pdf:#{bookName}:master")
     grunt.task.run("shell:regress-coverage:#{bookName}:master")
-    grunt.task.run("shell:regress-coverage-report:#{bookName}:master")
+    # grunt.task.run("shell:regress-coverage-report:#{bookName}:master")
     grunt.task.run("shell:regress-baked-html:#{bookName}:master")
 
 
