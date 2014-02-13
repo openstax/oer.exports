@@ -3,6 +3,11 @@
 *  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 *  See LICENSE.txt for details.
 *******************************************************/
+/*******************************************************
+* Copyright (c) 2013 Rice University
+*  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+*  See LICENSE.txt for details.
+*******************************************************/
 @page {
   margin: 5em;
   font-size: xx-small;
@@ -868,7 +873,7 @@ p {
   border-width: 1px;
   border-style: solid;
   background-color: #fbeab3;
-  border-color: transparent;
+  border: none !important;
 }
 .table td {
   padding: 0.25em;
@@ -881,6 +886,10 @@ p {
   border-width: 1px;
   border-style: solid;
   border-bottom: none;
+  background-color: #fbeab3;
+  border-style: none;
+  border-bottom: 1px solid #e28f26;
+  border-bottom-style: solid;
 }
 div.table-caption {
   font-weight: normal;
@@ -1189,7 +1198,7 @@ p:nth-of-type(2),
   border-width: 1px;
   border-style: solid;
   background-color: #fbeab3;
-  border-color: transparent;
+  border: none !important;
 }
 .introduction .glossary {
   page-break-before: always;
@@ -1292,7 +1301,7 @@ p:nth-of-type(2),
   border-width: 1px;
   border-style: solid;
   background-color: #fbeab3;
-  border-color: transparent;
+  border: none !important;
 }
 .chapter .glossary {
   page-break-before: always;
@@ -1395,7 +1404,7 @@ p:nth-of-type(2),
   border-width: 1px;
   border-style: solid;
   background-color: #fbeab3;
-  border-color: transparent;
+  border: none !important;
 }
 .cnx-eoc .glossary {
   page-break-before: always;
@@ -1498,7 +1507,7 @@ p:nth-of-type(2),
   border-width: 1px;
   border-style: solid;
   background-color: #fbeab3;
-  border-color: transparent;
+  border: none !important;
 }
 .colophon .glossary {
   page-break-before: always;
@@ -2786,7 +2795,7 @@ h1.title {
   border-width: 1px;
   border-style: solid;
   background-color: #fbeab3;
-  border-color: transparent;
+  border: none !important;
 }
 .table table > caption {
   align: top;
@@ -2795,6 +2804,10 @@ h1.title {
   border-width: 1px;
   border-style: solid;
   border-bottom: none;
+  background-color: #fbeab3;
+  border-style: none;
+  border-bottom: 1px solid #e28f26;
+  border-bottom-style: solid;
 }
 .table table > caption .table-caption.caption {
   padding-left: 5px;
@@ -3218,6 +3231,27 @@ div.book div.chapter div.titlepage > div > div > h2 {
   font-size: 9pt;
   color: black;
 }
+/* The timeline figure will appear in first module after
+   introduction and must snap to the bottom of page. 
+   Coded to function this way:
+ 
+   1. If there is right amount of content on page 1, and figure
+   will fit it will snap to bottom of page as designed.
+
+   2. If there is too much content timeline will snap to the
+   bottom of the next page.  Working with footnote as well.
+
+   We cannot use display:block; here, because using any type
+   of float causes an inline element to render as a block (inline-block).
+   This simple rule below gets us where we need to be.
+*/
+.figure.timeline {
+  padding-bottom: 1em;
+  float: bottom;
+}
+.figure.timeline .body {
+  padding: 0;
+}
 .chapter .note.my-story,
 .chapter .note.defining-american,
 .chapter .note.americana,
@@ -3299,6 +3333,7 @@ div.book > div.preface {
 }
 div.book > div.preface > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Preface" " " "" " | " content() "";
+  padding-left: .25em;
   prince-text-replace: "*" "";
 }
 div.book > div.preface > div.cnx-eoc {
@@ -3519,6 +3554,7 @@ div.book div.chapter {
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Chapter" " " counter(chapter, decimal) " | " content() "";
+  padding-left: .25em;
   prince-text-replace: "*" "";
 }
 div.book div.chapter > div.cnx-eoc {
@@ -3733,6 +3769,7 @@ div.book > div.appendix {
 }
 div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Appendix" " " counter(appendix, upper-latin) " | " content() "";
+  padding-left: .25em;
   prince-text-replace: "*" "";
 }
 div.book > div.appendix > div.cnx-eoc {
