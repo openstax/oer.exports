@@ -24,12 +24,15 @@ module.exports = (grunt) ->
             'virtualenv .'
             'source ./bin/activate'
             'pip install lxml argparse pillow'
+            # Send stderr to /dev/null because grunt falls over with too many log lines
             "python ./collectiondbk2pdf.py -v
               -p <%= config.prince %>
               -d <%= config.books.#{bookName} %>
               -s ccap-#{bookName}
               -t #{tempDir}
-              <%= config.testingDir %>/#{bookName}-#{branchName}.pdf"
+              <%= config.testingDir %>/#{bookName}-#{branchName}.pdf
+              2> /dev/null
+            "
           ].join('; ')
 
       # 2. Generate HTML Coverage Report (optional)
