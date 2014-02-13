@@ -85,18 +85,18 @@ module.exports = (grunt) ->
     branchName = 'new'
     grunt.log.writeln('Use --verbose to see the output because these take a while.')
     grunt.task.run("shell:regress-pdf:#{bookName}:#{branchName}")
-    grunt.task.run("shell:regress-coverage:#{bookName}:#{branchName}")
-    # grunt.task.run("shell:regress-coverage-report:#{bookName}:#{branchName}")
     grunt.task.run("shell:regress-baked-html:#{bookName}:#{branchName}")
     grunt.task.run("shell:regress-create-diff:#{bookName}:#{branchName}")
+    if config.coverage
+      grunt.task.run("shell:regress-coverage:#{bookName}:#{branchName}")
 
 
   grunt.registerTask 'regress-master', 'Generate the master versions of books to compare against', (bookName) ->
     grunt.log.writeln('Use --verbose to see the output because these take a while.')
     grunt.task.run("shell:regress-pdf:#{bookName}:master")
-    grunt.task.run("shell:regress-coverage:#{bookName}:master")
-    # grunt.task.run("shell:regress-coverage-report:#{bookName}:master")
     grunt.task.run("shell:regress-baked-html:#{bookName}:master")
+    if config.coverage
+      grunt.task.run("shell:regress-coverage:#{bookName}:master")
 
 
   # Dependencies
