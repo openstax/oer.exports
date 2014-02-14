@@ -20,8 +20,8 @@
 	<xsl:apply-templates select="@*"/>
 
 	<!-- If something like a note has a title, add it. -->
-    <!-- If there is a c:label, drop it on the floor and DISCARD it -->
-    <xsl:if test="c:title">
+	<!-- If there is a c:label, drop it on the floor and DISCARD it -->
+	<xsl:if test="c:title">
     	<db:title>
     		<xsl:apply-templates select="c:title/@*|c:title/node()"/>
     	</db:title>
