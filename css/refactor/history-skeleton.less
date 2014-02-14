@@ -1,0 +1,196 @@
+.chapter .note {
+  &.my-story {
+    #content>#note>.style(my-story);
+  }
+  &.defining-american  {
+    #content>#note>.style(defining-american);
+  }
+  &.americana {
+    #content>#note>.style(americana);
+  }
+  &.click-and-explore {
+    #content>#note>.style(click-and-explore);
+  }
+}
+
+// History end of chapter skeleton parts
+.cnx-eoc {
+  // For history summary it is wished for sections to be displayed
+  &.summary {
+    > .section .title {
+      display: block;
+      padding-bottom: 0;
+    }
+
+    p:nth-of-type(1) {  margin-top: 0; }
+  }
+}
+
+// In psychology.less this high specificity is inheriting 
+// the bottom border. Can only seem to turn it off like this
+// Ask Derek & Phil about converting to namespace slot
+div.book div.chapter div.titlepage > div > div > h2.title {
+  border: none;
+}
+
+// Not sure how this can be made into skeleton/slot
+.colophon > h1.title { 
+  background: none;
+}
+
+div.end-of-book-solutions {
+  > h1.title {
+    #part>#book-end>#end-of-book-solutions>#title>.style();
+  }
+}
+
+div.end-of-book-references {
+  #part>#book-end>#end-of-book-references>.style();
+  
+  > .title {
+    #part>#book-end>#end-of-book-references>.title();
+  }
+
+  // Chapter numbers subtitle "Chapter 1", "Chapter 2", etc.
+  .chapter-area {
+    > .title { 
+      color: @black; 
+    }
+  }
+}
+
+// Once book-wide link color is set we can remove
+// this below. index-term link will inherit it Placing here for now 
+// for template build and testing
+.index {
+  > .title h2 {
+    #part>#book-end>#index>#title>.style();
+  }
+  .index-term a { color: @red; }
+}
+
+// We most likely do not need to target these in a skeleton
+// change but through @part somehow. There's lots of different
+// permutations: .chapter h1.title, .section h3.title, etc. etc.
+.section h3 {
+  #content>#heading>.style(h3;);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***************************************
+  Stacey's Corner - clean up into slots
+****************************************/
+
+// Finish up of Template Burt Reynolds Style for deadline.
+// Namespace and clean up later after the powers that be
+// have gorged themselves on innocent CCAP blood.
+
+// TOC title has a page break always on it somewhere. 
+.book > .toc > .title {
+  color: @red;
+  border-bottom: 1px solid @red;
+  page-break-after: avoid;
+  page-break-before: avoid;
+}
+
+// No design direction for toc.  Turn everything red.
+// Kill 'em All - Let Jeremy sort 'em out.
+.book > .toc a { color: @red; }
+
+// Turn off underlines for Introduction header
+.chapter > .introduction > h3.title {
+  border: none;
+}
+
+// Turn off underlines on h2 headers
+div.book div.chapter div.titlepage > div > div > h2 {
+  border: none;
+}
+
+// Style figures and captions
+.figure {
+  > .title {
+    display: inline;
+    font-size: 9pt;
+    font-weight: bold;
+    color: @red;
+    text-align: left;
+  }
+  > .caption {
+    font-size: 9pt;
+    color: black;
+    text-align: left;
+  }
+}
+
+/* The timeline figure will appear in first module after
+   introduction and must snap to the bottom of page. 
+   Coded to function this way:
+ 
+   1. If there is right amount of content on page 1, and figure
+   will fit it will snap to bottom of page as designed.
+
+   2. If there is too much content timeline will snap to the
+   bottom of the next page.  Working with footnote as well.
+
+   We cannot use display:block; here, because using any type
+   of float causes an inline element to render as a block (inline-block).
+   This simple rule below gets us where we need to be.
+*/
+
+.figure.timeline {  
+  // a little space on bottom in case of footnote
+  padding-bottom: 1em; 
+  // snap figure to bottom of page 
+  float: bottom;
+
+  // remove padding so figure ID caption are snug against image
+  .body { padding: 0; }
+}
+
+// Blockquotes are being placed inside features. Must
+// render in San Serif font. Need to also stop feature headers
+// from breaking away at bottom of page.
+.chapter .note {
+  &.my-story,
+  &.defining-american,
+  &.americana,
+  &.click-and-explore  
+  {
+    // Stop page breaking inside features
+    page-break-inside: avoid;
+
+    .blockquote {
+      font-family: @font-family;
+    }
+  }
+}
+
+// Conform preface title to design
+.preface > .titlepage h1.title {
+    background-color: transparent;
+    padding-left: 0;
+    font-size: 18pt;
+    border: none;
+    text-transform: capitalize;
+}
+
+// Tables used in Preface must continue to have no background
+.preface .section > .table, 
+.preface .section > .table table { 
+  background-color: transparent;
+}
+
+

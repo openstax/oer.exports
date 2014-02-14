@@ -2,63 +2,62 @@
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
 
-.build-content-for(@scope) {
-  @context: default;
+@kind: default;
+@part: default;
 
+.build-content-for(@part) {
   .note {
-    #content>#note>.style(@scope; @context);
+    #content>#note>.style(@kind; @part);
   }
   .footnote {
-    #content>#footnote>.style(@scope; @context);
+    #content>#footnote>.style(@kind; @part);
   }
   .section {
-    #content>#section>.style(@scope; @context);
+    #content>#section>.style(@kind; @part);
 
     > .title {
-      #content>#section>.title(@scope; @context);
+      #content>#section>#title>.style(@kind; @part);
     }
   }
-  .example { 
-    @context: example;
-
-    #content>#example>.style(@scope; default);
-    > .title { #content>#example>.title(); }
+  .example {
+    #content>#example>.style(@kind; @part);
+    > .title { #content>#example>#title>.style(); }
     > .body { #content>#example>.body(); }
 
     .exercise {
-      #content>#exercise>.style(@scope; @context);
+      #content>#exercise>.style(@kind; @part; example);
     }
   }
   .exercise {
     @context: exercise;
 
-    #content>#exercise>.style(@scope; default);
-    > .body > .problem { #content>#problem>.style(@scope; @context); }
-    > .body > .solution { #content>#solution>.style(@scope; @context); }
+    #content>#exercise>.style(@kind; @part);
+    > .body > .problem { #content>#problem>.style(@kind; @part; @context); }
+    > .body > .solution { #content>#solution>.style(@kind; @part; @context); }
   }
   .equation {
-    #content>#equation>.style(@scope; @context);
+    #content>#equation>.style(@kind; @part);
   }
   .figure {
-    #content>#figure>.style(@scope; @context);
+    #content>#figure>.style(@kind; @part);
   }
   .table {
-    #content>#table>.style(@scope; @context);
+    #content>#table>.style(@kind; @part);
   }
   .glossary {
     @context: glossary;
 
-    #content>#glossary>.style(@scope; default);
-    .titlepage h2 { #content>#glossary>.title(); }
+    #content>#glossary>.style(@kind; @part);
+    .titlepage h2 { #content>#glossary>#title>.style(); }
     dl {
-      #content>#description-list>.style(@scope; @context);
+      #content>#description-list>.style(@kind; @part; @context);
       dt { #content>#description-list>.term(); }
       dd { #content>#description-list>.description(); }
     }
   }
 
   blockquote {
-    #content>#blockquote>.style(@scope; @context);
+    #content>#blockquote>.style(@kind; @part);
   }
 }
 

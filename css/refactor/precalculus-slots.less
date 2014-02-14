@@ -5,7 +5,7 @@
 @cnx-string-key-concepts: "Key Concepts";
 
 #toc {
-  .style() {
+  .style(...) {
     border-bottom-color: @medium-blue;
     color: @medium-blue;
     margin-bottom: .5em;
@@ -14,169 +14,299 @@
 #part {
   #preface {
     #titlepage {
-      .style() {
+      .style(...) {
         padding-bottom: 1em;
       }
-      .title() {
+      .title(...) {
         background-color: @medium-blue; 
       }
     }
   }
   #introduction {
-    .title() {
-      content: @cnx-string-introduction;
-      font-size: x-large;
+    #title {
+      .style(...) {
+        content: @cnx-string-introduction;
+        font-size: x-large;
+      }
     }
   }
 
   #toc {
-    .style() {
+    .style(...) {
       width: 100%;
       border: 1px solid @medium-blue;
     }
-    .title() {
-      content: @cnx-string-chapter-outline;
-      padding-top: .1em;
-      padding-bottom: .2em;
-      background-color: @medium-blue;
+    #title {
+      .style(...) {
+        content: @cnx-string-chapter-outline;
+        padding-top: .1em;
+        padding-bottom: .2em;
+        background-color: @medium-blue;
+      }
     }
     #entry {
-      .title() {
-        color: @medium-blue;
-        font-weight: bold;
+      #title {
+        .style(...) {
+          color: @medium-blue;
+          font-weight: bold;
+        }
       }
     }
   }
+  
+  #chapter {
+    #title {
+      .style(...) {
+        /*reset left only*/
+        margin-left:0;
+        padding-left: 0;
+        font-size: 35pt; /* x-large; */
+        font-weight: bold;
+        text-align: left;
+        color: @medium-blue;
+      }
+      .number(...) {
+        font-weight: bold;
+        padding-right: 0em;
+        color: @medium-blue;
+      }
+      .divider(...) {
+        content: "| ";
+        color: black;
+      }
+    }
+  }
+
   // End-of-chapter parts
-  #end {
-    .style() {
+  #chapter-end {
+    .style(...) {
       .x-column-count(2);
       column-width: auto;
       column-fill: balance;
       #utils>#pb>.inside(auto);
       column-break-inside: auto;
     }
-    .title() {
-      text-transform: uppercase;
-      text-align: left;
-      color: @medium-blue;
-      font-size: large;
-      font-weight: bold;
-      #utils>#pb>.after(avoid);
-    }
-    #summary {
-      .style() {
-        .x-column-count(1);
-      }
-      .title() {
-        content: "Chapter " counter(chapter, decimal) " Review"; 
-      }
-      .title-link() {
+    #title {
+      .style(...) {
+        text-transform: uppercase;
+        text-align: left;
         color: @medium-blue;
+        font-size: large;
+        font-weight: bold;
         #utils>#pb>.after(avoid);
       }
     }
-    #key-equations {
-      .style() {
+    #summary {
+      .style(...) {
         .x-column-count(1);
       }
-      .title() {
-        content: @cnx-string-key-equations;
-        column-span: all;  // staging bug-fix.
-        margin-top: 1em;   // this too.
+      #title {
+        .style(...) {
+          content: "Chapter " counter(chapter, decimal) " Review"; 
+        }
+        .link(...) {
+          color: @medium-blue;
+          #utils>#pb>.after(avoid);
+        }
+      }
+    }
+    #key-equations {
+      .style(...) {
+        .x-column-count(1);
+      }
+      #title {
+        .style(...) {
+          content: @cnx-string-key-equations;
+          column-span: all;  // staging bug-fix.
+          margin-top: 1em;   // this too.
+        }
       }
     }
     #key-concepts {
-      .style() {
+      .style(...) {
         .x-column-count(1);
       }
-      .title() {
-        content: @cnx-string-key-concepts;
-        column-span: all;  // staging bug-fix.
-        margin-top: 1em;   // this too.
-      }
-      .title-link() {
-        color: @medium-blue;
+      #title {
+        .style(...) {
+          content: @cnx-string-key-concepts;
+          column-span: all;  // staging bug-fix.
+          margin-top: 1em;   // this too.
+        }
+        .link(...) {
+          color: @medium-blue;
+        }
       }
     }
     #review-exercises {
-      .style() {
+      .style(...) {
         .x-column-count(1);
       }
-      .title() {
-        content: "Chapter " counter(chapter, decimal) " Review Exercises";
-        column-span: all;  // staging bug-fix.
-        margin-top: 1em;   // this too.
+      #title {
+        .style(...) {
+          content: "Chapter " counter(chapter, decimal) " Review Exercises";
+          column-span: all;  // staging bug-fix.
+          margin-top: 1em;   // this too.
+        }
       }
     }
     #practice-test {
-      .style() {
+      .style(...) {
         .x-column-count(1);
       }
-      .title() {
-        content: "Chapter " counter(chapter, decimal) " Practice Test";
-        column-span: all;  // staging bug-fix.
-        margin-top: 1em;   // this too.
+      #title {
+        .style(...) {
+          content: "Chapter " counter(chapter, decimal) " Practice Test";
+          column-span: all;  // staging bug-fix.
+          margin-top: 1em;   // this too.
+        }
       }
     }
-    #solutions {
-      .style() {
+    #solution {
+      .style(...) {
         display: none; // W&N Requested these be removed 10/25/2013
                        // since they are collated to EOB.
         .x-column-count(1);
       }
-      .title() {}
-      .title-link() {
-        color: @medium-blue;
-        #utils>#pb>.after(avoid);
+      #title {
+        .style(...) {}
+        .link(...) {
+          color: @medium-blue;
+          #utils>#pb>.after(avoid);
+        }
+      }
+    }
+  }
+  // End-of-book parts
+  #book-end {
+    .style(...) {}
+    
+    // End of Book Solutions
+    #end-of-book-solutions {
+      .style(...) {}
+
+      #title {
+        .style(...) {
+          content: "Answer Key";
+          color: @medium-blue;
+          margin-left: -.50em;
+          text-transform: uppercase;
+          font-size: x-large;
+          font-weight: bold;
+          background-color: transparent; //overwrite from .colophon title
+        }
+      }
+      #solution {
+        .style(...) {
+          // The Answer Key for the PreCalculus text was converted to be in (1) one column 
+          // and not inline due to the fact that some answers will be cartesian graphs (art).
+          // Not a good experience to be inline.
+          .x-column-count(1);
+        }
+        #title {
+          .style(...) {
+            display: inline;
+            a.solution {
+              color: black;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+
+    // End of Book References
+    #end-of-book-references {
+      .style(...) {}
+
+      #title {
+        .style(...) { //colophon titles are passed as h1's by default by docbook override properties here
+          font-size: x-large;
+          font-weight: bold;
+          background-color: transparent;
+          color: @medium-blue;
+          margin-left: -.50em;
+        }
+      }
+    }
+
+    // End of Book Index
+    #index {
+      .style(...) {
+        text-align: left; //override text-alignment from base .x-column-count
+        column-width: auto;
+      }
+
+      #title {
+        .style(...) {
+          padding: 0;
+          color: @medium-blue;
+          text-transform: uppercase;
+          font-size: x-large;
+        }
+      }
+      .letter(...) {
+        color: inherit;
+        font-weight: bold;
+        font-size: medium;
+        padding-top: .5em; 
+      }
+      .term(...) {
+        font-size: small;
+      }
+      .link(...) {
+        font-weight: bold;
+      }   
+    }
+    // End of Book Attribution and About Connexions
+    #colophon {
+      .style(...) {
+        color: white;
+        background-color: @medium-blue;
+        margin: .5em 0;
       }
     }
   }
 }
 #content {
   #note {
-    .style() {
+    .style(...) {}
+    .style(non-feature) {
       color: @black;
       background-color: @light-blue;
       padding-bottom: 1em;
     }
-    .title() {
-      #utils>#pb>.after(avoid);
-      text-align: left;
-      font-size: small;
-      margin-top: .25em;
-      margin-bottom: .5em;
-      color: @medium-blue;
-      font-weight: bold;
-      border-bottom: 1px solid @medium-blue;
+    .style(howto; ...) {
+      #utils>#pb>.inside(avoid);
+      .x-feature(howto);
     }
-
-    #howto {
-      .style() {
-        #utils>#pb>.inside(avoid);
-        .x-feature(howto);
-      }
+    .style(qa; ...) {
+      #utils>#pb>.inside(avoid);
+      .x-feature(qa);
     }
-    #qa {
-      .style() {
-        #utils>#pb>.inside(avoid);
-        .x-feature(qa);
-      }
+    .style(media; ...) {
+      #utils>#pb>.inside(avoid);
+      .x-feature(media);
     }
-    #media {
-      .style() {
-        #utils>#pb>.inside(avoid);
-        .x-feature(media);
-      }
+    .style(try; ...) {
+      #utils>#pb>.inside(avoid);
+      .x-feature(try);
     }
-    #try {
-      .style() {
-        #utils>#pb>.inside(avoid);
-        .x-feature(try);
+    #title {
+      .style(...) {}
+      .style(non-feature) {
+        #utils>#pb>.after(avoid);
+        text-align: left;
+        font-size: small;
+        margin-top: .25em;
+        margin-bottom: .5em;
+        color: @medium-blue;
+        font-weight: bold;
+        border-bottom: 1px solid @medium-blue;
       }
-      .title() {
+      .style(@kind; @part; feature-try) {
+        margin-top: 0;
         color: @black;
-        font-family: @font-family-precalculus;
+        font-family: @font-family-serif;
         font-size: 10pt;
         font-weight: bold;
         float: left;
@@ -186,52 +316,58 @@
     }
   }
   #section {
-    .title(@scope; default) {
-      #utils>#pb>.after(avoid);
+    #title {
+      .style(...) {
+        #utils>#pb>.after(avoid);
+      }
     }
     #abstract {
-      .style() {
+      .style(...) {
         counter-reset: learning-objectives;
         border: 1px solid @medium-blue;
         padding: 0em;
       }
-      .title() {
-        content: @cnx-string-learning-objectives;
-        display: inline-block;
-        width: 100%;
-        padding-top: .1em;
-        padding-bottom: .2em;
-        background-color: @medium-blue;
-        color: white;
-        text-align: center;
-        font-weight: bold;
-        font-size: large;
+      #title {
+        .style(...) {
+          content: @cnx-string-learning-objectives;
+          display: inline-block;
+          width: 100%;
+          padding-top: .1em;
+          padding-bottom: .2em;
+          background-color: @medium-blue;
+          color: white;
+          text-align: center;
+          font-weight: bold;
+          font-size: large;
+        }
       }
     }
   }
   #list {
-    .item(@scope; feature-media) {
+    .item(@kind; @part; feature-media) {
         color: @orange;
         font-weight: bold;
     }
   }
   #exercise {
-    .style(@scope; @context) {
+    .style(...) {
       margin-top: 0;
     }
-    .style(@scope; feature-try) {
+    .style(@kind; @part; feature-try) {
       // Try-it features are considered exercises.
       // Increment counters even though they aren't displayed.
       counter-increment: exercise;
       margin-bottom: 0;
     }
-    .title(@scope; feature-try) {
-      // turn off the display of exercise text label and number
-      display: none;
+    #title {
+      .style(@kind; @part; feature-try) {
+        // turn off the display of exercise text label and number
+        display: none;
+      }
     }
   }
   #problem {
-    .style(@scope; feature-try-exercise) {
+    .style(@kind; @part; feature-try; exercise) {
       // Template design asks for lists to be set apart
       ol,ul {
         margin-left: 4em;
@@ -240,13 +376,40 @@
     }
   }
   #solution {
-    .style(@scope; feature-try-exercise) {
+    .style(...) {}
+
+    .style(@kind; @part; feature-try; exercise) {
       // W&N requested solutions be removed 9.24.13
       display: none;
     }
+    .style(@kind; book-end) {
+      // style any PreCalc solution that occurs in #book-end
+    }
+    #title {
+      .style(...) {}
+
+      .style(@kind, book-end);
+
+      .link(...) {}
+    }
+    #body {
+      .style(...) {}
+
+      .style(@kind, book-end) {
+        margin-right: .65em;
+        display: inline;
+        * { display: inline; } // OUCH - place in .body() mixin for now.
+        // will need to change - include in .body mixin for now
+        > a.target-figure { margin: 0em .25em; } //add margin for .xref in solution body
+      }
+    }
   }
+  // Blockquote is actually not used in PreCalculus, so no
+  // skeleton entry is needed.  I think this style is just
+  // garden variety blockquote. Will leave as is and place
+  // Psych and History blockquote styles into appropriate slots.
   #blockquote {
-    .style(@scope; default) {
+    .style(...) {
       color: @light-blue;
       font-size: 150%;
 
@@ -260,19 +423,74 @@
     }
   }
   #glossary {
-    .style(@scope; default) {
+    .style(...) {
       // End-of-chapter material should start on a new page
       #utils>#pb>.before(always);
       display:inline;
     }
-    .title() {
-      /* Change "Glossary" to "Key Terms" */
-      content: "Key Terms";
+    #title {
+      .style(...) {
+        /* Change "Glossary" to "Key Terms" */
+        content: "Key Terms";
+        color: @medium-blue;
+        font-size: large;
+        padding: 0em;
+        display: block;
+        text-transform:uppercase;
+      }
+    }
+  }
+  #heading{
+    .style(...) {
+      margin: 0.5em 0em;
+      text-align: left; //overides text alignment set in
+    }
+
+    .style(h1, ...) {
+      font-size: 34pt;
+    }
+    .style(h2, ...) {
+      // Module title
       color: @medium-blue;
-      font-size: large;
-      padding: 0em;
-      display: block;
-      text-transform:uppercase;
+      font-size: 17pt;
+      font-weight: bold;
+    
+      .cnx-gentext-n { color: @medium-blue; }
+      // Separate the section number and title with a pipe
+      .cnx-gentext-t::before {
+        color: black;
+        content: "| ";
+      }
+      &::before { color: @medium-blue; }
+    }
+    .style(h3, ...) {
+      // Module section title
+      color: @medium-blue;
+      font-size: 13pt;
+      font-weight: bold;
+    }
+    .style(h4, ...) {
+      // Module sub-section title
+      color: @medium-blue;
+      font-size: 10pt;
+      font-weight: bold;
+    }
+    .style(h5, ...) {
+      color: @medium-blue;
+      font-size: 10pt;
+      font-weight: bold;
+      font-style: italic;
+    }
+    .style(h6, ...) {
+      color: @medium-blue;
+      font-weight: bold;
+    }
+  }
+  // Parent level link styling
+  #link {
+    .style(...) { 
+      font-weight: bold;
+      color: @orange;
     }
   }
 }

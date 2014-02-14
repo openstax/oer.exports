@@ -34,7 +34,7 @@ div.table-caption.caption {
   #toc>.style();
 
   > .title {
-    #toc>.title();
+    #toc>#title>.style();
   }
 
   ul, li {
@@ -142,7 +142,7 @@ h1.title { //ccap-chapter
   table.simplelist { display: none; }
 
   > .title { //.ccap-intro-title
-    #part>#introduction>.title(chapter);
+    #part>#introduction>#title>.style(chapter);
   }
 
   .splash {
@@ -155,8 +155,8 @@ h1.title { //ccap-chapter
     #part>#toc>.style();
 
     > .title {
-      #part>#toc>.title-content();
-      #part>#toc>.title();
+      #part>#toc>#title>.style();
+      #part>#toc>#title>.content();
     }
 
     > * {
@@ -173,7 +173,7 @@ h1.title { //ccap-chapter
     }
 
     a {
-      #part>#toc>#entry>.title();
+      #part>#toc>#entry>#title>.style();
     }
     .toc-section {
       .abstract { display: none; } //hide section-level abstract from objectives
@@ -197,10 +197,10 @@ h1.title { //ccap-chapter
 /***************************************************
  * SECTION LEVEL LEARNING OBJECTIVES (section abstract) 
  ***************************************************/
-.section > .titlepage {
-  .abstract {
+div.section > div.titlepage {
+  div.abstract {
     #content>#section>#abstract>.style();
-    ul {
+    ul.itemizedlist {
       #content>#section>#abstract>.list();
       > li { #content>#section>#abstract>.list-item(); }
     }
@@ -224,7 +224,7 @@ h1.title { //ccap-chapter
 
 /* Footnotes. remove margins */
 .footnote {
-  #content>#footnote>.style(default, default);
+  #content>#footnote>.style();
 }
 
 /********************** Generic Elements ********************/
@@ -245,11 +245,11 @@ a[href^="http"] { content: content() " (" attr(href) ") "; }
 }
 
 .equation {
-  #content>#equation>.style(default, default);
+  #content>#equation>.style();
 }
 .equation .label { #content>#equation>.label(); }
 
-.figure { #content>#figure>.style(default, default); }
+.figure { #content>#figure>.style(); }
 
 .mathml-mi { font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1; }
 
@@ -259,7 +259,7 @@ a[href^="http"] { content: content() " (" attr(href) ") "; }
 }
 
 .index .title * {
-  #index>.title();
+  #index>#title>.style();
 }
 
 .index .letter {
@@ -298,7 +298,7 @@ dl { margin: 0.5em; }
 // Need to reduce to just one override, our mixin overridding prince default style
 p { margin: 0.5em 0em; }
 
-.table { #content>#table>.style(default, default); }
+.table { #content>#table>.style(); }
 
 .table td { #content>#table>.cell(); }
 
@@ -374,16 +374,16 @@ h4, h5, h6 { font-size: 1em; }
 
 /**************** CNXML ELements ***********/
 .note { //.ccap-note
-  #content>#note>.style(default, default);
+  #content>#note>.style();
 }
 
-.note h3 { #content>#note>.title(); }
+.note h3 { #content>#note>#title>.style(); }
 
 .note > .title { #content>#note>.header(); }
 
-.exercise { #content>#exercise>.style(default, default); }
+.exercise { #content>#exercise>.style(); }
 
-.example { #content>#example>.style(default, default); }
+.example { #content>#example>.style(); }
 
 .figure > .caption:before,
 .figure > .title {
@@ -411,7 +411,7 @@ img { max-width: 7in; }
 
 /********************* Glossary Section **************/
 .glossary dt {
-  #part>#end>#glossary>.dt();
+  #part>#chapter-end>#glossary>.dt();
 
   &::after {
     content: ":";
@@ -433,10 +433,10 @@ em.glossterm {
  * End of chapter customizations
  ******************************************************/
 .cnx-eoc {
-  & > .title { #part>#end>.title();  }
+  & > .title { #part>#chapter-end>#title>.style();  }
   .section {
     .title {
-      #part>#end>#section>.title();
+      #part>#chapter-end>#section>#title>.style();
 
       a {
         font-size: small;

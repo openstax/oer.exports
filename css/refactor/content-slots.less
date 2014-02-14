@@ -6,12 +6,12 @@
 
 #content {
   #mathml {
-    .style() {
+    .style(...) {
       display: none;
     }
   }
   #note {
-    .style(@scope; @context) {
+    .style(...) {
       padding-left: 1em;
       padding-right: 1em;
       padding-top: 0.2em;
@@ -19,17 +19,19 @@
       margin-top: 1.5em;
       margin-bottom: 1.5em;
     }
-    .title() {
-      margin-top: 0.5em;
+    #title {
+      .style(...) {
+        margin-top: 0.5em;
+      }
     }
-    .body() {
+    .body(...) {
     }
-    .header() {
+    .header(...) {
       #utils>#pb>.after(avoid);
     }
   }
   #footnote {
-    .style(@scope; @context) {
+    .style(...) {
       text-align: left;
       margin-top: 0em;
       margin-bottom: 0em;
@@ -44,72 +46,75 @@
     }
   }
   #section {
-    .style(@scope; @context) {
+    .style(...) {
     }
-    .title(@scope; @context) {
+    #title {
+      .style(...) {
+      }
     }
     #abstract {
-      .style() {
+      .style(...) {
         margin: 1em 0em;
         padding: .50em;
 
         #utils>#pb>.inside(avoid);
         #utils>#pb>.before(avoid);
       }
-      .title() {
+      #title {
+        .style(...) {
+        }
       }
-      .list() {
+      .list(...) {
       }
-      .list-item() {
+      .list-item(...) {
         margin: .25em 0em;
       }
     }
   }
   #example {
-    .style(@scope; @context) {
+    .style(...) {
       margin-top: 1.5em;
       margin-bottom: 1.5em;
     }
-    .title() {
+    #title {
+      .style(...) {
+      }
     }
-    .body() {
+    .body(...) {
     }
   }
   #exercise {
-    .style(@scope; @context) {
+    .style(...) {
       margin-top: 1.5em;
       margin-bottom: 1.5em;
     }
-    .style(@scope; example) {
-      .style(@scope; default);
+    .style(@kind; @part; example) {
     }
   }
   #problem {
-    .style(@scope; @context) {
+    .style(...) {
     }
-    .style(@scope; exercise) {
-      .style(@scope; default);
+    .style(@kind; @part; exercise) {
     }
   }
   #solution {
-    .style(@scope; @context) {
+    .style(...) {
     }
-    .style(@scope; exercise) {
-      .style(@scope; default);
+    .style(@kind; @part; exercise) {
     }
   }
   #equation {
-    .style(@scope; @context) {
+    .style(...) {
       #utils>#pb>.inside(avoid);
       text-align: center;
       display: block;
     }
-    .label() {
+    .label(...) {
       float: right;
     }
   }
   #figure {
-    .style(@scope; @context) {
+    .style(...) {
       font-size: xx-small;
       padding-bottom: 0.5em;
       margin-left: auto;
@@ -119,11 +124,11 @@
     }
   }
   #table {
-    .style(@scope; @context) {
+    .style(...) {
       #utils>#pb>.inside(avoid);
       margin: auto;
     }
-    .header() { 
+    .header(...) { 
       color: white;
       font-weight: bold;
       padding-top: 4px;
@@ -131,41 +136,40 @@
       padding-left: 1em;
       padding-right: 1em;
     }
-    .cell() {
+    .cell(...) {
       padding: 0.25em;
     }
-    .caption() {
+    .caption(...) {
       align: top;
       text-align: left;
     }
   }
   #list {
-    .style(@scope; @context) {
+    .style(...) {
     }
-    .item(@scope; @context) {
+    .item(...) {
     }
   }
   #glossary {
-    .style(@scope; @context) {
+    .style(...) {
     }
-    .title() {
+    #title {
+      .style(...) {
+      }
     }    
   }
   #description-list {
-    .style(@scope; @context) {
+    .style(...) {
     }
-    .style(@scope; glossary) {
-      .style(@scope; default);
+    .style(@kind; @part; glossary) {
     }
-    .term() {
+    .term(...) {
     }
-    .description() {
+    .description(...) {
     }
   }
   #blockquote {
-    .style(@scope; @context) {
-    }
-    .style(@scope; default) {
+    .style(...) {
     }
   }
 }
