@@ -1,4 +1,3 @@
-@import url('ccap-css3.css');
 /*******************************************************
 * Copyright (c) 2013 Rice University
 *  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
@@ -10,6 +9,51 @@
  * Styles used when generating a PDF from xhtml+css
  * Print-specific styles <style media="print"... *
  ***************************************************/
+@page {
+  margin: 5em;
+  font-size: xx-small;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  
+  @footnotes {
+    border-top: solid black thin;
+    padding-top: 1em;
+  }
+}
+@page :left {
+  @top-left-corner {
+    content: counter(page);
+    padding-right: 1em;
+  }
+  @top-left {
+    content: string(cnx-header);
+    text-transform: uppercase;
+  }
+  @bottom-left {
+    color: grey;
+    font-weight: thin;
+    content: "This content is available for free at " string(cnx-collection-url);
+    prince-text-replace: ":9680" "\2019";
+  }
+}
+@page :right {
+  @top-right-corner {
+    content: counter(page);
+    padding-left: 1em;
+  }
+  @top-right {
+    content: string(cnx-header);
+    text-transform: uppercase;
+  }
+}
+@namespace mml "http://www.w3.org/1998/Math/MathML";
+mml|math {
+  display: none;
+}
+/* hides the table caption in caption to place at bottom of table */
+div.table-caption.caption {
+  display: none;
+  string-set: caption-bottom content();
+}
 /***************************************************
  * Book Table of Contents
  ***************************************************/
@@ -47,7 +91,9 @@
 .book > .toc > li > ul a {
   font-size: 12pt;
 }
-.book > .toc .toc-preface .toc-section,
+.book > .toc .toc-preface .toc-section {
+  display: none;
+}
 .book > .toc .toc-appendix .toc-section {
   display: none;
 }
@@ -145,13 +191,13 @@ h1.title .cnx-gentext-n {
   page-break-inside: avoid;
 }
 .chapter > .introduction > .toc > .title {
-  content: "Learning Objectives";
   color: white;
   font-size: large;
   font-weight: bold;
   text-align: center;
   padding: 0.25em;
   margin: 0em;
+  content: "Learning Objectives";
 }
 .chapter > .introduction > .toc > * {
   padding-left: 0em;
@@ -197,13 +243,13 @@ h1.title .cnx-gentext-n {
 /***************************************************
  * SECTION LEVEL LEARNING OBJECTIVES (section abstract) 
  ***************************************************/
-.section > .titlepage .abstract {
+div.section > div.titlepage div.abstract {
   margin: 1em 0em;
   padding: .50em;
   page-break-inside: avoid;
   page-break-before: avoid;
 }
-.section > .titlepage .abstract ul > li {
+div.section > div.titlepage div.abstract ul.itemizedlist > li {
   margin: .25em 0em;
 }
 /* Squirrel away the collection URL so it shows up as the footer on every page */
@@ -356,6 +402,24 @@ div.table-caption {
 div.table-caption.caption {
   display: inline;
 }
+.table table {
+  margin: 1.5em auto;
+}
+.table th {
+  color: white;
+  font-weight: bold;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 1em;
+  padding-right: 1em;
+  /* To fully support row/col spans in CALS tables borders are calculated for each cell and inherit the color of the text in the cell */
+  /* By default the color in the PDF is the same color as the text so set it to black. */
+  border-color: black !important;
+}
+div.table-caption.caption {
+  caption-side: top;
+  font-weight: bold;
+}
 .itemizedlist .title {
   margin: 0px;
   float: none;
@@ -405,30 +469,8 @@ h5,
 h6 {
   font-size: 1em;
 }
-.table table {
-  margin: 1.5em auto;
-}
-.table th {
-  color: white;
-  font-weight: bold;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 1em;
-  padding-right: 1em;
-  /* To fully support row/col spans in CALS tables borders are calculated for each cell and inherit the color of the text in the cell */
-
-  /* By default the color in the PDF is the same color as the text so set it to black. */
-
-  border-color: black !important;
-}
-div.table-caption.caption {
-  caption-side: top;
-  font-weight: bold;
-}
 /**************** CNXML ELements ***********/
 .note {
-  /* page-break-inside: avoid; Per David's request, less whitespace is better. */
-
   padding-left: 1em;
   padding-right: 1em;
   padding-top: 0.2em;
@@ -449,12 +491,6 @@ div.table-caption.caption {
 .example {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
-}
-.figure {
-  font-size: xx-small;
-  padding-bottom: 0.5em;
-  margin-left: auto;
-  margin-right: auto;
 }
 .figure > .caption:before,
 .figure > .title {
@@ -499,6 +535,9 @@ em.glossterm {
   font-weight: bold;
   font-style: normal;
 }
+.glossterm.no-emphasis {
+  font-weight: 400;
+}
 /******************************************************
  * End of chapter customizations
  ******************************************************/
@@ -534,13 +573,10 @@ em.glossterm {
 /* Exercises have the number in bold, followed by the 1st paragraph inline, not "Exercise 3 \n sldkfj" */
 .cnx-eoc .exercise {
   /*** Exercises normally have more margins around them ***/
-
   margin-top: 0.5em;
   margin-bottom: 0.0em;
   /* Hide the "Exercise " prefix */
-
   /*** Make sure the default background colors for things like exercise body don't seep through ***/
-
 }
 .cnx-eoc .exercise div,
 .cnx-eoc .exercise p:first-of-type {
@@ -597,7 +633,6 @@ div.book {
    *  Define how counters are incremented
    * --------------------------------------
    */
-
   counter-reset: chapter appendix;
   /* -------------------------------------
    *  All the rules for elements need to be prefixed
@@ -609,9 +644,7 @@ div.book {
    * ie: "Figure 4.3" in chapters but "Figure A3" in an appendix
    * -------------------------------------
    */
-
   /* Still count the element but don't show it */
-
   /* -------------------------------------
  *  The bulk of numbering!
  *
@@ -623,23 +656,16 @@ div.book {
  *  @part-separator is the little dot in "Table 4.3"
  * -------------------------------------
  */
-
   /* look up the exercise number */
-
   /******************************
  * Handle footnotes
  ******************************/
-
   /******************************
  * Number the book-level TOC
  ******************************/
-
   /* Chapters/Appendixes */
-
   /* Don't render nested sections in the toc */
-
   /* Don't render the TOC for preface or appendix at all */
-
 }
 div.book div.chapter {
   counter-increment: chapter;
@@ -650,22 +676,17 @@ div.book > div.appendix {
 div.book > div.preface {
   counter-reset: section figure subfigure table equation example exercise footnote toc-section;
   /* Cases where sections are referenced */
-
   /* --------------------------------------
    *  Exceptions for incrementing/displaying
    *  Note: "div.glossary *" is by far the most time-consuming rule
    * --------------------------------------
    */
-
   /* --------------------------------------
    *  Define where counters are displayed
    * --------------------------------------
    */
-
   /** Each thing appears 3 times because 1 implements the new numbering and the next 2 lines hide the docbook-generated text **/
-
   /* Number links to different elements */
-
 }
 div.book > div.preface > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Preface" " " "" " | " content() "";
@@ -757,7 +778,6 @@ div.book > div.preface > div.cnx-eoc div.solution div.example,
 div.book > div.preface > div.cnx-eoc div.solution div.equation {
   counter-increment: none !important;
   /* Don't display the labels in glossaries, solutions, etc */
-
 }
 div.book > div.preface > div.glossary *::before,
 div.book > div.preface > div.section div.example div.exercise *::before,
@@ -877,22 +897,17 @@ div.book > div.preface > div.titlepage > div > div h1.title {
 div.book div.chapter {
   counter-reset: section figure subfigure table equation example exercise footnote toc-section;
   /* Cases where sections are referenced */
-
   /* --------------------------------------
    *  Exceptions for incrementing/displaying
    *  Note: "div.glossary *" is by far the most time-consuming rule
    * --------------------------------------
    */
-
   /* --------------------------------------
    *  Define where counters are displayed
    * --------------------------------------
    */
-
   /** Each thing appears 3 times because 1 implements the new numbering and the next 2 lines hide the docbook-generated text **/
-
   /* Number links to different elements */
-
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Chapter" " " counter(chapter, decimal) " | " content() "";
@@ -984,7 +999,6 @@ div.book div.chapter > div.cnx-eoc div.solution div.example,
 div.book div.chapter > div.cnx-eoc div.solution div.equation {
   counter-increment: none !important;
   /* Don't display the labels in glossaries, solutions, etc */
-
 }
 div.book div.chapter > div.glossary *::before,
 div.book div.chapter > div.section div.example div.exercise *::before,
@@ -1098,22 +1112,17 @@ div.book div.chapter a.target-informalequation:not(.labeled) {
 div.book > div.appendix {
   counter-reset: section figure subfigure table equation example exercise footnote toc-section;
   /* Cases where sections are referenced */
-
   /* --------------------------------------
    *  Exceptions for incrementing/displaying
    *  Note: "div.glossary *" is by far the most time-consuming rule
    * --------------------------------------
    */
-
   /* --------------------------------------
    *  Define where counters are displayed
    * --------------------------------------
    */
-
   /** Each thing appears 3 times because 1 implements the new numbering and the next 2 lines hide the docbook-generated text **/
-
   /* Number links to different elements */
-
 }
 div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Appendix" " " counter(appendix, upper-latin) " | " content() "";
@@ -1205,7 +1214,6 @@ div.book > div.appendix > div.cnx-eoc div.solution div.example,
 div.book > div.appendix > div.cnx-eoc div.solution div.equation {
   counter-increment: none !important;
   /* Don't display the labels in glossaries, solutions, etc */
-
 }
 div.book > div.appendix > div.glossary *::before,
 div.book > div.appendix > div.section div.example div.exercise *::before,
@@ -1347,11 +1355,8 @@ div.book *.footnote::footnote-marker {
 }
 div.book > div.toc {
   /* Units */
-
   /* A Chapter could be part of a Part, hence the extra "> li > ul" */
-
   /* Sections */
-
 }
 div.book > div.toc > ul > li > a.target-part::after {
   content: "";
@@ -1396,7 +1401,6 @@ div.colophon.end-of-book-solutions div.appendix-area {
         .cnx-gentext-autogenerated, cnx-gentext-n { display: none; }
       }
     */
-
 }
 div.colophon.end-of-book-solutions div.preface-area > div.section-area > h3.title,
 div.colophon.end-of-book-solutions div.chapter-area > div.section-area > h3.title,
@@ -1449,7 +1453,7 @@ div.book div.chapter > div.titlepage > div > div:not(:first-child),
 div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
   display: none;
 }
-@page  {
+@page {
   margin: 0.5in 1.5in;
 }
 .chapter > .cnx-eoc.cnx-solutions {
@@ -2007,12 +2011,10 @@ img {
 }
 .chapter h1.title {
   /*reset left only*/
-
   margin-left: 0 !important;
   padding-left: 0 !important;
   font-size: 35pt;
   /* x-large; */
-
   font-weight: bold;
   text-align: left !important;
   color: #336633;
@@ -2084,7 +2086,6 @@ p {
 }
 .glossary .title {
   /* Change "Glossary" to "Key Terms" */
-
   content: "Key Terms";
   color: #336633;
   font-size: large !important;

@@ -1,0 +1,659 @@
+/*******************************************************
+* Copyright (c) 2013 Rice University
+*  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+*  See LICENSE.txt for details.
+*******************************************************/
+
+@import url('utils.less');
+@import url('css3.less');
+@import url('ccap-base-slots.less');
+@import url('content-slots.less');
+@import url('precalculus-slots.less');
+@import url('psychology-slots.less');
+
+// A mixture of serif and sans-serif fonts.x
+@font-family-sans-serif: Liberation Sans, sans-serif, @stix-fonts;
+@font-family-serif: URW Palladio L, URWPalladioL, serif, @stix-fonts;
+
+@book-title: psychology;
+
+// color palette needed from precalculus
+@medium-blue:   #528CBE;
+@light-orange:  #EFD8B0;
+
+// color palette for psychology
+@orange:        #EEAD58;
+@light-blue:    #007196;
+@dark-blue:     #25408F;
+@teal:          #3F989B;
+@red:           #B8292F;
+@shadow:        #888888;
+
+@white:         #FFF;
+@black:         #000;
+
+// Fixed widths
+@qr: 1.25in;
+@figure-size-one: 225px;
+@page-width: 6.5in;
+
+@table-border: 1pt solid @black;
+
+// Static strings
+@cnx-string-everyday-connection: "everyday connection";
+@cnx-string-dig-deeper: "dig deeper";
+@cnx-string-what-do-you-think: "what do you think?";
+@cnx-string-connect-the-concepts: "connect the concepts";
+@cnx-string-link-to-learning: "link to learning";
+@cnx-string-summary: "Summary";
+@cnx-string-review-questions: "Review Questions";
+@cnx-string-critical-thinking-questions: "Critical Thinking Questions";
+@cnx-string-personal-application-questions: "Personal Application Questions";
+
+
+/******************************************************
+ * Set the colors used by various elements.
+ ******************************************************/
+
+
+
+// Section titles
+h2, h3, h4, h5, h6 {
+  color: @black;
+}
+
+// Introduction title
+.introduction h3.title {
+  color: @red;
+  border-bottom-color: @orange;
+}
+
+// Section titles
+.chapter h2 {
+    border-bottom-color: @orange;
+}
+.chapter h2, .chapter h2::before {
+    color: @red;
+}
+
+// Chapter Outline/TOC
+.chapter > .introduction > .toc > .title {
+  color: @light-blue;
+}
+.chapter > .introduction > .toc a {
+  color: @black;
+}
+
+// Learning Objectives/Chapter Objectives
+div.section div.titlepage div.abstract::before {
+  color: @light-blue;
+}
+div.section div.titlepage div.abstract,
+div.section div.titlepage div.abstract::before,
+.note.chapter-objectives {
+  background-color: transparent;
+  border-bottom-color: @orange;
+}
+
+// Figures
+.figure > .title {
+  color: @red;
+}
+
+// Connect The Concepts "subheader reflection"
+.section .note.psychology.connect-the-concepts > .title::before {
+  color: lighten(@black, 65%);
+}
+
+
+// Tables
+.table table,
+.table table td {
+  border-color: @orange !important; // td's have inline style=""
+}
+
+.table table .table-caption.caption {
+  color: @red;
+}
+
+.table table > caption {
+  color: @black;
+  border-color: @orange;
+}
+
+
+.colophon > h1.title,
+.colophon > h1.title,
+.book > .toc > .title {
+  color: @red;
+  border-bottom-color: @orange;
+  background-color: transparent;
+}
+
+.book > .toc a {
+  color: @red;
+}
+
+.section .note > .title {
+  color: @black;
+}
+
+// EOB References chapter titles
+div.end-of-book-references > .chapter-area > .title {
+  color: @black;
+}
+
+
+/******************************************************
+ * Font/Text styles.
+ ******************************************************/
+//  The majority of section text is serif.
+p {
+  hyphens: auto;
+  text-align: justify;
+}
+p,
+.section > p {
+  font: 10pt/13pt @font-family-serif;
+}
+
+.book > .toc a,
+.book > .toc .toc-section > a {
+  font: 10pt/13pt @font-family-sans-serif;
+}
+
+.preface > .section h2,
+.preface > .section h3 {
+  font-size: 11pt;
+  line-height: 13pt;
+}
+.preface > .section h3 {
+  text-transform: none;
+}
+
+.note.psychology {
+  .body > .title {
+    font-weight: 700;
+    font-size: 10pt;
+    line-height: 13pt;
+  }
+  p {
+    font: 9pt/12pt @font-family-sans-serif;
+  }
+}
+
+// Connect The Concepts title/header
+.section .note.psychology.connect-the-concepts {
+  &::before, > .title::before {
+    font: 700 normal normal 14pt/14pt @font-family-sans-serif;
+  }
+}
+
+// Nested section titles are sans-serif, outer sections 
+// are uppercase. 
+.section h3, .section h4 {
+  font: 700 normal normal 11pt/13pt @font-family-sans-serif;
+}
+.section h3 {
+  text-transform: uppercase;
+}
+
+h1.title,
+.colophon > h1.title,
+.colophon > h1.title,
+.book > .toc > .title {
+  text-transform: none;
+  font-size: 18pt;
+  font-weight: 700;
+  text-align: left;
+}
+.colophon > table {
+  font: 400 normal normal 10pt/13pt @font-family-serif;
+}
+
+.chapter h1.title {
+  // Must use font-size at this level of cascade to override precalc setting (35pt)
+  font-size: 18pt;
+  .cnx-gentext-autogenerated,
+  .cnx-gentext-n {
+    font-size: 18pt;
+    font-weight: 700;
+  }
+  .cnx-gentext-t {
+    font: 28pt/33pt @font-family-serif;
+  }
+}
+
+.chapter > .introduction > .toc {
+  > .title {
+    font-size: 11pt;
+  }
+
+   a, span {
+    font-weight: normal;
+    font-size: 9pt;
+    line-height: 11pt;
+  }
+
+  ul {
+    margin-left: 0.125in;
+  }
+}
+
+div.section div.titlepage div.abstract {
+  p {
+    font: 10pt/14pt @font-family-serif;
+  }
+  &::before {
+    font: normal normal 700 10pt @font-family-sans-serif;
+    text-align: left;
+  }
+}
+.note.chapter-objectives {
+  font: 10pt/14pt @font-family-serif;
+
+  .title {
+    font: normal normal 700 10pt @font-family-sans-serif;
+  }
+}
+
+.chapter h2, 
+.chapter h2::before,
+.chapter > .introduction > h3.title {
+  font-size: 14pt;
+  line-height: 17pt;
+  font-weight: 700;
+}
+
+// tables
+.table table .table-caption.caption {
+  font-size: 10pt;
+  font-weight: 700 !important; // Override previously used important. 
+  line-height: 13pt;
+}
+.table table td {
+  font: 10pt/14pt @font-family-serif;
+}
+
+// Collated font styles
+
+div.end-of-book-solutions div.solution > div.title a.solution,
+div.end-of-book-solutions .chapter-area a.chapter *,
+div.end-of-book-references > .chapter-area > .title,
+div.cnx-eoc.summary > .section .title > a {
+  font: normal normal 700 10pt/13pt @font-family-serif;
+}
+
+div.end-of-book-references > .chapter-area > .body,
+div.end-of-book-solutions div.solution > div.body {
+  font: normal normal 400 10pt/13pt @font-family-serif;
+}
+
+// Key Terms
+.chapter {
+  .glossary,
+  .summary,
+  .review-questions,
+  .critical-thinking,
+  .personal-application,
+  .solutions {
+    font-size: 10pt;
+    line-height: 13pt;
+  }
+}
+
+
+/******************************************************
+ * Preface
+ ******************************************************/
+.preface {
+  > .titlepage h1.title {
+    // Reset (ccap-precalculus.less)
+    background-color: transparent;
+    padding-left: 0;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+  }
+
+  .titlepage h2,
+  .titlepage h3 {
+    margin-top: 20px;
+  }
+}
+
+/******************************************************
+ * Introduction
+ ******************************************************/
+.chapter > .introduction {
+  // Width of Introduction container must be set @100% to allow child containers (splash, etc to be 6.5in)
+  width: 100%;
+
+  .toc a {
+    margin: 0;
+  }
+  > h3.title {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+
+    padding: 0.2em 0em;
+  }
+}
+
+
+/******************************************************
+ * Chapters
+ ******************************************************/
+
+// Remove margin & padding from title to reduce space, but only target the h1 chapter title
+.chapter h1.title { margin: 0; padding: 0;}
+
+// Reset (ccap-precalculus.less)
+div.book div.chapter > div.titlepage > div > div h1.title {
+  width: 100%;
+
+  // string-set and display: none are used to get rid of the "."
+  // in the chapter titles, since the class "...-autogenerated" is
+  // used for both the string "chapter" and the ".".
+  span.cnx-gentext-autogenerated {
+    display: none;
+  }
+  span.cnx-gentext-autogenerated:first-of-type {
+    string-set: cnx-chapter-string content();
+  }
+  span.cnx-gentext-n {
+    margin: 0;
+    padding: 0;
+    string-set: cnx-chapter-number-string string(cnx-chapter-string) " " content();
+    content: string(cnx-chapter-number-string);
+  }
+
+  span.cnx-gentext-t {
+    display: block;
+    padding-left: 0;
+    border-top-width: 1px;
+    border-top-style: solid;
+
+    // Spacing around border.
+    margin-top: 10px;
+
+    // Replace the default page header "Chapter number | Title", removing
+    // the "|"
+    string-set: cnx-header string(cnx-chapter-number-string) " " content();
+  }
+}
+
+// Chapter splash figures
+div.figure.splash {
+  padding-bottom: 1.5em;
+
+  .body {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+/******************************************************
+ * Sections
+ ******************************************************/
+div.book div.chapter div.titlepage > div > div > h2 {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+
+  margin: 0;
+  padding: 0.2em 0em;
+  display: block; // This overrides a display: inline
+                  // from ccap-base.
+
+  span.cnx-gentext-t {
+
+    &::before {
+      content: "";
+    }
+  }
+}
+
+.chapter > .introduction,
+.chapter > .module {
+  margin: 1em 0;
+}
+
+.module:not(.introduction) > .section {
+  padding-top: 1.2em;
+}
+.module:not(.introduction) > .section > .section {
+  padding-top: 1.5em;
+}
+
+/******************************************************
+ * Chapter Outline/TOC
+ ******************************************************/
+// Reset (ccap-psychology.less)
+.chapter > .introduction > .toc > .title {
+  background-color: transparent;
+  text-align: left;
+  padding-left: 0px;
+}
+.chapter > .introduction > .toc {
+  border: none;
+}
+
+/******************************************************
+ * Learning Objectives/Chapter Objectives
+ ******************************************************/
+div.section div.titlepage div.abstract::before {
+  margin: .75em 0 .5em;
+}
+div.section div.titlepage div.abstract {
+  margin: 0 0 1.5em;
+
+  // These have to be individually set otherwise
+  // a color would have to be specified here.
+  border-top-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+
+
+  p {
+    margin: 0;
+  }
+}
+div.section div.titlepage div.abstract,
+.note.chapter-objectives {
+  text-align: left; // This was added due to the text alignment 
+                    // being reported as a bug several times. I 
+                    // do not notice alignment problems, but I 
+                    // added this just to be certain what was being
+                    // inherited.
+  padding-left: 0;
+
+  margin-top: 0em;
+  padding-top: 0;
+
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+
+  > .title {
+    border: none;
+    margin-top: 0;
+  }
+
+  ul.itemizedlist {
+    margin-left: 0;
+    padding-left: 20pt;
+
+    > .listitem {
+      display: list-item;
+      padding-top: 0;
+      margin: 0;
+
+      p {
+        display: block;
+        margin: 0;
+      }
+
+      &::before {
+        display: none;
+      }
+      &:last-child {
+        padding-bottom: .75em;
+      }
+    }
+  }
+}
+
+/******************************************************
+ * Notes
+ ******************************************************/
+.section .note {
+  > .title {
+    border: none;
+    padding-bottom: .2em;
+  }
+}
+
+/******************************************************
+ * Lists
+ ******************************************************/
+div:not(.body) > .itemizedlist > .itemizedlist > .listitem {
+  padding-top: 10px;
+
+  &:last-child {
+    padding-bottom: 10px;
+  }
+}
+
+.orderedlist {
+  margin-left: 2em;
+}
+
+/******************************************************
+ * Figures
+ ******************************************************/
+
+.figure .body {
+  padding: 15px 0px;
+}
+
+
+/******************************************************
+ * EOC Solutions
+ ******************************************************/
+.cnx-eoc.solutions {
+  display: none;
+}
+
+
+/******************************************************
+ * Folio Customizations
+ ******************************************************/
+
+// Make page numbers and header texts display on opposite
+// sides of the page.
+@page :left {
+  @top-left {
+    content: "";
+  }
+  @top-right {
+    content: string(cnx-header);
+    text-transform: uppercase;
+  }
+}
+
+@page :right {
+  @top-right {
+    content: "";
+  }
+  @top-left {
+    content: string(cnx-header);
+    text-transform: uppercase;
+  }
+}
+
+
+/******************************************************
+ * Collated titles
+ ******************************************************/
+.glossary .title,
+div.cnx-eoc > .title {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+
+/******************************************************
+ * Key Terms
+ ******************************************************/
+.glossary {
+  dl {
+    margin: 1em 0;
+  }
+  dd {
+    margin-left: 0px;
+  }
+}
+
+div.book div.chapter div.titlepage > div > div > h2.title {
+  margin-bottom: 1em;
+}
+
+/**
+  These two sets of selectors are a part of a bug fix for glossary terms which
+  were not properly wrapping around floated dt elements. Here we get rid 
+  of floats, set all elements inline, and then force breaks after term definitions
+  using preformatted whitespace in dd::after.
+ **/
+.glossary *,
+.glossary .glossterm,
+.glossary dt {
+  display: inline;
+  float: none;
+}
+div.book div.chapter > div.glossary dd::after {
+  display: inherit;
+  white-space: pre; 
+  content: '\A\A';
+}
+
+.cnx-eoc .title {
+  padding-bottom: 4px;
+}
+
+
+// Collated colors
+.glossary .title,
+div.cnx-eoc > .title {
+  color: @red;
+  border-bottom-color: @orange;
+}
+div.cnx-eoc.summary > .section .title > a {
+  color: @black;
+}
+
+.glossary .title,
+div.cnx-eoc > .title { // Important to override !important in ccap-precalculus.less
+  font-size: 12pt;
+  font-weight: 700;
+  text-transform: none;
+}
+
+
+.glossary .title::before {
+  display: none !important; // !important is used here befcause !important was used in
+                            // ccap-precalculus.less.
+}
+
+.glossterm.no-emphasis {
+  font-weight: 400;
+}
+
+.glossary .glossterm {
+  font: normal normal 700 10pt/13pt @font-family-serif;
+}
+
+
+@import url('ccap-base-skeleton.less');
+@import url('content-skeleton.less');
+@import url('precalculus-skeleton.less');
+@import url('psychology-skeleton.less');
+
+@import url('../ccap-numbering.less');
+//@import url('../ccap-precalculus-numbering.less');

@@ -1,0 +1,328 @@
+#part {
+  // Chapter outline
+  #toc {
+    .style(...) {
+      border: none;
+    }
+    #title {
+      .style(...) {
+        text-align: left;
+        background-color: initial;
+        font: bold normal 11pt/1em @font-family-sans-serif;
+        color: @dark-blue;
+      }
+    }
+    #entry {
+      #title { // "1.1"
+        .style(...) {
+          color: black;
+        }
+      }
+    }
+  }
+  #chapter {
+    #title {
+      .style() {
+        color: @red;
+        border: none;
+        font-size: 14pt;
+      }
+      .text() {
+        border: none;
+	      border-top-style: none;
+        padding-left: 0;
+        color: @dark-blue;
+      }
+      .number() {
+        font-size: 14pt;
+      }
+    }
+  }
+
+  // End of chapter section slots
+  // These sections #summary, #review-questions, and #critical-thinking
+  // can be refactored to use new factory mixin later. Leaving for now.
+  #chapter-end {
+    .style(...) {}
+
+    #summary {
+      .style(...) {}
+      #title {
+        .style(...) {
+          content: "Summary";
+          color: @red; 
+          font-size: 13pt;
+          font-weight: bold;
+          border: none;
+        }
+      }
+    }
+    #review-questions {
+      .style(...) {
+        // These properties are needed to vertically align
+        // and evenly distribute questions in (2) two columns.
+        // These directives exist in anatomy/biology eoc sections
+        // We will need to extract them into a helper mixin later
+        // i.e.  eoc-utils.less possibly.
+        column-width: auto;
+        column-fill: balance;
+        column-break-inside: auto;
+      }
+
+      #title {
+        .style(...) {
+          color: @red; 
+          font-size: 13pt;
+          font-weight: bold;
+          border: none;
+        }
+      }
+    }
+    #critical-thinking {
+      .style(...) {}
+
+      #title {
+        .style(...) {
+          color: @red; 
+          font-size: 13pt;
+          font-weight: bold;
+          border: none;
+        }
+      }
+    }
+  }
+
+  // End of Book Customizations
+  #book-end {
+    // End of Book solutions
+    #end-of-book-solutions {
+      .style(...) {
+        column-count: 1;
+      }
+      #title {
+        .style(...) {
+          column-span: all;
+          color: @red;
+          font-size: 18pt;
+          text-transform: none;
+          border: none;
+          margin-left: 0;
+        }
+      }
+    }
+
+    // End of book references
+    #end-of-book-references {
+      .style(...) {}
+
+      .title(...) {
+        color: @red;
+        margin-left: 0;
+        border: none;
+      }
+    }
+    #index {
+      .style(...) {}
+
+      #title {
+        .style(...) {
+          color: @red;
+          border: none;
+          text-transform: none;
+        }
+      }
+    }
+    // End of Book Attribution and About Connexions
+    #colophon {
+      .style(...) {
+        color: @red;
+        border: none;
+      }
+    }
+  }
+}
+
+.x-history-feature(@left-color, @header-text) {
+  border-left: 2.5em solid @left-color;
+
+  &::before {
+    background-color: @light-gray;
+    border-bottom: 1px solid @orange;
+    content: @header-text;
+    text-transform: uppercase;
+    width: 100%;
+    padding: .5em 0 .5em 0; // Center text vertically
+    display: block;
+    text-align: center;
+    font: normal bold 14pt/1em @font-family-sans-serif;
+    color: @dark-blue;
+  }
+
+  > .body, > .title { 
+    margin-right: 20px;
+    padding: 5px 0 0 20px;
+  }
+  > .title {
+    font: italic bold 14pt/17pt @font-family-serif;
+
+    span::before {
+      background-image: url("ccap-history/feature-title.svg");
+      background-repeat: no-repeat;
+      background-position: center left;
+      content: "";
+      padding-right: 1.2em;
+    }
+  }
+  > .body, > .body p {
+    font: normal normal 9pt/12pt @font-family-sans-serif;
+  }
+}
+
+#content {
+  #note {
+    .style(...) {
+      padding: 0;
+    }
+    .style(my-story; ...) {
+      .x-history-feature(@dark-blue, @cnx-string-my-story);
+    }
+    .style(defining-american; ...) {
+      .x-history-feature(@orange, @cnx-string-defining-american);
+    }
+    .style(americana; ...) {
+      .x-history-feature(@red, @cnx-string-americana);
+    }
+    .style(click-and-explore; ...) {
+      #utils>#pb>.inside(avoid);
+      background-color: @yellow-35;
+
+      > .body {
+        padding: 35px 20px 20px 20px;
+      }
+
+      > .body, > .body p {
+        font: normal normal 9pt/12pt @font-family-sans-serif;
+      }
+
+      > .title {
+        position: relative;
+        top: 20px;
+        border-top: 3px solid @orange;
+        border-bottom: 3px solid @orange;
+        display: block;
+        height: 30px;
+        padding-top: .3em;
+        content: @cnx-string-click-and-explore;
+        background: @dark-blue;
+        color: @yellow-50;
+        text-align: center;
+        font: bold normal 16pt/1em @font-family-serif;
+      }
+
+      //clearfix
+      > .body::after {
+        content: "";
+        display: table;
+        clear: both;  
+      }
+      .mediaobject {
+        float: left;
+        width: @qr;
+        margin-right: 1em;
+        img {
+          margin: 0;
+          width: @qr;
+          height: @qr;
+        }
+      }
+    }
+    #title {
+      .style(non-feature) {
+        border: none;
+      }
+    }
+  }
+  #glossary {
+   .style(@scope; default) {}
+   
+    #title {
+      .style(...) {
+        color: @red;
+        font-size: 13pt;
+        text-transform: none;
+      }
+    }
+  }
+  #blockquote {
+    .style(...) {
+      color: black;
+      font-size: inherit;
+      margin-top: inherit;
+      margin-bottom: inherit;
+
+      // Remove quotes
+      &::before, &::after {
+        content: "";
+      }
+    }
+  }
+  #heading{
+    .style(...) {}
+
+    // W&N wishes capitalize/no-capitalize h2/h3 in markup
+    .style(h2, ...) {
+      color: @dark-blue;
+      font-size: 11pt;
+      text-transform: none;
+    }
+    .style(h3, ...) {
+      color: @dark-blue;
+      font-size: 11pt;
+      text-transform: none;
+    }
+  }
+  #section {
+    #abstract { //learning objectives
+      .style(...) {
+        border: none;
+        border-style: none;
+        border-top: 1px solid @light-blue;
+        background-color: @light-gray-40;
+        padding: 1em 1em 0 1em;
+      }
+      #title {
+        .style(...) {
+          display: none;
+        }
+      }
+      .list(...) {
+        padding-left: 12pt;
+      }
+    }
+  }
+   // Parent level link styling
+  #link {
+    .style(...) {
+      color: @red;
+    }
+  }
+  #table {
+    .style(...) {
+      background-color: @yellow-35;
+      border: none !important; // inline styles on xhtml...
+    }
+    .caption(...) {
+      background-color: @yellow-35;
+      border-style: none;
+      border-bottom: 1px solid @orange;
+      border-bottom-style: solid; // reset border-style: none
+    }
+    .cell(...) {
+    }
+  }
+
+}
+
+
+
+

@@ -5,18 +5,20 @@
 @import url('utils.less');
 
 #toc {
-  .style() {
+  .style(...) {
     #utils>#pb>.before(right);
     #utils>#pb>.after(always);
   }
-  .title() {
-    #utils>#pb>.after(avoid);
-    text-align: center;
-    font-size: large;
-    font-weight: bold;
-    margin-bottom: 0em;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
+  #title {
+    .style(...) {
+      #utils>#pb>.after(avoid);
+      text-align: center;
+      font-size: large;
+      font-weight: bold;
+      margin-bottom: 0em;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+    }
   }
 
   #entry {
@@ -66,34 +68,31 @@
 }
 
 #index {
-  .style() {
+  .style(...) {
     #utils>#pb>.before(always);
     #utils>#pb>.after(always);
     #utils>#pb>.inside(auto);
     string-set: cnx-header "Index";
     .x-column-count(3);
   }
-  .title() {
-    display: inline;
-    string-set: cnx-header content();
+  #title {
+    .style(...) {
+      display: inline;
+      string-set: cnx-header content();
+    }
   }
-  .letter() {
+  .letter(...) {
     font-weight: bold; 
   }
-  .term() {
+  .term(...) {
   }
-  .link() {
+  .link(...) {
   }
 }
 
 #part {
-
-  // TODO: Remove #title in favor of .title() mixins
-  // inside individual part/content namespaces.
   #title {
-    //NOTE: Use separate Mixins (instead of @scope:default) when you do not want the default CSS to be used for all scopes
-    .style(@scope) {}
-    .style(default) {
+    .style(...) {
       margin-bottom: 0em; //1st span contains the 'chapter'
       padding: 0.25em 0.5em;
       font-size: 2.5em; // xx-large;
@@ -101,37 +100,36 @@
       text-transform: uppercase;
       color: white;
     }
-    .style(preface) {
-      padding-left: .25em;
-    }
-
-    .number(@scope: default) {
+    .number(...) {
       color: black;
       padding-right: 1em;
     }
   }
 
   #preface {
-    .style() {}
+    .style(...) {}
 
+    // How does this fit into #title> namespaces?
     #titlepage {
-      .style() {
+      .style(...) {
       }
-      .title() {
+      .title(...) {
         padding-left: .25em;
       }
     }
   }
 
   #introduction {
-    .title(chapter) {
-      padding-right: 3em;
-      font-weight: bold;
-      font-size: normal;
+    #title {
+      .style(...) {}
+      .style(chapter) {
+        padding-right: 3em;
+        font-weight: bold;
+        font-size: normal;
+      }
     }
     #splash-figure {
-      // .style() {}
-      // .caption() {}
+      .image(...) {}
       .image(chapter) {
         margin-left: auto;
         margin-right: auto;
@@ -143,93 +141,117 @@
 
   // This is the ToC inside the Introduction
   #toc {
-    .style() {
+    .style(...) {
       display: table;
       margin: auto;
       margin-bottom: 1em;
       border-spacing: 0px;
       #utils>#pb>.inside(avoid);
     }
-    .title() {
-      color: white;
-      font-size: large;
-      font-weight: bold;
-      text-align: center;
-      padding: 0.25em;
-      margin: 0em;
+    #title {
+      .style(...) {
+        color: white;
+        font-size: large;
+        font-weight: bold;
+        text-align: center;
+        padding: 0.25em;
+        margin: 0em;
+      }
+      .content(...) {
+        content: "Learning Objectives";
+      }
     }
-    .title-content() {
-      content: "Learning Objectives";
-    }
-    .children() {
+    .children(...) {
       padding-left: 0em;
       margin-left: 1em;
     }
     #entry {
-      .style() {
+      .style(...) {
         list-style-type: none;
         margin: 0.50em 0em;
       }
-      .title() {
-        color: inherit;
-        font-weight: bold;
-        padding: 0.25em 0em;
-        margin: 0em 1em 0em 0.5em;
+      #title {
+        .style(...) {
+          color: inherit;
+          font-weight: bold;
+          padding: 0.25em 0em;
+          margin: 0em 1em 0em 0.5em;
+        }
       }
-      .children-indent() {
+      .children-indent(...) {
         margin-left: 0.25em;
       }
       // This next line is deprecated and should be moved elsewhere
-      .d-section-colon() {
+      .d-section-colon(...) {
         content: ":"; //add : after section #
       }
 
       // Each Chapter ToC entry contains the abstract in addition to the title
       #abstract {
-        .style() {
+        .style(...) {
           margin-left: 2.5em;
           padding-left: 0em;
         }
-        .list() {
+        .list(...) {
           margin-left: 0em;
           padding-left: 1.5em;
         }
-        .list-item() {
+        .list-item(...) {
           list-style-type: disc;
         }
       }
     }
   }
 
-  // End-of-chapter parts
-  #end {
-    .style() {
-    }
-    .title() { // .cnx-eoc > .title
-      margin-top: 0.5em;
-      margin-bottom: 0.5em;
-    }
-
-    #glossary {
-      .dl() {}
-      .dt() {
-        float: left;
-        font-weight: bold;
-      }
-      .dd() {}
-    }
-    #section {
-      .title() {
-        padding-top: 1em;
-      }
-    }
-    #summary {
-      .style() {}
-      .title() {}
-      .title-link() {}
+  #chapter {
+    .style(...) {}
+    #title {
+      .style(...) {}
+      .label(...) {}   // "Chapter"
+      .number(...) {}  // "1"
+      .divider(...) {} // "|"
+      .text(...) {}    // "Introduction to Psychology"
     }
   }
 
+  // End-of-chapter parts
+  #chapter-end { // .cnx-eoc
+    .style(...) {
+    }
+    #title {
+      .style(...) {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+      }
+    }
+    #glossary {
+      .dl(...) {}
+      .dt(...) {
+        float: left;
+        font-weight: bold;
+      }
+      .dd(...) {}
+    }
+    #section {
+      #title {
+        .style(...) {
+          padding-top: 1em;
+        }
+      }
+    }
+    #summary {
+      .style(...) {}
+      #title {
+        .style(...) {}
+        .link(...) {}
+      }
+    }
+  }
+
+  // End-of-book parts
+  #book-end {
+    .style(...) {}
+  }
 }
 
 .cnx-indentation(@indent: 0) {
