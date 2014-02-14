@@ -20,10 +20,11 @@
 	<xsl:apply-templates select="@*"/>
 
 	<!-- If something like a note has a label, add it. -->
-	<xsl:if test="(c:title or c:label) and not(c:title and c:label != '')">
+	<!-- <xsl:if test="(c:title or c:label) and not(c:title and c:label != '')"> -->
+    <xsl:if test="c:title">
     	<db:title>
     		<xsl:apply-templates select="c:title/@*|c:title/node()"/>
-    		<xsl:apply-templates select="c:label/@*|c:label/node()"/>
+    		<!-- <xsl:apply-templates select="c:label/@*|c:label/node()"/> -->
     	</db:title>
 	</xsl:if>
 	<xsl:if test="c:title and c:label">
