@@ -23,6 +23,7 @@
 @light-blue:    #CFE1F1; 
 @gray:          #EFEFEF;  
 
+
 // A mixture of serif and sans-serif fonts.
 @font-family-serif: Liberation Serif, serif, @stix-fonts;
 
@@ -64,12 +65,6 @@
     &.workout {
       .x-pb-inside(auto);
       .x-feature(black, @gray, work, 0.38in); 
-
-      // weblinks included in media list need to be orange and bold
-      .itemizedlist > .listitem {
-        color: @orange;
-        font-weight: bold;
-      }
 
       // Supress the extra url generated from base that is wrapped with parentheses
       .itemizedlist > .listitem .link.only-show-once { 
@@ -144,18 +139,25 @@
     font-size: large;
     margin-top: .6em;
     margin-bottom: .2em;
-    padding: 0px .4em;
+    padding: 0px .5em;
     color: black;
     border: none;
   }  
 
-  > .body p { 
-    font-family: @font-family; 
+  // Must apply padding to all elements in body not just blockquote and para, tables 
+  // are being stuffed inside features as well and must play nice with text alignment
+  > .body { 
     padding: 0px .8em;
+
+    // W&N requests that all inline elements inside feature be sans-serif
+    p, ol, li { font-family: @font-family; }
+  }
+
+  .figure {
+    img { max-width: (@page-width - .25em); }   
+    > .title { font-size: 9.5pt; color: @dark-blue; }
   }
 }
-
-
 
 
 /* -------------------------
@@ -236,6 +238,15 @@
       display: none;
     }
 
+    // Learning objectives font for economics is in serif and doesn't have left indent like PreCalculus
+    p { 
+      font-family: @font-family-serif;
+      // destroy margin shorthand from PreCalc and then reduce margin space on top per W&N
+      margin: 0;
+      margin-top: .2em; 
+    }
+
+
     // Economics doesn't need a counter for modules to display like PreCalculus - turning off
     .itemizedlist > .listitem {
 
@@ -243,15 +254,22 @@
       // For Economics we need just garden variety bullets for list.  
       display: list-item;
       list-style-type: disc;
+      margin-top: 0;
 
       &::before {
         display: none;
       }
+
+      // styling must be overriden in PreCalculus to compensate for numbering that has been turned off
+      // Bulleted items must never display on second line of text, always first line of text. Do not
+      // need any margins from PreCalc as well.
+      p { 
+        display: inline; 
+        margin: 0; 
+      }
     }
   }
 }
-
-
 
 /* -------------------------
  * Generic Elements
@@ -263,7 +281,8 @@
   padding-top: 0;
   font-size: 34pt; 
   color: @dark-blue;
-
+  text-transform: none; 
+  
   // Chapter number
   .cnx-gentext-n {
     color: @dark-blue;
@@ -291,6 +310,7 @@ p { font-family: @font-family-serif; }
 
 blockquote {
   color: black;
+  font-family: @font-family-serif;
   font-size: inherit;
   margin-top: inherit;
   margin-bottom: inherit;
@@ -333,13 +353,15 @@ blockquote {
 
   caption,
   caption span,
-  caption::before,
-  caption span.table-caption.caption {
+  caption::before {
     // font added here so down cascade table captions will render well inside eoc question sections
     font-family: @font-family;
     color: @dark-blue;
     padding-bottom: 0;
   }
+
+  // table numbering/caption must be dark blue, but any associated caption should be black;
+  caption span.table-caption.caption { color: black; }
 
   thead {
     th {
@@ -354,6 +376,13 @@ blockquote {
       border-bottom: 2px solid @dark-blue !important; //!important used in ccap-precalculus.
     }
   }
+
+  // Format and style lists there are being used inside tables
+  .itemizedlist {
+    list-style-type: disc;
+    margin-top: .5em;
+    margin-left: 1em;
+  }
 }
 
 
@@ -365,11 +394,11 @@ blockquote {
 
 
 .figure {
+  font-family: @font-family;
   font-size: 9.5pt;
+
   > .title { color: @dark-blue; }
 }
-
-
 
 
 
@@ -396,47 +425,37 @@ blockquote {
  * EOC Styling
  ******************************************************************************/
 
-// Key Terms
-.glossary > .titlepage h2.title {
-  color: @dark-blue;
-}
+ // Key Terms
 .glossary {
   > .titlepage h2.title {
     font: normal normal 700 13pt/1em @font-family;
+    color: @dark-blue;
+    padding-left: 0;
   }
 
-  > dl dt {
-    font: normal normal 700 10pt/1em @font-family;
-  }
-  > dl dd {
-    font: normal normal 400 10pt/1em @font-family-serif;
-  }
-}
-.glossary {
-  // Hide "Chapter x Review" title.
-  > .titlepage h2.title::before {
+  &:before {
     display: none !important; // !important is used in ccap-precalculus.
   }
-
-  > dl {
-    margin: 0;
-
-    > dt, > dd {
-      &:first-of-type {
-        padding-top: 1em;
-      }
-      padding-top: .2em;
-    }
-  }
-}
-
-// Glossary Term and Non-bolded Glossary Term
-.glossary .glossterm {
-  font: normal normal 700 10pt/13pt @font-family-serif;
 }
 
 .glossterm.no-emphasis {
   font-weight: 400;
+}
+
+// Stop indentation of Key terms and force adherence to 6.5in page width - avoidance of CSS shorthand
+.glossary > dl { 
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: .5em;
+  margin-bottom: .5em;
+}
+
+// In base-skeleton.less some former precalculus universal selector cruft from precalcuus
+// exists. We have to target the span here to fix the header sizes and remove a little padding
+// to comply with economics template.
+.cnx-eoc > .title > span {
+  padding-left: 0;
+  font-size: 13pt;
 }
 
 .cnx-eoc {
@@ -447,6 +466,7 @@ blockquote {
   &.problems {
     > .title {
       color: @dark-blue !important; // !important used in ccap-precalculus.
+      font-size: 13pt;
     }
     > .section > .title > a {
       color: @dark-blue;
@@ -459,7 +479,7 @@ blockquote {
   }
   > .section {
     > .title {
-      font: normal normal 700 10pt/1em @font-family;
+      font: normal normal 700 13pt/1em @font-family;
     }
     > .body {
       font: normal normal 400 10pt/12pt @font-family-serif;
@@ -470,6 +490,7 @@ blockquote {
   .title {
     margin-top: 1em;
     column-span: all;
+    padding-left: 0;
   }
   > .section > .title {
     display: none;
@@ -563,19 +584,23 @@ div.colophon.end-of-book-references .chapter-area {
   }
 
   > .title {
-    color: @black;
+    color: black;
   }
 }
 
-// Answer Key
+
+
+// Answer Key 
 div.colophon.end-of-book-solutions div.chapter-area {
   div.solution {
     padding-bottom: .2em;
-    > div.title a.solution {
-      padding-right: .2em;
 
-      &::before {
-        content: target-counter(attr(href), exercise) ".";
+    > div.title a.solution {
+      padding-right: .2em;  
+
+      // Solution in Answer Key needs to have period after number.
+      &::after {
+        content: ". ";
       }
     }
 
@@ -583,16 +608,27 @@ div.colophon.end-of-book-solutions div.chapter-area {
       padding-top: .5em;
     }
 
-    /*
-    * This is a bug-fix related to 
-    *    display: inline;
-    *    * { display: inline; }
-    * being used in ccap-precalculus.less.
-    */
     > div.body {
       // lists must not be inline 
       li { display: list-item; }
+
       
+      .equation {
+        // Equations need to be on their own line.  We must override inline style for equations.
+        display: block;
+        // Equation numbering turned off in Appendix/Answer Key.  There is no default setting/code
+        // in numbering.less that turns off equation numbering by default for all sections of book.
+        // We will need to extract this part later so we turn off equation numbering for all books.
+        > span.label { display: none; }
+      }
+
+      /*
+      * This is a bug-fix related to 
+      *    display: inline;
+      *    * { display: inline; }
+      * being used in ccap-precalculus.less.
+      */
+
       .table,
       table {
         display: table;
@@ -602,7 +638,31 @@ div.colophon.end-of-book-solutions div.chapter-area {
         tr { display: table-row; }
         td, th { display: table-cell; }
       }
-    }
+
+      // Since up till now Answer Key has been just a blob of inline text, we must some how undo
+      // the multitude of display:inline to allow the myriad new elements that are now a part of Answer Key.
+      // Figures must be converted to block level elements and then
+      // styled accordingly
+      .figure { 
+        // Stop outer container from collapsing
+        display: block;
+        margin-top: 1em;
+
+        // Figures are not to be numbered for Answer Key so associated caption/title are not displayed
+        .title {
+          display: none;
+        }
+
+        & img {
+          // For figure imagery in Answer Key we need to center figures
+          display: block;
+          margin: 0 auto;
+        }
+      }   
+
+      // Tables are not to be numbered for Answer Key so we shall not display
+      .table > table > caption > span { display: none; }
+    }    
   }
 }
 
@@ -612,6 +672,9 @@ div.colophon.end-of-book-solutions div.chapter-area {
   h1.title {
     color: @dark-blue;
   }
+
+  // Must remove full justification of text from Answer Key entries
+  text-align: left;
 }
 div.index div.title h2 {
   color: @dark-blue;

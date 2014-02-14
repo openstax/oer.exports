@@ -496,9 +496,16 @@ div.book div.chapter > div.section div.example div.exercise .problem {
     font-size: 10pt;
     color: @dark-blue;
     font-weight: bold;
-    float: left;
-    margin-right: .2em;
-    height: .9em;
+    line-height: 1em;
+  }
+
+  // Fix margins because solutions with only one paragraph
+  // do not include a <p></p> wrapper for text.
+  .solution > .body {
+    margin-top: .5em;
+  }
+  .solution > .body > p:first-of-type {
+    margin-top: 0;
   }
 
   .solution > .title > p {
@@ -739,7 +746,7 @@ div.book div.chapter > div.section div.example div.exercise .problem {
   }
 
   > .title {
-    display: inline;
+    display: block; // Make figure titles align properly.
     color: @orange;
     font-weight: bold;
     text-align:center;
