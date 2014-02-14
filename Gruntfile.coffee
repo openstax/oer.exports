@@ -1,3 +1,10 @@
+# TODO:
+#
+# - check that docbook-xsl/xhtml/addon.xsl exists (to make sure it was installed locally)
+# - check that the book paths in config.yml contain collection.xml
+# - when a task errors make grunt fail
+# - add option to skip `pdf` task if the `collection.xhtml` already exists
+
 module.exports = (grunt) ->
 
   path = require('path')
@@ -20,7 +27,7 @@ module.exports = (grunt) ->
           return "lessc css/ccap-#{bookName}.less > css/ccap-#{bookName}.css"
 
       # 1. Generate a PDF and more importantly, the huge HTML file
-      'regress-pdf':
+      'pdf':
         command: (bookName, branchName='new') ->
           tempDir = "<%= config.testingDir %>/tempdir-#{bookName}-#{branchName}"
           return [
@@ -29,6 +36,7 @@ module.exports = (grunt) ->
             'source ./bin/activate'
             'pip install lxml argparse pillow'
             # Send stderr to /dev/null because grunt falls over with too many log lines
+            "echo 'Building book (it should take a long time. If it is quick then it probably failed)...'"
             "python ./collectiondbk2pdf.py -v
               -p <%= config.prince %>
               -d <%= config.books.#{bookName} %>
@@ -41,7 +49,7 @@ module.exports = (grunt) ->
 
       # 2. Generate HTML Coverage Report (optional)
       # 2a. Generate LCOV file
-      'regress-coverage':
+      'coverage':
         command: (bookName, branchName='new') ->
           lessFile = "./css/ccap-#{bookName}.less"
           tempDir = "<%= config.testingDir %>/tempdir-#{bookName}-#{branchName}"
@@ -50,14 +58,14 @@ module.exports = (grunt) ->
             -h #{tempDir}/collection.xhtml
             -l <%= config.testingDir %>/#{bookName}-#{branchName}.lcov"
       # 2b. Generate HTML Report from LCOV file
-      'regress-coverage-report':
+      'coverage-report':
         command: (bookName, branchName='new') ->
           return "genhtml <%= config.testingDir %>/#{bookName}-#{branchName}.lcov
             --output-directory <%= config.testingDir %>/#{bookName}-#{branchName}-coverage
           "
 
       # 3. Generate HTML For Later Diffing
-      'regress-baked-html':
+      'bake':
         command: (bookName, branchName='new') ->
           cssDiffPath = './node_modules/css-diff'
           lessFile = "./css/ccap-#{bookName}.less"
@@ -71,7 +79,7 @@ module.exports = (grunt) ->
           "
 
       # 4. Generate Diff if the last argument is not 'master'
-      'regress-create-diff':
+      'create-diff':
         command: (bookName, branchName='new') ->
           if branchName == 'master'
             grunt.log.writeln('No diff to make because the branch is master')
@@ -85,22 +93,22 @@ module.exports = (grunt) ->
             "
 
 
-  grunt.registerTask 'regress-diff', 'Perform a regression', (bookName) ->
+  grunt.registerTask 'diff-book', 'Perform a regression', (bookName) ->
     branchName = 'new'
     grunt.log.writeln('Use --verbose to see the output because these take a while.')
-    grunt.task.run("shell:regress-pdf:#{bookName}:#{branchName}")
-    grunt.task.run("shell:regress-baked-html:#{bookName}:#{branchName}")
-    grunt.task.run("shell:regress-create-diff:#{bookName}:#{branchName}")
+    grunt.task.run("shell:pdf:#{bookName}:#{branchName}")
+    grunt.task.run("shell:bake:#{bookName}:#{branchName}")
+    grunt.task.run("shell:create-diff:#{bookName}:#{branchName}")
     if config.coverage
-      grunt.task.run("shell:regress-coverage:#{bookName}:#{branchName}")
+      grunt.task.run("shell:coverage:#{bookName}:#{branchName}")
 
 
-  grunt.registerTask 'regress-master', 'Generate the master versions of books to compare against', (bookName) ->
+  grunt.registerTask 'prepare-book', 'Generate the master versions of books to compare against', (bookName) ->
     grunt.log.writeln('Use --verbose to see the output because these take a while.')
-    grunt.task.run("shell:regress-pdf:#{bookName}:master")
-    grunt.task.run("shell:regress-baked-html:#{bookName}:master")
+    grunt.task.run("shell:pdf:#{bookName}:master")
+    grunt.task.run("shell:bake:#{bookName}:master")
     if config.coverage
-      grunt.task.run("shell:regress-coverage:#{bookName}:master")
+      grunt.task.run("shell:coverage:#{bookName}:master")
 
 
   # Dependencies
@@ -135,12 +143,12 @@ module.exports = (grunt) ->
   masterBooks = []
   diffBooks = []
   for bookName of config.books
-    masterBooks.push("regress-master:#{bookName}")
-    diffBooks.push("regress-diff:#{bookName}")
+    masterBooks.push("prepare-book:#{bookName}")
+    diffBooks.push("diff-book:#{bookName}")
 
   if masterBooks.length
-    grunt.registerTask('master-all', masterBooks)
-    grunt.registerTask('regress-all', diffBooks)
+    grunt.registerTask('prepare', masterBooks)
+    grunt.registerTask('diff', diffBooks)
 
 
   else
