@@ -666,6 +666,43 @@ div.colophon.end-of-book-solutions div.chapter-area {
   }
 }
 
+/******************************************************
+ * Appendix 
+ ******************************************************/
+
+.appendix h1.title {
+  margin-left:0;
+  padding-left: 0;
+  font-size: 34pt; /* x-large; */
+  font-weight: bold;
+  text-align: left;
+  color: @dark-blue;
+
+  &::before {
+    content: "Appendix ";
+    text-transform: capitalize;
+  }
+
+  // Alpha-numeric number for Econ needs to be @dark-blue
+  > .cnx-gentext-n { 
+    color: @dark-blue; 
+  }
+
+  // Remove title from Appendix for Economics
+  span.cnx-gentext-t {
+    display: none;
+  }
+}
+
+// Since these appendices have been created with subsections we must stop
+// the counter from showing and the pipe text decoration (|) per W&N design
+.appendix .section > .titlepage h2::before,
+.appendix .section > .titlepage h2 .cnx-gentext-t:before { 
+  display: none;
+}
+
+
+
 // Titles
 .end-of-book-references,
 .end-of-book-solutions {
