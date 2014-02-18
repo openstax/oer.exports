@@ -4,10 +4,20 @@
 
 .note {
   &.howto {
+    @context: feature-howto;
     #content>#note>.style(howto);
   }
   &.qa {
+    @context: feature-qa;
     #content>#note>.style(qa);
+
+    > .title {
+      #content>#note>#title>.style(@kind; @part; @context);
+    }
+
+    >.body {
+      #content>#note>#body>.style(@kind; @part; @context);
+    }
   }
   &.media {
     @context: feature-media;
@@ -64,11 +74,15 @@
  * -------------------------
  */
 .book > .toc {
+  #part>#toc>.style();
+
   > .title {
-    #toc>.style();
+    #part>#toc>#title>.style();
   }
 
-  a { color: @medium-blue; }
+  a { 
+    #part>#toc>#link>.style();
+  }
 }
 
 /* -------------------------
