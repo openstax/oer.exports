@@ -4,10 +4,20 @@
 
 .note {
   &.howto {
+    @context: feature-howto;
     #content>#note>.style(howto);
   }
   &.qa {
+    @context: feature-qa;
     #content>#note>.style(qa);
+
+    > .title {
+      #content>#note>#title>.style(@kind; @part; @context);
+    }
+
+    >.body {
+      #content>#note>#body>.style(@kind; @part; @context);
+    }
   }
   &.media {
     @context: feature-media;
@@ -64,11 +74,15 @@
  * -------------------------
  */
 .book > .toc {
+  #part>#toc>.style();
+
   > .title {
-    #toc>.style();
+    #part>#toc>#title>.style();
   }
 
-  a { color: @medium-blue; }
+  a { 
+    #part>#toc>#link>.style();
+  }
 }
 
 /* -------------------------
@@ -367,8 +381,12 @@ a { #content>#link>.style(); }
  }
 
 
-
-
+/********************************************************************
+ * Glossary
+ ********************************************************************/
+.glossary {
+  #content>#glossary>.style();
+}
 
 
 
@@ -410,25 +428,7 @@ p {
 
 
 
-.glossary {
 
-  // For Precalculus it is desired to have main heading Chapter Review above the Key Terms
-  // At the top of the page.  This is possible by using psuedo-selector ::before to display
-  // this before the glossary title
-
-  .title::before {
-    content: "" "Chapter " counter(chapter, decimal) " Review";
-    color: @medium-blue;
-    font-size: x-large;
-    padding: 0em;
-    display: block;
-    text-transform:uppercase;
-    margin-bottom: 1.5em;
-  }
-
-  // Remove ":"
-  dt::after { content: " "; }
-}
 
 img, figure, subfigure  { margin: 1em; }
 
