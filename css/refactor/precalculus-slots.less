@@ -441,16 +441,25 @@
       // End-of-chapter material should start on a new page
       #utils>#pb>.before(always);
       display:inline;
-    }
-    #title {
-      .style(...) {
-        /* Change "Glossary" to "Key Terms" */
-        content: "Key Terms";
+
+      /* Change "Glossary" to "Key Terms" */
+      content: "Key Terms";
+      color: @medium-blue;
+      font-size: large;
+      font-weight: bold;
+      padding: 0em;
+      display: block;
+      text-transform:uppercase;
+
+      &::before {
+        content: "" "Chapter " counter(chapter, decimal) " Review";
         color: @medium-blue;
-        font-size: large;
+        font-size: x-large;
+        font-weight: bold;
         padding: 0em;
         display: block;
         text-transform:uppercase;
+        margin-bottom: 1.5em;
       }
     }
   }
