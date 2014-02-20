@@ -367,9 +367,108 @@ a { #content>#link>.style(); }
  }
 
 
+/******************************************************************************
+ * Breakout of figure code into 3 sizes (large, medium, small) for left aligned figure text
+ ******************************************************************************/
 
 
 
+/* ---------------------------------------------------
+ * Figures/Subfigures
+ * ---------------------------------------------------
+ */
+
+@figure-width-medium: 468px;  // Width of 3/4 size art 
+@figure-width-small:  312px;  // Width of 1/2 size art
+
+.figure {
+  #content>#figure>.style();
+
+  // size the surrounding container to the size of the image container to allow the
+  // left justified alignment of the Figure numbering and associated caption
+  // default width is (hero) full size @ 625px. Specifying no class or width defaults
+  // to full size.
+
+  // 3/4 size art
+  &.medium {
+    width: @figure-width-medium;
+  }
+
+  // 1/2 size art
+  &.small {
+    width: @figure-width-small;
+  }
+
+  > .title {
+    #content>#figure>#title>.number(); // "Figure x.x..."
+  }
+
+  > .caption {
+    #content>#figure>#title>.style();
+  }
+
+  & img {
+    #content>#image>.style(@kind; @part; figure);
+  }
+
+}
+
+/******************************************************************************
+ * Addition of .commentary selector styling for Analysis header in examples
+ ******************************************************************************/
+.example .exercise {
+  .commentary > .title {
+    #content>#commentary>#title>.style(@kind; @part; exercise; example);
+
+  }
+}
+
+
+/* -------------------------
+ * End of Section Exercise Styling
+ * -------------------------
+ */
+
+// Headers are san-serif but the text of exercises are serif
+.section .exercise {
+  #content>#exercise>.style(@kind; @part; section);
+}
+
+.section.section-exercises {
+  // here section-exercises is @kind, not @context.
+  #content>#section>.style(section-exercises; @part);
+
+  // Create Exercises Title above sections
+  &::before {
+    #content>#section>#title>.style(section-exercises; @part);
+  }
+  // turn off "Section Exercises" title
+  > .titlepage {
+    display: none;
+  }
+  .exercise {
+    #content>#exercise>.style(@kind; @part; section-exercise);
+  }
+
+  .exercise > .title {
+    #content>#exercise>#title>.style(@kind; @part; section-exercise);
+  }
+
+  .exercise .problem { #content>#problem>.style(@kind; @part; exercise; section-exercise); }
+  .exercise .problem .figure { #content>#figure>.style(@kind; @part; problem; exercise; section-exercise); }
+
+  // The end-of-section exercises should not display solutions
+  // It will be either this if they wish to do a solutions manual, or we will
+  // collate to end-of-book
+  .exercise .solution { #content>#solution>.style(@kind; @part; exercise; section-exercise); }
+
+  // turn off default display for exercises that displays "Exercise x.x"
+  .exercise:not(.labeled) > .title > span:first-child:not(.labeled):before {
+    display: none;
+  }
+
+
+}
 
 
 
@@ -438,10 +537,6 @@ img, figure, subfigure  { margin: 1em; }
  * Example Elements Styling and Numbering
  * -------------------------
  */
-.example {
-  page-break-inside: avoid;
-}
-
 .example > .title {
   background: @dark-blue;
   padding-top: .3em;
@@ -521,91 +616,10 @@ div.book div.chapter > div.section div.example div.exercise .problem {
     }
   }
 
-                  
-
-
-
-
-
-
-
-
-/******************************************************************************
- * Addition of .commentary selector styling for Analysis header in examples
- ******************************************************************************/
-
-  // Create styles for Analysis sections for exercises in examples
-  .commentary > .title {
-    font-family: @font-family;
-    font-size: 10pt;
-    color: @dark-blue;
-    font-weight: bold;
-    float: left;
-    margin-right: .2em;
-    height: .9em;
-  }
-
-  .commentary > .title > p {
-    float: left;
-  }
-
 }
 
 
 
-
-
-
-
-/* -------------------------
- * End of Section Exercise Styling
- * -------------------------
- */
-
-// Headers are san-serif but the text of exercises are serif
-.section .exercise {
-   font-family: @font-family-serif;
-}
-
-.section.section-exercises {
-  page-break-before: always;
-  page-break-after: always;
-  column-count: 2;
-
-  .exercise {
-    margin-top: 1em;
-    margin-bottom: 1em;
-  }
-
-  .exercise > .title {
-    content: counter(exercise) ".";
-    float: left;
-  }
-
-  .exercise .problem { text-indent: 1em; }
-  .exercise .problem .figure { text-indent: 0; }
-
-  // The end-of-section exercises should not display solutions
-  // It will be either this if they wish to do a solutions manual, or we will
-  // collate to end-of-book
-  .exercise .solution { display: none; }
-
-  // Create Exercises Title above sections
-  &::before {
-    content: "" " " counter(chapter, decimal) "." counter(section, decimal) " exercises" " " "";
-    text-transform: uppercase;
-    font-size: 17pt;
-    color: @medium-blue;
-    font-weight: bold;
-  }
-
-  // turn off default display for exercises that displays "Exercise x.x"
-  .exercise:not(.labeled) > .title > span:first-child:not(.labeled):before {
-    display: none;
-  }
-
-
-}
 
 /* -------------------------
  * End of Section/Chapter Exercise Solution Styling
@@ -704,65 +718,6 @@ div.book div.chapter > div.section div.example div.exercise .problem {
 
 
 
-
-
-
-
-
-
-
-
-/******************************************************************************
- * Breakout of figure code into 3 sizes (large, medium, small) for left aligned figure text
- ******************************************************************************/
-
-
-
-/* ---------------------------------------------------
- * Figures/Subfigures
- * ---------------------------------------------------
- */
-
-@figure-width-medium: 468px;  // Width of 3/4 size art 
-@figure-width-small:  312px;  // Width of 1/2 size art
-
-.figure {
-  font-size: 9pt;
-  padding-bottom: 1em;
-
-  // size the surrounding container to the size of the image container to allow the
-  // left justified alignment of the Figure numbering and associated caption
-  // default width is (hero) full size @ 625px. Specifying no class or width defaults
-  // to full size.
-
-  // 3/4 size art
-  &.medium {
-    width: @figure-width-medium;
-  }
-
-  // 1/2 size art
-  &.small {
-    width: @figure-width-small;
-  }
-
-  > .title {
-    display: block; // Make figure titles align properly.
-    color: @orange;
-    font-weight: bold;
-    text-align:center;
-    margin-right: .5em;
-  }
-
-  & img {
-    margin: 0; //override auto  left/right margins from base
-    max-width: @page-width; //overrides width value figures/subfigures ensuring imgs do not bleed off page
-  }
-
-  > .caption {
-    display: inline;
-    text-align:center;
-  }
-}
 
 
 

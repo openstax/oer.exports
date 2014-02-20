@@ -328,6 +328,9 @@ a[href^="http"] {
   margin-right: auto;
   page-break-inside: avoid;
   column-break-inside: avoid;
+  font-size: 9pt;
+  padding-bottom: 1em;
+  text-align: center;
 }
 .mathml-mi {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -699,6 +702,9 @@ p:nth-of-type(2),
   margin-right: auto;
   page-break-inside: avoid;
   column-break-inside: avoid;
+  font-size: 9pt;
+  padding-bottom: 1em;
+  text-align: center;
 }
 .introduction .table {
   page-break-inside: avoid;
@@ -782,6 +788,9 @@ p:nth-of-type(2),
   margin-right: auto;
   page-break-inside: avoid;
   column-break-inside: avoid;
+  font-size: 9pt;
+  padding-bottom: 1em;
+  text-align: center;
 }
 .chapter .table {
   page-break-inside: avoid;
@@ -865,6 +874,9 @@ p:nth-of-type(2),
   margin-right: auto;
   page-break-inside: avoid;
   column-break-inside: avoid;
+  font-size: 9pt;
+  padding-bottom: 1em;
+  text-align: center;
 }
 .cnx-eoc .table {
   page-break-inside: avoid;
@@ -948,6 +960,9 @@ p:nth-of-type(2),
   margin-right: auto;
   page-break-inside: avoid;
   column-break-inside: avoid;
+  font-size: 9pt;
+  padding-bottom: 1em;
+  text-align: center;
 }
 .colophon .table {
   page-break-inside: avoid;
@@ -1533,6 +1548,114 @@ a {
   background-color: #528cbe;
   margin: .5em 0;
 }
+/******************************************************************************
+ * Breakout of figure code into 3 sizes (large, medium, small) for left aligned figure text
+ ******************************************************************************/
+/* ---------------------------------------------------
+ * Figures/Subfigures
+ * ---------------------------------------------------
+ */
+.figure {
+  font-size: xx-small;
+  padding-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  page-break-inside: avoid;
+  column-break-inside: avoid;
+  font-size: 9pt;
+  padding-bottom: 1em;
+  text-align: center;
+}
+.figure.medium {
+  width: 468px;
+}
+.figure.small {
+  width: 312px;
+}
+.figure > .title {
+  color: #d7562c;
+  font-weight: bold;
+  text-align: center;
+  margin-right: .5em;
+}
+.figure > .caption {
+  display: inline;
+  text-align: center;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+.figure img {
+  margin: 0;
+  max-width: 6.5in;
+}
+/******************************************************************************
+ * Addition of .commentary selector styling for Analysis header in examples
+ ******************************************************************************/
+.example .exercise .commentary > .title {
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 10pt;
+  color: #233a67;
+  font-weight: bold;
+  margin-right: .2em;
+  height: .9em;
+}
+/* -------------------------
+ * End of Section Exercise Styling
+ * -------------------------
+ */
+.section .exercise {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  margin-top: 0;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+.section.section-exercises {
+  page-break-before: always;
+  page-break-after: always;
+  counter-reset: exercise;
+}
+.section.section-exercises::before {
+  page-break-after: avoid;
+  content: "" " " counter(chapter, decimal) "." counter(section, decimal) " exercises" " " "";
+  text-transform: uppercase;
+  font-size: 17pt;
+  color: #528cbe;
+  font-weight: bold;
+}
+.section.section-exercises > .titlepage {
+  display: none;
+}
+.section.section-exercises .exercise {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  margin-top: 0;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.section.section-exercises .exercise > .title {
+  content: counter(exercise) ".";
+  float: left;
+}
+.section.section-exercises .exercise .problem {
+  text-indent: 1em;
+}
+.section.section-exercises .exercise .problem .figure {
+  font-size: xx-small;
+  padding-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  page-break-inside: avoid;
+  column-break-inside: avoid;
+  font-size: 9pt;
+  padding-bottom: 1em;
+  text-align: center;
+  text-indent: 0;
+}
+.section.section-exercises .exercise .solution {
+  display: none;
+}
+.section.section-exercises .exercise:not(.labeled) > .title > span:first-child:not(.labeled):before {
+  display: none;
+}
 /********************************************************************
  * Generic Elements
  ********************************************************************/
@@ -1570,9 +1693,6 @@ subfigure {
  * Example Elements Styling and Numbering
  * -------------------------
  */
-.example {
-  page-break-inside: avoid;
-}
 .example > .title {
   background: #233a67;
   padding-top: .3em;
@@ -1606,9 +1726,6 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
 .example .exercise {
   counter-increment: none;
   margin-top: 0;
-  /******************************************************************************
- * Addition of .commentary selector styling for Analysis header in examples
- ******************************************************************************/
 }
 .example .exercise .problem > .title {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -1638,57 +1755,6 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
 .example .exercise .solution ul {
   margin-left: 2em;
   margin-top: 2em;
-}
-.example .exercise .commentary > .title {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  font-size: 10pt;
-  color: #233a67;
-  font-weight: bold;
-  float: left;
-  margin-right: .2em;
-  height: .9em;
-}
-.example .exercise .commentary > .title > p {
-  float: left;
-}
-/* -------------------------
- * End of Section Exercise Styling
- * -------------------------
- */
-.section .exercise {
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-.section.section-exercises {
-  page-break-before: always;
-  page-break-after: always;
-  column-count: 2;
-}
-.section.section-exercises .exercise {
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-.section.section-exercises .exercise > .title {
-  content: counter(exercise) ".";
-  float: left;
-}
-.section.section-exercises .exercise .problem {
-  text-indent: 1em;
-}
-.section.section-exercises .exercise .problem .figure {
-  text-indent: 0;
-}
-.section.section-exercises .exercise .solution {
-  display: none;
-}
-.section.section-exercises::before {
-  content: "" " " counter(chapter, decimal) "." counter(section, decimal) " exercises" " " "";
-  text-transform: uppercase;
-  font-size: 17pt;
-  color: #528cbe;
-  font-weight: bold;
-}
-.section.section-exercises .exercise:not(.labeled) > .title > span:first-child:not(.labeled):before {
-  display: none;
 }
 /* -------------------------
  * End of Section/Chapter Exercise Solution Styling
@@ -1767,38 +1833,6 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
   background-color: #efd8b0;
   width: 2.5in;
   font-weight: bold;
-}
-/******************************************************************************
- * Breakout of figure code into 3 sizes (large, medium, small) for left aligned figure text
- ******************************************************************************/
-/* ---------------------------------------------------
- * Figures/Subfigures
- * ---------------------------------------------------
- */
-.figure {
-  font-size: 9pt;
-  padding-bottom: 1em;
-}
-.figure.medium {
-  width: 468px;
-}
-.figure.small {
-  width: 312px;
-}
-.figure > .title {
-  display: block;
-  color: #d7562c;
-  font-weight: bold;
-  text-align: center;
-  margin-right: .5em;
-}
-.figure img {
-  margin: 0;
-  max-width: 6.5in;
-}
-.figure > .caption {
-  display: inline;
-  text-align: center;
 }
 /****************************************************************************
  * Misc Color changes
