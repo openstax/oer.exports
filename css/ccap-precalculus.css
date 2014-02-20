@@ -1,3 +1,8 @@
+/*******************************************************
+* Copyright (c) 2013 Rice University
+*  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+*  See LICENSE.txt for details.
+*******************************************************/
 @page {
   margin: 5em;
   font-size: xx-small;
@@ -58,9 +63,6 @@ div.table-caption.caption {
 .book > .toc {
   page-break-before: right;
   page-break-after: always;
-  border-bottom-color: #528cbe;
-  color: #528cbe;
-  margin-bottom: .5em;
 }
 .book > .toc > .title {
   page-break-after: avoid;
@@ -203,6 +205,8 @@ h1.title .cnx-gentext-n {
   text-align: center;
   padding: 0.25em;
   margin: 0em;
+  page-break-after: avoid;
+  page-break-before: avoid;
   content: "Chapter Outline";
   padding-top: .1em;
   padding-bottom: .2em;
@@ -713,15 +717,24 @@ p:nth-of-type(2),
 .introduction .glossary {
   page-break-before: always;
   display: inline;
-}
-.introduction .glossary .titlepage h2 {
   /* Change "Glossary" to "Key Terms" */
   content: "Key Terms";
   color: #528cbe;
   font-size: large;
+  font-weight: bold;
   padding: 0em;
   display: block;
   text-transform: uppercase;
+}
+.introduction .glossary::before {
+  content: "" "Chapter " counter(chapter, decimal) " Review";
+  color: #528cbe;
+  font-size: x-large;
+  font-weight: bold;
+  padding: 0em;
+  display: block;
+  text-transform: uppercase;
+  margin-bottom: 1.5em;
 }
 .introduction blockquote {
   color: #dbe8f2;
@@ -799,15 +812,24 @@ p:nth-of-type(2),
 .chapter .glossary {
   page-break-before: always;
   display: inline;
-}
-.chapter .glossary .titlepage h2 {
   /* Change "Glossary" to "Key Terms" */
   content: "Key Terms";
   color: #528cbe;
   font-size: large;
+  font-weight: bold;
   padding: 0em;
   display: block;
   text-transform: uppercase;
+}
+.chapter .glossary::before {
+  content: "" "Chapter " counter(chapter, decimal) " Review";
+  color: #528cbe;
+  font-size: x-large;
+  font-weight: bold;
+  padding: 0em;
+  display: block;
+  text-transform: uppercase;
+  margin-bottom: 1.5em;
 }
 .chapter blockquote {
   color: #dbe8f2;
@@ -885,15 +907,24 @@ p:nth-of-type(2),
 .cnx-eoc .glossary {
   page-break-before: always;
   display: inline;
-}
-.cnx-eoc .glossary .titlepage h2 {
   /* Change "Glossary" to "Key Terms" */
   content: "Key Terms";
   color: #528cbe;
   font-size: large;
+  font-weight: bold;
   padding: 0em;
   display: block;
   text-transform: uppercase;
+}
+.cnx-eoc .glossary::before {
+  content: "" "Chapter " counter(chapter, decimal) " Review";
+  color: #528cbe;
+  font-size: x-large;
+  font-weight: bold;
+  padding: 0em;
+  display: block;
+  text-transform: uppercase;
+  margin-bottom: 1.5em;
 }
 .cnx-eoc blockquote {
   color: #dbe8f2;
@@ -971,15 +1002,24 @@ p:nth-of-type(2),
 .colophon .glossary {
   page-break-before: always;
   display: inline;
-}
-.colophon .glossary .titlepage h2 {
   /* Change "Glossary" to "Key Terms" */
   content: "Key Terms";
   color: #528cbe;
   font-size: large;
+  font-weight: bold;
   padding: 0em;
   display: block;
   text-transform: uppercase;
+}
+.colophon .glossary::before {
+  content: "" "Chapter " counter(chapter, decimal) " Review";
+  color: #528cbe;
+  font-size: x-large;
+  font-weight: bold;
+  padding: 0em;
+  display: block;
+  text-transform: uppercase;
+  margin-bottom: 1.5em;
 }
 .colophon blockquote {
   color: #dbe8f2;
@@ -1009,6 +1049,7 @@ p:nth-of-type(2),
   margin-top: 0;
   background: url("ccap-precalculus/howto.svg") no-repeat;
   background-position: 0 .2em;
+  padding-left: 2.8em;
 }
 .note.howto .figure img {
   max-width: 6.25in;
@@ -1030,6 +1071,7 @@ p:nth-of-type(2),
   margin-top: 0;
   background: url("ccap-precalculus/qa.svg") no-repeat;
   background-position: 0 .2em;
+  padding-left: 2.8em;
 }
 .note.qa .figure img {
   max-width: 6.25in;
@@ -1037,6 +1079,11 @@ p:nth-of-type(2),
 .note.qa .figure > .title {
   font-size: x-small;
   color: #d7562c;
+}
+.note.qa > .title {
+  margin-top: 0.5em;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-weight: bold;
 }
 .note.media {
   padding-left: 1em;
@@ -1153,12 +1200,28 @@ p:nth-of-type(2),
  * Book Table of Contents
  * -------------------------
  */
+.book > .toc {
+  display: table;
+  margin: auto;
+  margin-bottom: 1em;
+  border-spacing: 0px;
+  page-break-inside: avoid;
+  width: 100%;
+  border: 1px solid #528cbe;
+}
 .book > .toc > .title {
-  page-break-before: right;
-  page-break-after: always;
-  border-bottom-color: #528cbe;
-  color: #528cbe;
-  margin-bottom: .5em;
+  color: white;
+  font-size: large;
+  font-weight: bold;
+  text-align: center;
+  padding: 0.25em;
+  margin: 0em;
+  page-break-after: avoid;
+  page-break-before: avoid;
+  content: "Chapter Outline";
+  padding-top: .1em;
+  padding-bottom: .2em;
+  background-color: #528cbe;
 }
 .book > .toc a {
   color: #528cbe;
@@ -1213,6 +1276,8 @@ div.part > div.titlepage {
   text-align: center;
   padding: 0.25em;
   margin: 0em;
+  page-break-after: avoid;
+  page-break-before: avoid;
   content: "Chapter Outline";
   padding-top: .1em;
   padding-bottom: .2em;
@@ -1657,6 +1722,31 @@ a {
   display: none;
 }
 /********************************************************************
+ * Glossary
+ ********************************************************************/
+.glossary {
+  page-break-before: always;
+  display: inline;
+  /* Change "Glossary" to "Key Terms" */
+  content: "Key Terms";
+  color: #528cbe;
+  font-size: large;
+  font-weight: bold;
+  padding: 0em;
+  display: block;
+  text-transform: uppercase;
+}
+.glossary::before {
+  content: "" "Chapter " counter(chapter, decimal) " Review";
+  color: #528cbe;
+  font-size: x-large;
+  font-weight: bold;
+  padding: 0em;
+  display: block;
+  text-transform: uppercase;
+  margin-bottom: 1.5em;
+}
+/********************************************************************
  * Generic Elements
  ********************************************************************/
 body {
@@ -1671,18 +1761,6 @@ img {
 }
 p {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-.glossary .title::before {
-  content: "" "Chapter " counter(chapter, decimal) " Review";
-  color: #528cbe;
-  font-size: x-large;
-  padding: 0em;
-  display: block;
-  text-transform: uppercase;
-  margin-bottom: 1.5em;
-}
-.glossary dt::after {
-  content: " ";
 }
 img,
 figure,
@@ -1935,6 +2013,7 @@ div.book > div.preface {
 }
 div.book > div.preface > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Preface" " " "" " | " content() "";
+  padding-left: .25em;
   prince-text-replace: "*" "";
 }
 div.book > div.preface > div.cnx-eoc {
@@ -2155,6 +2234,7 @@ div.book div.chapter {
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Chapter" " " counter(chapter, decimal) " | " content() "";
+  padding-left: .25em;
   prince-text-replace: "*" "";
 }
 div.book div.chapter > div.cnx-eoc {
@@ -2369,6 +2449,7 @@ div.book > div.appendix {
 }
 div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Appendix" " " counter(appendix, upper-latin) " | " content() "";
+  padding-left: .25em;
   prince-text-replace: "*" "";
 }
 div.book > div.appendix > div.cnx-eoc {

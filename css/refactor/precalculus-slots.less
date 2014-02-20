@@ -4,13 +4,6 @@
 @cnx-string-key-equations: "Key Equations";
 @cnx-string-key-concepts: "Key Concepts";
 
-#toc {
-  .style(...) {
-    border-bottom-color: @medium-blue;
-    color: @medium-blue;
-    margin-bottom: .5em;
-  }
-}
 #part {
   #preface {
     #titlepage {
@@ -38,10 +31,17 @@
     }
     #title {
       .style(...) {
+        #utils>#pb>.after(avoid);
+        #utils>#pb>.before(avoid);
         content: @cnx-string-chapter-outline;
         padding-top: .1em;
         padding-bottom: .2em;
         background-color: @medium-blue;
+      }
+    }
+    #link {
+      .style(...) {
+        color: @medium-blue; 
       }
     }
     #entry {
@@ -278,10 +278,14 @@
     .style(howto; ...) {
       #utils>#pb>.inside(avoid);
       .x-feature(howto);
+      padding-left: 2.8em;
     }
     .style(qa; ...) {
       #utils>#pb>.inside(avoid);
       .x-feature(qa);
+      // place adjustment for padding here so we don't 
+      // have to place in #title and #body below
+      padding-left: 2.8em;
     }
     .style(media; ...) {
       #utils>#pb>.inside(avoid);
@@ -312,6 +316,16 @@
         float: left;
         padding-left: 1.5em;
         padding-right: .3em;
+      }
+      .style(@kind; @part; feature-qa) {
+        font-family: @font-family-serif;
+        font-weight: bold;
+      }
+    }
+    #body {
+      .style(...) {}
+      .style(@kind; @part; feature-try) {
+        font-weight: normal;
       }
     }
   }
@@ -499,16 +513,25 @@
       // End-of-chapter material should start on a new page
       #utils>#pb>.before(always);
       display:inline;
-    }
-    #title {
-      .style(...) {
-        /* Change "Glossary" to "Key Terms" */
-        content: "Key Terms";
+
+      /* Change "Glossary" to "Key Terms" */
+      content: "Key Terms";
+      color: @medium-blue;
+      font-size: large;
+      font-weight: bold;
+      padding: 0em;
+      display: block;
+      text-transform:uppercase;
+
+      &::before {
+        content: "" "Chapter " counter(chapter, decimal) " Review";
         color: @medium-blue;
-        font-size: large;
+        font-size: x-large;
+        font-weight: bold;
         padding: 0em;
         display: block;
         text-transform:uppercase;
+        margin-bottom: 1.5em;
       }
     }
   }
