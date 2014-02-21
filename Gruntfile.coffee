@@ -180,15 +180,21 @@ module.exports = (grunt) ->
   grunt.registerTask('default', ['compile'])
 
 
-  masterBooks = []
-  diffBooks = []
-  for bookName of config.books
-    masterBooks.push("prepare-book:#{bookName}")
-    diffBooks.push("diff-book:#{bookName}")
+  if config.books
+    grunt.registerTask 'prepare', 'Prepare files for diffing assuming this is the master branch', (bookName=null) ->
+      if bookName
+        grunt.task.run("prepare-book:#{bookName}")
+      else
+        for bookName of config.books
+          grunt.task.run("prepare-book:#{bookName}")
 
-  if masterBooks.length
-    grunt.registerTask('prepare', 'Prepare files for diffing assuming this is the master branch', masterBooks)
-    grunt.registerTask('diff', 'Generate diffs against the prepared files generated on the master branch', diffBooks)
+    grunt.registerTask 'diff', 'Generate diffs against the prepared files generated on the master branch', (bookName) ->
+      if bookName
+        grunt.task.run("diff-book:#{bookName}")
+      else
+        for bookName of config.books
+          grunt.task.run("diff-book:#{bookName}")
+
 
 
   else
