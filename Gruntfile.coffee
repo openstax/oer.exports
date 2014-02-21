@@ -104,6 +104,9 @@ module.exports = (grunt) ->
           tempDir = "#{config.testingDir}/tempdir-#{bookName}-#{branchName}"
           bakedXhtmlFile = "#{config.testingDir}/#{bookName}-#{branchName}.xhtml"
 
+          # Shortcut if skipping flag is set
+          return '' if skipIfExists(bakedXhtmlFile)
+
           failIfNotExists("LESS file missing", lessFile)
           failIfNotExists("XHTML file missing. generate with `grunt shell:pdf:#{bookName}`", "#{tempDir}/collection.xhtml")
 
@@ -116,6 +119,7 @@ module.exports = (grunt) ->
 
       # 4. Generate Diff if the last argument is not 'master'
       'create-diff':
+        options: stdout: true # show the number of differences
         command: (bookName, branchName='new') ->
           if branchName == 'master'
             grunt.log.writeln('No diff to make because the branch is master')
@@ -127,10 +131,11 @@ module.exports = (grunt) ->
             failIfNotExists("Baked master XHTML file missing.", masterXhtmlFile)
             failIfNotExists("Baked XHTML file missing.")        if not fs.existsSync(bakedXhtmlFile)
 
-            return "xsltproc
+            return "echo '#{chalk.bgGreen('Differences found:')} ' && xsltproc
               --stringparam oldPath #{process.cwd()}/#{masterXhtmlFile}
+              --output #{config.testingDir}/#{bookName}-diff.xhtml
               #{cssDiffPath}/compare.xsl
-              #{bakedXhtmlFile} > #{config.testingDir}/#{bookName}-diff.xhtml
+              #{bakedXhtmlFile} 2>&1 | wc -l
             "
 
 
