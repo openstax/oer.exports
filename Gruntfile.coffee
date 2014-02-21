@@ -7,7 +7,7 @@ module.exports = (grunt) ->
   config = grunt.file.readYAML('config.yml')
 
   failIfNotExists = (message, filePath) ->
-    throw new Error("#{message}: #{filePath}") if not fs.existsSync(filePath)
+    throw new Error("#{message}. Expected #{filePath} to exist.") if not fs.existsSync(filePath)
 
   skipIfExists = (filePath) ->
     if config.skipping and fs.existsSync(filePath)
@@ -41,6 +41,7 @@ module.exports = (grunt) ->
           # Make sure the files exist
           failIfNotExists('Path to PrinceXML does not exist', config.prince)
           failIfNotExists('Path to unzipped collection does not exist', config.books[bookName])
+          failIfNotExists('Path to unzipped collection is invalid', "#{config.books[bookName]}/collection.xml")
           failIfNotExists('Unzipped Docbook does not exist', './docbook-xsl/VERSION.xsl')
           failIfNotExists('CSS file does not exist', "./css/ccap-#{bookName}.css")
 
