@@ -1,10 +1,3 @@
-# TODO:
-#
-# - check that docbook-xsl/xhtml/addon.xsl exists (to make sure it was installed locally)
-# - check that the book paths in config.yml contain collection.xml
-# - when a task errors make grunt fail
-# - add option to skip `pdf` task if the `collection.xhtml` already exists
-
 module.exports = (grunt) ->
 
   path = require('path')
