@@ -10,6 +10,7 @@ module.exports = (grunt) ->
   path = require('path')
   fs = require('fs')
   pkg = require('./package.json')
+  chalk = require('chalk')
   config = grunt.file.readYAML('config.yml')
 
   failIfNotExists = (message, filePath) ->
@@ -17,7 +18,7 @@ module.exports = (grunt) ->
 
   skipIfExists = (filePath) ->
     if config.skipping and fs.existsSync(filePath)
-      grunt.log.writeln("Skipping step because target file exists: #{filePath}")
+      grunt.log.writeln("#{chalk.green('Skipping step because target file exists:')} #{filePath}")
       return true
 
   # Project configuration.
@@ -176,7 +177,7 @@ module.exports = (grunt) ->
   compileBooks = []
   for bookName in allBooks
     compileBooks.push("shell:compile:#{bookName}")
-  grunt.registerTask('compile', compileBooks)
+  grunt.registerTask('compile', 'Generate CSS files for all books', compileBooks)
   grunt.registerTask('default', ['compile'])
 
 
@@ -187,8 +188,8 @@ module.exports = (grunt) ->
     diffBooks.push("diff-book:#{bookName}")
 
   if masterBooks.length
-    grunt.registerTask('prepare', masterBooks)
-    grunt.registerTask('diff', diffBooks)
+    grunt.registerTask('prepare', 'Prepare files for diffing assuming this is the master branch', masterBooks)
+    grunt.registerTask('diff', 'Generate diffs against the prepared files generated on the master branch', diffBooks)
 
 
   else
