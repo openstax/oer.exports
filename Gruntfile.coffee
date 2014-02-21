@@ -12,6 +12,9 @@ module.exports = (grunt) ->
   pkg = require('./package.json')
   config = grunt.file.readYAML('config.yml')
 
+  failIfNotExists = (message, filePath) ->
+    throw new Error("#{message}: #{filePath}") if not fs.existsSync(filePath)
+
   skipIfExists = (filePath) ->
     if config.skipping and fs.existsSync(filePath)
       grunt.log.writeln("Skipping step because target file exists: #{filePath}")
@@ -26,7 +29,8 @@ module.exports = (grunt) ->
       options:
         timeout: 0
         stdout: false
-        stderr: true
+        stderr: false
+        failOnError: true
 
       'compile':
         command: (bookName) ->
@@ -41,10 +45,10 @@ module.exports = (grunt) ->
           return '' if skipIfExists("#{tempDir}/collection.xhtml")
 
           # Make sure the files exist
-          throw new Error('Path to PrinceXML does not exist') if not fs.existsSync(config.prince)
-          throw new Error('Path to unzipped collection does not exist') if not fs.existsSync(config.books[bookName])
-          throw new Error('Unzipped Docbook does not exist') if not fs.existsSync('./docbook-xsl/VERSION.xsl')
-          throw new Error('CSS file does not exist') if not fs.existsSync("./css/ccap-#{bookName}.css")
+          failIfNotExists('Path to PrinceXML does not exist', config.prince)
+          failIfNotExists('Path to unzipped collection does not exist', config.books[bookName])
+          failIfNotExists('Unzipped Docbook does not exist', './docbook-xsl/VERSION.xsl')
+          failIfNotExists('CSS file does not exist', "./css/ccap-#{bookName}.css")
 
           return [
             'mkdir <%= config.testingDir %>'
@@ -75,8 +79,8 @@ module.exports = (grunt) ->
           return '' if skipIfExists(lcovFile)
 
           # Make sure the files exist
-          throw new Error("Less file does not exist: #{lessFile}") if not fs.existsSync(lessFile)
-          throw new Error("XHTML file missing. generate with `grunt shell:pdf:#{bookName}`: #{tempDir}/collection.xhtml") if not fs.existsSync("#{tempDir}/collection.xhtml")
+          failIfNotExists("Less file does not exist: #{lessFile}", lessFile)
+          failIfNotExists("XHTML file missing. generate with `grunt shell:pdf:#{bookName}`: #{tempDir}/collection.xhtml", "#{tempDir}/collection.xhtml")
 
           return "node ./node_modules/.bin/css-coverage -d -v
             -s #{lessFile}
@@ -85,7 +89,7 @@ module.exports = (grunt) ->
       # 2b. Generate HTML Report from LCOV file
       'coverage-report':
         command: (bookName, branchName='new') ->
-          throw new Error("LCOV file missing. generate with `grunt shell:coverage:#{bookName}`") if not fs.existsSync("#{config.testingDir}/#{bookName}-#{branchName}.lcov")
+          failIfNotExists("LCOV file missing. generate with `grunt shell:coverage:#{bookName}`", "#{config.testingDir}/#{bookName}-#{branchName}.lcov")
 
           return "genhtml <%= config.testingDir %>/#{bookName}-#{branchName}.lcov
             --output-directory <%= config.testingDir %>/#{bookName}-#{branchName}-coverage
@@ -99,8 +103,8 @@ module.exports = (grunt) ->
           tempDir = "#{config.testingDir}/tempdir-#{bookName}-#{branchName}"
           bakedXhtmlFile = "#{config.testingDir}/#{bookName}-#{branchName}.xhtml"
 
-          throw new Error("LESS file missing") if not fs.existsSync(lessFile)
-          throw new Error("XHTML file missing. generate with `grunt shell:pdf:#{bookName}`") if not fs.existsSync("#{tempDir}/collection.xhtml")
+          failIfNotExists("LESS file missing", lessFile)
+          failIfNotExists("XHTML file missing. generate with `grunt shell:pdf:#{bookName}`", "#{tempDir}/collection.xhtml")
 
           return "phantomjs #{cssDiffPath}/phantom-harness.coffee
             #{cssDiffPath}
@@ -119,8 +123,8 @@ module.exports = (grunt) ->
             masterXhtmlFile = "#{config.testingDir}/#{bookName}-master.xhtml"
             bakedXhtmlFile = "#{config.testingDir}/#{bookName}-#{branchName}.xhtml"
 
-            throw new Error("Baked master XHTML file missing.") if not fs.existsSync(masterXhtmlFile)
-            throw new Error("Baked XHTML file missing.")        if not fs.existsSync(bakedXhtmlFile)
+            failIfNotExists("Baked master XHTML file missing.", masterXhtmlFile)
+            failIfNotExists("Baked XHTML file missing.")        if not fs.existsSync(bakedXhtmlFile)
 
             return "xsltproc
               --stringparam oldPath #{process.cwd()}/#{masterXhtmlFile}
