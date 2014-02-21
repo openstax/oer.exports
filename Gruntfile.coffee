@@ -12,6 +12,11 @@ module.exports = (grunt) ->
   pkg = require('./package.json')
   config = grunt.file.readYAML('config.yml')
 
+  skipIfExists = (filePath) ->
+    if config.skipping and fs.existsSync(filePath)
+      grunt.log.writeln("Skipping step because target file exists: #{filePath}")
+      return true
+
   # Project configuration.
   grunt.initConfig
     pkg: pkg
@@ -20,7 +25,8 @@ module.exports = (grunt) ->
     shell:
       options:
         timeout: 0
-        stdout: true
+        stdout: false
+        stderr: true
 
       'compile':
         command: (bookName) ->
@@ -29,7 +35,17 @@ module.exports = (grunt) ->
       # 1. Generate a PDF and more importantly, the huge HTML file
       'pdf':
         command: (bookName, branchName='new') ->
-          tempDir = "<%= config.testingDir %>/tempdir-#{bookName}-#{branchName}"
+          tempDir = "#{config.testingDir}/tempdir-#{bookName}-#{branchName}"
+
+          # Shortcut if skipping flag is set
+          return '' if skipIfExists("#{tempDir}/collection.xhtml")
+
+          # Make sure the files exist
+          throw new Error('Path to PrinceXML does not exist') if not fs.existsSync(config.prince)
+          throw new Error('Path to unzipped collection does not exist') if not fs.existsSync(config.books[bookName])
+          throw new Error('Unzipped Docbook does not exist') if not fs.existsSync('./docbook-xsl/VERSION.xsl')
+          throw new Error('CSS file does not exist') if not fs.existsSync("./css/ccap-#{bookName}.css")
+
           return [
             'mkdir <%= config.testingDir %>'
             'virtualenv .'
@@ -52,14 +68,25 @@ module.exports = (grunt) ->
       'coverage':
         command: (bookName, branchName='new') ->
           lessFile = "./css/ccap-#{bookName}.less"
-          tempDir = "<%= config.testingDir %>/tempdir-#{bookName}-#{branchName}"
+          tempDir = "#{config.testingDir}/tempdir-#{bookName}-#{branchName}"
+          lcovFile = "#{config.testingDir}/#{bookName}-#{branchName}.lcov"
+
+          # Shortcut if skipping flag is set
+          return '' if skipIfExists(lcovFile)
+
+          # Make sure the files exist
+          throw new Error("Less file does not exist: #{lessFile}") if not fs.existsSync(lessFile)
+          throw new Error("XHTML file missing. generate with `grunt shell:pdf:#{bookName}`: #{tempDir}/collection.xhtml") if not fs.existsSync("#{tempDir}/collection.xhtml")
+
           return "node ./node_modules/.bin/css-coverage -d -v
             -s #{lessFile}
             -h #{tempDir}/collection.xhtml
-            -l <%= config.testingDir %>/#{bookName}-#{branchName}.lcov"
+            -l #{lcovFile}"
       # 2b. Generate HTML Report from LCOV file
       'coverage-report':
         command: (bookName, branchName='new') ->
+          throw new Error("LCOV file missing. generate with `grunt shell:coverage:#{bookName}`") if not fs.existsSync("#{config.testingDir}/#{bookName}-#{branchName}.lcov")
+
           return "genhtml <%= config.testingDir %>/#{bookName}-#{branchName}.lcov
             --output-directory <%= config.testingDir %>/#{bookName}-#{branchName}-coverage
           "
@@ -69,8 +96,12 @@ module.exports = (grunt) ->
         command: (bookName, branchName='new') ->
           cssDiffPath = './node_modules/css-diff'
           lessFile = "./css/ccap-#{bookName}.less"
-          tempDir = "<%= config.testingDir %>/tempdir-#{bookName}-#{branchName}"
-          bakedXhtmlFile = "<%= config.testingDir %>/#{bookName}-#{branchName}.xhtml"
+          tempDir = "#{config.testingDir}/tempdir-#{bookName}-#{branchName}"
+          bakedXhtmlFile = "#{config.testingDir}/#{bookName}-#{branchName}.xhtml"
+
+          throw new Error("LESS file missing") if not fs.existsSync(lessFile)
+          throw new Error("XHTML file missing. generate with `grunt shell:pdf:#{bookName}`") if not fs.existsSync("#{tempDir}/collection.xhtml")
+
           return "phantomjs #{cssDiffPath}/phantom-harness.coffee
             #{cssDiffPath}
             #{process.cwd()}/#{lessFile}
@@ -85,11 +116,16 @@ module.exports = (grunt) ->
             grunt.log.writeln('No diff to make because the branch is master')
           else
             cssDiffPath = './node_modules/css-diff'
-            bakedXhtmlFile = "<%= config.testingDir %>/#{bookName}-#{branchName}.xhtml"
+            masterXhtmlFile = "#{config.testingDir}/#{bookName}-master.xhtml"
+            bakedXhtmlFile = "#{config.testingDir}/#{bookName}-#{branchName}.xhtml"
+
+            throw new Error("Baked master XHTML file missing.") if not fs.existsSync(masterXhtmlFile)
+            throw new Error("Baked XHTML file missing.")        if not fs.existsSync(bakedXhtmlFile)
+
             return "xsltproc
-              --stringparam oldPath #{process.cwd()}/<%= config.testingDir %>/#{bookName}-master.xhtml
+              --stringparam oldPath #{process.cwd()}/#{masterXhtmlFile}
               #{cssDiffPath}/compare.xsl
-              #{bakedXhtmlFile} > <%= config.testingDir %>/#{bookName}-diff.xhtml
+              #{bakedXhtmlFile} > #{config.testingDir}/#{bookName}-diff.xhtml
             "
 
 
