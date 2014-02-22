@@ -216,6 +216,9 @@ div.book div.chapter > div.titlepage > div > div h1.title {
     > .title {
       #part>#chapter-end>#review-exercises>#title>.style();
     }
+    .exercise {
+      #content>#exercise>.style(@kind; @part; review-exercises);
+    }
   }
 
   &.practice-test {
@@ -476,22 +479,33 @@ a { #content>#link>.style(); }
   // collate to end-of-book
   .exercise .solution { #content>#solution>.style(@kind; @part; exercise; section-exercise); }
 
-  /********************************************************************
-   * Glossary
-   ********************************************************************/
-  .glossary {
-    #content>#glossary>.style();
-  }
-
   // turn off default display for exercises that displays "Exercise x.x"
   .exercise:not(.labeled) > .title > span:first-child:not(.labeled):before {
     display: none;
   }
-
-
 }
 
+/********************************************************************
+ * Glossary
+ ********************************************************************/
+.glossary {
+  #content>#glossary>.style();
 
+  .title {
+    #content>#glossary>#title>.style();
+  }
+
+  // For this element below, some parts of glossary dt in base-skeleton/slot and content-skeleton/slot
+  // are in different areas.  Some is in #part, and some #content. For now I extracted the dt as it is
+  // in content-slot.  We can look at collapsing this into content-slots during Chemistry.  All books
+  // remove this : colon between the term and meaning I think.
+
+  // Remove ":"
+  dt::after { #content>#glossary>.dt(); }
+
+  // Remove terms indentation 
+  dl { #content>#glossary>.dl(); }
+}
 
 
 
@@ -577,7 +591,7 @@ div.book div.chapter > div.section div.example div.exercise .problem {
 
 // for examples that have a problem/solution structure that need numbered headings
 .example .exercise {
-  counter-increment: none;
+  counter-increment: none !important;
   margin-top: 0;
 
   .problem > .title {
@@ -770,9 +784,11 @@ div.book > div.part {
 // originally defined in ccap-numbering.less
 // The hierarchy is copied from ccap-numbering so the selectors (and priority for which to apply) are the same
 
+
 .x-duplicate-hierarchy() {
   > div.cnx-eoc { counter-reset: /*exercise*/ eoc-section -1; }
  }
+
 
 div.book, div.book > div.part {
   > div.preface  { .x-duplicate-hierarchy(); }

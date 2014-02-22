@@ -717,14 +717,6 @@ p:nth-of-type(2),
 .introduction .glossary {
   page-break-before: always;
   display: inline;
-  /* Change "Glossary" to "Key Terms" */
-  content: "Key Terms";
-  color: #528cbe;
-  font-size: large;
-  font-weight: bold;
-  padding: 0em;
-  display: block;
-  text-transform: uppercase;
 }
 .introduction .glossary::before {
   content: "" "Chapter " counter(chapter, decimal) " Review";
@@ -734,7 +726,17 @@ p:nth-of-type(2),
   padding: 0em;
   display: block;
   text-transform: uppercase;
-  margin-bottom: 1.5em;
+  margin-bottom: 1.0em;
+}
+.introduction .glossary .titlepage h2 {
+  /* Change "Glossary" to "Key Terms" */
+  content: "Key Terms";
+  color: #528cbe;
+  font-size: large;
+  font-weight: bold;
+  padding: 0em;
+  display: block;
+  text-transform: uppercase;
 }
 .introduction blockquote {
   color: #dbe8f2;
@@ -812,14 +814,6 @@ p:nth-of-type(2),
 .chapter .glossary {
   page-break-before: always;
   display: inline;
-  /* Change "Glossary" to "Key Terms" */
-  content: "Key Terms";
-  color: #528cbe;
-  font-size: large;
-  font-weight: bold;
-  padding: 0em;
-  display: block;
-  text-transform: uppercase;
 }
 .chapter .glossary::before {
   content: "" "Chapter " counter(chapter, decimal) " Review";
@@ -829,7 +823,17 @@ p:nth-of-type(2),
   padding: 0em;
   display: block;
   text-transform: uppercase;
-  margin-bottom: 1.5em;
+  margin-bottom: 1.0em;
+}
+.chapter .glossary .titlepage h2 {
+  /* Change "Glossary" to "Key Terms" */
+  content: "Key Terms";
+  color: #528cbe;
+  font-size: large;
+  font-weight: bold;
+  padding: 0em;
+  display: block;
+  text-transform: uppercase;
 }
 .chapter blockquote {
   color: #dbe8f2;
@@ -907,14 +911,6 @@ p:nth-of-type(2),
 .cnx-eoc .glossary {
   page-break-before: always;
   display: inline;
-  /* Change "Glossary" to "Key Terms" */
-  content: "Key Terms";
-  color: #528cbe;
-  font-size: large;
-  font-weight: bold;
-  padding: 0em;
-  display: block;
-  text-transform: uppercase;
 }
 .cnx-eoc .glossary::before {
   content: "" "Chapter " counter(chapter, decimal) " Review";
@@ -924,7 +920,17 @@ p:nth-of-type(2),
   padding: 0em;
   display: block;
   text-transform: uppercase;
-  margin-bottom: 1.5em;
+  margin-bottom: 1.0em;
+}
+.cnx-eoc .glossary .titlepage h2 {
+  /* Change "Glossary" to "Key Terms" */
+  content: "Key Terms";
+  color: #528cbe;
+  font-size: large;
+  font-weight: bold;
+  padding: 0em;
+  display: block;
+  text-transform: uppercase;
 }
 .cnx-eoc blockquote {
   color: #dbe8f2;
@@ -1002,14 +1008,6 @@ p:nth-of-type(2),
 .colophon .glossary {
   page-break-before: always;
   display: inline;
-  /* Change "Glossary" to "Key Terms" */
-  content: "Key Terms";
-  color: #528cbe;
-  font-size: large;
-  font-weight: bold;
-  padding: 0em;
-  display: block;
-  text-transform: uppercase;
 }
 .colophon .glossary::before {
   content: "" "Chapter " counter(chapter, decimal) " Review";
@@ -1019,7 +1017,17 @@ p:nth-of-type(2),
   padding: 0em;
   display: block;
   text-transform: uppercase;
-  margin-bottom: 1.5em;
+  margin-bottom: 1.0em;
+}
+.colophon .glossary .titlepage h2 {
+  /* Change "Glossary" to "Key Terms" */
+  content: "Key Terms";
+  color: #528cbe;
+  font-size: large;
+  font-weight: bold;
+  padding: 0em;
+  display: block;
+  text-transform: uppercase;
 }
 .colophon blockquote {
   color: #dbe8f2;
@@ -1149,7 +1157,17 @@ p:nth-of-type(2),
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   margin-top: 0;
-  counter-increment: exercise;
+  counter-increment: none !important;
+  /* This code snip below is what is in Firebug that is overriding the Example and Try-It Exercise counters
+      causing !important to have to be used here and on line #594 of the precalculus-skeleton.less file.  grr
+      div.book div.chapter > div.cnx-eoc div.exercise:not(.labeled), 
+      div.book div.chapter > div.section div.exercise:not(.labeled) {
+        counter-increment: exercise;
+      }
+      */
+  /* Update to me:  Found it.  It's line #106 in the numbering.less file.  it's incrementing  > .section > .exercise
+      We have to basically make an adjustment in precalculus-numbering.less to stop this override.
+      */
   margin-bottom: 0;
 }
 .note.try .exercise > .title {
@@ -1389,9 +1407,9 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::be
   margin-top: 1em;
 }
 .cnx-eoc.key-equations {
-  -webkit-column-count: 1;
-  column-count: 1;
-  columns: 1;
+  -webkit-column-count: 2;
+  column-count: 2;
+  columns: 2;
   column-fill: auto;
 }
 .cnx-eoc.key-equations > div.title {
@@ -1424,6 +1442,11 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::be
   column-span: all;
   margin-top: 1em;
 }
+.cnx-eoc.review-exercises .exercise {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  margin-top: 0;
+}
 .cnx-eoc.practice-test {
   -webkit-column-count: 1;
   column-count: 1;
@@ -1434,6 +1457,9 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::be
   content: "Chapter " counter(chapter, decimal) " Practice Test";
   column-span: all;
   margin-top: 1em;
+}
+.cnx-eoc.cnx-solutions {
+  display: none;
 }
 .cnx-eoc.cnx-solutions p:nth-of-type(1) {
   margin-top: 1em;
@@ -1676,7 +1702,6 @@ a {
 .section.section-exercises {
   page-break-before: always;
   page-break-after: always;
-  counter-reset: exercise;
 }
 .section.section-exercises::before {
   page-break-after: avoid;
@@ -1727,14 +1752,6 @@ a {
 .glossary {
   page-break-before: always;
   display: inline;
-  /* Change "Glossary" to "Key Terms" */
-  content: "Key Terms";
-  color: #528cbe;
-  font-size: large;
-  font-weight: bold;
-  padding: 0em;
-  display: block;
-  text-transform: uppercase;
 }
 .glossary::before {
   content: "" "Chapter " counter(chapter, decimal) " Review";
@@ -1744,7 +1761,23 @@ a {
   padding: 0em;
   display: block;
   text-transform: uppercase;
-  margin-bottom: 1.5em;
+  margin-bottom: 1.0em;
+}
+.glossary .title {
+  /* Change "Glossary" to "Key Terms" */
+  content: "Key Terms";
+  color: #528cbe;
+  font-size: large;
+  font-weight: bold;
+  padding: 0em;
+  display: block;
+  text-transform: uppercase;
+}
+.glossary dt::after {
+  content: " ";
+}
+.glossary dl {
+  margin-left: 0;
 }
 /********************************************************************
  * Generic Elements
@@ -1802,7 +1835,7 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
   display: block;
 }
 .example .exercise {
-  counter-increment: none;
+  counter-increment: none !important;
   margin-top: 0;
 }
 .example .exercise .problem > .title {
