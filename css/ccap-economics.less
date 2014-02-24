@@ -233,6 +233,13 @@
   .abstract {
     border: none;
 
+    // The absolute only way to get this to respond. There are literally dozens of margin and padding
+    // present in the cascade for this element. As a part of refactoring we are seriously going to have
+    // to chunk these atomic elemnts into containers and control the margin and padding at 1 or 2 levels,
+    // not inheriting them from 50 layers.
+    margin: 0 !important;
+    padding: 0 !important;
+
     // For Economics there is no blue header/background or border box. Just a simple list
     &::before {
       display: none;
@@ -375,6 +382,11 @@ blockquote {
       background-color: @light-blue;
       border-bottom: 2px solid @dark-blue !important; //!important used in ccap-precalculus.
     }
+  }
+
+  // Reduce padding inside table cells in this godforsaken land of !important
+  tbody {
+    tr td { padding: 5px; }
   }
 
   // Format and style lists there are being used inside tables
