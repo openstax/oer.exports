@@ -250,7 +250,7 @@ div.book div.chapter > div.titlepage > div > div h1.title {
  * End of Book Solutions
  * ---------------------------------------------------
  */
-div.end-of-book-solutions {
+div.colophon.end-of-book-solutions {
   prince-text-replace: "Answer:" ""; //strip out "Answer:" eob solutions for print_pdf
   #part>#book-end>#end-of-book-solutions>.style();
 
@@ -268,20 +268,33 @@ div.end-of-book-solutions {
         font-size: medium;
       }
     }
-  }
+  
+    div.solution {
+      #content>#solution>.style(@kind; book-end);
+      
+      > div.title {
+        #content>#solution>#title>.style(@kind; book-end);
+      }
 
-  div.solution {
-    #content>#solution>.style(@kind; book-end);
-    
-    > div.title {
-      #content>#solution>#title>.style(@kind; book-end);
-    }
-
-    > div.body {
-      #content>#solution>#body>.style(@kind; book-end);
+      > div.body {
+        #content>#solution>#body>.style(@kind; book-end);
+      }
     }
   }
 }
+ 
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* ---------------------------------------------------
@@ -294,16 +307,24 @@ div.end-of-book-references {
   > .title {
     #part>#book-end>#end-of-book-references>#title>.style();
   }
-
+  
+  > .section > .title {
+   // display: none;
+  }
+  
   // As with .chapter-area in solutions above, we will have to 
   // decide on what type of slot we wish to create.
   > .chapter-area {
     > .title {
-      color: @medium-blue;
+      color: black;
       font-weight: bold;
       font-size: medium;
       margin: .5em 0em;
     }
+
+    // Remove references title and superscript
+    > .body > .section-area > .title { display: none; }
+
     > .body > p {
       text-indent: 0em;
       margin: .5em 0em;
@@ -324,7 +345,7 @@ div.end-of-book-references {
 .index {
   #part>#book-end>#index>.style();
   
-  > .title {
+  > .title h2 {
     #part>#book-end>#index>#title>.style();
   }
  
@@ -613,6 +634,11 @@ div.book div.chapter > div.section div.example div.exercise .problem {
   .solution > .body {
     margin-top: .5em;
   }
+
+  .solution > .body > a.target-figure {
+    color: @orange;
+  }
+
   .solution > .body > p:first-of-type {
     margin-top: 0;
   }
@@ -631,7 +657,7 @@ div.book div.chapter > div.section div.example div.exercise .problem {
   }
 }
 
-
+ 
 
 
 /* -------------------------
@@ -666,6 +692,7 @@ div.book div.chapter > div.section div.example div.exercise .problem {
   prince-caption-page: all;
 
   caption {
+    font-family: @font-family;
     padding-top: .5em;
     padding-bottom: 1em;
     font-weight:bold;
@@ -791,4 +818,7 @@ div.book, div.book > div.part {
   > div.chapter  { .x-duplicate-hierarchy(); }
   > div.appendix { .x-duplicate-hierarchy(); }
 }
+
+
+
 

@@ -183,6 +183,8 @@
     // End of Book Solutions
     #end-of-book-solutions {
       .style(...) {
+        margin: 0;
+        padding: 0;
         display: inline !important;
       }
 
@@ -226,7 +228,8 @@
           font-weight: bold;
           background-color: transparent;
           color: @medium-blue;
-          margin-left: -.50em;
+          margin-left: 0;
+          padding-left: 0;
         }
       }
     }
@@ -262,9 +265,11 @@
     // End of Book Attribution and About Connexions
     #colophon {
       .style(...) {
-        color: white;
-        background-color: @medium-blue;
-        margin: .5em 0;
+        padding: 0;
+        font-weight: bold;
+        font-size: x-large;
+        color: @medium-blue;
+        background-color: transparent;
       }
     }
   }
@@ -333,9 +338,10 @@
   }
   #figure {
     .style(...) {
+      font-family: @font-family;
       font-size: 9pt;
       padding-bottom: 1em;
-      text-align: center;
+      text-align: left;
     }
     .style (@kind; @part; problem; exercise; section-exercise) {
       text-indent: 0;
@@ -512,7 +518,10 @@
         display: inline;
         * { display: inline; } // OUCH - place in .body() mixin for now.
         // will need to change - include in .body mixin for now
-        > a.target-figure { margin: 0em .25em; } //add margin for .xref in solution body
+        > a.target-figure { 
+          margin: 0em .25em; 
+          color: @orange;
+        } //add margin for .xref in solution body
       }
     }
   }
@@ -617,6 +626,7 @@
   // Parent level link styling
   #link {
     .style(...) { 
+      font-family: @font-family;
       font-weight: bold;
       color: @orange;
     }
