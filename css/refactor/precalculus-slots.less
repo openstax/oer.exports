@@ -77,6 +77,25 @@
     }
   }
 
+  #glossary {
+    .style(chapter) {
+      // End-of-chapter material should start on a new page
+      #utils>#pb>.before(always);
+      display:inline;
+    }
+    #title {
+      .style(chapter) {
+        /* Change "Glossary" to "Key Terms" */
+        content: "Key Terms";
+        color: @medium-blue;
+        font-size: large;
+        padding: 0em;
+        display: block;
+        text-transform:uppercase;
+      }
+    }
+  }
+
   // End-of-chapter parts
   #chapter-end {
     .style(...) {
@@ -420,24 +439,6 @@
 
       &::before { content: "\201C" /* open-quote */; }
       &::after { content: "\201D" /* close-quote; */; }
-    }
-  }
-  #glossary {
-    .style(chapter) {
-      // End-of-chapter material should start on a new page
-      #utils>#pb>.before(always);
-      display:inline;
-    }
-    #title {
-      .style(chapter) {
-        /* Change "Glossary" to "Key Terms" */
-        content: "Key Terms";
-        color: @medium-blue;
-        font-size: large;
-        padding: 0em;
-        display: block;
-        text-transform:uppercase;
-      }
     }
   }
   #heading{

@@ -44,18 +44,19 @@
   .table {
     #content>#table>.style(@kind; @part);
   }
+  // This one is a little wonky and needs to be moved because it uses slots in #part
   .glossary {
-    #content>#glossary>.style(@part);
-    .titlepage h2 { #content>#glossary>#title>.style(@part); }
+    #part>#glossary>.style(@part);
+    .titlepage h2 { #part>#glossary>#title>.style(@part); }
     dl {
-      #content>#glossary>.style(@part);
+      #part>#glossary>.style(@part);
       dt {
-        #content>#glossary>.term(@part);
+        #part>#glossary>.term(@part);
         &::after {
-          #content>#glossary>.divider(@part);
+          #part>#glossary>.divider(@part);
         }
       }
-      dd { #content>#glossary>.definition(@part); }
+      dd { #part>#glossary>.definition(@part); }
     }
   }
 
