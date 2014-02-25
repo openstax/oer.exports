@@ -45,14 +45,12 @@
     #content>#table>.style(@kind; @part);
   }
   .glossary {
-    @context: glossary;
-
     #content>#glossary>.style(@kind; @part);
-    .titlepage h2 { #content>#glossary>#title>.style(); }
+    .titlepage h2 { #content>#glossary>#title>.style(@kind; @part); }
     dl {
-      #content>#description-list>.style(@kind; @part; @context);
-      dt { #content>#description-list>.term(); }
-      dd { #content>#description-list>.description(); }
+      #content>#glossary>.style(@kind; @part);
+      dt { #content>#glossary>.term(@kind; @part); }
+      dd { #content>#glossary>.definition(@kind; @part); }
     }
   }
 

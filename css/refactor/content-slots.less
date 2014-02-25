@@ -156,20 +156,30 @@
     #title {
       .style(...) {
       }
-    }    
-  }
-  #description-list {
-    .style(...) {
-    }
-    .style(@kind; @part; glossary) {
-    }
-    .term(...) {
-    }
-    .description(...) {
     }
   }
   #blockquote {
     .style(...) {
     }
   }
+
+
+  #glossary {
+    #title { .style(...) { } }
+    .list(...) {}
+    .term(@kind; @part; @contexts...) { }
+    .term(@kind; default) {
+      float: left;
+      font-weight: bold;
+    }
+
+    .divider(@kind; default) {
+      content: ":";
+      padding-right: 0.5em;
+      display: inline !important; //Important because the pseudo's are hidden by default in a glossary
+    }
+
+    .definition(...) {}
+  }
+
 }
