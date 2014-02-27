@@ -7,12 +7,12 @@
 // Usually Skeleton files would not contain styling information
 // but rather would only tie slots to the dom. In the case of the
 // base file there are many adhoc pieces of style that are defined here
-// (sometimes for lack of a better home). Usually these apply to all 
+// (sometimes for lack of a better home). Usually these apply to all
 // elements of a given type, eg, all h1-h6, all ol/ul, etc.
 
 
 // These two bits should be investigated further in order
-// to find them a permanent home. They were a part of 
+// to find them a permanent home. They were a part of
 // ccap-css3.css. These were moved here to not require
 // content-slots.less in css3.less.
 @namespace mml "http://www.w3.org/1998/Math/MathML";
@@ -189,13 +189,13 @@ h1.title { //ccap-chapter
         #part>#toc>#entry>#abstract>.list();
         > li { #part>#toc>#entry>#abstract>.list-item(); }
       }
-      
+
     }
   }
 }
 
 /***************************************************
- * SECTION LEVEL LEARNING OBJECTIVES (section abstract) 
+ * SECTION LEVEL LEARNING OBJECTIVES (section abstract)
  ***************************************************/
 div.section > div.titlepage {
   div.abstract {
@@ -410,13 +410,19 @@ img { max-width: 7in; }
 
 
 /********************* Glossary Section **************/
-.glossary dt {
-  #part>#chapter-end>#glossary>.dt();
-
-  &::after {
-    content: ":";
-    padding-right: 0.5em;
-    display: inline !important; //Important because the pseudo's are hidden by default in a glossary
+// This is here for older books
+.glossary {
+  #part>#glossary>.style(chapter);
+  .titlepage h2 { #part>#glossary>#title>.style(chapter); }
+  dl {
+    #part>#glossary>.style(chapter);
+    dt {
+      #part>#glossary>.term(chapter);
+      &::after {
+        #part>#glossary>.divider(chapter);
+      }
+    }
+    dd { #part>#glossary>.definition(chapter); }
   }
 }
 
