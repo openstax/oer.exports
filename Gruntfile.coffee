@@ -42,7 +42,7 @@ module.exports = (grunt) ->
           failIfNotExists('Path to PrinceXML does not exist', config.prince)
           failIfNotExists('Path to unzipped collection does not exist', config.books[bookName])
           failIfNotExists('Path to unzipped collection is invalid', "#{config.books[bookName]}/collection.xml")
-          failIfNotExists('Unzipped Docbook does not exist', './docbook-xsl/VERSION.xsl')
+          failIfNotExists('Unzipped Docbook does not exist', './docbook-xsl/VERSION')
           failIfNotExists('CSS file does not exist', "./css/ccap-#{bookName}.css")
 
           return [
