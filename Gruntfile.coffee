@@ -9,9 +9,9 @@ module.exports = (grunt) ->
   failIfNotExists = (message, filePath) ->
     throw new Error("#{message}. Expected #{filePath} to exist.") if not fs.existsSync(filePath)
 
-  skipIfExists = (filePath) ->
-    if config.skipping and fs.existsSync(filePath)
-      grunt.log.writeln("#{chalk.green('Skipping step because target file exists:')} #{filePath}")
+  skipIfExists = (taskName, filePath) ->
+    if config.skipping?[taskName] and fs.existsSync(filePath)
+      grunt.log.writeln("#{chalk.bgBlue('Skipping step because target file exists:')} #{filePath}")
       return true
 
   # Project configuration.
@@ -36,7 +36,7 @@ module.exports = (grunt) ->
           tempDir = "#{config.testingDir}/tempdir-#{bookName}-#{branchName}"
 
           # Shortcut if skipping flag is set
-          return '' if skipIfExists("#{tempDir}/collection.xhtml")
+          return '' if skipIfExists('pdf', "#{tempDir}/collection.xhtml")
 
           # Make sure the files exist
           failIfNotExists('Path to PrinceXML does not exist', config.prince)
@@ -62,6 +62,28 @@ module.exports = (grunt) ->
             "
           ].join('; ')
 
+      'pdf-only':
+        command: (bookName, branchName='new') ->
+          tempDir = "#{config.testingDir}/tempdir-#{bookName}-#{branchName}"
+          cssFile = "./css/ccap-#{bookName}.css"
+          htmlFile = "#{tempDir}/collection.xhtml"
+          pdfFile = "#{config.testingDir}/#{bookName}-#{branchName}.pdf"
+
+          # Shortcut if skipping flag is set
+          return '' if skipIfExists('pdfOnly', pdfFile)
+
+          # Make sure the files exist
+          failIfNotExists('Path to PrinceXML does not exist', config.prince)
+          failIfNotExists('Path to generated HTML does not exist', "#{tempDir}/collection.xhtml")
+          failIfNotExists('CSS file does not exist', "./css/ccap-#{bookName}.css")
+
+          return "#{config.prince}
+            --style=#{cssFile}
+            --output=#{pdfFile}
+            #{htmlFile}
+            2> /dev/null
+          "
+
       # 2. Generate HTML Coverage Report (optional)
       # 2a. Generate LCOV file
       'coverage':
@@ -71,7 +93,7 @@ module.exports = (grunt) ->
           lcovFile = "#{config.testingDir}/#{bookName}-#{branchName}.lcov"
 
           # Shortcut if skipping flag is set
-          return '' if skipIfExists(lcovFile)
+          return '' if skipIfExists('coverage', lcovFile)
 
           # Make sure the files exist
           failIfNotExists("Less file does not exist: #{lessFile}", lessFile)
@@ -98,18 +120,59 @@ module.exports = (grunt) ->
           tempDir = "#{config.testingDir}/tempdir-#{bookName}-#{branchName}"
           bakedXhtmlFile = "#{config.testingDir}/#{bookName}-#{branchName}.xhtml"
 
+          previewXhtmlFile = "#{tempDir}/preview.xhtml"
+          previewCssFile = "#{tempDir}/preview.css"
+
           # Shortcut if skipping flag is set
-          return '' if skipIfExists(bakedXhtmlFile)
+          return '' if skipIfExists('bake', bakedXhtmlFile)
+
+          failIfNotExists("CSS file missing", previewCssFile)
+          failIfNotExists("XHTML file missing", previewXhtmlFile)
+
+          return "phantomjs #{cssDiffPath}/phantom-harness.coffee
+            #{cssDiffPath}
+            #{process.cwd()}/#{previewCssFile}
+            #{process.cwd()}/#{previewXhtmlFile}
+            #{bakedXhtmlFile}
+          "
+
+      # Like `bake` except the styling is in a separate CSS file instead of `style="..."`
+      'preview':
+        command: (bookName, branchName='new') ->
+          cssDiffPath = './node_modules/css-diff'
+          lessFile = "./css/ccap-#{bookName}.less"
+          tempDir = "#{config.testingDir}/tempdir-#{bookName}-#{branchName}"
+          previewXhtmlFile = "#{tempDir}/preview.xhtml"
+          previewCssFile = "#{tempDir}/preview.css"
+
+          # Shortcut if skipping flag is set
+          return '' if skipIfExists('preview', previewXhtmlFile)
 
           failIfNotExists("LESS file missing", lessFile)
           failIfNotExists("XHTML file missing. generate with `grunt shell:pdf:#{bookName}`", "#{tempDir}/collection.xhtml")
 
-          return "phantomjs #{cssDiffPath}/phantom-harness.coffee
-            #{cssDiffPath}
-            #{process.cwd()}/#{lessFile}
-            #{process.cwd()}/#{tempDir}/collection.xhtml
-            #{bakedXhtmlFile}
-          "
+          return [
+            "phantomjs #{cssDiffPath}/phantom-harness.coffee
+              #{cssDiffPath}
+              #{process.cwd()}/#{lessFile}
+              #{process.cwd()}/#{tempDir}/collection.xhtml
+              #{previewXhtmlFile}
+              #{previewCssFile}
+            "
+            "sed -i '' 's/\\<body\\>/<body><link rel=\"stylesheet\" href=\"preview.css\" \\/>/' #{previewXhtmlFile}"
+
+          ].join('; ')
+
+      'preview-link':
+        command: (bookName, branchName='new') ->
+          imagesDir = "./css/ccap-#{bookName}"
+          tempDir = "#{config.testingDir}/tempdir-#{bookName}-#{branchName}"
+          bakedXhtmlFile = "#{config.testingDir}/#{bookName}-#{branchName}.xhtml"
+          previewFile = "#{tempDir}/preview.xhtml"
+          return [
+            "ln -s #{imagesDir} #{config.testingDir}/ccap-#{bookName}"
+          ].join('; ')
+
 
       # 4. Generate Diff if the last argument is not 'master'
       'create-diff':
@@ -132,11 +195,11 @@ module.exports = (grunt) ->
               #{bakedXhtmlFile} 2>&1 | wc -l
             "
 
-
   grunt.registerTask 'diff-book', 'Perform a regression', (bookName) ->
     branchName = 'new'
     grunt.log.writeln('Use --verbose to see the output because these take a while.')
     grunt.task.run("shell:pdf:#{bookName}:#{branchName}")
+    grunt.task.run("shell:preview:#{bookName}:#{branchName}")
     grunt.task.run("shell:bake:#{bookName}:#{branchName}")
     grunt.task.run("shell:create-diff:#{bookName}:#{branchName}")
     if config.coverage
@@ -146,6 +209,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'prepare-book', 'Generate the master versions of books to compare against', (bookName) ->
     grunt.log.writeln('Use --verbose to see the output because these take a while.')
     grunt.task.run("shell:pdf:#{bookName}:master")
+    grunt.task.run("shell:preview:#{bookName}:master")
     grunt.task.run("shell:bake:#{bookName}:master")
     if config.coverage
       grunt.task.run("shell:coverage:#{bookName}:master")
