@@ -4,69 +4,6 @@
 
 @import url('utils.less');
 
-#toc {
-  .style(...) {
-    #utils>#pb>.before(right);
-    #utils>#pb>.after(always);
-  }
-  #title {
-    .style(...) {
-      #utils>#pb>.after(avoid);
-      text-align: center;
-      font-size: large;
-      font-weight: bold;
-      margin-bottom: 0em;
-      border-bottom-width: 1px;
-      border-bottom-style: solid;
-    }
-  }
-
-  #entry {
-
-    // Possible values for @scope:
-    // - default
-    // - top
-    // - X unit
-    // - X preface
-    // - X chapter
-    // - X appendix
-    // - section
-    .title(@scope) {}
-    .title(default) {
-      font-weight: medium;
-      text-decoration: none;
-      color: black;
-    }
-    .title(top) {
-      // TOC Units/Chapter
-      font-size: 12pt;
-    }
-    .title(section) {
-      // Sections
-      font-weight: normal;
-      color: black;
-    }
-    .page() {
-      // Chapter 3 : Type Systems ........................ 213
-      content: leader(' . ') target-counter(attr(href), page);
-    }
-  }
-
-  // Possible values for @scope:
-  // - X default
-  // - X top
-  // - X unit
-  // - preface
-  // - X chapter
-  // - appendix
-  // - section
-  .show-sections-in(@scope)   {} // By default show sections in all scopes
-  .show-sections-in(preface)  { display: none; }
-  .show-sections-in(appendix) { display: none; }
-  .show-sections-in(section)  { display: none; }
-
-}
-
 #index {
   .style(...) {
     #utils>#pb>.before(always);
@@ -106,6 +43,68 @@
     }
   }
 
+  #toc {
+    .style(...) {
+      #utils>#pb>.before(right);
+      #utils>#pb>.after(always);
+    }
+    #title {
+      .style(...) {
+        #utils>#pb>.after(avoid);
+        text-align: center;
+        font-size: large;
+        font-weight: bold;
+        margin-bottom: 0em;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+      }
+    }
+
+    #entry {
+      // Possible values for @scope:
+      // - default
+      // - top
+      // - X unit
+      // - X preface
+      // - X chapter
+      // - X appendix
+      // - section
+      .title(@scope) {}
+      .title(default) {
+        font-weight: medium;
+        text-decoration: none;
+        color: black;
+      }
+      .title(top) {
+        // TOC Units/Chapter
+        font-size: 12pt;
+      }
+      .title(section) {
+        // Sections
+        font-weight: normal;
+        color: black;
+      }
+      .page() {
+        // Chapter 3 : Type Systems ........................ 213
+        content: leader(' . ') target-counter(attr(href), page);
+      }
+    }
+
+    // Possible values for @scope:
+    // - X default
+    // - X top
+    // - X unit
+    // - preface
+    // - X chapter
+    // - appendix
+    // - section
+    .show-sections-in(@scope)   {} // By default show sections in all scopes
+    .show-sections-in(preface)  { display: none; }
+    .show-sections-in(appendix) { display: none; }
+    .show-sections-in(section)  { display: none; }
+
+  }
+
   #preface {
     .style(...) {}
 
@@ -137,67 +136,65 @@
         max-width: none;
       }
     }
-  }
-
-  // This is the ToC inside the Introduction
-  #toc {
-    .style(...) {
-      display: table;
-      margin: auto;
-      margin-bottom: 1em;
-      border-spacing: 0px;
-      #utils>#pb>.inside(avoid);
-    }
-    #title {
+    #chapter-outline {
       .style(...) {
-        color: white;
-        font-size: large;
-        font-weight: bold;
-        text-align: center;
-        padding: 0.25em;
-        margin: 0em;
-      }
-      .content(...) {
-        content: "Learning Objectives";
-      }
-    }
-    .children(...) {
-      padding-left: 0em;
-      margin-left: 1em;
-    }
-    #entry {
-      .style(...) {
-        list-style-type: none;
-        margin: 0.50em 0em;
+        display: table;
+        margin: auto;
+        margin-bottom: 1em;
+        border-spacing: 0px;
+        #utils>#pb>.inside(avoid);
       }
       #title {
         .style(...) {
-          color: inherit;
+          color: white;
+          font-size: large;
           font-weight: bold;
-          padding: 0.25em 0em;
-          margin: 0em 1em 0em 0.5em;
+          text-align: center;
+          padding: 0.25em;
+          margin: 0em;
+        }
+        .content(...) {
+          content: "Learning Objectives";
         }
       }
-      .children-indent(...) {
-        margin-left: 0.25em;
+      .children(...) {
+        padding-left: 0em;
+        margin-left: 1em;
       }
-      // This next line is deprecated and should be moved elsewhere
-      .d-section-colon(...) {
-        content: ":"; //add : after section #
-      }
-
-      // Each Chapter ToC entry contains the abstract in addition to the title
-      #abstract {
+      #entry {
         .style(...) {
-          margin-left: 2.5em;
-          padding-left: 0em;
+          list-style-type: none;
+          margin: 0.50em 0em;
         }
-        .list(...) {
-          margin-left: 0em;
-          padding-left: 1.5em;
+        #title {
+          .style(...) {
+            color: inherit;
+            font-weight: bold;
+            padding: 0.25em 0em;
+            margin: 0em 1em 0em 0.5em;
+          }
         }
-        .list-item(...) {
-          list-style-type: disc;
+        .children-indent(...) {
+          margin-left: 0.25em;
+        }
+        // This next line is deprecated and should be moved elsewhere
+        .d-section-colon(...) {
+          content: ":"; //add : after section #
+        }
+
+        // Each Chapter ToC entry contains the abstract in addition to the title
+        #abstract {
+          .style(...) {
+            margin-left: 2.5em;
+            padding-left: 0em;
+          }
+          .list(...) {
+            margin-left: 0em;
+            padding-left: 1.5em;
+          }
+          .list-item(...) {
+            list-style-type: disc;
+          }
         }
       }
     }
@@ -211,6 +208,24 @@
       .number(...) {}  // "1"
       .divider(...) {} // "|"
       .text(...) {}    // "Introduction to Psychology"
+    }
+    #learning-objectives {
+      .style(...) {
+        margin: 1em 0em;
+        padding: .50em;
+
+        #utils>#pb>.inside(avoid);
+        #utils>#pb>.before(avoid);
+      }
+      #title {
+        .style(...) {
+        }
+      }
+      .list(...) {
+      }
+      .list-item(...) {
+        margin: .25em 0em;
+      }
     }
   }
 

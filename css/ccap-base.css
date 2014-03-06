@@ -2,10 +2,12 @@
  * Styles used when generating a PDF from xhtml+css
  * Print-specific styles <style media="print"... *
  ***************************************************/
-@page  {
+@page {
   margin: 5em;
   font-size: xx-small;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;@footnotes {
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  
+  @footnotes {
     border-top: solid black thin;
     padding-top: 1em;
   }
@@ -37,7 +39,7 @@
   }
 }
 @namespace mml "http://www.w3.org/1998/Math/MathML";
-mml | math {
+mml|math {
   display: none;
 }
 /* hides the table caption in caption to place at bottom of table */
@@ -182,13 +184,13 @@ h1.title .cnx-gentext-n {
   page-break-inside: avoid;
 }
 .chapter > .introduction > .toc > .title {
-  content: "Learning Objectives";
   color: white;
   font-size: large;
   font-weight: bold;
   text-align: center;
   padding: 0.25em;
   margin: 0em;
+  content: "Learning Objectives";
 }
 .chapter > .introduction > .toc > * {
   padding-left: 0em;
@@ -234,13 +236,13 @@ h1.title .cnx-gentext-n {
 /***************************************************
  * SECTION LEVEL LEARNING OBJECTIVES (section abstract) 
  ***************************************************/
-.section > .titlepage .abstract {
+div.section > div.titlepage div.abstract {
   margin: 1em 0em;
   padding: .50em;
   page-break-inside: avoid;
   page-break-before: avoid;
 }
-.section > .titlepage .abstract ul > li {
+div.section > div.titlepage div.abstract ul.itemizedlist > li {
   margin: .25em 0em;
 }
 /* Squirrel away the collection URL so it shows up as the footer on every page */
@@ -404,9 +406,7 @@ div.table-caption.caption {
   padding-left: 1em;
   padding-right: 1em;
   /* To fully support row/col spans in CALS tables borders are calculated for each cell and inherit the color of the text in the cell */
-
   /* By default the color in the PDF is the same color as the text so set it to black. */
-
   border-color: black !important;
 }
 div.table-caption.caption {
@@ -566,13 +566,10 @@ em.glossterm {
 /* Exercises have the number in bold, followed by the 1st paragraph inline, not "Exercise 3 \n sldkfj" */
 .cnx-eoc .exercise {
   /*** Exercises normally have more margins around them ***/
-
   margin-top: 0.5em;
   margin-bottom: 0.0em;
   /* Hide the "Exercise " prefix */
-
   /*** Make sure the default background colors for things like exercise body don't seep through ***/
-
 }
 .cnx-eoc .exercise div,
 .cnx-eoc .exercise p:first-of-type {

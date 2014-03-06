@@ -100,7 +100,7 @@ div.part > div.titlepage { display: none; }
   }
 
   > .toc a {
-    #part>#toc>#entry>#title>.style();
+    #part>#introduction>#chapter-outline>#entry>#title>.style();
   }
 
   // overide hyperlink medium blue color must be back and normal weight
@@ -119,10 +119,10 @@ div.part > div.titlepage { display: none; }
    * Styling for Chapter Outline Box
    ******************************************************************/
   >.toc { 
-    #part>#toc>.style();
+    #part>#introduction>#chapter-outline>.style();
 
     >.title {
-      #part>#toc>#title>.style();
+      #part>#introduction>#chapter-outline>#title>.style();
     }
   }
 }
@@ -152,12 +152,9 @@ div.book div.chapter > div.titlepage > div > div h1.title {
 
 .section > .titlepage {
   .abstract {
-    #content>#section>#abstract>.style();
-
     &::before {
-     #content>#section>#abstract>#title>.style();
+     #part>#chapter>#learning-objectives>#title>.style();
     }
-
 
     p { font-family: @font-family; margin: 1em 0em .75em 1em; }
 
@@ -232,6 +229,10 @@ div.book div.chapter > div.titlepage > div > div h1.title {
 
 
   .problem .orderedlist { margin-left: 4em; }
+
+  .problem::before {
+    #content>#problem>.number(@kind; chapter-end);
+  }
 
   .empty { display: hidden; } // hide, but count, empty elements.
 }
@@ -758,13 +759,6 @@ div.book div.chapter > div.section div.example div.exercise .problem {
 /****************************************************************************
  * Misc Color changes
  ****************************************************************************/
-
-//These should just be replacing @color1 with @color2
-
-.target-figure {
-  font-weight:bold;
-  color: @medium-blue;
-}
 
 .cnx-figure-horizontal .informalfigure .caption {
   text-align: center; //center subfigure caption
