@@ -745,7 +745,7 @@ h1.title .cnx-gentext-n {
   list-style-type: disc;
 }
 /***************************************************
- * SECTION LEVEL LEARNING OBJECTIVES (section abstract) 
+ * SECTION LEVEL LEARNING OBJECTIVES (section abstract)
  ***************************************************/
 div.section > div.titlepage div.abstract {
   margin: 1em 0em;
@@ -1057,11 +1057,31 @@ img {
   max-width: 7in;
 }
 /********************* Glossary Section **************/
-.glossary dt {
+.glossary {
+  page-break-before: always;
+  display: inline;
+}
+.glossary .titlepage h2 {
+  /* Change "Glossary" to "Key Terms" */
+  content: "Key Terms";
+  color: #528cbe;
+  font-size: large;
+  padding: 0em;
+  display: block;
+  text-transform: uppercase;
+  color: #a63c1d;
+  font-size: 13pt;
+  text-transform: none;
+}
+.glossary dl {
+  page-break-before: always;
+  display: inline;
+}
+.glossary dl dt {
   float: left;
   font-weight: bold;
 }
-.glossary dt::after {
+.glossary dl dt::after {
   content: ":";
   padding-right: 0.5em;
   display: inline !important;
@@ -1232,33 +1252,6 @@ p:nth-of-type(2),
   margin: auto;
   background-color: #fbeab3;
 }
-.introduction .glossary {
-  page-break-before: always;
-  display: inline;
-}
-.introduction .glossary::before {
-  content: "" "Chapter " counter(chapter, decimal) " Review";
-  color: #528cbe;
-  font-size: x-large;
-  font-weight: bold;
-  padding: 0em;
-  display: block;
-  text-transform: uppercase;
-  margin-bottom: 1.0em;
-}
-.introduction .glossary .titlepage h2 {
-  /* Change "Glossary" to "Key Terms" */
-  content: "Key Terms";
-  color: #528cbe;
-  font-size: large;
-  font-weight: bold;
-  padding: 0em;
-  display: block;
-  text-transform: uppercase;
-  color: #a63c1d;
-  font-size: 13pt;
-  text-transform: none;
-}
 .introduction blockquote {
   color: #0067ac;
   font-size: 150%;
@@ -1346,33 +1339,6 @@ p:nth-of-type(2),
   page-break-inside: avoid;
   margin: auto;
   background-color: #fbeab3;
-}
-.chapter .glossary {
-  page-break-before: always;
-  display: inline;
-}
-.chapter .glossary::before {
-  content: "" "Chapter " counter(chapter, decimal) " Review";
-  color: #528cbe;
-  font-size: x-large;
-  font-weight: bold;
-  padding: 0em;
-  display: block;
-  text-transform: uppercase;
-  margin-bottom: 1.0em;
-}
-.chapter .glossary .titlepage h2 {
-  /* Change "Glossary" to "Key Terms" */
-  content: "Key Terms";
-  color: #528cbe;
-  font-size: large;
-  font-weight: bold;
-  padding: 0em;
-  display: block;
-  text-transform: uppercase;
-  color: #a63c1d;
-  font-size: 13pt;
-  text-transform: none;
 }
 .chapter blockquote {
   color: #0067ac;
@@ -1462,33 +1428,6 @@ p:nth-of-type(2),
   margin: auto;
   background-color: #fbeab3;
 }
-.cnx-eoc .glossary {
-  page-break-before: always;
-  display: inline;
-}
-.cnx-eoc .glossary::before {
-  content: "" "Chapter " counter(chapter, decimal) " Review";
-  color: #528cbe;
-  font-size: x-large;
-  font-weight: bold;
-  padding: 0em;
-  display: block;
-  text-transform: uppercase;
-  margin-bottom: 1.0em;
-}
-.cnx-eoc .glossary .titlepage h2 {
-  /* Change "Glossary" to "Key Terms" */
-  content: "Key Terms";
-  color: #528cbe;
-  font-size: large;
-  font-weight: bold;
-  padding: 0em;
-  display: block;
-  text-transform: uppercase;
-  color: #a63c1d;
-  font-size: 13pt;
-  text-transform: none;
-}
 .cnx-eoc blockquote {
   color: #0067ac;
   font-size: 150%;
@@ -1576,33 +1515,6 @@ p:nth-of-type(2),
   page-break-inside: avoid;
   margin: auto;
   background-color: #fbeab3;
-}
-.colophon .glossary {
-  page-break-before: always;
-  display: inline;
-}
-.colophon .glossary::before {
-  content: "" "Chapter " counter(chapter, decimal) " Review";
-  color: #528cbe;
-  font-size: x-large;
-  font-weight: bold;
-  padding: 0em;
-  display: block;
-  text-transform: uppercase;
-  margin-bottom: 1.0em;
-}
-.colophon .glossary .titlepage h2 {
-  /* Change "Glossary" to "Key Terms" */
-  content: "Key Terms";
-  color: #528cbe;
-  font-size: large;
-  font-weight: bold;
-  padding: 0em;
-  display: block;
-  text-transform: uppercase;
-  color: #a63c1d;
-  font-size: 13pt;
-  text-transform: none;
 }
 .colophon blockquote {
   color: #0067ac;
@@ -2457,9 +2369,6 @@ a {
   padding: 0em;
   display: block;
   text-transform: uppercase;
-  color: #a63c1d;
-  font-size: 13pt;
-  text-transform: none;
 }
 .glossary dt::after {
   content: " ";
@@ -3483,6 +3392,7 @@ div.book > div.preface {
 }
 div.book > div.preface > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Preface" " " "" " | " content() "";
+  padding-left: .25em;
   prince-text-replace: "*" "";
 }
 div.book > div.preface > div.cnx-eoc {
@@ -3703,6 +3613,7 @@ div.book div.chapter {
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Chapter" " " counter(chapter, decimal) " | " content() "";
+  padding-left: .25em;
   prince-text-replace: "*" "";
 }
 div.book div.chapter > div.cnx-eoc {
@@ -3917,6 +3828,7 @@ div.book > div.appendix {
 }
 div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Appendix" " " counter(appendix, upper-latin) " | " content() "";
+  padding-left: .25em;
   prince-text-replace: "*" "";
 }
 div.book > div.appendix > div.cnx-eoc {

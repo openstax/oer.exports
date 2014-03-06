@@ -19,7 +19,7 @@
     }
   }
   .letter(...) {
-    font-weight: bold; 
+    font-weight: bold;
   }
   .term(...) {
   }
@@ -229,6 +229,27 @@
     }
   }
 
+  #glossary {
+    #title { .style(@part) { } }
+    .style(@part) { }
+    .list(@part) { }
+    .term(@part) { }
+    .term(chapter) {
+      float: left;
+      font-weight: bold;
+    }
+
+    .divider(@part) { }
+    .divider(chapter) {
+      content: ":";
+      padding-right: 0.5em;
+      display: inline !important; //Important because the pseudo's are hidden by default in a glossary
+    }
+
+    .definition(@part) { }
+  }
+
+
   // End-of-chapter parts
   #chapter-end { // .cnx-eoc
     .style(...) {
@@ -238,14 +259,6 @@
         margin-top: 0.5em;
         margin-bottom: 0.5em;
       }
-    }
-    #glossary {
-      .dl(...) {}
-      .dt(...) {
-        float: left;
-        font-weight: bold;
-      }
-      .dd(...) {}
     }
     #section {
       #title {
