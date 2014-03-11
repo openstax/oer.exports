@@ -34,6 +34,10 @@
 // For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
 @qr: 1.25in;
 
+// Images in Economics are 120DPI
+html {
+  prince-image-resolution: 120dpi;
+}
 
 /******************************************************
  * Economics Custom elements
@@ -168,16 +172,33 @@
   > .titlepage {
     h1.title { background-color: @dark-blue; }
   }
+
+  // Contributors and Reviewers in book are created with tables.  We must turn off
+  // the borders for these in the preface. !important must be used here to override
+  // the border that was used with !important in general table styling.  All of this
+  // goes away when economics gets skeletonized. 
+  .table table {
+    border: none !important;
+  }
 }
 
 /* -------------------------
  * Book Table of Contents
  * -------------------------
  */
+
+ // A few styling rules from the inherited precalculus skeleton/slot is causing our toc to display
+ // as the chapter outline.  This is coming from #part>#toc>#style in precalculus slots which have
+ // been styled as the chapter outline, not the toc.  For now, for expediency, fixing here so
+ // refactor files are not changed and the possible introduction of more regressions.
 .book > .toc {
+  border: none;
   > .title {
     border-bottom-color: @dark-blue;
     color: @dark-blue;
+    content: "Table of Contents";
+    background: none;
+    margin-bottom: .5em;
   }
 
   a { color: @dark-blue; }
@@ -228,6 +249,10 @@
  * Section Level Learning Objectives
 * -------------------------
 */
+
+// Another higher specificity DOM selector coming from PreCalc is overriding the border: none;
+// below.  Choosing this instead of !important  This below overrides .section > .titlepage .abstract
+div.section > div.titlepage div.abstract { border: none; }
 
 .section > .titlepage {
   .abstract {
@@ -283,6 +308,19 @@
  * -------------------------
  */
 
+// This high-specifity DOM value for the title is coming from PreCalc 
+// and overriding our nice .chapter h1.title below.  It's either set it this
+// way below to override or use !important on .chapter h1.title.  Anything
+// but evil !important.  We will refactor this bit into skeleton or broom
+// up DOM across books.
+div.book div.chapter > div.titlepage > div > div h1.title {
+  color: @dark-blue;
+  > span.cnx-gentext-n {
+    color: @dark-blue;
+  }
+}
+
+// colors null and void due to above structure coming from PreCalc
 .chapter h1.title {
   margin-top: 0;
   padding-top: 0;
@@ -315,15 +353,21 @@ a {
 
 p { font-family: @font-family-serif; }
 
-blockquote {
-  color: black;
-  font-family: @font-family-serif;
-  font-size: inherit;
-  margin-top: inherit;
-  margin-bottom: inherit;
+// Higher specificity vaules comes from Precalculus require us to use
+// .chapter and .introduction classes here as a wrapper. Cannot use just
+// blockquote inline tag here anymore. 
+.chapter, 
+.introduction {
+  blockquote {
+    color: black;
+    font-family: @font-family-serif;
+    font-size: inherit;
+    margin-top: inherit;
+    margin-bottom: inherit;
 
-  &::before, &::after {
-    content: "";
+    &::before, &::after {
+      content: "";
+    }
   }
 }
 
@@ -462,6 +506,11 @@ blockquote {
   margin-bottom: .5em;
 }
 
+// Remove pesky : colon after Key Term
+.glossary dl dt:after {
+    content: " ";
+}
+
 // In base-skeleton.less some former precalculus universal selector cruft from precalcuus
 // exists. We have to target the span here to fix the header sizes and remove a little padding
 // to comply with economics template.
@@ -469,6 +518,9 @@ blockquote {
   padding-left: 0;
   font-size: 13pt;
 }
+
+// All numbered exercises must have much smaller margins at bottom (Not 1.5em coming from PreCalc)
+.cnx-eoc .exercise { margin-bottom: .5em; }
 
 .cnx-eoc {
   &.summary,
@@ -580,6 +632,11 @@ div.book > div.part {
   > div.cnx-eoc { counter-reset: /*exercise*/ eoc-section; }
  }
 
+// Attributions & About Connexions Header need to be dark blue for economics
+.colophon > h1.title {
+  color: @dark-blue;
+}
+
 // References
 div.colophon.end-of-book-references .chapter-area {
   // Indentation of second line of reference requested by W&N along with no full justification on items
@@ -601,79 +658,108 @@ div.colophon.end-of-book-references .chapter-area {
 }
 
 
-
 // Answer Key 
-div.colophon.end-of-book-solutions div.chapter-area {
-  div.solution {
-    padding-bottom: .2em;
+div.colophon.end-of-book-solutions {
+  > .title { 
+    color: @dark-blue; 
+    margin-left: 0;
+  }
 
-    > div.title a.solution {
-      padding-right: .2em;  
+  div.chapter-area {
 
-      // Solution in Answer Key needs to have period after number.
-      &::after {
-        content: ". ";
-      }
+    // Decrease margin fluff coming from other books. Other overrides and higher
+    // specificity elements are adding too much space.
+    > .title {
+      margin-bottom: 0;
     }
 
-    &:nth-of-type(1) {
-      padding-top: .5em;
+    // Remove period after Chapter headers in Answer Key
+    a:after {
+      content: "";
     }
+    
+    div.solution {
+      padding-bottom: .5em;
 
-    > div.body {
-      // lists must not be inline 
-      li { display: list-item; }
-
-      
-      .equation {
-        // Equations need to be on their own line.  We must override inline style for equations.
-        display: block;
-        // Equation numbering turned off in Appendix/Answer Key.  There is no default setting/code
-        // in numbering.less that turns off equation numbering by default for all sections of book.
-        // We will need to extract this part later so we turn off equation numbering for all books.
-        > span.label { display: none; }
+      // Answers must be in line with number
+      > div.title { 
+        display: inline;
       }
 
-      /*
-      * This is a bug-fix related to 
-      *    display: inline;
-      *    * { display: inline; }
-      * being used in ccap-precalculus.less.
-      */
-
-      .table,
-      table {
-        display: table;
-        caption { display: table-caption; }
-        thead { display: table-header-group; }
-        tbody { display: table-row-group; }
-        tr { display: table-row; }
-        td, th { display: table-cell; }
-      }
-
-      // Since up till now Answer Key has been just a blob of inline text, we must some how undo
-      // the multitude of display:inline to allow the myriad new elements that are now a part of Answer Key.
-      // Figures must be converted to block level elements and then
-      // styled accordingly
-      .figure { 
-        // Stop outer container from collapsing
-        display: block;
-        margin-top: 1em;
-
-        // Figures are not to be numbered for Answer Key so associated caption/title are not displayed
-        .title {
-          display: none;
+      > div.title a.solution {
+        padding-right: .2em;  
+        
+        // Solution in Answer Key needs to have period after number.
+        &::after {
+          content: ". ";
         }
+      }
 
-        & img {
-          // For figure imagery in Answer Key we need to center figures
+      &:nth-of-type(1) {
+        padding-top: .5em;
+      }
+
+      > div.body {
+        display: inline;
+        position: relative;
+
+        // lists must not be inline 
+        li { display: list-item; }
+
+        
+        .equation {
+          // Equations need to be on their own line.  We must override inline style for equations.
           display: block;
-          margin: 0 auto;
+          // Equation numbering turned off in Appendix/Answer Key.  There is no default setting/code
+          // in numbering.less that turns off equation numbering by default for all sections of book.
+          // We will need to extract this part later so we turn off equation numbering for all books.
+          > span.label { display: none; }
         }
-      }
-    }    
+
+        /*
+        * This is a bug-fix related to 
+        *    display: inline;
+        *    * { display: inline; }
+        * being used in ccap-precalculus.less.
+        */
+
+        .table,
+        table {
+          display: table;
+          caption { display: table-caption; }
+          thead { display: table-header-group; }
+          tbody { display: table-row-group; }
+          tr { display: table-row; }
+          td, th { display: table-cell; }
+        }
+
+        // Since up till now Answer Key has been just a blob of inline text, we must some how undo
+        // the multitude of display:inline to allow the myriad new elements that are now a part of Answer Key.
+        // Figures must be converted to block level elements and then
+        // styled accordingly
+        .figure { 
+          // Stop outer container from collapsing
+          display: block;
+          margin-top: 1em;
+
+          // Figures are not to be numbered for Answer Key so associated caption/title are not displayed
+          .title {
+            display: none;
+          }
+
+          & img {
+            // For figure imagery in Answer Key we need to center figures
+            display: block;
+            margin: 0 auto;
+          }
+        }
+      }    
+    }
   }
 }
+
+
+
 
 /******************************************************
  * Appendix 
@@ -710,18 +796,6 @@ div.colophon.end-of-book-solutions div.chapter-area {
   display: none;
 }
 
-
-
-// Titles
-.end-of-book-references,
-.end-of-book-solutions {
-  h1.title {
-    color: @dark-blue;
-  }
-
-  // Must remove full justification of text from Answer Key entries
-  text-align: left;
-}
 div.index div.title h2 {
   color: @dark-blue;
 }

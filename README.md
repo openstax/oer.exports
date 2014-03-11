@@ -93,9 +93,69 @@ Alternative script for EPUB:
     # For just a module:
     python content2epub.py -c ./static/content.css -e ./xsl/dbk2epub.xsl -t "module" -o ./m123.epub -i "m123" ./test-ccap/m-section/
 
-## Testing PDF output for diffs
+# Building, Diffing, and Coverage
 
-In the /tools directory is a Ubuntu based pdfdiff tool for checking two files or two entire directories with PDFs for diffs in content and styling. Please look at the README.md in /tools .
+Testing and build tools use `grunt`. It can do several things:
+
+- compile all the LESS files to CSS files
+- generate CSS coverage reports
+- generate HTML+CSS diffs to see how books have changed
+
+First, you will need to install `node` and `grunt`. http://gruntjs.com/getting-started has instructions for setting up `grunt`.
+
+Then, you will need to create a `./config.yml` file. You can start by copying `./config.example.yml`. This file allows provides paths to all the downloaded books (unzipped comeplete ZIP files) as well as configuring some optimizations when running the tasks.
+
+Now, we can go over the various tasks.
+
+## Compile all the LESS files
+
+You should run this step before pushing changes to github; fortunately it's easy. Just run `grunt compile` (or just `grunt`) and the CSS files should be generated.
+
+**NOTE:** if you are adding a new book, you will need to add it to `./Gruntfile.coffee`.
+
+    # Generate all the CSS files
+    grunt compile
+
+## Generate a PDF
+
+To generate a PDF of a book run `grunt shell:pdf:{BOOK_NAME}` where `{BOOK_NAME}` is configured in `./config.yml`. This will also create a directory in `./testing/` which contains the generated HTML file for development.
+
+## Generate HTML+CSS Diff
+
+You can compare your CSS/XSLT changes against a book generated using the `master` branch by doing a couple of steps.
+First, you will need to switch to the master branch and `prepare` a baked HTML file of the book.
+
+**NOTE:** you will only need to `prepare` a book whenever the `master` branch updates!
+
+Then, you can switch back to the development branch and generate a `diff`.
+
+Below is an example (assuming the book is named `calculus` and the development branch is named `dev-branch`):
+
+    # Switch to master
+    git checkout master
+
+    # Make sure an entry for calculus is in config.yml
+    cat ./config.yml | grep calculus
+
+    # "prepare" the baked file for diffing later
+    grunt prepare:calculus
+
+    git checkout dev-branch
+
+    # Generate the diff'd HTML file
+    grunt diff:calculus
+
+    # View the changes by going to ./testing/calculus-diff.xhtml
+
+That's it! If you want to generate diffs of all the books, you can drop the `:calculus` from `grunt prepare` and `grunt diff`.
+
+**NOTE:** It will probably take several hours to diff all the books. You can speed up the process by manually generating 1 book per core.
+
+## Generate CSS Coverage Reports
+
+To generate a CSS coverage LCOV file, you can either set `coverage: true` inside `./config.yml` or run `grunt shell:coverage:{BOOK_NAME}:{OPTIONAL_BRANCH_NAME}`.
+
+To generate an HTML report, you can run `genhtml` directly (`brew install lcov` on OSX) on the LCOV file or run `grunt shell:coverage-report:{BOOK_NAME}:{OPTIONAL_BRANCH_NAME}`
 
 # License:
 
