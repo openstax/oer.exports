@@ -404,6 +404,8 @@ p {
 .table {
   page-break-inside: avoid;
   margin: auto;
+  /* Override the `page-break-inside: always` defined in content-slots.less */
+  page-break-inside: auto;
 }
 .table td {
   padding: 0.25em;
@@ -1568,6 +1570,8 @@ html {
 .introduction .table {
   page-break-inside: avoid;
   margin: auto;
+  /* Override the `page-break-inside: always` defined in content-slots.less */
+  page-break-inside: auto;
 }
 .introduction blockquote {
   color: #cfe1f1;
@@ -1642,6 +1646,8 @@ html {
 .chapter .table {
   page-break-inside: avoid;
   margin: auto;
+  /* Override the `page-break-inside: always` defined in content-slots.less */
+  page-break-inside: auto;
 }
 .chapter blockquote {
   color: #cfe1f1;
@@ -1716,6 +1722,8 @@ html {
 .cnx-eoc .table {
   page-break-inside: avoid;
   margin: auto;
+  /* Override the `page-break-inside: always` defined in content-slots.less */
+  page-break-inside: auto;
 }
 .cnx-eoc blockquote {
   color: #cfe1f1;
@@ -1790,6 +1798,8 @@ html {
 .colophon .table {
   page-break-inside: avoid;
   margin: auto;
+  /* Override the `page-break-inside: always` defined in content-slots.less */
+  page-break-inside: auto;
 }
 .colophon blockquote {
   color: #cfe1f1;
@@ -1922,7 +1932,7 @@ html {
   counter-increment: none !important;
   /* This code snip below is what is in Firebug that is overriding the Example and Try-It Exercise counters
       causing !important to have to be used here and on line #594 of the precalculus-skeleton.less file.  grr
-      div.book div.chapter > div.cnx-eoc div.exercise:not(.labeled), 
+      div.book div.chapter > div.cnx-eoc div.exercise:not(.labeled),
       div.book div.chapter > div.section div.exercise:not(.labeled) {
         counter-increment: exercise;
       }
@@ -2445,6 +2455,7 @@ a {
   display: inline;
   text-align: center;
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .figure img {
   margin: 0;
@@ -3142,9 +3153,9 @@ html {
   }
 
   // Styling for Chapter Outline Box
-  >.toc { 
+  >.toc {
     border: 2pt solid @dark-blue;
-  
+
     > .title {
       content: "Chapter Outline"; //override content string from base
       background-color: @dark-blue;
@@ -3229,7 +3240,7 @@ p {
 .chapter blockquote,
 .introduction blockquote {
   color: black;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: inherit;
   margin-top: inherit;
   margin-bottom: inherit;
@@ -3415,6 +3426,30 @@ div.book > div.appendix > div.section div.equation > *:last-child::after,
 div.book > div.part > div.appendix > div.section div.equation > *:last-child::after {
   display: none;
 }
+div.book > div.preface > div.cnx-eoc,
+div.book > div.part > div.preface > div.cnx-eoc {
+  counter-reset: /*exercise*/ eoc-section -1;
+}
+div.book > div.preface > div.cnx-eoc,
+div.book > div.part > div.preface > div.cnx-eoc {
+  counter-reset: /*exercise*/ eoc-section;
+}
+div.book > div.chapter > div.cnx-eoc,
+div.book > div.part > div.chapter > div.cnx-eoc {
+  counter-reset: /*exercise*/ eoc-section -1;
+}
+div.book > div.chapter > div.cnx-eoc,
+div.book > div.part > div.chapter > div.cnx-eoc {
+  counter-reset: /*exercise*/ eoc-section;
+}
+div.book > div.appendix > div.cnx-eoc,
+div.book > div.part > div.appendix > div.cnx-eoc {
+  counter-reset: /*exercise*/ eoc-section -1;
+}
+div.book > div.appendix > div.cnx-eoc,
+div.book > div.part > div.appendix > div.cnx-eoc {
+  counter-reset: /*exercise*/ eoc-section;
+}
 .colophon > h1.title {
   color: #3767b1;
 }
@@ -3458,7 +3493,7 @@ div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body {
   display: inline;
   position: relative;
   /*
-        * This is a bug-fix related to 
+        * This is a bug-fix related to
         *    display: inline;
         *    * { display: inline; }
         * being used in ccap-precalculus.less.
@@ -3480,6 +3515,16 @@ div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body tabl
 div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body .table caption,
 div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body table caption {
   display: table-caption;
+}
+div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body .table caption::before,
+div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body table caption::before {
+  display: none;
+}
+div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body .table caption .cnx-gentext-caption.cnx-gentext-t,
+div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body table caption .cnx-gentext-caption.cnx-gentext-t,
+div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body .table caption .cnx-gentext-caption.cnx-gentext-n,
+div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body table caption .cnx-gentext-caption.cnx-gentext-n {
+  display: none;
 }
 div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body .table thead,
 div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body table thead {
@@ -3511,26 +3556,23 @@ div.colophon.end-of-book-solutions div.chapter-area div.solution > div.body .fig
   margin: 0 auto;
 }
 /******************************************************
- * Appendix 
+ * Appendix
  ******************************************************/
 .appendix h1.title {
-  margin-left: 0;
-  padding-left: 0;
-  font-size: 34pt;
-  /* x-large; */
-  font-weight: bold;
-  text-align: left;
   color: #3767b1;
+  padding: 0;
 }
-.appendix h1.title::before {
-  content: "Appendix ";
+.appendix h1.title .cnx-gentext-n {
+  font-size: 35pt;
+  font-weight: bold;
+  color: #3767b1;
   text-transform: capitalize;
 }
-.appendix h1.title > .cnx-gentext-n {
-  color: #3767b1;
+.appendix h1.title .cnx-gentext-n::before {
+  content: "Appendix ";
 }
-.appendix h1.title span.cnx-gentext-t {
-  display: none;
+.appendix h1.title .cnx-gentext-t {
+  content: "";
 }
 .appendix .section > .titlepage h2::before,
 .appendix .section > .titlepage h2 .cnx-gentext-t:before {
