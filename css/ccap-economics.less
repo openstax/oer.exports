@@ -789,10 +789,12 @@ div.colophon.end-of-book-solutions {
     }
   }
 
-  h1.title span.cnx-gentext-t {
-    text-transform: capitalize;
-    font-size: 35pt;
-    font-weight: bold;
+  // We need to turn this off but still need value in DOM for numbering and page header
+  // Since cnx-gentext-t will still exist in DOM, and higher specificity value in numbering.less
+  // will take precedence, page header will always render with Appendix | title, therefore
+  // no fragility of code is present.
+  h1.title .cnx-gentext-t {
+    content: "";
   }
 }
 
