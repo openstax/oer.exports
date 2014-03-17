@@ -758,7 +758,16 @@ div.colophon.end-of-book-solutions {
         .table,
         table {
           display: table;
-          caption { display: table-caption; }
+          // TODO: Hide table numbering in end-book. This should be done in numbering
+          // and maybe for all books.
+          caption {
+            display: table-caption;
+            // Suppress labels
+            &::before { display: none; }
+
+            .cnx-gentext-caption.cnx-gentext-t,
+            .cnx-gentext-caption.cnx-gentext-n { display: none; }
+          }
           thead { display: table-header-group; }
           tbody { display: table-row-group; }
           tr { display: table-row; }
