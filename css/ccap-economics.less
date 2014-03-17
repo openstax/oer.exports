@@ -20,12 +20,13 @@
 // Color palette for economics
 @dark-blue:     #3767B1;
 @medium-blue:   #83C6EE;
-@light-blue:    #CFE1F1; 
-@gray:          #EFEFEF;  
+@light-blue:    #CFE1F1;
+@gray:          #EFEFEF;
 
 
 // A mixture of serif and sans-serif fonts.
 @font-family-serif: Liberation Serif, serif, @stix-fonts;
+@font-family-sans:  Liberation Sans, sans-serif, @stix-fonts;
 
 @page-width: 6.5in;
 @page { margin: 0.5in 1in; }
@@ -38,6 +39,21 @@
 html {
   prince-image-resolution: 120dpi;
 }
+
+
+//******************************************************
+// Economics custom slots
+//******************************************************
+#content {
+  #figure {
+    #title {
+      .style() {
+        font-family: @font-family-sans;
+      }
+    }
+  }
+}
+
 
 /******************************************************
  * Economics Custom elements
@@ -58,34 +74,34 @@ html {
     // Bring It Home Feature
     &.bringhome {
       .x-pb-inside(auto);
-      .x-feature(black, @gray, bring, 0.48in); 
+      .x-feature(black, @gray, bring, 0.48in);
     }
     // Clear It Up Feature
     &.clearup {
       .x-pb-inside(auto);
-      .x-feature(black, @gray, clear, 0.53in); 
+      .x-feature(black, @gray, clear, 0.53in);
     }
     // Work It Out Feature
     &.workout {
       .x-pb-inside(auto);
-      .x-feature(black, @gray, work, 0.38in); 
+      .x-feature(black, @gray, work, 0.38in);
 
       // Supress the extra url generated from base that is wrapped with parentheses
-      .itemizedlist > .listitem .link.only-show-once { 
+      .itemizedlist > .listitem .link.only-show-once {
         content: content();
       }
     }
     // Link It Up Feature
     &.linkup {
       .x-pb-inside(auto);
-      .x-feature(black, @gray, link, 0.38in); 
+      .x-feature(black, @gray, link, 0.38in);
 
       img {   //center qr code
         display: block;
         margin: auto;
       }
 
-      .link { 
+      .link {
         color: @dark-blue;
         font-weight: normal;
       }
@@ -146,11 +162,11 @@ html {
     padding: 0px .5em;
     color: black;
     border: none;
-  }  
+  }
 
-  // Must apply padding to all elements in body not just blockquote and para, tables 
+  // Must apply padding to all elements in body not just blockquote and para, tables
   // are being stuffed inside features as well and must play nice with text alignment
-  > .body { 
+  > .body {
     padding: 0px .8em;
 
     // W&N requests that all inline elements inside feature be sans-serif
@@ -158,7 +174,7 @@ html {
   }
 
   .figure {
-    img { max-width: (@page-width - .25em); }   
+    img { max-width: (@page-width - .25em); }
     > .title { font-size: 9.5pt; color: @dark-blue; }
   }
 }
@@ -176,7 +192,7 @@ html {
   // Contributors and Reviewers in book are created with tables.  We must turn off
   // the borders for these in the preface. !important must be used here to override
   // the border that was used with !important in general table styling.  All of this
-  // goes away when economics gets skeletonized. 
+  // goes away when economics gets skeletonized.
   .table table {
     border: none !important;
   }
@@ -233,9 +249,9 @@ html {
   }
 
   // Styling for Chapter Outline Box
-  >.toc { 
+  >.toc {
     border: 2pt solid @dark-blue;
-  
+
     > .title {
       content: "Chapter Outline"; //override content string from base
       background-color: @dark-blue;
@@ -271,11 +287,11 @@ div.section > div.titlepage div.abstract { border: none; }
     }
 
     // Learning objectives font for economics is in serif and doesn't have left indent like PreCalculus
-    p { 
+    p {
       font-family: @font-family-serif;
       // destroy margin shorthand from PreCalc and then reduce margin space on top per W&N
       margin: 0;
-      margin-top: .2em; 
+      margin-top: .2em;
     }
 
 
@@ -283,7 +299,7 @@ div.section > div.titlepage div.abstract { border: none; }
     .itemizedlist > .listitem {
 
       // PreCalc uses display:block to remove bullets and utilize list as block with counters
-      // For Economics we need just garden variety bullets for list.  
+      // For Economics we need just garden variety bullets for list.
       display: list-item;
       list-style-type: disc;
       margin-top: 0;
@@ -295,9 +311,9 @@ div.section > div.titlepage div.abstract { border: none; }
       // styling must be overriden in PreCalculus to compensate for numbering that has been turned off
       // Bulleted items must never display on second line of text, always first line of text. Do not
       // need any margins from PreCalc as well.
-      p { 
-        display: inline; 
-        margin: 0; 
+      p {
+        display: inline;
+        margin: 0;
       }
     }
   }
@@ -308,7 +324,7 @@ div.section > div.titlepage div.abstract { border: none; }
  * -------------------------
  */
 
-// This high-specifity DOM value for the title is coming from PreCalc 
+// This high-specifity DOM value for the title is coming from PreCalc
 // and overriding our nice .chapter h1.title below.  It's either set it this
 // way below to override or use !important on .chapter h1.title.  Anything
 // but evil !important.  We will refactor this bit into skeleton or broom
@@ -324,10 +340,10 @@ div.book div.chapter > div.titlepage > div > div h1.title {
 .chapter h1.title {
   margin-top: 0;
   padding-top: 0;
-  font-size: 34pt; 
+  font-size: 34pt;
   color: @dark-blue;
-  text-transform: none; 
-  
+  text-transform: none;
+
   // Chapter number
   .cnx-gentext-n {
     color: @dark-blue;
@@ -345,9 +361,9 @@ h2 {
   &::before { color: @dark-blue; }
 }
 
-a { 
+a {
   font-family: @font-family;
-  font-weight: bold; 
+  font-weight: bold;
   color: @dark-blue;
 }
 
@@ -355,8 +371,8 @@ p { font-family: @font-family-serif; }
 
 // Higher specificity vaules comes from Precalculus require us to use
 // .chapter and .introduction classes here as a wrapper. Cannot use just
-// blockquote inline tag here anymore. 
-.chapter, 
+// blockquote inline tag here anymore.
+.chapter,
 .introduction {
   blockquote {
     color: black;
@@ -471,8 +487,8 @@ p { font-family: @font-family-serif; }
  * Styling for Chapter Outline Box
  ******************************************************************************/
 
-  >.toc { 
-   display: none; 
+  >.toc {
+   display: none;
   }
 }
 
@@ -499,7 +515,7 @@ p { font-family: @font-family-serif; }
 }
 
 // Stop indentation of Key terms and force adherence to 6.5in page width - avoidance of CSS shorthand
-.glossary > dl { 
+.glossary > dl {
   margin-left: 0;
   margin-right: 0;
   margin-top: .5em;
@@ -606,7 +622,7 @@ p { font-family: @font-family-serif; }
  ******************************************************************************/
 
 // This equation block below comes from PreCalculus which required equation numbering
-// in it's design. Just changing color from orange (precalc) to @dark-blue for 
+// in it's design. Just changing color from orange (precalc) to @dark-blue for
 // aesthetics until we hear from W&N whether or not they want equation numbering
 // in Economics.  If not, we can turn off the numbering below.
 
@@ -643,7 +659,7 @@ div.colophon.end-of-book-references .chapter-area {
   .body .section-area {
     p {
       text-align: left;
-      padding-left: 1.5em; 
+      padding-left: 1.5em;
       text-indent: -1.5em;
     }
   }
@@ -658,10 +674,10 @@ div.colophon.end-of-book-references .chapter-area {
 }
 
 
-// Answer Key 
+// Answer Key
 div.colophon.end-of-book-solutions {
-  > .title { 
-    color: @dark-blue; 
+  > .title {
+    color: @dark-blue;
     margin-left: 0;
   }
 
@@ -677,18 +693,18 @@ div.colophon.end-of-book-solutions {
     a:after {
       content: "";
     }
-    
+
     div.solution {
       padding-bottom: .5em;
 
       // Answers must be in line with number
-      > div.title { 
+      > div.title {
         display: inline;
       }
 
       > div.title a.solution {
-        padding-right: .2em;  
-        
+        padding-right: .2em;
+
         // Solution in Answer Key needs to have period after number.
         &::after {
           content: ". ";
@@ -703,10 +719,10 @@ div.colophon.end-of-book-solutions {
         display: inline;
         position: relative;
 
-        // lists must not be inline 
+        // lists must not be inline
         li { display: list-item; }
 
-        
+
         .equation {
           // Equations need to be on their own line.  We must override inline style for equations.
           display: block;
@@ -717,7 +733,7 @@ div.colophon.end-of-book-solutions {
         }
 
         /*
-        * This is a bug-fix related to 
+        * This is a bug-fix related to
         *    display: inline;
         *    * { display: inline; }
         * being used in ccap-precalculus.less.
@@ -737,7 +753,7 @@ div.colophon.end-of-book-solutions {
         // the multitude of display:inline to allow the myriad new elements that are now a part of Answer Key.
         // Figures must be converted to block level elements and then
         // styled accordingly
-        .figure { 
+        .figure {
           // Stop outer container from collapsing
           display: block;
           margin-top: 1em;
@@ -753,7 +769,7 @@ div.colophon.end-of-book-solutions {
             margin: 0 auto;
           }
         }
-      }    
+      }
     }
   }
 }
@@ -762,7 +778,7 @@ div.colophon.end-of-book-solutions {
 
 
 /******************************************************
- * Appendix 
+ * Appendix
  ******************************************************/
 
 .appendix h1.title {
@@ -779,8 +795,8 @@ div.colophon.end-of-book-solutions {
   }
 
   // Alpha-numeric number for Econ needs to be @dark-blue
-  > .cnx-gentext-n { 
-    color: @dark-blue; 
+  > .cnx-gentext-n {
+    color: @dark-blue;
   }
 
   // Remove title from Appendix for Economics
@@ -792,7 +808,7 @@ div.colophon.end-of-book-solutions {
 // Since these appendices have been created with subsections we must stop
 // the counter from showing and the pipe text decoration (|) per W&N design
 .appendix .section > .titlepage h2::before,
-.appendix .section > .titlepage h2 .cnx-gentext-t:before { 
+.appendix .section > .titlepage h2 .cnx-gentext-t:before {
   display: none;
 }
 
