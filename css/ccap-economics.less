@@ -658,6 +658,12 @@ div.book > div.part {
   > div.cnx-eoc { counter-reset: /*exercise*/ eoc-section; }
  }
 
+div.book, div.book > div.part {
+  > div.preface  { .x-duplicate-hierarchy(); }
+  > div.chapter  { .x-duplicate-hierarchy(); }
+  > div.appendix { .x-duplicate-hierarchy(); }
+} 
+
 // Attributions & About Connexions Header need to be dark blue for economics
 .colophon > h1.title {
   color: @dark-blue;
@@ -790,28 +796,31 @@ div.colophon.end-of-book-solutions {
 /******************************************************
  * Appendix
  ******************************************************/
+.appendix {
 
-.appendix h1.title {
-  margin-left:0;
-  padding-left: 0;
-  font-size: 34pt; /* x-large; */
-  font-weight: bold;
-  text-align: left;
-  color: @dark-blue;
-
-  &::before {
-    content: "Appendix ";
-    text-transform: capitalize;
-  }
-
-  // Alpha-numeric number for Econ needs to be @dark-blue
-  > .cnx-gentext-n {
+  h1.title {
     color: @dark-blue;
+    padding: 0;
   }
 
-  // Remove title from Appendix for Economics
-  span.cnx-gentext-t {
-    display: none;
+  // Style Appendix Alpha-numeric and place "Appendix" before it
+  h1.title .cnx-gentext-n {
+    font-size: 35pt;
+    font-weight: bold;
+    color: @dark-blue;
+    text-transform: capitalize;
+
+    &::before {
+      content: "Appendix ";
+    }
+  }
+  
+  // We need to turn this off but still need value in DOM for numbering and page header
+  // Since cnx-gentext-t will still exist in DOM, and higher specificity value in numbering.less
+  // will take precedence, page header will always render with Appendix | title, therefore
+  // no fragility of code is present.
+  h1.title .cnx-gentext-t {
+    content: "";
   }
 }
 
@@ -825,15 +834,3 @@ div.colophon.end-of-book-solutions {
 div.index div.title h2 {
   color: @dark-blue;
 }
-
-
-
-
-
-
-
-
-
-
-
-
