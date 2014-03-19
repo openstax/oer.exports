@@ -48,6 +48,34 @@
       }
     }
   }
+  #introduction {
+    #chapter-outline {
+      .style(...) {
+        border: none;
+        padding: 0em;
+      }
+      #title {
+        .style(...) {
+          width: 100%;
+          background-color: @white;
+          color: @light-blue;
+          text-align: left;
+          font-weight: bold;
+          font-size: 11pt;
+        }
+      }
+      #entry {
+        .style(...) {
+          margin: 0.2em 0;
+        }
+        #title { 
+          .style(...) {
+	    color: @black;
+          }
+        }
+      }
+    }
+  }
   #chapter {
     #title {
       .style(...) {
@@ -63,6 +91,19 @@
       }
       .divider(...) {
         content: "";
+      }
+    }
+    #learning-objectives {
+      .style(...) {
+        margin: 0;
+        padding: 0;
+        border: none;
+        border-bottom: 1px solid @orange;
+      }
+      #title {
+        .style(...) {
+          
+        }
       }
     }
   }
@@ -123,17 +164,26 @@
   #book-end {
     #end-of-book-solutions {
       .style(...) {
-        column-count: 2;
       }
       #title {
         .style(...) {
-          column-span: all;
+          margin-left: 0; // reset precalc margin.
         }
       }
     }
     #end-of-book-references {
       .style(...) {
         margin: 1em 0;
+      }
+      #reference {
+        .style(...) {
+          // Indent all but the first lines of references.
+          text-indent: -2em;
+          margin: 1em 0 1em 2em;
+        }
+        #title {
+          .style(...) {}
+        }
       }
     }
     #index {
@@ -172,6 +222,15 @@
         margin-left: 0px;
         padding-left: 0px;
       }
+    }
+  }
+  #glossary {
+    .term(chapter) {
+      display: block;
+    }
+    .definition(chapter) {
+      padding-left: 2em;
+      display: block;
     }
   }
 }
@@ -318,10 +377,6 @@
     }
   }
   #table {
-    .style(...) {
-      border-width: 1px;
-      border-style: solid;
-    }
     .caption(...) {
       caption-side: top;
 
@@ -331,6 +386,13 @@
     }
     .cell(...) {
       padding: 5px 10px;
+    }
+  }
+  #figure {
+    #title {
+      .number(...) {
+        color: @red;
+      }
     }
   }
 }

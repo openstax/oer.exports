@@ -42,6 +42,17 @@
 /********************************************************************
  * Refactor of .x-feature() function to utilize only one paramter
  ********************************************************************/
+body ol,
+body ul,
+body div.orderedlist,
+body ol.orderedlist {
+  margin-left: 0;
+}
+body li,
+body .listitem,
+body div:not(.body) > div.itemizedlist > ul.itemizedlist > li.listitem {
+  padding-top: .2em;
+}
 /******************************************************
  * Set the colors used by various elements.
  ******************************************************/
@@ -62,9 +73,6 @@ h6 {
 .chapter h2,
 .chapter h2::before {
   color: #b8292f;
-}
-.chapter > .introduction > .toc > .title {
-  color: #007196;
 }
 .chapter > .introduction > .toc a {
   color: #000000;
@@ -458,23 +466,6 @@ div.cnx-eoc > .title {
 div.book div.chapter div.titlepage > div > div > h2.title {
   margin-bottom: 1em;
 }
-/**
-  These two sets of selectors are a part of a bug fix for glossary terms which
-  were not properly wrapping around floated dt elements. Here we get rid 
-  of floats, set all elements inline, and then force breaks after term definitions
-  using preformatted whitespace in dd::after.
- **/
-.glossary *,
-.glossary .glossterm,
-.glossary dt {
-  display: inline;
-  float: none;
-}
-div.book div.chapter > div.glossary dd::after {
-  display: inherit;
-  white-space: pre;
-  content: '\A\A';
-}
 .cnx-eoc .title {
   padding-bottom: 4px;
 }
@@ -526,8 +517,12 @@ div.table-caption.caption {
   font-size: large;
   font-weight: bold;
   margin-bottom: 0em;
+  color: #528cbe;
+  border-bottom-color: #528cbe;
   border-bottom-width: 1px;
   border-bottom-style: solid;
+  margin-left: 0px;
+  padding-left: 0px;
 }
 .book > .toc ul,
 .book > .toc li {
@@ -653,11 +648,12 @@ h1.title .cnx-gentext-n {
   page-break-inside: avoid;
   width: 100%;
   border: 1px solid #528cbe;
+  border: none;
+  padding: 0em;
 }
 .chapter > .introduction > .toc > .title {
   color: white;
   font-size: large;
-  font-weight: bold;
   text-align: center;
   padding: 0.25em;
   margin: 0em;
@@ -667,10 +663,12 @@ h1.title .cnx-gentext-n {
   padding-top: .1em;
   padding-bottom: .2em;
   background-color: #528cbe;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  margin-left: 0px;
-  padding-left: 0px;
+  width: 100%;
+  background-color: #ffffff;
+  color: #007196;
+  text-align: left;
+  font-weight: bold;
+  font-size: 11pt;
   content: "Learning Objectives";
 }
 .chapter > .introduction > .toc > * {
@@ -680,6 +678,7 @@ h1.title .cnx-gentext-n {
 .chapter > .introduction > .toc > * > li {
   list-style-type: none;
   margin: 0.50em 0em;
+  margin: 0.2em 0;
 }
 .chapter > .introduction > .toc > ul {
   padding-left: 0em;
@@ -691,6 +690,7 @@ h1.title .cnx-gentext-n {
   margin: 0em 1em 0em 0.5em;
   color: #528cbe;
   font-weight: bold;
+  color: #000000;
 }
 .chapter > .introduction > .toc .toc-section .abstract {
   display: none;
@@ -726,6 +726,10 @@ div.section > div.titlepage div.abstract {
   counter-reset: learning-objectives;
   border: 1px solid #528cbe;
   padding: 0em;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-bottom: 1px solid #eead58;
 }
 div.section > div.titlepage div.abstract ul.itemizedlist > li {
   margin: .25em 0em;
@@ -867,8 +871,6 @@ p {
 .table {
   page-break-inside: avoid;
   margin: auto;
-  border-width: 1px;
-  border-style: solid;
 }
 .table td {
   padding: 0.25em;
@@ -1036,11 +1038,16 @@ img {
 .glossary dl dt {
   float: left;
   font-weight: bold;
+  display: block;
 }
 .glossary dl dt::after {
   content: ":";
   padding-right: 0.5em;
   display: inline !important;
+}
+.glossary dl dd {
+  padding-left: 2em;
+  display: block;
 }
 em.glossterm {
   font-weight: bold;
@@ -1205,8 +1212,6 @@ p:nth-of-type(2),
 .introduction .table {
   page-break-inside: avoid;
   margin: auto;
-  border-width: 1px;
-  border-style: solid;
 }
 .introduction blockquote {
   color: #007196;
@@ -1285,8 +1290,6 @@ p:nth-of-type(2),
 .chapter .table {
   page-break-inside: avoid;
   margin: auto;
-  border-width: 1px;
-  border-style: solid;
 }
 .chapter blockquote {
   color: #007196;
@@ -1365,8 +1368,6 @@ p:nth-of-type(2),
 .cnx-eoc .table {
   page-break-inside: avoid;
   margin: auto;
-  border-width: 1px;
-  border-style: solid;
 }
 .cnx-eoc blockquote {
   color: #007196;
@@ -1445,8 +1446,6 @@ p:nth-of-type(2),
 .colophon .table {
   page-break-inside: avoid;
   margin: auto;
-  border-width: 1px;
-  border-style: solid;
 }
 .colophon blockquote {
   color: #007196;
@@ -1485,10 +1484,6 @@ p:nth-of-type(2),
 .note.howto .figure img {
   max-width: 6.25in;
 }
-.note.howto .figure > .title {
-  font-size: x-small;
-  color: #eead58;
-}
 .note.qa {
   padding-left: 1em;
   padding-right: 1em;
@@ -1508,10 +1503,6 @@ p:nth-of-type(2),
 }
 .note.qa .figure img {
   max-width: 6.25in;
-}
-.note.qa .figure > .title {
-  font-size: x-small;
-  color: #eead58;
 }
 .note.qa > .title {
   margin-top: 0.5em;
@@ -1539,10 +1530,6 @@ p:nth-of-type(2),
 .note.media .figure img {
   max-width: 6.25in;
 }
-.note.media .figure > .title {
-  font-size: x-small;
-  color: #eead58;
-}
 .note.media .itemizedlist > .listitem {
   color: #eead58;
   font-weight: bold;
@@ -1568,10 +1555,6 @@ p:nth-of-type(2),
 }
 .note.try .figure img {
   max-width: 6.25in;
-}
-.note.try .figure > .title {
-  font-size: x-small;
-  color: #eead58;
 }
 .note.try > .title {
   margin-top: 0.5em;
@@ -1656,27 +1639,17 @@ p:nth-of-type(2),
  * -------------------------
  */
 .book > .toc {
-  display: table;
-  margin: auto;
-  margin-bottom: 1em;
-  border-spacing: 0px;
-  page-break-inside: avoid;
-  width: 100%;
-  border: 1px solid #528cbe;
+  page-break-before: right;
+  page-break-after: always;
 }
 .book > .toc > .title {
-  color: white;
+  page-break-after: avoid;
+  text-align: center;
   font-size: large;
   font-weight: bold;
-  text-align: center;
-  padding: 0.25em;
-  margin: 0em;
-  page-break-after: avoid;
-  page-break-before: avoid;
-  content: "Chapter Outline";
-  padding-top: .1em;
-  padding-bottom: .2em;
-  background-color: #528cbe;
+  margin-bottom: 0em;
+  color: #528cbe;
+  border-bottom-color: #528cbe;
   border-bottom-width: 1px;
   border-bottom-style: solid;
   margin-left: 0px;
@@ -1711,6 +1684,7 @@ div.part > div.titlepage {
   margin: 0em 1em 0em 0.5em;
   color: #528cbe;
   font-weight: bold;
+  color: #000000;
 }
 .chapter > .introduction > .toc .toc-section .cnx-gentext-t {
   color: #000000;
@@ -1727,11 +1701,12 @@ div.part > div.titlepage {
   page-break-inside: avoid;
   width: 100%;
   border: 1px solid #528cbe;
+  border: none;
+  padding: 0em;
 }
 .chapter > .introduction > .toc > .title {
   color: white;
   font-size: large;
-  font-weight: bold;
   text-align: center;
   padding: 0.25em;
   margin: 0em;
@@ -1741,10 +1716,12 @@ div.part > div.titlepage {
   padding-top: .1em;
   padding-bottom: .2em;
   background-color: #528cbe;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  margin-left: 0px;
-  padding-left: 0px;
+  width: 100%;
+  background-color: #ffffff;
+  color: #007196;
+  text-align: left;
+  font-weight: bold;
+  font-size: 11pt;
 }
 /********************************************************************
  * Styling for Chapter Titles
@@ -1779,15 +1756,6 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::be
 /********************************************************************
  * Styling for Learning Objectives Box
  ********************************************************************/
-.section > .titlepage .abstract {
-  margin: 1em 0em;
-  padding: .50em;
-  page-break-inside: avoid;
-  page-break-before: avoid;
-  counter-reset: learning-objectives;
-  border: 1px solid #528cbe;
-  padding: 0em;
-}
 .section > .titlepage .abstract::before {
   content: "Learning Objectives";
   display: inline-block;
@@ -1915,6 +1883,9 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::be
 .cnx-eoc .problem .orderedlist {
   margin-left: 4em;
 }
+.cnx-eoc .problem::before {
+  padding-right: .5em;
+}
 .cnx-eoc .empty {
   display: hidden;
 }
@@ -1933,7 +1904,6 @@ div.colophon.end-of-book-solutions {
   margin: 0;
   padding: 0;
   display: inline !important;
-  column-count: 2;
 }
 div.colophon.end-of-book-solutions > .title {
   content: "Answer Key";
@@ -1943,7 +1913,7 @@ div.colophon.end-of-book-solutions > .title {
   font-size: x-large;
   font-weight: bold;
   background-color: transparent;
-  column-span: all;
+  margin-left: 0;
 }
 div.colophon.end-of-book-solutions .chapter-area {
   font-family: URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2010,6 +1980,10 @@ div.end-of-book-references > .chapter-area > .title {
 }
 div.end-of-book-references > .chapter-area > .body > .section-area > .title {
   display: none;
+}
+div.end-of-book-references > .chapter-area > .body > .section-area > .body p {
+  text-indent: -2em;
+  margin: 1em 0 1em 2em;
 }
 div.end-of-book-references > .chapter-area > .body > p {
   text-indent: 0em;
@@ -2175,6 +2149,7 @@ a {
   font-weight: bold;
   text-align: center;
   margin-right: .5em;
+  color: #b8292f;
 }
 .figure > .caption {
   display: inline;
@@ -2461,10 +2436,6 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
 /****************************************************************************
  * Misc Color changes
  ****************************************************************************/
-.target-figure {
-  font-weight: bold;
-  color: #528cbe;
-}
 .cnx-figure-horizontal .informalfigure .caption {
   text-align: center;
 }
@@ -2765,8 +2736,6 @@ h1.title {
 .table table {
   page-break-inside: avoid;
   margin: auto;
-  border-width: 1px;
-  border-style: solid;
 }
 .table table > caption {
   align: top;
@@ -2864,15 +2833,6 @@ h1.title {
   display: none;
 }
 /******************************************************
- * End-of-Book Solution Customizations
- ******************************************************/
-div.end-of-book-references .section-area > .title {
-  display: none;
-}
-div.end-of-book-references .section-area > .body p {
-  margin: 1em 0;
-}
-/******************************************************
  * End-of-Book Index
  ******************************************************/
 .index .title,
@@ -2904,6 +2864,9 @@ div.end-of-book-references .section-area > .body p {
   text-align: left;
   column-width: auto;
   margin: 1em 0em 0em;
+}
+div.colophon.end-of-book-solutions .chapter-area a::after {
+  content: "";
 }
 div.book {
   /* --------------------------------------
@@ -2967,7 +2930,6 @@ div.book > div.preface {
 }
 div.book > div.preface > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Preface" " " "" " | " content() "";
-  padding-left: .25em;
   prince-text-replace: "*" "";
 }
 div.book > div.preface > div.cnx-eoc {
@@ -3188,7 +3150,6 @@ div.book div.chapter {
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Chapter" " " counter(chapter, decimal) " | " content() "";
-  padding-left: .25em;
   prince-text-replace: "*" "";
 }
 div.book div.chapter > div.cnx-eoc {
@@ -3403,7 +3364,6 @@ div.book > div.appendix {
 }
 div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Appendix" " " counter(appendix, upper-latin) " | " content() "";
-  padding-left: .25em;
   prince-text-replace: "*" "";
 }
 div.book > div.appendix > div.cnx-eoc {

@@ -50,6 +50,19 @@
 @cnx-string-critical-thinking-questions: "Critical Thinking Questions";
 @cnx-string-personal-application-questions: "Personal Application Questions";
 
+// Psychology specific fixes
+body {
+  ol, 
+  ul,
+  div.orderedlist,
+  ol.orderedlist { margin-left: 0; }
+  li,
+  .listitem,
+  div:not(.body) > div.itemizedlist > ul.itemizedlist > li.listitem { padding-top: .2em; }
+}
+
+
+
 
 /******************************************************
  * Set the colors used by various elements.
@@ -76,10 +89,6 @@ h2, h3, h4, h5, h6 {
     color: @red;
 }
 
-// Chapter Outline/TOC
-.chapter > .introduction > .toc > .title {
-  color: @light-blue;
-}
 .chapter > .introduction > .toc a {
   color: @black;
 }
@@ -593,24 +602,6 @@ div.cnx-eoc > .title {
 
 div.book div.chapter div.titlepage > div > div > h2.title {
   margin-bottom: 1em;
-}
-
-/**
-  These two sets of selectors are a part of a bug fix for glossary terms which
-  were not properly wrapping around floated dt elements. Here we get rid 
-  of floats, set all elements inline, and then force breaks after term definitions
-  using preformatted whitespace in dd::after.
- **/
-.glossary *,
-.glossary .glossterm,
-.glossary dt {
-  display: inline;
-  float: none;
-}
-div.book div.chapter > div.glossary dd::after {
-  display: inherit;
-  white-space: pre; 
-  content: '\A\A';
 }
 
 .cnx-eoc .title {
