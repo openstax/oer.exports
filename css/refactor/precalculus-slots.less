@@ -70,10 +70,12 @@
         /*reset left only*/
         margin-left:0;
         padding-left: 0;
-        font-size: 35pt; /* x-large; */
+        font-size: 34pt; /* x-large; */
         font-weight: bold;
         text-align: left;
         color: @medium-blue;
+        margin-top: 0;
+        padding-top: 0;
       }
       .number(...) {
         font-weight: bold;
@@ -243,7 +245,7 @@
         .style(...) {
           content: "Answer Key";
           color: @medium-blue;
-          margin-left: -.50em;
+          margin-left: 0;
           text-transform: uppercase;
           font-size: x-large;
           font-weight: bold;
@@ -350,6 +352,11 @@
   }
 }
 #content {
+  #mathml {
+    .style(...) {
+      border: 1px solid red;
+    }
+  }
   #note {
     .style(...) {}
     .style(non-feature) {
@@ -408,6 +415,11 @@
       .style(...) {}
       .style(@kind; @part; feature-try) {
         font-weight: normal;
+      }
+      .style(@kind; @part; feature-qa) {
+        font-weight: normal;
+        font-style: italic;
+        margin-top: 0;
       }
     }
   }
@@ -568,6 +580,11 @@
         // This may have been set to not display inline
         // due to a W&N request.
         display: inline;
+        
+        // Solution in Answer Key needs to have period after number.
+        &::after {
+          content: ". ";
+        }
       }
 
       .link(...) {}

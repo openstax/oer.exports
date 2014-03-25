@@ -51,6 +51,7 @@ html {
 @namespace mml "http://www.w3.org/1998/Math/MathML";
 mml|math {
   display: none;
+  border: 1px solid red;
 }
 /* hides the table caption in caption to place at bottom of table */
 div.table-caption.caption {
@@ -1013,6 +1014,12 @@ p:nth-of-type(2),
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-weight: bold;
 }
+.note.qa > .body,
+.note.qa .body > p {
+  font-weight: normal;
+  font-style: italic;
+  margin-top: 0;
+}
 .note.media {
   padding-left: 1em;
   padding-right: 1em;
@@ -1212,11 +1219,13 @@ div.book div.chapter > div.titlepage > div > div h1.title {
   /*reset left only*/
   margin-left: 0;
   padding-left: 0;
-  font-size: 35pt;
+  font-size: 34pt;
   /* x-large; */
   font-weight: bold;
   text-align: left;
   color: #528cbe;
+  margin-top: 0;
+  padding-top: 0;
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-n {
   font-weight: bold;
@@ -1382,7 +1391,7 @@ div.colophon.end-of-book-solutions {
 div.colophon.end-of-book-solutions > .title {
   content: "Answer Key";
   color: #528cbe;
-  margin-left: -0.5em;
+  margin-left: 0;
   text-transform: uppercase;
   font-size: x-large;
   font-weight: bold;
@@ -1394,15 +1403,15 @@ div.colophon.end-of-book-solutions .chapter-area {
 div.colophon.end-of-book-solutions .chapter-area a.solution {
   color: black;
 }
-div.colophon.end-of-book-solutions .chapter-area a::after {
-  content: ". ";
-}
 div.colophon.end-of-book-solutions .chapter-area a.chapter * {
   color: black;
   font-size: medium;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.title {
   display: inline;
+}
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.title::after {
+  content: ". ";
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body {
   margin-right: .65em;
@@ -1652,9 +1661,6 @@ a {
   text-align: left;
   text-indent: 0;
 }
-.section.section-exercises .exercise .solution {
-  display: none;
-}
 .section.section-exercises .exercise:not(.labeled) > .title > span:first-child:not(.labeled):before {
   display: none;
 }
@@ -1877,6 +1883,18 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
  * Equations
  * ---------------------------------------------------
  */
+div.book > div.preface,
+div.book > div.part > div.preface,
+div.book > div.chapter,
+div.book > div.part > div.chapter,
+div.book > div.appendix,
+div.book > div.part > div.appendix {
+  /*
+    > div.section div.equation.non-numbered > *:last-child::after {
+      display: none;
+    }
+    */
+}
 div.book > div.preface > div.section div.equation > *:last-child::after,
 div.book > div.part > div.preface > div.section div.equation > *:last-child::after,
 div.book > div.chapter > div.section div.equation > *:last-child::after,

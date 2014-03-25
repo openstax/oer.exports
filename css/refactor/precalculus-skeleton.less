@@ -13,8 +13,8 @@
     > .title {
       #content>#note>#title>.style(@kind; @part; @context);
     }
-
-    >.body {
+    // the paragraph inside body has to be specifically targeted here to remove top-margin. grr.
+    >.body, .body > p {
       #content>#note>#body>.style(@kind; @part; @context);
     }
   }
@@ -130,6 +130,7 @@ div.part > div.titlepage { display: none; }
 /********************************************************************
  * Styling for Chapter Titles
  ********************************************************************/
+
 div.book div.chapter > div.titlepage > div > div h1.title {
   #part>#chapter>#title>.style();
   span.cnx-gentext-n {
@@ -264,10 +265,6 @@ div.colophon.end-of-book-solutions {
     a {
       &.solution { 
         color: black; 
-      }
-       // Solution in Answer Key needs to have period after number.
-      &::after {
-        content: ". ";
       }
 
       &.chapter * {
@@ -482,7 +479,7 @@ a { #content>#link>.style(); }
   // The end-of-section exercises should not display solutions
   // It will be either this if they wish to do a solutions manual, or we will
   // collate to end-of-book
-  .exercise .solution { #content>#solution>.style(@kind; @part; exercise; section-exercise); }
+  //.exercise .solution { #content>#solution>.style(@kind; @part; exercise; section-exercise); }
 
   // turn off default display for exercises that displays "Exercise x.x"
   .exercise:not(.labeled) > .title > span:first-child:not(.labeled):before {
@@ -647,12 +644,14 @@ div.book div.chapter > div.section div.example div.exercise .problem {
  * End of Section/Chapter Exercise Solution Styling
  * -------------------------
  */
+
+
 .section[title="Section Exercises"] {
   .section .exercise .body .solution {
-    display: none;
+   display: none;
   }
   .exercise .body .solution {
-    display: none;
+   display: none;
   }
 }
 
@@ -766,12 +765,26 @@ div.book div.chapter > div.section div.example div.exercise .problem {
  * Equations
  * ---------------------------------------------------
  */
-// Turn off equation hiding for pre-calculus text
+
+// To be able for us to have some equations numbered and some non-numbered, we have to use
+// a special class: <equation class="non-numbered">  This structure below is legacy and used
+// throughout all book from inception. Instead of turning all numbering off as in other books
+// We simply use new non-numbered class here to turn off only those that manually need to.
+// since .equation .label is being set as well and hidden (we have to address using this)
+// instead of *:last-child::after (yikes).  For those that do display as numbered, need
+// to be @orange and bold.
 div.book,
 div.book > div.part {
   > div.preface,
   > div.chapter,
   > div.appendix {
+    
+    /*
+    > div.section div.equation.non-numbered > *:last-child::after {
+      display: none;
+    }
+    */
+    
     > div.section div.equation > *:last-child::after {
       color: @orange;
       font-weight: bold;
@@ -782,11 +795,9 @@ div.book > div.part {
 // Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
 // originally defined in ccap-numbering.less
 // The hierarchy is copied from ccap-numbering so the selectors (and priority for which to apply) are the same
-
-
 .x-duplicate-hierarchy() {
   > div.cnx-eoc { counter-reset: /*exercise*/ eoc-section -1; }
- }
+}
 
 
 div.book, div.book > div.part {
