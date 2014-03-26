@@ -24,6 +24,13 @@
 // Hide the end-of-chapter solutions
 .chapter > .cnx-eoc.cnx-solutions { display: none; }
 
+// Reduce spacing of list items in the book. Refs Issue #372
+div.itemizedlist ul.itemizedlist li.listitem {
+  margin-bottom: -5px;
+}
+div.itemizedlist ul.itemizedlist li.listitem:last-child {
+  margin-bottom: 0;
+}
 
 /******************************************************
  * Book Table of Contents
@@ -75,6 +82,10 @@ h1.title { background-color: @orange; } //ccap-chapter
       .abstract {
         display: list-item; // Display md:abstract data from modules
       }
+
+      // Remove any space we can from the chapter outline items.
+      margin-bottom: -5px;
+      .abstract .listitem { margin-bottom: -5px; }
     }
     > ul  > li { margin: 0em; }
   }
