@@ -46,6 +46,7 @@ module.exports = (grunt) ->
           failIfNotExists('CSS file does not exist', "./css/ccap-#{bookName}.css")
 
           return [
+            "lessc css/ccap-#{bookName}.less > css/ccap-#{bookName}.css"
             'mkdir <%= config.testingDir %>'
             'virtualenv .'
             'source ./bin/activate'
@@ -77,12 +78,15 @@ module.exports = (grunt) ->
           failIfNotExists('Path to generated HTML does not exist', "#{tempDir}/collection.xhtml")
           failIfNotExists('CSS file does not exist', "./css/ccap-#{bookName}.css")
 
-          return "#{config.prince}
-            --style=#{cssFile}
-            --output=#{pdfFile}
-            #{htmlFile}
-            2> /dev/null
-          "
+          return [
+            "lessc css/ccap-#{bookName}.less > css/ccap-#{bookName}.css"
+            "#{config.prince}
+              --style=#{cssFile}
+              --output=#{pdfFile}
+              #{htmlFile}
+              2> /dev/null
+            "
+          ].join('; ')
 
       # 2. Generate HTML Coverage Report (optional)
       # 2a. Generate LCOV file
