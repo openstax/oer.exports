@@ -3,11 +3,6 @@
 *  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 *  See LICENSE.txt for details.
 *******************************************************/
-/*******************************************************
-* Copyright (c) 2013 Rice University
-*  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
-*  See LICENSE.txt for details.
-*******************************************************/
 @page {
   margin: 5em;
   font-size: xx-small;
@@ -52,6 +47,17 @@
 *  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 *  See LICENSE.txt for details.
 *******************************************************/
+body ol,
+body ul,
+body div.orderedlist,
+body ol.orderedlist {
+  margin-left: 0;
+}
+body li,
+body .listitem,
+body div:not(.body) > div.itemizedlist > ul.itemizedlist > li.listitem {
+  padding-top: .2em;
+}
 /******************************************************
  * Set the colors used by various elements.
  ******************************************************/
@@ -465,23 +471,6 @@ div.cnx-eoc > .title {
 div.book div.chapter div.titlepage > div > div > h2.title {
   margin-bottom: 1em;
 }
-/**
-  These two sets of selectors are a part of a bug fix for glossary terms which
-  were not properly wrapping around floated dt elements. Here we get rid 
-  of floats, set all elements inline, and then force breaks after term definitions
-  using preformatted whitespace in dd::after.
- **/
-.glossary *,
-.glossary .glossterm,
-.glossary dt {
-  display: inline;
-  float: none;
-}
-div.book div.chapter > div.glossary dd::after {
-  display: inherit;
-  white-space: pre;
-  content: '\A\A';
-}
 .cnx-eoc .title {
   padding-bottom: 4px;
 }
@@ -510,6 +499,10 @@ div.cnx-eoc > .title {
 }
 html {
   prince-image-resolution: 150dpi;
+}
+.preface .titlepage h2,
+.preface .titlepage h3 {
+  margin-top: 0px;
 }
 @page {
   margin: 1in 1in;
@@ -708,6 +701,7 @@ h1.title .cnx-gentext-n {
 .chapter > .introduction > .toc > * > li {
   list-style-type: none;
   margin: 0.50em 0em;
+  margin: 0.2em 0;
 }
 .chapter > .introduction > .toc > ul {
   padding-left: 0em;
@@ -847,6 +841,9 @@ a[href^="http"] {
   column-count: 3;
   columns: 3;
   column-fill: auto;
+}
+.book > .index .index-term {
+  padding-bottom: 0;
 }
 .index .title * {
   display: inline;
@@ -1080,11 +1077,16 @@ img {
 .glossary dl dt {
   float: left;
   font-weight: bold;
+  display: block;
 }
 .glossary dl dt::after {
   content: ":";
   padding-right: 0.5em;
   display: inline !important;
+}
+.glossary dl dd {
+  padding-left: 2em;
+  display: block;
 }
 em.glossterm {
   font-weight: bold;
@@ -1657,7 +1659,7 @@ p:nth-of-type(2),
   counter-increment: none !important;
   /* This code snip below is what is in Firebug that is overriding the Example and Try-It Exercise counters
       causing !important to have to be used here and on line #594 of the precalculus-skeleton.less file.  grr
-      div.book div.chapter > div.cnx-eoc div.exercise:not(.labeled), 
+      div.book div.chapter > div.cnx-eoc div.exercise:not(.labeled),
       div.book div.chapter > div.section div.exercise:not(.labeled) {
         counter-increment: exercise;
       }
@@ -2006,7 +2008,6 @@ div.colophon.end-of-book-solutions {
   margin: 0;
   padding: 0;
   display: inline !important;
-  column-count: 2;
   column-count: 1;
 }
 div.colophon.end-of-book-solutions > .title {
@@ -2090,6 +2091,10 @@ div.end-of-book-references > .chapter-area > .title {
 div.end-of-book-references > .chapter-area > .body > .section-area > .title {
   display: none;
 }
+div.end-of-book-references > .chapter-area > .body > .section-area > .body p {
+  text-indent: -2em;
+  margin: 1em 0 1em 2em;
+}
 div.end-of-book-references > .chapter-area > .body > p {
   text-indent: 0em;
   margin: .5em 0em;
@@ -2152,11 +2157,13 @@ h5,
 h6 {
   margin: 0.5em 0em;
   text-align: left;
+  color: #004b74;
 }
 h1 {
   margin: 0.5em 0em;
   text-align: left;
   font-size: 34pt;
+  color: #004b74;
 }
 h2 {
   margin: 0.5em 0em;
@@ -2194,6 +2201,7 @@ h4 {
   color: #528cbe;
   font-size: 10pt;
   font-weight: bold;
+  color: #004b74;
 }
 h5 {
   margin: 0.5em 0em;
@@ -2202,12 +2210,14 @@ h5 {
   font-size: 10pt;
   font-weight: bold;
   font-style: italic;
+  color: #004b74;
 }
 h6 {
   margin: 0.5em 0em;
   text-align: left;
   color: #528cbe;
   font-weight: bold;
+  color: #004b74;
 }
 a {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2268,7 +2278,6 @@ a {
 .figure > .caption {
   display: inline;
   text-align: center;
-  font-family: URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .figure img {
   margin: 0;
@@ -2369,12 +2378,14 @@ a {
   padding: 0em;
   display: block;
   text-transform: uppercase;
+  page-break-after: avoid !important;
 }
 .glossary dt::after {
   content: " ";
 }
 .glossary dl {
   margin-left: 0;
+  page-break-before: avoid;
 }
 /********************************************************************
  * Generic Elements
@@ -2466,16 +2477,6 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
 .example .exercise .solution ul {
   margin-left: 2em;
   margin-top: 2em;
-}
-/* -------------------------
- * End of Section/Chapter Exercise Solution Styling
- * -------------------------
- */
-.section[title="Section Exercises"] .section .exercise .body .solution {
-  display: none;
-}
-.section[title="Section Exercises"] .exercise .body .solution {
-  display: none;
 }
 /******************************************************************************
  * Styling for modified table design (2 tables, one plain and one colored)
@@ -2917,11 +2918,13 @@ h1.title {
   content: "Review Questions";
   column-span: all !important;
   margin-top: 2em;
-  margin-bottom: 1em;
   color: #a63c1d;
   font-size: 13pt;
   font-weight: bold;
   border: none;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding-bottom: 0;
 }
 .cnx-eoc.review-questions p {
   text-align: left;
@@ -2975,15 +2978,6 @@ h1.title {
   display: none;
 }
 /******************************************************
- * End-of-Book Solution Customizations
- ******************************************************/
-div.end-of-book-references .section-area > .title {
-  display: none;
-}
-div.end-of-book-references .section-area > .body p {
-  margin: 1em 0;
-}
-/******************************************************
  * End-of-Book Index
  ******************************************************/
 .index .title,
@@ -3016,6 +3010,9 @@ div.end-of-book-references .section-area > .body p {
   text-align: left;
   column-width: auto;
   margin: 1em 0em 0em;
+}
+div.colophon.end-of-book-solutions .chapter-area a::after {
+  content: "";
 }
 .chapter .note.my-story {
   padding-left: 1em;
@@ -3202,6 +3199,9 @@ div.end-of-book-references .section-area > .body p {
 .cnx-eoc.summary p:nth-of-type(1) {
   margin-top: 0;
 }
+.cnx-eoc.review-questions .title > span {
+  padding-left: 0;
+}
 div.book div.chapter div.titlepage > div > div > h2.title {
   border: none;
 }
@@ -3264,6 +3264,11 @@ div.end-of-book-references .chapter-area > .title {
   color: #004b74;
   font-size: 11pt;
   text-transform: none;
+}
+.section h4 {
+  margin: 0.5em 0em;
+  text-align: left;
+  color: #004b74;
 }
 /***************************************
   Stacey's Corner - clean up into slots
