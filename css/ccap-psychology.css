@@ -1520,6 +1520,12 @@ p:nth-of-type(2),
   padding: 0;
   margin: 0;
 }
+.note.qa > .body,
+.note.qa .body > p {
+  font-weight: normal;
+  font-style: italic;
+  margin-top: 0;
+}
 .note.media {
   padding-left: 1em;
   padding-right: 1em;
@@ -1598,9 +1604,11 @@ p:nth-of-type(2),
 .note.try .exercise > .title {
   display: none;
 }
+.note.try .exercise .problem {
+  margin-left: 4em;
+}
 .note.try .exercise .problem ol,
 .note.try .exercise .problem ul {
-  margin-left: 4em;
   margin-top: 1em;
 }
 .note.try .exercise .solution {
@@ -1744,11 +1752,13 @@ div.book div.chapter > div.titlepage > div > div h1.title {
   /*reset left only*/
   margin-left: 0;
   padding-left: 0;
-  font-size: 35pt;
+  font-size: 34pt;
   /* x-large; */
   font-weight: bold;
   text-align: left;
   color: #528cbe;
+  padding-top: 0;
+  margin-top: 0;
   color: #b8292f;
   border-bottom-color: #eead58;
   text-transform: capitalize;
@@ -1865,6 +1875,10 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::be
   content: "Key Concepts";
   column-span: all;
   margin-top: 1em;
+  margin-bottom: 0;
+}
+.cnx-eoc.key-concepts > .section > .title {
+  margin-bottom: 1em;
 }
 .cnx-eoc.key-concepts > .section > .title > a {
   color: #528cbe;
@@ -1925,7 +1939,6 @@ div.colophon.end-of-book-solutions {
 div.colophon.end-of-book-solutions > .title {
   content: "Answer Key";
   color: #528cbe;
-  margin-left: -0.5em;
   text-transform: uppercase;
   font-size: x-large;
   font-weight: bold;
@@ -1938,9 +1951,6 @@ div.colophon.end-of-book-solutions .chapter-area {
 div.colophon.end-of-book-solutions .chapter-area a.solution {
   color: black;
 }
-div.colophon.end-of-book-solutions .chapter-area a::after {
-  content: ". ";
-}
 div.colophon.end-of-book-solutions .chapter-area a.chapter * {
   color: black;
   font-size: medium;
@@ -1952,6 +1962,9 @@ div.colophon.end-of-book-solutions .chapter-area div.solution {
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.title {
   display: inline;
   padding: 0;
+}
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.title::after {
+  content: ". ";
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.title::before {
   content: " ";
@@ -2157,10 +2170,10 @@ a {
   text-align: left;
 }
 .figure.medium {
-  width: 468px;
+  width: 351pt;
 }
 .figure.small {
-  width: 312px;
+  width: 234pt;
 }
 .figure > .title {
   color: #eead58;
@@ -2267,9 +2280,10 @@ a {
   /* Change "Glossary" to "Key Terms" */
   content: "Key Terms";
   color: #528cbe;
-  font-size: large;
+  font-size: 14pt !important;
+  margin-left: 0;
   font-weight: bold;
-  padding: 0em;
+  padding: 0em !important;
   display: block;
   text-transform: uppercase;
   page-break-after: avoid !important;
@@ -2465,6 +2479,18 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
  * Equations
  * ---------------------------------------------------
  */
+div.book > div.preface,
+div.book > div.part > div.preface,
+div.book > div.chapter,
+div.book > div.part > div.chapter,
+div.book > div.appendix,
+div.book > div.part > div.appendix {
+  /*
+    > div.section div.equation.non-numbered > *:last-child::after {
+      display: none;
+    }
+    */
+}
 div.book > div.preface > div.section div.equation > *:last-child::after,
 div.book > div.part > div.preface > div.section div.equation > *:last-child::after,
 div.book > div.chapter > div.section div.equation > *:last-child::after,
@@ -2486,6 +2512,14 @@ div.book > div.appendix > div.cnx-eoc,
 div.book > div.part > div.appendix > div.cnx-eoc {
   counter-reset: /*exercise*/ eoc-section -1;
 }
+/* This wont' work. Naginata (plone) gives MathML namespace error when removing equation tags.  We will
+have to utilize </label> for this.  Will require docbook change.  Phil and I will work on this after conference
+and remove this below then 
+.section > .inlinemediaobject span.cnx-svg {
+  display: block;
+  text-align: center;
+}
+*/
 /******************************************************
  * Custom psychology elements
  *
@@ -2730,11 +2764,13 @@ h1.title {
   /*reset left only*/
   margin-left: 0;
   padding-left: 0;
-  font-size: 35pt;
+  font-size: 34pt;
   /* x-large; */
   font-weight: bold;
   text-align: left;
   color: #528cbe;
+  padding-top: 0;
+  margin-top: 0;
   color: #b8292f;
   border-bottom-color: #eead58;
   text-transform: capitalize;

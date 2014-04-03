@@ -13,8 +13,8 @@
     > .title {
       #content>#note>#title>.style(@kind; @part; @context);
     }
-
-    >.body {
+    // the paragraph inside body has to be specifically targeted here to remove top-margin. grr.
+    >.body, .body > p {
       #content>#note>#body>.style(@kind; @part; @context);
     }
   }
@@ -130,6 +130,7 @@ div.part > div.titlepage { display: none; }
 /********************************************************************
  * Styling for Chapter Titles
  ********************************************************************/
+
 div.book div.chapter > div.titlepage > div > div h1.title {
   #part>#chapter>#title>.style();
   span.cnx-gentext-n {
@@ -204,6 +205,12 @@ div.book div.chapter > div.titlepage > div > div h1.title {
   &.key-concepts {
     #part>#chapter-end>#key-concepts>.style();
     > div.title { #part>#chapter-end>#key-concepts>#title>.style(); }
+    // There doesn't seem to be a way to handle subsection titles in namespace yet.
+    // Targeting the link tag 'a' with layout change (margin, padding) doesn't work
+    // and isn't a good practice.  It's a bit like putting margin and padding on h1, h2, etc.
+    // Better to just let the container do the layout instead of the element. 
+    > .section > .title { #part>#chapter-end>#key-concepts>#title>.subtitle(); }
+
     > .section > .title > a { #part>#chapter-end>#key-concepts>#title>.link(); }
   }
 
@@ -264,10 +271,6 @@ div.colophon.end-of-book-solutions {
     a {
       &.solution { 
         color: black; 
-      }
-       // Solution in Answer Key needs to have period after number.
-      &::after {
-        content: ". ";
       }
 
       &.chapter * {
@@ -400,8 +403,9 @@ a { #content>#link>.style(); }
  * ---------------------------------------------------
  */
 
-@figure-width-medium: 468px;  // Width of 3/4 size art 
-@figure-width-small:  312px;  // Width of 1/2 size art
+// Updated points width for PreCalculus assets @150 dpi
+@figure-width-medium: 351pt;  // Width of 3/4 size art 
+@figure-width-small:  234pt;  // Width of 1/2 size art
 
 .figure {
   #content>#figure>.style();
@@ -745,12 +749,26 @@ div.book div.chapter > div.section div.example div.exercise .problem {
  * Equations
  * ---------------------------------------------------
  */
-// Turn off equation hiding for pre-calculus text
+
+// To be able for us to have some equations numbered and some non-numbered, we have to use
+// a special class: <equation class="non-numbered">  This structure below is legacy and used
+// throughout all book from inception. Instead of turning all numbering off as in other books
+// We simply use new non-numbered class here to turn off only those that manually need to.
+// since .equation .label is being set as well and hidden (we have to address using this)
+// instead of *:last-child::after (yikes).  For those that do display as numbered, need
+// to be @orange and bold.
 div.book,
 div.book > div.part {
   > div.preface,
   > div.chapter,
   > div.appendix {
+    
+    /*
+    > div.section div.equation.non-numbered > *:last-child::after {
+      display: none;
+    }
+    */
+    
     > div.section div.equation > *:last-child::after {
       color: @orange;
       font-weight: bold;
@@ -761,11 +779,9 @@ div.book > div.part {
 // Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
 // originally defined in ccap-numbering.less
 // The hierarchy is copied from ccap-numbering so the selectors (and priority for which to apply) are the same
-
-
 .x-duplicate-hierarchy() {
   > div.cnx-eoc { counter-reset: /*exercise*/ eoc-section -1; }
- }
+}
 
 
 div.book, div.book > div.part {
@@ -773,6 +789,22 @@ div.book, div.book > div.part {
   > div.chapter  { .x-duplicate-hierarchy(); }
   > div.appendix { .x-duplicate-hierarchy(); }
 }
+
+// To have certain equations unnumbered and remove use the elegant solution of removing the <equation> tag
+// to accomplish this, we must target a very specific selector.  All inline math has as a parent selector a
+// <p> tag.  All block level math will just have it's parent as section.  We use a descendant selector to only
+// target the inline media object class and child span from section, thereby removing the "catch-all" targeting
+// of both inline and block equations.  In refactoring, we should make this a @context to target "p" vs. "non-p"
+// type equations.
+
+/* This wont' work. Naginata (plone) gives MathML namespace error when removing equation tags.  We will
+have to utilize </label> for this.  Will require docbook change.  Phil and I will work on this after conference
+and remove this below then 
+.section > .inlinemediaobject span.cnx-svg {
+  display: block;
+  text-align: center;
+}
+*/
 
 
 
