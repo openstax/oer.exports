@@ -70,10 +70,12 @@
         /*reset left only*/
         margin-left:0;
         padding-left: 0;
-        font-size: 35pt; /* x-large; */
+        font-size: 34pt; /* x-large; */
         font-weight: bold;
         text-align: left;
         color: @medium-blue;
+        padding-top: 0;
+        margin-top: 0;
       }
       .number(...) {
         font-weight: bold;
@@ -182,9 +184,15 @@
           content: @cnx-string-key-concepts;
           column-span: all;  // staging bug-fix.
           margin-top: 1em;   // this too.
+          margin-bottom: 0;
         }
         .link(...) {
           color: @medium-blue;
+        }
+        // targeting the link with layout changes not a good idea.  Must have a way to 
+        // target the parent of the link (.section > .title )  See line #208 precalculus-skeleton
+        .subtitle(...) {
+          margin-bottom: 1em;
         }
       }
     }
@@ -243,7 +251,7 @@
         .style(...) {
           content: "Answer Key";
           color: @medium-blue;
-          margin-left: -.50em;
+          margin-left: 0;
           text-transform: uppercase;
           font-size: x-large;
           font-weight: bold;
@@ -408,6 +416,12 @@
       .style(...) {}
       .style(@kind; @part; feature-try) {
         font-weight: normal;
+
+      }
+      .style(@kind; @part; feature-qa) {
+        font-weight: normal;
+        font-style: italic;
+        margin-top: 0;
       }
     }
   }
@@ -527,10 +541,11 @@
   #problem {
     .style(@kind; @part; feature-try; exercise) {
       // Template design asks for lists to be set apart
+      margin-left: 4em;
+      
       ol,ul {
-        margin-left: 4em;
         margin-top: 1em;
-      }
+      }  
     }
     .style(@kind; @part; exercise; section-exercise) {
       text-indent: 1em;
@@ -568,6 +583,11 @@
         // This may have been set to not display inline
         // due to a W&N request.
         display: inline;
+        
+        // Solution in Answer Key needs to have period after number.
+        &::after {
+          content: ". ";
+        }
       }
 
       .link(...) {}
@@ -627,9 +647,26 @@
         /* Change "Glossary" to "Key Terms" */
         content: "Key Terms";
         color: @medium-blue;
-        font-size: large;
+
+        // We might as well fix it this way now and just document the problems.  This
+        // is good actually because it uncovers issues that we are having and just fix
+        // in the refactoring once and for all.  The hugest thing of all is the normalization
+        // of selectors across books. For instance, in targeting titles across books you
+        // have multitudinous ways that they are targeted, e.g.  h1.title, .chapter h1.title,
+        // .chapter .titlepage div div h1, etc.  This is the thing that is giving us so much
+        // trouble.
+
+        // Fixing this will require changes to base-skeleton, precalc-skeleton and
+        // will possibly break books. 
+        font-size: 14pt !important;
+        margin-left: 0;
+
         font-weight: bold;
-        padding: 0em;
+
+        // The skeleton selectors for many things are incorrect in that .titlepage here is being
+        // targeting and yield higher specificty.  
+        padding: 0em !important;
+
         display: block;
         text-transform: uppercase;
         page-break-after: avoid !important;
