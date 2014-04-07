@@ -24,6 +24,11 @@
 
     p:nth-of-type(1) {  margin-top: 0; }
   }
+  &.review-questions {
+    .title > span { // refactor this. discuss this change.
+      padding-left: 0;
+    }
+  }
 }
 
 // In psychology.less this high specificity is inheriting 
@@ -46,17 +51,6 @@ div.end-of-book-solutions {
 
 div.end-of-book-references {
   #part>#book-end>#end-of-book-references>.style();
-  
-  > .title {
-    #part>#book-end>#end-of-book-references>.title();
-  }
-
-  // Chapter numbers subtitle "Chapter 1", "Chapter 2", etc.
-  .chapter-area {
-    > .title { 
-      color: @black; 
-    }
-  }
 }
 
 // Once book-wide link color is set we can remove
@@ -75,7 +69,9 @@ div.end-of-book-references {
 .section h3 {
   #content>#heading>.style(h3;);
 }
-
+.section h4 {
+  #content>#heading>.style();
+}
 
 
 
@@ -175,6 +171,23 @@ div.book div.chapter div.titlepage > div > div > h2 {
 .preface .section > .table, 
 .preface .section > .table table { 
   background-color: transparent;
+}
+
+// remove full justification for learning objectives. Be specific as possible
+// to avoid disturbing bookwide paragraphs
+div.section div.titlepage div.abstract {
+  ul.itemizedlist .listitem p {
+    text-align: left;
+  }
+}
+
+// Reset (ccap-precalculus.less)
+div.book div.chapter > div.titlepage > div > div h1.title {
+  span.cnx-gentext-t {
+    // Replace the default page header "Chapter number | Title", removing
+    // the "|"
+    string-set: cnx-header string(cnx-chapter-number-string) " " content();
+  }
 }
 
 

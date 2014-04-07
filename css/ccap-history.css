@@ -3,11 +3,6 @@
 *  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 *  See LICENSE.txt for details.
 *******************************************************/
-/*******************************************************
-* Copyright (c) 2013 Rice University
-*  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
-*  See LICENSE.txt for details.
-*******************************************************/
 @page {
   margin: 5em;
   font-size: xx-small;
@@ -52,6 +47,21 @@
 *  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 *  See LICENSE.txt for details.
 *******************************************************/
+body ol,
+body ul,
+body div.orderedlist,
+body ol.orderedlist {
+  margin-left: 0;
+}
+body li,
+body .listitem,
+body div:not(.body) > div.itemizedlist > ul.itemizedlist > li.listitem {
+  padding-top: 0;
+}
+.module > .section > div.orderedlist > ol.orderedlist,
+.module > .section > div.itemizedlist > ul.itemizedlist {
+  padding-left: 40px;
+}
 /******************************************************
  * Set the colors used by various elements.
  ******************************************************/
@@ -433,7 +443,7 @@ div:not(.body) > .itemizedlist > .itemizedlist > .listitem:last-child {
   }
   @top-right {
     content: string(cnx-header);
-    text-transform: uppercase;
+    text-transform: capitalize;
   }
 }
 @page :right {
@@ -442,7 +452,7 @@ div:not(.body) > .itemizedlist > .itemizedlist > .listitem:last-child {
   }
   @top-left {
     content: string(cnx-header);
-    text-transform: uppercase;
+    text-transform: capitalize;
   }
 }
 /******************************************************
@@ -464,23 +474,6 @@ div.cnx-eoc > .title {
 }
 div.book div.chapter div.titlepage > div > div > h2.title {
   margin-bottom: 1em;
-}
-/**
-  These two sets of selectors are a part of a bug fix for glossary terms which
-  were not properly wrapping around floated dt elements. Here we get rid 
-  of floats, set all elements inline, and then force breaks after term definitions
-  using preformatted whitespace in dd::after.
- **/
-.glossary *,
-.glossary .glossterm,
-.glossary dt {
-  display: inline;
-  float: none;
-}
-div.book div.chapter > div.glossary dd::after {
-  display: inherit;
-  white-space: pre;
-  content: '\A\A';
 }
 .cnx-eoc .title {
   padding-bottom: 4px;
@@ -510,6 +503,13 @@ div.cnx-eoc > .title {
 }
 html {
   prince-image-resolution: 150dpi;
+}
+.preface .titlepage h2,
+.preface .titlepage h3 {
+  margin-top: 0px;
+}
+.module:not(.introduction) > .section > .section {
+  padding-top: .2em;
 }
 @page {
   margin: 1in 1in;
@@ -613,6 +613,11 @@ div.table-caption.caption {
 .preface > .titlepage h1.title {
   padding-left: .25em;
   background-color: #528cbe;
+  background-color: transparent;
+  padding-left: 0;
+  text-transform: capitalize;
+  font-size: 18pt;
+  font-weight: normal;
 }
 .preface > .section h2 {
   font-size: medium;
@@ -708,6 +713,7 @@ h1.title .cnx-gentext-n {
 .chapter > .introduction > .toc > * > li {
   list-style-type: none;
   margin: 0.50em 0em;
+  margin: 0.2em 0;
 }
 .chapter > .introduction > .toc > ul {
   padding-left: 0em;
@@ -847,6 +853,9 @@ a[href^="http"] {
   column-count: 3;
   columns: 3;
   column-fill: auto;
+}
+.book > .index .index-term {
+  padding-bottom: 0;
 }
 .index .title * {
   display: inline;
@@ -1080,11 +1089,16 @@ img {
 .glossary dl dt {
   float: left;
   font-weight: bold;
+  display: block;
 }
 .glossary dl dt::after {
   content: ":";
   padding-right: 0.5em;
   display: inline !important;
+}
+.glossary dl dd {
+  padding-left: 2em;
+  display: block;
 }
 em.glossterm {
   font-weight: bold;
@@ -1261,6 +1275,7 @@ p:nth-of-type(2),
   font-size: inherit;
   margin-top: inherit;
   margin-bottom: inherit;
+  line-height: inherit;
 }
 .introduction blockquote::before,
 .introduction blockquote::after {
@@ -1349,6 +1364,7 @@ p:nth-of-type(2),
   font-size: inherit;
   margin-top: inherit;
   margin-bottom: inherit;
+  line-height: inherit;
 }
 .chapter blockquote::before,
 .chapter blockquote::after {
@@ -1437,6 +1453,7 @@ p:nth-of-type(2),
   font-size: inherit;
   margin-top: inherit;
   margin-bottom: inherit;
+  line-height: inherit;
 }
 .cnx-eoc blockquote::before,
 .cnx-eoc blockquote::after {
@@ -1525,6 +1542,7 @@ p:nth-of-type(2),
   font-size: inherit;
   margin-top: inherit;
   margin-bottom: inherit;
+  line-height: inherit;
 }
 .colophon blockquote::before,
 .colophon blockquote::after {
@@ -1589,6 +1607,12 @@ p:nth-of-type(2),
   font-weight: bold;
   padding: 0;
   margin: 0;
+}
+.note.qa > .body,
+.note.qa .body > p {
+  font-weight: normal;
+  font-style: italic;
+  margin-top: 0;
 }
 .note.media {
   padding-left: 1em;
@@ -1657,7 +1681,7 @@ p:nth-of-type(2),
   counter-increment: none !important;
   /* This code snip below is what is in Firebug that is overriding the Example and Try-It Exercise counters
       causing !important to have to be used here and on line #594 of the precalculus-skeleton.less file.  grr
-      div.book div.chapter > div.cnx-eoc div.exercise:not(.labeled), 
+      div.book div.chapter > div.cnx-eoc div.exercise:not(.labeled),
       div.book div.chapter > div.section div.exercise:not(.labeled) {
         counter-increment: exercise;
       }
@@ -1670,9 +1694,11 @@ p:nth-of-type(2),
 .note.try .exercise > .title {
   display: none;
 }
+.note.try .exercise .problem {
+  margin-left: 4em;
+}
 .note.try .exercise .problem ol,
 .note.try .exercise .problem ul {
-  margin-left: 4em;
   margin-top: 1em;
 }
 .note.try .exercise .solution {
@@ -1716,6 +1742,11 @@ p:nth-of-type(2),
 .preface > .titlepage h1.title {
   padding-left: .25em;
   background-color: #528cbe;
+  background-color: transparent;
+  padding-left: 0;
+  text-transform: capitalize;
+  font-size: 18pt;
+  font-weight: normal;
 }
 /* -------------------------
  * Book Table of Contents
@@ -1819,12 +1850,17 @@ div.book div.chapter > div.titlepage > div > div h1.title {
   /*reset left only*/
   margin-left: 0;
   padding-left: 0;
-  font-size: 35pt;
+  font-size: 34pt;
   /* x-large; */
   font-weight: bold;
   text-align: left;
   color: #528cbe;
+  padding-top: 0;
+  margin-top: 0;
   border-bottom-color: #e28f26;
+  text-transform: capitalize;
+  font-weight: normal;
+  font-size: 18pt;
   color: #a63c1d;
   border: none;
   font-size: 14pt;
@@ -1950,6 +1986,10 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::be
   content: "Key Concepts";
   column-span: all;
   margin-top: 1em;
+  margin-bottom: 0;
+}
+.cnx-eoc.key-concepts > .section > .title {
+  margin-bottom: 1em;
 }
 .cnx-eoc.key-concepts > .section > .title > a {
   color: #528cbe;
@@ -2006,13 +2046,11 @@ div.colophon.end-of-book-solutions {
   margin: 0;
   padding: 0;
   display: inline !important;
-  column-count: 2;
   column-count: 1;
 }
 div.colophon.end-of-book-solutions > .title {
   content: "Answer Key";
   color: #528cbe;
-  margin-left: -0.5em;
   text-transform: uppercase;
   font-size: x-large;
   font-weight: bold;
@@ -2030,9 +2068,6 @@ div.colophon.end-of-book-solutions .chapter-area {
 div.colophon.end-of-book-solutions .chapter-area a.solution {
   color: black;
 }
-div.colophon.end-of-book-solutions .chapter-area a::after {
-  content: ". ";
-}
 div.colophon.end-of-book-solutions .chapter-area a.chapter * {
   color: black;
   font-size: medium;
@@ -2044,6 +2079,9 @@ div.colophon.end-of-book-solutions .chapter-area div.solution {
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.title {
   display: inline;
   padding: 0;
+}
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.title::after {
+  content: ". ";
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.title::before {
   content: " ";
@@ -2072,6 +2110,7 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.body > a.tar
  */
 div.end-of-book-references {
   margin: 1em 0;
+  display: none;
 }
 div.end-of-book-references > .title {
   font-size: x-large;
@@ -2089,6 +2128,10 @@ div.end-of-book-references > .chapter-area > .title {
 }
 div.end-of-book-references > .chapter-area > .body > .section-area > .title {
   display: none;
+}
+div.end-of-book-references > .chapter-area > .body > .section-area > .body p {
+  text-indent: -2em;
+  margin: 1em 0 1em 2em;
 }
 div.end-of-book-references > .chapter-area > .body > p {
   text-indent: 0em;
@@ -2152,11 +2195,13 @@ h5,
 h6 {
   margin: 0.5em 0em;
   text-align: left;
+  color: #004b74;
 }
 h1 {
   margin: 0.5em 0em;
   text-align: left;
   font-size: 34pt;
+  color: #004b74;
 }
 h2 {
   margin: 0.5em 0em;
@@ -2184,6 +2229,7 @@ h3 {
   color: #528cbe;
   font-size: 13pt;
   font-weight: bold;
+  color: black;
   color: #004b74;
   font-size: 11pt;
   text-transform: none;
@@ -2194,6 +2240,7 @@ h4 {
   color: #528cbe;
   font-size: 10pt;
   font-weight: bold;
+  color: #004b74;
 }
 h5 {
   margin: 0.5em 0em;
@@ -2202,12 +2249,14 @@ h5 {
   font-size: 10pt;
   font-weight: bold;
   font-style: italic;
+  color: #004b74;
 }
 h6 {
   margin: 0.5em 0em;
   text-align: left;
   color: #528cbe;
   font-weight: bold;
+  color: #004b74;
 }
 a {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2253,10 +2302,10 @@ a {
   text-align: left;
 }
 .figure.medium {
-  width: 468px;
+  width: 351pt;
 }
 .figure.small {
-  width: 312px;
+  width: 234pt;
 }
 .figure > .title {
   color: #e28f26;
@@ -2268,7 +2317,6 @@ a {
 .figure > .caption {
   display: inline;
   text-align: center;
-  font-family: URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .figure img {
   margin: 0;
@@ -2364,17 +2412,20 @@ a {
   /* Change "Glossary" to "Key Terms" */
   content: "Key Terms";
   color: #528cbe;
-  font-size: large;
+  font-size: 14pt !important;
+  margin-left: 0;
   font-weight: bold;
-  padding: 0em;
+  padding: 0em !important;
   display: block;
   text-transform: uppercase;
+  page-break-after: avoid !important;
 }
 .glossary dt::after {
   content: " ";
 }
 .glossary dl {
   margin-left: 0;
+  page-break-before: avoid;
 }
 /********************************************************************
  * Generic Elements
@@ -2467,16 +2518,6 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
   margin-left: 2em;
   margin-top: 2em;
 }
-/* -------------------------
- * End of Section/Chapter Exercise Solution Styling
- * -------------------------
- */
-.section[title="Section Exercises"] .section .exercise .body .solution {
-  display: none;
-}
-.section[title="Section Exercises"] .exercise .body .solution {
-  display: none;
-}
 /******************************************************************************
  * Styling for modified table design (2 tables, one plain and one colored)
  ******************************************************************************/
@@ -2560,6 +2601,18 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
  * Equations
  * ---------------------------------------------------
  */
+div.book > div.preface,
+div.book > div.part > div.preface,
+div.book > div.chapter,
+div.book > div.part > div.chapter,
+div.book > div.appendix,
+div.book > div.part > div.appendix {
+  /*
+    > div.section div.equation.non-numbered > *:last-child::after {
+      display: none;
+    }
+    */
+}
 div.book > div.preface > div.section div.equation > *:last-child::after,
 div.book > div.part > div.preface > div.section div.equation > *:last-child::after,
 div.book > div.chapter > div.section div.equation > *:last-child::after,
@@ -2581,6 +2634,14 @@ div.book > div.appendix > div.cnx-eoc,
 div.book > div.part > div.appendix > div.cnx-eoc {
   counter-reset: /*exercise*/ eoc-section -1;
 }
+/* This wont' work. Naginata (plone) gives MathML namespace error when removing equation tags.  We will
+have to utilize </label> for this.  Will require docbook change.  Phil and I will work on this after conference
+and remove this below then 
+.section > .inlinemediaobject span.cnx-svg {
+  display: block;
+  text-align: center;
+}
+*/
 /******************************************************
  * Custom psychology elements
  *
@@ -2831,12 +2892,17 @@ h1.title {
   /*reset left only*/
   margin-left: 0;
   padding-left: 0;
-  font-size: 35pt;
+  font-size: 34pt;
   /* x-large; */
   font-weight: bold;
   text-align: left;
   color: #528cbe;
+  padding-top: 0;
+  margin-top: 0;
   border-bottom-color: #e28f26;
+  text-transform: capitalize;
+  font-weight: normal;
+  font-size: 18pt;
   color: #a63c1d;
   border: none;
   font-size: 14pt;
@@ -2912,16 +2978,19 @@ h1.title {
   column-width: auto;
   column-fill: balance;
   column-break-inside: auto;
+  text-align: left;
 }
 .cnx-eoc.review-questions > .title {
   content: "Review Questions";
   column-span: all !important;
   margin-top: 2em;
-  margin-bottom: 1em;
   color: #a63c1d;
   font-size: 13pt;
   font-weight: bold;
   border: none;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding-bottom: 0;
 }
 .cnx-eoc.review-questions p {
   text-align: left;
@@ -2975,15 +3044,6 @@ h1.title {
   display: none;
 }
 /******************************************************
- * End-of-Book Solution Customizations
- ******************************************************/
-div.end-of-book-references .section-area > .title {
-  display: none;
-}
-div.end-of-book-references .section-area > .body p {
-  margin: 1em 0;
-}
-/******************************************************
  * End-of-Book Index
  ******************************************************/
 .index .title,
@@ -3016,6 +3076,9 @@ div.end-of-book-references .section-area > .body p {
   text-align: left;
   column-width: auto;
   margin: 1em 0em 0em;
+}
+div.colophon.end-of-book-solutions .chapter-area a::after {
+  content: "";
 }
 .chapter .note.my-story {
   padding-left: 1em;
@@ -3158,6 +3221,7 @@ div.end-of-book-references .section-area > .body p {
   padding: 0;
   page-break-inside: avoid;
   background-color: #fbeab3;
+  margin-bottom: 2.5em;
 }
 .chapter .note.click-and-explore > .body {
   padding: 35px 20px 20px 20px;
@@ -3202,6 +3266,9 @@ div.end-of-book-references .section-area > .body p {
 .cnx-eoc.summary p:nth-of-type(1) {
   margin-top: 0;
 }
+.cnx-eoc.review-questions .title > span {
+  padding-left: 0;
+}
 div.book div.chapter div.titlepage > div > div > h2.title {
   border: none;
 }
@@ -3211,7 +3278,6 @@ div.book div.chapter div.titlepage > div > div > h2.title {
 div.end-of-book-solutions > h1.title {
   content: "Answer Key";
   color: #528cbe;
-  margin-left: -0.5em;
   text-transform: uppercase;
   font-size: x-large;
   font-weight: bold;
@@ -3225,14 +3291,7 @@ div.end-of-book-solutions > h1.title {
 }
 div.end-of-book-references {
   margin: 1em 0;
-}
-div.end-of-book-references > .title {
-  color: #a63c1d;
-  margin-left: 0;
-  border: none;
-}
-div.end-of-book-references .chapter-area > .title {
-  color: #000000;
+  display: none;
 }
 .index > .title h2 {
   padding: 0;
@@ -3261,9 +3320,15 @@ div.end-of-book-references .chapter-area > .title {
   color: #528cbe;
   font-size: 13pt;
   font-weight: bold;
+  color: black;
   color: #004b74;
   font-size: 11pt;
   text-transform: none;
+}
+.section h4 {
+  margin: 0.5em 0em;
+  text-align: left;
+  color: #004b74;
 }
 /***************************************
   Stacey's Corner - clean up into slots
@@ -3329,6 +3394,12 @@ div.book div.chapter div.titlepage > div > div > h2 {
 .preface .section > .table,
 .preface .section > .table table {
   background-color: transparent;
+}
+div.section div.titlepage div.abstract ul.itemizedlist .listitem p {
+  text-align: left;
+}
+div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
+  string-set: cnx-header string(cnx-chapter-number-string) " " content();
 }
 div.book {
   /* --------------------------------------
