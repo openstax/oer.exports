@@ -1,0 +1,358 @@
+//Copyright (c) 2013 Rice University
+// This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+// See LICENSE.txt for details.
+
+
+// For debugging, mark start and end brackets
+@S: ""; //" ["; // "S"tart and "E"nd marking text for debugging
+@E: ""; //"] ";
+// Strings that are used (note some have spaces at the end)
+@text-preface: "Preface";
+@text-chapter: "Chapter";
+@text-appendix: "Appendix";
+
+
+div.book {
+  /* --------------------------------------
+   *  Define how counters are incremented
+   * --------------------------------------
+   */
+
+  #part>.counters(book);
+
+  div.chapter { #part>.counters(chapter); }
+  > div.appendix { #part>.counters(appendix); }
+
+
+  /* -------------------------------------
+   *  All the rules for elements need to be prefixed
+   *  according to slightly different rules
+   *  - Preface isn't numbered
+   *  - Chapters are numbered
+   *  - Appendixes are lettered
+   *
+   * ie: "Figure 4.3" in chapters but "Figure A3" in an appendix
+   * -------------------------------------
+   */
+  > div.preface { .x-prefixed(preface; @text-preface; ""; "");
+    //Also, disable numbering on Preface sections
+    > div.section > div.titlepage h2::before { display: none !important; }
+  }
+
+  div.chapter { .x-prefixed(chapter; @text-chapter;  counter(chapter, decimal); target-counter(attr(href), chapter); "." ); }
+  > div.appendix { .x-prefixed(appendix; @text-appendix; counter(appendix, upper-latin); target-counter(attr(href), appendix, upper-latin) ); }
+
+
+
+  /* Still count the element but don't show it */
+  .empty {
+    visibility: hidden;
+    max-height: 0em;
+  }
+
+/* -------------------------------------
+ *  The bulk of numbering!
+ *
+ *
+ *  To handle slight variations in prefixing:
+ *  @part-label is used in page headers ie "Chapter 3"
+ *  @part-counter is the prefix to things like "Table A4"
+ *  @part-target is CSS3 for making links to elements
+ *  @part-separator is the little dot in "Table 4.3"
+ * -------------------------------------
+ */
+.x-prefixed(@part; @part-label; @part-counter; @part-target; @part-separator: "") {
+
+  //This convoluted path is used to suck up (via the "content()") the title of the chapter into the page header
+  > div.titlepage > div > div h1.title span.cnx-gentext-t {
+    #part>.squirrel-page-title(@part);
+    padding-left: .25em;
+    prince-text-replace: "*" ""; //remove asterisk from page header epub has a nice way to navigate to the appendix section.
+  }
+
+  #part>.counters(default);
+
+  > div.cnx-eoc { #part>.counters(@part; end-part); }
+  // .cnx-eoc + .cnx-eoc { counter-reset: none; }  /* Don't reset for each eoc section */
+
+  // FIXME: Combine these into 1 mixin when mixin calls support `...`
+  .x-increment(@type) {
+    // Only increment if we're going to use the number (ie it's noot labeled)
+    &:not(.labeled) { #content>.counters(@type); }
+    // FIXME: This next line is redundant. Remove it.
+    #content>.counters(@type);
+    &.labeled { counter-increment: none; }
+  }
+  .x-increment(@type; @context) {
+    // Only increment if we're going to use the number (ie it's noot labeled)
+    &:not(.labeled) { #content>.counters(@type; @context); }
+    // FIXME: This next line is redundant. Remove it.
+    #content>.counters(@type; @context);
+    &.labeled { counter-increment: none; }
+  }
+
+  > div.section               { .x-increment(section); }   // Only increment top-level sections
+  div.figure                  { .x-increment(figure); }
+  // code for handling subfigures - assuming that this structure is the only way that figure/subfigure selectors are grouped
+  .figure .informalfigure     { .x-increment(figure; figure); }
+  .table                      { .x-increment(table); }
+  > div.section div.example   { .x-increment(example); }
+  > div.cnx-eoc div.exercise,
+  > div.section div.exercise  { .x-increment(exercise); }
+  > div.section div.equation  { .x-increment(equation); }
+
+  /* Cases where sections are referenced */
+  // TODO: toc-section could just be looked up via CSS3 taarget-counter (but then epub would break)
+  > div.toc li.toc-section    { counter-increment: toc-section; }
+  > div.cnx-eoc > div.section { counter-increment: eoc-section; }
+
+  /* --------------------------------------
+   *  Exceptions for incrementing/displaying
+   *  Note: "div.glossary *" is by far the most time-consuming rule
+   * --------------------------------------
+   */
+  > div.glossary *,
+  > div.section div.example div.exercise *,
+
+  /* Statistics needs figure numbering to display but revisit this code block and remove during refactoring
+  > div.cnx-eoc div.solution div.figure,
+  */
+
+  > div.cnx-eoc div.solution table,
+  > div.cnx-eoc div.solution div.exercise,
+  > div.cnx-eoc div.solution div.example,
+  > div.cnx-eoc div.solution div.equation {
+    counter-increment: none !important;
+    /* Don't display the labels in glossaries, solutions, etc */
+    &::before { display:none; }
+    &::after { display:none; } // Equations put labels after unlike the rest of the numbered elements
+  }
+
+  /* --------------------------------------
+   *  Define where counters are displayed
+   * --------------------------------------
+   */
+  // This handle the common case of "Exercise 4.2" or "Appendix A3"
+  // FIXME: Combine these into 1 mixin when mixin calls support `...`
+  .x-test-text(@type) {
+    &:not(.labeled)::before { #content>.label(@type; @part); }
+  }
+  .x-test-text(@type; @context) {
+    &:not(.labeled)::before { #content>.label(@type; @part; @context); }
+  }
+
+
+  /** Each thing appears 3 times because 1 implements the new numbering and the next 2 lines hide the docbook-generated text **/
+  > div.titlepage > .cnx-gentext-t { &::before { content: @S @part-counter @E;} }
+  > div.titlepage > .cnx-gentext-autogenerated,
+  > div.titlepage > .cnx-gentext-n  { display: none; }
+
+  > div.section > div.titlepage h2 { .x-test-text(section); }
+  > div.section > div.titlepage h2 > .cnx-gentext-autogenerated,
+  > div.section > div.titlepage h2 > .cnx-gentext-n { display: none; }
+
+  div.figure > div.title > span.cnx-gentext-t { .x-test-text(figure); }
+  div.figure > div.title > span.cnx-gentext-autogenerated,
+  div.figure > div.title > span.cnx-gentext-n { display: none; }
+  //But not subfigures. Label those "Figure 4a"
+  div.figure > div.body > div.figure > div.title > span.cnx-gentext-t { .x-test-text(figure; figure); }
+
+  div.table:not(.labeled) > table > caption { .x-test-text(table); }
+  div.table > table > caption > span.cnx-gentext-t,
+  div.table > table > caption > span.cnx-gentext-n { display: none; }
+
+  > div.section div.example:not(.labeled) > .title > span { .x-test-text(example); }
+  > div.section div.example > .title > span > span.cnx-gentext-autogenerated,
+  > div.section div.example > .title > span > span.cnx-gentext-n { display: none; }
+
+  > div.section div.exercise:not(.labeled) > .title > span:first-child { .x-test-text(exercise); }
+  > div.section div.exercise > .title > span:first-child .cnx-gentext-autogenerated,
+  > div.section div.exercise > .title > span:first-child .cnx-gentext-n { display: none; }
+
+
+  > div.cnx-eoc > div.section > div.body > div.exercise:not(.labeled) > div.body > div.problem::before { #content>.label(problem; @part; end-part); font-weight: bold; }
+  > div.cnx-eoc > div.section > div.body > div.exercise:not(.labeled) > div.title { display: none; }
+
+  > div.section div.equation > *:last-child::after { #content>.label(equation; @part); float: right; }
+  // Equations can occur in many places:
+  // - Normal content
+  // - End-of-chapter sections
+  // - Glossaries
+  // Hide the docbook-generated text in all
+  div.equation > .label { display: none; }
+
+  > div.toc > ul > li > a { .x-test-text(toc-section); }
+  > div.toc > ul > li > a .cnx-gentext-autogenerated,
+  > div.toc > ul > li > a .cnx-gentext-n { display: none; }
+
+  > div.cnx-eoc > div.section > .title .cnx-gentext-t { .x-test-text(section; end-part); }
+  > div.cnx-eoc > div.section > .title .cnx-gentext-autogenerated,
+  > div.cnx-eoc > div.section > .title .cnx-gentext-n { display: none; }
+
+  /* Number links to different elements */
+  // FIXME: Combine these into 1 mixin when mixin calls support `...`
+  .x-link (@type; @part)           { &:not(.labeled) { #content>#xref>.content(@type; @part) } }
+  .x-link (@type; @part; @context) { &:not(.labeled) { #content>#xref>.content(@type; @part; @context) } }
+
+  a.target-figure           { .x-link(figure;   @part); }
+  a.target-subfigure        { .x-link(figure;   @part; figure); }
+  a.target-table            { .x-link(table;    @part); }
+  a.target-example          { .x-link(example;  @part); }
+  a.target-exercise         { .x-link(exercise; @part); }
+
+  // equation selectors change depending on how cnxml markup is created, i.e inline, wrapped in para
+  // before a title, etc. So we need to target each possible occurence.
+  a.target-equation,
+  a.target-inlineequation,
+  a.target-informalequation { .x-link(equation; @part); }
+
+  a.target-section  { .x-link(section; @part); }
+} // .x-prefixed()
+
+/* look up the exercise number */
+// TODO: This should be moved into .x-prefixed() so it has a @part variable
+div.solution > a.number::before { #content>.label(solution; default); }
+div.solution > a.number { content: ""; }
+
+/******************************
+ * Handle footnotes
+ ******************************/
+// TODO: This should be moved into .x-prefixed() so it has a @part variable
+*.footnote {
+  #content>.counters(footnote);
+
+  #content>#footnote>.style();
+
+  // Footnotes in table headings (which may have white text) need to reset their colors.
+  &::footnote-marker,
+  > * {
+    #content>#footnote>.descendants-style();
+  }
+
+  &::footnote-call {
+    #content>#footnote>.call-content();
+    #content>#footnote>.call-style();
+  }
+
+  &::footnote-marker {
+    #content>#footnote>.marker-style();
+  }
+}
+
+
+/******************************
+ * Number the book-level TOC
+ ******************************/
+
+/* Chapters/Appendixes */
+> div.toc {
+  /* Units */
+  > ul > li > a.target-part::after {content: "";}//removes counter of units in toc(...xx)
+
+  /* A Chapter could be part of a Part, hence the extra "> li > ul" */
+  > ul,
+  > ul > li > ul {
+    > li.toc-chapter > a.target-chapter::before { #content>#xref>.content(chapter, toc); }
+  }
+
+  > ul > li > a.target-appendix::before { #content>#xref>.content(appendix, toc); }
+  > ul > li > a > .cnx-gentext-autogenerated,
+  > ul > li > a > .cnx-gentext-n { display: none; }
+
+  /* Sections */
+  > ul > li   a > .cnx-gentext-autogenerated,
+  > ul > li   a > .cnx-gentext-n { display: none; }
+}
+
+/* Don't render nested sections in the toc */
+> div.chapter > .toc > ul > ul { display: none; }
+
+/* Don't render the TOC for preface or appendix at all */
+> div.preface  .toc,
+> div.appendix .toc { display: none; }
+> div.toc > ul > li.toc-appendix > ul { display: none; }
+
+}
+
+/**************************************
+ * The solutions in the back of the book need
+ * to be numbered the same as the problems.
+ ****************************************/
+div.colophon.end-of-book-solutions {
+  div.preface-area,
+  div.chapter-area,
+  div.appendix-area {
+    // Hide the autogenerated text for each section
+    /*
+      > h3.title,
+      > div.section-area > h3.title {
+        .cnx-gentext-autogenerated, cnx-gentext-n { display: none; }
+      }
+    */
+    // Just hide the whole section title
+    > div.section-area > h3.title { display: none; }
+
+    div.solution {
+      > div.title {
+        // Remove the parentheses that were added only for the EPUB
+        .epub-only  { display: none; }
+        // Number the solution based on the exercise number
+        a.solution {
+          content: '';
+          &::before {
+            font-weight: bold;
+            #content>.label(solution; colophon; default);
+          }
+        }
+      }
+    }
+  }
+
+}
+
+/**********************
+ * End of chapter Solutions
+ **********************/
+div.cnx-eoc.cnx-solutions {
+  // Hide the autogenerated text for each solution
+  div.solution {
+    > div.title {
+      // Remove the parentheses that were added only for the EPUB
+      .epub-only  { display: none; }
+      // Number the solution based on the exercise number
+      a.solution {
+        content: '';
+        &::before {
+          font-weight: bold;
+          #content>.label(solution; chapter; end-part);
+        }
+      }
+    }
+  }
+
+}
+
+/*******************
+ * Hide the (Return to Exercise) when solution is inside the exercise
+ *******************/
+div.exercise > div.body > div.solution {
+  span.epub-only,
+  a.solution {
+    display: none;
+  }
+}
+
+/**********************
+ * Hide module summaries by default
+ **********************/
+div.book {
+  > div.preface,
+  div.chapter,
+  > div.appendix {
+    > div.titlepage > div > div:not(:first-child) {
+      display: none;
+    }
+  }
+}
+
+
