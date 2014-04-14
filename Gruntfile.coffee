@@ -123,19 +123,16 @@ module.exports = (grunt) ->
           tempDir = "#{config.testingDir}/tempdir-#{bookName}-#{branchName}"
           bakedXhtmlFile = "#{config.testingDir}/#{bookName}-#{branchName}.xhtml"
 
-          previewXhtmlFile = "#{tempDir}/preview.xhtml"
-          previewCssFile = "#{tempDir}/preview.css"
-
           # Shortcut if skipping flag is set
           return '' if skipIfExists('bake', bakedXhtmlFile)
 
-          failIfNotExists("CSS file missing", previewCssFile)
-          failIfNotExists("XHTML file missing", previewXhtmlFile)
+          failIfNotExists("Less file does not exist: #{lessFile}", lessFile)
+          failIfNotExists("XHTML file missing. generate with `grunt shell:pdf:#{bookName}`: #{tempDir}/collection.xhtml", "#{tempDir}/collection.xhtml")
 
           return "#{PHANTOMJS_BIN} #{cssDiffPath}/phantom-harness.coffee
             #{cssDiffPath}
-            #{process.cwd()}/#{previewCssFile}
-            #{process.cwd()}/#{previewXhtmlFile}
+            #{process.cwd()}/#{lessFile}
+            #{process.cwd()}/#{tempDir}/collection.xhtml
             #{bakedXhtmlFile}
           "
 
@@ -202,7 +199,7 @@ module.exports = (grunt) ->
     branchName = 'new'
     grunt.log.writeln('Use --verbose to see the output because these take a while.')
     grunt.task.run("shell:pdf:#{bookName}:#{branchName}")
-    grunt.task.run("shell:preview:#{bookName}:#{branchName}")
+    # grunt.task.run("shell:preview:#{bookName}:#{branchName}")
     grunt.task.run("shell:bake:#{bookName}:#{branchName}")
     grunt.task.run("shell:create-diff:#{bookName}:#{branchName}")
     if config.coverage
@@ -212,7 +209,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'prepare-book', 'Generate the master versions of books to compare against', (bookName) ->
     grunt.log.writeln('Use --verbose to see the output because these take a while.')
     grunt.task.run("shell:pdf:#{bookName}:master")
-    grunt.task.run("shell:preview:#{bookName}:master")
+    # grunt.task.run("shell:preview:#{bookName}:master")
     grunt.task.run("shell:bake:#{bookName}:master")
     if config.coverage
       grunt.task.run("shell:coverage:#{bookName}:master")
