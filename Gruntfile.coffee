@@ -6,6 +6,9 @@ module.exports = (grunt) ->
   chalk = require('chalk')
   config = grunt.file.readYAML('config.yml')
 
+  # Use local phantomjs
+  PHANTOMJS_BIN = './node_modules/css-diff/node_modules/.bin/phantomjs'
+
   failIfNotExists = (message, filePath) ->
     throw new Error("#{message}. Expected #{filePath} to exist.") if not fs.existsSync(filePath)
 
@@ -129,7 +132,7 @@ module.exports = (grunt) ->
           failIfNotExists("CSS file missing", previewCssFile)
           failIfNotExists("XHTML file missing", previewXhtmlFile)
 
-          return "phantomjs #{cssDiffPath}/phantom-harness.coffee
+          return "#{PHANTOMJS_BIN} #{cssDiffPath}/phantom-harness.coffee
             #{cssDiffPath}
             #{process.cwd()}/#{previewCssFile}
             #{process.cwd()}/#{previewXhtmlFile}
@@ -152,7 +155,7 @@ module.exports = (grunt) ->
           failIfNotExists("XHTML file missing. generate with `grunt shell:pdf:#{bookName}`", "#{tempDir}/collection.xhtml")
 
           return [
-            "phantomjs #{cssDiffPath}/phantom-harness.coffee
+            "#{PHANTOMJS_BIN} #{cssDiffPath}/phantom-harness.coffee
               #{cssDiffPath}
               #{process.cwd()}/#{lessFile}
               #{process.cwd()}/#{tempDir}/collection.xhtml
