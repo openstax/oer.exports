@@ -31,16 +31,31 @@
   }
 }
 
-// In psychology.less this high specificity is inheriting 
-// the bottom border. Can only seem to turn it off like this
-// Ask Derek & Phil about converting to namespace slot
-div.book div.chapter div.titlepage > div > div > h2.title {
-  border: none;
+// Style figures and captions
+.figure {
+  > .title {
+    #content>#figure>#title>.style();
+  }
+  > .caption {
+    #content>#figure>.caption();
+  }
+  /* The timeline figure will appear in first module after
+   introduction and must snap to the bottom of page. 
+   Coded to function this way:
+ 
+   1. If there is right amount of content on page 1, and figure
+   will fit it will snap to bottom of page as designed.
 
-  // After psychology is refactored to remove this div div h2 stuff
-  // move this into #glossary>#title etc.
-  margin-bottom: .5em;
-  font: 700 10pt/13pt @font-family-sans-serif;
+   2. If there is too much content timeline will snap to the
+   bottom of the next page.  Working with footnote as well.
+
+   We cannot use display:block; here, because using any type
+   of float causes an inline element to render as a block (inline-block).
+   This simple rule below gets us where we need to be.
+  */
+  &.timeline {  
+    #content>#figure>.timeline();
+  }
 }
 
 // Not sure how this can be made into skeleton/slot
@@ -58,14 +73,13 @@ div.end-of-book-references {
   #part>#book-end>#end-of-book-references>.style();
 }
 
-// Once book-wide link color is set we can remove
-// this below. index-term link will inherit it Placing here for now 
-// for template build and testing
 .index {
   > .title h2 {
     #part>#book-end>#index>#title>.style();
   }
-  .index-term a { color: @red; }
+  .index-term a { 
+    #part>#book-end>#index>.link();
+  }
 }
 
 // We most likely do not need to target these in a skeleton
@@ -78,6 +92,19 @@ div.end-of-book-references {
   #content>#heading>.style();
 }
 
+div.book div.chapter div.titlepage > div > div > h2.title {
+  #content>#heading>.style(h2;);
+}
+
+// Turn off underlines for Introduction header. For these two selectors
+// by the end of psychology refactor, we may be able to remove both these.
+// For now I am just pointing these specific pieces of styling to #heading.style()
+// which border: none was added to take care of both these for the time being.
+.chapter > .introduction > h3.title,
+div.book div.chapter div.titlepage > div > div > h2.title,
+div.book div.chapter div.titlepage > div > div > h2 {
+  #content>#heading>.style();
+}
 
 
 
@@ -94,88 +121,11 @@ div.end-of-book-references {
   Stacey's Corner - clean up into slots
 ****************************************/
 
-// Turn off underlines for Introduction header
-.chapter > .introduction > h3.title {
-  border: none;
-}
-
-// Turn off underlines on h2 headers
-div.book div.chapter div.titlepage > div > div > h2 {
-  border: none;
-}
-
-// Style figures and captions
-.figure {
-  > .title {
-    display: inline;
-    font-size: 9pt;
-    font-weight: bold;
-    color: @red;
-    text-align: left;
-  }
-  > .caption {
-    font-size: 9pt;
-    color: black;
-    text-align: left;
-  }
-}
-
-/* The timeline figure will appear in first module after
-   introduction and must snap to the bottom of page. 
-   Coded to function this way:
- 
-   1. If there is right amount of content on page 1, and figure
-   will fit it will snap to bottom of page as designed.
-
-   2. If there is too much content timeline will snap to the
-   bottom of the next page.  Working with footnote as well.
-
-   We cannot use display:block; here, because using any type
-   of float causes an inline element to render as a block (inline-block).
-   This simple rule below gets us where we need to be.
-*/
-
-.figure.timeline {  
-  // a little space on bottom in case of footnote
-  padding-bottom: 1em; 
-  // snap figure to bottom of page 
-  float: bottom;
-
-  // remove padding so figure ID caption are snug against image
-  .body { padding: 0; }
-}
-
-// Blockquotes are being placed inside features. Must
-// render in San Serif font. Need to also stop feature headers
-// from breaking away at bottom of page.
-.chapter .note {
-  &.my-story,
-  &.defining-american,
-  &.americana,
-  &.click-and-explore  
-  {
-    // Stop page breaking inside features
-    page-break-inside: avoid;
-
-    .blockquote {
-      font-family: @font-family;
-    }
-  }
-}
-
-// Conform preface title to design
-.preface > .titlepage h1.title {
-    background-color: transparent;
-    padding-left: 0;
-    font-size: 18pt;
-    border: none;
-    text-transform: capitalize;
-}
 
 // Tables used in Preface must continue to have no background
 .preface .section > .table, 
 .preface .section > .table table { 
-  background-color: transparent;
+  #part>#preface>#table>.style();
 }
 
 // remove full justification for learning objectives. Be specific as possible
