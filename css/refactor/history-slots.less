@@ -4,6 +4,18 @@
   }  
 }
 #part {
+  .title(chapter) {
+    font: @font-family-sans-serif;
+    border: none;
+    margin-bottom: .5em;
+  }
+
+  #preface {
+    #titlepage {
+      .style(...) {}
+      .title(...) {}
+    }
+  }
   #toc {
     .style(...) {
       border: none;
@@ -86,7 +98,9 @@
     .style(...) {}
 
     #summary {
-      .style(...) {}
+      .style(...) {
+        margin-top: 0;
+      }
       #title {
         .style(...) {
           content: "Summary";
@@ -94,6 +108,10 @@
           font-size: 13pt;
           font-weight: bold;
           border: none;
+        }
+        .subtitle(...) {
+          display: block;
+          padding-bottom: 0;
         }
       }
     }
@@ -118,6 +136,7 @@
           border: none;
           margin-top: 1em;
           margin-bottom: 1em;
+          padding-left: 0;
           padding-bottom: 0;
         }
       }
@@ -170,6 +189,10 @@
           text-transform: none;
         }
       }
+      .term(...) {}
+      .link(...) {
+        color: @red;
+      }
     }
     // End of Book Attribution and About Connexions
     #colophon {
@@ -220,6 +243,7 @@
 #content {
   #note {
     .style(...) {
+      #utils>#pb>.inside(avoid);
       padding: 0;
     }
     .style(my-story; ...) {
@@ -232,7 +256,6 @@
       .x-history-feature(@red, @cnx-string-americana);
     }
     .style(click-and-explore; ...) {
-      #utils>#pb>.inside(avoid);
       background-color: @yellow-35;
       margin-bottom: 2.5em;
 
@@ -284,6 +307,7 @@
   }
   #blockquote {
     .style(...) {
+      font-family: @font-family;
       color: black;
       font-size: inherit;
       margin-top: inherit;
@@ -340,6 +364,10 @@
     .style(...) {
       background-color: @yellow-35;
     }
+    // Tables used in Preface must have no background. 
+    .style(any; preface) {
+      background: none;
+    }
     .caption(...) {
       background-color: @yellow-35;
       border-style: none;
@@ -349,7 +377,49 @@
     .cell(...) {
     }
   }
+  #figure {
+    .style(...) {}
+    .style('timeline'; any) {
 
+     /* The timeline figure will appear in first module after
+     introduction and must snap to the bottom of page. 
+     Coded to function this way:
+   
+     1. If there is right amount of content on page 1, and figure
+     will fit it will snap to bottom of page as designed.
+
+     2. If there is too much content timeline will snap to the
+     bottom of the next page.  Working with footnote as well.
+
+     We cannot use display:block; here, because using any type
+     of float causes an inline element to render as a block (inline-block).
+     This simple rule below gets us where we need to be.
+     */
+
+      // a little space on bottom in case of footnote
+      padding-bottom: 1em; 
+      // snap figure to bottom of page 
+      float: bottom;
+
+      // remove padding so figure ID caption are snug against image
+      .body { padding: 0; }
+    }
+    .caption(...) {
+      font-size: 9pt;
+      color: black;
+      text-align: left;
+    }
+    #title {
+      .style(...) {
+        display: inline;
+        font-size: 9pt;
+        font-weight: bold;
+        color: @red;
+        text-align: left;
+      }
+      .number(...) {}
+    }
+  }
 }
 
 
