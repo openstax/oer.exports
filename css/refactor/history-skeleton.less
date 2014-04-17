@@ -27,33 +27,6 @@
   }
 }
 
-// Style figures and captions
-.figure {
-  > .title {
-    #content>#figure>#title>.style();
-  }
-  > .caption {
-    #content>#figure>.caption();
-  }
-  /* The timeline figure will appear in first module after
-   introduction and must snap to the bottom of page. 
-   Coded to function this way:
- 
-   1. If there is right amount of content on page 1, and figure
-   will fit it will snap to bottom of page as designed.
-
-   2. If there is too much content timeline will snap to the
-   bottom of the next page.  Working with footnote as well.
-
-   We cannot use display:block; here, because using any type
-   of float causes an inline element to render as a block (inline-block).
-   This simple rule below gets us where we need to be.
-  */
-  &.timeline {  
-    #content>#figure>.timeline();
-  }
-}
-
 div.end-of-book-solutions {
   > h1.title {
     #part>#book-end>#end-of-book-solutions>#title>.style();
@@ -73,6 +46,19 @@ div.end-of-book-references {
   }
 }
 
+// Style figures and captions
+.figure {
+  > .title {
+    #content>#figure>#title>.style();
+  }
+  > .caption {
+    #content>#figure>.caption();
+  }
+  &.timeline {  
+    #content>#figure>.style('timeline'; any);
+  }
+}
+
 // We most likely do not need to target these in a skeleton
 // change but through @part somehow. There's lots of different
 // permutations: .chapter h1.title, .section h3.title, etc. etc.
@@ -84,23 +70,18 @@ div.end-of-book-references {
 }
 
 div.book div.chapter div.titlepage > div > div > h2.title {
-  #content>#heading>.style(h2;);
+  #part>.title(chapter);
 }
 
-// Turn off underlines for Introduction header. For these two selectors
-// by the end of psychology refactor, we may be able to remove both these.
-// For now I am just pointing these specific pieces of styling to #heading.style()
-// which border: none was added to take care of both these for the time being.
 .chapter > .introduction > h3.title,
 div.book div.chapter div.titlepage > div > div > h2.title,
 div.book div.chapter div.titlepage > div > div > h2 {
   #content>#heading>.style();
 }
 
-// Tables used in Preface must continue to have no background. 
 .preface .section > .table, 
 .preface .section > .table table { 
-  #part>#preface>#table>.style();
+  #content>#table>.style(any; preface);
 }
 
 // For this one below, we don't really currently have a way in refactoring
