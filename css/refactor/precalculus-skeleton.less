@@ -383,6 +383,17 @@ h6 {
 // Parent level link style
 a { #content>#link>.style(); }
 
+body {
+  #content>#body>.style(any);
+}
+.book > .cnx-title h1 {
+  #content>#heading>.style(h1; title);
+}
+img { #content>#image>.style(any; any); }
+p { #content>#paragraph>.style(any); }
+img, figure, subfigure  { margin: 1em; }
+
+
 
 /* ---------------------------------------------------
  * End of book Attributions and About Connexions
@@ -513,69 +524,21 @@ a { #content>#link>.style(); }
 }
 
 
-
-//
-//
-// Below these lines things are in a "require more thought"
-// state. These pieces need to be refactored, but we need
-// to decide how they should be structured.
-//
-// A lot of this just needs to move into content slots.
-//
-//
-
-
-
-
-
-/********************************************************************
- * Generic Elements
- ********************************************************************/
-body {
-  font-size: 9.5pt;
-  text-align: justify;
-}
-.book > .cnx-title h1 {
-  text-align: left;
-}
-img { max-height: 9.5in; }
-
-
-p {
-  font-family: @font-family-serif;
-}
-
-
-
-
-
-
-img, figure, subfigure  { margin: 1em; }
-
-
-
 /* -------------------------
  * Example Elements Styling and Numbering
  * -------------------------
  */
 .example > .title {
-  background: @dark-blue;
-  padding-top: .3em;
-  padding-bottom: .3em;
+  #content>#example>#title>.style(any);
 }
-
 .example > .title > * {
     font-size: 130%;
     font-weight: 500;
     color: #fff;
 }
+.example > .body { #content>#example>#body>.style(any); }
 
-.example > .body {
-    border-left: 1px solid @dark-blue;
-    padding: 1em 2em .5em 2em;
-}
-
-.example .solution { padding-top: 1em; padding-bottom: 1em; }
+.example .solution { #content>#solution>.style(any; any; example); }
 
 // This lengthy selector is required to override a display:none.
 div.book div.chapter > div.section div.example div.exercise .problem {
@@ -583,64 +546,43 @@ div.book div.chapter > div.section div.example div.exercise .problem {
     display: block;
   }
   .table {
-    counter-increment: table !important; // Overrides !important from base.
+    #content>#table>.style(any; any; problem; exercise; example);
   }
   .figure {
-    counter-increment: figure !important; // Overrides !important from base.
+    #content>#figure>.style(any; any; problem; exercise; example);
   }
-  .figure .title ::before {
-    display: block;
+  .figure .title {
+    #content>#figure>#title>.style(any; any; problem; exercise; example);
   }
 }
 
 // for examples that have a problem/solution structure that need numbered headings
 .example .exercise {
-
-  // Test this for pull request for Phil...  line #633
-  counter-increment: none !important;
-  margin-top: 0;
+  #content>#exercise>.style(any; any; example);
 
   .problem > .title {
-    font-family: @font-family;
-    font-size: 11pt;
-    color: @dark-blue;
-    font-weight: bold;
-    padding-bottom: 1em;
+    #content>#problem>#title>.style(any; any; exercise; example);
   }
 
   .solution > .title {
-    content: "Solution";
-    font-family: @font-family;
-    font-size: 10pt;
-    color: @dark-blue;
-    font-weight: bold;
-    line-height: 1em;
+    #content>#solution>#title>.style(any; any; exercise; example);
   }
 
-  // Fix margins because solutions with only one paragraph
-  // do not include a <p></p> wrapper for text.
   .solution > .body {
-    margin-top: .5em;
+    #content>#solution>#title>.style(any; any; exercise; example);
   }
-
   .solution > .body > a.target-figure {
     color: @orange;
   }
-
   .solution > .body > p:first-of-type {
     margin-top: 0;
   }
-
   .solution > .title > p {
     float: left;
   }
-
   .solution {
-    // For solutions that use lists do not display inline with solution header
-    // as paragraphs. Lists need to be inset below
     ol,ul {
-      margin-left: 2em;
-      margin-top: 2em;
+      #content>#list>.style(any; any; solution; exercise; example);
     }
   }
 }
@@ -654,17 +596,10 @@ div.book div.chapter > div.section div.example div.exercise .problem {
  * -------------------------
  */
 .table {
-  page-break-inside: auto;
-  // If a table spans more than 1 page then put caption on all following pages
-  prince-caption-page: all;
+  #content>#table>.style(any; any);
 
   caption {
-    font-family: @font-family;
-    padding-top: .5em;
-    padding-bottom: 1em;
-    font-weight:bold;
-    color: @orange;
-    caption-side:bottom;
+    #content>#table>#caption>.style(any; any);
   }
 
   // Table caption text needs to be regular
@@ -682,24 +617,13 @@ div.book div.chapter > div.section div.example div.exercise .problem {
   }
 
   // Add styling for table entries that should render as table headers
-  td.header {
-    background-color: @white;
-  }
-
-  tr { page-break-inside: avoid;}
-
-  th {
-    color: black;
-    background-color: @white;
-    font-size: small;
-    text-align: left;
-    padding-left: .25em;
-  }
+  td.header { #content>#table>#data>.style(header; any); }
+  tr { #content>#table>#row>.style(any; any); }
+  th { #content>#table>#header>.style(any; any); }
 
   table {
     border-bottom: @table-border;
   }
-
   // This is just for looks for the template take out later
   table td {
     padding: 1em;
@@ -707,8 +631,7 @@ div.book div.chapter > div.section div.example div.exercise .problem {
 
   //handle lists inside tables
   .itemizedlist {
-    margin: 0; //reset
-    list-style-type: none; //no bullets for lists inside tables
+    #content>#list>.style(any; any; table);
     > .listitem > p { font-family: @font-family; } //overrides bio p font use font-family from base
   }
 
@@ -716,26 +639,13 @@ div.book div.chapter > div.section div.example div.exercise .problem {
 
 //  Add a class for tables that have special characteristics
 .table.color {
-  th { background-color: @light-orange; text-align: center; }
+  th { #content>#table>#header>.style(colored; any); }
 
-  tr { height: 1em !important; }
+  tr { #content>#table>#row>.style(colored; any); }
 
   tr td:first-child { background-color: @light-orange; width: 2.5in; font-weight: bold; }
 }
 
-
-
-
-
-
-
-
-
-
-
-/****************************************************************************
- * Misc Color changes
- ****************************************************************************/
 
 .cnx-figure-horizontal .informalfigure .caption {
   text-align: center; //center subfigure caption
@@ -745,9 +655,8 @@ div.book div.chapter > div.section div.example div.exercise .problem {
   }
 }
 
-
 /* ---------------------------------------------------
- * Equations
+ * Custom Equation (Non) Numbering
  * ---------------------------------------------------
  */
 
@@ -776,37 +685,4 @@ div.book > div.part {
     }
   }
 }
-
-// Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
-// originally defined in ccap-numbering.less
-// The hierarchy is copied from ccap-numbering so the selectors (and priority for which to apply) are the same
-.x-duplicate-hierarchy() {
-  > div.cnx-eoc { counter-reset: /*exercise*/ eoc-section -1; }
-}
-
-
-div.book, div.book > div.part {
-  > div.preface  { .x-duplicate-hierarchy(); }
-  > div.chapter  { .x-duplicate-hierarchy(); }
-  > div.appendix { .x-duplicate-hierarchy(); }
-}
-
-// To have certain equations unnumbered and remove use the elegant solution of removing the <equation> tag
-// to accomplish this, we must target a very specific selector.  All inline math has as a parent selector a
-// <p> tag.  All block level math will just have it's parent as section.  We use a descendant selector to only
-// target the inline media object class and child span from section, thereby removing the "catch-all" targeting
-// of both inline and block equations.  In refactoring, we should make this a @context to target "p" vs. "non-p"
-// type equations.
-
-/* This wont' work. Naginata (plone) gives MathML namespace error when removing equation tags.  We will
-have to utilize </label> for this.  Will require docbook change.  Phil and I will work on this after conference
-and remove this below then 
-.section > .inlinemediaobject span.cnx-svg {
-  display: block;
-  text-align: center;
-}
-*/
-
-
-
 
