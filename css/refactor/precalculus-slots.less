@@ -352,12 +352,71 @@
         font-weight: bold;
         font-size: x-large;
         color: @medium-blue;
-        background-color: transparent;
+        background: none;
       }
     }
   }
 }
 #content {
+  #body {
+    .style(any) {
+      font-size: 9.5pt;
+      text-align: justify;
+    }
+  }
+  #paragraph {
+    .style(any) {
+      font-family: @font-family-serif;
+    }
+  }
+  #table {
+    .style(any; any) {
+      #utils>#pb>.inside(auto);
+
+      // If a table spans more than 1 page then put caption on all following pages
+      prince-caption-page: all;
+    }
+
+    .style(any; any; problem; exercise; example) {
+      counter-increment: table !important; // Overrides !important from base.
+    }
+    #caption {
+      .style(any; any) {
+        font-family: @font-family;
+        padding-top: .5em;
+        padding-bottom: 1em;
+        font-weight:bold;
+        color: @orange;
+        caption-side:bottom;
+      }
+    }
+    #row {
+      .style(any; any) {
+        #utils>#pb>.inside(avoid);
+      }
+      .style(colored; any) {
+        height: 1em !important; 
+      }
+    }
+    #header {
+      .style(any; any) { 
+        color: black;
+        background-color: @white;
+        font-size: small;
+        text-align: left;
+        padding-left: .25em;
+      }
+      .style(colored; any) {
+        background-color: @light-orange; text-align: center; 
+      }
+    }
+    #data {
+      // Some TDs act like TH
+      .style(header; any) {
+        background-color: @white;
+      }
+    }
+  }
   #note {
     .style(...) {}
     .style(non-feature) {
@@ -432,13 +491,21 @@
       padding-bottom: 1em;
       text-align: left;
     }
-    .style (@kind; @part; problem; exercise; section-exercise) {
+    .style(any; any; problem; exercise; example) {
+      counter-increment: figure !important; // Overrides !important from base.
+    }
+    .style(@kind; @part; problem; exercise; section-exercise) {
       text-indent: 0;
     }
     #title {
       .style(...) {
         display: inline;
         text-align:center;
+      }
+      .style(any; any; problem; exercise; example) {
+        &::before {
+          display: block;
+        }
       }
       .number(...) {
         color: @orange;
@@ -449,6 +516,9 @@
     }
   }
   #image {
+    .style(any; any) {
+      max-height: 9.5in;
+    }
     .style(@kind; @part; figure) {
       margin: 0; //override auto  left/right margins from base
       max-width: @page-width; //overrides width value figures/subfigures ensuring imgs do not bleed off page
@@ -474,6 +544,15 @@
     }
   }
   #list {
+    .style(any; any; solution; exercise; example) {
+      // Inset lists below solution headers
+      margin-left: 2em;
+      margin-top: 2em;
+    }
+    .style(any; any; table) {
+      margin: 0; //reset
+      list-style-type: none; //no bullets for lists inside tables
+    }
     .item(@kind; @part; feature-media) {
         color: @orange;
         font-weight: bold;
@@ -491,8 +570,29 @@
       }
     }
   }
+  #example {
+    .style(any) {
+    }
+    #title {
+      .style(any) {
+        background: @dark-blue;
+        padding-top: .3em;
+        padding-bottom: .3em;
+      }
+    }
+    #body {
+      .style(any) {
+        border-left: 1px solid @dark-blue;
+        padding: 1em 2em .5em 2em;
+      }
+    }
+  }
   #exercise {
     .style(...) {
+      margin-top: 0;
+    }
+    .style(any; any; example) {
+      counter-increment: none !important;
       margin-top: 0;
     }
     .style(@kind; @part; feature-try) {
@@ -554,9 +654,22 @@
     .number(@kind; chapter-end; ...) {
       padding-right: .5em;
     }
+    #title {
+      .style(any; any; exercise; example) {
+        font-family: @font-family;
+        font-size: 11pt;
+        color: @dark-blue;
+        font-weight: bold;
+        padding-bottom: 1em;
+      }
+    }
   }
   #solution {
     .style(...) {}
+
+    .style(any; any; example) {
+      padding-top: 1em; padding-bottom: 1em;
+    }
 
     .style(@kind; @part; feature-try; exercise) {
       // W&N requested solutions be removed 9.24.13
@@ -577,8 +690,15 @@
 
     #title {
       .style(...) {}
-
-      .style(@kind, book-end) {
+      .style(any; any; exercise; example) {
+        content: "Solution";
+        font-family: @font-family;
+        font-size: 10pt;
+        color: @dark-blue;
+        font-weight: bold;
+        line-height: 1em;
+      }
+      .style(@kind; book-end) {
         // Check the note at 
         // #book-end>#end-of-book-solutions>#solution
         // This may have been set to not display inline
@@ -595,6 +715,12 @@
     }
     #body {
       .style(...) {}
+
+      .style(any; any; exercise; example) {
+        // Fix margins because solutions with only one paragraph
+        // do not include a <p></p> wrapper for text.
+        margin-top: .5em;
+      }
 
       .style(@kind, book-end) {
         margin-right: .65em;
@@ -690,8 +816,12 @@
       text-align: left; //overides text alignment set in
     }
 
-    .style(h1, ...) {
+    .style(h1; ...) {
       font-size: 34pt;
+    }
+    // H1 in the title part is the top level book title
+    .style(h1; title) {
+      text-align: left;
     }
     .style(h2, ...) {
       // Module title
