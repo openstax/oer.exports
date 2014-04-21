@@ -36,15 +36,23 @@
   
     #title {
       .style(...) {
-        border-bottom-width: 1px;
-        border-bottom-style: solid;
+        color: @red;
+        font-size: 18pt;
+        font-weight: 700;
+        text-align: left;
+        text-transform: none;
         margin-left: 0px;
         padding-left: 0px;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-bottom-color: @orange;
+        background-color: transparent;
       }
     }
     #link {
       .style(...) {
-        color: @medium-blue; 
+        color: @red;
+        font: 10pt/13pt @font-family-sans-serif;
       }
     }
   }
@@ -65,10 +73,31 @@
     }
   }
   #introduction {
+    #title {
+      .style(...) {
+        color: @red;
+        border-bottom-color: @orange;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        padding: 0.2em 0em;
+        font-size: 14pt;
+        line-height: 17pt;
+        font-weight: 700;
+      }
+    }
     #chapter-outline {
       .style(...) {
         border: none;
         padding: 0em;
+        span {
+          font-weight: normal;
+          font-size: 9pt;
+          line-height: 11pt;
+        }
+
+        ul {
+          margin-left: 0.125in;
+        }
       }
       #title {
         .style(...) {
@@ -78,6 +107,7 @@
           text-align: left;
           font-weight: bold;
           font-size: 11pt;
+          padding-left: 0px;  
         }
       }
       #entry {
@@ -86,7 +116,11 @@
         }
         #title { 
           .style(...) {
-	    color: @black;
+            color: @black;
+            margin: 0;
+            font-weight: normal;
+            font-size: 9pt;
+            line-height: 11pt;
           }
         }
       }
@@ -130,13 +164,34 @@
 
  // End-of-chapter parts
   #chapter-end {
+    .style(...) {
+      font-size: 10pt;
+      line-height: 13pt;
+    }
+    #title {
+      .style(...) {
+        color: @red;
+        border-bottom-color: @orange;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        font-size: 12pt;
+        font-weight: 700;
+        text-transform: none;
+      }
+    }
     #summary {
-      .style() {}
+      .style(...) {}
 
-      .title() {
-        content: @cnx-string-summary; 
-        padding-bottom: 0;
-        margin-bottom: 1em;
+      #title {
+        .style(...){
+          content: @cnx-string-summary; 
+          padding-bottom: 0;
+          margin-bottom: 1em;
+        }
+        .link(...) {
+          font: normal normal 700 10pt/13pt @font-family-serif;
+          color: @black;
+        }
       }
     }
     #review-questions {
@@ -236,11 +291,17 @@
     // End of Book Attribution and About Connexions
     #colophon {
       .style(...) {
-        background-color: none;
+        color: @red;
+        background: none;
+        border-bottom-color: @orange;
         border-bottom-width: 1px;
         border-bottom-style: solid;
         margin-left: 0px;
         padding-left: 0px;
+        text-transform: none;
+        font-size: 18pt;
+        font-weight: bold;
+        text-align: left;
       }
     }
   }
@@ -307,6 +368,7 @@
     .style(...) {
       padding: 20px;
       background-color: @white;
+      p { font: 9pt/12pt @font-family-sans-serif; }
     }
     .style(everyday-connection; ...) {
       .x-feature-color(@dark-blue, @dark-blue, @dark-blue, @orange, @cnx-string-everyday-connection);
@@ -345,6 +407,7 @@
 
       // Create the header/title
       &::before, > .title::before {
+        font: 700 normal normal 14pt/14pt @font-family-sans-serif;
         width: 100%;
         text-align: center;
         display: inline-block;
@@ -359,6 +422,7 @@
       }
       > .title::before {
         .x-feature-before-color(@light-blue, @cnx-string-connect-the-concepts);
+        color: lighten(@black, 65%);
         text-indent: 19px; // Fix a text-offset bug
       }
     }
@@ -389,6 +453,9 @@
       .style(...) {
         padding: 0;
         margin: 0;
+        color: @black;
+        border: none;
+        padding-bottom: .2em;
       }
     }
   }
