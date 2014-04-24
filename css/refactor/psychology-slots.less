@@ -38,11 +38,12 @@
       .style(...) {
         color: @red;
         font-size: 18pt;
-        font-weight: 700;
+        font-weight: bold;
         text-align: left;
         text-transform: none;
         margin-left: 0px;
         padding-left: 0px;
+        margin-bottom: .2em;
         border-bottom-width: 1px;
         border-bottom-style: solid;
         border-bottom-color: @orange;
@@ -59,13 +60,15 @@
   #preface {
     #titlepage {
       .title(...) {
+        color: @red;
         background-color: transparent;
         padding-left: 0;
         text-transform: capitalize;
         font-size: 18pt;
-        font-weight: normal;
+        font-weight: bold;
         border-bottom-width: 1px;
         border-bottom-style: solid;
+        border-bottom-color: @orange;
       }
       .subtitle(...) {
         margin-top: 20px;
@@ -83,6 +86,16 @@
         font-size: 14pt;
         line-height: 17pt;
         font-weight: 700;
+        text-transform: capitalize;
+      }
+    }
+    #splash-figure {
+      .image(chapter) {
+         padding-bottom: .2em;
+        .body {
+          padding-top: 0;
+          padding-bottom: 0;
+        }
       }
     }
     #chapter-outline {
@@ -131,17 +144,54 @@
       .style(...) {
         color: @red;
         border-bottom-color: @orange;
-
         text-transform: capitalize;
         font-weight: normal;
         font-size: 18pt;
+        width: 100%;
+        margin: 0; 
+        padding: 0;
+        text-align: left;
       }
-      .text(...) {
+      .style(h2) {
+        margin-bottom: 1em;
+        margin: 0;
+        padding: 0.2em 0em;
+        display: block; // This overrides a display: inline from ccap-base.
+      }
+      .text() {
+        font: 28pt/33pt @font-family-serif;
         color: @black;
         border-top-color: @orange;
+        display: block;
+
+        // If we truly need to take away the (.25em) left padding that
+        // is being assigned here, we will have to remove it from numbering-skeleton.less
+        // using !important for now to conform to production template as it will not 
+        // override from numbering (a higher specificity for h1.title gentext-t is in numbering-skeleton)
+        padding-left: 0 !important;
+        
+        padding-bottom: 1em;
+        border-top-width: 1px;
+        border-top-style: solid;
+
+        // Spacing around border.
+        margin-top: 10px;
+
+        // Replace the default page header "Chapter number | Title", removing
+        // the "|"
+        string-set: cnx-header string(cnx-chapter-number-string) " " content();
       }
-      .number(...) {
+      .number() {
+        string-set: cnx-chapter-number-string string(cnx-chapter-string) " " content();
+        content: string(cnx-chapter-number-string);
+        font-size: 18pt;
+        font-weight: 700;
         color: @red;
+        margin: 0;
+        padding: 0;
+      }
+      .label() {
+        display: none;
       }
       .divider(...) {
         content: "";
@@ -149,14 +199,58 @@
     }
     #learning-objectives {
       .style(...) {
-        margin: 0;
+        text-align: left;
+        margin: 0 0 1.5em;
         padding: 0;
         border: none;
         border-bottom: 1px solid @orange;
+        // These have to be individually set otherwise
+        // a color would have to be specified here.
+        border-top-width: 0;
+        border-left-width: 0;
+        border-right-width: 0;
+
+        p {
+          font: 10pt/14pt @font-family-serif;
+          margin: 0;
+        }
+ 
+        > .title {
+          border: none;
+          margin-top: 0;
+        }
+
+        ul.itemizedlist {
+          margin-left: 0;
+          padding-left: 20pt;
+
+          > .listitem {
+            display: list-item;
+            padding-top: 0;
+            margin: 0;
+
+            p {
+              display: block;
+              margin: 0;
+            }
+
+            &::before {
+              display: none;
+            }
+            &:last-child {
+              padding-bottom: .75em;
+            }
+          }
+        }
       }
       #title {
         .style(...) {
-          
+          background-color: transparent;
+          border-bottom-color: @orange;
+          font: normal normal 700 10pt @font-family-sans-serif;
+          text-align: left;
+          margin-bottom: .5em;
+          color: @light-blue;
         }
       }
     }
@@ -197,6 +291,7 @@
     #review-questions {
       .style(...) {
         .x-column-count(2); 
+        text-align: left;
       }
       #title {
         .style(...) {
@@ -238,11 +333,11 @@
   // End of Book Customizations
   #book-end {
     #end-of-book-solutions {
-      .style(...) {
-      }
       #title {
         .style(...) {
           margin-left: 0; // reset precalc margin.
+          color: @red;
+          text-transform: capitalize;
         }
       }
     }
@@ -254,7 +349,7 @@
         .style(...) {
           // Indent all but the first lines of references.
           text-indent: -2em;
-          margin: 1em 0 1em 2em;
+          margin-left: 2em;
         }
         #title {
           .style(...) {}
@@ -298,6 +393,7 @@
         border-bottom-style: solid;
         margin-left: 0px;
         padding-left: 0px;
+        padding-bottom: .2em;
         text-transform: none;
         font-size: 18pt;
         font-weight: bold;
@@ -311,7 +407,13 @@
     }
     .definition(chapter) {
       padding-left: 2em;
+      margin-left: 0px;
       display: block;
+    }
+    #title {
+      .style(chapter) {
+        font-weight: bold !important;
+      }
     }
   }
 }
@@ -319,8 +421,58 @@
   #heading {
     .style(...) {
       color: black;
+      font: 700 normal normal 11pt/13pt @font-family-sans-serif;
+    }
+    // H1 in the title part is the top level book title
+    .style(h1; title) {
+      font-size: xx-large;
+      margin-top: 10em;
+    }
+    .style(h2, chapter) {
+      color: @red;
+      font-size: 14pt;
+      line-height: 17pt;
+      font-weight: 700;
+      border-bottom: 1px solid @orange;
+      padding-bottom: .2em;
+
+      // Remove pipe (|) from between section number and title
+      .cnx-gentext-t::before {
+        content: "";
+      }
+      &::before { color: @red; }
+    }
+    .style(h3, ...) {
+      text-transform: uppercase;
+      margin-top: 1.5em;
+    }
+     .style(h4, ...) {
+      margin-top: 1.5em;
     }
   }
+  #paragraph {
+    .style(any) {
+      font: 10pt/13pt @font-family-serif;
+    }
+  }
+  #table {
+    .style(any; any) {}
+
+    #caption {
+      .style(any; any) {
+        color: @black;
+        border-color: @orange;   
+        border-width: 1px;
+        border-style: solid;
+        border-bottom: none;
+        caption-side: top;
+      }
+    }
+    .cell(...) {
+      padding: 5px 10px;
+    }
+  }
+
   #solution {
     .style(...) {}
 
@@ -429,6 +581,7 @@
       // placed inline in this slot.
       .x-feature-color(@red, @orange, @white, @red, @cnx-string-link-to-learning);
       #utils>#pb>.inside(avoid);
+      text-align: left;
 
       //clearfix
       > .body::after {
@@ -451,8 +604,49 @@
         padding: 0;
         margin: 0;
         color: @black;
+        font-weight: bold;
         border: none;
         padding-bottom: .2em;
+      }
+    }
+    // Manual Chapter Objectives note occurs in some books (anatomy, etc)
+    // This is a first attempt at createing a home for it.
+    .style(chapter-objectives, ...) {
+      font: 10pt/14pt @font-family-serif;
+      text-align: left; 
+      padding-left: 0;
+      margin-top: 0em;
+      padding-top: 0;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+
+      > .title {
+        font: normal normal 700 10pt @font-family-sans-serif;
+        border: none;
+        margin-top: 0;
+      }
+
+      ul.itemizedlist {
+        margin-left: 0;
+        padding-left: 20pt;
+
+        > .listitem {
+          display: list-item;
+          padding-top: 0;
+          margin: 0;
+
+          p {
+            display: block;
+            margin: 0;
+          }
+
+          &::before {
+            display: none;
+          }
+          &:last-child {
+            padding-bottom: .75em;
+          }
+        }
       }
     }
   }
@@ -468,22 +662,53 @@
       color: @red;
     }
   }
-  #table {
-    .caption(...) {
-      caption-side: top;
-
-      border-width: 1px;
-      border-style: solid;
-      border-bottom: none;
-    }
-    .cell(...) {
-      padding: 5px 10px;
-    }
-  }
   #figure {
     #title {
       .number(...) {
         color: @red;
+      }
+    }
+  }
+  #list {
+    .style(any; any;) {
+      margin-left: 0;
+    }
+    .item(@kind; @part; section) {
+      padding-left: 40px;
+    }
+  }
+  #glossary {
+    .style(...) {
+      // Don't show the "Chapter X Review" header from PreCalc
+      &::before {
+        display: none;
+      }
+    }
+    #title {
+      .style(...) {
+        /* Change "Glossary" to "Key Terms" */
+
+        // Temp changes in place until we horizontally refactor glossary across books.
+        color: @red !important;
+        font-size: 12pt !important; 
+        text-transform: capitalize !important;
+        border-bottom-color: @orange;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+      }
+    }
+    .dt() { 
+      // prevent container from allowing meaning to wrap appropriately
+      height: 15px;
+    } 
+    .dl() {
+      margin: 1em 0;
+    }
+    .glossterm(any) {
+      font: normal normal 700 10pt/13pt @font-family-serif;
+
+      &.no-emphasis {
+        font-weight: 400;
       }
     }
   }
