@@ -210,6 +210,15 @@
         border-left-width: 0;
         border-right-width: 0;
 
+        /* 
+          For items below, .abstract section in precalculus-skeleton
+          needs additional work to place p and ul elements into slots
+          After that, we can just insert the delta into psychology slot
+          without addtional code needed for psychology-skeleton. A possible
+          slot for this would be something like this:
+          #content>#para>.style(any; any; learning-objectives)
+        */
+
         p {
           font: 10pt/14pt @font-family-serif;
           margin: 0;
@@ -428,7 +437,7 @@
       font-size: xx-large;
       margin-top: 10em;
     }
-    .style(h2, chapter) {
+    .style(h2; chapter) {
       color: @red;
       font-size: 14pt;
       line-height: 17pt;
@@ -442,17 +451,24 @@
       }
       &::before { color: @red; }
     }
-    .style(h3, ...) {
+  }
+  #section {
+    // H3
+    .style(any; any; section) {
       text-transform: uppercase;
       margin-top: 1.5em;
     }
-     .style(h4, ...) {
+    // H4
+    .style(any; any; section; section) {
       margin-top: 1.5em;
     }
   }
   #paragraph {
     .style(any) {
       font: 10pt/13pt @font-family-serif;
+    }
+    .style(any; any; note) {
+      font: 9pt/12pt @font-family-sans-serif;
     }
   }
   #table {
@@ -517,7 +533,6 @@
     .style(...) {
       padding: 20px;
       background-color: @white;
-      p { font: 9pt/12pt @font-family-sans-serif; }
     }
     .style(everyday-connection; ...) {
       .x-feature-color(@dark-blue, @dark-blue, @dark-blue, @orange, @cnx-string-everyday-connection);
@@ -611,7 +626,7 @@
     }
     // Manual Chapter Objectives note occurs in some books (anatomy, etc)
     // This is a first attempt at createing a home for it.
-    .style(chapter-objectives, ...) {
+    .style(chapter-objectives; ...) {
       font: 10pt/14pt @font-family-serif;
       text-align: left; 
       padding-left: 0;
