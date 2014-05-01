@@ -1,22 +1,16 @@
 //Copyright (c) 2013 Rice University
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
-//Numbering test. Auto Generated using http://lesscss.org
+
 
 // For debugging, mark start and end brackets
 @S: ""; //" ["; // "S"tart and "E"nd marking text for debugging
 @E: ""; //"] ";
-
 // Strings that are used (note some have spaces at the end)
-@preface: "Preface";
-@chapter: "Chapter";
-@appendix: "Appendix";
-@section: "Section ";
-@figure: "Figure ";
-@table: "Table ";
-@example: "Example ";
-@exercise: "Exercise ";
-@equation: "Equation ";
+@text-preface: "Preface";
+@text-chapter: "Chapter";
+@text-appendix: "Appendix";
+
 
 div.book {
   /* --------------------------------------
@@ -24,10 +18,10 @@ div.book {
    * --------------------------------------
    */
 
-  counter-reset: chapter appendix;
+  #part>.counters(book);
 
-  div.chapter { counter-increment: chapter; }
-  > div.appendix { counter-increment: appendix; }
+  div.chapter { #part>.counters(chapter); }
+  > div.appendix { #part>.counters(appendix); }
 
 
   /* -------------------------------------
@@ -40,16 +34,13 @@ div.book {
    * ie: "Figure 4.3" in chapters but "Figure A3" in an appendix
    * -------------------------------------
    */
-  > div.preface { .x-prefixed(@preface, "", "");
+  > div.preface { .x-prefixed(preface; @text-preface; ""; "");
     //Also, disable numbering on Preface sections
     > div.section > div.titlepage h2::before { display: none !important; }
+  }
 
-    //This convoluted replaces the default page header "Chapter 3 | Kinetics" with just "Preface"
-    > div.titlepage > div > div h1.title {string-set: cnx-header @S content() @E;}
- }
-
-  div.chapter { .x-prefixed(@chapter,  counter(chapter, decimal), target-counter(attr(href), chapter), "." ); }
-  > div.appendix { .x-prefixed(@appendix, counter(appendix, upper-latin), target-counter(attr(href), appendix, upper-latin) ); }
+  div.chapter { .x-prefixed(chapter; @text-chapter;  counter(chapter, decimal); target-counter(attr(href), chapter); "." ); }
+  > div.appendix { .x-prefixed(appendix; @text-appendix; counter(appendix, upper-latin); target-counter(attr(href), appendix, upper-latin) ); }
 
 
 
@@ -70,36 +61,40 @@ div.book {
  *  @part-separator is the little dot in "Table 4.3"
  * -------------------------------------
  */
-.x-prefixed(@part-label, @part-counter, @part-target, @part-separator: "") {
+.x-prefixed(@part; @part-label; @part-counter; @part-target; @part-separator: "") {
 
   //This convoluted path is used to suck up (via the "content()") the title of the chapter into the page header
   > div.titlepage > div > div h1.title span.cnx-gentext-t {
-    string-set: cnx-header @S @part-label " " @part-counter " | " content() @E;
+    #part>.squirrel-page-title(@part);
     padding-left: .25em;
     prince-text-replace: "*" ""; //remove asterisk from page header epub has a nice way to navigate to the appendix section.
   }
 
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section;
+  #part>.counters(default);
 
-  > div.cnx-eoc { counter-reset: /*exercise*/ eoc-section -1; } // eoc-section starts at -1 so we can include introduction content
+  > div.cnx-eoc { #part>.counters(@part; end-part); }
   // .cnx-eoc + .cnx-eoc { counter-reset: none; }  /* Don't reset for each eoc section */
 
-  .x-increment(@counter-name) {
+  // FIXME: Combine these into 1 mixin when mixin calls support `...`
+  .x-increment(@type) {
     // Only increment if we're going to use the number (ie it's noot labeled)
-    &:not(.labeled) { counter-increment: @counter-name; }
-    counter-increment: @counter-name;
+    &:not(.labeled) { #content>.counters(@type); }
+    // FIXME: This next line is redundant. Remove it.
+    #content>.counters(@type);
+    &.labeled { counter-increment: none; }
+  }
+  .x-increment(@type; @context) {
+    // Only increment if we're going to use the number (ie it's noot labeled)
+    &:not(.labeled) { #content>.counters(@type; @context); }
+    // FIXME: This next line is redundant. Remove it.
+    #content>.counters(@type; @context);
     &.labeled { counter-increment: none; }
   }
 
   > div.section               { .x-increment(section); }   // Only increment top-level sections
-  div.figure                  { .x-increment(figure); counter-reset: subfigure; }  
+  div.figure                  { .x-increment(figure); }
   // code for handling subfigures - assuming that this structure is the only way that figure/subfigure selectors are grouped
-  .figure .informalfigure     {
-                                .x-increment(subfigure);
-                                // Fix for chromium/webkit bug
-                                counter-reset: none-webkit-bug;
-                              }
-  
+  .figure .informalfigure     { .x-increment(figure; figure); }
   .table                      { .x-increment(table); }
   > div.section div.example   { .x-increment(example); }
   > div.cnx-eoc div.exercise,
@@ -118,11 +113,11 @@ div.book {
    */
   > div.glossary *,
   > div.section div.example div.exercise *,
-  
-  /* Statistics needs figure numbering to display but revisit this code block and remove during refactoring 
+
+  /* Statistics needs figure numbering to display but revisit this code block and remove during refactoring
   > div.cnx-eoc div.solution div.figure,
   */
-  
+
   > div.cnx-eoc div.solution table,
   > div.cnx-eoc div.solution div.exercise,
   > div.cnx-eoc div.solution div.example,
@@ -137,12 +132,13 @@ div.book {
    *  Define where counters are displayed
    * --------------------------------------
    */
-  .x-unlabeled(@contents) {
-    &:not(.labeled)::before { content: @S @contents @E; }
-  }
   // This handle the common case of "Exercise 4.2" or "Appendix A3"
-  .x-test-text(@label, @counter-name, @suffix: " ") {
-    .x-unlabeled(@label @part-counter @part-separator counter(@counter-name) @suffix);
+  // FIXME: Combine these into 1 mixin when mixin calls support `...`
+  .x-test-text(@type) {
+    &:not(.labeled)::before { #content>.label(@type; @part); }
+  }
+  .x-test-text(@type; @context) {
+    &:not(.labeled)::before { #content>.label(@type; @part; @context); }
   }
 
 
@@ -151,33 +147,33 @@ div.book {
   > div.titlepage > .cnx-gentext-autogenerated,
   > div.titlepage > .cnx-gentext-n  { display: none; }
 
-  > div.section > div.titlepage h2 { .x-test-text ("", section); }
+  > div.section > div.titlepage h2 { .x-test-text(section); }
   > div.section > div.titlepage h2 > .cnx-gentext-autogenerated,
   > div.section > div.titlepage h2 > .cnx-gentext-n { display: none; }
 
-  div.figure > div.title > span.cnx-gentext-t { .x-test-text (@figure, figure); }
+  div.figure > div.title > span.cnx-gentext-t { .x-test-text(figure); }
   div.figure > div.title > span.cnx-gentext-autogenerated,
   div.figure > div.title > span.cnx-gentext-n { display: none; }
   //But not subfigures. Label those "Figure 4a"
-  div.figure > div.body > div.figure > div.title > span.cnx-gentext-t { .x-unlabeled("(" counter(subfigure, lower-alpha) ") "); }
+  div.figure > div.body > div.figure > div.title > span.cnx-gentext-t { .x-test-text(figure; figure); }
 
-  div.table:not(.labeled) > table > caption { .x-test-text (@table, table); }
+  div.table:not(.labeled) > table > caption { .x-test-text(table); }
   div.table > table > caption > span.cnx-gentext-t,
   div.table > table > caption > span.cnx-gentext-n { display: none; }
 
-  > div.section div.example:not(.labeled) > .title > span { .x-test-text (@example, example); }
+  > div.section div.example:not(.labeled) > .title > span { .x-test-text(example); }
   > div.section div.example > .title > span > span.cnx-gentext-autogenerated,
   > div.section div.example > .title > span > span.cnx-gentext-n { display: none; }
 
-  > div.section div.exercise:not(.labeled) > .title > span:first-child { .x-test-text (@exercise, exercise); }
+  > div.section div.exercise:not(.labeled) > .title > span:first-child { .x-test-text(exercise); }
   > div.section div.exercise > .title > span:first-child .cnx-gentext-autogenerated,
   > div.section div.exercise > .title > span:first-child .cnx-gentext-n { display: none; }
 
 
-  > div.cnx-eoc > div.section > div.body > div.exercise:not(.labeled) > div.body > div.problem::before { content: @S counter(exercise) "." @E; font-weight: bold; }
+  > div.cnx-eoc > div.section > div.body > div.exercise:not(.labeled) > div.body > div.problem::before { #content>.label(problem; @part; end-part); font-weight: bold; }
   > div.cnx-eoc > div.section > div.body > div.exercise:not(.labeled) > div.title { display: none; }
 
-  > div.section div.equation > *:last-child::after { content: @S "(" @part-counter @part-separator counter(equation) ")" @E; float: right; }
+  > div.section div.equation > *:last-child::after { #content>.label(equation; @part); float: right; }
   // Equations can occur in many places:
   // - Normal content
   // - End-of-chapter sections
@@ -185,62 +181,62 @@ div.book {
   // Hide the docbook-generated text in all
   div.equation > .label { display: none; }
 
-  > div.toc > ul > li > a { .x-test-text ("", toc-section); }
+  > div.toc > ul > li > a { .x-test-text(toc-section); }
   > div.toc > ul > li > a .cnx-gentext-autogenerated,
   > div.toc > ul > li > a .cnx-gentext-n { display: none; }
 
-  > div.cnx-eoc > div.section > .title .cnx-gentext-t { .x-test-text ("", eoc-section); }
+  > div.cnx-eoc > div.section > .title .cnx-gentext-t { .x-test-text(section; end-part); }
   > div.cnx-eoc > div.section > .title .cnx-gentext-autogenerated,
   > div.cnx-eoc > div.section > .title .cnx-gentext-n { display: none; }
 
   /* Number links to different elements */
-  .x-link (@label, @counter-name, @suffix: "") {
-    &:not(.labeled) { content: @S @label @part-target @part-separator target-counter(attr(href), @counter-name) @suffix @E; }
-  }
-  a.target-figure           { .x-link(@figure, figure); }
-  a.target-subfigure        { .x-link(@figure, figure, target-counter(attr(href), subfigure, lower-latin)); }
-  a.target-table            { .x-link(@table, table); }
-  a.target-example          { .x-link(@example, example); }
-  a.target-exercise         { .x-link(@exercise, exercise); }
-  
+  // FIXME: Combine these into 1 mixin when mixin calls support `...`
+  .x-link (@type; @part)           { &:not(.labeled) { #content>#xref>.content(@type; @part) } }
+  .x-link (@type; @part; @context) { &:not(.labeled) { #content>#xref>.content(@type; @part; @context) } }
+
+  a.target-figure           { .x-link(figure;   @part); }
+  a.target-subfigure        { .x-link(figure;   @part; figure); }
+  a.target-table            { .x-link(table;    @part); }
+  a.target-example          { .x-link(example;  @part); }
+  a.target-exercise         { .x-link(exercise; @part); }
+
   // equation selectors change depending on how cnxml markup is created, i.e inline, wrapped in para
   // before a title, etc. So we need to target each possible occurence.
-  a.target-equation, 
-  a.target-inlineequation, 
-  a.target-informalequation { .x-link(@equation, equation); }
+  a.target-equation,
+  a.target-inlineequation,
+  a.target-informalequation { .x-link(equation; @part); }
 
- // a.target-section  { .x-link(@section, section); }
+  a.target-section  { .x-link(section; @part); }
 } // .x-prefixed()
 
 /* look up the exercise number */
-div.solution > a.number::before { content: @S target-counter(attr(href, url), exercise) @E; }
+// TODO: This should be moved into .x-prefixed() so it has a @part variable
+div.solution > a.number::before { #content>.label(solution; default); }
 div.solution > a.number { content: ""; }
 
 /******************************
  * Handle footnotes
  ******************************/
+// TODO: This should be moved into .x-prefixed() so it has a @part variable
 *.footnote {
-  counter-increment: footnote;
-  float: footnote;
-  // We must stop our span tag from inheriting the text-indent from the parent paragraph tag
-  text-indent: 0;
+  #content>.counters(footnote);
+
+  #content>#footnote>.style();
 
   // Footnotes in table headings (which may have white text) need to reset their colors.
   &::footnote-marker,
   > * {
-    color: black;
-    font-weight: normal;
+    #content>#footnote>.descendants-style();
   }
 
   &::footnote-call {
-    content: "[" counter(footnote) "]";
-    // The following are defaults
-    font-size: 83%;
-    vertical-align: super;
-    line-height: none;
-    margin-before: 0.5em;
+    #content>#footnote>.call-content();
+    #content>#footnote>.call-style();
   }
-  &::footnote-marker { margin-right: 0.5em; }
+
+  &::footnote-marker {
+    #content>#footnote>.marker-style();
+  }
 }
 
 
@@ -256,10 +252,10 @@ div.solution > a.number { content: ""; }
   /* A Chapter could be part of a Part, hence the extra "> li > ul" */
   > ul,
   > ul > li > ul {
-    > li.toc-chapter > a.target-chapter::before { content: @chapter ": "; content: @S target-counter(attr(href), chapter, decimal) @E " "; }
+    > li.toc-chapter > a.target-chapter::before { #content>#xref>.content(chapter, toc); }
   }
 
-  > ul > li > a.target-appendix::before { content: @appendix ": "; content: @S target-counter(attr(href), appendix, upper-latin)@E " "; }
+  > ul > li > a.target-appendix::before { #content>#xref>.content(appendix, toc); }
   > ul > li > a > .cnx-gentext-autogenerated,
   > ul > li > a > .cnx-gentext-n { display: none; }
 
@@ -305,8 +301,7 @@ div.colophon.end-of-book-solutions {
           content: '';
           &::before {
             font-weight: bold;
-            content: 'TARGET_EXERCISE';
-            content: target-counter(attr(href), exercise);
+            #content>.label(solution; colophon; default);
           }
         }
       }
@@ -329,8 +324,7 @@ div.cnx-eoc.cnx-solutions {
         content: '';
         &::before {
           font-weight: bold;
-          content: 'TARGET_EXERCISE';
-          content: target-counter(attr(href), exercise);
+          #content>.label(solution; chapter; end-part);
         }
       }
     }
@@ -361,4 +355,4 @@ div.book {
   }
 }
 
-=======
+

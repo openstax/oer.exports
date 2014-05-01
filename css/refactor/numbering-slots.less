@@ -1,0 +1,176 @@
+// Set as global variables so other languages can override
+@Preface: "Preface";
+@Chapter: "Chapter";
+@Appendix: "Appendix";
+@Section: "Section ";
+@Figure: "Figure ";
+@Table: "Table ";
+@Example: "Example ";
+@Exercise: "Exercise ";
+@Equation: "Equation ";
+
+@Note:      "Note ";
+
+
+// For debugging, mark start and end brackets
+@DEBUG_START: ""; //" ["; // "S"tart and "E"nd marking text for debugging
+@DEBUG_END: ""; //"] ";
+
+
+// TODO: remove `default` context
+
+#part {
+
+  // Counters for the various parts of a book
+  //
+  // - book
+  // - preface
+  // - chapter
+  // - appendix
+
+  // `.counters(@part)   {}`
+  .counters(book)     { counter-reset: chapter appendix; }
+  .counters(chapter)  { counter-increment: chapter; }
+  .counters(appendix) { counter-increment: appendix; }
+
+  // TODO: Move this into `.counters()`. Separated now as `default` because it occurs elsewhere in the CSS
+  .counters(default) { counter-reset: section figure subfigure table equation example exercise footnote toc-section; }
+
+  // eoc-section starts at -1 so we can include introduction content
+  // TODO: Should `end-part` be in #part or in #content. it is used as a `@context` variable
+  .counters(@part; end-part) { counter-reset: /*exercise*/ eoc-section -1; }
+
+
+  // TODO: Revisit once I get the content labels done
+  // .label(@part)     {}
+  // .label(preface)   { content: }
+  // .label(chapter)   {}
+  // .label(appendix)  {}
+
+
+  // Internal mixins that are used to prefix the label on a piece of content.
+  // Some Examples:
+  //
+  // - Note in a chapter is labeled `Note 2.7`
+  // - Figure in an Appendix is labeled `Figure B4`
+  // `.x-content-counter(@part;    @before; @after) {}`
+  .x-content-counter(preface;  @before; @after) { content: @DEBUG_START @before "" "" @after @DEBUG_END; }
+  .x-content-counter(chapter;  @before; @after) { content: @DEBUG_START @before counter(chapter,  decimal) "." @after @DEBUG_END; }
+  .x-content-counter(appendix; @before; @after) { content: @DEBUG_START @before counter(appendix, upper-latin) "" @after @DEBUG_END; }
+
+  // Links to other pieces of content require looking up the target-counter instead of just the counter.
+  .x-content-target-counter(@part;    @before; @after) {}
+  .x-content-target-counter(preface;  @before; @after) { content: @DEBUG_START @before "" "" @after @DEBUG_END; }
+  .x-content-target-counter(chapter;  @before; @after) { content: @DEBUG_START @before target-counter(attr(href), chapter) "." @after @DEBUG_END; }
+  .x-content-target-counter(appendix; @before; @after) { content: @DEBUG_START @before target-counter(attr(href), appendix, upper-latin) "" @after @DEBUG_END; }
+
+  // To set the page header to have the current chapter title
+  // we need to squirrel away the title.
+  // Eventually, this should have a `@part` argument.
+
+  .x-string-set-content(@before; @counter) {
+    string-set: cnx-header @S @before " " @counter " | " content() @E;
+  }
+
+  //.squirrel-page-title(@part)     {}
+  .squirrel-page-title(preface)   { .x-string-set-content(@Preface;   "") }
+  .squirrel-page-title(chapter)   { .x-string-set-content(@Chapter;   counter(chapter,  decimal)) }
+  .squirrel-page-title(appendix)  { .x-string-set-content(@Appendix;  counter(appendix, upper-latin)) }
+
+}
+
+
+
+
+// Parts Code
+#content {
+
+
+  // .counters(@type;    @context) {}
+  .counters(section;          ) { counter-increment: section; }
+  .counters(table;            ) { counter-increment: table; }
+  .counters(example;          ) { counter-increment: example; }
+  .counters(exercise;         ) { counter-increment: exercise; }
+  .counters(equation;         ) { counter-increment: equation; }
+  .counters(footnote;         ) { counter-increment: footnote; }
+  // Figures are a bit more complicated because:
+  //
+  // - each new figure resets the subfigure
+  // - each subfigure increments subfigure and resets nothing
+  .counters(figure;           ) { counter-increment: figure;
+                                  counter-reset: subfigure; }
+  .counters(figure;   figure)   { counter-increment: subfigure;
+                                  // Fix for chromium/webkit bug
+                                  counter-reset: none-webkit-bug; }
+
+
+
+  // .label(@type;      @part; @contexts...) {}
+  .label(section;    @part;         ) { #part>.x-content-counter(@part; "";        counter(section) " "); }
+  .label(figure;     @part;         ) { #part>.x-content-counter(@part; @Figure;   counter(figure) " "); }
+  .label(figure;     @part; figure)   { content: @DEBUG_START "(" counter(subfigure, lower-alpha) ") " @DEBUG_END; }
+  .label(table;      @part;         ) { #part>.x-content-counter(@part; @Table;    counter(table) " "); }
+  .label(example;    @part;         ) { #part>.x-content-counter(@part; @Example;  counter(example) " "); }
+  .label(exercise;   @part;         ) { #part>.x-content-counter(@part; @Exercise; counter(exercise) " "); }
+  .label(equation;   @part;         ) { #part>.x-content-counter(@part; "(";       counter(equation) ")"); }
+  .label(toc-section;@part;         ) { #part>.x-content-counter(@part; "";        counter(toc-section) " "); }
+  .label(section;    @part; end-part) { #part>.x-content-counter(@part; "";        counter(eoc-section) " "); }
+
+  // End-of-chapter exercises just have the exercise number, not the chapter number
+  .label(problem;  @part; end-part)     { content: @DEBUG_START counter(exercise) "." @DEBUG_END; }
+  // TODO: This should probably ONLY be for end-part solutions.
+  .label(solution; default          )   { content: @DEBUG_START target-counter(attr(href, url), exercise) @DEBUG_END; }
+  .label(solution; colophon; @context)  { content: 'TARGET_EXERCISE'; content: target-counter(attr(href), exercise); }
+  .label(solution; chapter;  end-part)  { content: 'TARGET_EXERCISE'; content: target-counter(attr(href), exercise); }
+
+  // xref is an internal link to another piece of content.
+  // TODO: This should use target-text instead of relying on a specific class on the anchor tag.
+  #xref {
+    .x-helper(@part; @before; @counter-name; @after:"") {
+      #part>.x-content-target-counter(@part; @before; target-counter(attr(href), @counter-name) @after);
+    }
+
+    .content(table;    @part          ) { .x-helper(@part; @Table;    table); }
+    .content(example;  @part          ) { .x-helper(@part; @Example;  example); }
+    .content(exercise; @part          ) { .x-helper(@part; @Exercise; exercise); }
+    .content(equation; @part          ) { .x-helper(@part; @Equation; equation); }
+    // TODO: Text for links to sections
+    .content(section;  @part          ) { }
+    .content(figure;   @part          ) { .x-helper(@part; @Figure; figure); }
+    // Subfigure
+    .content(figure;   @part; figure)   { .x-helper(@part; @Figure; figure; target-counter(attr(href), subfigure, lower-latin)); }
+
+    .content(chapter;  toc) {
+      content: @Chapter ": ";
+      content: @DEBUG_START target-counter(attr(href), chapter, decimal) " " @DEBUG_END;
+    }
+    .content(appendix; toc) {
+      content: @Appendix ": ";
+      content: @DEBUG_START target-counter(attr(href), appendix, upper-latin) " " @DEBUG_END;
+    }
+  }
+
+
+  #footnote {
+    // Float to the bottom of the page (or maybe `move-to:` for EPUB)
+    .style() { float: footnote; }
+    .descendants-style() {
+      color: black;
+      font-weight: normal;
+    }
+    .marker-style() {
+      .descendants-style();
+      margin-right: 0.5em;
+    }
+    .call-content() { content: "[" counter(footnote) "]"; }
+    .call-style() {
+      // The following are defaults
+      font-size: 83%;
+      vertical-align: super;
+      line-height: none;
+      margin-before: 0.5em;
+    }
+
+  }
+
+}

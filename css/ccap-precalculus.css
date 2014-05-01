@@ -297,6 +297,7 @@ div.section > div.titlepage div.abstract ul.itemizedlist > li {
   margin-bottom: 0em;
   padding-top: 0em;
   padding-bottom: 0em;
+  float: footnote;
 }
 .footnote * {
   margin-top: 0em;
@@ -1262,6 +1263,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::be
 .section > .titlepage .abstract .itemizedlist > .listitem > p {
   margin: 0em .3em;
   display: inline-block;
+  text-align: left;
 }
 .section > .titlepage .abstract .itemizedlist > .listitem {
   counter-increment: learning-objectives;
@@ -1555,6 +1557,26 @@ a {
   font-weight: bold;
   color: #d7562c;
 }
+body {
+  font-size: 9.5pt;
+  text-align: justify;
+}
+.book > .cnx-title h1 {
+  margin: 0.5em 0em;
+  font-size: 34pt;
+  text-align: left;
+}
+img {
+  max-height: 9.5in;
+}
+p {
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+img,
+figure,
+subfigure {
+  margin: 1em;
+}
 /* ---------------------------------------------------
  * End of book Attributions and About Connexions
  * ---------------------------------------------------
@@ -1564,7 +1586,7 @@ a {
   font-weight: bold;
   font-size: x-large;
   color: #528cbe;
-  background-color: transparent;
+  background: none;
 }
 /******************************************************************************
  * Breakout of figure code into 3 sizes (large, medium, small) for left aligned figure text
@@ -1712,27 +1734,6 @@ a {
   margin-left: 0;
   page-break-before: avoid;
 }
-/********************************************************************
- * Generic Elements
- ********************************************************************/
-body {
-  font-size: 9.5pt;
-  text-align: justify;
-}
-.book > .cnx-title h1 {
-  text-align: left;
-}
-img {
-  max-height: 9.5in;
-}
-p {
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-img,
-figure,
-subfigure {
-  margin: 1em;
-}
 /* -------------------------
  * Example Elements Styling and Numbering
  * -------------------------
@@ -1759,15 +1760,34 @@ div.book div.chapter > div.section div.example div.exercise .problem .table > ta
   display: block;
 }
 div.book div.chapter > div.section div.example div.exercise .problem .table {
+  page-break-inside: avoid;
+  margin: auto;
   counter-increment: table !important;
 }
 div.book div.chapter > div.section div.example div.exercise .problem .figure {
+  font-size: xx-small;
+  padding-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  page-break-inside: avoid;
+  column-break-inside: avoid;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 9pt;
+  padding-bottom: 1em;
+  text-align: left;
   counter-increment: figure !important;
 }
-div.book div.chapter > div.section div.example div.exercise .problem .figure .title ::before {
+div.book div.chapter > div.section div.example div.exercise .problem .figure .title {
+  display: inline;
+  text-align: center;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+div.book div.chapter > div.section div.example div.exercise .problem .figure .title::before {
   display: block;
 }
 .example .exercise {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
   counter-increment: none !important;
   margin-top: 0;
 }
@@ -1787,7 +1807,12 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
   line-height: 1em;
 }
 .example .exercise .solution > .body {
-  margin-top: .5em;
+  content: "Solution";
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 10pt;
+  color: #233a67;
+  font-weight: bold;
+  line-height: 1em;
 }
 .example .exercise .solution > .body > a.target-figure {
   color: #d7562c;
@@ -1811,6 +1836,8 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
  * -------------------------
  */
 .table {
+  page-break-inside: avoid;
+  margin: auto;
   page-break-inside: auto;
   prince-caption-page: all;
 }
@@ -1872,9 +1899,6 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
   width: 2.5in;
   font-weight: bold;
 }
-/****************************************************************************
- * Misc Color changes
- ****************************************************************************/
 .cnx-figure-horizontal .informalfigure .caption {
   text-align: center;
 }
@@ -1883,7 +1907,7 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 /* ---------------------------------------------------
- * Equations
+ * Custom Equation (Non) Numbering
  * ---------------------------------------------------
  */
 div.book > div.preface,
@@ -1907,26 +1931,6 @@ div.book > div.part > div.appendix > div.section div.equation > *:last-child::af
   color: #d7562c;
   font-weight: bold;
 }
-div.book > div.preface > div.cnx-eoc,
-div.book > div.part > div.preface > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
-}
-div.book > div.chapter > div.cnx-eoc,
-div.book > div.part > div.chapter > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
-}
-div.book > div.appendix > div.cnx-eoc,
-div.book > div.part > div.appendix > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
-}
-/* This wont' work. Naginata (plone) gives MathML namespace error when removing equation tags.  We will
-have to utilize </label> for this.  Will require docbook change.  Phil and I will work on this after conference
-and remove this below then 
-.section > .inlinemediaobject span.cnx-svg {
-  display: block;
-  text-align: center;
-}
-*/
 div.book {
   /* --------------------------------------
    *  Define how counters are incremented
@@ -2010,6 +2014,7 @@ div.book > div.preface div.figure {
 }
 div.book > div.preface div.figure:not(.labeled) {
   counter-increment: figure;
+  counter-reset: subfigure;
 }
 div.book > div.preface div.figure.labeled {
   counter-increment: none;
@@ -2020,6 +2025,7 @@ div.book > div.preface .figure .informalfigure {
 }
 div.book > div.preface .figure .informalfigure:not(.labeled) {
   counter-increment: subfigure;
+  counter-reset: none-webkit-bug;
 }
 div.book > div.preface .figure .informalfigure.labeled {
   counter-increment: none;
@@ -2190,9 +2196,6 @@ div.book > div.preface a.target-informalequation:not(.labeled) {
 div.book > div.preface > div.section > div.titlepage h2::before {
   display: none !important;
 }
-div.book > div.preface > div.titlepage > div > div h1.title {
-  string-set: cnx-header "" content() "";
-}
 div.book div.chapter {
   counter-reset: section figure subfigure table equation example exercise footnote toc-section;
   /* Cases where sections are referenced */
@@ -2231,6 +2234,7 @@ div.book div.chapter div.figure {
 }
 div.book div.chapter div.figure:not(.labeled) {
   counter-increment: figure;
+  counter-reset: subfigure;
 }
 div.book div.chapter div.figure.labeled {
   counter-increment: none;
@@ -2241,6 +2245,7 @@ div.book div.chapter .figure .informalfigure {
 }
 div.book div.chapter .figure .informalfigure:not(.labeled) {
   counter-increment: subfigure;
+  counter-reset: none-webkit-bug;
 }
 div.book div.chapter .figure .informalfigure.labeled {
   counter-increment: none;
@@ -2446,6 +2451,7 @@ div.book > div.appendix div.figure {
 }
 div.book > div.appendix div.figure:not(.labeled) {
   counter-increment: figure;
+  counter-reset: subfigure;
 }
 div.book > div.appendix div.figure.labeled {
   counter-increment: none;
@@ -2456,6 +2462,7 @@ div.book > div.appendix .figure .informalfigure {
 }
 div.book > div.appendix .figure .informalfigure:not(.labeled) {
   counter-increment: subfigure;
+  counter-reset: none-webkit-bug;
 }
 div.book > div.appendix .figure .informalfigure.labeled {
   counter-increment: none;
@@ -2635,7 +2642,18 @@ div.book div.solution > a.number {
 }
 div.book *.footnote {
   counter-increment: footnote;
+  text-align: left;
+  margin-top: 0em;
+  margin-bottom: 0em;
+  padding-top: 0em;
+  padding-bottom: 0em;
   float: footnote;
+}
+div.book *.footnote * {
+  margin-top: 0em;
+  margin-bottom: 0em;
+  padding-top: 0em;
+  padding-bottom: 0em;
 }
 div.book *.footnote::footnote-marker,
 div.book *.footnote > * {
@@ -2650,6 +2668,8 @@ div.book *.footnote::footnote-call {
   margin-before: 0.5em;
 }
 div.book *.footnote::footnote-marker {
+  color: black;
+  font-weight: normal;
   margin-right: 0.5em;
 }
 div.book > div.toc {
@@ -2663,11 +2683,11 @@ div.book > div.toc > ul > li > a.target-part::after {
 div.book > div.toc > ul > li.toc-chapter > a.target-chapter::before,
 div.book > div.toc > ul > li > ul > li.toc-chapter > a.target-chapter::before {
   content: "Chapter" ": ";
-  content: "" target-counter(attr(href), chapter, decimal) "" " ";
+  content: "" target-counter(attr(href), chapter, decimal) " " "";
 }
 div.book > div.toc > ul > li > a.target-appendix::before {
   content: "Appendix" ": ";
-  content: "" target-counter(attr(href), appendix, upper-latin) "" " ";
+  content: "" target-counter(attr(href), appendix, upper-latin) " " "";
 }
 div.book > div.toc > ul > li > a > .cnx-gentext-autogenerated,
 div.book > div.toc > ul > li > a > .cnx-gentext-n {
@@ -2839,4 +2859,16 @@ div.book > div.appendix .precalculus.try.labeled {
 }
 div.book > div.appendix .precalculus.try > .title:not(.labeled)::before {
   content: "" "" counter(appendix, upper-latin) "" counter(try) " " "";
+}
+div.book > div.preface > div.cnx-eoc,
+div.book > div.part > div.preface > div.cnx-eoc {
+  counter-reset: /*exercise*/ eoc-section -1;
+}
+div.book > div.chapter > div.cnx-eoc,
+div.book > div.part > div.chapter > div.cnx-eoc {
+  counter-reset: /*exercise*/ eoc-section -1;
+}
+div.book > div.appendix > div.cnx-eoc,
+div.book > div.part > div.appendix > div.cnx-eoc {
+  counter-reset: /*exercise*/ eoc-section -1;
 }
