@@ -236,6 +236,7 @@ module.exports = (grunt) ->
     'statistics'
     'economics'
     'psychology'
+    'history'
   ]
   compileBooks = []
   for bookName in allBooks
