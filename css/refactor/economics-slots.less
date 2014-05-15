@@ -20,10 +20,14 @@
       .title(...) {
         color: @white;
         background-color: @dark-blue;
-        padding: 0.25em 0.25em;
-        font-size: 2.5em;
+        margin: 0.5em 0;
+        margin-bottom: 0;
+        padding: 0.6em 0.5em;
+        padding-left: .25em;
+        font-size: 2.8em;
         font-weight: normal;
         text-transform: uppercase;
+        border-bottom: none;
       }
     }
   }
@@ -37,22 +41,48 @@
   }
   #chapter {
     #title {
-      .style(...) {
-        color: @dark-blue;
-        font-size: 34pt;
-        font-weight: bold;
+      // Use a mixin here since we need to override
+      // psychology for each slot.
+      .x-chapter-title-font() {
         text-align: left;
-        
+        color: @dark-blue;
+        font: bold 34pt/34pt @font-family-sans-serif;
+      }
+      .style(...) {
+        .x-chapter-title-font();
+        padding-bottom: .25em;
       }
       .divider(...) {
+        .x-chapter-title-font();
         content: "| ";
         color: @black;
       }
       .text(...) {
-        color: @dark-blue;
+        .x-chapter-title-font();
+        border-top: none;
+        display: inline;
+        padding-left: .25em !important; // !important used in psychology...
       }
       .number(...) {
+        .x-chapter-title-font();
+        content: content(); // reset psychology content:;
+      }
+    }
+    #learning-objectives {
+      .style(...) {
+        border-bottom: none;
+      }
+      #title {
+        .style(...) { display: none; }
+      }
+    }
+  }
+  #chapter-end {
+    #title {
+      .style(...) {
         color: @dark-blue;
+        font: normal normal 700 13pt/1em @font-family-sans-serif;
+        border-bottom: none;
       }
     }
   }
@@ -115,28 +145,30 @@
     .style(...) {
       #utils>#pb>.inside(auto);
     }
-    .style(bring-it-home; any) {
+    .style('bring-it-home'; chapter ) {
       .x-feature(@black, @gray, bring, 0.48in);
     }
-    .style(clear-it-up; any) {
+    .style('clear-it-up'; chapter) {
       .x-feature(@black, @gray, clear, 0.53in);
     }
-    .style(work-it-out; any) {
+    .style('work-it-out'; chapter) {
       .x-feature(@black, @gray, work, 0.38in);
     }
-    .style(link-it-up; any) {
+    .style('link-it-up'; chapter) {
       .x-feature(@black, @gray, link, 0.38in);
     }
-    .style(chapter-objectives; any) {
+    .style('chapter-objectives'; introduction) {
       // We must use a background color here to stop Precalculus from assuming this is
       // a generic precalculus note and giving it blue background.
       background-color: @white;
       padding: 0;
       margin: 0;
+
+      border-bottom: none;
     }
 
     #title {
-      .style(bring-it-home; any) {
+      .style('bring-it-home'; chapter) {
         font-weight: bold;
         padding: 0px .5em;
         margin-top: 0.5em;
@@ -153,26 +185,53 @@
       color: @dark-blue;
     }
     .style(h1; title) { // refactor this (book title.)
-      font-size: xx-large;
+      margin: 0.5em 0;
+      font-size: 34pt;
       color: @black;
     }
   }
   #table {
-    .style(any; any; preface) {
+    .style(any; preface) {
       margin: 0;
+      border: none !important; // override inline table style=""
+    }
+    #data {
+      .style(any; preface) {
+        padding: 5px;
+      }
     }
   }
   #section {
-    .style(any; any; preface) {
+    .style(any; preface) {
       #utils>#pb>.before(avoid);
       #utils>#pb>.after(avoid);
     }
-
     #title {
-      .style() {}
-      .number() { color: @dark-blue; }
-      .divider() {}
-      .text() {}
+      .x-section-title-font() {
+        color: @dark-blue; 
+        font-size: 17pt;
+      }
+      .style(any; any) {
+        .x-section-title-font();
+        border-bottom: none;
+      }
+      // H3
+      .style(any; any; section) {
+        text-transform: none;
+        font: bold 13pt/13pt @font-family-sans-serif;
+      }
+      .number() { .x-section-title-font(); }
+      .divider() { 
+        .x-section-title-font();
+        color: @black;
+        content: "| ";
+      }
+      .text() { .x-section-title-font(); }
+    }
+  }
+  #list {
+    .item(any; introduction; note; 'chapter-objectives') {
+      margin-bottom: .5em;
     }
   }
   #figure {
