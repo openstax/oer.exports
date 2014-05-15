@@ -1,12 +1,14 @@
 .chapter .note {
   &.bringhome {
-    #content>#note>.style('bring-it-home'; any);
+    #content>#note>.style('bring-it-home'; chapter);
+
+    > .title { #content>#note>#title>.style('bring-it-home'; chapter); }
   }
   &.clearup  {
-    #content>#note>.style('clear-it-up'; any);
+    #content>#note>.style('clear-it-up'; chapter);
   }
   &.workout {
-    #content>#note>.style('work-it-out'; any);
+    #content>#note>.style('work-it-out'; chapter);
 
     // Supress the extra url generated from base that is wrapped with parentheses
     .itemizedlist > .listitem .link.only-show-once {
@@ -14,7 +16,7 @@
     }
   }
   &.linkup {
-    #content>#note>.style('link-it-up'; any);
+    #content>#note>.style('link-it-up'; chapter);
 
     img {   //center qr code
       display: block;
@@ -29,10 +31,14 @@
   // Manual Chapter Objectives Note Utilized 
   // as Introduction Header as well in Economics
   &.chapter-objectives {
-    #content>#note>.style('chapter-objectives'; any);
+    #content>#note>.style('chapter-objectives'; introduction);
 
     > .title {
       #content>#note>#title>.style('chapter-objectives'; any);
+    }
+
+    ul.itemizedlist > .listitem {
+      #content>#list>.item(any; introduction; note; 'chapter-objectives');
     }
   }
 }
@@ -40,4 +46,16 @@
 .preface {
   .section { #content>#section>.style(any; preface); }
   .table table { #content>#table>.style(any; preface); }
+  .table table td { #content>#table>#data>.style(any; preface); }
+}
+
+// Move this into a parent book, or 
+// book-cnxml.less when phase 2 of refactoring
+// is complete. (this is part of removing #heading).
+.section .titlepage div > div > h2 {
+  #content>#section>#title>.style();
+
+  .cnx-gentext-n, &::before { #content>#section>#title>.number(); }
+  .cnx-gentext-t::before { #content>#section>#title>.divider(); }
+  .cnx-gentext-t { #content>#section>#title>.text(); }
 }
