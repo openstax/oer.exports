@@ -82,6 +82,7 @@
 }
 
 
+
 /********************************************************************
  * Styling for Chapter Titles
  ********************************************************************/
@@ -148,6 +149,7 @@ div.book div.chapter div.titlepage > div > div > h2.title {
   table td {
     border-color: @orange !important; // td's have inline style=""
     font: 10pt/14pt @font-family-serif;
+    padding: 5px 10px;
   }
   > caption, td {
     #content>#table>.cell();
@@ -234,6 +236,26 @@ div.book div.chapter div.titlepage > div > div > h2.title {
 // Fixes a bug due to precalculus rendering "." after
 // solution numbers.
 div.colophon.end-of-book-solutions .chapter-area a::after { content: ""; }
+
+// The universal selector is being used in a section of precalculus that
+// isn't refactored as of yet pending discussion.  After we decide we can fix 
+// this here and in history. 
+div.colophon.end-of-book-solutions .chapter-area a.chapter * { 
+  font-family: @font-family-serif;
+  color: black;
+  font-size: 10pt;
+  font-weight: bold;
+  margin: .5em 0em;
+}
+
+div.colophon.end-of-book-solutions .chapter-area a {
+   font-family: @font-family-serif;
+}
+
+div.colophon.end-of-book-solutions .chapter-area h2 {
+   margin-top: 1em;
+   margin-bottom: .5em;
+}
 
 
 /********************************************************************

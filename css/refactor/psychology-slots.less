@@ -38,7 +38,7 @@
       .style(...) {
         color: @red;
         font-size: 18pt;
-        font-weight: bold;
+        font-weight: normal;
         text-align: center;
         text-transform: none;
         margin-left: 0px;
@@ -60,6 +60,9 @@
   #preface {
     #titlepage {
       .title(...) {
+        // Set Preface string for cnx-header to render page-header
+        string-set: cnx-header "Preface";
+        
         color: @red;
         background-color: transparent;
         padding-left: 0;
@@ -346,6 +349,7 @@
           margin-left: 0; // reset precalc margin.
           color: @red;
           text-transform: capitalize;
+          font-weight: 500;
         }
       }
       #chapter-area {
@@ -373,6 +377,19 @@
           .style(...) {}
         }
       }
+     #chapter-area {
+        .style(...) {
+          font-family: @font-family-serif;
+          color: black;
+          font-size: 10pt;
+          font-weight: bold;
+          margin: .5em 0em;
+        }
+        #title {
+          .style(...) {
+          }
+        }
+      }
     }
     #index {
       .style(...) {
@@ -389,7 +406,7 @@
           margin-bottom: 1em;
           text-transform: none;
           font-size: 18pt;
-          font-weight: 700;
+          font-weight: 500;
           text-align: left;
         }
       }
@@ -414,7 +431,7 @@
         padding-bottom: .2em;
         text-transform: none;
         font-size: 18pt;
-        font-weight: bold;
+        font-weight: 500;
         text-align: left;
       }
     }
@@ -490,6 +507,7 @@
         border-width: 1px;
         border-style: solid;
         border-bottom: none;
+        padding-left: .5em;
         caption-side: top;
         padding-left: .5em;
       }
@@ -698,7 +716,7 @@
       margin-left: 0;
     }
     .item(any; any; section) {
-      padding-left: 40px;
+      margin-left: 20pt;
     }
   }
   #glossary {
