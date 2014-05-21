@@ -1,9 +1,4 @@
 /*******************************************************
-* Copyright (c) 2013 Rice University
-*  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
-*  See LICENSE.txt for details.
-*******************************************************/
-/*******************************************************
 *  Copyright (c) 2013 Rice University
 *  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 *  See LICENSE.txt for details.
@@ -47,6 +42,9 @@
 /********************************************************************
  * Refactor of .x-feature() function to utilize only one paramter
  ********************************************************************/
+#content #table #row {
+  border: none !important;
+}
 @page {
   margin: 0.5in 1in;
 }
@@ -2275,6 +2273,8 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
   margin: auto;
   page-break-inside: auto;
   prince-caption-page: all;
+  width: 100%;
+  border: none !important;
 }
 .table caption {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2282,7 +2282,6 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
   padding-bottom: 1em;
   font-weight: bold;
   color: #e28f26;
-  caption-side: bottom;
   color: #000000;
   border-color: #e28f26;
   border-width: 1px;
@@ -2290,6 +2289,8 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
   border-bottom: none;
   caption-side: top;
   padding-left: .5em;
+  caption-side: bottom;
+  border: none;
 }
 .table .table-caption.caption {
   color: #000000;
@@ -2315,9 +2316,20 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
   font-size: small;
   text-align: left;
   padding-left: .25em;
+  background-color: #cfe1f1;
+  border: none;
+  border-top: 1px solid #3767b1 !important;
+  border-bottom: 1px solid #3767b1 !important;
+  border-right: none !important;
+}
+.table td {
+  border-color: #000000;
 }
 .table table {
   border-bottom: 1pt solid #000000;
+}
+.table table tbody {
+  border-bottom: 1px solid #000000;
 }
 .table table td {
   padding: 1em;
@@ -3353,6 +3365,19 @@ div.colophon.end-of-book-solutions .chapter-area a.chapter * {
 .section .titlepage div > div > h2 .cnx-gentext-t {
   color: #3767b1;
   font-size: 17pt;
+}
+.table {
+  margin: 0 auto;
+  padding: 0;
+  border: none;
+}
+.table table {
+  page-break-inside: avoid;
+  margin: auto;
+  page-break-inside: auto;
+  prince-caption-page: all;
+  width: 100%;
+  border: none !important;
 }
 div.book {
   /* --------------------------------------
