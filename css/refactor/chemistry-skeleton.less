@@ -1,3 +1,101 @@
 // Copyright (c) 2013 Rice University
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
+
+.chapter .note {
+  &.sciences-interconnect {
+    #content>#note>.style(sciences-interconnect);
+    // I don't think we have a way to handle feature secondary titles 
+    // inside notes if they change color per note?
+    // Note to me: convert to mixin.
+    > .title { 
+      color: @medium-blue;
+      font-family: @font-family-sans-serif;
+      font-size: 11pt;
+    }
+  }
+  &.everyday-life {
+    #content>#note>.style(everyday-life);
+    > .title { 
+      color: @purple;
+      font-family: @font-family-sans-serif;
+      font-size: 11pt;
+    }
+  }
+  &.chemist-portrait {
+    #content>#note>.style(chemist-portrait);
+    > .title { 
+      color: @green;
+      font-family: @font-family-sans-serif;
+      font-size: 11pt;
+    }
+  }
+  &.link-to-learning {
+    #content>#note>.style(link-to-learning);
+  }
+}
+
+
+/******************************************************
+ * Preface
+ ******************************************************/
+
+ // We will need to convert this to slot in other books
+.preface {
+  > .section h2,
+  > .section h3 {
+    color: @dark-blue;
+  }
+}
+
+/******************************************************
+ * Tables
+ ******************************************************/
+
+// 5/25/2014 Added Derek's table stuff here verbatim.  We can
+// probably remove this below once this gets into master.
+
+// There is a discrepency with .table vs .table table,
+// I recommend we reset .table to effectively remove it,
+// and only use .table table for applying styles/counters.
+
+.table {
+  margin: 0 auto; 
+  padding: 0;
+  border: none;
+}
+
+.table table {
+  #content>#table>.style(any; any);
+
+   // No slot home for this in precalc yet
+  .table-caption.caption {
+    color: @black;
+    font-weight: normal !important; //override strong tag
+    font-family: @font-family-sans-serif;
+    font-size: 9pt;
+  }
+
+  // A way to override inline border styles generating with table
+  td[style] { 
+    #content>#table>#data>.style(any; any);
+  }
+}
+
+/******************************************************
+ * EOC Customizations
+ ******************************************************/
+.cnx-eoc {
+  &.exercises {
+    #part>#chapter-end>#exercises>.style();
+    > .title { #part>#chapter-end>#exercises>#title>.style(); }
+    p { 
+      text-align: left; //W&N does not want Review Questions justified.
+    }
+    > .section > .title > a { #part>#chapter-end>#exercises>#title>.link(); }
+  }
+}
+
+
+
+

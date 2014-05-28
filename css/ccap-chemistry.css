@@ -47,11 +47,36 @@
 /********************************************************************
  * Refactor of .x-feature() function to utilize only one paramter
  ********************************************************************/
+#content #table #row {
+  border: none !important;
+}
 @page {
   margin: 0.5in 1in;
 }
+/* The QR code variable is needed for psychology skeleton but we are not using it since it's going away */
 html {
-  prince-image-resolution: 120dpi;
+  prince-image-resolution: 150dpi;
+}
+/******************************************************
+ * Folio Customizations
+ ******************************************************/
+@page :left {
+  @top-left {
+    content: "";
+  }
+  @top-right {
+    content: string(cnx-header);
+    text-transform: capitalize;
+  }
+}
+@page :right {
+  @top-right {
+    content: "";
+  }
+  @top-left {
+    content: string(cnx-header);
+    text-transform: capitalize;
+  }
 }
 @namespace mml "http://www.w3.org/1998/Math/MathML";
 mml|math {
@@ -72,7 +97,6 @@ div.table-caption.caption {
 .book > .toc > .title {
   page-break-after: avoid;
   font-size: large;
-  font-weight: bold;
   margin-bottom: 0em;
   color: #7291cb;
   border-bottom-color: #7291cb;
@@ -86,10 +110,10 @@ div.table-caption.caption {
   margin-bottom: .2em;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-bottom-color: #e28f26;
+  border-bottom-color: #f6862d;
   background-color: transparent;
   color: #354da1;
-  border-bottom-color: #354da1;
+  font-weight: bold;
 }
 .book > .toc ul,
 .book > .toc li {
@@ -148,6 +172,7 @@ div.table-caption.caption {
  * PREFACE
  ***************************************************/
 .preface > .titlepage h1.title {
+  padding-left: .25em;
   background-color: #7291cb;
   string-set: cnx-header "Preface";
   color: #993720;
@@ -155,19 +180,12 @@ div.table-caption.caption {
   padding-left: 0;
   text-transform: capitalize;
   font-size: 18pt;
+  font-weight: normal;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-bottom-color: #e28f26;
-  color: #ffffff;
-  background-color: #354da1;
-  margin: 0.5em 0;
-  margin-bottom: 0;
-  padding: 0.6em 0.5em;
-  padding-left: .25em;
-  font-size: 2.8em;
-  font-weight: normal;
-  text-transform: uppercase;
-  border-bottom: none;
+  border-bottom-color: #f6862d;
+  color: #354da1;
+  font-weight: bold;
 }
 .preface > .section h2 {
   font-size: medium;
@@ -214,12 +232,11 @@ h1.title .cnx-gentext-n {
 }
 .chapter > .introduction > .title {
   padding-right: 3em;
-  font-weight: bold;
   font-size: normal;
   content: "Introduction";
   font-size: x-large;
   color: #993720;
-  border-bottom-color: #e28f26;
+  border-bottom-color: #f6862d;
   border-bottom-width: 1px;
   border-bottom-style: solid;
   padding: 0.2em 0em;
@@ -227,7 +244,9 @@ h1.title .cnx-gentext-n {
   line-height: 17pt;
   font-weight: 700;
   text-transform: capitalize;
-  display: none;
+  color: #354da1;
+  font-size: 17pt;
+  font-weight: bold;
 }
 .chapter > .introduction .splash img {
   margin-left: auto;
@@ -250,7 +269,6 @@ h1.title .cnx-gentext-n {
   border: 1px solid #7291cb;
   border: none;
   padding: 0em;
-  display: none;
 }
 .chapter > .introduction > .toc span {
   font-weight: normal;
@@ -274,11 +292,12 @@ h1.title .cnx-gentext-n {
   background-color: #7291cb;
   width: 100%;
   background-color: #ffffff;
-  color: #cfe1f1;
+  color: #0067ac;
   text-align: left;
   font-weight: bold;
   font-size: 11pt;
   padding-left: 0px;
+  color: #993720;
   content: "Learning Objectives";
 }
 .chapter > .introduction > .toc > * {
@@ -343,8 +362,7 @@ div.section > div.titlepage div.abstract {
   text-align: left;
   margin: 0 0 1.5em;
   padding: 0;
-  border: none;
-  border-bottom: 1px solid #e28f26;
+  border-bottom: 1px solid #f6862d;
   border-top-width: 0;
   border-left-width: 0;
   border-right-width: 0;
@@ -356,7 +374,7 @@ div.section > div.titlepage div.abstract {
           slot for this would be something like this:
           #content>#para>.style(any; any; learning-objectives)
         */
-  border-bottom: none;
+  border: none;
 }
 div.section > div.titlepage div.abstract p {
   font: 10pt/14pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -624,7 +642,6 @@ h6 {
   margin-bottom: 1.5em;
   padding: 20px;
   background-color: #ffffff;
-  page-break-inside: auto;
 }
 .note h3 {
   margin-top: 0.5em;
@@ -690,6 +707,8 @@ img {
   display: block;
   text-transform: uppercase;
   font-weight: bold !important;
+  color: #354da1 !important;
+  font-size: 13pt !important;
 }
 .glossary dl {
   page-break-before: always;
@@ -730,15 +749,14 @@ em.glossterm {
   font-weight: bold;
   page-break-after: avoid;
   color: #993720;
-  border-bottom-color: #e28f26;
+  border-bottom-color: #f6862d;
   border-bottom-width: 1px;
   border-bottom-style: solid;
   font-size: 12pt;
   font-weight: 700;
   text-transform: none;
   color: #354da1;
-  font: normal normal 700 13pt/1em Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  border-bottom: none;
+  font-size: 13pt;
 }
 .cnx-eoc .section .title {
   padding-top: 1em;
@@ -832,7 +850,6 @@ p:nth-of-type(2),
   margin-bottom: 1.5em;
   padding: 20px;
   background-color: #ffffff;
-  page-break-inside: auto;
 }
 .introduction .footnote {
   color: black;
@@ -889,7 +906,7 @@ p:nth-of-type(2),
   margin: auto;
 }
 .introduction blockquote {
-  color: #cfe1f1;
+  color: #0067ac;
   font-size: 150%;
   font: 10pt/13pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: #000000;
@@ -914,7 +931,6 @@ p:nth-of-type(2),
   margin-bottom: 1.5em;
   padding: 20px;
   background-color: #ffffff;
-  page-break-inside: auto;
 }
 .chapter .footnote {
   color: black;
@@ -971,7 +987,7 @@ p:nth-of-type(2),
   margin: auto;
 }
 .chapter blockquote {
-  color: #cfe1f1;
+  color: #0067ac;
   font-size: 150%;
   font: 10pt/13pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: #000000;
@@ -996,7 +1012,6 @@ p:nth-of-type(2),
   margin-bottom: 1.5em;
   padding: 20px;
   background-color: #ffffff;
-  page-break-inside: auto;
 }
 .cnx-eoc .footnote {
   color: black;
@@ -1053,7 +1068,7 @@ p:nth-of-type(2),
   margin: auto;
 }
 .cnx-eoc blockquote {
-  color: #cfe1f1;
+  color: #0067ac;
   font-size: 150%;
   font: 10pt/13pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: #000000;
@@ -1078,7 +1093,6 @@ p:nth-of-type(2),
   margin-bottom: 1.5em;
   padding: 20px;
   background-color: #ffffff;
-  page-break-inside: auto;
 }
 .colophon .footnote {
   color: black;
@@ -1135,7 +1149,7 @@ p:nth-of-type(2),
   margin: auto;
 }
 .colophon blockquote {
-  color: #cfe1f1;
+  color: #0067ac;
   font-size: 150%;
   font: 10pt/13pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: #000000;
@@ -1167,7 +1181,6 @@ p:nth-of-type(2),
   padding-left: 2.8em;
   padding: 20px;
   background-color: #ffffff;
-  page-break-inside: auto;
 }
 .note.howto .figure img {
   max-width: 6.25in;
@@ -1188,7 +1201,6 @@ p:nth-of-type(2),
   padding-left: 2.8em;
   padding: 20px;
   background-color: #ffffff;
-  page-break-inside: auto;
 }
 .note.qa .figure img {
   max-width: 6.25in;
@@ -1224,13 +1236,12 @@ p:nth-of-type(2),
   background-position: 0 .2em;
   padding: 20px;
   background-color: #ffffff;
-  page-break-inside: auto;
 }
 .note.media .figure img {
   max-width: 6.25in;
 }
 .note.media .itemizedlist > .listitem {
-  color: #e28f26;
+  color: #f6862d;
   font-weight: bold;
 }
 .note.media .itemizedlist > .listitem .link.only-show-once {
@@ -1251,7 +1262,6 @@ p:nth-of-type(2),
   background-position: 0 .2em;
   padding: 20px;
   background-color: #ffffff;
-  page-break-inside: auto;
 }
 .note.try .figure img {
   max-width: 6.25in;
@@ -1309,11 +1319,10 @@ p:nth-of-type(2),
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   color: #000000;
-  background-color: #cfe1f1;
+  background-color: #0067ac;
   padding-bottom: 1em;
   padding: 20px;
   background-color: #ffffff;
-  page-break-inside: auto;
 }
 .note:not(.chemistry) > .title {
   margin-top: 0.5em;
@@ -1337,9 +1346,9 @@ p:nth-of-type(2),
  */
 .preface > .titlepage {
   padding-bottom: 1em;
-  padding-top: 1.5em;
 }
 .preface > .titlepage h1.title {
+  padding-left: .25em;
   background-color: #7291cb;
   string-set: cnx-header "Preface";
   color: #993720;
@@ -1347,19 +1356,12 @@ p:nth-of-type(2),
   padding-left: 0;
   text-transform: capitalize;
   font-size: 18pt;
+  font-weight: normal;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-bottom-color: #e28f26;
-  color: #ffffff;
-  background-color: #354da1;
-  margin: 0.5em 0;
-  margin-bottom: 0;
-  padding: 0.6em 0.5em;
-  padding-left: .25em;
-  font-size: 2.8em;
-  font-weight: normal;
-  text-transform: uppercase;
-  border-bottom: none;
+  border-bottom-color: #f6862d;
+  color: #354da1;
+  font-weight: bold;
 }
 /* -------------------------
  * Book Table of Contents
@@ -1372,7 +1374,6 @@ p:nth-of-type(2),
 .book > .toc > .title {
   page-break-after: avoid;
   font-size: large;
-  font-weight: bold;
   margin-bottom: 0em;
   color: #7291cb;
   border-bottom-color: #7291cb;
@@ -1386,10 +1387,10 @@ p:nth-of-type(2),
   margin-bottom: .2em;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-bottom-color: #e28f26;
+  border-bottom-color: #f6862d;
   background-color: transparent;
   color: #354da1;
-  border-bottom-color: #354da1;
+  font-weight: bold;
 }
 .book > .toc a {
   color: #7291cb;
@@ -1417,7 +1418,7 @@ div.part > div.titlepage {
   content: "Introduction";
   font-size: x-large;
   color: #993720;
-  border-bottom-color: #e28f26;
+  border-bottom-color: #f6862d;
   border-bottom-width: 1px;
   border-bottom-style: solid;
   padding: 0.2em 0em;
@@ -1425,7 +1426,9 @@ div.part > div.titlepage {
   line-height: 17pt;
   font-weight: 700;
   text-transform: capitalize;
-  display: none;
+  color: #354da1;
+  font-size: 17pt;
+  font-weight: bold;
 }
 .chapter > .introduction > .toc a {
   color: inherit;
@@ -1456,7 +1459,6 @@ div.part > div.titlepage {
   border: 1px solid #7291cb;
   border: none;
   padding: 0em;
-  display: none;
 }
 .chapter > .introduction > .toc span {
   font-weight: normal;
@@ -1480,11 +1482,12 @@ div.part > div.titlepage {
   background-color: #7291cb;
   width: 100%;
   background-color: #ffffff;
-  color: #cfe1f1;
+  color: #0067ac;
   text-align: left;
   font-weight: bold;
   font-size: 11pt;
   padding-left: 0px;
+  color: #993720;
 }
 /********************************************************************
  * Styling for Chapter Titles
@@ -1500,7 +1503,7 @@ div.book div.chapter > div.titlepage > div > div h1.title {
   padding-top: 0;
   margin-top: 0;
   color: #993720;
-  border-bottom-color: #e28f26;
+  border-bottom-color: #f6862d;
   text-transform: capitalize;
   font-weight: normal;
   font-size: 18pt;
@@ -1508,9 +1511,6 @@ div.book div.chapter > div.titlepage > div > div h1.title {
   margin: 0;
   padding: 0;
   text-align: left;
-  color: #354da1;
-  font: bold 34pt/34pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding-bottom: .25em;
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-n {
   font-weight: bold;
@@ -1522,15 +1522,12 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-n {
   color: #993720;
   margin: 0;
   padding: 0;
-  text-align: left;
   color: #354da1;
-  font: bold 34pt/34pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  content: content();
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   font: 28pt/33pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: #000000;
-  border-top-color: #e28f26;
+  border-top-color: #f6862d;
   display: block;
   padding-left: 0 !important;
   padding-bottom: 1em;
@@ -1538,21 +1535,15 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   border-top-style: solid;
   margin-top: 10px;
   string-set: cnx-header string(cnx-chapter-number-string) " " content();
-  text-align: left;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-weight: bold;
   color: #354da1;
-  font: bold 34pt/34pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  border-top: none;
-  display: inline;
-  padding-left: .25em !important;
+  padding-bottom: .3em;
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::before {
+  content: "| ";
   color: black;
   content: "";
-  text-align: left;
-  color: #354da1;
-  font: bold 34pt/34pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  content: "| ";
-  color: #000000;
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autogenerated {
   display: none;
@@ -1572,11 +1563,11 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
   font-weight: bold;
   font-size: large;
   background-color: transparent;
-  border-bottom-color: #e28f26;
+  border-bottom-color: #f6862d;
   font: normal normal 700 10pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   text-align: left;
   margin-bottom: .5em;
-  color: #cfe1f1;
+  color: #0067ac;
   display: none;
 }
 .section > .titlepage .abstract p {
@@ -1625,15 +1616,14 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
   font-weight: bold;
   page-break-after: avoid;
   color: #993720;
-  border-bottom-color: #e28f26;
+  border-bottom-color: #f6862d;
   border-bottom-width: 1px;
   border-bottom-style: solid;
   font-size: 12pt;
   font-weight: 700;
   text-transform: none;
   color: #354da1;
-  font: normal normal 700 13pt/1em Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  border-bottom: none;
+  font-size: 13pt;
 }
 .cnx-eoc.summary {
   -webkit-column-count: 1;
@@ -1646,12 +1636,14 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
   content: "Summary";
   padding-bottom: 0;
   margin-bottom: 1em;
+  margin-bottom: 0;
 }
 .cnx-eoc.summary > .section .title > a {
   color: #7291cb;
   page-break-after: avoid;
   font: normal normal 700 10pt/13pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: #000000;
+  font: normal normal 700 10pt/13pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .cnx-eoc.summary p:nth-of-type(1) {
   margin-top: 1em;
@@ -1737,6 +1729,10 @@ div.colophon.end-of-book-solutions {
   margin: 0;
   padding: 0;
   display: inline !important;
+  -webkit-column-count: 2;
+  column-count: 2;
+  columns: 2;
+  column-fill: auto;
 }
 div.colophon.end-of-book-solutions > .title {
   content: "Answer Key";
@@ -1749,6 +1745,9 @@ div.colophon.end-of-book-solutions > .title {
   color: #993720;
   text-transform: capitalize;
   font-weight: 500;
+  color: #354da1;
+  font-size: 17pt;
+  font-weight: 700;
 }
 div.colophon.end-of-book-solutions .chapter-area {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -1790,7 +1789,7 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.body * {
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body > a.target-figure {
   margin: 0em .25em;
-  color: #e28f26;
+  color: #f6862d;
 }
 /* ---------------------------------------------------
  * End of Book References
@@ -1827,7 +1826,7 @@ div.end-of-book-references > .chapter-area > .body > p {
   margin: .5em 0em;
 }
 div.end-of-book-references > .chapter-area > .body > p > a.link {
-  color: #e28f26;
+  color: #f6862d;
   font-weight: normal;
   text-decoration: underline;
 }
@@ -1846,7 +1845,7 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
   text-transform: uppercase;
   font-size: x-large;
   color: #993720;
-  border-bottom-color: #e28f26;
+  border-bottom-color: #f6862d;
   background-color: transparent;
   border-bottom-width: 1px;
   border-bottom-style: solid;
@@ -1856,6 +1855,9 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
   font-size: 18pt;
   font-weight: 500;
   text-align: left;
+  color: #354da1;
+  font-size: 17pt;
+  font-weight: 700;
 }
 .index h3.letter {
   color: inherit;
@@ -1885,7 +1887,6 @@ h6 {
   text-align: left;
   color: black;
   font: 700 normal normal 11pt/13pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  color: #354da1;
 }
 h1 {
   margin: 0.5em 0em;
@@ -1893,7 +1894,6 @@ h1 {
   font-size: 34pt;
   color: black;
   font: 700 normal normal 11pt/13pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  color: #354da1;
 }
 h2 {
   margin: 0.5em 0em;
@@ -1903,7 +1903,6 @@ h2 {
   font-weight: bold;
   color: black;
   font: 700 normal normal 11pt/13pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  color: #354da1;
 }
 h2 .cnx-gentext-n {
   color: #7291cb;
@@ -1923,7 +1922,6 @@ h3 {
   font-weight: bold;
   color: black;
   font: 700 normal normal 11pt/13pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  color: #354da1;
 }
 h4 {
   margin: 0.5em 0em;
@@ -1933,7 +1931,6 @@ h4 {
   font-weight: bold;
   color: black;
   font: 700 normal normal 11pt/13pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  color: #354da1;
 }
 h5 {
   margin: 0.5em 0em;
@@ -1944,7 +1941,6 @@ h5 {
   font-style: italic;
   color: black;
   font: 700 normal normal 11pt/13pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  color: #354da1;
 }
 h6 {
   margin: 0.5em 0em;
@@ -1953,14 +1949,12 @@ h6 {
   font-weight: bold;
   color: black;
   font: 700 normal normal 11pt/13pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  color: #354da1;
 }
 a {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-weight: bold;
-  color: #e28f26;
+  color: #f6862d;
   color: #993720;
-  color: #354da1;
 }
 body {
   font-size: 9.5pt;
@@ -1968,15 +1962,14 @@ body {
 }
 .book > .cnx-title h1 {
   margin: 0.5em 0em;
+  font-size: 34pt;
   text-align: left;
   color: black;
   font: 700 normal normal 11pt/13pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: xx-large;
   margin-top: 1em;
   color: #354da1;
-  margin: 0.5em 0;
-  font-size: 34pt;
-  color: #000000;
+  margin-top: 10em;
 }
 img {
   max-height: 9.5in;
@@ -2001,7 +1994,7 @@ subfigure {
   color: #7291cb;
   color: #993720;
   background: none;
-  border-bottom-color: #e28f26;
+  border-bottom-color: #f6862d;
   border-bottom-width: 1px;
   border-bottom-style: solid;
   margin-left: 0px;
@@ -2011,6 +2004,9 @@ subfigure {
   font-size: 18pt;
   font-weight: 500;
   text-align: left;
+  color: #354da1;
+  font-size: 17pt;
+  font-weight: 700;
 }
 /******************************************************************************
  * Breakout of figure code into 3 sizes (large, medium, small) for left aligned figure text
@@ -2038,12 +2034,11 @@ subfigure {
   width: 234pt;
 }
 .figure > .title {
-  color: #e28f26;
+  color: #f6862d;
   font-weight: bold;
   text-align: center;
   margin-right: .5em;
   color: #993720;
-  color: #354da1;
 }
 .figure > .caption {
   display: inline;
@@ -2158,7 +2153,7 @@ subfigure {
   color: #993720 !important;
   font-size: 12pt !important;
   text-transform: capitalize !important;
-  border-bottom-color: #e28f26;
+  border-bottom-color: #f6862d;
   border-bottom-width: 1px;
   border-bottom-style: solid;
 }
@@ -2186,6 +2181,7 @@ subfigure {
 }
 .example > .body {
   border-left: 1px solid #354da1;
+  background: #dae0ea;
   padding: 1em 2em .5em 2em;
 }
 .example .solution {
@@ -2250,7 +2246,7 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
   line-height: 1em;
 }
 .example .exercise .solution > .body > a.target-figure {
-  color: #e28f26;
+  color: #f6862d;
 }
 .example .exercise .solution > .body > p:first-of-type {
   margin-top: 0;
@@ -2275,21 +2271,31 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
   margin: auto;
   page-break-inside: auto;
   prince-caption-page: all;
+  width: 100%;
+  padding-top: 1em;
+  border: none !important;
 }
 .table caption {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   padding-top: .5em;
   padding-bottom: 1em;
   font-weight: bold;
-  color: #e28f26;
-  caption-side: bottom;
+  color: #f6862d;
   color: #000000;
-  border-color: #e28f26;
+  border-color: #f6862d;
   border-width: 1px;
   border-style: solid;
   border-bottom: none;
   caption-side: top;
   padding-left: .5em;
+  color: #354da1;
+  caption-side: bottom;
+  border-right: none;
+  border-left: none;
+  border-top: 1px solid #354da1 !important;
+}
+.table caption::before {
+  color: #993720;
 }
 .table .table-caption.caption {
   color: #000000;
@@ -2315,9 +2321,23 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
   font-size: small;
   text-align: left;
   padding-left: .25em;
+  background-color: #7291cb;
+  border: none;
+  border-top: 1px solid #354da1 !important;
+  border-bottom: 1px solid #354da1 !important;
+  border-right: none !important;
+  font-size: 9pt;
+  color: white;
+  text-align: center !important;
+}
+.table td {
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 9pt;
+  text-align: center !important;
+  border-color: #354da1 !important;
 }
 .table table {
-  border-bottom: 1pt solid #000000;
+  border-bottom: none;
 }
 .table table td {
   padding: 1em;
@@ -2330,14 +2350,14 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .table.color th {
-  background-color: #f6862d;
+  background-color: #efd8b0;
   text-align: center;
 }
 .table.color tr {
   height: 1em !important;
 }
 .table.color tr td:first-child {
-  background-color: #f6862d;
+  background-color: #efd8b0;
   width: 2.5in;
   font-weight: bold;
 }
@@ -2370,7 +2390,7 @@ div.book > div.chapter > div.section div.equation > *:last-child::after,
 div.book > div.part > div.chapter > div.section div.equation > *:last-child::after,
 div.book > div.appendix > div.section div.equation > *:last-child::after,
 div.book > div.part > div.appendix > div.section div.equation > *:last-child::after {
-  color: #e28f26;
+  color: #f6862d;
   font-weight: bold;
 }
 /******************************************************
@@ -2393,7 +2413,6 @@ div.book > div.part > div.appendix > div.section div.equation > *:last-child::af
   margin-bottom: 1.5em;
   padding: 20px;
   background-color: #ffffff;
-  page-break-inside: auto;
 }
 .chapter .note > .title {
   margin-top: 0.5em;
@@ -2420,13 +2439,31 @@ div.book > div.part > div.appendix > div.section div.equation > *:last-child::af
   border: 1px solid #354da1;
   border-radius: 15px;
   margin-top: 48px;
-  page-break-inside: auto;
 }
 .chapter .note.everyday-connection::before {
   text-transform: uppercase;
+  text-transform: capitalize;
   color: #354da1;
   content: "everyday connection";
-  background-color: #e28f26;
+  background-color: #f6862d;
+  border: 1px solid #354da1;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.everyday-connection::before {
+  text-transform: uppercase;
+  text-transform: capitalize;
+  color: #354da1;
+  content: "everyday connection";
+  background-color: #f6862d;
   border: 1px solid #354da1;
   border-radius: 15px;
   width: 60%;
@@ -2452,14 +2489,32 @@ div.book > div.part > div.appendix > div.section div.equation > *:last-child::af
   border: 1px solid #354da1;
   border-radius: 15px;
   margin-top: 48px;
-  page-break-inside: auto;
 }
 .chapter .note.dig-deeper::before {
   text-transform: uppercase;
-  color: #e28f26;
+  text-transform: capitalize;
+  color: #f6862d;
   content: "dig deeper";
   background-color: #354da1;
-  border: 1px solid #e28f26;
+  border: 1px solid #f6862d;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.dig-deeper::before {
+  text-transform: uppercase;
+  text-transform: capitalize;
+  color: #f6862d;
+  content: "dig deeper";
+  background-color: #354da1;
+  border: 1px solid #f6862d;
   border-radius: 15px;
   width: 60%;
   position: absolute;
@@ -2484,10 +2539,28 @@ div.book > div.part > div.appendix > div.section div.equation > *:last-child::af
   border: 1px solid #354da1;
   border-radius: 15px;
   margin-top: 48px;
-  page-break-inside: auto;
 }
 .chapter .note.what-do-you-think::before {
   text-transform: uppercase;
+  text-transform: capitalize;
+  color: #ffffff;
+  content: "what do you think?";
+  background-color: #3f989b;
+  border: 1px solid #354da1;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.what-do-you-think::before {
+  text-transform: uppercase;
+  text-transform: capitalize;
   color: #ffffff;
   content: "what do you think?";
   background-color: #3f989b;
@@ -2513,15 +2586,33 @@ div.book > div.part > div.appendix > div.section div.equation > *:last-child::af
   padding: 20px;
   background-color: #ffffff;
   box-shadow: 10px 10px 5px #888888;
-  border: 1px solid #cfe1f1;
+  border: 1px solid #0067ac;
   border-radius: 15px;
   margin-top: 48px;
   padding: 0px;
-  page-break-inside: auto;
 }
 .chapter .note.connect-the-concepts::before {
   text-transform: uppercase;
-  color: #cfe1f1;
+  text-transform: capitalize;
+  color: #0067ac;
+  content: "connect the concepts";
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.connect-the-concepts::before {
+  text-transform: uppercase;
+  text-transform: capitalize;
+  color: #0067ac;
   content: "connect the concepts";
   background-color: transparent;
   border: 1px solid transparent;
@@ -2557,7 +2648,7 @@ div.book > div.part > div.appendix > div.section div.equation > *:last-child::af
   display: inline-block;
 }
 .chapter .note.connect-the-concepts::before {
-  border-bottom: 1px solid #cfe1f1;
+  border-bottom: 1px solid #0067ac;
   border-radius: 0px;
   padding: 0px;
   margin-left: -1px;
@@ -2566,7 +2657,8 @@ div.book > div.part > div.appendix > div.section div.equation > *:last-child::af
 }
 .chapter .note.connect-the-concepts > .title::before {
   text-transform: uppercase;
-  color: #cfe1f1;
+  text-transform: capitalize;
+  color: #0067ac;
   content: "connect the concepts";
   color: #a6a6a6;
   text-indent: 19px;
@@ -2580,20 +2672,39 @@ div.book > div.part > div.appendix > div.section div.equation > *:last-child::af
   margin-bottom: 1.5em;
   padding: 20px;
   background-color: #ffffff;
-  box-shadow: 10px 10px 5px #888888;
   border: 1px solid #993720;
-  border-radius: 15px;
-  margin-top: 48px;
   page-break-inside: avoid;
   text-align: left;
-  page-break-inside: auto;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #e6661f;
+  border-radius: 15px;
+  margin-top: 48px;
 }
 .chapter .note.link-to-learning::before {
   text-transform: uppercase;
+  text-transform: capitalize;
   color: #ffffff;
   content: "link to learning";
   background-color: #993720;
-  border: 1px solid #e28f26;
+  border: 1px solid #f6862d;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.link-to-learning::before {
+  text-transform: uppercase;
+  text-transform: capitalize;
+  color: #ffffff;
+  content: "link to learning";
+  background-color: #993720;
+  border: 1px solid #f6862d;
   border-radius: 15px;
   width: 60%;
   position: absolute;
@@ -2618,6 +2729,52 @@ div.book > div.part > div.appendix > div.section div.equation > *:last-child::af
   margin: 0;
   width: 1.25in;
   height: 1.25in;
+}
+.chapter .note.link-to-learning::before {
+  text-transform: uppercase;
+  text-transform: capitalize;
+  color: #ffffff;
+  content: "link to learning";
+  background-color: #f6862d;
+  border: 1px solid #e6661f;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.link-to-learning::before {
+  text-transform: uppercase;
+  text-transform: capitalize;
+  color: #ffffff;
+  content: "link to learning";
+  background-color: #f6862d;
+  border: 1px solid #e6661f;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.link-to-learning .mediaobject {
+  float: left;
+  width: 97px;
+  padding-right: .8em;
+}
+.chapter .note.link-to-learning .mediaobject img {
+  margin: 0;
+  width: 97px;
+  height: 62px;
 }
 .chapter .note.link-to-learning > .body {
   padding: 0px 10px;
@@ -2648,7 +2805,6 @@ div.book > div.part > div.appendix > div.section div.equation > *:last-child::af
   padding-top: 0;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  page-break-inside: auto;
 }
 .chapter .note.chapter-objectives > .title {
   font: normal normal 700 10pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2678,6 +2834,7 @@ div.book > div.part > div.appendix > div.section div.equation > *:last-child::af
  * Preface
  ******************************************************/
 .preface > .titlepage h1.title {
+  padding-left: .25em;
   background-color: #7291cb;
   string-set: cnx-header "Preface";
   color: #993720;
@@ -2685,19 +2842,12 @@ div.book > div.part > div.appendix > div.section div.equation > *:last-child::af
   padding-left: 0;
   text-transform: capitalize;
   font-size: 18pt;
+  font-weight: normal;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-bottom-color: #e28f26;
-  color: #ffffff;
-  background-color: #354da1;
-  margin: 0.5em 0;
-  margin-bottom: 0;
-  padding: 0.6em 0.5em;
-  padding-left: .25em;
-  font-size: 2.8em;
-  font-weight: normal;
-  text-transform: uppercase;
-  border-bottom: none;
+  border-bottom-color: #f6862d;
+  color: #354da1;
+  font-weight: bold;
 }
 .preface .titlepage h2,
 .preface .titlepage h3 {
@@ -2728,20 +2878,17 @@ div.book div.chapter div.titlepage > div > div > h2.title {
   padding-top: 0;
   margin-top: 0;
   color: #993720;
-  border-bottom-color: #e28f26;
+  border-bottom-color: #f6862d;
   text-transform: capitalize;
   font-weight: normal;
   font-size: 18pt;
   width: 100%;
   padding: 0;
+  text-align: left;
   margin-bottom: 1em;
   margin: 0;
   padding: 0.2em 0em;
   display: block;
-  text-align: left;
-  color: #354da1;
-  font: bold 34pt/34pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding-bottom: .25em;
 }
 .chapter > .module {
   margin: 1em 0;
@@ -2750,7 +2897,6 @@ div.book div.chapter div.titlepage > div > div > h2.title {
   margin: 0.5em 0em;
   text-align: left;
   color: #7291cb;
-  font-size: 17pt;
   font-weight: bold;
   color: black;
   font: 700 normal normal 11pt/13pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2758,9 +2904,10 @@ div.book div.chapter div.titlepage > div > div > h2.title {
   font-size: 14pt;
   line-height: 17pt;
   font-weight: 700;
-  border-bottom: 1px solid #e28f26;
+  border-bottom: 1px solid #f6862d;
   padding-bottom: .2em;
   color: #354da1;
+  font-size: 17pt;
 }
 .chapter h2 .cnx-gentext-n {
   color: #7291cb;
@@ -2778,16 +2925,22 @@ div.book div.chapter div.titlepage > div > div > h2.title {
 .chapter h2::before {
   color: #993720;
 }
+.chapter h2::before {
+  color: #354da1;
+}
 .section h3 {
   page-break-after: avoid;
   text-transform: uppercase;
   margin-top: 1.5em;
+  color: #354da1;
   text-transform: none;
-  font: bold 13pt/13pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 13pt;
 }
 .section h4 {
   page-break-after: avoid;
   margin-top: 1.5em;
+  color: #993720;
+  font-size: 11pt;
 }
 /******************************************************
  * Learning Objectives/Chapter Objectives
@@ -2803,8 +2956,7 @@ div.book div.chapter div.titlepage > div > div > h2.title {
   text-align: left;
   margin: 0 0 1.5em;
   padding: 0;
-  border: none;
-  border-bottom: 1px solid #e28f26;
+  border-bottom: 1px solid #f6862d;
   border-top-width: 0;
   border-left-width: 0;
   border-right-width: 0;
@@ -2816,7 +2968,7 @@ div.book div.chapter div.titlepage > div > div > h2.title {
           slot for this would be something like this:
           #content>#para>.style(any; any; learning-objectives)
         */
-  border-bottom: none;
+  border: none;
 }
 .section > .titlepage .abstract p {
   font: 10pt/14pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2856,10 +3008,10 @@ div.book div.chapter div.titlepage > div > div > h2.title {
   padding-left: 5px;
 }
 .table table {
-  border: 1pt solid #000000 !important;
+  border: none !important;
 }
 .table table td {
-  border-color: #e28f26 !important;
+  border-color: #f6862d !important;
   font: 10pt/14pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   padding: 5px 10px;
 }
@@ -2948,7 +3100,7 @@ div.book div.chapter div.titlepage > div > div > h2.title {
   text-transform: uppercase;
   font-size: x-large;
   color: #993720;
-  border-bottom-color: #e28f26;
+  border-bottom-color: #f6862d;
   background-color: transparent;
   border-bottom-width: 1px;
   border-bottom-style: solid;
@@ -2958,6 +3110,9 @@ div.book div.chapter div.titlepage > div > div > h2.title {
   font-size: 18pt;
   font-weight: 500;
   text-align: left;
+  color: #354da1;
+  font-size: 17pt;
+  font-weight: 700;
 }
 .index .letter {
   color: inherit;
@@ -3022,7 +3177,7 @@ div.colophon.end-of-book-solutions .chapter-area a.solution {
 div.colophon.end-of-book-solutions .chapter-area a.chapter * {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
-.chapter .note.bringhome {
+.chapter .note.sciences-interconnect {
   padding-left: 1em;
   padding-right: 1em;
   padding-top: 0.2em;
@@ -3031,63 +3186,53 @@ div.colophon.end-of-book-solutions .chapter-area a.chapter * {
   margin-bottom: 1.5em;
   padding: 20px;
   background-color: #ffffff;
-  page-break-inside: auto;
-  color: #000000;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #354da1;
+  border-radius: 15px;
+  margin-top: 48px;
+}
+.chapter .note.sciences-interconnect::before {
+  text-transform: uppercase;
+  text-transform: capitalize;
+  color: #ffffff;
+  content: "how sciences interconnect";
+  background-color: #7291cb;
+  border: 1px solid #354da1;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.sciences-interconnect::before {
+  text-transform: uppercase;
+  text-transform: capitalize;
+  color: #ffffff;
+  content: "how sciences interconnect";
+  background-color: #7291cb;
+  border: 1px solid #354da1;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.sciences-interconnect > .title {
+  color: #7291cb;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding: 0.2em 1em;
-  background-color: #efefef;
+  font-size: 11pt;
 }
-.chapter .note.bringhome p:nth-of-type(2) {
-  page-break-before: avoid;
-}
-.chapter .note.bringhome::before {
-  padding-top: 0.48in;
-  background-repeat: no-repeat;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1em;
-  margin-right: -1em;
-  margin-top: -0.05in;
-}
-.chapter .note.bringhome::before {
-  background-image: url("ccap-economics/bring.svg");
-}
-.chapter .note.bringhome > .title {
-  font-size: large;
-  margin-top: .6em;
-  margin-bottom: .2em;
-  padding: 0px .5em;
-  color: black;
-  border: none;
-}
-.chapter .note.bringhome > .body {
-  padding: 0px .8em;
-}
-.chapter .note.bringhome > .body p,
-.chapter .note.bringhome > .body ol,
-.chapter .note.bringhome > .body li {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-.chapter .note.bringhome .figure img {
-  max-width: 6.25in;
-}
-.chapter .note.bringhome .figure > .title {
-  font-size: 9.5pt;
-  color: #354da1;
-}
-.chapter .note.bringhome > .title {
-  padding: 0;
-  margin: 0;
-  color: #000000;
-  border: none;
-  padding-bottom: .2em;
-  font-weight: bold;
-  padding: 0px .5em;
-  margin-top: 0.5em;
-}
-.chapter .note.clearup {
+.chapter .note.everyday-life {
   padding-left: 1em;
   padding-right: 1em;
   padding-top: 0.2em;
@@ -3096,53 +3241,53 @@ div.colophon.end-of-book-solutions .chapter-area a.chapter * {
   margin-bottom: 1.5em;
   padding: 20px;
   background-color: #ffffff;
-  page-break-inside: auto;
-  color: #000000;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #6d0059;
+  border-radius: 15px;
+  margin-top: 48px;
+}
+.chapter .note.everyday-life::before {
+  text-transform: uppercase;
+  text-transform: capitalize;
+  color: #ffffff;
+  content: "chemistry in everyday life";
+  background-color: #944c8d;
+  border: 1px solid #6d0059;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.everyday-life::before {
+  text-transform: uppercase;
+  text-transform: capitalize;
+  color: #ffffff;
+  content: "chemistry in everyday life";
+  background-color: #944c8d;
+  border: 1px solid #6d0059;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.everyday-life > .title {
+  color: #944c8d;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding: 0.2em 1em;
-  background-color: #efefef;
+  font-size: 11pt;
 }
-.chapter .note.clearup p:nth-of-type(2) {
-  page-break-before: avoid;
-}
-.chapter .note.clearup::before {
-  padding-top: 0.53in;
-  background-repeat: no-repeat;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1em;
-  margin-right: -1em;
-  margin-top: -0.05in;
-}
-.chapter .note.clearup::before {
-  background-image: url("ccap-economics/clear.svg");
-}
-.chapter .note.clearup > .title {
-  font-size: large;
-  margin-top: .6em;
-  margin-bottom: .2em;
-  padding: 0px .5em;
-  color: black;
-  border: none;
-}
-.chapter .note.clearup > .body {
-  padding: 0px .8em;
-}
-.chapter .note.clearup > .body p,
-.chapter .note.clearup > .body ol,
-.chapter .note.clearup > .body li {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-.chapter .note.clearup .figure img {
-  max-width: 6.25in;
-}
-.chapter .note.clearup .figure > .title {
-  font-size: 9.5pt;
-  color: #354da1;
-}
-.chapter .note.workout {
+.chapter .note.chemist-portrait {
   padding-left: 1em;
   padding-right: 1em;
   padding-top: 0.2em;
@@ -3151,56 +3296,53 @@ div.colophon.end-of-book-solutions .chapter-area a.chapter * {
   margin-bottom: 1.5em;
   padding: 20px;
   background-color: #ffffff;
-  page-break-inside: auto;
-  color: #000000;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #007339;
+  border-radius: 15px;
+  margin-top: 48px;
+}
+.chapter .note.chemist-portrait::before {
+  text-transform: uppercase;
+  text-transform: capitalize;
+  color: #ffffff;
+  content: "portrait of a chemist";
+  background-color: #8fb73e;
+  border: 1px solid #007339;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.chemist-portrait::before {
+  text-transform: uppercase;
+  text-transform: capitalize;
+  color: #ffffff;
+  content: "portrait of a chemist";
+  background-color: #8fb73e;
+  border: 1px solid #007339;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.chemist-portrait > .title {
+  color: #8fb73e;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding: 0.2em 1em;
-  background-color: #efefef;
+  font-size: 11pt;
 }
-.chapter .note.workout p:nth-of-type(2) {
-  page-break-before: avoid;
-}
-.chapter .note.workout::before {
-  padding-top: 0.38in;
-  background-repeat: no-repeat;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1em;
-  margin-right: -1em;
-  margin-top: -0.05in;
-}
-.chapter .note.workout::before {
-  background-image: url("ccap-economics/work.svg");
-}
-.chapter .note.workout > .title {
-  font-size: large;
-  margin-top: .6em;
-  margin-bottom: .2em;
-  padding: 0px .5em;
-  color: black;
-  border: none;
-}
-.chapter .note.workout > .body {
-  padding: 0px .8em;
-}
-.chapter .note.workout > .body p,
-.chapter .note.workout > .body ol,
-.chapter .note.workout > .body li {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-.chapter .note.workout .figure img {
-  max-width: 6.25in;
-}
-.chapter .note.workout .figure > .title {
-  font-size: 9.5pt;
-  color: #354da1;
-}
-.chapter .note.workout .itemizedlist > .listitem .link.only-show-once {
-  content: content();
-}
-.chapter .note.linkup {
+.chapter .note.link-to-learning {
   padding-left: 1em;
   padding-right: 1em;
   padding-top: 0.2em;
@@ -3209,150 +3351,167 @@ div.colophon.end-of-book-solutions .chapter-area a.chapter * {
   margin-bottom: 1.5em;
   padding: 20px;
   background-color: #ffffff;
-  page-break-inside: auto;
-  color: #000000;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding: 0.2em 1em;
-  background-color: #efefef;
-}
-.chapter .note.linkup p:nth-of-type(2) {
-  page-break-before: avoid;
-}
-.chapter .note.linkup::before {
-  padding-top: 0.38in;
-  background-repeat: no-repeat;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1em;
-  margin-right: -1em;
-  margin-top: -0.05in;
-}
-.chapter .note.linkup::before {
-  background-image: url("ccap-economics/link.svg");
-}
-.chapter .note.linkup > .title {
-  font-size: large;
-  margin-top: .6em;
-  margin-bottom: .2em;
-  padding: 0px .5em;
-  color: black;
-  border: none;
-}
-.chapter .note.linkup > .body {
-  padding: 0px .8em;
-}
-.chapter .note.linkup > .body p,
-.chapter .note.linkup > .body ol,
-.chapter .note.linkup > .body li {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-.chapter .note.linkup .figure img {
-  max-width: 6.25in;
-}
-.chapter .note.linkup .figure > .title {
-  font-size: 9.5pt;
-  color: #354da1;
-}
-.chapter .note.linkup img {
-  display: block;
-  margin: auto;
-}
-.chapter .note.linkup .link {
-  color: #354da1;
-  font-weight: normal;
-}
-.chapter .note.chapter-objectives {
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  padding: 20px;
-  font: 10pt/14pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  border: 1px solid #993720;
+  page-break-inside: avoid;
   text-align: left;
-  padding-left: 0;
-  margin-top: 0em;
-  padding-top: 0;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  page-break-inside: auto;
-  background-color: #ffffff;
-  padding: 0;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #e6661f;
+  border-radius: 15px;
+  margin-top: 48px;
+}
+.chapter .note.link-to-learning::before {
+  text-transform: uppercase;
+  text-transform: capitalize;
+  color: #ffffff;
+  content: "link to learning";
+  background-color: #993720;
+  border: 1px solid #f6862d;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.link-to-learning::before {
+  text-transform: uppercase;
+  text-transform: capitalize;
+  color: #ffffff;
+  content: "link to learning";
+  background-color: #993720;
+  border: 1px solid #f6862d;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.link-to-learning > .body::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.chapter .note.link-to-learning .mediaobject {
+  float: left;
+  width: 1.25in;
+}
+.chapter .note.link-to-learning .mediaobject img {
   margin: 0;
-  border-bottom: none;
+  width: 1.25in;
+  height: 1.25in;
 }
-.chapter .note.chapter-objectives > .title {
-  font: normal normal 700 10pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  border: none;
-  margin-top: 0;
+.chapter .note.link-to-learning::before {
+  text-transform: uppercase;
+  text-transform: capitalize;
+  color: #ffffff;
+  content: "link to learning";
+  background-color: #f6862d;
+  border: 1px solid #e6661f;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
 }
-.chapter .note.chapter-objectives ul.itemizedlist {
-  margin-left: 0;
-  padding-left: 20pt;
+.chapter .note.link-to-learning::before {
+  text-transform: uppercase;
+  text-transform: capitalize;
+  color: #ffffff;
+  content: "link to learning";
+  background-color: #f6862d;
+  border: 1px solid #e6661f;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
 }
-.chapter .note.chapter-objectives ul.itemizedlist > .listitem {
-  display: list-item;
-  padding-top: 0;
+.chapter .note.link-to-learning .mediaobject {
+  float: left;
+  width: 97px;
+  padding-right: .8em;
+}
+.chapter .note.link-to-learning .mediaobject img {
   margin: 0;
+  width: 97px;
+  height: 62px;
 }
-.chapter .note.chapter-objectives ul.itemizedlist > .listitem p {
-  display: block;
-  margin: 0;
-}
-.chapter .note.chapter-objectives ul.itemizedlist > .listitem::before {
-  display: none;
-}
-.chapter .note.chapter-objectives ul.itemizedlist > .listitem:last-child {
-  padding-bottom: .75em;
-}
-.chapter .note.chapter-objectives > .title {
-  margin-top: 0.5em;
-  padding: 0;
-  margin: 0;
-  color: #000000;
-  font-weight: bold;
-  padding-bottom: .2em;
-  font-size: x-large;
+/******************************************************
+ * Preface
+ ******************************************************/
+.preface > .section h2,
+.preface > .section h3 {
   color: #354da1;
+}
+/******************************************************
+ * Tables
+ ******************************************************/
+.table {
+  margin: 0 auto;
+  padding: 0;
   border: none;
-  padding-left: 0;
 }
-.chapter .note.chapter-objectives ul.itemizedlist > .listitem {
-  margin-bottom: .5em;
-}
-.preface .section {
-  page-break-before: avoid;
-  page-break-after: avoid;
-}
-.preface .table table {
+.table table {
   page-break-inside: avoid;
   margin: auto;
-  margin: 0;
+  page-break-inside: auto;
+  prince-caption-page: all;
+  width: 100%;
+  padding-top: 1em;
   border: none !important;
 }
-.preface .table table td {
-  padding: 5px;
-}
-.section .titlepage div > div > h2 {
-  page-break-after: avoid;
-}
-.section .titlepage div > div > h2 .cnx-gentext-n,
-.section .titlepage div > div > h2::before {
-  color: #354da1;
-  font-size: 17pt;
-}
-.section .titlepage div > div > h2 .cnx-gentext-t::before {
-  color: #354da1;
-  font-size: 17pt;
+.table table .table-caption.caption {
   color: #000000;
-  content: "| ";
+  font-weight: normal !important;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 9pt;
 }
-.section .titlepage div > div > h2 .cnx-gentext-t {
+.table table td[style] {
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 9pt;
+  text-align: center !important;
+  border-color: #354da1 !important;
+}
+/******************************************************
+ * EOC Customizations
+ ******************************************************/
+.cnx-eoc.exercises {
+  -webkit-column-count: 2;
+  column-count: 2;
+  columns: 2;
+  column-fill: auto;
+  text-align: left;
+}
+.cnx-eoc.exercises > .title {
+  content: "Exercises";
   color: #354da1;
-  font-size: 17pt;
+  font-size: 13pt;
+  font-weight: bold;
+}
+.cnx-eoc.exercises p {
+  text-align: left;
+}
+.cnx-eoc.exercises > .section > .title > a {
+  color: black;
 }
 div.book {
   /* --------------------------------------
