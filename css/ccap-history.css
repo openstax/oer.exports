@@ -58,6 +58,25 @@ div.book div.chapter > div.titlepage > div > div h1.title span:nth-of-type(3).cn
 html {
   prince-image-resolution: 120dpi;
 }
+/******************************************************
+ * Folio Customizations
+ ******************************************************/
+@page :left {
+  @top-left {
+    content: "";
+  }
+  @top-right {
+    content: string(cnx-header);
+  }
+}
+@page :right {
+  @top-right {
+    content: "";
+  }
+  @top-left {
+    content: string(cnx-header);
+  }
+}
 div.book {
   /* --------------------------------------
    *  Define how counters are incremented
@@ -1100,7 +1119,8 @@ div.table-caption.caption {
   border-bottom-style: solid;
   border-bottom-color: #e28f26;
   string-set: cnx-header "Preface";
-  font-weight: bold;
+  font-weight: medium;
+  border: none;
 }
 .preface > .section h2 {
   font-size: medium;
@@ -1150,8 +1170,6 @@ h1.title .cnx-gentext-n {
   font-weight: bold;
   font-size: normal;
   content: "Introduction";
-  font-size: x-large;
-  color: #a63c1d;
   border-bottom-color: #e28f26;
   border-bottom-width: 1px;
   border-bottom-style: solid;
@@ -1160,6 +1178,9 @@ h1.title .cnx-gentext-n {
   line-height: 17pt;
   font-weight: 700;
   text-transform: capitalize;
+  color: #a63c1d;
+  border-bottom: none;
+  font-size: x-large;
 }
 .chapter > .introduction .splash img {
   margin-left: auto;
@@ -1466,7 +1487,6 @@ p {
 .table {
   page-break-inside: avoid;
   margin: auto;
-  background-color: #fbeab3;
 }
 .table td {
   padding: 0.25em;
@@ -1475,10 +1495,6 @@ p {
 .table caption {
   align: top;
   text-align: left;
-  background-color: #fbeab3;
-  border-style: none;
-  border-bottom: 1px solid #e28f26;
-  border-bottom-style: solid;
 }
 div.table-caption {
   font-weight: normal;
@@ -1834,7 +1850,6 @@ p:nth-of-type(2),
 .introduction .table {
   page-break-inside: avoid;
   margin: auto;
-  background-color: #fbeab3;
 }
 .introduction blockquote {
   color: #0067ac;
@@ -1928,7 +1943,6 @@ p:nth-of-type(2),
 .chapter .table {
   page-break-inside: avoid;
   margin: auto;
-  background-color: #fbeab3;
 }
 .chapter blockquote {
   color: #0067ac;
@@ -2022,7 +2036,6 @@ p:nth-of-type(2),
 .cnx-eoc .table {
   page-break-inside: avoid;
   margin: auto;
-  background-color: #fbeab3;
 }
 .cnx-eoc blockquote {
   color: #0067ac;
@@ -2116,7 +2129,6 @@ p:nth-of-type(2),
 .colophon .table {
   page-break-inside: avoid;
   margin: auto;
-  background-color: #fbeab3;
 }
 .colophon blockquote {
   color: #0067ac;
@@ -2346,7 +2358,8 @@ p:nth-of-type(2),
   border-bottom-style: solid;
   border-bottom-color: #e28f26;
   string-set: cnx-header "Preface";
-  font-weight: bold;
+  font-weight: medium;
+  border: none;
 }
 /* -------------------------
  * Book Table of Contents
@@ -2404,8 +2417,6 @@ div.part > div.titlepage {
 }
 .chapter > .introduction > .title {
   content: "Introduction";
-  font-size: x-large;
-  color: #a63c1d;
   border-bottom-color: #e28f26;
   border-bottom-width: 1px;
   border-bottom-style: solid;
@@ -2414,6 +2425,9 @@ div.part > div.titlepage {
   line-height: 17pt;
   font-weight: 700;
   text-transform: capitalize;
+  color: #a63c1d;
+  border-bottom: none;
+  font-size: x-large;
 }
 .chapter > .introduction > .toc a {
   color: inherit;
@@ -2724,13 +2738,13 @@ div.colophon.end-of-book-solutions > .title {
   color: #528cbe;
   text-transform: uppercase;
   font-size: x-large;
-  font-weight: bold;
   background-color: transparent;
   text-transform: capitalize;
   font-weight: 500;
   column-span: all;
   color: #a63c1d;
   font-size: 18pt;
+  font-weight: bold;
   text-transform: none;
   border: none;
   margin-left: 0;
@@ -3192,7 +3206,6 @@ div.book div.chapter > div.section div.example div.exercise .problem .table {
   page-break-inside: avoid;
   margin: auto;
   counter-increment: table !important;
-  background-color: #fbeab3;
 }
 div.book div.chapter > div.section div.example div.exercise .problem .figure {
   font-size: xx-small;
@@ -3215,7 +3228,7 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
   color: #a63c1d;
   text-align: left;
 }
-div.book div.chapter > div.section div.example div.exercise .problem .figure .title::before {
+div.book div.chapter > div.section div.example div.exercise .problem .figure .title ::before {
   display: block;
 }
 .example .exercise {
@@ -3240,12 +3253,7 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
   line-height: 1em;
 }
 .example .exercise .solution > .body {
-  content: "Solution";
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  font-size: 10pt;
-  color: #004b74;
-  font-weight: bold;
-  line-height: 1em;
+  margin-top: .5em;
 }
 .example .exercise .solution > .body > a.target-figure {
   color: #e28f26;
@@ -3695,7 +3703,8 @@ div.book > div.part > div.appendix > div.section div.equation > *:last-child::af
   border-bottom-style: solid;
   border-bottom-color: #e28f26;
   string-set: cnx-header "Preface";
-  font-weight: bold;
+  font-weight: medium;
+  border: none;
 }
 .preface .titlepage h2,
 .preface .titlepage h3 {
@@ -4233,13 +4242,13 @@ div.end-of-book-solutions > h1.title {
   color: #528cbe;
   text-transform: uppercase;
   font-size: x-large;
-  font-weight: bold;
   background-color: transparent;
   text-transform: capitalize;
   font-weight: 500;
   column-span: all;
   color: #a63c1d;
   font-size: 18pt;
+  font-weight: bold;
   text-transform: none;
   border: none;
   margin-left: 0;
@@ -4343,11 +4352,24 @@ div.book div.chapter div.titlepage > div > div > h2 {
   font: 700 normal normal 11pt/13pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: #004b74;
 }
+.chapter > .introduction > h3.title {
+  content: "Introduction";
+  border-bottom-color: #e28f26;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  padding: 0.2em 0em;
+  font-size: 14pt;
+  line-height: 17pt;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: #a63c1d;
+  border-bottom: none;
+  font-size: x-large;
+}
 .preface .section > .table,
 .preface .section > .table table {
   page-break-inside: avoid;
   margin: auto;
-  background-color: #fbeab3;
   background: none;
   margin: 0;
   border: none !important;
