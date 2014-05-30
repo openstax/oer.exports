@@ -79,25 +79,16 @@ div.book div.chapter div.titlepage > div > div > h2 {
   #content>#heading>.style();
 }
 
+
+// temporary bugfix, remove these along with all #content>#heading.
+.chapter > .introduction > h3.title {
+  #part>#introduction>#title>.style();
+}
+.chapter h2 {  #content>#heading>.style(h2, chapter) !important; }
+
+
+
 .preface .section > .table, 
 .preface .section > .table table { 
   #content>#table>.style(any; preface);
 }
-
-// For this one below, we don't really currently have a way in refactoring
-// to take care of the page based elements and sometimes how they are modified
-// How will we handle the docbook class specific example below that requires
-// the use of the docbook tag to accomplish this.  In the future, polyfills I
-// think will be used here.
-
-// Reset (ccap-precalculus.less). Get rid of such specific selectors!
-body div.book div.chapter > div.titlepage > div > div > h1.title {
-  span.cnx-gentext-t {
-    // Replace the default page header "Chapter number | Title", removing
-    // the "|"
-    string-set: cnx-header string(cnx-chapter-number-string) " " content();
-    padding-left: 0;
-  }
-}
-
-

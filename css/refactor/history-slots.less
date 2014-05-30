@@ -17,7 +17,20 @@
   #preface {
     #titlepage {
       .style(...) {}
-      .title(...) {}
+      .title(...) {
+        string-set: cnx-header "Preface";
+        font-weight: medium;
+        border: none;
+      }
+    }
+  }
+  #introduction {
+    #title {
+      .style(...) {
+        color: @red;
+        border-bottom: none;
+        font-size: x-large;
+      }
     }
   }
   #toc {
@@ -30,6 +43,7 @@
         font: bold normal 11pt/1em @font-family-sans-serif;
         color: @red;
         border-bottom: 1px solid @red;
+        text-align: left;
       }
     }
     #link {
@@ -54,9 +68,10 @@
       }
       .text() {
         border: none;
-	      border-top-style: none;
+        border-top-style: none;
         padding-left: 0;
         color: @dark-blue;
+        string-set: cnx-header "Chapter " counter(chapter, decimal) " " content();
       }
       .number() {
         font-size: 14pt;
@@ -64,7 +79,7 @@
     }
     #learning-objectives {
       .style(...) {
-        background-color: @light-gray;
+        background-color: @light-gray-40;
         border-top: 1px solid @light-blue;
         border-bottom: none;
         padding: 1em;
@@ -171,6 +186,7 @@
           column-span: all;
           color: @red;
           font-size: 18pt;
+          font-weight: bold;
           text-transform: none;
           border: none;
           margin-left: 0;
@@ -324,9 +340,15 @@
       }
     }
   }
-  #heading{
+  #heading {
     .style(...) {
       color: @dark-blue;
+    }
+
+    // refactor into #section>#title>.style once #heading is removed.
+    .style(h2, chapter) {
+      border: none;
+      color: @red;
     }
 
     // W&N wishes capitalize/no-capitalize h2/h3 in markup
@@ -365,14 +387,16 @@
     }
   }
   #table {
-    .style(...) {
+    .style(any; any) {
       background-color: @yellow-35;
     }
     // Tables used in Preface must have no background. 
     .style(any; preface) {
       background: none;
+      margin: 0;
+      border: none !important; // override inline table style=""
     }
-    .caption(...) {
+    .caption(any; any) {
       background-color: @yellow-35;
       border-style: none;
       border-bottom: 1px solid @orange;
@@ -411,6 +435,7 @@
       font-size: 9pt;
       color: black;
       text-align: left;
+      font-weight: normal;
     }
     #title {
       .style(...) {
