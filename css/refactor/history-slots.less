@@ -92,6 +92,20 @@
     }
   }
 
+  #module {
+    #title {
+      .style() {
+        border: none;
+        color: @red;
+        font: 700 normal normal 11pt/13pt @font-family-sans-serif;
+        margin-bottom: .5em;
+        text-transform: none;
+      }
+      .divider() {}
+      .number() {}
+      .text() {}
+    }
+  }
   #glossary {
     .term(chapter) {
       font: 400 10pt/13pt @font-family-serif;
@@ -341,16 +355,7 @@
     }
   }
   #heading {
-    .style(...) {
-      color: @dark-blue;
-    }
-
-    // refactor into #section>#title>.style once #heading is removed.
-    .style(h2, chapter) {
-      border: none;
-      color: @red;
-    }
-
+/*
     // W&N wishes capitalize/no-capitalize h2/h3 in markup
     .style(h2, ...) {
       font-size: 11pt;
@@ -360,6 +365,7 @@
       font-size: 11pt;
       text-transform: none;
     }
+*/
   }
   #section {
     #abstract { //learning objectives
@@ -377,6 +383,22 @@
       }
       .list(...) {
         padding-left: 12pt;
+      }
+    }
+    #title {
+      .style(any; preface) { color: @dark-blue; }
+      .style(any; preface; section) {
+        color: @dark-blue;
+        text-transform: none;
+        font-size: 11pt;
+        line-height: 13pt;
+      }
+      .style(any; any;) {
+        color: @dark-blue;
+        text-transform: none;
+        font-size: 11pt;
+        line-height: 13pt;
+        margin: 0.5em 0em;
       }
     }
   }

@@ -2,6 +2,11 @@
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
 
+.x-section-title-font() {
+  color: @dark-blue; 
+  font-size: 17pt;
+}
+
 #part {
   #toc {
     #title {
@@ -79,6 +84,21 @@
       #title {
         .style(...) { display: none; }
       }
+    }
+  }
+  #module {
+    #title {
+      .style() {
+        .x-section-title-font();
+      }
+      // Separate the section number and title with a pipe
+      .divider() {
+        .x-section-title-font();
+        color: black;
+        content: "| ";
+      }
+      .number() { .x-section-title-font(); }
+      .text() { .x-section-title-font(); }
     }
   }
   #chapter-end {
@@ -192,16 +212,6 @@
       color: @dark-blue;
     }
   }
-  #heading {
-    .style(...) {
-      color: @dark-blue;
-    }
-    .style(h1; title) { // refactor this (book title.)
-      margin: 0.5em 0;
-      font-size: 34pt;
-      color: @black;
-    }
-  }
   #table {
     .style(any; any) {
       width: 100%;
@@ -255,26 +265,15 @@
       #utils>#pb>.after(avoid);
     }
     #title {
-      .x-section-title-font() {
-        color: @dark-blue; 
-        font-size: 17pt;
-      }
       .style(any; any) {
         .x-section-title-font();
         border-bottom: none;
       }
       // H3
-      .style(any; any; section) {
+      .style(any; any) {
         text-transform: none;
         font: bold 13pt/13pt @font-family-sans-serif;
       }
-      .number() { .x-section-title-font(); }
-      .divider() { 
-        .x-section-title-font();
-        color: @black;
-        content: "| ";
-      }
-      .text() { .x-section-title-font(); }
     }
   }
   #list {
