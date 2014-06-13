@@ -22,20 +22,22 @@
 
   p { #content>#paragraph>.style(any; any; note); }
 
+  .figure { #content>#figure>.style(any; any; note); }
+
   &.everyday-connection {
-    #content>#note>.style(everyday-connection);
+    #content>#note>.style('everyday-connection'; any);
   }
   &.dig-deeper {
-    #content>#note>.style(dig-deeper);
+    #content>#note>.style('dig-deeper'; any);
   }
   &.what-do-you-think {
-    #content>#note>.style(what-do-you-think);
+    #content>#note>.style('what-do-you-think'; any);
   }
   &.connect-the-concepts {
-    #content>#note>.style(connect-the-concepts);
+    #content>#note>.style('connect-the-concepts'; any);
   }
   &.link-to-learning {
-    #content>#note>.style(link-to-learning);
+    #content>#note>.style('link-to-learning'; any);
 
     > .body {
       padding: 0px 10px;
@@ -277,6 +279,7 @@ p,
   #content>#list>.item(any, any, section);
 }
 
+
 /******************************************************
  * Key Terms / Glossary
  ******************************************************/
@@ -317,7 +320,18 @@ div.colophon.end-of-book-solutions {
     }
   }
 }
- 
 
+
+/******************************************************
+ * Equations
+ ******************************************************/
+
+// A very high specificity rule in precalculus-skeleton that deals with the 
+// numbering/unnumbering of equations bleeds through to psychology when equations
+// are present.  Although in base we have #content>#equation>.label() to turn these
+// off, using that slot in psychology doesn't produce any result.   We will need 
+// to address equations at the bottom of prealc-skeleton and update here when a 
+// slot solution is decided upon.  This is the only way to turn these off for now.
+div.book > div.chapter > div.section div.equation > *:last-child::after { display: none; }
 
 
