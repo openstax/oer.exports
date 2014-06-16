@@ -9,6 +9,14 @@
 @cnx-string-key-concepts: "Key Concepts";
 
 #part {
+  #titlepage {
+    #title {
+      .style() {
+        font-size: 34pt;
+        text-align: left;
+      }
+    }
+  }
   #preface {
     #titlepage {
       .style(...) {
@@ -24,6 +32,7 @@
       .style(...) {
         content: @cnx-string-introduction;
         font-size: x-large;
+        color: @medium-blue;
       }
     }
     #chapter-outline {
@@ -67,7 +76,6 @@
       }
     }
   }
-
   #chapter {
     #title {
       .style(...) {
@@ -114,7 +122,22 @@
       }
     }
   }
-
+  #module {
+    #title {
+      .style() {
+        color: @medium-blue;
+        font-size: 17pt;
+        font-weight: bold;
+      }
+      // Separate the section number and title with a pipe
+      .divider() {
+        color: black;
+        content: "| ";
+      }
+      .number() {}
+      .text() {}
+    }
+  }
   #glossary {
     .style(chapter) {
       // End-of-chapter material should start on a new page
@@ -541,6 +564,8 @@
     }
   }
   #section {
+    .style(any; any) {}
+    .style(any; any; section) {}
     .style(section-exercises; @part; ...) {
       #utils>#pb>.before(always);
       #utils>#pb>.after(always);
@@ -549,6 +574,17 @@
     #title {
       .style(...) {
         #utils>#pb>.after(avoid);
+      }
+      .style(any; preface) {}
+      .style(any; preface; section) {}
+      .style(any; any) { // Section titles
+        font-size: 13pt;
+        font-weight: bold;
+      }
+      .style(any; any; section) { // Sub-section titles
+        color: @medium-blue;
+        font-size: 10pt;
+        font-weight: bold;
       }
       .style(section-exercises; @part; ...) {
         content: "" " " counter(chapter, decimal) "." counter(section, decimal) " exercises" " " "";
@@ -827,44 +863,6 @@
     }
   }
   #heading{
-    .style(...) {
-      margin: 0.5em 0em;
-      text-align: left; //overides text alignment set in
-    }
-
-    .style(h1; ...) {
-      font-size: 34pt;
-    }
-    // H1 in the title part is the top level book title
-    .style(h1; title) {
-      text-align: left;
-    }
-    .style(h2, ...) {
-      // Module title
-      color: @medium-blue;
-      font-size: 17pt;
-      font-weight: bold;
-
-      .cnx-gentext-n { color: @medium-blue; }
-      // Separate the section number and title with a pipe
-      .cnx-gentext-t::before {
-        color: black;
-        content: "| ";
-      }
-      &::before { color: @medium-blue; }
-    }
-    .style(h3, ...) {
-      // Module section title
-      color: @medium-blue;
-      font-size: 13pt;
-      font-weight: bold;
-    }
-    .style(h4, ...) {
-      // Module sub-section title
-      color: @medium-blue;
-      font-size: 10pt;
-      font-weight: bold;
-    }
     .style(h5, ...) {
       color: @medium-blue;
       font-size: 10pt;

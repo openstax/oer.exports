@@ -159,12 +159,6 @@
         padding: 0;
         text-align: left;
       }
-      .style(h2) {
-        margin-bottom: 1em;
-        margin: 0;
-        padding: 0.2em 0em;
-        display: block; // This overrides a display: inline from ccap-base.
-      }
       .text() {
         font: 28pt/33pt @font-family-serif;
         color: @black;
@@ -270,7 +264,24 @@
       }
     }
   }
-
+  #module {
+    #title {
+      .style() {
+        color: @red;
+        font-size: 14pt;
+        line-height: 17pt;
+        font-weight: 700;
+        border-bottom: 1px solid @orange;
+        padding-bottom: .2em;
+      }
+      // Remove pipe (|) from between section number and title
+      .divider() {
+        content: "";
+      }
+      .number() {}
+      .text() {}
+    }
+  }
  // End-of-chapter parts
   #chapter-end {
     .style(...) {
@@ -452,45 +463,29 @@
     #title {
       .style(chapter) {
         font-weight: bold !important;
+
+        margin-bottom: 1em;
+        margin: 0;
+        padding: 0.2em 0em;
+        display: block !important; // This overrides a display: inline from ccap-base.
+                                   // We need to eliminate all * {} selectors.
+        width: 100%;
       }
     }
   }
 }
 #content {
-  #heading {
-    .style(...) {
-      color: black;
-      font: 700 normal normal 11pt/13pt @font-family-sans-serif;
-    }
-    // H1 in the title part is the top level book title
-    .style(h1; title) {
-      font-size: xx-large;
-      margin-top: 1em;
-    }
-    .style(h2; chapter) {
-      color: @red;
-      font-size: 14pt;
-      line-height: 17pt;
-      font-weight: 700;
-      border-bottom: 1px solid @orange;
-      padding-bottom: .2em;
-
-      // Remove pipe (|) from between section number and title
-      .cnx-gentext-t::before {
-        content: "";
-      }
-      &::before { color: @red; }
-    }
-  }
   #section {
     #title {
       // H3
-      .style(any; any; section) {
+      .style(any; any) {
         text-transform: uppercase;
         margin-top: 1.5em;
       }
       // H4
-      .style(any; any; section; section) {
+      .style(any; any; section) {
+        color: @black;
+        font-size: 11pt;
         margin-top: 1.5em;
       }
     }

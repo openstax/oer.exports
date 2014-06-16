@@ -4,7 +4,11 @@ module.exports = (grunt) ->
   fs = require('fs')
   pkg = require('./package.json')
   chalk = require('chalk')
-  config = grunt.file.readYAML('config.yml')
+  try
+    config = grunt.file.readYAML('config.yml')
+  catch e
+    console.warn 'Missing config.yml but continuing anyway'
+    config = {}
 
   # Use local phantomjs
   PHANTOMJS_BIN = './node_modules/css-diff/node_modules/.bin/phantomjs'
