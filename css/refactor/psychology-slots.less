@@ -562,16 +562,16 @@
       padding: 20px;
       background-color: @white;
     }
-    .style(everyday-connection; ...) {
+    .style('everyday-connection'; ...) {
       .x-feature-color(@dark-blue, @dark-blue, @dark-blue, @orange, @cnx-string-everyday-connection);
     }
-    .style(dig-deeper; ...) {
+    .style('dig-deeper'; ...) {
       .x-feature-color(@dark-blue, @orange, @orange, @dark-blue, @cnx-string-dig-deeper);
     }
-    .style(what-do-you-think; ...) {
+    .style('what-do-you-think'; ...) {
       .x-feature-color(@dark-blue, @dark-blue, @white, @teal, @cnx-string-what-do-you-think);
     }
-    .style(connect-the-concepts; ...) {
+    .style('connect-the-concepts'; ...) {
       // This feature is a little more complex, requiring
       // some "hacky" bugfix type things to work. Some 
       // selectors are placed inline in this slot.
@@ -618,7 +618,7 @@
         text-indent: 19px; // Fix a text-offset bug
       }
     }
-    .style(link-to-learning; ...) {
+    .style('link-to-learning'; ...) {
       // This feature requires some "bugfix" pieces to work
       // properly, such as a clearfix. Selectors for these are
       // placed inline in this slot.
@@ -706,6 +706,13 @@
     }
   }
   #figure {
+    // Full width figure titles/captions clash with rounded feature borders
+    // So, we must target figures only when placed inside notes and give some padding
+    .style(any; any; note) {
+      padding-left: 1.5em;
+      padding-right: 1.5em;
+      margin-bottom: .5em;
+    }
     #title {
       .number(...) {
         color: @red;
@@ -718,6 +725,13 @@
     }
     .item(any; any; section) {
       margin-left: 20pt;
+    }
+  }
+  #equation {
+    .style(...) {}
+    
+    .label() {
+      display: none;
     }
   }
   #glossary {
