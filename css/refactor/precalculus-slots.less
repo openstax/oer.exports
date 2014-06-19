@@ -408,6 +408,18 @@
     .style(any; any; problem; exercise; example) {
       counter-increment: table !important; // Overrides !important from base.
     }
+
+    // Bug fix. Remove styling for tables in "Key Equations"
+    // as these are just a wrapper for alignment.
+    // !important is used to override inline table styles.
+    .style(any; chapter; chapter-end; key-equations) {
+      margin: 0;
+      border: none !important;
+
+      caption { display: none; }
+      td { border: none !important; }
+    }
+
     #caption {
       .style(any; any) {
         font-family: @font-family;
@@ -478,6 +490,7 @@
     .style(media; ...) {
       #utils>#pb>.inside(avoid);
       .x-feature(media);
+      padding-left: 2.5em;
     }
     .style(try; ...) {
       #utils>#pb>.inside(avoid);
@@ -536,12 +549,20 @@
     .style(@kind; @part; problem; exercise; section-exercise) {
       text-indent: 0;
     }
+    .style(any; chapter-end; exercise) {
+      display: block; // override ccap-base display: initial.
+    }
     #title {
       .style(...) {
         display: inline;
         text-align:center;
       }
+      .style(any; any; feature-qa) {
+        font-style: normal;
+      }
       .style(any; any; problem; exercise; example) {
+        text-align: left;
+
         ::before {
           display: block;
         }
@@ -700,9 +721,6 @@
         margin-top: 1em;
       }  
     }
-    .style(@kind; @part; exercise; section-exercise) {
-      text-indent: 1em;
-    }
     .number(@kind; chapter-end; ...) {
       padding-right: .5em;
     }
@@ -777,7 +795,26 @@
       .style(@kind, book-end) {
         margin-right: .65em;
         display: inline;
+
         * { display: inline; } // OUCH - place in .body() mixin for now.
+        // Fix a bug due to * {} being used...
+        div.table {
+          display: block;
+
+          table {
+            display: table;
+
+            caption { display: table-caption; }
+            thead { display: table-header-group; }
+            tbody { display: table-row-group; }
+            tfoot { display: table-footer-group; }
+            tr { display: table-row; }
+            td { display: table-cell; }
+          }
+        }
+
+
+
         // will need to change - include in .body mixin for now
         > a.target-figure {
           margin: 0em .25em;
