@@ -171,7 +171,7 @@
         // override from numbering (a higher specificity for h1.title gentext-t is in numbering-skeleton)
         padding-left: 0 !important;
         
-        padding-bottom: 1em;
+        padding-bottom: .3em;
         border-top-width: 1px;
         border-top-style: solid;
 
@@ -317,6 +317,7 @@
     #review-questions {
       .style(...) {
         .x-column-count(2); 
+        column-fill: balance;
         text-align: left;
       }
       #title {
@@ -364,7 +365,7 @@
           margin-left: 0; // reset precalc margin.
           color: @red;
           text-transform: capitalize;
-          font-weight: 500;
+          font-weight: 700;
         }
       }
       #chapter-area {
@@ -421,7 +422,7 @@
           margin-bottom: 1em;
           text-transform: none;
           font-size: 18pt;
-          font-weight: 500;
+          font-weight: 700;
           text-align: left;
         }
       }
@@ -446,7 +447,7 @@
         padding-bottom: .2em;
         text-transform: none;
         font-size: 18pt;
-        font-weight: 500;
+        font-weight: 700;
         text-align: left;
       }
     }
@@ -695,8 +696,13 @@
   }
   #blockquote {
     .style(...) {
-      font: 10pt/13pt @font-family-serif;
+      font: 9pt/12pt @font-family-sans-serif;
       color: @black;
+
+      // Remove quotes
+      &::before, &::after {
+        content: "";
+      }
     }
   }
   // Parent level link styling
