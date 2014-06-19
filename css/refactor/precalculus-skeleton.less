@@ -21,6 +21,8 @@
     >.body, .body > p {
       #content>#note>#body>.style(@kind; @part; @context);
     }
+
+    > .body .figure .title { #content>#figure>#title>.style(any; any; @context); }
   }
   &.media {
     @context: feature-media;
@@ -252,7 +254,8 @@ div.book div > div.section > div.section {
     #part>#chapter-end>#key-equations>.style();
     > div.title { #part>#chapter-end>#key-equations>#title>.style(); }
     > div.section > div.body {
-      table { #content>#table>.style(any; chapter; key-equations); }
+      div.table { counter-increment: none; }
+      table { #content>#table>.style(any; chapter; chapter-end; key-equations); }
     }
   }
 
@@ -296,6 +299,8 @@ div.book div > div.section > div.section {
   }
 
   .empty { display: hidden; } // hide, but count, empty elements.
+
+  .exercise div.body div.problem .figure { #content>#figure>.style(any; chapter-end; exercise); }
 }
 
 // Turn off section numbering and title for eoc collations
@@ -478,6 +483,8 @@ img, figure, subfigure  { margin: 1em; }
     #content>#figure>#title>.number(); // "Figure x.x..."
   }
 
+  > .body { text-align: left; }
+
   > .caption {
     #content>#figure>#title>.style();
   }
@@ -529,7 +536,6 @@ img, figure, subfigure  { margin: 1em; }
     #content>#exercise>#title>.style(@kind; @part; section-exercise);
   }
 
-  .exercise .problem { #content>#problem>.style(@kind; @part; exercise; section-exercise); }
   .exercise .problem .figure { #content>#figure>.style(@kind; @part; problem; exercise; section-exercise); }
 
   // The end-of-section exercises should not display solutions
@@ -587,6 +593,10 @@ div.book div.chapter > div.section div.example div.exercise .problem {
   }
   .figure {
     #content>#figure>.style(any; any; problem; exercise; example);
+
+    .body {
+      text-align: left;
+    }
   }
   .figure .title {
     #content>#figure>#title>.style(any; any; problem; exercise; example);

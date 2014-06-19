@@ -412,12 +412,12 @@
     // Bug fix. Remove styling for tables in "Key Equations"
     // as these are just a wrapper for alignment.
     // !important is used to override inline table styles.
-    .style(any; chapter; key-equations) {
+    .style(any; chapter; chapter-end; key-equations) {
       margin: 0;
       border: none !important;
 
       caption { display: none; }
-      td { border-right: none !important; }
+      td { border: none !important; }
     }
 
     #caption {
@@ -490,6 +490,7 @@
     .style(media; ...) {
       #utils>#pb>.inside(avoid);
       .x-feature(media);
+      padding-left: 2.5em;
     }
     .style(try; ...) {
       #utils>#pb>.inside(avoid);
@@ -548,12 +549,20 @@
     .style(@kind; @part; problem; exercise; section-exercise) {
       text-indent: 0;
     }
+    .style(any; chapter-end; exercise) {
+      display: block; // override ccap-base display: initial.
+    }
     #title {
       .style(...) {
         display: inline;
         text-align:center;
       }
+      .style(any; any; feature-qa) {
+        font-style: normal;
+      }
       .style(any; any; problem; exercise; example) {
+        text-align: left;
+
         ::before {
           display: block;
         }
@@ -711,9 +720,6 @@
       ol,ul {
         margin-top: 1em;
       }  
-    }
-    .style(@kind; @part; exercise; section-exercise) {
-      text-indent: 1em;
     }
     .number(@kind; chapter-end; ...) {
       padding-right: .5em;
