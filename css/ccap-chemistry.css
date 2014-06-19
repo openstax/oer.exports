@@ -467,6 +467,7 @@ a[href^="http"] {
 }
 .equation .label {
   float: right;
+  display: none;
 }
 .figure {
   font-size: xx-small;
@@ -2435,6 +2436,21 @@ div.book > div.part > div.appendix > div.section div.equation > *:last-child::af
 .chapter .note p {
   font: 9pt/12pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
+.chapter .note .figure {
+  font-size: xx-small;
+  padding-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  page-break-inside: avoid;
+  column-break-inside: avoid;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 9pt;
+  padding-bottom: 1em;
+  text-align: left;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  margin-bottom: .5em;
+}
 .chapter .note.everyday-connection {
   padding-left: 1em;
   padding-right: 1em;
@@ -2681,12 +2697,13 @@ div.book > div.part > div.appendix > div.section div.equation > *:last-child::af
   margin-bottom: 1.5em;
   padding: 20px;
   background-color: #ffffff;
-  box-shadow: 10px 10px 5px #888888;
   border: 1px solid #993720;
-  border-radius: 15px;
-  margin-top: 48px;
   page-break-inside: avoid;
   text-align: left;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #e6661f;
+  border-radius: 15px;
+  margin-top: 48px;
 }
 .chapter .note.link-to-learning::before {
   text-transform: uppercase;
@@ -2737,6 +2754,52 @@ div.book > div.part > div.appendix > div.section div.equation > *:last-child::af
   margin: 0;
   width: 1.25in;
   height: 1.25in;
+}
+.chapter .note.link-to-learning::before {
+  text-transform: uppercase;
+  text-transform: capitalize;
+  color: #ffffff;
+  content: "link to learning";
+  background-color: #f6862d;
+  border: 1px solid #e6661f;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.link-to-learning::before {
+  text-transform: uppercase;
+  text-transform: capitalize;
+  color: #ffffff;
+  content: "link to learning";
+  background-color: #f6862d;
+  border: 1px solid #e6661f;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.link-to-learning .mediaobject {
+  float: left;
+  width: 97px;
+  padding-right: .8em;
+}
+.chapter .note.link-to-learning .mediaobject img {
+  margin: 0;
+  width: 97px;
+  height: 62px;
 }
 .chapter .note.link-to-learning > .body {
   padding: 0px 10px;
@@ -3077,6 +3140,12 @@ div.colophon.end-of-book-solutions .chapter-area a.solution {
 div.colophon.end-of-book-solutions .chapter-area a.chapter * {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
+/******************************************************
+ * Equations
+ ******************************************************/
+div.book > div.chapter > div.section div.equation > *:last-child::after {
+  display: none;
+}
 .chapter .note.sciences-interconnect {
   padding-left: 1em;
   padding-right: 1em;
@@ -3272,10 +3341,63 @@ div.colophon.end-of-book-solutions .chapter-area a.chapter * {
   margin-bottom: 1.5em;
   padding: 20px;
   background-color: #ffffff;
+  border: 1px solid #993720;
+  page-break-inside: avoid;
+  text-align: left;
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #e6661f;
   border-radius: 15px;
   margin-top: 48px;
+}
+.chapter .note.link-to-learning::before {
+  text-transform: uppercase;
+  text-transform: capitalize;
+  color: #ffffff;
+  content: "link to learning";
+  background-color: #993720;
+  border: 1px solid #f6862d;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.link-to-learning::before {
+  text-transform: uppercase;
+  text-transform: capitalize;
+  color: #ffffff;
+  content: "link to learning";
+  background-color: #993720;
+  border: 1px solid #f6862d;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.link-to-learning > .body::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.chapter .note.link-to-learning .mediaobject {
+  float: left;
+  width: 1.25in;
+}
+.chapter .note.link-to-learning .mediaobject img {
+  margin: 0;
+  width: 1.25in;
+  height: 1.25in;
 }
 .chapter .note.link-to-learning::before {
   text-transform: uppercase;
