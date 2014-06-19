@@ -442,6 +442,7 @@ a[href^="http"] {
 }
 .equation .label {
   float: right;
+  display: none;
 }
 .figure {
   font-size: xx-small;
@@ -892,7 +893,7 @@ p:nth-of-type(2),
 .introduction blockquote {
   color: #cfe1f1;
   font-size: 150%;
-  font: 10pt/13pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font: 9pt/12pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: #000000;
 }
 .introduction blockquote::before,
@@ -905,6 +906,10 @@ p:nth-of-type(2),
 }
 .introduction blockquote::after {
   content: "\201D" /* close-quote; */;
+}
+.introduction blockquote::before,
+.introduction blockquote::after {
+  content: "";
 }
 .chapter .note {
   padding-left: 1em;
@@ -974,7 +979,7 @@ p:nth-of-type(2),
 .chapter blockquote {
   color: #cfe1f1;
   font-size: 150%;
-  font: 10pt/13pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font: 9pt/12pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: #000000;
 }
 .chapter blockquote::before,
@@ -987,6 +992,10 @@ p:nth-of-type(2),
 }
 .chapter blockquote::after {
   content: "\201D" /* close-quote; */;
+}
+.chapter blockquote::before,
+.chapter blockquote::after {
+  content: "";
 }
 .cnx-eoc .note {
   padding-left: 1em;
@@ -1056,7 +1065,7 @@ p:nth-of-type(2),
 .cnx-eoc blockquote {
   color: #cfe1f1;
   font-size: 150%;
-  font: 10pt/13pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font: 9pt/12pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: #000000;
 }
 .cnx-eoc blockquote::before,
@@ -1069,6 +1078,10 @@ p:nth-of-type(2),
 }
 .cnx-eoc blockquote::after {
   content: "\201D" /* close-quote; */;
+}
+.cnx-eoc blockquote::before,
+.cnx-eoc blockquote::after {
+  content: "";
 }
 .colophon .note {
   padding-left: 1em;
@@ -1138,7 +1151,7 @@ p:nth-of-type(2),
 .colophon blockquote {
   color: #cfe1f1;
   font-size: 150%;
-  font: 10pt/13pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font: 9pt/12pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: #000000;
 }
 .colophon blockquote::before,
@@ -1151,6 +1164,10 @@ p:nth-of-type(2),
 }
 .colophon blockquote::after {
   content: "\201D" /* close-quote; */;
+}
+.colophon blockquote::before,
+.colophon blockquote::after {
+  content: "";
 }
 .note.howto {
   padding-left: 1em;
@@ -1541,7 +1558,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   border-top-color: #e28f26;
   display: block;
   padding-left: 0 !important;
-  padding-bottom: 1em;
+  padding-bottom: .3em;
   border-top-width: 1px;
   border-top-style: solid;
   margin-top: 10px;
@@ -1552,6 +1569,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   border-top: none;
   display: inline;
   padding-left: .25em !important;
+  padding-bottom: 1em;
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::before {
   color: black;
@@ -1814,6 +1832,7 @@ div.colophon.end-of-book-solutions > .title {
   margin-left: 0;
   color: #a63c1d;
   text-transform: capitalize;
+  font-weight: 700;
   font-weight: 500;
 }
 div.colophon.end-of-book-solutions .chapter-area {
@@ -1920,7 +1939,7 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
   margin-bottom: 1em;
   text-transform: none;
   font-size: 18pt;
-  font-weight: 500;
+  font-weight: 700;
   text-align: left;
 }
 .index h3.letter {
@@ -1997,7 +2016,7 @@ subfigure {
   padding-bottom: .2em;
   text-transform: none;
   font-size: 18pt;
-  font-weight: 500;
+  font-weight: 700;
   text-align: left;
 }
 /******************************************************************************
@@ -2405,6 +2424,21 @@ div.book > div.part > div.appendix > div.section div.equation > *:last-child::af
 .chapter .note p {
   font: 9pt/12pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
+.chapter .note .figure {
+  font-size: xx-small;
+  padding-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  page-break-inside: avoid;
+  column-break-inside: avoid;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 9pt;
+  padding-bottom: 1em;
+  text-align: left;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  margin-bottom: .5em;
+}
 .chapter .note.everyday-connection {
   padding-left: 1em;
   padding-right: 1em;
@@ -2787,6 +2821,9 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
 .table table {
   border: 1pt solid #000000 !important;
 }
+.table table th {
+  border-color: #e28f26 !important;
+}
 .table table td {
   border-color: #e28f26 !important;
   font: 10pt/14pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2812,6 +2849,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
   column-count: 2;
   columns: 2;
   column-fill: auto;
+  column-fill: balance;
   text-align: left;
 }
 .cnx-eoc.review-questions > .title {
@@ -2870,8 +2908,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
 /******************************************************
  * End-of-Book Index
  ******************************************************/
-.index .title,
-.index .title h2 {
+.index .title {
   padding: 0;
   color: #83c6ee;
   text-transform: uppercase;
@@ -2885,7 +2922,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
   margin-bottom: 1em;
   text-transform: none;
   font-size: 18pt;
-  font-weight: 500;
+  font-weight: 700;
   text-align: left;
 }
 .index .letter {
@@ -2950,6 +2987,12 @@ div.colophon.end-of-book-solutions .chapter-area a.solution {
 }
 div.colophon.end-of-book-solutions .chapter-area a.chapter * {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+/******************************************************
+ * Equations
+ ******************************************************/
+div.book > div.chapter > div.section div.equation > *:last-child::after {
+  display: none;
 }
 .chapter .note.bringhome {
   padding-left: 1em;
