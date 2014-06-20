@@ -7,8 +7,8 @@ module.exports = (grunt) ->
   try
     config = grunt.file.readYAML('config.yml')
   catch e
-    console.warn 'Missing config.yml but continuing anyway'
-    config = {}
+    console.warn 'Missing config.yml. Using config-test.yml file'
+    config = grunt.file.readYAML('config-test.yml')
 
   # Use local phantomjs
   PHANTOMJS_BIN = './node_modules/css-diff/node_modules/.bin/phantomjs'
@@ -137,7 +137,8 @@ module.exports = (grunt) ->
             #{cssDiffPath}
             #{process.cwd()}/#{lessFile}
             #{process.cwd()}/#{tempDir}/collection.xhtml
-            #{bakedXhtmlFile}
+            #{bakedXhtmlFile}-unformatted
+            && xmllint --pretty 2 #{bakedXhtmlFile}-unformatted > #{bakedXhtmlFile}
           "
 
       # Like `bake` except the styling is in a separate CSS file instead of `style="..."`
@@ -192,12 +193,18 @@ module.exports = (grunt) ->
             failIfNotExists("Baked master XHTML file missing.", masterXhtmlFile)
             failIfNotExists("Baked XHTML file missing.")        if not fs.existsSync(bakedXhtmlFile)
 
-            return "echo '#{chalk.bgGreen('Differences found:')} ' && xsltproc
-              --stringparam oldPath #{process.cwd()}/#{masterXhtmlFile}
-              --output #{config.testingDir}/#{bookName}-diff.xhtml
-              #{cssDiffPath}/compare.xsl
-              #{bakedXhtmlFile} 2>&1 | wc -l
-            "
+            return """
+              DIFFERENCES=$(xsltproc
+                --stringparam oldPath #{process.cwd()}/#{masterXhtmlFile}
+                --output #{config.testingDir}/#{bookName}-diff.xhtml
+                #{cssDiffPath}/compare.xsl
+                #{bakedXhtmlFile} 2>&1 | wc -l
+              );
+
+              echo "#{chalk.bgGreen('Differences found:')} ${DIFFERENCES}";
+              exit ${DIFFERENCES}
+            """.replace(/\n/g, ' ')
+
 
   grunt.registerTask 'diff-book', 'Perform a regression', (bookName) ->
     branchName = 'new'
