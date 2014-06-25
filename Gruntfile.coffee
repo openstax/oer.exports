@@ -201,6 +201,12 @@ module.exports = (grunt) ->
               );
 
               echo "#{chalk.bgGreen('Differences found:')} ${DIFFERENCES}";
+              xsltproc
+                --stringparam oldPath #{process.cwd()}/#{masterXhtmlFile}
+                --output #{config.testingDir}/#{bookName}-diff.xhtml
+                #{cssDiffPath}/compare.xsl
+                #{bakedXhtmlFile};
+
               exit ${DIFFERENCES}
             """.replace(/\n/g, ' ')
 
