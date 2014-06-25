@@ -55,7 +55,7 @@ module.exports = (grunt) ->
           return [
             'mkdir <%= config.testingDir %>'
             'virtualenv .'
-            'source ./bin/activate'
+            '. ./bin/activate'
             'pip install lxml argparse pillow'
             # Send stderr to /dev/null because grunt falls over with too many log lines
             "echo 'Building book (it should take a long time. If it is quick then it probably failed)...'"
