@@ -5,6 +5,10 @@ before_install:
   - npm install -g grunt-cli
   - npm install -g bower
 script:
+  # Verify the Unit tests do not differ
+  - touch ./docbook-xsl/VERSION # xsltproc should fetch the XSL files from sourceforge
   - grunt diff
+
+  # Verify the CSS files were compiled
   - grunt compile
   - ./tools/travis-check.sh
