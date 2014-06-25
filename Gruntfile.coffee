@@ -52,7 +52,7 @@ module.exports = (grunt) ->
           failIfNotExists('Unzipped Docbook does not exist', './docbook-xsl/VERSION')
           failIfNotExists('CSS file does not exist', "./css/ccap-#{bookName}.css")
 
-          return [
+          cmds = [
             'mkdir <%= config.testingDir %>'
             'virtualenv .'
             '. ./bin/activate'
@@ -67,6 +67,12 @@ module.exports = (grunt) ->
               <%= config.testingDir %>/#{bookName}-#{branchName}.pdf
             "
           ].join('; ')
+
+          # A large book generates a lot of output at this step.
+          # This influx of output causes grunt to die so we disable the output
+          # unless a flag is set.
+          cmds += '2> /dev/null' unless config.logPdf
+          return cmds
 
       'pdf-only':
         command: (bookName, branchName='new') ->
