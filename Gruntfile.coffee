@@ -7,8 +7,8 @@ module.exports = (grunt) ->
   try
     config = grunt.file.readYAML('config.yml')
   catch e
-    console.warn 'Missing config.yml but continuing anyway'
-    config = {}
+    console.warn 'Missing config.yml. Using config-test.yml file'
+    config = grunt.file.readYAML('config-test.yml')
 
   # Use local phantomjs
   PHANTOMJS_BIN = './node_modules/css-diff/node_modules/.bin/phantomjs'
@@ -52,10 +52,10 @@ module.exports = (grunt) ->
           failIfNotExists('Unzipped Docbook does not exist', './docbook-xsl/VERSION')
           failIfNotExists('CSS file does not exist', "./css/ccap-#{bookName}.css")
 
-          return [
+          cmds = [
             'mkdir <%= config.testingDir %>'
             'virtualenv .'
-            'source ./bin/activate'
+            '. ./bin/activate'
             'pip install lxml argparse pillow'
             # Send stderr to /dev/null because grunt falls over with too many log lines
             "echo 'Building book (it should take a long time. If it is quick then it probably failed)...'"
@@ -65,9 +65,14 @@ module.exports = (grunt) ->
               -s ccap-#{bookName}
               -t #{tempDir}
               <%= config.testingDir %>/#{bookName}-#{branchName}.pdf
-              2> /dev/null
             "
           ].join('; ')
+
+          # A large book generates a lot of output at this step.
+          # This influx of output causes grunt to die so we disable the output
+          # unless a flag is set.
+          cmds += '2> /dev/null' unless config.logPdf
+          return cmds
 
       'pdf-only':
         command: (bookName, branchName='new') ->
@@ -137,7 +142,8 @@ module.exports = (grunt) ->
             #{cssDiffPath}
             #{process.cwd()}/#{lessFile}
             #{process.cwd()}/#{tempDir}/collection.xhtml
-            #{bakedXhtmlFile}
+            #{bakedXhtmlFile}-unformatted
+            && xmllint --pretty 2 #{bakedXhtmlFile}-unformatted > #{bakedXhtmlFile}
           "
 
       # Like `bake` except the styling is in a separate CSS file instead of `style="..."`
@@ -192,12 +198,24 @@ module.exports = (grunt) ->
             failIfNotExists("Baked master XHTML file missing.", masterXhtmlFile)
             failIfNotExists("Baked XHTML file missing.")        if not fs.existsSync(bakedXhtmlFile)
 
-            return "echo '#{chalk.bgGreen('Differences found:')} ' && xsltproc
-              --stringparam oldPath #{process.cwd()}/#{masterXhtmlFile}
-              --output #{config.testingDir}/#{bookName}-diff.xhtml
-              #{cssDiffPath}/compare.xsl
-              #{bakedXhtmlFile} 2>&1 | wc -l
-            "
+            return """
+              DIFFERENCES=$(xsltproc
+                --stringparam oldPath #{process.cwd()}/#{bakedXhtmlFile}
+                --output #{config.testingDir}/#{bookName}-diff.xhtml
+                #{cssDiffPath}/compare.xsl
+                #{masterXhtmlFile} 2>&1 | wc -l
+              );
+
+              echo "#{chalk.bgGreen('Differences found:')} ${DIFFERENCES}";
+              xsltproc
+                --stringparam oldPath #{process.cwd()}/#{bakedXhtmlFile}
+                --output #{config.testingDir}/#{bookName}-diff.xhtml
+                #{cssDiffPath}/compare.xsl
+                #{masterXhtmlFile};
+
+              exit ${DIFFERENCES}
+            """.replace(/\n/g, ' ')
+
 
   grunt.registerTask 'diff-book', 'Perform a regression', (bookName) ->
     branchName = 'new'
