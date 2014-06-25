@@ -65,7 +65,6 @@ module.exports = (grunt) ->
               -s ccap-#{bookName}
               -t #{tempDir}
               <%= config.testingDir %>/#{bookName}-#{branchName}.pdf
-              2> /dev/null
             "
           ].join('; ')
 
