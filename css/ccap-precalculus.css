@@ -2918,6 +2918,28 @@ div.book > div.appendix .precalculus.try.labeled {
 div.book > div.appendix .precalculus.try > .title:not(.labeled)::before {
   content: "" "" counter(appendix, upper-latin) "" counter(try) " " "";
 }
+/* -------------------------
+ * Equations
+ * -------------------------
+ */
+div.book div.chapter > div.section div.equation.unnumbered,
+div.book div.chapter > div.section div.equation:not(.labeled).unnumbered {
+  counter-increment: none;
+}
+div.book div.chapter > div.section div.equation.unnumbered > *:last-child::after {
+  display: none;
+}
+/* -------------------------
+ * Tables
+ * -------------------------
+ */
+div.book div.chapter .table.unnumbered,
+div.book div.chapter .table:not(labeled).unnumbered {
+  counter-increment: none;
+}
+div.book div.chapter div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before {
+  display: none;
+}
 div.book > div.preface > div.cnx-eoc,
 div.book > div.part > div.preface > div.cnx-eoc {
   counter-reset: /*exercise*/ eoc-section -1;
