@@ -65,6 +65,16 @@ html {
   }
 }
 
+// Turn equation numbering on in example exercises.
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled),
+div.book div.chapter > div.section div.example div.exercise div.equation, {
+  counter-increment: equation !important; // Override !important from numbering-skeleton.
+}
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled) div.mediaobject::after,
+div.book div.chapter > div.section div.example div.exercise div.equation div.mediaobject::after, {
+  display: block;
+}
+
 
 // Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
 // originally defined in ccap-numbering.less

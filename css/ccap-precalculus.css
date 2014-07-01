@@ -2924,10 +2924,10 @@ div.book > div.appendix .precalculus.try > .title:not(.labeled)::before {
  */
 div.book div.chapter > div.section div.equation.unnumbered,
 div.book div.chapter > div.section div.equation:not(.labeled).unnumbered {
-  counter-increment: none;
+  counter-increment: none !important;
 }
 div.book div.chapter > div.section div.equation.unnumbered > *:last-child::after {
-  display: none;
+  display: none !important;
 }
 /* -------------------------
  * Tables
@@ -2935,10 +2935,18 @@ div.book div.chapter > div.section div.equation.unnumbered > *:last-child::after
  */
 div.book div.chapter .table.unnumbered,
 div.book div.chapter .table:not(labeled).unnumbered {
-  counter-increment: none;
+  counter-increment: none !important;
 }
 div.book div.chapter div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before {
-  display: none;
+  display: none !important;
+}
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled),
+div.book div.chapter > div.section div.example div.exercise div.equation {
+  counter-increment: equation !important;
+}
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled) div.mediaobject::after,
+div.book div.chapter > div.section div.example div.exercise div.equation div.mediaobject::after {
+  display: block;
 }
 div.book > div.preface > div.cnx-eoc,
 div.book > div.part > div.preface > div.cnx-eoc {
