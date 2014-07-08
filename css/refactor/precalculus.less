@@ -60,6 +60,21 @@ html {
   }
 }
 
+// Ad-hoc numbering changes. Removes numbering for various pieces of content
+// which use a .unnumbered class.
+@import url('unnumbered-content.less');
+
+
+// Turn equation numbering on in example exercises.
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled),
+div.book div.chapter > div.section div.example div.exercise div.equation, {
+  counter-increment: equation !important; // Override !important from numbering-skeleton.
+}
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled) div.mediaobject::after,
+div.book div.chapter > div.section div.example div.exercise div.equation div.mediaobject::after, {
+  display: block;
+}
+
 
 // Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
 // originally defined in ccap-numbering.less
