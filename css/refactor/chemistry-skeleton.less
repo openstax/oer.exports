@@ -1,0 +1,167 @@
+// Copyright (c) 2013 Rice University
+// This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+// See LICENSE.txt for details.
+
+
+// Would #content>#note>#title>.style('sciences-interconnect'; any); work?
+
+.chapter .note {
+  &.sciences-interconnect {
+    #content>#note>.style('sciences-interconnect'; any);
+    >.title { 
+      #content>#note>#title>.style('sciences-interconnect'; any);
+    }
+  }
+  &.everyday-life {
+    #content>#note>.style('everyday-life'; any);
+    >.title {
+      #content>#note>#title>.style('everyday-life'; any); 
+    }
+  }
+  &.chemist-portrait {
+    #content>#note>.style('chemist-portrait'; any);
+    >.title { 
+       #content>#note>#title>.style('chemist-portrait'; any); 
+    }
+  }
+  &.link-to-learning {
+    #content>#note>.style('link-to-learning'; any);
+  }
+}
+
+
+/******************************************************
+ * Preface
+ ******************************************************/
+
+ // We will need to convert this to slot in other books
+.preface {
+  > .section h2,
+  > .section h3 {
+    color: @dark-blue;
+  }
+}
+
+
+/******************************************************
+ * Chapter Outline
+ ******************************************************/
+
+// Do we have a slot to target the actual li entries for .toc-section?
+// Not really sure where this should live?  The margin entries are attached to li.toc-section
+.chapter > .introduction > .toc > * > li {
+    margin: .4em 0;
+}
+
+
+/******************************************************
+ * Example
+ ******************************************************/
+
+// No slot for this in precalculus. For Chemistry, example titles need to be boldish
+.example > .title > * {
+  font-weight: 700;
+}
+
+
+/******************************************************
+ * Tables
+ ******************************************************/
+
+// 5/25/2014 Added Derek's table stuff here verbatim.  We can
+// probably remove this below once this gets into master.
+
+// There is a discrepency with .table vs .table table,
+// I recommend we reset .table to effectively remove it,
+// and only use .table table for applying styles/counters.
+
+.table {
+  margin: 0 auto; 
+  padding: 0;
+  border: none;
+}
+
+.table table {
+  #content>#table>.style(any; any);
+
+   // No slot home for this in precalc yet
+  .table-caption.caption {
+    color: @black;
+    font-weight: normal !important; //override strong tag
+    font-family: @font-family-sans-serif;
+    font-size: 9pt;
+  }
+
+  // A way to override inline border styles generating with table
+  td[style] { 
+    #content>#table>#data>.style(any; any);
+  }
+}
+
+/******************************************************
+ * EOC Customizations
+ ******************************************************/
+.cnx-eoc {
+  &.exercises {
+    #part>#chapter-end>#exercises>.style();
+    > .title { #part>#chapter-end>#exercises>#title>.style(); }
+    p { 
+      text-align: left; //W&N does not want Review Questions justified.
+    }
+    > .section > .title > a { #part>#chapter-end>#exercises>#title>.link(); }
+  }
+}
+
+// This section not completely refactored in PreCalc yet.  Everything across
+// books will need to go into #chapter-ara slot
+div.colophon.end-of-book-solutions .chapter-area { 
+  #part>#book-end>#end-of-book-solutions>#chapter-area>.style(any); 
+  // Solution child selector override from PreCalc
+  div.solution { 
+    #content>#solution>.style(@kind; book-end);
+  }
+}
+
+/******************************************************
+ * Appendix
+ ******************************************************/
+
+// Styling for customized Appendix
+.appendix {
+  h1.title { 
+    padding: 0; //reset
+    font-size: inherit;
+    padding-bottom: .3em;
+    text-transform: capitalize;
+    border-bottom: 1px solid @orange;
+  }
+
+  h1.title .cnx-gentext-n {
+    color: @dark-blue;
+    font-size: 17pt;
+    font-weight: bold;
+
+    &::before { 
+      content: "Appendix ";
+    }
+  }
+  // Spruce up h2 title for Appendix
+  > div.section > div.titlepage h2 {
+    color: @dark-blue;
+    font-size: 28pt;
+    line-height: 1;
+
+    // Remove alphanumeric before title e.g. 'A1 | Appendix Title'
+    &::before {
+      display: none;
+    }
+    // Remove pipe '|'
+    .cnx-gentext-t:before { 
+      display: none;
+    }
+  }
+}
+
+
+
+

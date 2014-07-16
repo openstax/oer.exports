@@ -1,0 +1,358 @@
+// Copyright (c) 2013 Rice University
+// This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+// See LICENSE.txt for details.
+
+
+.x-feature-before-color(@title-color, @title) {
+  text-transform: capitalize;
+  color: @title-color;
+  content: @title;
+}
+.x-feature-color(@border-color, @title-border-color, @title-color, @background-color, @title) {
+  box-shadow: 10px 10px 5px @shadow; // On the roadmap for PrinceXML 9.1
+  border: 1px solid @border-color;
+  border-radius: 15px;
+  
+  margin-top: 48px; // Clear the title ::before.
+  &::before {
+    .x-feature-before-color(@title-color, @title);
+    background-color: @background-color;
+    border: 1px solid @title-border-color;
+    border-radius: 15px;
+    width: 60%;
+
+    // Reposition the titles
+    position: absolute;
+    margin-top: -48px;
+    margin-left: -5px;
+    padding: 8px;
+    padding-left: 0px;
+
+    // Text styles
+    font-weight: 700;
+    font-size: 12pt;
+    text-indent: 0.1875in;
+  }
+}
+#part {
+  #toc {
+    #title {
+      .style(...) {
+        color: @dark-blue;
+        font-weight: bold;
+      }
+    }
+    #link {
+      .style(...) {
+        color: @dark-blue;
+      }
+    }
+  }
+  #preface {
+    #titlepage {
+      .title(...) {
+        margin-top: 0;
+        color: @dark-blue;
+        font-weight: bold;
+      }
+    }
+    .subtitle() {
+      color: @dark-blue;
+    }
+  }
+  #introduction {
+    #title {
+      .style(...) {
+        color: @dark-blue;
+        font-size: 17pt;
+        font-weight: bold;
+      }
+    }
+    #chapter-outline {
+      #title {
+        .style(...) {
+          color: @red;
+        }
+      }
+    }
+  }
+  #chapter {
+    #title{
+      .text() {
+        font-family: @font-family-sans-serif;
+        font-weight: bold;
+        color: @dark-blue;
+        padding-top: .2em;
+      }
+      .number() {
+        color: @dark-blue;
+      }
+    }
+    #learning-objectives {
+      .style(...) {
+        border: none;
+
+        ul.itemizedlist {
+          > .listitem {
+            margin-top: .4em;
+            margin-bottom: .4em;
+          }
+        }
+      }
+      #title {
+        .style(...) {
+          display: none;
+        }
+      }
+
+    }
+  }
+  // End-of-chapter parts
+  #chapter-end {
+    .style(...) {}
+
+    #title {
+      .style(...) {
+        color: @dark-blue;
+        font-size: 13pt;
+      }
+    }
+    #summary {
+      .style(...) {}
+
+      #title {
+        .style(...){
+          margin-bottom: 0;
+        }
+
+        .link(...) {
+          font: normal normal 700 10pt/13pt @font-family-sans-serif;
+        }
+      }
+    }
+    #exercises {
+      .style(...) {
+        .x-column-count(2); 
+        text-align: left;
+      }
+      #title {
+        .style(...) {
+          content: @cnx-string-exercises;
+          column-span: all;
+          color: @dark-blue;
+          font-size: 13pt;
+          font-weight: bold;
+          padding-top: 1em;
+          padding-bottom: .2em;
+        }
+        .link(...) {
+          color: black;
+        }
+      }
+    }
+  }
+  // End of Book Customizations
+  #book-end {
+    #end-of-book-solutions {
+      .style(...) {
+        .x-column-count(2);
+      }
+      #title {
+        .style(...) {
+          column-span: all;
+          color: @dark-blue;
+          font-size: 17pt;
+          padding-bottom: .3em;
+        }
+      }
+      #chapter-area {
+        .style(any) {}
+      }
+    }
+    #index {
+      #title {
+        .style(...) {
+          color: @dark-blue;
+          font-size: 17pt;
+        }
+      }
+    }
+    // End of Book Attribution and About Connexions
+    #colophon {
+      .style(...) {
+        color: @dark-blue;
+        font-size: 17pt;
+      }
+    }
+  }
+  #glossary {
+    // Unfortunately even though there is no !important on anything in #glossary used in precalculus, in psychology
+    // there had to be an important to be used to make the change.  It is so here as well.  For some reason
+    // nothing in glossary seems to be able to be simply overridden. Grr. Evil Glossary
+    #title {
+      .style(chapter) {
+        color: @dark-blue !important;
+        font-size: 13pt !important;
+      }
+    }
+  }
+}
+#content {
+  #note {
+    .style('sciences-interconnect'; ...) {
+      .x-feature-color(@dark-blue, @dark-blue, @white, @medium-blue, @cnx-string-how-sciences-interconnect);
+    }
+    .style('everyday-life'; ...) {
+      .x-feature-color(@dark-purple, @dark-purple, @white, @purple, @cnx-string-chemistry-in-everyday-life);
+    }
+    .style('chemist-portrait'; ...) {
+      .x-feature-color(@dark-green, @dark-green, @white, @green, @cnx-string-portrait-of-a-chemist);
+    }
+    .style('link-to-learning'; ...) {
+      .x-feature-color(@dark-orange, @dark-orange, @white, @orange, @cnx-string-link-to-learning);
+
+      // QR code is going away to be replaced with just an image. Removing variable reference
+      // here to be placed at size and override psychology which is currently using QR codes.  
+      // It would be better to find a way to reset width/height and place image at size instead
+      // of specificy pixel width/height. auto/inherit doesn't work. Will investigate.
+      .mediaobject {
+        float: left;
+        width: 97px;
+        padding-right: .8em;
+        img {
+          margin: 0;
+          width: 97px;
+          height: 62px;
+        }
+      }
+    }
+    #title {
+      .style(...) {
+        font-family: @font-family-sans-serif;
+        font-size: 11pt;
+      }
+      .style('sciences-interconnect'; any) {
+        color: @medium-blue;
+      }
+      .style('everyday-life'; any) {
+        color: @purple;
+      }
+      .style('chemist-portrait'; any) {
+        color: @green;
+      }
+    }  
+  }
+  #heading {
+    // H1 in the title part is the top level book title
+    .style(h1; title) {
+      color: @dark-blue;
+      margin-top: 10em;
+    }
+    .style(h2; chapter) {
+      color: @dark-blue;
+      font-size: 17pt;
+
+      &::before { color: @dark-blue; }
+    }
+  }
+  #section {
+    #title {
+      // H3
+      .style(any; any; section) {
+        color: @dark-blue;
+        text-transform: none; // reset from psychology
+        font-size: 13pt;
+      }
+      // H4
+      .style(any; any; section; section) {
+        color: @red;
+        font-size: 11pt;
+      }
+    }
+  }
+  #table {
+    .style(any; any) {
+      width: 100%;
+      padding-top: 1em;
+      border: none !important; // override inline table style=""
+    }
+    .style(any; preface) {
+      margin: 0;
+      border: none !important; // override inline table style=""
+    }
+    #caption {
+      .style(any; any) {
+        color: @dark-blue;
+        caption-side: bottom;
+        border-right: none;
+        border-left: none;
+        border-top: 1px solid @dark-blue !important;
+
+        // This is for the Table 1.1 numbering part. the actual title
+        // has to be @dark-blue and has to move to top and centered.
+        // This can go away maybe after bug is fixed with <title>
+        &::before { 
+          color: @red; 
+        }
+      }
+    }
+    #head {
+      .style(any; any) {
+      }
+    }
+    #body {
+      .style(any; any) {
+      }
+    }
+    #row {
+      border: none !important;
+    }
+    #header {
+      .style(any; any) {
+        background-color: @medium-blue;
+        border: none;
+        border-top: 1px solid @dark-blue !important;
+        border-bottom: 1px solid @dark-blue !important;
+        border-right: none !important;
+        font-size: 9pt;
+        color: white;
+        text-align: center !important;
+      }
+    }
+    #data {
+      .style(any; any) {
+        font-family: @font-family-sans-serif;
+        font-size: 9pt;
+        text-align: center !important;
+        border-color: @dark-blue !important;
+      }
+      .style(any; preface) {
+        padding: 5px;
+      }
+    }
+  }
+  #example {
+    .style(any; any) {
+    }
+    #title {
+      .style(any) {
+        padding-top: .3em;
+        padding-bottom: .3em;
+      }
+    }
+    #body {
+      .style(any) {
+        background: @example-blue;
+        padding: 1em 2em .5em 2em;
+      }
+    }
+  }
+  #solution {
+    .style(...) {}
+
+    .style(@kind; book-end) {
+      display: block;
+      padding-bottom: .5em; 
+    }
+  }
+}

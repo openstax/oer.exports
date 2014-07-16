@@ -1,15 +1,19 @@
+// Copyright (c) 2013 Rice University
+// This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+// See LICENSE.txt for details.
+
 .chapter .note {
   &.my-story {
-    #content>#note>.style(my-story);
+    #content>#note>.style('my-story'; chapter);
   }
   &.defining-american  {
-    #content>#note>.style(defining-american);
+    #content>#note>.style('defining-american'; chapter);
   }
   &.americana {
-    #content>#note>.style(americana);
+    #content>#note>.style('americana'; chapter);
   }
   &.click-and-explore {
-    #content>#note>.style(click-and-explore);
+    #content>#note>.style('click-and-explore'; chapter);
   }
 }
 
@@ -31,10 +35,6 @@ div.end-of-book-solutions {
   > h1.title {
     #part>#book-end>#end-of-book-solutions>#title>.style();
   }
-}
-
-div.end-of-book-references {
-  #part>#book-end>#end-of-book-references>.style();
 }
 
 .index {
@@ -59,45 +59,11 @@ div.end-of-book-references {
   }
 }
 
-// We most likely do not need to target these in a skeleton
-// change but through @part somehow. There's lots of different
-// permutations: .chapter h1.title, .section h3.title, etc. etc.
-.section h3 {
-  #content>#heading>.style(h3;);
-}
-.section h4 {
-  #content>#heading>.style();
-}
-
 div.book div.chapter div.titlepage > div > div > h2.title {
   #part>.title(chapter);
-}
-
-.chapter > .introduction > h3.title,
-div.book div.chapter div.titlepage > div > div > h2.title,
-div.book div.chapter div.titlepage > div > div > h2 {
-  #content>#heading>.style();
 }
 
 .preface .section > .table, 
 .preface .section > .table table { 
   #content>#table>.style(any; preface);
 }
-
-// For this one below, we don't really currently have a way in refactoring
-// to take care of the page based elements and sometimes how they are modified
-// How will we handle the docbook class specific example below that requires
-// the use of the docbook tag to accomplish this.  In the future, polyfills I
-// think will be used here.
-
-// Reset (ccap-precalculus.less). Get rid of such specific selectors!
-body div.book div.chapter > div.titlepage > div > div > h1.title {
-  span.cnx-gentext-t {
-    // Replace the default page header "Chapter number | Title", removing
-    // the "|"
-    string-set: cnx-header string(cnx-chapter-number-string) " " content();
-    padding-left: 0;
-  }
-}
-
-

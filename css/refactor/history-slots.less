@@ -1,3 +1,7 @@
+// Copyright (c) 2013 Rice University
+// This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+// See LICENSE.txt for details.
+
 #index {
   .term() {
     padding-bottom: 0;
@@ -13,7 +17,28 @@
   #preface {
     #titlepage {
       .style(...) {}
-      .title(...) {}
+      .title(...) {
+        string-set: cnx-header "Preface";
+        font-weight: medium;
+        border: none;
+      }
+    }
+  }
+  #introduction {
+    #title {
+      .style(...) {
+        color: @red;
+        border-bottom: none;
+        font-size: x-large;
+      }
+    }
+    #splash-figure {
+      .image(chapter) {
+        // W&N has requested to be able to place splash "at size" for this text
+        // Some splash imagery won't be full width. Leaving up to container.
+        // overriding base-slots
+        width: auto;
+      }
     }
   }
   #toc {
@@ -26,6 +51,7 @@
         font: bold normal 11pt/1em @font-family-sans-serif;
         color: @red;
         border-bottom: 1px solid @red;
+        text-align: left;
       }
     }
     #link {
@@ -50,9 +76,11 @@
       }
       .text() {
         border: none;
-	      border-top-style: none;
+        border-top-style: none;
         padding-left: 0;
+        padding-bottom: 1em;
         color: @dark-blue;
+        string-set: cnx-header "Chapter " counter(chapter, decimal) " " content();
       }
       .number() {
         font-size: 14pt;
@@ -60,7 +88,7 @@
     }
     #learning-objectives {
       .style(...) {
-        background-color: @light-gray;
+        background-color: @light-gray-40;
         border-top: 1px solid @light-blue;
         border-bottom: none;
         padding: 1em;
@@ -73,6 +101,20 @@
     }
   }
 
+  #module {
+    #title {
+      .style() {
+        border: none;
+        color: @red;
+        font: 700 normal normal 11pt/13pt @font-family-sans-serif;
+        margin-bottom: .5em;
+        text-transform: none;
+      }
+      .divider() {}
+      .number() {}
+      .text() {}
+    }
+  }
   #glossary {
     .term(chapter) {
       font: 400 10pt/13pt @font-family-serif;
@@ -187,6 +229,7 @@
           color: @red;
           border: none;
           text-transform: none;
+          font-weight: 500;
         }
       }
       .term(...) {}
@@ -199,6 +242,7 @@
       .style(...) {
         color: @red;
         border: none;
+        font-weight: 500;
       }
     }
   }
@@ -246,16 +290,16 @@
       #utils>#pb>.inside(avoid);
       padding: 0;
     }
-    .style(my-story; ...) {
+    .style('my-story'; chapter) {
       .x-history-feature(@dark-blue, @cnx-string-my-story);
     }
-    .style(defining-american; ...) {
+    .style('defining-american'; chapter) {
       .x-history-feature(@orange, @cnx-string-defining-american);
     }
-    .style(americana; ...) {
+    .style('americana'; chapter) {
       .x-history-feature(@red, @cnx-string-americana);
     }
-    .style(click-and-explore; ...) {
+    .style('click-and-explore'; chapter) {
       background-color: @yellow-35;
       margin-bottom: 2.5em;
 
@@ -307,24 +351,16 @@
   }
   #blockquote {
     .style(...) {
-      font-family: @font-family;
+      font-family: 10pt/13pt @font-family;
       color: black;
       font-size: inherit;
       margin-top: inherit;
       margin-bottom: inherit;
       line-height: inherit;
-
-      // Remove quotes
-      &::before, &::after {
-        content: "";
-      }
     }
   }
-  #heading{
-    .style(...) {
-      color: @dark-blue;
-    }
-
+  #heading {
+/*
     // W&N wishes capitalize/no-capitalize h2/h3 in markup
     .style(h2, ...) {
       font-size: 11pt;
@@ -334,6 +370,7 @@
       font-size: 11pt;
       text-transform: none;
     }
+*/
   }
   #section {
     #abstract { //learning objectives
@@ -353,6 +390,22 @@
         padding-left: 12pt;
       }
     }
+    #title {
+      .style(any; preface) { color: @dark-blue; }
+      .style(any; preface; section) {
+        color: @dark-blue;
+        text-transform: none;
+        font-size: 11pt;
+        line-height: 13pt;
+      }
+      .style(any; any;) {
+        color: @dark-blue;
+        text-transform: none;
+        font-size: 11pt;
+        line-height: 13pt;
+        margin: 0.5em 0em;
+      }
+    }
   }
    // Parent level link styling
   #link {
@@ -361,14 +414,16 @@
     }
   }
   #table {
-    .style(...) {
+    .style(any; any) {
       background-color: @yellow-35;
     }
     // Tables used in Preface must have no background. 
     .style(any; preface) {
       background: none;
+      margin: 0;
+      border: none !important; // override inline table style=""
     }
-    .caption(...) {
+    .caption(any; any) {
       background-color: @yellow-35;
       border-style: none;
       border-bottom: 1px solid @orange;
@@ -407,6 +462,7 @@
       font-size: 9pt;
       color: black;
       text-align: left;
+      font-weight: normal;
     }
     #title {
       .style(...) {

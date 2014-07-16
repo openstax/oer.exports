@@ -4,10 +4,14 @@ module.exports = (grunt) ->
   fs = require('fs')
   pkg = require('./package.json')
   chalk = require('chalk')
-  config = grunt.file.readYAML('config.yml')
+  try
+    config = grunt.file.readYAML('config.yml')
+  catch e
+    console.warn 'Missing config.yml but continuing anyway'
+    config = {}
 
   # Use local phantomjs
-  PHANTOMJS_BIN = './node_modules/css-diff/node_modules/.bin/phantomjs'
+  CSS_BAKE_BIN = './node_modules/css-bake/bin/css-bake'
 
   failIfNotExists = (message, filePath) ->
     throw new Error("#{message}. Expected #{filePath} to exist.") if not fs.existsSync(filePath)
@@ -129,11 +133,10 @@ module.exports = (grunt) ->
           failIfNotExists("Less file does not exist: #{lessFile}", lessFile)
           failIfNotExists("XHTML file missing. generate with `grunt shell:pdf:#{bookName}`: #{tempDir}/collection.xhtml", "#{tempDir}/collection.xhtml")
 
-          return "#{PHANTOMJS_BIN} #{cssDiffPath}/phantom-harness.coffee
-            #{cssDiffPath}
-            #{process.cwd()}/#{lessFile}
-            #{process.cwd()}/#{tempDir}/collection.xhtml
-            #{bakedXhtmlFile}
+          return "#{CSS_BAKE_BIN}
+            --input-css   #{lessFile}
+            --input-html  #{tempDir}/collection.xhtml
+            --output-html #{bakedXhtmlFile}
           "
 
       # Like `bake` except the styling is in a separate CSS file instead of `style="..."`
@@ -152,12 +155,11 @@ module.exports = (grunt) ->
           failIfNotExists("XHTML file missing. generate with `grunt shell:pdf:#{bookName}`", "#{tempDir}/collection.xhtml")
 
           return [
-            "#{PHANTOMJS_BIN} #{cssDiffPath}/phantom-harness.coffee
-              #{cssDiffPath}
-              #{process.cwd()}/#{lessFile}
-              #{process.cwd()}/#{tempDir}/collection.xhtml
-              #{previewXhtmlFile}
-              #{previewCssFile}
+            "#{CSS_BAKE_BIN}
+              --input-css   #{lessFile}
+              --input-html  #{tempDir}/collection.xhtml
+              --output-html #{previewXhtmlFile}
+              --output-css  #{previewCssFile}
             "
             "sed -i '' 's/\\<body\\>/<body><link rel=\"stylesheet\" href=\"preview.css\" \\/>/' #{previewXhtmlFile}"
 
@@ -237,6 +239,7 @@ module.exports = (grunt) ->
     'economics'
     'psychology'
     'history'
+    'chemistry'
   ]
   compileBooks = []
   for bookName in allBooks

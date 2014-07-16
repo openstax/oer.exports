@@ -1,3 +1,7 @@
+// Copyright (c) 2013 Rice University
+// This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+// See LICENSE.txt for details.
+
 @kind: default;
 @part: chapter;
 @context: default;
@@ -17,6 +21,8 @@
     >.body, .body > p {
       #content>#note>#body>.style(@kind; @part; @context);
     }
+
+    > .body .figure .title { #content>#figure>#title>.style(any; any; @context); }
   }
   &.media {
     @context: feature-media;
@@ -61,10 +67,22 @@
  * Preface
  * -------------------------
  */
-.preface {
+div.book div.preface {
   > .titlepage {
     #part>#preface>#titlepage>.style();
     h1.title { #part>#preface>#titlepage>.title(); }
+  }
+
+  > div.section {
+    div.titlepage > div > div > h2 {
+      #content>#section>#title>.style(any; preface);
+    }
+
+    > div.section {
+      > div.titlepage > div > div > h3 {
+        #content>#section>#title>.style(any; preface; section);
+      }
+    }
   }
 }
 
@@ -149,6 +167,36 @@ div.book div.chapter > div.titlepage > div > div h1.title {
 }
 
 /********************************************************************
+ * Styling for Module Titles
+ ********************************************************************/
+div.book div.chapter > div.section > div.titlepage h2 {
+  #part>#module>#title>.style();
+
+  &::before {
+    #part>#module>#title>.number();
+  }
+  span.cnx-gentext-n { #part>#module>#title>.number(); }
+
+  span.cnx-gentext-t {
+    #part>#module>#title>.text();
+    &::before { #part>#module>#title>.divider(); }
+  }
+}
+
+/********************************************************************
+ * Styling for Module Section/Subsection Titles
+ ********************************************************************/
+div.book div > div.section > div.section {
+  #content>#section>.style(any; any);
+  div.titlepage > div > div > h3 { #content>#section>#title>.style(any; any); }
+
+  > div.section { // Sub-sections
+    #content>#section>.style(any; any; section);
+    div.titlepage > div > div > h4 { #content>#section>#title>.style(any; any; section); }
+  }
+}
+
+/********************************************************************
  * Styling for Learning Objectives Box
  ********************************************************************/
 
@@ -162,7 +210,7 @@ div.book div.chapter > div.titlepage > div > div h1.title {
 
     .itemizedlist > .listitem > p { 
       margin: 0em .3em; 
-      display: inline-block; 
+      display: inline;
       text-align: left;
     }
 
@@ -205,6 +253,10 @@ div.book div.chapter > div.titlepage > div > div h1.title {
   &.key-equations {
     #part>#chapter-end>#key-equations>.style();
     > div.title { #part>#chapter-end>#key-equations>#title>.style(); }
+    > div.section > div.body {
+      div.table { counter-increment: none; }
+      table { #content>#table>.style(any; chapter; chapter-end; key-equations); }
+    }
   }
 
   &.key-concepts {
@@ -247,6 +299,8 @@ div.book div.chapter > div.titlepage > div > div h1.title {
   }
 
   .empty { display: hidden; } // hide, but count, empty elements.
+
+  .exercise div.body div.problem .figure { #content>#figure>.style(any; chapter-end; exercise); }
 }
 
 // Turn off section numbering and title for eoc collations
@@ -361,22 +415,6 @@ div.end-of-book-references {
  * Generic Elements
  ********************************************************************/
 
-// Header defintions
-h1, h2, h3, h4, h5, h6 {
-  #content>#heading>.style();
-}
-h1 { 
-  #content>#heading>.style(h1);
-}
-h2 { 
-  #content>#heading>.style(h2); 
-}
-h3 { 
-  #content>#heading>.style(h3); 
-}
-h4 { 
-  #content>#heading>.style(h4); 
-}
 h5 { 
   #content>#heading>.style(h5); 
 }
@@ -391,7 +429,7 @@ body {
   #content>#body>.style(any);
 }
 .book > .cnx-title h1 {
-  #content>#heading>.style(h1; title);
+  #part>#titlepage>#title>.style();
 }
 img { #content>#image>.style(any; any); }
 p { #content>#paragraph>.style(any); }
@@ -496,7 +534,6 @@ img, figure, subfigure  { margin: 1em; }
     #content>#exercise>#title>.style(@kind; @part; section-exercise);
   }
 
-  .exercise .problem { #content>#problem>.style(@kind; @part; exercise; section-exercise); }
   .exercise .problem .figure { #content>#figure>.style(@kind; @part; problem; exercise; section-exercise); }
 
   // The end-of-section exercises should not display solutions
@@ -554,6 +591,10 @@ div.book div.chapter > div.section div.example div.exercise .problem {
   }
   .figure {
     #content>#figure>.style(any; any; problem; exercise; example);
+
+    .body {
+      text-align: left;
+    }
   }
   .figure .title {
     #content>#figure>#title>.style(any; any; problem; exercise; example);
@@ -573,7 +614,7 @@ div.book div.chapter > div.section div.example div.exercise .problem {
   }
 
   .solution > .body {
-    #content>#solution>#title>.style(any; any; exercise; example);
+    #content>#solution>#body>.style(any; any; exercise; example);
   }
   .solution > .body > a.target-figure {
     color: @orange;
@@ -621,12 +662,16 @@ div.book div.chapter > div.section div.example div.exercise .problem {
   }
 
   // Add styling for table entries that should render as table headers
-  td.header { #content>#table>#data>.style(header; any); }
+  td.header { #content>#table>#data>.style('header'; any); }
   tr { #content>#table>#row>.style(any; any); }
   th { #content>#table>#header>.style(any; any); }
+  td { #content>#table>#data>.style(any; any); }
 
   table {
     border-bottom: @table-border;
+
+    thead { #content>#table>#head>.style(any; any); }
+    tbody { #content>#table>#body>.style(any; any); }
   }
   // This is just for looks for the template take out later
   table td {
@@ -690,3 +735,9 @@ div.book > div.part {
   }
 }
 
+
+// Set all headings ragged-right, as per W&N request on 6/27
+// in github issues #570, #578.
+h1, h2, h3, h4, h5, h6 {
+  text-align: left;
+}

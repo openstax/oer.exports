@@ -1,3 +1,7 @@
+// Copyright (c) 2013 Rice University
+// This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+// See LICENSE.txt for details.
+
 @cnx-string-introduction: "Introduction";
 @cnx-string-chapter-outline: "Chapter Outline";
 @cnx-string-learning-objectives: "Learning Objectives";
@@ -5,6 +9,14 @@
 @cnx-string-key-concepts: "Key Concepts";
 
 #part {
+  #titlepage {
+    #title {
+      .style() {
+        font-size: 34pt;
+        text-align: left;
+      }
+    }
+  }
   #preface {
     #titlepage {
       .style(...) {
@@ -20,6 +32,7 @@
       .style(...) {
         content: @cnx-string-introduction;
         font-size: x-large;
+        color: @medium-blue;
       }
     }
     #chapter-outline {
@@ -63,7 +76,6 @@
       }
     }
   }
-
   #chapter {
     #title {
       .style(...) {
@@ -110,7 +122,22 @@
       }
     }
   }
-
+  #module {
+    #title {
+      .style() {
+        color: @medium-blue;
+        font-size: 17pt;
+        font-weight: bold;
+      }
+      // Separate the section number and title with a pipe
+      .divider() {
+        color: black;
+        content: "| ";
+      }
+      .number() {}
+      .text() {}
+    }
+  }
   #glossary {
     .style(chapter) {
       // End-of-chapter material should start on a new page
@@ -165,13 +192,12 @@
     }
     #key-equations {
       .style(...) {
-        .x-column-count(2);
+        .x-column-count(1);
       }
       #title {
         .style(...) {
           content: @cnx-string-key-equations;
-          column-span: all;  // staging bug-fix.
-          margin-top: 1em;   // this too.
+          margin-top: 1em;   // staging bug-fix.
         }
       }
     }
@@ -294,6 +320,7 @@
 
       #chapter-area {
         .style(...) {
+          font-family: @font-family-serif;
           color: black;
           font-weight: bold;
           font-size: medium;
@@ -380,6 +407,18 @@
     .style(any; any; problem; exercise; example) {
       counter-increment: table !important; // Overrides !important from base.
     }
+
+    // Bug fix. Remove styling for tables in "Key Equations"
+    // as these are just a wrapper for alignment.
+    // !important is used to override inline table styles.
+    .style(any; chapter; chapter-end; key-equations) {
+      margin: 0;
+      border: none !important;
+
+      caption { display: none; }
+      td { border: none !important; }
+    }
+
     #caption {
       .style(any; any) {
         font-family: @font-family;
@@ -388,6 +427,14 @@
         font-weight:bold;
         color: @orange;
         caption-side:bottom;
+      }
+    }
+    #head {
+      .style(any; any) {
+      }
+    }
+    #body {
+      .style(any; any) {
       }
     }
     #row {
@@ -411,8 +458,11 @@
       }
     }
     #data {
+      .style(any; any) {
+      }
+
       // Some TDs act like TH
-      .style(header; any) {
+      .style('header'; any) {
         background-color: @white;
       }
     }
@@ -439,6 +489,7 @@
     .style(media; ...) {
       #utils>#pb>.inside(avoid);
       .x-feature(media);
+      padding-left: 2.5em;
     }
     .style(try; ...) {
       #utils>#pb>.inside(avoid);
@@ -497,20 +548,28 @@
     .style(@kind; @part; problem; exercise; section-exercise) {
       text-indent: 0;
     }
+    .style(any; chapter-end; exercise) {
+      display: block; // override ccap-base display: initial.
+    }
     #title {
       .style(...) {
         display: inline;
         text-align:center;
       }
+      .style(any; any; feature-qa) {
+        font-style: normal;
+      }
       .style(any; any; problem; exercise; example) {
-        &::before {
-          display: block;
+        text-align: left;
+
+        ::before {
+          display: inline-block;
         }
       }
       .number(...) {
         color: @orange;
         font-weight: bold;
-        text-align:center;
+        text-align: left;
         margin-right: .5em;
       }
     }
@@ -525,6 +584,8 @@
     }
   }
   #section {
+    .style(any; any) {}
+    .style(any; any; section) {}
     .style(section-exercises; @part; ...) {
       #utils>#pb>.before(always);
       #utils>#pb>.after(always);
@@ -533,6 +594,18 @@
     #title {
       .style(...) {
         #utils>#pb>.after(avoid);
+      }
+      .style(any; preface) {}
+      .style(any; preface; section) {}
+      .style(any; any) { // Section titles
+        color: @medium-blue;
+        font-size: 13pt;
+        font-weight: bold;
+      }
+      .style(any; any; section) { // Sub-section titles
+        color: @medium-blue;
+        font-size: 10pt;
+        font-weight: bold;
       }
       .style(section-exercises; @part; ...) {
         content: "" " " counter(chapter, decimal) "." counter(section, decimal) " exercises" " " "";
@@ -551,7 +624,10 @@
     }
     .style(any; any; table) {
       margin: 0; //reset
-      list-style-type: none; //no bullets for lists inside tables
+      padding-left: 1em;
+    }
+    .style('no-mark'; any) {
+      list-style-type: none;
     }
     .item(@kind; @part; feature-media) {
         color: @orange;
@@ -648,9 +724,6 @@
         margin-top: 1em;
       }  
     }
-    .style(@kind; @part; exercise; section-exercise) {
-      text-indent: 1em;
-    }
     .number(@kind; chapter-end; ...) {
       padding-right: .5em;
     }
@@ -725,7 +798,26 @@
       .style(@kind, book-end) {
         margin-right: .65em;
         display: inline;
+
         * { display: inline; } // OUCH - place in .body() mixin for now.
+        // Fix a bug due to * {} being used...
+        div.table {
+          display: block;
+
+          table {
+            display: table;
+
+            caption { display: table-caption; }
+            thead { display: table-header-group; }
+            tbody { display: table-row-group; }
+            tfoot { display: table-footer-group; }
+            tr { display: table-row; }
+            td { display: table-cell; }
+          }
+        }
+
+
+
         // will need to change - include in .body mixin for now
         > a.target-figure {
           margin: 0em .25em;
@@ -811,44 +903,6 @@
     }
   }
   #heading{
-    .style(...) {
-      margin: 0.5em 0em;
-      text-align: left; //overides text alignment set in
-    }
-
-    .style(h1; ...) {
-      font-size: 34pt;
-    }
-    // H1 in the title part is the top level book title
-    .style(h1; title) {
-      text-align: left;
-    }
-    .style(h2, ...) {
-      // Module title
-      color: @medium-blue;
-      font-size: 17pt;
-      font-weight: bold;
-
-      .cnx-gentext-n { color: @medium-blue; }
-      // Separate the section number and title with a pipe
-      .cnx-gentext-t::before {
-        color: black;
-        content: "| ";
-      }
-      &::before { color: @medium-blue; }
-    }
-    .style(h3, ...) {
-      // Module section title
-      color: @medium-blue;
-      font-size: 13pt;
-      font-weight: bold;
-    }
-    .style(h4, ...) {
-      // Module sub-section title
-      color: @medium-blue;
-      font-size: 10pt;
-      font-weight: bold;
-    }
     .style(h5, ...) {
       color: @medium-blue;
       font-size: 10pt;
