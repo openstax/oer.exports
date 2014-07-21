@@ -75,6 +75,14 @@ div.book div.chapter > div.section div.example div.exercise div.equation div.med
   display: block;
 }
 
+// Some end of chapter parts, such as review exercises, have an extra level of <section>
+div.book > div.chapter > div.cnx-eoc > div.section > div.body > div.section > div.exercise:not(.labeled) > div.body > div.problem::before { 
+  content: counter(exercise) ".";
+  font-weight: bold;
+}
+div.book > div.chapter > div.cnx-eoc > div.section > div.body > div.section > div.exercise:not(.labeled) > div.title { 
+  display: none;
+}
 
 // Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
 // originally defined in ccap-numbering.less
