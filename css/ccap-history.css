@@ -2236,7 +2236,6 @@ p:nth-of-type(2),
 .note.qa > .body,
 .note.qa .body > p {
   font-weight: normal;
-  font-style: italic;
   margin-top: 0;
 }
 .note.qa > .body .figure .title {
@@ -3235,7 +3234,7 @@ subfigure {
   border-bottom-width: 1px;
   border-bottom-style: solid;
 }
-.glossary dt::after {
+.glossary dl dt::after {
   content: " ";
 }
 .glossary dl {
@@ -3265,6 +3264,22 @@ subfigure {
   padding-top: 1em;
   padding-bottom: 1em;
 }
+div.book div.chapter > div.section div.example div.exercise .solution .table > table > caption::before {
+  display: block;
+}
+div.book div.chapter > div.section div.example div.exercise .solution .table {
+  page-break-inside: avoid;
+  margin: auto;
+  counter-increment: table !important;
+}
+div.book div.chapter > div.section div.example div.exercise .solution .figure .title span.cnx-gentext-t::before {
+  display: inline-block;
+  color: #e28f26;
+  font-weight: bold;
+  text-align: left;
+  margin-right: .5em;
+  color: #a63c1d;
+}
 div.book div.chapter > div.section div.example div.exercise .problem .table > table > caption::before {
   display: block;
 }
@@ -3289,15 +3304,14 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure {
 div.book div.chapter > div.section div.example div.exercise .problem .figure .body {
   text-align: left;
 }
-div.book div.chapter > div.section div.example div.exercise .problem .figure .title {
-  text-align: center;
-  display: inline;
-  font-size: 9pt;
+div.book div.chapter > div.section div.example div.exercise .problem .figure .title span.cnx-gentext-t::before {
+  color: #e28f26;
   font-weight: bold;
-  color: #a63c1d;
   text-align: left;
+  margin-right: .5em;
+  color: #a63c1d;
 }
-div.book div.chapter > div.section div.example div.exercise .problem .figure .title ::before {
+div.book div.chapter > div.section div.example div.exercise .problem .figure .title span.cnx-gentext-t::before ::before {
   display: inline-block;
 }
 .example .exercise {
