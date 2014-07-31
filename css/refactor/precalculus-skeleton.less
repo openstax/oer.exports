@@ -558,7 +558,7 @@ img, figure, subfigure  { margin: 1em; }
   }
 
   // Remove ":"
-  dt::after { #content>#glossary>.divider(); }
+  dl dt::after { #content>#glossary>.divider(); }
 
   // Remove terms indentation 
   dl { #content>#glossary>.dl(); }
@@ -582,9 +582,19 @@ img, figure, subfigure  { margin: 1em; }
 .example .solution { #content>#solution>.style(any; any; example); }
 
 // This lengthy selector is required to override a display:none.
+div.book div.chapter > div.section div.example div.exercise .solution {
+  .table > table > caption::before {
+    #content>#table>#caption>.style(any; any; solution; exercise; example);
+  }
+  .table { #content>#table>.style(any; any; solution; exercise; example); }
+
+  .figure .title span.cnx-gentext-t::before {
+    #content>#figure>#title>.number(any; any; solution; exercise; example); 
+  }
+}
 div.book div.chapter > div.section div.example div.exercise .problem {
   .table > table > caption::before {
-    display: block;
+    #content>#table>#caption>.style(any; any; problem; exercise; example);
   }
   .table {
     #content>#table>.style(any; any; problem; exercise; example);
@@ -596,8 +606,8 @@ div.book div.chapter > div.section div.example div.exercise .problem {
       text-align: left;
     }
   }
-  .figure .title {
-    #content>#figure>#title>.style(any; any; problem; exercise; example);
+  .figure .title span.cnx-gentext-t::before {
+    #content>#figure>#title>.number(any; any; problem; exercise; example);
   }
 }
 

@@ -53,9 +53,8 @@ html {
 #content {
   #figure {
     #title {
-      .style(...) {
-        font-family: @font-family-serif;
-      }
+      .style(...) { font-family: @font-family-serif; }
+      .number(...) { font-family: @font-family; }
     }
   }
 }
@@ -70,11 +69,21 @@ div.book div.chapter > div.section div.example div.exercise div.equation:not(.la
 div.book div.chapter > div.section div.example div.exercise div.equation, {
   counter-increment: equation !important; // Override !important from numbering-skeleton.
 }
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled) span.inlinemediaobject::after,
+div.book div.chapter > div.section div.example div.exercise div.equation span.inlinemediaobject::after, 
 div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled) div.mediaobject::after,
 div.book div.chapter > div.section div.example div.exercise div.equation div.mediaobject::after, {
   display: block;
 }
 
+// Some end of chapter parts, such as review exercises, have an extra level of <section>
+div.book > div.chapter > div.cnx-eoc > div.section > div.body > div.section > div.exercise:not(.labeled) > div.body > div.problem::before { 
+  content: counter(exercise) ".";
+  font-weight: bold;
+}
+div.book > div.chapter > div.cnx-eoc > div.section > div.body > div.section > div.exercise:not(.labeled) > div.title { 
+  display: none;
+}
 
 // Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
 // originally defined in ccap-numbering.less

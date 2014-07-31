@@ -276,6 +276,7 @@
       #title {
         .style(...) {
           content: "Answer Key";
+          string-set: cnx-header "Answer Key";
           color: @medium-blue;
           margin-left: 0;
           text-transform: uppercase;
@@ -309,6 +310,7 @@
 
       #title {
         .style(...) { //colophon titles are passed as h1's by default by docbook override properties here
+          string-set: cnx-header "References";
           font-size: x-large;
           font-weight: bold;
           background-color: transparent;
@@ -404,7 +406,11 @@
       prince-caption-page: all;
     }
 
+
     .style(any; any; problem; exercise; example) {
+      counter-increment: table !important; // Overrides !important from base.
+    }
+    .style(any; any; solution; exercise; example) {
       counter-increment: table !important; // Overrides !important from base.
     }
 
@@ -427,6 +433,12 @@
         font-weight:bold;
         color: @orange;
         caption-side:bottom;
+      }
+      .style(any; any; problem; exercise; example) {
+        display: block;
+      }
+      .style(any; any; solution; exercise; example) {
+        display: block;
       }
     }
     #head {
@@ -530,7 +542,6 @@
       }
       .style(@kind; @part; feature-qa) {
         font-weight: normal;
-        font-style: italic;
         margin-top: 0;
       }
     }
@@ -559,12 +570,12 @@
       .style(any; any; feature-qa) {
         font-style: normal;
       }
-      .style(any; any; problem; exercise; example) {
+      .number(any; any; solution; exercise; example) {
+        display: inline-block;
+      }
+      .number(any; any; problem; exercise; example) {
         text-align: left;
-
-        ::before {
-          display: inline-block;
-        }
+        display: inline-block;
       }
       .number(...) {
         color: @orange;
