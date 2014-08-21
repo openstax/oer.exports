@@ -132,7 +132,7 @@
     }
     #exercises {
       .style(...) {
-        .x-column-count(2); 
+        .x-column-count(1); 
         text-align: left;
       }
       #title {
@@ -155,7 +155,7 @@
   #book-end {
     #end-of-book-solutions {
       .style(...) {
-        .x-column-count(2);
+        .x-column-count(1);
       }
       #title {
         .style(...) {
@@ -353,6 +353,31 @@
     .style(@kind; book-end) {
       display: block;
       padding-bottom: .5em; 
+    }
+  }
+  #list {
+    .style('step-list'; any) {
+      margin-left: 0;
+      list-style-type: none;
+      padding-left: 1em;
+      counter-reset: steplist;
+      font-style: italic;
+    }
+    .item('step-list'; any) {
+      counter-increment: steplist !important;
+      text-indent: 4em hanging;
+      font-style: italic;
+
+      p { 
+        display: inline; 
+        font-style: italic; 
+      }
+    }
+    .number('step-list'; any) {
+      content: "Step " counter(steplist) '. ';
+      font-weight: bold;
+      padding-right: 1em;
+      display: inline-block !important;	// !important used to override numbering base.
     }
   }
 }

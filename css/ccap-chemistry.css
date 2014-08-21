@@ -1848,9 +1848,9 @@ div.colophon.end-of-book-solutions {
   margin: 0;
   padding: 0;
   display: inline !important;
-  -webkit-column-count: 2;
-  column-count: 2;
-  columns: 2;
+  -webkit-column-count: 1;
+  column-count: 1;
+  columns: 1;
   column-fill: auto;
 }
 div.colophon.end-of-book-solutions > .title {
@@ -3550,6 +3550,40 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   font-weight: 700;
 }
 /******************************************************
+ * Step lists
+ ******************************************************/
+div.step-list ul {
+  margin-left: 0;
+  list-style-type: none;
+  padding-left: 1em;
+  counter-reset: steplist;
+  font-style: italic;
+}
+div.step-list ul li {
+  counter-increment: steplist !important;
+  text-indent: 4em hanging;
+  font-style: italic;
+}
+div.step-list ul li p {
+  display: inline;
+  font-style: italic;
+}
+div.step-list ul li::before {
+  content: "Step " counter(steplist) '. ';
+  font-weight: bold;
+  padding-right: 1em;
+  display: inline-block !important;
+}
+div.book div.chapter > div.section div.example div.exercise div.step-list ul li {
+  counter-increment: steplist !important;
+  text-indent: 4em hanging;
+  font-style: italic;
+}
+div.book div.chapter > div.section div.example div.exercise div.step-list ul li p {
+  display: inline;
+  font-style: italic;
+}
+/******************************************************
  * Tables
  ******************************************************/
 .table {
@@ -3582,9 +3616,9 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
  * EOC Customizations
  ******************************************************/
 .cnx-eoc.exercises {
-  -webkit-column-count: 2;
-  column-count: 2;
-  columns: 2;
+  -webkit-column-count: 1;
+  column-count: 1;
+  columns: 1;
   column-fill: auto;
   text-align: left;
 }

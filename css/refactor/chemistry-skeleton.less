@@ -63,6 +63,20 @@
   font-weight: 700;
 }
 
+/******************************************************
+ * Step lists
+ ******************************************************/
+div.step-list {
+  ul { #content>#list>.style('step-list'; any); }
+  ul li { #content>#list>.item('step-list'; any); }
+  ul li::before { #content>#list>.number('step-list'; any); }
+}
+
+// Using this long selector to override the use of '*' in numbering base...
+div.book div.chapter > div.section div.example div.exercise div.step-list ul li {
+  #content>#list>.item('step-list'; any);
+}
+
 
 /******************************************************
  * Tables
