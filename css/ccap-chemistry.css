@@ -3584,6 +3584,21 @@ div.book div.chapter > div.section div.example div.exercise div.step-list ul li 
   font-style: italic;
 }
 /******************************************************
+ * Ad-hoc text emphasis classes.
+ * For now we have one red, and one green class.
+ ******************************************************/
+span.emphasis-one strong {
+  font-weight: inherit;
+  color: #993720;
+}
+span.emphasis-two strong {
+  font-weight: inherit;
+  color: #8fb73e;
+}
+span.emphasis-leading-indent strong {
+  content: "\00a0" content();
+}
+/******************************************************
  * Tables
  ******************************************************/
 .table {
@@ -3674,6 +3689,54 @@ div.colophon.end-of-book-solutions .chapter-area div.solution {
 }
 .appendix > div.section > div.titlepage h2 .cnx-gentext-t:before {
   display: none;
+}
+/********************************************************************
+ * Glossary
+ ********************************************************************/
+.glossary {
+  page-break-before: always;
+  display: inline;
+}
+.glossary::before {
+  content: "" "Chapter " counter(chapter, decimal) " Review";
+  color: #7291cb;
+  font-size: x-large;
+  font-weight: bold;
+  padding: 0em;
+  display: block;
+  text-transform: uppercase;
+  margin-bottom: 1.0em;
+}
+.glossary::before {
+  display: none;
+}
+.glossary .title {
+  /* Change "Glossary" to "Key Terms" */
+  content: "Key Terms";
+  color: #7291cb;
+  font-size: 14pt !important;
+  margin-left: 0;
+  font-weight: bold;
+  padding: 0em !important;
+  display: block;
+  text-transform: uppercase;
+  page-break-after: avoid !important;
+  /* Change "Glossary" to "Key Terms" */
+  color: #993720 !important;
+  font-size: 12pt !important;
+  text-transform: capitalize !important;
+  border-bottom-color: #f6862d;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+.glossary dl dt::after {
+  content: " ";
+}
+.glossary dl dt {
+  margin-bottom: -0.5em;
+}
+.glossary dl dd {
+  margin-bottom: -0.5em;
 }
 div.book {
   /* --------------------------------------

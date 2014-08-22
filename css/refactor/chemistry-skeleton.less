@@ -77,6 +77,19 @@ div.book div.chapter > div.section div.example div.exercise div.step-list ul li 
   #content>#list>.item('step-list'; any);
 }
 
+/******************************************************
+ * Ad-hoc text emphasis classes.
+ * For now we have one red, and one green class.
+ ******************************************************/
+span.emphasis-one strong {
+  font-weight: inherit;
+  color: @red; 
+}
+span.emphasis-two strong {
+  font-weight: inherit;
+  color: @green;
+}
+span.emphasis-leading-indent strong { content: "\00a0" content(); }
 
 /******************************************************
  * Tables
@@ -176,6 +189,23 @@ div.colophon.end-of-book-solutions .chapter-area {
   }
 }
 
+/********************************************************************
+ * Glossary
+ ********************************************************************/
+.glossary {
+  #content>#glossary>.style(any; chapter);
 
+  .title {
+    #content>#glossary>#title>.style(any; chapter);
+  }
 
+  // Remove terms indentation 
+  dl { #content>#glossary>.dl(any; chapter); }
 
+  // Term/definition divider, eg ":"
+  dl dt::after { #content>#glossary>.divider(any; chapter); }
+
+  dl dt { #content>#glossary>.term(any; chapter); }
+
+  dl dd { #content>#glossary>.definition(any; chapter); }
+}
