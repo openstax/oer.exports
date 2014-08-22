@@ -1848,9 +1848,9 @@ div.colophon.end-of-book-solutions {
   margin: 0;
   padding: 0;
   display: inline !important;
-  -webkit-column-count: 2;
-  column-count: 2;
-  columns: 2;
+  -webkit-column-count: 1;
+  column-count: 1;
+  columns: 1;
   column-fill: auto;
 }
 div.colophon.end-of-book-solutions > .title {
@@ -3550,6 +3550,55 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   font-weight: 700;
 }
 /******************************************************
+ * Step lists
+ ******************************************************/
+div.step-list ul {
+  margin-left: 0;
+  list-style-type: none;
+  padding-left: 1em;
+  counter-reset: steplist;
+  font-style: italic;
+}
+div.step-list ul li {
+  counter-increment: steplist !important;
+  text-indent: 4em hanging;
+  font-style: italic;
+}
+div.step-list ul li p {
+  display: inline;
+  font-style: italic;
+}
+div.step-list ul li::before {
+  content: "Step " counter(steplist) '. ';
+  font-weight: bold;
+  padding-right: 1em;
+  display: inline-block !important;
+}
+div.book div.chapter > div.section div.example div.exercise div.step-list ul li {
+  counter-increment: steplist !important;
+  text-indent: 4em hanging;
+  font-style: italic;
+}
+div.book div.chapter > div.section div.example div.exercise div.step-list ul li p {
+  display: inline;
+  font-style: italic;
+}
+/******************************************************
+ * Ad-hoc text emphasis classes.
+ * For now we have one red, and one green class.
+ ******************************************************/
+span.emphasis-one strong {
+  font-weight: inherit;
+  color: #993720;
+}
+span.emphasis-two strong {
+  font-weight: inherit;
+  color: #8fb73e;
+}
+span.emphasis-leading-indent strong {
+  content: "\00a0" content();
+}
+/******************************************************
  * Tables
  ******************************************************/
 .table {
@@ -3582,9 +3631,9 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
  * EOC Customizations
  ******************************************************/
 .cnx-eoc.exercises {
-  -webkit-column-count: 2;
-  column-count: 2;
-  columns: 2;
+  -webkit-column-count: 1;
+  column-count: 1;
+  columns: 1;
   column-fill: auto;
   text-align: left;
 }
@@ -3640,6 +3689,54 @@ div.colophon.end-of-book-solutions .chapter-area div.solution {
 }
 .appendix > div.section > div.titlepage h2 .cnx-gentext-t:before {
   display: none;
+}
+/********************************************************************
+ * Glossary
+ ********************************************************************/
+.glossary {
+  page-break-before: always;
+  display: inline;
+}
+.glossary::before {
+  content: "" "Chapter " counter(chapter, decimal) " Review";
+  color: #7291cb;
+  font-size: x-large;
+  font-weight: bold;
+  padding: 0em;
+  display: block;
+  text-transform: uppercase;
+  margin-bottom: 1.0em;
+}
+.glossary::before {
+  display: none;
+}
+.glossary .title {
+  /* Change "Glossary" to "Key Terms" */
+  content: "Key Terms";
+  color: #7291cb;
+  font-size: 14pt !important;
+  margin-left: 0;
+  font-weight: bold;
+  padding: 0em !important;
+  display: block;
+  text-transform: uppercase;
+  page-break-after: avoid !important;
+  /* Change "Glossary" to "Key Terms" */
+  color: #993720 !important;
+  font-size: 12pt !important;
+  text-transform: capitalize !important;
+  border-bottom-color: #f6862d;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+.glossary dl dt::after {
+  content: " ";
+}
+.glossary dl dt {
+  margin-bottom: -0.5em;
+}
+.glossary dl dd {
+  margin-bottom: -0.5em;
 }
 div.book {
   /* --------------------------------------
