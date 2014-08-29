@@ -393,9 +393,16 @@ div.end-of-book-references {
  */
 .index {
   #part>#book-end>#index>.style();
-  
-  > .title h2 {
+
+  > .title {
     #part>#book-end>#index>#title>.style();
+  }
+
+  // This is required to override ccap base without targetting both .title and .title h2.  
+  // The goal here is to make > .title h2 go away.
+  > .title h2 {
+    padding: 0;
+    font-size: inherit;
   }
  
   h3.letter {

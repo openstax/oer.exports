@@ -136,6 +136,7 @@ span.emphasis-leading-indent strong { content: "\00a0" content(); }
       text-align: left; //W&N does not want Review Questions justified.
     }
     > .section > .title > a { #part>#chapter-end>#exercises>#title>.link(); }
+    > .section > .body > .exercise { #content>#exercise>.style(any; any; exercises; chapter-end); }
   }
 }
 
@@ -155,18 +156,13 @@ div.colophon.end-of-book-solutions .chapter-area {
 
 // Styling for customized Appendix
 .appendix {
-  h1.title { 
-    padding: 0; //reset
-    font-size: inherit;
-    padding-bottom: .3em;
-    text-transform: capitalize;
-    border-bottom: 1px solid @orange;
+  h1.title {
+    #part>#appendix>#title>.style(); 
+
   }
 
   h1.title .cnx-gentext-n {
-    color: @dark-blue;
-    font-size: 17pt;
-    font-weight: bold;
+    #part>#appendix>#title>.number();
 
     &::before { 
       content: "Appendix ";
@@ -174,9 +170,7 @@ div.colophon.end-of-book-solutions .chapter-area {
   }
   // Spruce up h2 title for Appendix
   > div.section > div.titlepage h2 {
-    color: @dark-blue;
-    font-size: 28pt;
-    line-height: 1;
+    #part>#appendix>#title>.style('practice-test');
 
     // Remove alphanumeric before title e.g. 'A1 | Appendix Title'
     &::before {

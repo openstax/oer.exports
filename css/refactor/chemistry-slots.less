@@ -50,6 +50,9 @@
   }
   #preface {
     #titlepage {
+      .style() {
+        padding-bottom: .5em;
+      }
       .title(...) {
         margin-top: 0;
         color: @dark-blue;
@@ -107,6 +110,14 @@
 
     }
   }
+  #module {
+    #title {
+      .style() {
+        color: @dark-blue;
+        font-size: 17pt;
+      }
+    }
+  }
   // End-of-chapter parts
   #chapter-end {
     .style(...) {}
@@ -123,6 +134,7 @@
       #title {
         .style(...){
           margin-bottom: 0;
+          padding-bottom: .5em;
         }
 
         .link(...) {
@@ -196,6 +208,28 @@
       }
     }
   }
+  #appendix {
+    #title {
+      .style() {
+        padding: 0; //reset
+        font-size: inherit;
+        padding-bottom: .3em;
+        text-transform: capitalize;
+        border-bottom: 1px solid @orange;
+      }
+      .style('practice-test') {
+        color: @dark-blue;
+        font-size: 28pt;
+        line-height: 1;
+        margin-top: .3em;
+      }
+      .number() {
+        color: @dark-blue;
+        font-size: 17pt;
+        font-weight: bold;
+      }
+    }
+  }
 }
 #content {
   #note {
@@ -258,13 +292,13 @@
   #section {
     #title {
       // H3
-      .style(any; any; section) {
+      .style(any; any) {
         color: @dark-blue;
         text-transform: none; // reset from psychology
         font-size: 13pt;
       }
       // H4
-      .style(any; any; section; section) {
+      .style(any; any; section) {
         color: @red;
         font-size: 11pt;
       }
@@ -298,6 +332,8 @@
     }
     #head {
       .style(any; any) {
+        border-top: 1px solid @dark-blue;
+        border-bottom: 1px solid @dark-blue;
       }
     }
     #body {
@@ -311,9 +347,9 @@
       .style(any; any) {
         background-color: @medium-blue;
         border: none;
-        border-top: 1px solid @dark-blue !important;
-        border-bottom: 1px solid @dark-blue !important;
-        border-right: none !important;
+        border-right: 1px solid !important;
+        border-bottom: 0 !important;
+        border-color: @dark-blue !important;
         font-size: 9pt;
         color: white;
         text-align: center !important;
@@ -345,6 +381,11 @@
         background: @example-blue;
         padding: 1em 2em .5em 2em;
       }
+    }
+  }
+  #exercise {
+    .style(any; any; exercises; chapter-end) {
+      margin-bottom: .2em;
     }
   }
   #solution {
