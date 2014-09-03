@@ -179,6 +179,9 @@
 <xsl:template match="c:emphasis[not(@effect) or @effect='bold']">
     <db:emphasis role="bold"><xsl:apply-templates select="@*|node()"/></db:emphasis>
 </xsl:template>
+<xsl:template match="c:emphasis[@effect='underline']">
+    <db:emphasis role="underline"><xsl:apply-templates select="@*|node()"/></db:emphasis>
+</xsl:template>
 <xsl:template match="c:emphasis[@effect='italics']">
     <db:emphasis><xsl:apply-templates select="@*|node()"/></db:emphasis>
 </xsl:template>
