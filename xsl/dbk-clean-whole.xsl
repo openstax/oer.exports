@@ -111,10 +111,13 @@
 		<xsl:if test=".//db:glossentry">
 			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Glossary: creating</xsl:with-param></xsl:call-template>
 			<db:glossary>
+					<xsl:for-each select=".//db:glossentry/db:glossterm">
+				<xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Glossary: value="<xsl:value-of select="."/>"</xsl:with-param></xsl:call-template>
+					</xsl:for-each>
 				<xsl:variable name="letters">
 					<xsl:for-each select=".//db:glossentry/db:glossterm">
-						<xsl:sort select="translate(substring(normalize-space(text()), 1, 1), $cnx.smallcase, $cnx.uppercase)"/>
-						<xsl:variable name="char" select="substring(normalize-space(text()), 1, 1)"/>
+						<xsl:sort select="translate(substring(normalize-space(.), 1, 1), $cnx.smallcase, $cnx.uppercase)"/>
+						<xsl:variable name="char" select="substring(normalize-space(.), 1, 1)"/>
 						<xsl:variable name="letter" select="translate($char, $cnx.smallcase, $cnx.uppercase)"/>
 						<xsl:value-of select="$letter"/>
 					</xsl:for-each>
@@ -137,8 +140,8 @@
 	
 	<!-- Skip all duplicates of letters until the last one, which we process -->
 	<xsl:if test="string-length($letters) = 1 or $letter != substring($letters,2,1)">
-    <xsl:apply-templates mode="glossary" select=".//db:glossentry[$letter=translate(substring(db:glossterm/text(), 1, 1), $cnx.smallcase, $cnx.uppercase)]">
-      <xsl:sort select="concat(db:glossterm/text(), db:glossterm//text())"/>
+    <xsl:apply-templates mode="glossary" select=".//db:glossentry[$letter=translate(substring(db:glossterm/., 1, 1), $cnx.smallcase, $cnx.uppercase)]">
+      <xsl:sort select="concat(db:glossterm/., db:glossterm//.)"/>
     </xsl:apply-templates>
 	</xsl:if>
 
