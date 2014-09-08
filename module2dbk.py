@@ -199,5 +199,9 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
   # Create a standalone db:book file for the module
   dbkStandalone = DOCBOOK_BOOK_XSL(xml)
   newFiles['index.standalone.dbk'] = etree.tostring(dbkStandalone)
+  # uncomment this to write out individual docbook module files
+  #with open(os.path.join(temp_dir,'%s.dbk' % moduleId), 'w') as f:
+  #  f.write(newFiles['index.standalone.dbk'])
+
 
   return etree.tostring(xml), newFiles
