@@ -13,6 +13,7 @@
   border-radius: 15px;
   
   margin-top: 48px; // Clear the title ::before.
+
   &::before {
     .x-feature-before-color(@title-color, @title);
     background-color: @background-color;
@@ -152,7 +153,6 @@
         color: @red;
         border-bottom-color: @orange;
         text-transform: capitalize;
-        font-weight: normal;
         font-size: 18pt;
         width: 100%;
         margin: 0; 
@@ -164,6 +164,7 @@
         color: @black;
         border-top-color: @orange;
         display: block;
+        font-weight: bold;
 
         // If we truly need to take away the (.25em) left padding that
         // is being assigned here, we will have to remove it from numbering-skeleton.less
@@ -628,19 +629,21 @@
       #utils>#pb>.inside(avoid);
       text-align: left;
 
-      //clearfix
-      > .body::after {
-        content: "";
-        display: table;
-        clear: both;  
+      .body { 
+        > p { margin-top: 0; }
+    
+        //clearfix
+        &::after {
+          content: "";
+          display: table;
+          clear: both;  
+        }
       }
       .mediaobject {
         float: left;
-        width: @qr;
         img {
           margin: 0;
-          width: @qr;
-          height: @qr;
+          padding: 0;
         }
       }
     }
@@ -714,6 +717,9 @@
     }
   }
   #figure {
+    .style(...) {
+      text-align: justify;
+    }
     // Full width figure titles/captions clash with rounded feature borders
     // So, we must target figures only when placed inside notes and give some padding
     .style(any; any; note) {
