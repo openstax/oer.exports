@@ -4,7 +4,7 @@
 
 
 .x-feature-before-color(@title-color, @title) {
-  text-transform: capitalize;
+  text-transform: none;
   color: @title-color;
   content: @title;
 }
@@ -86,6 +86,7 @@
         font-weight: bold;
         color: @dark-blue;
         padding-top: .2em;
+        text-transform: none;
       }
       .number() {
         color: @dark-blue;
@@ -93,6 +94,7 @@
     }
     #learning-objectives {
       .style(...) {
+        padding-top: 1em;
         border: none;
 
         ul.itemizedlist {
@@ -165,6 +167,9 @@
   }
   // End of Book Customizations
   #book-end {
+    #end-of-book-references {
+      .style(...) { display: none; }
+    }
     #end-of-book-solutions {
       .style(...) {
         .x-column-count(1);
@@ -187,6 +192,9 @@
           color: @dark-blue;
           font-size: 17pt;
         }
+      }
+      .link(...) {
+        font-family: @font-family-serif;
       }
     }
     // End of Book Attribution and About Connexions
@@ -339,7 +347,6 @@
   }
   #table {
     .style(any; any) {
-      width: 100%;
       padding-top: 1em;
       border: none !important; // override inline table style=""
     }
@@ -435,16 +442,13 @@
       list-style-type: none;
       padding-left: 1em;
       counter-reset: steplist;
-      font-style: italic;
     }
     .item('step-list'; any) {
       counter-increment: steplist !important;
       text-indent: 4em hanging;
-      font-style: italic;
 
       p { 
-        display: inline; 
-        font-style: italic; 
+        display: inline;
       }
     }
     .number('step-list'; any) {
