@@ -325,6 +325,11 @@ div.colophon.end-of-book-solutions {
   }
 
   // Some miscellaneous stuff we will have to decide on
+  div.chapter-area:first-of-type h2.title {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
   .chapter-area {
     font-family: @font-family-serif;
     a {
@@ -408,6 +413,10 @@ div.end-of-book-references {
   h3.letter {
     #part>#book-end>#index>.letter();
   }
+  h3.letter:first-of-type {
+    margin-top: 0;
+    padding-top: 0;
+  }
 
   .index-term { 
     #part>#book-end>#index>.term();
@@ -450,8 +459,11 @@ img, figure, subfigure  { margin: 1em; }
  */
 .colophon > h1.title {
   #part>#book-end>#colophon>.style();
- }
-
+}
+.colophon p:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+}
 
 /******************************************************************************
  * Breakout of figure code into 3 sizes (large, medium, small) for left aligned figure text
@@ -484,6 +496,10 @@ img, figure, subfigure  { margin: 1em; }
   // 1/2 size art
   &.small {
     width: @figure-width-small;
+  }
+
+  > .body {
+    #content>#figure>#body>.style(any; any);
   }
 
   > .title {
@@ -561,7 +577,7 @@ img, figure, subfigure  { margin: 1em; }
   #content>#glossary>.style();
 
   .title {
-    #content>#glossary>#title>.style();
+    #content>#glossary#title>.style();
   }
 
   // Remove ":"
