@@ -75,6 +75,9 @@ html {
     text-transform: capitalize;
   }
 }
+#content > #table > .style(any; any) {
+  page-break-inside: auto;
+}
 @namespace mml "http://www.w3.org/1998/Math/MathML";
 mml|math {
   display: none;
@@ -2391,10 +2394,10 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
 .table {
   page-break-inside: avoid;
   margin: auto;
+  page-break-inside: auto;
   prince-caption-page: all;
   padding-top: 1em;
   border: none !important;
-  page-break-inside: auto;
 }
 .table caption {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -3680,10 +3683,10 @@ span.emphasis-leading-indent strong {
 .table table {
   page-break-inside: avoid;
   margin: auto;
+  page-break-inside: auto;
   prince-caption-page: all;
   padding-top: 1em;
   border: none !important;
-  page-break-inside: auto;
 }
 .table table .table-caption.caption {
   color: #000000;
@@ -3819,6 +3822,13 @@ div.colophon.end-of-book-solutions .chapter-area div.solution {
 }
 .glossary dl dd {
   margin-bottom: -3px;
+}
+/********************************************************************
+ * Ad-hoc numbering
+ ********************************************************************/
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div span.label,
+div.book > div.appendix > div.section div.equation > *:last-child::after {
+  display: none;
 }
 div.book {
   /* --------------------------------------
