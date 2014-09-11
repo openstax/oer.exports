@@ -373,6 +373,7 @@ div.section > div.titlepage div.abstract {
           slot for this would be something like this:
           #content>#para>.style(any; any; learning-objectives)
         */
+  padding-top: 1em;
   border: none;
 }
 div.section > div.titlepage div.abstract p {
@@ -1592,6 +1593,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   font-weight: bold;
   color: #354da1;
   padding-top: .2em;
+  text-transform: none;
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::before {
   content: "| ";
@@ -1615,6 +1617,7 @@ div.book div.chapter > div.section > div.titlepage h2 {
   padding-bottom: .2em;
   color: #354da1;
   font-size: 17pt;
+  page-break-after: avoid;
 }
 div.book div.chapter > div.section > div.titlepage h2 span.cnx-gentext-t::before {
   color: black;
@@ -1731,10 +1734,9 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
 .cnx-eoc.summary > .title {
   content: "Chapter " counter(chapter, decimal) " Review";
   content: "Summary";
-  padding-bottom: 0;
   margin-bottom: 1em;
-  margin-bottom: 0;
-  padding-bottom: .5em;
+  padding-bottom: 0;
+  margin-bottom: 6.6px;
 }
 .cnx-eoc.summary > .section .title > a {
   color: #7291cb;
@@ -1874,7 +1876,12 @@ div.colophon.end-of-book-solutions > .title {
   column-span: all;
   color: #354da1;
   font-size: 17pt;
-  padding-bottom: .3em;
+  padding-bottom: 0;
+  margin-bottom: 6.6px;
+}
+div.colophon.end-of-book-solutions div.chapter-area:first-of-type h2.title {
+  margin-top: 0;
+  padding-top: 0;
 }
 div.colophon.end-of-book-solutions .chapter-area {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -1950,6 +1957,7 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.body > a.tar
  */
 div.end-of-book-references {
   margin: 1em 0;
+  display: none;
 }
 div.end-of-book-references > .title {
   string-set: cnx-header "References";
@@ -2011,6 +2019,8 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
   text-align: left;
   color: #354da1;
   font-size: 17pt;
+  padding-bottom: 0;
+  margin-bottom: 6.6px;
 }
 .index > .title h2 {
   padding: 0;
@@ -2023,6 +2033,10 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
   padding-top: .5em;
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
+.index h3.letter:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+}
 .index .index-term {
   font-size: small;
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2030,6 +2044,7 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
 }
 .index a {
   font-weight: bold;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 /********************************************************************
  * Generic Elements
@@ -2093,6 +2108,12 @@ subfigure {
   text-align: left;
   color: #354da1;
   font-size: 17pt;
+  padding-bottom: 0;
+  margin-bottom: 6.6px;
+}
+.colophon p:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
 }
 /******************************************************************************
  * Breakout of figure code into 3 sizes (large, medium, small) for left aligned figure text
@@ -2118,6 +2139,9 @@ subfigure {
 }
 .figure.small {
   width: 234pt;
+}
+.figure > .body {
+  margin: 10px 0;
 }
 .figure > .title {
   color: #f6862d;
@@ -2367,11 +2391,10 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
 .table {
   page-break-inside: avoid;
   margin: auto;
-  page-break-inside: auto;
   prince-caption-page: all;
-  width: 100%;
   padding-top: 1em;
   border: none !important;
+  page-break-inside: auto;
 }
 .table caption {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2445,8 +2468,9 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
   padding: 1em;
 }
 .table .itemizedlist {
-  margin: 0;
-  padding-left: 1em;
+  /*
+      margin: 0; //reset
+      padding-left: 1em;*/
 }
 .table .itemizedlist > .listitem > p {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2502,6 +2526,18 @@ h4,
 h5,
 h6 {
   text-align: left;
+}
+/* -------------------------
+ * Lists
+ * -------------------------
+ */
+div.itemizedlist ul,
+div.orderedlist ul,
+div.itemizedlist ol,
+div.orderedlist ol {
+  padding-left: 26px;
+  margin: 0;
+  margin-left: 0;
 }
 /******************************************************
  * Custom psychology elements
@@ -2569,7 +2605,7 @@ h6 {
 }
 .chapter .note.everyday-connection::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #354da1;
   content: "everyday connection";
   background-color: #f6862d;
@@ -2587,7 +2623,7 @@ h6 {
 }
 .chapter .note.everyday-connection::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #354da1;
   content: "everyday connection";
   background-color: #f6862d;
@@ -2619,7 +2655,7 @@ h6 {
 }
 .chapter .note.dig-deeper::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #f6862d;
   content: "dig deeper";
   background-color: #354da1;
@@ -2637,7 +2673,7 @@ h6 {
 }
 .chapter .note.dig-deeper::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #f6862d;
   content: "dig deeper";
   background-color: #354da1;
@@ -2669,7 +2705,7 @@ h6 {
 }
 .chapter .note.what-do-you-think::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #ffffff;
   content: "what do you think?";
   background-color: #3f989b;
@@ -2687,7 +2723,7 @@ h6 {
 }
 .chapter .note.what-do-you-think::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #ffffff;
   content: "what do you think?";
   background-color: #3f989b;
@@ -2720,7 +2756,7 @@ h6 {
 }
 .chapter .note.connect-the-concepts::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #0067ac;
   content: "connect the concepts";
   background-color: transparent;
@@ -2738,7 +2774,7 @@ h6 {
 }
 .chapter .note.connect-the-concepts::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #0067ac;
   content: "connect the concepts";
   background-color: transparent;
@@ -2784,7 +2820,7 @@ h6 {
 }
 .chapter .note.connect-the-concepts > .title::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #0067ac;
   content: "connect the concepts";
   color: #a6a6a6;
@@ -2809,7 +2845,7 @@ h6 {
 }
 .chapter .note.link-to-learning::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #ffffff;
   content: "link to learning";
   background-color: #993720;
@@ -2827,7 +2863,7 @@ h6 {
 }
 .chapter .note.link-to-learning::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #ffffff;
   content: "link to learning";
   background-color: #993720;
@@ -2859,7 +2895,7 @@ h6 {
 }
 .chapter .note.link-to-learning::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #ffffff;
   content: "link to learning";
   background-color: #f6862d;
@@ -2877,7 +2913,7 @@ h6 {
 }
 .chapter .note.link-to-learning::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #ffffff;
   content: "link to learning";
   background-color: #f6862d;
@@ -3024,6 +3060,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
           slot for this would be something like this:
           #content>#para>.style(any; any; learning-objectives)
         */
+  padding-top: 1em;
   border: none;
 }
 .section > .titlepage .abstract p {
@@ -3242,7 +3279,7 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
 }
 .chapter .note.sciences-interconnect::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #ffffff;
   content: "how sciences interconnect";
   background-color: #7291cb;
@@ -3260,7 +3297,7 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
 }
 .chapter .note.sciences-interconnect::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #ffffff;
   content: "how sciences interconnect";
   background-color: #7291cb;
@@ -3304,7 +3341,7 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
 }
 .chapter .note.everyday-life::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #ffffff;
   content: "chemistry in everyday life";
   background-color: #944c8d;
@@ -3322,7 +3359,7 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
 }
 .chapter .note.everyday-life::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #ffffff;
   content: "chemistry in everyday life";
   background-color: #944c8d;
@@ -3366,7 +3403,7 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
 }
 .chapter .note.chemist-portrait::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #ffffff;
   content: "portrait of a chemist";
   background-color: #8fb73e;
@@ -3384,7 +3421,7 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
 }
 .chapter .note.chemist-portrait::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #ffffff;
   content: "portrait of a chemist";
   background-color: #8fb73e;
@@ -3431,7 +3468,7 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
 }
 .chapter .note.link-to-learning::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #ffffff;
   content: "link to learning";
   background-color: #993720;
@@ -3449,7 +3486,7 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
 }
 .chapter .note.link-to-learning::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #ffffff;
   content: "link to learning";
   background-color: #993720;
@@ -3481,7 +3518,7 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
 }
 .chapter .note.link-to-learning::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #ffffff;
   content: "link to learning";
   background-color: #f6862d;
@@ -3499,7 +3536,7 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
 }
 .chapter .note.link-to-learning::before {
   text-transform: uppercase;
-  text-transform: capitalize;
+  text-transform: none;
   color: #ffffff;
   content: "link to learning";
   background-color: #f6862d;
@@ -3594,20 +3631,17 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
 div.step-list ul {
   margin-left: 0;
   list-style-type: none;
-  padding-left: 1em;
   counter-reset: steplist;
-  font-style: italic;
 }
 div.step-list ul li {
   counter-increment: steplist !important;
   text-indent: 4em hanging;
-  font-style: italic;
 }
 div.step-list ul li p {
   display: inline;
-  font-style: italic;
 }
 div.step-list ul li::before {
+  font-style: italic;
   content: "Step " counter(steplist) '. ';
   font-weight: bold;
   padding-right: 1em;
@@ -3616,11 +3650,9 @@ div.step-list ul li::before {
 div.book div.chapter > div.section div.example div.exercise div.step-list ul li {
   counter-increment: steplist !important;
   text-indent: 4em hanging;
-  font-style: italic;
 }
 div.book div.chapter > div.section div.example div.exercise div.step-list ul li p {
   display: inline;
-  font-style: italic;
 }
 /******************************************************
  * Ad-hoc text emphasis classes.
@@ -3648,11 +3680,10 @@ span.emphasis-leading-indent strong {
 .table table {
   page-break-inside: avoid;
   margin: auto;
-  page-break-inside: auto;
   prince-caption-page: all;
-  width: 100%;
   padding-top: 1em;
   border: none !important;
+  page-break-inside: auto;
 }
 .table table .table-caption.caption {
   color: #000000;
@@ -3684,6 +3715,8 @@ span.emphasis-leading-indent strong {
   font-weight: bold;
   padding-top: 1em;
   padding-bottom: .2em;
+  padding-bottom: 0;
+  margin-bottom: 6.6px;
 }
 .cnx-eoc.exercises p {
   text-align: left;
@@ -3696,6 +3729,9 @@ span.emphasis-leading-indent strong {
   margin-bottom: 1.5em;
   margin-top: 0;
   margin-bottom: .2em;
+}
+.cnx-eoc .section .title {
+  padding-top: 0;
 }
 div.colophon.end-of-book-solutions .chapter-area {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -3710,9 +3746,7 @@ div.colophon.end-of-book-solutions .chapter-area div.solution {
  * Appendix
  ******************************************************/
 .appendix h1.title {
-  padding: 0;
   font-size: inherit;
-  padding-bottom: .3em;
   text-transform: capitalize;
   border-bottom: 1px solid #f6862d;
 }
@@ -3774,15 +3808,24 @@ div.colophon.end-of-book-solutions .chapter-area div.solution {
   border-bottom-color: #f6862d;
   border-bottom-width: 1px;
   border-bottom-style: solid;
+  padding-bottom: 0;
+  margin-bottom: 6.6px;
 }
 .glossary dl dt::after {
   content: " ";
 }
 .glossary dl dt {
-  margin-bottom: -0.5em;
+  margin-bottom: -3px;
 }
 .glossary dl dd {
-  margin-bottom: -0.5em;
+  margin-bottom: -3px;
+}
+/********************************************************************
+ * Ad-hoc numbering
+ ********************************************************************/
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div span.label,
+div.book > div.appendix > div.section div.equation > *:last-child::after {
+  display: none;
 }
 div.book {
   /* --------------------------------------

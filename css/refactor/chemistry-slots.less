@@ -2,9 +2,13 @@
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
 
+.x-header-spacing() {
+  padding-bottom: 0;
+  margin-bottom: 6.6px;
+}
 
 .x-feature-before-color(@title-color, @title) {
-  text-transform: capitalize;
+  text-transform: none;
   color: @title-color;
   content: @title;
 }
@@ -86,6 +90,7 @@
         font-weight: bold;
         color: @dark-blue;
         padding-top: .2em;
+        text-transform: none;
       }
       .number() {
         color: @dark-blue;
@@ -93,6 +98,7 @@
     }
     #learning-objectives {
       .style(...) {
+        padding-top: 1em;
         border: none;
 
         ul.itemizedlist {
@@ -107,7 +113,6 @@
           display: none;
         }
       }
-
     }
   }
   #module {
@@ -115,6 +120,7 @@
       .style() {
         color: @dark-blue;
         font-size: 17pt;
+        #utils>#pb>.after(avoid);
       }
     }
   }
@@ -133,8 +139,7 @@
 
       #title {
         .style(...){
-          margin-bottom: 0;
-          padding-bottom: .5em;
+          .x-header-spacing();
         }
 
         .link(...) {
@@ -156,6 +161,7 @@
           font-weight: bold;
           padding-top: 1em;
           padding-bottom: .2em;
+          .x-header-spacing();
         }
         .link(...) {
           color: black;
@@ -165,6 +171,9 @@
   }
   // End of Book Customizations
   #book-end {
+    #end-of-book-references {
+      .style(...) { display: none; }
+    }
     #end-of-book-solutions {
       .style(...) {
         .x-column-count(1);
@@ -174,7 +183,7 @@
           column-span: all;
           color: @dark-blue;
           font-size: 17pt;
-          padding-bottom: .3em;
+          .x-header-spacing();
         }
       }
       #chapter-area {
@@ -186,7 +195,11 @@
         .style(...) {
           color: @dark-blue;
           font-size: 17pt;
+          .x-header-spacing();
         }
+      }
+      .link(...) {
+        font-family: @font-family-serif;
       }
     }
     // End of Book Attribution and About Connexions
@@ -194,6 +207,7 @@
       .style(...) {
         color: @dark-blue;
         font-size: 17pt;
+        .x-header-spacing();
       }
     }
   }
@@ -211,9 +225,7 @@
   #appendix {
     #title {
       .style() {
-        padding: 0; //reset
         font-size: inherit;
-        padding-bottom: .3em;
         text-transform: capitalize;
         border-bottom: 1px solid @orange;
       }
@@ -339,7 +351,6 @@
   }
   #table {
     .style(any; any) {
-      width: 100%;
       padding-top: 1em;
       border: none !important; // override inline table style=""
     }
@@ -433,21 +444,18 @@
     .style('step-list'; any) {
       margin-left: 0;
       list-style-type: none;
-      padding-left: 1em;
       counter-reset: steplist;
-      font-style: italic;
     }
     .item('step-list'; any) {
       counter-increment: steplist !important;
       text-indent: 4em hanging;
-      font-style: italic;
 
       p { 
-        display: inline; 
-        font-style: italic; 
+        display: inline;
       }
     }
     .number('step-list'; any) {
+      font-style: italic;
       content: "Step " counter(steplist) '. ';
       font-weight: bold;
       padding-right: 1em;
@@ -457,12 +465,21 @@
   #glossary {
     .style(any; chapter) {}
     #title {
-      .style(any; chapter) {}
+      .style(any; chapter) {
+        .x-header-spacing();
+      }
     }
     .dl(any; chapter) {}
     .divider(any; chapter) {}
-    .term(any; chapter) { margin-bottom: -0.5em; }
-    .definition(any; chapter) { margin-bottom: -0.5em; }
+    .term(any; chapter) { margin-bottom: -3px; }
+    .definition(any; chapter) { margin-bottom: -3px; }
 
+  }
+  #figure {
+    #body {
+      .style(any; any) {
+        margin: 10px 0;
+      }
+    }
   }
 }

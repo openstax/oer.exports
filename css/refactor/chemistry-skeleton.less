@@ -154,6 +154,7 @@ span.emphasis-leading-indent strong { content: "\00a0" content(); }
     > .section > .body > .exercise { #content>#exercise>.style(any; any; exercises; chapter-end); }
   }
 }
+.cnx-eoc .section .title { padding-top: 0; }
 
 // This section not completely refactored in PreCalc yet.  Everything across
 // books will need to go into #chapter-ara slot
@@ -217,4 +218,14 @@ div.colophon.end-of-book-solutions .chapter-area {
   dl dt { #content>#glossary>.term(any; chapter); }
 
   dl dd { #content>#glossary>.definition(any; chapter); }
+}
+
+/********************************************************************
+ * Ad-hoc numbering
+ ********************************************************************/
+
+// Disable numbering for equations in EOB solutions and in an appendix.
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div span.label,
+div.book > div.appendix > div.section div.equation > *:last-child::after {
+  display: none;
 }
