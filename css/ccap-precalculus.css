@@ -1884,6 +1884,35 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
   margin-right: .5em;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
+div.book div.chapter > div.section div.example div.exercise .commentary .table > table > caption::before {
+  display: block;
+}
+div.book div.chapter > div.section div.example div.exercise .commentary .table {
+  page-break-inside: avoid;
+  margin: auto;
+}
+div.book div.chapter > div.section div.example div.exercise .commentary .figure {
+  font-size: xx-small;
+  padding-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  page-break-inside: avoid;
+  column-break-inside: avoid;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 9pt;
+  padding-bottom: 1em;
+  text-align: left;
+}
+div.book div.chapter > div.section div.example div.exercise .commentary .figure .body {
+  text-align: left;
+}
+div.book div.chapter > div.section div.example div.exercise .commentary .figure .title span.cnx-gentext-t::before {
+  color: #d7562c;
+  font-weight: bold;
+  text-align: left;
+  margin-right: .5em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
 .example .exercise {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
@@ -3003,11 +3032,18 @@ div.book div.chapter > div.section div.example div.exercise div.equation:not(.la
 div.book div.chapter > div.section div.example div.exercise div.equation {
   counter-increment: equation !important;
 }
-div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled) span.inlinemediaobject::after,
-div.book div.chapter > div.section div.example div.exercise div.equation span.inlinemediaobject::after,
-div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled) div.mediaobject::after,
-div.book div.chapter > div.section div.example div.exercise div.equation div.mediaobject::after {
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled) span.inlinemediaobject::before,
+div.book div.chapter > div.section div.example div.exercise div.equation span.inlinemediaobject::before,
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled) div.mediaobject::before,
+div.book div.chapter > div.section div.example div.exercise div.equation div.mediaobject::before {
   display: block;
+}
+div.book div.chapter > div.section div.equation > *:last-child::after {
+  display: none;
+}
+div.book div.chapter > div.section div.equation > *:last-child::before {
+  content: "" "(" counter(chapter, decimal) "." counter(equation) ")" "";
+  float: right;
 }
 div.book > div.chapter > div.cnx-eoc > div.section > div.body > div.section > div.exercise:not(.labeled) > div.body > div.problem::before {
   content: counter(exercise) ".";
