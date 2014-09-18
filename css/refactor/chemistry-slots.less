@@ -16,7 +16,7 @@
   box-shadow: 10px 10px 5px @shadow; // On the roadmap for PrinceXML 9.1
   border: 1px solid @border-color;
   border-radius: 15px;
-  
+
   margin-top: 48px; // Clear the title ::before.
   &::before {
     .x-feature-before-color(@title-color, @title);
@@ -89,7 +89,8 @@
         font-family: @font-family-sans-serif;
         font-weight: bold;
         color: @dark-blue;
-        padding-top: .2em;
+        padding-top: 0;
+        margin-top:0;
         text-transform: none;
       }
       .number() {
@@ -100,11 +101,14 @@
       .style(...) {
         padding-top: 1em;
         border: none;
-
+        margin-bottom:0;
         ul.itemizedlist {
           > .listitem {
             margin-top: .4em;
             margin-bottom: .4em;
+              &:last-child {
+                  padding-bottom: 0;
+            }
           }
         }
       }
@@ -149,7 +153,7 @@
     }
     #exercises {
       .style(...) {
-        .x-column-count(1); 
+        .x-column-count(1);
         text-align: left;
       }
       #title {
@@ -271,7 +275,7 @@
       .x-feature-color(@dark-orange, @dark-orange, @white, @orange, @cnx-string-link-to-learning);
 
       // QR code is going away to be replaced with just an image. Removing variable reference
-      // here to be placed at size and override psychology which is currently using QR codes.  
+      // here to be placed at size and override psychology which is currently using QR codes.
       // It would be better to find a way to reset width/height and place image at size instead
       // of specificy pixel width/height. auto/inherit doesn't work. Will investigate.
       .mediaobject {
@@ -315,7 +319,7 @@
     #body {
       .style('answer'; any; example) {
         display: inline;
-        font-size: 1.1em; // Slightly smaller than the Answer label, 
+        font-size: 1.1em; // Slightly smaller than the Answer label,
                           // so the stroke is not as thick.
         font-family: @font-family-serif;
       }
@@ -369,8 +373,8 @@
         // This is for the Table 1.1 numbering part. the actual title
         // has to be @dark-blue and has to move to top and centered.
         // This can go away maybe after bug is fixed with <title>
-        &::before { 
-          color: @red; 
+        &::before {
+          color: @red;
         }
       }
     }
@@ -437,7 +441,7 @@
 
     .style(@kind; book-end) {
       display: block;
-      padding-bottom: .5em; 
+      padding-bottom: .5em;
     }
   }
   #list {
@@ -450,7 +454,7 @@
       counter-increment: steplist !important;
       text-indent: 4em hanging;
 
-      p { 
+      p {
         display: inline;
       }
     }
@@ -476,6 +480,10 @@
 
   }
   #figure {
+   .style(any; any; note) {
+     padding-left: 0;
+     padding-right: 0;
+    }
     #body {
       .style(any; any) {
         margin: 10px 0;
