@@ -3,10 +3,42 @@
 *  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 *  See LICENSE.txt for details.
 *******************************************************/
+/********************************************************************
+ * Refactor of .x-feature() function to utilize only one paramter
+ ********************************************************************/
+#content #table #row {
+  border: none !important;
+}
+/* The QR code variable is needed for psychology skeleton but we are not using it since it's going away */
+html {
+  prince-image-resolution: 150dpi;
+}
+/******************************************************
+ * Folio Customizations
+ ******************************************************/
+@page :left {
+  @top-left {
+    content: "";
+  }
+  @top-right {
+    content: string(cnx-header) " " counter(page);
+    text-transform: capitalize;
+  }
+}
+@page :right {
+  @top-right {
+    content: "";
+  }
+  @top-left {
+    content: counter(page) " " string(cnx-header);
+    text-transform: capitalize;
+  }
+}
 @page {
   margin: 5em;
   font-size: xx-small;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  margin: 0.8in 1in;
   
   @footnotes {
     border-top: solid black thin;
@@ -39,40 +71,6 @@
   @top-right {
     content: string(cnx-header);
     text-transform: uppercase;
-  }
-}
-/********************************************************************
- * Refactor of .x-feature() function to utilize only one paramter
- ********************************************************************/
-#content #table #row {
-  border: none !important;
-}
-@page {
-  margin: 0.5in 1in;
-}
-/* The QR code variable is needed for psychology skeleton but we are not using it since it's going away */
-html {
-  prince-image-resolution: 150dpi;
-}
-/******************************************************
- * Folio Customizations
- ******************************************************/
-@page :left {
-  @top-left {
-    content: "";
-  }
-  @top-right {
-    content: string(cnx-header) " " counter(page);
-    text-transform: capitalize;
-  }
-}
-@page :right {
-  @top-right {
-    content: "";
-  }
-  @top-left {
-    content: counter(page) " " string(cnx-header);
-    text-transform: capitalize;
   }
 }
 @namespace mml "http://www.w3.org/1998/Math/MathML";
@@ -365,7 +363,7 @@ div.section > div.titlepage div.abstract {
   border-top-width: 0;
   border-left-width: 0;
   border-right-width: 0;
-  /* 
+  /*
           For items below, .abstract section in precalculus-skeleton
           needs additional work to place p and ul elements into slots
           After that, we can just insert the delta into psychology slot
@@ -1596,8 +1594,8 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-weight: bold;
   color: #354da1;
-  padding-top: 0;
-  margin-top: 0;
+  padding-top: ..30em;
+  margin-top: .05em;
   text-transform: none;
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::before {
@@ -2351,36 +2349,6 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
   margin-right: .5em;
   color: #993720;
 }
-div.book div.chapter > div.section div.example div.exercise .commentary .table > table > caption::before {
-  display: block;
-}
-div.book div.chapter > div.section div.example div.exercise .commentary .table {
-  page-break-inside: avoid;
-  margin: auto;
-}
-div.book div.chapter > div.section div.example div.exercise .commentary .figure {
-  font-size: xx-small;
-  padding-bottom: 0.5em;
-  margin-left: auto;
-  margin-right: auto;
-  page-break-inside: avoid;
-  column-break-inside: avoid;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  font-size: 9pt;
-  padding-bottom: 1em;
-  text-align: left;
-}
-div.book div.chapter > div.section div.example div.exercise .commentary .figure .body {
-  text-align: left;
-}
-div.book div.chapter > div.section div.example div.exercise .commentary .figure .title span.cnx-gentext-t::before {
-  display: inline-block;
-  color: #f6862d;
-  font-weight: bold;
-  text-align: left;
-  margin-right: .5em;
-  color: #993720;
-}
 .example .exercise {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
@@ -3092,7 +3060,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
   border-top-width: 0;
   border-left-width: 0;
   border-right-width: 0;
-  /* 
+  /*
           For items below, .abstract section in precalculus-skeleton
           needs additional work to place p and ul elements into slots
           After that, we can just insert the delta into psychology slot
