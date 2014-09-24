@@ -94,28 +94,6 @@ html {
   }
 }
 
-// Make page numbers and header texts display on opposite
-// sides of the page.
-@page :left {
-  @top-left {
-    content: "";
-  }
-  @top-right {
-    content: string(cnx-header) " " counter(page);
-    text-transform: capitalize;
-  }
-}
-
-@page :right {
-  @top-right {
-    content: "";
-  }
-  @top-left {
-    content: counter(page) " " string(cnx-header);
-    text-transform: capitalize;
-  }
-}
-
 // Enable page breaking inside tables.
 #content {
   #table {
@@ -133,3 +111,26 @@ html {
 
 @import url('../ccap-numbering.less');
 @import url('../ccap-precalculus-numbering.less');
+
+// Make page numbers and header texts display on opposite
+// sides of the page.
+@page :left {
+  @top-left {
+    content: "";
+  }
+  @top-right {
+    content: string(cnx-header) " " counter(page);
+    text-transform: capitalize;
+  }
+}
+
+
+@page :right {
+  @top-right {
+    content: "";
+  }
+  @top-left {
+    content: counter(page) " " string(cnx-header);
+    text-transform: capitalize;
+  }
+}
