@@ -4,24 +4,49 @@
 
 @page {
   #page>.style();
+
   // Less complains about @footnotes{...} so use value escaping to inject it into the CSS
   @footnotes: ~"@footnotes";
   @{footnotes} {
     #page>.footnotes();
   }
 
+  :left {
+    @top-left-corner { #part>.top-left-corner(left); }
+    @top-right-corner { #part>.top-right-corner(left); }
+    @bottom-left-corner { #part>.bottom-left-corner(left); }
+    @bottom-right-corner { #part>.bottom-right-corner(left); }
+    @top-left { #part>.top-left(left); }
+    @top-center { #part>.top-center(left); }
+    @top-right { #part>.top-right(left); }
+    @bottom-left { #part>.bottom-left(left); }
+    @bottom-center { #part>.bottom-center(left); }
+    @bottom-right { #part>.bottom-right(left); }
+    @left-top { #part>.left-top(left); }
+    @left-middle { #part>.left-middle(left); }
+    @left-bottom { #part>.left-bottom(left); }
+    @right-top { #part>.right-top(left); }
+    @right-middle { #part>.right-middle(left); }
+    @right-bottom { #part>.right-bottom(left); }
+  }
+  :right {
+    @top-left-corner { #part>.top-left-corner(right); }
+    @top-right-corner { #part>.top-right-corner(right); }
+    @bottom-left-corner { #part>.bottom-left-corner(right); }
+    @bottom-right-corner { #part>.bottom-right-corner(right); }
+    @top-left { #part>.top-left(right); }
+    @top-center { #part>.top-center(right); }
+    @top-right { #part>.top-right(right); }
+    @bottom-left { #part>.bottom-left(right); }
+    @bottom-center { #part>.bottom-center(right); }
+    @bottom-right { #part>.bottom-right(right); }
+    @left-top { #part>.left-top(right); }
+    @left-middle { #part>.left-middle(right); }
+    @left-bottom { #part>.left-bottom(right); }
+    @right-top { #part>.right-top(right); }
+    @right-middle { #part>.right-middle(right); }
+    @right-bottom { #part>.right-bottom(right); }
+  }
+ 
 }
 
-// LessCSS does not support `@page { &:left {...}}` as a nested selector
-// so they are included separately here
-@page:left {
-  // Note: If needed, slots in here should use inside/outside instead of left/right
-  @top-left-corner { #page>#left>.top-corner(); }
-  @top-left        { #page>#left>.top(); }
-  @bottom-left     { #page>#left>.bottom(); }
-}
-
-@page:right {
-  @top-right-corner { #page>#right>.top-corner(); }
-  @top-right        { #page>#right>.top(); }
-}

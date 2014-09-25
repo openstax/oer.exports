@@ -2,10 +2,16 @@
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
 
-#page {
 
+// The mixins and parameters follow the page regions and page identifiers
+// defined at http://www.w3.org/TR/css3-page/
+//
+// #part>.<region>(<page identifier>)
+
+
+#page {
   .style() {
-    margin: 5em;
+    margin: 0.8in 1in;
     font-size: xx-small;
     font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   }
@@ -15,33 +21,36 @@
     padding-top: 1em;
   }
 
-  #left,
-  #right {
-    .top-corner() {
-      content: counter(page);
-    }
-
-    .top() {
-      content: string(cnx-header);
-      text-transform: uppercase;
-    }
-  }
-
-  #left {
-    .top-corner() { padding-right: 1em; }
-    .bottom() {
-      color: grey;
-      font-weight: thin;
-      content: "This content is available for free at " string(cnx-collection-url);
-      // The following line doesn't work because prince-link can aonly take a attr() or url()
-      // Fortunately prince auto-detects the http://... and makes it a link
-      // prince-link: string(cnx-collection-url);
-      prince-text-replace: ":9680" "\2019";
-    }
-  }
-
-  #right {
-    .top-corner() { padding-left: 1em; }
-  }
-
+  .top-left-corner(left) {}
+  .top-left-corner(right) {}
+  .top-right-corner(left) {}
+  .top-right-corner(right) {}
+  .bottom-left-corner(left) {}
+  .bottom-left-corner(right) {}
+  .bottom-right-corner(left) {}
+  .bottom-right-corner(right) {}
+  .top-left(left) {}
+  .top-left(right) {}
+  .top-center(left) {}
+  .top-center(right) {}
+  .top-right(left) {}
+  .top-right(right) {}
+  .bottom-left(left) {}
+  .bottom-left(right) {}
+  .bottom-center(left) {}
+  .bottom-center(right) {}
+  .bottom-right(left) {}
+  .bottom-right(right) {}
+  .left-top(left) {}
+  .left-top(right) {}
+  .left-middle(left) {}
+  .left-middle(right) {}
+  .left-bottom(left) {}
+  .left-bottom(right) {}
+  .right-top(left) {}
+  .right-top(right) {}
+  .right-middle(left) {}
+  .right-middle(right) {}
+  .right-bottom(left) {}
+  .right-bottom(right) {}
 }
