@@ -3,10 +3,17 @@
 *  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 *  See LICENSE.txt for details.
 *******************************************************/
+/********************************************************************
+ * Refactor of .x-feature() function to utilize only one paramter
+ ********************************************************************/
+html {
+  prince-image-resolution: 150dpi;
+}
 @page {
   margin: 5em;
   font-size: xx-small;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  margin: 0.8in 1in;
   
   @footnotes {
     border-top: solid black thin;
@@ -38,18 +45,6 @@
     content: string(cnx-header);
     text-transform: uppercase;
   }
-}
-/********************************************************************
- * Refactor of .x-feature() function to utilize only one paramter
- ********************************************************************/
-@page {
-  margin-top: .5in;
-  margin-bottom: .5in;
-  margin-left: 1in;
-  margin-right: 1in;
-}
-html {
-  prince-image-resolution: 150dpi;
 }
 @namespace mml "http://www.w3.org/1998/Math/MathML";
 mml|math {
@@ -512,6 +507,9 @@ h6 {
 }
 .note h3 {
   margin-top: 0.5em;
+}
+span.underline {
+  text-decoration: underline;
 }
 .note > .title {
   page-break-after: avoid;
@@ -1039,7 +1037,6 @@ p:nth-of-type(2),
 .note.qa > .body,
 .note.qa .body > p {
   font-weight: normal;
-  font-style: italic;
   margin-top: 0;
 }
 .note.qa > .body .figure .title {
@@ -1487,12 +1484,17 @@ div.colophon.end-of-book-solutions {
 }
 div.colophon.end-of-book-solutions > .title {
   content: "Answer Key";
+  string-set: cnx-header "Answer Key";
   color: #528cbe;
   margin-left: 0;
   text-transform: uppercase;
   font-size: x-large;
   font-weight: bold;
   background-color: transparent;
+}
+div.colophon.end-of-book-solutions div.chapter-area:first-of-type h2.title {
+  margin-top: 0;
+  padding-top: 0;
 }
 div.colophon.end-of-book-solutions .chapter-area {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -1529,6 +1531,9 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.tab
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.table table thead {
   display: table-header-group;
 }
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.table table th {
+  display: table-cell;
+}
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.table table tbody {
   display: table-row-group;
 }
@@ -1550,6 +1555,7 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.body > a.tar
  * ---------------------------------------------------
  */
 div.end-of-book-references > .title {
+  string-set: cnx-header "References";
   font-size: x-large;
   font-weight: bold;
   background-color: transparent;
@@ -1584,17 +1590,25 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
   text-align: left;
   column-width: auto;
 }
-.index > .title h2 {
-  padding: 0;
+.index > .title {
   color: #528cbe;
   text-transform: uppercase;
   font-size: x-large;
+  column-span: all;
+}
+.index > .title h2 {
+  padding: 0;
+  font-size: inherit;
 }
 .index h3.letter {
   color: inherit;
   font-weight: bold;
   font-size: medium;
   padding-top: .5em;
+}
+.index h3.letter:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
 }
 .index .index-term {
   font-size: small;
@@ -1650,6 +1664,10 @@ subfigure {
   color: #528cbe;
   background: none;
 }
+.colophon p:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+}
 /******************************************************************************
  * Breakout of figure code into 3 sizes (large, medium, small) for left aligned figure text
  ******************************************************************************/
@@ -1680,6 +1698,7 @@ subfigure {
   font-weight: bold;
   text-align: left;
   margin-right: .5em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .figure > .caption {
   display: inline;
@@ -1786,7 +1805,7 @@ subfigure {
   text-transform: uppercase;
   page-break-after: avoid !important;
 }
-.glossary dt::after {
+.glossary dl dt::after {
   content: " ";
 }
 .glossary dl {
@@ -1815,6 +1834,38 @@ subfigure {
   padding-top: 1em;
   padding-bottom: 1em;
 }
+div.book div.chapter > div.section div.example div.exercise .solution .table > table > caption::before {
+  display: block;
+}
+div.book div.chapter > div.section div.example div.exercise .solution .table {
+  page-break-inside: avoid;
+  margin: auto;
+  counter-increment: table !important;
+}
+div.book div.chapter > div.section div.example div.exercise .solution .figure {
+  font-size: xx-small;
+  padding-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  page-break-inside: avoid;
+  column-break-inside: avoid;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 9pt;
+  padding-bottom: 1em;
+  text-align: left;
+  counter-increment: figure !important;
+}
+div.book div.chapter > div.section div.example div.exercise .solution .figure .body {
+  text-align: left;
+}
+div.book div.chapter > div.section div.example div.exercise .solution .figure .title span.cnx-gentext-t::before {
+  display: inline-block;
+  color: #d7562c;
+  font-weight: bold;
+  text-align: left;
+  margin-right: .5em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
 div.book div.chapter > div.section div.example div.exercise .problem .table > table > caption::before {
   display: block;
 }
@@ -1839,14 +1890,44 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure {
 div.book div.chapter > div.section div.example div.exercise .problem .figure .body {
   text-align: left;
 }
-div.book div.chapter > div.section div.example div.exercise .problem .figure .title {
-  display: inline;
-  text-align: center;
-  text-align: left;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-div.book div.chapter > div.section div.example div.exercise .problem .figure .title ::before {
+div.book div.chapter > div.section div.example div.exercise .problem .figure .title span.cnx-gentext-t::before {
   display: inline-block;
+  color: #d7562c;
+  font-weight: bold;
+  text-align: left;
+  margin-right: .5em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+div.book div.chapter > div.section div.example div.exercise .commentary .table > table > caption::before {
+  display: block;
+}
+div.book div.chapter > div.section div.example div.exercise .commentary .table {
+  page-break-inside: avoid;
+  margin: auto;
+}
+div.book div.chapter > div.section div.example div.exercise .commentary .figure {
+  font-size: xx-small;
+  padding-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  page-break-inside: avoid;
+  column-break-inside: avoid;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 9pt;
+  padding-bottom: 1em;
+  text-align: left;
+  counter-increment: figure !important;
+}
+div.book div.chapter > div.section div.example div.exercise .commentary .figure .body {
+  text-align: left;
+}
+div.book div.chapter > div.section div.example div.exercise .commentary .figure .title span.cnx-gentext-t::before {
+  display: inline-block;
+  color: #d7562c;
+  font-weight: bold;
+  text-align: left;
+  margin-right: .5em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .example .exercise {
   margin-top: 1.5em;
@@ -1939,8 +2020,9 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
   padding: 1em;
 }
 .table .itemizedlist {
-  margin: 0;
-  padding-left: 1em;
+  /*
+      margin: 0; //reset
+      padding-left: 1em;*/
 }
 .table .itemizedlist > .listitem > p {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -1996,6 +2078,17 @@ h4,
 h5,
 h6 {
   text-align: left;
+}
+/* -------------------------
+ * Lists
+ * -------------------------
+ */
+div.itemizedlist ul,
+div.orderedlist ul,
+div.itemizedlist ol,
+div.orderedlist ol {
+  padding-left: 26px;
+  margin: 0;
 }
 div.book {
   /* --------------------------------------
@@ -2934,10 +3027,13 @@ div.book > div.appendix .precalculus.try > .title:not(.labeled)::before {
  * -------------------------
  */
 div.book div.chapter > div.section div.equation.unnumbered,
-div.book div.chapter > div.section div.equation:not(.labeled).unnumbered {
+div.book div.chapter > div.section div.equation:not(.labeled).unnumbered,
+div.book div.chapter > div.section div.example div.exercise div.equation.unnumbered,
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled).unnumbered {
   counter-increment: none !important;
 }
-div.book div.chapter > div.section div.equation.unnumbered > *:last-child::after {
+div.book div.chapter > div.section div.equation.unnumbered > *:last-child::after,
+div.book div.chapter > div.section div.equation.unnumbered > *:last-child::before {
   display: none !important;
 }
 /* -------------------------
@@ -2955,9 +3051,22 @@ div.book div.chapter > div.section div.example div.exercise div.equation:not(.la
 div.book div.chapter > div.section div.example div.exercise div.equation {
   counter-increment: equation !important;
 }
-div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled) div.mediaobject::after,
-div.book div.chapter > div.section div.example div.exercise div.equation div.mediaobject::after {
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled) span.inlinemediaobject::before,
+div.book div.chapter > div.section div.example div.exercise div.equation span.inlinemediaobject::before,
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled) div.mediaobject::before,
+div.book div.chapter > div.section div.example div.exercise div.equation div.mediaobject::before {
   display: block;
+}
+div.book div.chapter > div.section div.equation > *:last-child::before {
+  content: "(" counter(chapter, decimal) "." counter(equation) ")";
+  float: right;
+}
+div.book > div.chapter > div.cnx-eoc > div.section > div.body > div.section > div.exercise:not(.labeled) > div.body > div.problem::before {
+  content: counter(exercise) ".";
+  font-weight: bold;
+}
+div.book > div.chapter > div.cnx-eoc > div.section > div.body > div.section > div.exercise:not(.labeled) > div.title {
+  display: none;
 }
 div.book > div.preface > div.cnx-eoc,
 div.book > div.part > div.preface > div.cnx-eoc {

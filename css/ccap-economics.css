@@ -7,6 +7,7 @@
   margin: 5em;
   font-size: xx-small;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  margin: 0.8in 1in;
   
   @footnotes {
     border-top: solid black thin;
@@ -344,7 +345,7 @@ div.section > div.titlepage div.abstract {
   border-top-width: 0;
   border-left-width: 0;
   border-right-width: 0;
-  /* 
+  /*
           For items below, .abstract section in precalculus-skeleton
           needs additional work to place p and ul elements into slots
           After that, we can just insert the delta into psychology slot
@@ -631,6 +632,9 @@ h6 {
   font-weight: bold;
   border: none;
   padding-bottom: .2em;
+}
+span.underline {
+  text-decoration: underline;
 }
 .note > .title {
   page-break-after: avoid;
@@ -1227,7 +1231,6 @@ p:nth-of-type(2),
 .note.qa > .body,
 .note.qa .body > p {
   font-weight: normal;
-  font-style: italic;
   margin-top: 0;
 }
 .note.qa > .body .figure .title {
@@ -1862,6 +1865,7 @@ div.colophon.end-of-book-solutions {
 }
 div.colophon.end-of-book-solutions > .title {
   content: "Answer Key";
+  string-set: cnx-header "Answer Key";
   color: #83c6ee;
   text-transform: uppercase;
   font-size: x-large;
@@ -1872,6 +1876,10 @@ div.colophon.end-of-book-solutions > .title {
   text-transform: capitalize;
   font-weight: 700;
   font-weight: 500;
+}
+div.colophon.end-of-book-solutions div.chapter-area:first-of-type h2.title {
+  margin-top: 0;
+  padding-top: 0;
 }
 div.colophon.end-of-book-solutions .chapter-area {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -1923,6 +1931,9 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.tab
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.table table thead {
   display: table-header-group;
 }
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.table table th {
+  display: table-cell;
+}
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.table table tbody {
   display: table-row-group;
 }
@@ -1947,6 +1958,7 @@ div.end-of-book-references {
   margin: 1em 0;
 }
 div.end-of-book-references > .title {
+  string-set: cnx-header "References";
   font-size: x-large;
   font-weight: bold;
   background-color: transparent;
@@ -1987,22 +1999,26 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
   column-width: auto;
   margin: 1em 0em 0em;
 }
-.index > .title h2 {
-  padding: 0;
+.index > .title {
   color: #83c6ee;
   text-transform: uppercase;
   font-size: x-large;
+  column-span: all;
+  width: 100%;
   color: #a63c1d;
   border-bottom-color: #e28f26;
   background-color: transparent;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  column-span: all;
   margin-bottom: 1em;
   text-transform: none;
   font-size: 18pt;
   font-weight: 700;
   text-align: left;
+}
+.index > .title h2 {
+  padding: 0;
+  font-size: inherit;
 }
 .index h3.letter {
   color: inherit;
@@ -2010,6 +2026,10 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
   font-size: medium;
   padding-top: .5em;
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+.index h3.letter:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
 }
 .index .index-term {
   font-size: small;
@@ -2080,6 +2100,10 @@ subfigure {
   font-size: 18pt;
   font-weight: 700;
   text-align: left;
+}
+.colophon p:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
 }
 /******************************************************************************
  * Breakout of figure code into 3 sizes (large, medium, small) for left aligned figure text
@@ -2228,7 +2252,7 @@ subfigure {
   border-bottom-width: 1px;
   border-bottom-style: solid;
 }
-.glossary dt::after {
+.glossary dl dt::after {
   content: " ";
 }
 .glossary dl {
@@ -2258,6 +2282,39 @@ subfigure {
   padding-top: 1em;
   padding-bottom: 1em;
 }
+div.book div.chapter > div.section div.example div.exercise .solution .table > table > caption::before {
+  display: block;
+}
+div.book div.chapter > div.section div.example div.exercise .solution .table {
+  page-break-inside: avoid;
+  margin: auto;
+  counter-increment: table !important;
+}
+div.book div.chapter > div.section div.example div.exercise .solution .figure {
+  font-size: xx-small;
+  padding-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  page-break-inside: avoid;
+  column-break-inside: avoid;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 9pt;
+  padding-bottom: 1em;
+  text-align: left;
+  counter-increment: figure !important;
+}
+div.book div.chapter > div.section div.example div.exercise .solution .figure .body {
+  text-align: left;
+}
+div.book div.chapter > div.section div.example div.exercise .solution .figure .title span.cnx-gentext-t::before {
+  display: inline-block;
+  color: #e28f26;
+  font-weight: bold;
+  text-align: left;
+  margin-right: .5em;
+  color: #a63c1d;
+  color: #3767b1;
+}
 div.book div.chapter > div.section div.example div.exercise .problem .table > table > caption::before {
   display: block;
 }
@@ -2282,13 +2339,46 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure {
 div.book div.chapter > div.section div.example div.exercise .problem .figure .body {
   text-align: left;
 }
-div.book div.chapter > div.section div.example div.exercise .problem .figure .title {
-  display: inline;
-  text-align: center;
+div.book div.chapter > div.section div.example div.exercise .problem .figure .title span.cnx-gentext-t::before {
+  display: inline-block;
+  color: #e28f26;
+  font-weight: bold;
+  text-align: left;
+  margin-right: .5em;
+  color: #a63c1d;
+  color: #3767b1;
+}
+div.book div.chapter > div.section div.example div.exercise .commentary .table > table > caption::before {
+  display: block;
+}
+div.book div.chapter > div.section div.example div.exercise .commentary .table {
+  page-break-inside: avoid;
+  margin: auto;
+}
+div.book div.chapter > div.section div.example div.exercise .commentary .figure {
+  font-size: xx-small;
+  padding-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  page-break-inside: avoid;
+  column-break-inside: avoid;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 9pt;
+  padding-bottom: 1em;
+  text-align: left;
+  counter-increment: figure !important;
+}
+div.book div.chapter > div.section div.example div.exercise .commentary .figure .body {
   text-align: left;
 }
-div.book div.chapter > div.section div.example div.exercise .problem .figure .title ::before {
+div.book div.chapter > div.section div.example div.exercise .commentary .figure .title span.cnx-gentext-t::before {
   display: inline-block;
+  color: #e28f26;
+  font-weight: bold;
+  text-align: left;
+  margin-right: .5em;
+  color: #a63c1d;
+  color: #3767b1;
 }
 .example .exercise {
   margin-top: 1.5em;
@@ -2403,8 +2493,9 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
   padding: 1em;
 }
 .table .itemizedlist {
-  margin: 0;
-  padding-left: 1em;
+  /*
+      margin: 0; //reset
+      padding-left: 1em;*/
 }
 .table .itemizedlist > .listitem > p {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2460,6 +2551,18 @@ h4,
 h5,
 h6 {
   text-align: left;
+}
+/* -------------------------
+ * Lists
+ * -------------------------
+ */
+div.itemizedlist ul,
+div.orderedlist ul,
+div.itemizedlist ol,
+div.orderedlist ol {
+  padding-left: 26px;
+  margin: 0;
+  margin-left: 0;
 }
 /******************************************************
  * Custom psychology elements
@@ -2842,7 +2945,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
   border-top-width: 0;
   border-left-width: 0;
   border-right-width: 0;
-  /* 
+  /*
           For items below, .abstract section in precalculus-skeleton
           needs additional work to place p and ul elements into slots
           After that, we can just insert the delta into psychology slot
@@ -2979,23 +3082,6 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
 /******************************************************
  * End-of-Book Index
  ******************************************************/
-.index .title {
-  padding: 0;
-  color: #83c6ee;
-  text-transform: uppercase;
-  font-size: x-large;
-  color: #a63c1d;
-  border-bottom-color: #e28f26;
-  background-color: transparent;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  column-span: all;
-  margin-bottom: 1em;
-  text-transform: none;
-  font-size: 18pt;
-  font-weight: 700;
-  text-align: left;
-}
 .index .letter {
   color: inherit;
   font-weight: bold;

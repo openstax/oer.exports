@@ -7,7 +7,11 @@
 @cnx-string-learning-objectives: "Learning Objectives";
 @cnx-string-key-equations: "Key Equations";
 @cnx-string-key-concepts: "Key Concepts";
-
+#page {
+  .style(){
+    margin: 0.8in 1in;
+  }
+}
 #part {
   #titlepage {
     #title {
@@ -215,7 +219,7 @@
         .link(...) {
           color: @medium-blue;
         }
-        // targeting the link with layout changes not a good idea.  Must have a way to 
+        // targeting the link with layout changes not a good idea.  Must have a way to
         // target the parent of the link (.section > .title )  See line #208 precalculus-skeleton
         .subtitle(...) {
           margin-bottom: 1em;
@@ -276,6 +280,7 @@
       #title {
         .style(...) {
           content: "Answer Key";
+          string-set: cnx-header "Answer Key";
           color: @medium-blue;
           margin-left: 0;
           text-transform: uppercase;
@@ -309,6 +314,7 @@
 
       #title {
         .style(...) { //colophon titles are passed as h1's by default by docbook override properties here
+          string-set: cnx-header "References";
           font-size: x-large;
           font-weight: bold;
           background-color: transparent;
@@ -353,10 +359,10 @@
 
       #title {
         .style(...) {
-          padding: 0;
           color: @medium-blue;
           text-transform: uppercase;
           font-size: x-large;
+          column-span: all;
         }
       }
       .letter(...) {
@@ -404,7 +410,11 @@
       prince-caption-page: all;
     }
 
+
     .style(any; any; problem; exercise; example) {
+      counter-increment: table !important; // Overrides !important from base.
+    }
+    .style(any; any; solution; exercise; example) {
       counter-increment: table !important; // Overrides !important from base.
     }
 
@@ -428,6 +438,15 @@
         color: @orange;
         caption-side:bottom;
       }
+      .style(any; any; problem; exercise; example) {
+        display: block;
+      }
+      .style(any; any; solution; exercise; example) {
+        display: block;
+      }
+      .style(any; any; commentary; exercise; example) {
+        display: block;
+      }
     }
     #head {
       .style(any; any) {
@@ -442,11 +461,11 @@
         #utils>#pb>.inside(avoid);
       }
       .style(colored; any) {
-        height: 1em !important; 
+        height: 1em !important;
       }
     }
     #header {
-      .style(any; any) { 
+      .style(any; any) {
         color: black;
         background-color: @white;
         font-size: small;
@@ -454,7 +473,7 @@
         padding-left: .25em;
       }
       .style(colored; any) {
-        background-color: @light-orange; text-align: center; 
+        background-color: @light-orange; text-align: center;
       }
     }
     #data {
@@ -530,7 +549,6 @@
       }
       .style(@kind; @part; feature-qa) {
         font-weight: normal;
-        font-style: italic;
         margin-top: 0;
       }
     }
@@ -545,11 +563,20 @@
     .style(any; any; problem; exercise; example) {
       counter-increment: figure !important; // Overrides !important from base.
     }
+    .style(any; any; solution; exercise; example) {
+      counter-increment: figure !important; // Overrides !important from base.
+    }
+    .style(any; any; commentary; exercise; example) {
+      counter-increment: figure !important; // Overrides !important from base.
+    }
     .style(@kind; @part; problem; exercise; section-exercise) {
       text-indent: 0;
     }
     .style(any; chapter-end; exercise) {
       display: block; // override ccap-base display: initial.
+    }
+    #body {
+      .style(any; any) {}
     }
     #title {
       .style(...) {
@@ -559,12 +586,15 @@
       .style(any; any; feature-qa) {
         font-style: normal;
       }
-      .style(any; any; problem; exercise; example) {
+      .number(any; any; solution; exercise; example) {
+        display: inline-block;
+      }
+      .number(any; any; problem; exercise; example) {
         text-align: left;
-
-        ::before {
-          display: inline-block;
-        }
+        display: inline-block;
+      }
+      .number(any; any; commentary; exercise; example) {
+        display: inline-block;
       }
       .number(...) {
         color: @orange;
@@ -617,14 +647,18 @@
     }
   }
   #list {
+    .style(any; any) {
+      padding-left: 26px;
+      margin: 0;
+    }
     .style(any; any; solution; exercise; example) {
       // Inset lists below solution headers
       margin-left: 2em;
       margin-top: 2em;
     }
-    .style(any; any; table) {
+    .style(any; any; table) { /*
       margin: 0; //reset
-      padding-left: 1em;
+      padding-left: 1em;*/
     }
     .style('no-mark'; any) {
       list-style-type: none;
@@ -719,10 +753,10 @@
     .style(@kind; @part; feature-try; exercise) {
       // Template design asks for lists to be set apart
       margin-left: 4em;
-      
+
       ol,ul {
         margin-top: 1em;
-      }  
+      }
     }
     .number(@kind; chapter-end; ...) {
       padding-right: .5em;
@@ -772,12 +806,12 @@
         line-height: 1em;
       }
       .style(@kind; book-end) {
-        // Check the note at 
+        // Check the note at
         // #book-end>#end-of-book-solutions>#solution
         // This may have been set to not display inline
         // due to a W&N request.
         display: inline;
-        
+
         // Solution in Answer Key needs to have period after number.
         &::after {
           content: ". ";
@@ -809,6 +843,7 @@
 
             caption { display: table-caption; }
             thead { display: table-header-group; }
+            th{ display: table-cell; }
             tbody { display: table-row-group; }
             tfoot { display: table-footer-group; }
             tr { display: table-row; }
@@ -876,14 +911,14 @@
         // trouble.
 
         // Fixing this will require changes to base-skeleton, precalc-skeleton and
-        // will possibly break books. 
+        // will possibly break books.
         font-size: 14pt !important;
         margin-left: 0;
 
         font-weight: bold;
 
         // The skeleton selectors for many things are incorrect in that .titlepage here is being
-        // targeting and yield higher specificty.  
+        // targeting and yield higher specificty.
         padding: 0em !important;
 
         display: block;

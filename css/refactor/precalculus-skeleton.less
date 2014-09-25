@@ -33,7 +33,7 @@
     }
 
     // Supress the extra url generated from base that is wrapped with parentheses
-    .itemizedlist > .listitem .link.only-show-once { 
+    .itemizedlist > .listitem .link.only-show-once {
       content: content();
     }
   }
@@ -98,7 +98,7 @@ div.book div.preface {
     #part>#toc>#title>.style();
   }
 
-  a { 
+  a {
     #part>#toc>#link>.style();
   }
 }
@@ -137,7 +137,7 @@ div.part > div.titlepage { display: none; }
   /******************************************************************
    * Styling for Chapter Outline Box
    ******************************************************************/
-  >.toc { 
+  >.toc {
     #part>#introduction>#chapter-outline>.style();
 
     >.title {
@@ -208,8 +208,8 @@ div.book div > div.section > div.section {
 
     p { font-family: @font-family; margin: 1em 0em .75em 1em; }
 
-    .itemizedlist > .listitem > p { 
-      margin: 0em .3em; 
+    .itemizedlist > .listitem > p {
+      margin: 0em .3em;
       display: inline;
       text-align: left;
     }
@@ -265,7 +265,7 @@ div.book div > div.section > div.section {
     // There doesn't seem to be a way to handle subsection titles in namespace yet.
     // Targeting the link tag 'a' with layout change (margin, padding) doesn't work
     // and isn't a good practice.  It's a bit like putting margin and padding on h1, h2, etc.
-    // Better to just let the container do the layout instead of the element. 
+    // Better to just let the container do the layout instead of the element.
     > .section > .title { #part>#chapter-end>#key-concepts>#title>.subtitle(); }
 
     > .section > .title > a { #part>#chapter-end>#key-concepts>#title>.link(); }
@@ -325,11 +325,16 @@ div.colophon.end-of-book-solutions {
   }
 
   // Some miscellaneous stuff we will have to decide on
+  div.chapter-area:first-of-type h2.title {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
   .chapter-area {
     font-family: @font-family-serif;
     a {
-      &.solution { 
-        color: black; 
+      &.solution {
+        color: black;
       }
 
       &.chapter * {
@@ -337,10 +342,10 @@ div.colophon.end-of-book-solutions {
         font-size: medium;
       }
     }
-  
+
     div.solution {
       #content>#solution>.style(@kind; book-end);
-      
+
       > div.title {
         #content>#solution>#title>.style(@kind; book-end);
       }
@@ -351,7 +356,7 @@ div.colophon.end-of-book-solutions {
     }
   }
 }
- 
+
 
 /* ---------------------------------------------------
  * End of Book References
@@ -363,8 +368,8 @@ div.end-of-book-references {
   > .title {
     #part>#book-end>#end-of-book-references>#title>.style();
   }
-  
-  // As with .chapter-area in solutions above, we will have to 
+
+  // As with .chapter-area in solutions above, we will have to
   // decide on what type of slot we wish to create.
   > .chapter-area {
     > .title {
@@ -393,20 +398,31 @@ div.end-of-book-references {
  */
 .index {
   #part>#book-end>#index>.style();
-  
-  > .title h2 {
+
+  > .title {
     #part>#book-end>#index>#title>.style();
   }
- 
+
+  // This is required to override ccap base without targetting both .title and .title h2.
+  // The goal here is to make > .title h2 go away.
+  > .title h2 {
+    padding: 0;
+    font-size: inherit;
+  }
+
   h3.letter {
     #part>#book-end>#index>.letter();
   }
+  h3.letter:first-of-type {
+    margin-top: 0;
+    padding-top: 0;
+  }
 
-  .index-term { 
+  .index-term {
     #part>#book-end>#index>.term();
   }
 
-  a { 
+  a {
     #part>#book-end>#index>.link();
   }
 }
@@ -415,11 +431,11 @@ div.end-of-book-references {
  * Generic Elements
  ********************************************************************/
 
-h5 { 
-  #content>#heading>.style(h5); 
+h5 {
+  #content>#heading>.style(h5);
 }
-h6 { 
-  #content>#heading>.style(h6); 
+h6 {
+  #content>#heading>.style(h6);
 }
 
 // Parent level link style
@@ -443,8 +459,11 @@ img, figure, subfigure  { margin: 1em; }
  */
 .colophon > h1.title {
   #part>#book-end>#colophon>.style();
- }
-
+}
+.colophon p:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+}
 
 /******************************************************************************
  * Breakout of figure code into 3 sizes (large, medium, small) for left aligned figure text
@@ -458,7 +477,7 @@ img, figure, subfigure  { margin: 1em; }
  */
 
 // Updated points width for PreCalculus assets @150 dpi
-@figure-width-medium: 351pt;  // Width of 3/4 size art 
+@figure-width-medium: 351pt;  // Width of 3/4 size art
 @figure-width-small:  234pt;  // Width of 1/2 size art
 
 .figure {
@@ -477,6 +496,10 @@ img, figure, subfigure  { margin: 1em; }
   // 1/2 size art
   &.small {
     width: @figure-width-small;
+  }
+
+  > .body {
+    #content>#figure>#body>.style(any; any);
   }
 
   > .title {
@@ -554,13 +577,13 @@ img, figure, subfigure  { margin: 1em; }
   #content>#glossary>.style();
 
   .title {
-    #content>#glossary>#title>.style();
+    #content>#glossary#title>.style();
   }
 
   // Remove ":"
-  dt::after { #content>#glossary>.divider(); }
+  dl dt::after { #content>#glossary>.divider(); }
 
-  // Remove terms indentation 
+  // Remove terms indentation
   dl { #content>#glossary>.dl(); }
 }
 
@@ -582,9 +605,27 @@ img, figure, subfigure  { margin: 1em; }
 .example .solution { #content>#solution>.style(any; any; example); }
 
 // This lengthy selector is required to override a display:none.
+div.book div.chapter > div.section div.example div.exercise .solution {
+  .table > table > caption::before {
+    #content>#table>#caption>.style(any; any; solution; exercise; example);
+  }
+  .table { #content>#table>.style(any; any; solution; exercise; example); }
+
+  .figure {
+    #content>#figure>.style(any; any; solution; exercise; example);
+
+    .body {
+      text-align: left;
+    }
+  }
+
+  .figure .title span.cnx-gentext-t::before {
+    #content>#figure>#title>.number(any; any; solution; exercise; example);
+  }
+}
 div.book div.chapter > div.section div.example div.exercise .problem {
   .table > table > caption::before {
-    display: block;
+    #content>#table>#caption>.style(any; any; problem; exercise; example);
   }
   .table {
     #content>#table>.style(any; any; problem; exercise; example);
@@ -596,8 +637,26 @@ div.book div.chapter > div.section div.example div.exercise .problem {
       text-align: left;
     }
   }
-  .figure .title {
-    #content>#figure>#title>.style(any; any; problem; exercise; example);
+  .figure .title span.cnx-gentext-t::before {
+    #content>#figure>#title>.number(any; any; problem; exercise; example);
+  }
+}
+div.book div.chapter > div.section div.example div.exercise .commentary {
+  .table > table > caption::before {
+    #content>#table>#caption>.style(any; any; commentary; exercise; example);
+  }
+  .table {
+    #content>#table>.style(any; any; commentary; exercise; example);
+  }
+  .figure {
+    #content>#figure>.style(any; any; commentary; exercise; example);
+
+    .body {
+      text-align: left;
+    }
+  }
+  .figure .title span.cnx-gentext-t::before {
+    #content>#figure>#title>.number(any; any; commentary; exercise; example);
   }
 }
 
@@ -721,13 +780,13 @@ div.book > div.part {
   > div.preface,
   > div.chapter,
   > div.appendix {
-    
+
     /*
     > div.section div.equation.non-numbered > *:last-child::after {
       display: none;
     }
     */
-    
+
     > div.section div.equation > *:last-child::after {
       color: @orange;
       font-weight: bold;
@@ -740,4 +799,14 @@ div.book > div.part {
 // in github issues #570, #578.
 h1, h2, h3, h4, h5, h6 {
   text-align: left;
+}
+
+/* -------------------------
+ * Lists
+ * -------------------------
+ */
+div.itemizedlist, div.orderedlist {
+  ul, ol {
+    #content>#list>.style(any; any);
+  }
 }

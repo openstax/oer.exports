@@ -11,7 +11,7 @@
   box-shadow: 10px 10px 5px @shadow; // On the roadmap for PrinceXML 9.1
   border: 1px solid @border-color;
   border-radius: 15px;
-  
+
   margin-top: 48px; // Clear the title ::before.
   &::before {
     .x-feature-before-color(@title-color, @title);
@@ -37,7 +37,7 @@
 #part {
   #toc {
     .style(...) {}
-  
+
     #title {
       .style(...) {
         color: @red;
@@ -66,7 +66,7 @@
       .title(...) {
         // Set Preface string for cnx-header to render page-header
         string-set: cnx-header "Preface";
-        
+
         color: @red;
         background-color: transparent;
         padding-left: 0;
@@ -127,14 +127,14 @@
           text-align: left;
           font-weight: bold;
           font-size: 11pt;
-          padding-left: 0px;  
+          padding-left: 0px;
         }
       }
       #entry {
         .style(...) {
           margin: 0.2em 0;
         }
-        #title { 
+        #title {
           .style(...) {
             color: @black;
             margin: 0;
@@ -155,7 +155,7 @@
         font-weight: normal;
         font-size: 18pt;
         width: 100%;
-        margin: 0; 
+        margin: 0;
         padding: 0;
         text-align: left;
       }
@@ -167,10 +167,10 @@
 
         // If we truly need to take away the (.25em) left padding that
         // is being assigned here, we will have to remove it from numbering-skeleton.less
-        // using !important for now to conform to production template as it will not 
+        // using !important for now to conform to production template as it will not
         // override from numbering (a higher specificity for h1.title gentext-t is in numbering-skeleton)
         padding-left: 0 !important;
-        
+
         padding-bottom: .3em;
         border-top-width: 1px;
         border-top-style: solid;
@@ -210,7 +210,7 @@
         border-left-width: 0;
         border-right-width: 0;
 
-        /* 
+        /*
           For items below, .abstract section in precalculus-skeleton
           needs additional work to place p and ul elements into slots
           After that, we can just insert the delta into psychology slot
@@ -223,7 +223,7 @@
           font: 10pt/14pt @font-family-serif;
           margin: 0;
         }
- 
+
         > .title {
           border: none;
           margin-top: 0;
@@ -304,7 +304,7 @@
 
       #title {
         .style(...){
-          content: @cnx-string-summary; 
+          content: @cnx-string-summary;
           padding-bottom: 0;
           margin-bottom: 1em;
         }
@@ -316,7 +316,7 @@
     }
     #review-questions {
       .style(...) {
-        .x-column-count(2); 
+        .x-column-count(2);
         column-fill: balance;
         text-align: left;
       }
@@ -331,7 +331,7 @@
     }
     #critical-thinking {
       .style(...) {
-        .x-column-count(1); 
+        .x-column-count(1);
       }
       #title {
         .style(...) {
@@ -413,12 +413,12 @@
       }
       #title {
         .style(...) {
+          width: 100%;
           color: @red;
           border-bottom-color: @orange;
           background-color: transparent;
           border-bottom-width: 1px;
           border-bottom-style: solid;
-          column-span: all;
           margin-bottom: 1em;
           text-transform: none;
           font-size: 18pt;
@@ -506,7 +506,7 @@
     #caption {
       .style(any; any) {
         color: @black;
-        border-color: @orange;   
+        border-color: @orange;
         border-width: 1px;
         border-style: solid;
         border-bottom: none;
@@ -534,10 +534,10 @@
         display: inline;
         padding: 0;
 
-        &::before { 
+        &::before {
           // We must blow up "TARGET-EXERCISE" text coming from ::before
           // in numbering.less This is the major culprit in inline-solutions bug.
-          content: " "; 
+          content: " ";
           display: inline;
           padding: 0;
         }
@@ -575,7 +575,7 @@
     }
     .style('connect-the-concepts'; ...) {
       // This feature is a little more complex, requiring
-      // some "hacky" bugfix type things to work. Some 
+      // some "hacky" bugfix type things to work. Some
       // selectors are placed inline in this slot.
 
       .x-feature-color(@light-blue, transparent, @light-blue, transparent, @cnx-string-connect-the-concepts);
@@ -632,7 +632,7 @@
       > .body::after {
         content: "";
         display: table;
-        clear: both;  
+        clear: both;
       }
       .mediaobject {
         float: left;
@@ -658,7 +658,7 @@
     // This is a first attempt at createing a home for it.
     .style('chapter-objectives'; ...) {
       font: 10pt/14pt @font-family-serif;
-      text-align: left; 
+      text-align: left;
       padding-left: 0;
       margin-top: 0em;
       padding-top: 0;
@@ -701,7 +701,7 @@
       color: @black;
 
       // Remove quotes
-      &::before, 
+      &::before,
       &::after {
         content: "";
       }
@@ -709,7 +709,7 @@
   }
   // Parent level link styling
   #link {
-    .style(...) { 
+    .style(...) {
       color: @red;
     }
   }
@@ -737,7 +737,7 @@
   }
   #equation {
     .style(...) {}
-    
+
     .label() {
       display: none;
     }
@@ -755,17 +755,17 @@
 
         // Temp changes in place until we horizontally refactor glossary across books.
         color: @red !important;
-        font-size: 12pt !important; 
+        font-size: 12pt !important;
         text-transform: capitalize !important;
         border-bottom-color: @orange;
         border-bottom-width: 1px;
         border-bottom-style: solid;
       }
     }
-    .dt() { 
+    .dt() {
       // prevent container from allowing meaning to wrap appropriately
       height: 15px;
-    } 
+    }
     .dl() {
       margin: 1em 0;
     }

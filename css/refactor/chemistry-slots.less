@@ -2,9 +2,13 @@
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
 
+.x-header-spacing() {
+  padding-bottom: 0;
+  margin-bottom: 6.6px;
+}
 
 .x-feature-before-color(@title-color, @title) {
-  text-transform: capitalize;
+  text-transform: none;
   color: @title-color;
   content: @title;
 }
@@ -12,7 +16,7 @@
   box-shadow: 10px 10px 5px @shadow; // On the roadmap for PrinceXML 9.1
   border: 1px solid @border-color;
   border-radius: 15px;
-  
+
   margin-top: 48px; // Clear the title ::before.
   &::before {
     .x-feature-before-color(@title-color, @title);
@@ -50,6 +54,9 @@
   }
   #preface {
     #titlepage {
+      .style() {
+        padding-bottom: .5em;
+      }
       .title(...) {
         margin-top: 0;
         color: @dark-blue;
@@ -82,7 +89,9 @@
         font-family: @font-family-sans-serif;
         font-weight: bold;
         color: @dark-blue;
-        padding-top: .2em;
+        padding-top: .35em;
+        margin-top:.05em;
+        text-transform: none;
       }
       .number() {
         color: @dark-blue;
@@ -90,12 +99,16 @@
     }
     #learning-objectives {
       .style(...) {
+        padding-top: 1em;
         border: none;
-
+        margin-bottom:0;
         ul.itemizedlist {
           > .listitem {
             margin-top: .4em;
             margin-bottom: .4em;
+              &:last-child {
+                  padding-bottom: 0;
+            }
           }
         }
       }
@@ -104,7 +117,15 @@
           display: none;
         }
       }
-
+    }
+  }
+  #module {
+    #title {
+      .style() {
+        color: @dark-blue;
+        font-size: 17pt;
+        #utils>#pb>.after(avoid);
+      }
     }
   }
   // End-of-chapter parts
@@ -122,7 +143,7 @@
 
       #title {
         .style(...){
-          margin-bottom: 0;
+          .x-header-spacing();
         }
 
         .link(...) {
@@ -132,7 +153,7 @@
     }
     #exercises {
       .style(...) {
-        .x-column-count(2); 
+        .x-column-count(1);
         text-align: left;
       }
       #title {
@@ -144,6 +165,7 @@
           font-weight: bold;
           padding-top: 1em;
           padding-bottom: .2em;
+          .x-header-spacing();
         }
         .link(...) {
           color: black;
@@ -153,16 +175,19 @@
   }
   // End of Book Customizations
   #book-end {
+    #end-of-book-references {
+      .style(...) { display: none; }
+    }
     #end-of-book-solutions {
       .style(...) {
-        .x-column-count(2);
+        .x-column-count(1);
       }
       #title {
         .style(...) {
           column-span: all;
           color: @dark-blue;
           font-size: 17pt;
-          padding-bottom: .3em;
+          .x-header-spacing();
         }
       }
       #chapter-area {
@@ -174,7 +199,11 @@
         .style(...) {
           color: @dark-blue;
           font-size: 17pt;
+          .x-header-spacing();
         }
+      }
+      .link(...) {
+        font-family: @font-family-serif;
       }
     }
     // End of Book Attribution and About Connexions
@@ -182,6 +211,7 @@
       .style(...) {
         color: @dark-blue;
         font-size: 17pt;
+        .x-header-spacing();
       }
     }
   }
@@ -196,8 +226,67 @@
       }
     }
   }
+  #appendix {
+    #title {
+      .style() {
+        font-size: inherit;
+        text-transform: capitalize;
+        padding-left:0;
+      }
+      .text() {
+        font-size: 28pt;
+        color:@dark-blue;
+        border-top: 1px solid @orange;
+        display: block;
+        margin-top: .05em;
+        padding-left:0em !important;
+        font-weight: bold;
+      }
+      .number() {
+        color: @dark-blue;
+        font-size: 17pt;
+        font-weight: bold;
+      }
+      .divider(){
+      }
+      .label(){
+      }
+    }
+   #section{
+      #title{
+        .style(){
+          }
+        .number(){
+            display: none;
+          }
+        .text(){
+          color: @dark-blue;
+          font-size: 18pt;
+          line-height: 1;
+          margin-top: .3em;
+        }
+        .divider(){
+        }
+        .label(){
+        }
+      }
+    }
+  }
 }
 #content {
+  #paragraph {
+    #title {
+      .style(any; any; example) {
+        color: @dark-blue;
+        font-size: 1.1em;
+      }
+      .style('primary'; any; example) {
+        font-size: 1.3em;
+        font-weight: bold;
+        color: @dark-blue;
+      }
+    }
+  }
   #note {
     .style('sciences-interconnect'; ...) {
       .x-feature-color(@dark-blue, @dark-blue, @white, @medium-blue, @cnx-string-how-sciences-interconnect);
@@ -212,7 +301,7 @@
       .x-feature-color(@dark-orange, @dark-orange, @white, @orange, @cnx-string-link-to-learning);
 
       // QR code is going away to be replaced with just an image. Removing variable reference
-      // here to be placed at size and override psychology which is currently using QR codes.  
+      // here to be placed at size and override psychology which is currently using QR codes.
       // It would be better to find a way to reset width/height and place image at size instead
       // of specificy pixel width/height. auto/inherit doesn't work. Will investigate.
       .mediaobject {
@@ -225,6 +314,12 @@
           height: 62px;
         }
       }
+    }
+    .style('answer'; any; example) {
+      text-align: right;
+      background-color: @example-blue;
+      padding: 0 1em;
+      margin: 0;
     }
     #title {
       .style(...) {
@@ -240,7 +335,21 @@
       .style('chemist-portrait'; any) {
         color: @green;
       }
-    }  
+      .style('answer'; any; example) {
+        display: inline;
+        padding-right: .5em;
+        font-size: 1.2em;
+        font-family: @font-family-serif;
+      }
+    }
+    #body {
+      .style('answer'; any; example) {
+        display: inline;
+        font-size: 1.1em; // Slightly smaller than the Answer label,
+                          // so the stroke is not as thick.
+        font-family: @font-family-serif;
+      }
+    }
   }
   #heading {
     // H1 in the title part is the top level book title
@@ -258,13 +367,13 @@
   #section {
     #title {
       // H3
-      .style(any; any; section) {
+      .style(any; any) {
         color: @dark-blue;
         text-transform: none; // reset from psychology
         font-size: 13pt;
       }
       // H4
-      .style(any; any; section; section) {
+      .style(any; any; section) {
         color: @red;
         font-size: 11pt;
       }
@@ -272,7 +381,6 @@
   }
   #table {
     .style(any; any) {
-      width: 100%;
       padding-top: 1em;
       border: none !important; // override inline table style=""
     }
@@ -291,13 +399,15 @@
         // This is for the Table 1.1 numbering part. the actual title
         // has to be @dark-blue and has to move to top and centered.
         // This can go away maybe after bug is fixed with <title>
-        &::before { 
-          color: @red; 
+        &::before {
+          color: @red;
         }
       }
     }
     #head {
       .style(any; any) {
+        border-top: 1px solid @dark-blue;
+        border-bottom: 1px solid @dark-blue;
       }
     }
     #body {
@@ -311,9 +421,9 @@
       .style(any; any) {
         background-color: @medium-blue;
         border: none;
-        border-top: 1px solid @dark-blue !important;
-        border-bottom: 1px solid @dark-blue !important;
-        border-right: none !important;
+        border-right: 1px solid !important;
+        border-bottom: 0 !important;
+        border-color: @dark-blue !important;
         font-size: 9pt;
         color: white;
         text-align: center !important;
@@ -347,12 +457,63 @@
       }
     }
   }
+  #exercise {
+    .style(any; any; exercises; chapter-end) {
+      margin-bottom: .2em;
+    }
+  }
   #solution {
     .style(...) {}
 
     .style(@kind; book-end) {
       display: block;
-      padding-bottom: .5em; 
+      padding-bottom: .5em;
+    }
+  }
+  #list {
+    .style('step-list'; any) {
+      margin-left: 0;
+      list-style-type: none;
+      counter-reset: steplist;
+    }
+    .item('step-list'; any) {
+      counter-increment: steplist !important;
+      text-indent: 4em hanging;
+
+      p {
+        display: inline;
+      }
+    }
+    .number('step-list'; any) {
+      font-style: italic;
+      content: "Step " counter(steplist) '. ';
+      font-weight: bold;
+      padding-right: 1em;
+      display: inline-block !important;	// !important used to override numbering base.
+    }
+  }
+  #glossary {
+    .style(any; chapter) {}
+    #title {
+      .style(any; chapter) {
+        .x-header-spacing();
+      }
+    }
+    .dl(any; chapter) {}
+    .divider(any; chapter) {}
+    .term(any; chapter) { margin-bottom: -3px; }
+    .definition(any; chapter) { margin-bottom: -3px; }
+
+  }
+  #figure {
+   .style(any; any; note) {
+     padding-left: 0;
+     padding-right: 0;
+    }
+    #body {
+      .style(any; any) {
+        margin: 10px 0;
+      }
     }
   }
 }
