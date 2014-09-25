@@ -3,10 +3,17 @@
 *  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 *  See LICENSE.txt for details.
 *******************************************************/
+/********************************************************************
+ * Refactor of .x-feature() function to utilize only one paramter
+ ********************************************************************/
+html {
+  prince-image-resolution: 150dpi;
+}
 @page {
   margin: 5em;
   font-size: xx-small;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  margin: 0.8in 1in;
   
   @footnotes {
     border-top: solid black thin;
@@ -38,18 +45,6 @@
     content: string(cnx-header);
     text-transform: uppercase;
   }
-}
-/********************************************************************
- * Refactor of .x-feature() function to utilize only one paramter
- ********************************************************************/
-@page {
-  margin-top: .5in;
-  margin-bottom: .5in;
-  margin-left: 1in;
-  margin-right: 1in;
-}
-html {
-  prince-image-resolution: 150dpi;
 }
 @namespace mml "http://www.w3.org/1998/Math/MathML";
 mml|math {
@@ -1536,6 +1531,9 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.tab
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.table table thead {
   display: table-header-group;
 }
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.table table th {
+  display: table-cell;
+}
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.table table tbody {
   display: table-row-group;
 }
@@ -1844,6 +1842,22 @@ div.book div.chapter > div.section div.example div.exercise .solution .table {
   margin: auto;
   counter-increment: table !important;
 }
+div.book div.chapter > div.section div.example div.exercise .solution .figure {
+  font-size: xx-small;
+  padding-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  page-break-inside: avoid;
+  column-break-inside: avoid;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 9pt;
+  padding-bottom: 1em;
+  text-align: left;
+  counter-increment: figure !important;
+}
+div.book div.chapter > div.section div.example div.exercise .solution .figure .body {
+  text-align: left;
+}
 div.book div.chapter > div.section div.example div.exercise .solution .figure .title span.cnx-gentext-t::before {
   display: inline-block;
   color: #d7562c;
@@ -1902,6 +1916,7 @@ div.book div.chapter > div.section div.example div.exercise .commentary .figure 
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
+  counter-increment: figure !important;
 }
 div.book div.chapter > div.section div.example div.exercise .commentary .figure .body {
   text-align: left;
@@ -3012,10 +3027,13 @@ div.book > div.appendix .precalculus.try > .title:not(.labeled)::before {
  * -------------------------
  */
 div.book div.chapter > div.section div.equation.unnumbered,
-div.book div.chapter > div.section div.equation:not(.labeled).unnumbered {
+div.book div.chapter > div.section div.equation:not(.labeled).unnumbered,
+div.book div.chapter > div.section div.example div.exercise div.equation.unnumbered,
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled).unnumbered {
   counter-increment: none !important;
 }
-div.book div.chapter > div.section div.equation.unnumbered > *:last-child::after {
+div.book div.chapter > div.section div.equation.unnumbered > *:last-child::after,
+div.book div.chapter > div.section div.equation.unnumbered > *:last-child::before {
   display: none !important;
 }
 /* -------------------------
@@ -3039,11 +3057,8 @@ div.book div.chapter > div.section div.example div.exercise div.equation:not(.la
 div.book div.chapter > div.section div.example div.exercise div.equation div.mediaobject::before {
   display: block;
 }
-div.book div.chapter > div.section div.equation > *:last-child::after {
-  display: none;
-}
 div.book div.chapter > div.section div.equation > *:last-child::before {
-  content: "" "(" counter(chapter, decimal) "." counter(equation) ")" "";
+  content: "(" counter(chapter, decimal) "." counter(equation) ")";
   float: right;
 }
 div.book > div.chapter > div.cnx-eoc > div.section > div.body > div.section > div.exercise:not(.labeled) > div.body > div.problem::before {

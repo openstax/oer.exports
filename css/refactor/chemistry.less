@@ -1,5 +1,5 @@
 @import url('utils.less');
-@import url('css3.less');
+@import url('page-slots.less');
 @import url('ccap-base-slots.less');
 @import url('content-slots.less');
 @import url('precalculus-slots.less');
@@ -29,9 +29,9 @@
 @red:           #993720;
 
 // Accent colors for chemistry
-@dark-orange:   #E6661F; 
-@dark-purple:   #6D0059; 
-@dark-green:    #007339; 
+@dark-orange:   #E6661F;
+@dark-purple:   #6D0059;
+@dark-green:    #007339;
 @example-blue:  #DDE2F2;
 
 
@@ -41,7 +41,6 @@
 @book-title: chemistry;
 
 @page-width: 6.5in;
-@page { margin: 0.5in 1in; }
 
 /* The QR code variable is needed for psychology skeleton but we are not using it since it's going away */
 
@@ -50,14 +49,14 @@
 // For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
 @qr: 1.25in;
 
-// Images in Chemistry are 150DPI 
+// Images in Chemistry are 150DPI
 html {
   prince-image-resolution: 150dpi;
 }
 
 @table-border: none;
 
-// Chemistry static strings 
+// Chemistry static strings
 @cnx-string-how-sciences-interconnect: "how sciences interconnect";
 @cnx-string-chemistry-in-everyday-life: "chemistry in everyday life";
 @cnx-string-portrait-of-a-chemist: "portrait of a chemist";
@@ -95,6 +94,24 @@ html {
   }
 }
 
+// Enable page breaking inside tables.
+#content {
+  #table {
+    .style(...) {
+      #utils>#pb>.inside(auto);
+    }
+  }
+}
+@import url('page-skeleton.less');
+@import url('ccap-base-skeleton.less');
+@import url('content-skeleton.less');
+@import url('precalculus-skeleton.less');
+@import url('psychology-skeleton.less');
+@import url('chemistry-skeleton.less');
+
+@import url('../ccap-numbering.less');
+@import url('../ccap-precalculus-numbering.less');
+
 // Make page numbers and header texts display on opposite
 // sides of the page.
 @page :left {
@@ -107,6 +124,7 @@ html {
   }
 }
 
+
 @page :right {
   @top-right {
     content: "";
@@ -116,21 +134,3 @@ html {
     text-transform: capitalize;
   }
 }
-
-// Enable page breaking inside tables.
-#content {
-  #table {
-    .style(any; any) {
-      #utils>#pb>.inside(auto);
-    }
-  }
-}
-
-@import url('ccap-base-skeleton.less');
-@import url('content-skeleton.less');
-@import url('precalculus-skeleton.less');
-@import url('psychology-skeleton.less');
-@import url('chemistry-skeleton.less');
-
-@import url('../ccap-numbering.less');
-@import url('../ccap-precalculus-numbering.less');
