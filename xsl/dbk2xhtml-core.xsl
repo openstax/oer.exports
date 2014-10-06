@@ -389,13 +389,9 @@
 
         <xsl:if test="string-length($class) &gt; 0 and $context//*[contains(@class,$class)]//ext:solution">
           <xsl:message>LOG: INFO: Found some end-of-chapter solutions: class=[<xsl:value-of select="$class"/>]</xsl:message>
-          <!--
-          <xsl:comment>HACK: Do not rely on this div existing</xsl:comment>
-          <div class="{$class}-divider">
-          -->
-          <xsl:apply-templates select="$context//*[contains(@class,$class)]//ext:solution"/>
 
-          <!-- </div> -->
+          <div class="{$class}"><xsl:apply-templates select="$context//*[contains(@class,$class)]//ext:solution"/></div>
+
         </xsl:if>
       </xsl:for-each>
       <xsl:comment>END: solutions ordered by cnx.eoc processing instruction</xsl:comment>

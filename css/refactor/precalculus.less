@@ -94,3 +94,25 @@ div.book, div.book > div.part {
   > div.chapter  { .x-duplicate-hierarchy(); }
   > div.appendix { .x-duplicate-hierarchy(); }
 }
+
+
+div.colophon.end-of-book-solutions div.chapter-area {
+  > div.review-exercises {
+  }
+  > div.practice-test {
+  }
+  > div.try {
+    &::before { content: "Try It"; }
+    background-color: lightgray;
+
+    div.solution > div.title a.solution::before {
+      content: "Try It " target-counter(attr(href), chapter) "." target-counter(attr(href), try);
+    }
+  }
+  > div.abcabc {
+    &::before { content: "Section Exercises"; }
+    background-color: lightblue;
+  }
+}
+
+
