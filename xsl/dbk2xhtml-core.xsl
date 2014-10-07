@@ -239,24 +239,6 @@
         </xsl:call-template>
       </xsl:if>
     </xsl:for-each>
-    <xsl:for-each select=".//processing-instruction('cnx.answers')">
-      <xsl:variable name="val" select="concat(' ', .)"/>
-      <xsl:variable name="class" select="substring-before(substring-after($val,' class=&quot;'), '&quot;')"/>
-      <xsl:variable name="title" select="substring-before(substring-after(.,' title=&quot;'),'&quot;')"/>
-
-        <xsl:message>LOG: INFO: Looking for some  answers: class=[<xsl:value-of select="$class"/>] title=[<xsl:value-of select="$title"/>] inside a [<xsl:value-of select="name()"/>]</xsl:message>
-
-      <xsl:if test="string-length($class) &gt; 0 and $context//*[contains(@class,$class) and .//ext:solution]">
-        <xsl:message>LOG: INFO: Found some answers: class=[<xsl:value-of select="$class"/>] title=[<xsl:value-of select="$title"/>]</xsl:message>
-        <xsl:call-template name="cnx.end-of-chapter-solutions">
-          <xsl:with-param name="context" select="$context"/>
-          <xsl:with-param name="title">
-            <xsl:value-of select="$title"/>
-          </xsl:with-param>
-          <xsl:with-param name="attribute" select="$class"/>
-        </xsl:call-template>
-      </xsl:if>
-    </xsl:for-each>
   </xsl:variable>
   <xsl:if test="count($solutions) != 0">
     <div class="cnx-eoc cnx-solutions">
@@ -417,6 +399,25 @@
         </xsl:if>
       </xsl:for-each>
       <xsl:comment>END: solutions ordered by cnx.eoc processing instruction</xsl:comment>
+
+      <xsl:comment>START: solutions ordered by cnx.answers processing instruction</xsl:comment>
+      <xsl:for-each select=".//processing-instruction('cnx.answers')">
+        <xsl:variable name="val" select="concat(' ', .)"/>
+        <xsl:variable name="class" select="substring-before(substring-after($val,' class=&quot;'), '&quot;')"/>
+        <xsl:message>LOG: INFO: Looking for some end-of-chapter matter: class=[<xsl:value-of select="$class"/>] inside a [<xsl:value-of select="name()"/>]</xsl:message>
+
+        <xsl:if test="string-length($class) &gt; 0 and $context//*[contains(@class,$class)]//ext:solution">
+          <xsl:message>LOG: INFO: Found some end-of-chapter solutions: class=[<xsl:value-of select="$class"/>]</xsl:message>
+          <!--
+          <xsl:comment>HACK: Do not rely on this div existing</xsl:comment>
+          <div class="{$class}-divider">
+          -->
+          <xsl:apply-templates select="$context//*[contains(@class,$class)]//ext:solution"/>
+
+          <!-- </div> -->
+        </xsl:if>
+      </xsl:for-each>
+      <xsl:comment>END: solutions ordered by cnx.answers processing instruction</xsl:comment>
 
 
     </div>
