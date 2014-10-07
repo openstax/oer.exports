@@ -76,11 +76,14 @@
                 </xsl:choose>
               </xsl:attribute>
             </xsl:if>
-            <xsl:if test="@frame">
-              <xsl:attribute name="class">
-                 <xsl:text>frame-</xsl:text><xsl:value-of select="@frame"/>
-              </xsl:attribute>
-            </xsl:if>
+            <xsl:attribute name="class">
+                <xsl:if test="@pgwide!='0' or @orient='land'">
+                    <xsl:text>widetable</xsl:text>
+                </xsl:if>
+                <xsl:if test="@frame">
+                     <xsl:text>frame-</xsl:text><xsl:value-of select="@frame"/>
+                </xsl:if>
+            </xsl:attribute>
             <xsl:if test="db:name[node()] or
                             db:title[node()] or
                             db:caption[node()] or
@@ -180,7 +183,7 @@
   </xsl:template>
 
   <xsl:template match="db:entrytbl">
-    <td class="entrytbl">
+    <td>
       <xsl:call-template name="IdCheck"/>
       <xsl:attribute name="class">
         <xsl:text>entrytbl</xsl:text>
@@ -360,6 +363,7 @@
       <!-- Set colsep and rowsep attributes with CSS using the style attribute.  Turn off the borders on the left and top of any
            entry(tbl) because they are always ignored. -->
       <xsl:attribute name="class">
+        <xsl:text>tablecell</xsl:text>
         <!-- Give an entry a border on the right if its not in the last column of the tgroup or entrytbl, or according to any colsep
              attributes either in current entry or inherited from above. -->
         <xsl:choose>
