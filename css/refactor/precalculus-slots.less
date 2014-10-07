@@ -7,6 +7,10 @@
 @cnx-string-learning-objectives: "Learning Objectives";
 @cnx-string-key-equations: "Key Equations";
 @cnx-string-key-concepts: "Key Concepts";
+.x-list-indent() {
+  margin: 0 0 0 40px;
+  padding:0;
+ }
 #page {
   .style(){
     margin: 0.8in 1in;
@@ -401,6 +405,9 @@
     .style(any) {
       font-family: @font-family-serif;
     }
+    .style(any; any; list; table) {
+      font-family: @font-family;
+    }
   }
   #table {
     .style(any; any) {
@@ -428,7 +435,6 @@
       caption { display: none; }
       td { border: none !important; }
     }
-
     #caption {
       .style(any; any) {
         font-family: @font-family;
@@ -629,7 +635,7 @@
       .style(any; preface; section) {}
       .style(any; any) { // Section titles
         color: @medium-blue;
-        font-size: 13pt;
+        font-size: 13px;
         font-weight: bold;
       }
       .style(any; any; section) { // Sub-section titles
@@ -648,17 +654,14 @@
   }
   #list {
     .style(any; any) {
-      padding-left: 26px;
-      margin: 0;
+      .x-list-indent();
     }
     .style(any; any; solution; exercise; example) {
       // Inset lists below solution headers
-      margin-left: 2em;
-      margin-top: 2em;
+     .x-list-indent();
     }
-    .style(any; any; table) { /*
-      margin: 0; //reset
-      padding-left: 1em;*/
+    .style(any; any; table) {
+      margin: 0;
     }
     .style('no-mark'; any) {
       list-style-type: none;
@@ -752,7 +755,7 @@
   #problem {
     .style(@kind; @part; feature-try; exercise) {
       // Template design asks for lists to be set apart
-      margin-left: 4em;
+      .x-list-indent();
 
       ol,ul {
         margin-top: 1em;

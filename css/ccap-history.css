@@ -1308,7 +1308,6 @@ div.section > div.titlepage div.abstract {
   border: 1px solid #528cbe;
   padding: 0em;
   text-align: left;
-  margin: 0 0 1.5em;
   padding: 0;
   border: none;
   border-bottom: 1px solid #e28f26;
@@ -1335,10 +1334,6 @@ div.section > div.titlepage div.abstract p {
 div.section > div.titlepage div.abstract > .title {
   border: none;
   margin-top: 0;
-}
-div.section > div.titlepage div.abstract ul.itemizedlist {
-  margin-left: 0;
-  padding-left: 20pt;
 }
 div.section > div.titlepage div.abstract ul.itemizedlist > .listitem {
   display: list-item;
@@ -2334,7 +2329,8 @@ p:nth-of-type(2),
   display: none;
 }
 .note.try .exercise .problem {
-  margin-left: 4em;
+  margin: 0 0 0 40px;
+  padding: 0;
 }
 .note.try .exercise .problem ol,
 .note.try .exercise .problem ul {
@@ -2550,7 +2546,7 @@ div.book div.chapter > div.titlepage > div > div h1.title {
   padding-top: 0;
   margin-top: 0;
   border-bottom-color: #e28f26;
-  text-transform: capitalize;
+  text-transform: none;
   font-weight: normal;
   font-size: 18pt;
   width: 100%;
@@ -2628,7 +2624,7 @@ div.book div.chapter > div.section > div.titlepage h2 span.cnx-gentext-t::before
 div.book div > div.section > div.section div.titlepage > div > div > h3 {
   page-break-after: avoid;
   color: #528cbe;
-  font-size: 13pt;
+  font-size: 13px;
   font-weight: bold;
   color: #000000;
   text-transform: uppercase;
@@ -2645,7 +2641,7 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   font-size: 10pt;
   font-weight: bold;
   color: #000000;
-  font-size: 11pt;
+  font-size: 13px;
   margin-top: 1.5em;
 }
 /********************************************************************
@@ -2820,9 +2816,6 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
 .cnx-eoc.cnx-solutions p:nth-of-type(1) {
   margin-top: 1em;
 }
-.cnx-eoc .problem .orderedlist {
-  margin-left: 4em;
-}
 .cnx-eoc .problem::before {
   padding-right: .5em;
 }
@@ -2869,6 +2862,7 @@ div.colophon.end-of-book-solutions > .title {
   background-color: transparent;
   text-transform: capitalize;
   font-weight: 700;
+  font-size: 24px;
   column-span: all;
   color: #a63c1d;
   font-size: 18pt;
@@ -2980,6 +2974,7 @@ div.end-of-book-references > .chapter-area > .body > .section-area > .title {
 div.end-of-book-references > .chapter-area > .body > .section-area > .body p {
   text-indent: -2em;
   margin-left: 2em;
+  font-size: 24px;
 }
 div.end-of-book-references > .chapter-area > .body > p {
   text-indent: 0em;
@@ -3419,8 +3414,8 @@ div.book div.chapter > div.section div.example div.exercise .commentary .figure 
 }
 .example .exercise .solution ol,
 .example .exercise .solution ul {
-  margin-left: 2em;
-  margin-top: 2em;
+  margin: 0 0 0 40px;
+  padding: 0;
 }
 /******************************************************************************
  * Styling for modified table design (2 tables, one plain and one colored)
@@ -3482,12 +3477,12 @@ div.book div.chapter > div.section div.example div.exercise .commentary .figure 
 .table table td {
   padding: 1em;
 }
-.table .itemizedlist {
-  /*
-      margin: 0; //reset
-      padding-left: 1em;*/
+.table ul.itemizedlist,
+.table ol.orderedlist {
+  margin: 0;
 }
-.table .itemizedlist > .listitem > p {
+.table ul.itemizedlist > .listitem > p,
+.table ol.orderedlist > .listitem > p {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .table.color th {
@@ -3550,9 +3545,8 @@ div.itemizedlist ul,
 div.orderedlist ul,
 div.itemizedlist ol,
 div.orderedlist ol {
-  padding-left: 26px;
-  margin: 0;
-  margin-left: 0;
+  margin: 0 0 0 40px;
+  padding: 0;
 }
 /******************************************************
  * Custom psychology elements
@@ -3600,8 +3594,6 @@ div.orderedlist ol {
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
-  padding-left: 1.5em;
-  padding-right: 1.5em;
   margin-bottom: .5em;
 }
 .chapter .note.everyday-connection {
@@ -3716,7 +3708,6 @@ div.orderedlist ol {
   border: 1px solid #0067ac;
   border-radius: 15px;
   margin-top: 48px;
-  padding: 0px;
   page-break-inside: avoid;
   padding: 0;
 }
@@ -3737,17 +3728,18 @@ div.orderedlist ol {
   font-size: 12pt;
   text-indent: 0.1875in;
 }
-.chapter .note.connect-the-concepts p {
-  padding: 0 20px;
-}
 .chapter .note.connect-the-concepts p:last-of-type {
   padding-bottom: 10px;
 }
+.chapter .note.connect-the-concepts > .body {
+  padding: 0 1em;
+}
 .chapter .note.connect-the-concepts > .title {
   padding-bottom: 0;
+  padding: 0 1em;
 }
 .chapter .note.connect-the-concepts > .title span.cnx-gentext-tip-t {
-  padding: 5px 20px 0;
+  padding: 5px 0 0 0;
   display: block;
 }
 .chapter .note.connect-the-concepts::before,
@@ -3857,10 +3849,6 @@ div.orderedlist ol {
   border: none;
   margin-top: 0;
 }
-.chapter .note.chapter-objectives ul.itemizedlist {
-  margin-left: 0;
-  padding-left: 20pt;
-}
 .chapter .note.chapter-objectives ul.itemizedlist > .listitem {
   display: list-item;
   padding-top: 0;
@@ -3928,7 +3916,6 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
   border: 1px solid #528cbe;
   padding: 0em;
   text-align: left;
-  margin: 0 0 1.5em;
   padding: 0;
   border: none;
   border-bottom: 1px solid #e28f26;
@@ -3955,10 +3942,6 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
 .section > .titlepage .abstract > .title {
   border: none;
   margin-top: 0;
-}
-.section > .titlepage .abstract ul.itemizedlist {
-  margin-left: 0;
-  padding-left: 20pt;
 }
 .section > .titlepage .abstract ul.itemizedlist > .listitem {
   display: list-item;
@@ -4079,7 +4062,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
 .summary > .section > .title {
   display: block;
 }
-/* Squash references and solutions if they show up at the end of 
+/* Squash references and solutions if they show up at the end of
    a chapter. They are special-cased and show up at the end of the book */
 .cnx-eoc.references,
 .cnx-eoc.cnx-solutions {
@@ -4125,13 +4108,12 @@ p,
   font-family: URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font: 10pt/13pt URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
-.module > .section > div.orderedlist > ol.orderedlist,
-.module > .section > div.itemizedlist > ul.itemizedlist {
-  margin-left: 20pt;
-}
 /******************************************************
  * Key Terms / Glossary
  ******************************************************/
+em.glossterm span {
+  display: none;
+}
 .glossary .glossterm {
   font: normal normal 700 10pt/13pt URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
@@ -4360,6 +4342,7 @@ div.end-of-book-solutions > h1.title {
   background-color: transparent;
   text-transform: capitalize;
   font-weight: 700;
+  font-size: 24px;
   column-span: all;
   color: #a63c1d;
   font-size: 18pt;
