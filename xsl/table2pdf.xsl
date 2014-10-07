@@ -33,14 +33,14 @@
   </xsl:template>
 
   <xsl:template match="db:table">
-    <div class="table">
+    <div class="table ">
       <xsl:call-template name="IdCheck"/>
       <xsl:apply-templates select="@class"/>
       <xsl:choose>
         <!-- OLD TABLES -->
         <xsl:when test="db:categories">
           <xsl:apply-templates select="db:name"/>
-          <table class="old-table" cellspacing="0" cellpadding="0">
+          <table class="old-table " cellspacing="0" cellpadding="0">
             <!--Outputs CATEGORY as headers.-->
             <tr>
               <xsl:for-each select="//db:category">
@@ -78,10 +78,10 @@
             </xsl:if>
             <xsl:attribute name="class">
                 <xsl:if test="@pgwide!='0' or @orient='land'">
-                    <xsl:text>widetable</xsl:text>
+                    <xsl:text>widetable </xsl:text>
                 </xsl:if>
                 <xsl:if test="@frame">
-                     <xsl:text>frame-</xsl:text><xsl:value-of select="@frame"/>
+                     <xsl:text>frame-</xsl:text><xsl:value-of select="@frame"/><xsl:text> </xsl:text>
                 </xsl:if>
             </xsl:attribute>
             <xsl:if test="db:name[node()] or
@@ -94,7 +94,7 @@
                 <xsl:if test="db:label[node()] or
                                 (not(db:label[not(node())]) and
                                  not(ancestor::*[1][self::db:figure or self::db:subfigure]))">
-                  <span class="cnx-gentext-caption cnx-gentext-t">
+                  <span class="cnx-gentext-caption cnx-gentext-t ">
                     <xsl:choose>
                       <xsl:when test="db:label">
                         <xsl:apply-templates select="db:label"/>
@@ -105,7 +105,7 @@
                     </xsl:choose>
                     <xsl:text> </xsl:text>
                   </span>
-                  <span class="cnx-gentext-caption cnx-gentext-n">
+                  <span class="cnx-gentext-caption cnx-gentext-n ">
                     <xsl:if test="not(ancestor::*[1][self::db:figure or self::db:subfigure])">
                       <xsl:for-each select="ancestor::db:chapter">
                         <xsl:apply-templates select="." mode="label.markup"/>
@@ -132,7 +132,7 @@
                     </xsl:choose>
                   </xsl:variable>
                   <xsl:element name="{$caption-element}">
-                    <xsl:attribute name="class">table-caption caption</xsl:attribute>
+                    <xsl:attribute name="class">table-caption caption </xsl:attribute>
                     <xsl:if test="db:caption/@id">
                       <xsl:attribute name="id">
                         <xsl:value-of select="db:caption/@id"/>
@@ -186,7 +186,7 @@
     <td>
       <xsl:call-template name="IdCheck"/>
       <xsl:attribute name="class">
-        <xsl:text>entrytbl</xsl:text>
+        <xsl:text>entrytbl </xsl:text>
         <xsl:call-template name="style.param.determiner">
           <xsl:with-param name="style.name">colsep</xsl:with-param>
         </xsl:call-template>
@@ -363,7 +363,7 @@
       <!-- Set colsep and rowsep attributes with CSS using the style attribute.  Turn off the borders on the left and top of any
            entry(tbl) because they are always ignored. -->
       <xsl:attribute name="class">
-        <xsl:text>tablecell</xsl:text>
+        <xsl:text>tablecell </xsl:text>
         <!-- Give an entry a border on the right if its not in the last column of the tgroup or entrytbl, or according to any colsep
              attributes either in current entry or inherited from above. -->
         <xsl:choose>
