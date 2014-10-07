@@ -215,7 +215,7 @@
 </xsl:template>
 
 
-<!-- Render the solutions to evercises at the end of the chapter -->
+<!-- Render the solutions to exercises at the end of the chapter -->
 <xsl:template name="cnx.solutions">
   <xsl:variable name="context" select="."/>
   <xsl:variable name="solutions">
@@ -230,6 +230,24 @@
 
       <xsl:if test="string-length($class) &gt; 0 and $context//*[contains(@class,$class) and .//ext:solution]">
         <xsl:message>LOG: INFO: Found some end-of-chapter solutions: class=[<xsl:value-of select="$class"/>] title=[<xsl:value-of select="$title"/>]</xsl:message>
+        <xsl:call-template name="cnx.end-of-chapter-solutions">
+          <xsl:with-param name="context" select="$context"/>
+          <xsl:with-param name="title">
+            <xsl:value-of select="$title"/>
+          </xsl:with-param>
+          <xsl:with-param name="attribute" select="$class"/>
+        </xsl:call-template>
+      </xsl:if>
+    </xsl:for-each>
+    <xsl:for-each select=".//processing-instruction('cnx.answers')">
+      <xsl:variable name="val" select="concat(' ', .)"/>
+      <xsl:variable name="class" select="substring-before(substring-after($val,' class=&quot;'), '&quot;')"/>
+      <xsl:variable name="title" select="substring-before(substring-after(.,' title=&quot;'),'&quot;')"/>
+
+        <xsl:message>LOG: INFO: Looking for some  answers: class=[<xsl:value-of select="$class"/>] title=[<xsl:value-of select="$title"/>] inside a [<xsl:value-of select="name()"/>]</xsl:message>
+
+      <xsl:if test="string-length($class) &gt; 0 and $context//*[contains(@class,$class) and .//ext:solution]">
+        <xsl:message>LOG: INFO: Found some answers: class=[<xsl:value-of select="$class"/>] title=[<xsl:value-of select="$title"/>]</xsl:message>
         <xsl:call-template name="cnx.end-of-chapter-solutions">
           <xsl:with-param name="context" select="$context"/>
           <xsl:with-param name="title">
