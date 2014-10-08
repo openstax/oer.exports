@@ -291,9 +291,6 @@ div.book div > div.section > div.section {
     p:nth-of-type(1) { margin-top: 1em; }
   }
 
-
-  .problem .orderedlist { margin-left: 4em; }
-
   .problem::before {
     #content>#problem>.number(@kind; chapter-end);
   }
@@ -522,6 +519,7 @@ img, figure, subfigure  { margin: 1em; }
 .example .exercise {
   .commentary > .title {
     #content>#commentary>#title>.style(@kind; @part; exercise; example);
+
   }
 }
 
@@ -610,6 +608,14 @@ div.book div.chapter > div.section div.example div.exercise .solution {
   }
   .table { #content>#table>.style(any; any; solution; exercise; example); }
 
+  .figure {
+    #content>#figure>.style(any; any; solution; exercise; example);
+
+  .body {
+      text-align: left;
+    }
+  }
+
   .figure .title span.cnx-gentext-t::before {
     #content>#figure>#title>.number(any; any; solution; exercise; example);
   }
@@ -633,7 +639,7 @@ div.book div.chapter > div.section div.example div.exercise .problem {
   }
 }
 div.book div.chapter > div.section div.example div.exercise .commentary {
-  .table > table > caption::before {
+   .table > table > caption::before {
     #content>#table>#caption>.style(any; any; commentary; exercise; example);
   }
   .table {
@@ -650,10 +656,6 @@ div.book div.chapter > div.section div.example div.exercise .commentary {
     #content>#figure>#title>.number(any; any; commentary; exercise; example);
   }
 }
-
-
-
-
 // for examples that have a problem/solution structure that need numbered headings
 .example .exercise {
   #content>#exercise>.style(any; any; example);
@@ -695,7 +697,6 @@ div.book div.chapter > div.section div.example div.exercise .commentary {
  */
 .table {
   #content>#table>.style(any; any);
-
   caption {
     #content>#table>#caption>.style(any; any);
   }
@@ -732,9 +733,11 @@ div.book div.chapter > div.section div.example div.exercise .commentary {
   }
 
   //handle lists inside tables
-  .itemizedlist {
+ul.itemizedlist, ol.orderedlist {
     #content>#list>.style(any; any; table);
-    > .listitem > p { font-family: @font-family; } //overrides bio p font use font-family from base
+    > .listitem > p {
+      #content>#paragraph>.style(any; any; list; table);
+     }
   }
 
 }
