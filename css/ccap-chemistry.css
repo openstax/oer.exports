@@ -3,6 +3,73 @@
 *  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 *  See LICENSE.txt for details.
 *******************************************************/
+div.table table {
+  border: 1px solid;
+}
+table > tbody > tr > td > table {
+  border: 0;
+  margin: 0;
+}
+td.entrytbl {
+  height: 100%;
+  padding: 0;
+  border-left: 0;
+  border-top: 0;
+}
+td.entrytbl > table {
+  height: 100%;
+  border: 0;
+  margin: 0;
+}
+.widetable {
+  width: 100%;
+}
+.tablecell {
+  border-left: 0;
+  border-top: 0;
+}
+.text-align-center {
+  text-align: center;
+}
+.text-align-left {
+  text-align: left;
+}
+.text-align-right {
+  text-align: right;
+}
+.colsep-off {
+  border-right: 0;
+}
+.colsep-on {
+  border-right: 1px solid;
+}
+.rowsep-off {
+  border-bottom: 0;
+}
+.rowsep-on {
+  border-bottom: 1px solid;
+}
+.frame-none {
+  border-width: 0;
+}
+.frame-sides {
+  border-top-width: 0;
+  border-bottom-width: 0;
+}
+.frame-top {
+  border-left-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 0;
+}
+.frame-bottom {
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+}
+.frame-topbot {
+  border-left-width: 0;
+  border-right-width: 0;
+}
 /********************************************************************
  * Refactor of .x-feature() function to utilize only one paramter
  ********************************************************************/
@@ -540,7 +607,6 @@ p {
 }
 .table td {
   padding: 0.25em;
-  padding: 5px 10px;
 }
 .table caption {
   align: top;
@@ -2426,21 +2492,29 @@ div.book div.chapter > div.section div.example div.exercise .commentary .figure 
   margin-top: 2em;
 }
 /******************************************************************************
- * Styling for modified table design (2 tables, one plain and one colored)
+ * Tables
  ******************************************************************************/
-/* -------------------------
- * Tables TODO: simplify/regroup code block //latest
- * -------------------------
- */
-.table {
+div.table {
+  margin: 0 auto;
+  padding: 0;
+  border: none;
+}
+div.table .cnx-figure-horizontal .informalfigure .caption {
+  text-align: center;
+}
+div.table .cnx-figure-horizontal .informalfigure .caption * {
+  font-weight: normal;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+div.table table {
   page-break-inside: avoid;
   margin: auto;
   prince-caption-page: all;
   padding-top: 1em;
-  border: none !important;
+  border: none;
   page-break-inside: auto;
 }
-.table caption {
+div.table table caption {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   padding-top: .5em;
   padding-bottom: 1em;
@@ -2451,82 +2525,68 @@ div.book div.chapter > div.section div.example div.exercise .commentary .figure 
   border-width: 1px;
   border-style: solid;
   border-bottom: none;
-  caption-side: top;
   padding-left: .5em;
+  caption-side: top;
   color: #354da1;
   caption-side: bottom;
   border-right: none;
   border-left: none;
-  border-top: 1px solid #354da1 !important;
+  border-top: 1px solid #354da1;
 }
-.table caption::before {
+div.table table caption::before {
   color: #993720;
 }
-.table .table-caption.caption {
-  color: #000000;
-  font-weight: normal;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+div.table table thead {
+  border-top: 1px solid #354da1;
+  border-bottom: 1px solid #354da1;
 }
-.table .cnx-figure-horizontal .informalfigure .caption {
-  text-align: center;
-}
-.table .cnx-figure-horizontal .informalfigure .caption * {
-  font-weight: normal;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-.table td.header {
-  background-color: #ffffff;
-}
-.table tr {
+div.table table tr {
   page-break-inside: avoid;
 }
-.table th {
+div.table table th {
   color: black;
   background-color: #ffffff;
   font-size: small;
   text-align: left;
-  padding-left: .25em;
+  border-color: #f6862d !important;
+  padding: 5px 10px;
   background-color: #7291cb;
-  border: none;
-  border-right: 1px solid !important;
-  border-bottom: 0 !important;
   border-color: #354da1 !important;
+  border-bottom: 1px solid #354da1;
+  border-top: 1px solid #354da1;
   font-size: 9pt;
   color: white;
-  text-align: center !important;
+  text-align: center;
 }
-.table td {
+div.table table td {
+  padding: 13px;
+  border-color: #f6862d;
+  font: 10pt/14pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  padding: 5px 10px;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
-  text-align: center !important;
-  border-color: #354da1 !important;
+  text-align: center;
+  border-color: #354da1;
 }
-.table table {
-  border-bottom: none;
+div.table table td.header {
+  background-color: #ffffff;
 }
-.table table thead {
-  border-top: 1px solid #354da1;
-  border-bottom: 1px solid #354da1;
-}
-.table table td {
-  padding: 1em;
-}
-.table .itemizedlist {
+div.table .itemizedlist {
   /*
       margin: 0; //reset
       padding-left: 1em;*/
 }
-.table .itemizedlist > .listitem > p {
+div.table .itemizedlist > .listitem > p {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
-.table.color th {
+div.table.color th {
   background-color: #efd8b0;
   text-align: center;
 }
-.table.color tr {
+div.table.color tr {
   height: 1em !important;
 }
-.table.color tr td:first-child {
+div.table.color tr td:first-child {
   background-color: #efd8b0;
   width: 2.5in;
   font-weight: bold;
@@ -3154,22 +3214,6 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
   line-height: 13pt;
   padding-left: 5px;
 }
-.table table {
-  border: none !important;
-}
-.table table th {
-  border-color: #f6862d !important;
-}
-.table table td {
-  border-color: #f6862d !important;
-  font: 10pt/14pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding: 5px 10px;
-}
-.table > caption,
-.table td {
-  padding: 0.25em;
-  padding: 5px 10px;
-}
 /********************************************************************
  * End of chapter customizations
  ********************************************************************/
@@ -3722,30 +3766,11 @@ span.emphasis-leading-indent strong {
 /******************************************************
  * Tables
  ******************************************************/
-.table {
-  margin: 0 auto;
-  padding: 0;
-  border: none;
-}
-.table table {
-  page-break-inside: avoid;
-  margin: auto;
-  prince-caption-page: all;
-  padding-top: 1em;
-  border: none !important;
-  page-break-inside: auto;
-}
 .table table .table-caption.caption {
   color: #000000;
   font-weight: normal !important;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
-}
-.table table td[style] {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  font-size: 9pt;
-  text-align: center !important;
-  border-color: #354da1 !important;
 }
 /******************************************************
  * EOC Customizations
