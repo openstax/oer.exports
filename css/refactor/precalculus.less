@@ -1,3 +1,4 @@
+@import url('../ccap-tables.less');
 @import url('utils.less');
 @import url('page-slots.less');
 @import url('ccap-base-slots.less');
@@ -95,3 +96,14 @@ div.book, div.book > div.part {
   > div.chapter  { .x-duplicate-hierarchy(); }
   > div.appendix { .x-duplicate-hierarchy(); }
 }
+
+
+div.colophon.end-of-book-solutions div.chapter-area {
+  > div.try {
+    div.solution > div.title a.solution::before {
+      content: "Try It " target-counter(attr(href), chapter) "." target-counter(attr(href), try);
+    }
+  }
+}
+
+
