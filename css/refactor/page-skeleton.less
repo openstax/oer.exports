@@ -4,24 +4,54 @@
 
 @page {
   #page>.style();
+
   // Less complains about @footnotes{...} so use value escaping to inject it into the CSS
   @footnotes: ~"@footnotes";
   @{footnotes} {
     #page>.footnotes();
   }
-
+ 
 }
 
 // LessCSS does not support `@page { &:left {...}}` as a nested selector
-// so they are included separately here
 @page:left {
-  // Note: If needed, slots in here should use inside/outside instead of left/right
-  @top-left-corner { #page>#left>.top-corner(); }
-  @top-left        { #page>#left>.top(); }
-  @bottom-left     { #page>#left>.bottom(); }
+  @top-left-corner { #page>.top-left-corner(left); }
+  @top-right-corner { #page>.top-right-corner(left); }
+  @bottom-left-corner { #page>.bottom-left-corner(left); }
+  @bottom-right-corner { #page>.bottom-right-corner(left); }
+  @top-left { #page>.top-left(left); }
+  @top-center { #page>.top-center(left); }
+  @top-right { #page>.top-right(left); }
+  @bottom-left { #page>.bottom-left(left); }
+  @bottom-center { #page>.bottom-center(left); }
+  @bottom-right { #page>.bottom-right(left); }
+  @left-top { #page>.left-top(left); }
+  @left-middle { #page>.left-middle(left); }
+  @left-bottom { #page>.left-bottom(left); }
+  @right-top { #page>.right-top(left); }
+  @right-middle { #page>.right-middle(left); }
+  @right-bottom { #page>.right-bottom(left); }
 }
 
-@page:right {
-  @top-right-corner { #page>#right>.top-corner(); }
-  @top-right        { #page>#right>.top(); }
+@page :right {
+  @top-left-corner { #page>.top-left-corner(right); }
+  @top-right-corner { #page>.top-right-corner(right); }
+  @bottom-left-corner { #page>.bottom-left-corner(right); }
+  @bottom-right-corner { #page>.bottom-right-corner(right); }
+  @top-left { #page>.top-left(right); }
+  @top-center { #page>.top-center(right); }
+  @top-right { #page>.top-right(right); }
+  @bottom-left { #page>.bottom-left(right); }
+  @bottom-center { #page>.bottom-center(right); }
+  @bottom-right { #page>.bottom-right(right); }
+  @left-top { #page>.left-top(right); }
+  @left-middle { #page>.left-middle(right); }
+  @left-bottom { #page>.left-bottom(right); }
+  @right-top { #page>.right-top(right); }
+  @right-middle { #page>.right-middle(right); }
+  @right-bottom { #page>.right-bottom(right); }
+}
+
+@page introduction {
+  #page>.style('introduction');
 }

@@ -16,6 +16,7 @@
 <xsl:import href="debug.xsl"/>
 <xsl:import href="../docbook-xsl/epub/docbook.xsl"/>
 <xsl:import href="dbk2xhtml-core.xsl"/>
+<xsl:import href="table2epub.xsl"/>
 
 <xsl:param name="cnx.svg.compat">ONLY_USE_THE_RASTER_FIEL</xsl:param>
 
