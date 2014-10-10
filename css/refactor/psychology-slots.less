@@ -64,15 +64,12 @@
   #preface {
     #titlepage {
       .title(...) {
-        // Set Preface string for cnx-header to render page-header
-        string-set: cnx-header "Preface";
-
         color: @red;
         background-color: transparent;
         padding-left: 0;
         text-transform: capitalize;
         font-size: 18pt;
-        font-weight: normal;
+        font-weight: 700;
         border-bottom-width: 1px;
         border-bottom-style: solid;
         border-bottom-color: @orange;
@@ -151,7 +148,7 @@
       .style(...) {
         color: @red;
         border-bottom-color: @orange;
-        text-transform: capitalize;
+        text-transform: none;
         font-weight: normal;
         font-size: 18pt;
         width: 100%;
@@ -164,6 +161,7 @@
         color: @black;
         border-top-color: @orange;
         display: block;
+        font-weight: 700;
 
         // If we truly need to take away the (.25em) left padding that
         // is being assigned here, we will have to remove it from numbering-skeleton.less
@@ -177,13 +175,9 @@
 
         // Spacing around border.
         margin-top: 10px;
-
-        // Replace the default page header "Chapter number | Title", removing
-        // the "|"
-        string-set: cnx-header string(cnx-chapter-number-string) " " content();
       }
       .number() {
-        content: string(cnx-chapter-string) " " content();
+        content: @cnx-string-chapter " " content();
         font-size: 18pt;
         font-weight: 700;
         color: @red;
@@ -200,7 +194,6 @@
     #learning-objectives {
       .style(...) {
         text-align: left;
-        margin: 0 0 1.5em;
         padding: 0;
         border: none;
         border-bottom: 1px solid @orange;
@@ -230,9 +223,6 @@
         }
 
         ul.itemizedlist {
-          margin-left: 0;
-          padding-left: 20pt;
-
           > .listitem {
             display: list-item;
             padding-top: 0;
@@ -366,6 +356,7 @@
           color: @red;
           text-transform: capitalize;
           font-weight: 700;
+          font-size: 24px;
         }
       }
       #chapter-area {
@@ -388,6 +379,7 @@
           // Indent all but the first lines of references.
           text-indent: -2em;
           margin-left: 2em;
+          font-size: 24px;
         }
         #title {
           .style(...) {}
@@ -457,7 +449,6 @@
       display: block;
     }
     .definition(chapter) {
-      padding-left: 2em;
       margin-left: 0px;
       display: block;
     }
@@ -466,7 +457,6 @@
         font-weight: bold !important;
 
         margin-bottom: 1em;
-        margin: 0;
         padding: 0.2em 0em;
         display: block !important; // This overrides a display: inline from ccap-base.
                                    // We need to eliminate all * {} selectors.
@@ -487,7 +477,7 @@
       // H4
       .style(any; any; section) {
         color: @black;
-        font-size: 11pt;
+        font-size: 13px;
         margin-top: 1.5em;
       }
     }
@@ -501,7 +491,9 @@
     }
   }
   #table {
-    .style(any; any) {}
+    .style(any; any) {
+      border: @table-border;
+    }
 
     #caption {
       .style(any; any) {
@@ -512,11 +504,22 @@
         border-bottom: none;
         padding-left: .5em;
         caption-side: top;
-        padding-left: .5em;
       }
     }
-    .cell(...) {
-      padding: 5px 10px;
+    #header {
+      .style(any; any) {
+        border-color: @orange !important; // !important is in ccap-base.
+
+        padding: 5px 10px;
+      }
+    }
+    #data {
+      .style(any; any) {
+        border-color: @orange;
+        font: 10pt/14pt @font-family-serif;
+
+        padding: 5px 10px;
+      }
     }
   }
 
@@ -580,21 +583,30 @@
 
       .x-feature-color(@light-blue, transparent, @light-blue, transparent, @cnx-string-connect-the-concepts);
 
-      // Padding has to be applied inside this element in order to
-      // do the header/title styling.
-      padding: 0px;
+      margin-top: 1.5em; // Reset the 48px top margin used to clear
+                         // the ::before/headers of features.
+
+      // reset padding to allow title to span across top of element
+      padding: 0;
+
       p {
-        padding: 0 20px;
         &:last-of-type {
           padding-bottom: 10px;
         }
       }
+
+      // add padding to title and body elements
+      > .body {
+          padding: 0 1em;
+      }
+
       // paragraph titles
       > .title {
         padding-bottom: 0;
+        padding: 0 1em;
 
         span.cnx-gentext-tip-t {
-          padding: 5px 20px 0;
+          padding: 5px 0 0 0;
           display: block;
         }
       }
@@ -672,9 +684,6 @@
       }
 
       ul.itemizedlist {
-        margin-left: 0;
-        padding-left: 20pt;
-
         > .listitem {
           display: list-item;
           padding-top: 0;
@@ -697,9 +706,11 @@
   }
   #blockquote {
     .style(...) {
-      font: 9pt/12pt @font-family-sans-serif;
+      font: 10pt/13pt @font-family-serif;
       color: @black;
-
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+			
       // Remove quotes
       &::before,
       &::after {
@@ -717,8 +728,6 @@
     // Full width figure titles/captions clash with rounded feature borders
     // So, we must target figures only when placed inside notes and give some padding
     .style(any; any; note) {
-      padding-left: 1.5em;
-      padding-right: 1.5em;
       margin-bottom: .5em;
     }
     #title {
@@ -729,10 +738,8 @@
   }
   #list {
     .style(any; any) {
-      margin-left: 0;
     }
     .item(any; any; section) {
-      margin-left: 20pt;
     }
   }
   #equation {
