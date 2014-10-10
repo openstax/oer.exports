@@ -2,6 +2,9 @@
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
 
+@cnx-string-preface: "Preface";
+@cnx-string-chapter: "Chapter";
+@cnx-string-appendix: "Appendix";
 @cnx-string-introduction: "Introduction";
 @cnx-string-chapter-outline: "Chapter Outline";
 @cnx-string-learning-objectives: "Learning Objectives";
@@ -28,6 +31,7 @@
         padding-bottom: 1em;
       }
       .title(...) {
+        string-set: cnx-header @cnx-string-preface;
         background-color: @medium-blue;
       }
     }
@@ -84,8 +88,6 @@
   #chapter {
     #title {
       .style(...) {
-        page: introduction;
-
         /*reset left only*/
         margin-left:0;
         padding-left: 0;
@@ -104,6 +106,11 @@
       .divider(...) {
         content: "| ";
         color: black;
+      }
+      .text() {
+        // Replace the default page header "Chapter number | Title", 
+        // removing the "|"
+        string-set: cnx-header "@{cnx-string-chapter} " counter(chapter, decimal)  " " content();
       }
     }
 
@@ -389,6 +396,14 @@
         font-size: x-large;
         color: @medium-blue;
         background: none;
+      }
+    }
+
+    #appendix {
+      #title {
+        .text() { 
+          string-set: cnx-header "@{cnx-string-appendix} " counter(appendix, upper-latin);
+        }
       }
     }
   }

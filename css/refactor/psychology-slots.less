@@ -64,9 +64,6 @@
   #preface {
     #titlepage {
       .title(...) {
-        // Set Preface string for cnx-header to render page-header
-        string-set: cnx-header "Preface";
-
         color: @red;
         background-color: transparent;
         padding-left: 0;
@@ -178,13 +175,9 @@
 
         // Spacing around border.
         margin-top: 10px;
-
-        // Replace the default page header "Chapter number | Title", removing
-        // the "|"
-        string-set: cnx-header string(cnx-chapter-number-string) " " content();
       }
       .number() {
-        content: string(cnx-chapter-string) " " content();
+        content: @cnx-string-chapter " " content();
         font-size: 18pt;
         font-weight: 700;
         color: @red;
