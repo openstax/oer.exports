@@ -58,11 +58,14 @@ html {
 @import url('unnumbered-content.less');
 
 
-// Turn equation numbering on in example exercises.
+// Equation numbering updates. This changes the numbering to use
+// ::before rather than ::after in order to avoid princexml bugs.
 div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled),
 div.book div.chapter > div.section div.example div.exercise div.equation, {
   counter-increment: equation !important; // Override !important from numbering-skeleton.
 }
+
+// Turn on ::before numbers
 div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled) span.inlinemediaobject::before,
 div.book div.chapter > div.section div.example div.exercise div.equation span.inlinemediaobject::before,
 div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled) div.mediaobject::before,
@@ -72,6 +75,14 @@ div.book div.chapter > div.section div.example div.exercise div.equation div.med
 div.book div.chapter > div.section div.equation > *:last-child::before {
   content: "(" counter(chapter, decimal) "." counter(equation) ")";
   float: right;
+
+  color: @orange;
+  font-weight: bold;
+}
+
+// Turn off ::after numbers
+div.book div.chapter > div.section div.equation > *:last-child::after {
+  display: none;
 }
 
 // Some end of chapter parts, such as review exercises, have an extra level of <section>
