@@ -2592,35 +2592,14 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.body {
   margin-right: .65em;
   display: inline;
 }
-div.colophon.end-of-book-solutions .chapter-area div.solution > div.body * {
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div,
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.body p {
   display: inline;
 }
-div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.table {
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.mediaobject,
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.inlinemediaobject {
   display: block;
-}
-div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.table table {
-  display: table;
-}
-div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.table table caption {
-  display: table-caption;
-}
-div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.table table thead {
-  display: table-header-group;
-}
-div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.table table th {
-  display: table-cell;
-}
-div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.table table tbody {
-  display: table-row-group;
-}
-div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.table table tfoot {
-  display: table-footer-group;
-}
-div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.table table tr {
-  display: table-row;
-}
-div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.table table td {
-  display: table-cell;
+  text-align: center;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body > a.target-figure {
   margin: 0em .25em;
@@ -2671,7 +2650,6 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
   text-transform: uppercase;
   font-size: x-large;
   column-span: all;
-  -webkit-column-span: all;
 }
 .index > .title h2 {
   padding: 0;
@@ -3159,6 +3137,15 @@ div.orderedlist ol {
   margin: 0 0 0 40px;
   padding: 0;
 }
+/********************************************************************
+ * SVG Color cascading.
+ ********************************************************************/
+g text {
+  fill: currentColor !important;
+}
+g line {
+  stroke: currentColor !important;
+}
 /* -------------------------
  * Equations
  * -------------------------
@@ -3217,6 +3204,18 @@ div.book > div.appendix > div.cnx-eoc,
 div.book > div.part > div.appendix > div.cnx-eoc {
   counter-reset: /*exercise*/ eoc-section -1;
 }
+div.colophon.end-of-book-solutions div.chapter-area > div.review-exercises::before {
+  content: "Review Exercises";
+}
+div.colophon.end-of-book-solutions div.chapter-area > div.practice-test::before {
+  content: "Practice Test";
+}
+div.colophon.end-of-book-solutions div.chapter-area > div.try::before {
+  content: "Try It";
+}
 div.colophon.end-of-book-solutions div.chapter-area > div.try div.solution > div.title a.solution::before {
-  content: "Try It " target-counter(attr(href), chapter) "." target-counter(attr(href), try);
+  content: target-counter(attr(href), chapter) "." target-counter(attr(href), try);
+}
+div.colophon.end-of-book-solutions div.chapter-area > div.section-exercises::before {
+  content: "Section Exercises";
 }
