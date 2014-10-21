@@ -29,6 +29,7 @@
     #titlepage {
       .style(...) {
         padding-bottom: 1em;
+
       }
       .title(...) {
         string-set: cnx-header @cnx-string-preface;
@@ -89,14 +90,12 @@
     #title {
       .style(...) {
         /*reset left only*/
-        margin-left:0;
-        padding-left: 0;
         font-size: 34pt; /* x-large; */
         font-weight: bold;
         text-align: left;
         color: @medium-blue;
-        padding-top: 0;
-        margin-top: 0;
+        margin:0;
+        padding:0;
       }
       .number(...) {
         font-weight: bold;
@@ -187,6 +186,7 @@
         color: @medium-blue;
         font-size: large;
         font-weight: bold;
+        margin-top: 0;
         #utils>#pb>.after(avoid);
       }
     }
@@ -211,7 +211,6 @@
       #title {
         .style(...) {
           content: @cnx-string-key-equations;
-          margin-top: 1em;   // staging bug-fix.
         }
       }
     }
@@ -223,7 +222,6 @@
         .style(...) {
           content: @cnx-string-key-concepts;
           column-span: all;  // staging bug-fix.
-          margin-top: 1em;   // this too.
           margin-bottom: 0;
         }
         .link(...) {
@@ -244,7 +242,7 @@
         .style(...) {
           content: "Chapter " counter(chapter, decimal) " Review Exercises";
           column-span: all;  // staging bug-fix.
-          margin-top: 1em;   // this too.
+          margin-top: 0;
         }
       }
     }
@@ -256,7 +254,6 @@
         .style(...) {
           content: "Chapter " counter(chapter, decimal) " Practice Test";
           column-span: all;  // staging bug-fix.
-          margin-top: 1em;   // this too.
         }
       }
     }
@@ -267,7 +264,7 @@
         .x-column-count(1);
       }
       #title {
-        .style(...) {}
+        .style() {}
         .link(...) {
           color: @medium-blue;
           #utils>#pb>.after(avoid);
@@ -331,6 +328,7 @@
           color: @medium-blue;
           margin-left: 0;
           padding-left: 0;
+          margin-top: 0;
         }
       }
 
@@ -365,6 +363,7 @@
       .style(...) {
         text-align: left; //override text-alignment from base .x-column-count
         column-width: auto;
+        margin-bottom: 10px;
       }
 
       #title {
@@ -392,6 +391,7 @@
     #colophon {
       .style(...) {
         padding: 0;
+        margin-top: 0;
         font-weight: bold;
         font-size: x-large;
         color: @medium-blue;
@@ -665,6 +665,8 @@
         font-size: 17pt;
         color: @medium-blue;
         font-weight: bold;
+        display:block;
+        padding-bottom: 10px;
       }
     }
   }
