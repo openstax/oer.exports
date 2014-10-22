@@ -352,16 +352,38 @@ div.colophon.end-of-book-solutions {
 
   .chapter-area {
     font-family: @font-family-serif;
-    a {
-      &.solution {
-        color: black;
-      }
+    a.solution {
+      color: black;
+    }
 
-      &.chapter * {
-        color: black;
-        font-size: medium;
+    > h2.title a.chapter,
+    > h2.title a.chapter span {
+      #part>#book-end>#end-of-book-solutions>#title>.style('chapter-area');
+    }
+    > h2.title a.chapter {
+      // Now that this is display: block it honors page break
+      // rules from .chapter {}. Reset it.
+      #utils>#pb>.before(avoid);
+      #utils>#pb>.after(avoid);
+    }
+    > h2.title a.chapter span { display: inline; } // reset display: block for spans
+
+    > div.review-exercises::before {
+      #part>#book-end>#end-of-book-solutions>#title>.style('review-exercises');
+    }
+    > div.practice-test::before {
+      #part>#book-end>#end-of-book-solutions>#title>.style('practice-test');
+    }
+    > div.try {
+      &::before { #part>#book-end>#end-of-book-solutions>#title>.style('try-it'); }
+      div.solution > div.title a.solution::before {
+        content: target-counter(attr(href), chapter) "." target-counter(attr(href), try);
       }
     }
+    > div.section-exercises::before {
+      #part>#book-end>#end-of-book-solutions>#title>.style('section-exercises');
+    }
+
 
     div.solution {
       #content>#solution>.style(@kind; book-end);
