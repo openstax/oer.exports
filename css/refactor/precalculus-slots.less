@@ -29,6 +29,7 @@
     #titlepage {
       .style(...) {
         padding-bottom: 1em;
+
       }
       .title(...) {
         string-set: cnx-header @cnx-string-preface;
@@ -89,14 +90,14 @@
     #title {
       .style(...) {
         /*reset left only*/
-        margin-left:0;
-        padding-left: 0;
         font-size: 34pt; /* x-large; */
         font-weight: bold;
         text-align: left;
         color: @medium-blue;
+        margin: 0;
         padding-top: 0;
-        margin-top: 0;
+        padding-left: 0;
+        padding-right: 0;
       }
       .number(...) {
         font-weight: bold;
@@ -108,7 +109,7 @@
         color: black;
       }
       .text() {
-        // Replace the default page header "Chapter number | Title", 
+        // Replace the default page header "Chapter number | Title",
         // removing the "|"
         string-set: cnx-header "@{cnx-string-chapter} " counter(chapter, decimal)  " " content();
       }
@@ -156,7 +157,7 @@
     .style(chapter) {
       // End-of-chapter material should start on a new page
       #utils>#pb>.before(always);
-      display:inline;
+      display: inline;
     }
     #title {
       .style(chapter) {
@@ -166,7 +167,7 @@
         font-size: large;
         padding: 0em;
         display: block;
-        text-transform:uppercase;
+        text-transform: uppercase;
       }
     }
   }
@@ -187,6 +188,7 @@
         color: @medium-blue;
         font-size: large;
         font-weight: bold;
+        margin-top: 0;
         #utils>#pb>.after(avoid);
       }
     }
@@ -211,7 +213,6 @@
       #title {
         .style(...) {
           content: @cnx-string-key-equations;
-          margin-top: 1em;   // staging bug-fix.
         }
       }
     }
@@ -223,7 +224,6 @@
         .style(...) {
           content: @cnx-string-key-concepts;
           column-span: all;  // staging bug-fix.
-          margin-top: 1em;   // this too.
           margin-bottom: 0;
         }
         .link(...) {
@@ -244,7 +244,7 @@
         .style(...) {
           content: "Chapter " counter(chapter, decimal) " Review Exercises";
           column-span: all;  // staging bug-fix.
-          margin-top: 1em;   // this too.
+          margin-top: 0;
         }
       }
     }
@@ -256,7 +256,6 @@
         .style(...) {
           content: "Chapter " counter(chapter, decimal) " Practice Test";
           column-span: all;  // staging bug-fix.
-          margin-top: 1em;   // this too.
         }
       }
     }
@@ -267,7 +266,7 @@
         .x-column-count(1);
       }
       #title {
-        .style(...) {}
+        .style() {}
         .link(...) {
           color: @medium-blue;
           #utils>#pb>.after(avoid);
@@ -288,7 +287,7 @@
       }
 
       #title {
-        .style(...) {
+        .style() {
           content: "Answer Key";
           string-set: cnx-header "Answer Key";
           color: @medium-blue;
@@ -297,6 +296,34 @@
           font-size: x-large;
           font-weight: bold;
           background-color: transparent; //overwrite from .colophon title
+        }
+        .x-solutions-subheading-style() {
+          color: black;
+          font-size: 16px;
+          font-weight: 700;
+          font-family: @font-family;
+
+          display: block;
+          margin-bottom: 7.5px;
+        }
+        .style('chapter-area') {
+          .x-solutions-subheading-style();
+        }
+        .style('review-exercises') {
+          .x-solutions-subheading-style();
+          content: "Review Exercises";
+        }
+        .style('practice-test') {
+          .x-solutions-subheading-style();
+          content: "Practice Test";
+        }
+        .style('try-it') {
+          .x-solutions-subheading-style();
+          content: "Try It";
+        }
+        .style('section-exercises') {
+          .x-solutions-subheading-style();
+          content: "Section Exercises";
         }
       }
       #solution {
@@ -320,7 +347,7 @@
 
     // End of Book References
     #end-of-book-references {
-      .style(...) {}
+      .style(...) { display: none; }
 
       #title {
         .style(...) { //colophon titles are passed as h1's by default by docbook override properties here
@@ -331,6 +358,7 @@
           color: @medium-blue;
           margin-left: 0;
           padding-left: 0;
+          margin-top: 0;
         }
       }
 
@@ -365,6 +393,7 @@
       .style(...) {
         text-align: left; //override text-alignment from base .x-column-count
         column-width: auto;
+        margin-bottom: 10px;
       }
 
       #title {
@@ -392,6 +421,7 @@
     #colophon {
       .style(...) {
         padding: 0;
+        margin-top: 0;
         font-weight: bold;
         font-size: x-large;
         color: @medium-blue;
@@ -401,7 +431,7 @@
 
     #appendix {
       #title {
-        .text() { 
+        .text() {
           string-set: cnx-header "@{cnx-string-appendix} " counter(appendix, upper-latin);
         }
       }
@@ -631,6 +661,9 @@
       margin: 0; //override auto  left/right margins from base
       max-width: @page-width; //overrides width value figures/subfigures ensuring imgs do not bleed off page
     }
+    .style(any; book-end; solution) {
+      text-align: center;
+    }
   }
   #section {
     .style(any; any) {}
@@ -648,12 +681,12 @@
       .style(any; preface; section) {}
       .style(any; any) { // Section titles
         color: @medium-blue;
-        font-size: 13px;
+        font-size: 19px;
         font-weight: bold;
       }
       .style(any; any; section) { // Sub-section titles
         color: @medium-blue;
-        font-size: 10pt;
+        font-size: 13px;
         font-weight: bold;
       }
       .style(section-exercises; @part; ...) {
@@ -662,6 +695,8 @@
         font-size: 17pt;
         color: @medium-blue;
         font-weight: bold;
+        display:block;
+        padding-bottom: 10px;
       }
     }
   }
@@ -848,26 +883,6 @@
       .style(@kind, book-end) {
         margin-right: .65em;
         display: inline;
-
-        * { display: inline; } // OUCH - place in .body() mixin for now.
-        // Fix a bug due to * {} being used...
-        div.table {
-          display: block;
-
-          table {
-            display: table;
-
-            caption { display: table-caption; }
-            thead { display: table-header-group; }
-            th{ display: table-cell; }
-            tbody { display: table-row-group; }
-            tfoot { display: table-footer-group; }
-            tr { display: table-row; }
-            td { display: table-cell; }
-          }
-        }
-
-
 
         // will need to change - include in .body mixin for now
         > a.target-figure {

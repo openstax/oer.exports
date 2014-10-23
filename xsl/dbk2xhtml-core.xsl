@@ -380,21 +380,6 @@
       </xsl:for-each>
       <xsl:comment>END: solutions that don't have a cnx.eoc processing instruction</xsl:comment>
 
-
-      <xsl:comment>START: solutions ordered by cnx.eoc processing instruction</xsl:comment>
-      <xsl:for-each select=".//processing-instruction('cnx.eoc')">
-        <xsl:variable name="val" select="concat(' ', .)"/>
-        <xsl:variable name="class" select="substring-before(substring-after($val,' class=&quot;'), '&quot;')"/>
-        <xsl:message>LOG: INFO: Looking for some end-of-chapter matter: class=[<xsl:value-of select="$class"/>] inside a [<xsl:value-of select="name()"/>]</xsl:message>
-
-        <xsl:if test="string-length($class) &gt; 0 and $context//*[contains(@class,$class)]//ext:solution">
-          <xsl:message>LOG: INFO: Found some end-of-chapter solutions: class=[<xsl:value-of select="$class"/>]</xsl:message>
-          
-          <div class="{$class}"><xsl:apply-templates select="$context//*[contains(@class,$class)]//ext:solution"/></div>
-        </xsl:if>
-      </xsl:for-each>
-      <xsl:comment>END: solutions ordered by cnx.eoc processing instruction</xsl:comment>
-
       <xsl:comment>START: solutions ordered by cnx.answers processing instruction</xsl:comment>
       <xsl:for-each select=".//processing-instruction('cnx.answers')">
         <xsl:variable name="val" select="concat(' ', .)"/>
@@ -409,7 +394,19 @@
       </xsl:for-each>
       <xsl:comment>END: solutions ordered by cnx.answers processing instruction</xsl:comment>
 
+      <xsl:comment>START: solutions ordered by cnx.eoc processing instruction</xsl:comment>
+      <xsl:for-each select=".//processing-instruction('cnx.eoc')">
+        <xsl:variable name="val" select="concat(' ', .)"/>
+        <xsl:variable name="class" select="substring-before(substring-after($val,' class=&quot;'), '&quot;')"/>
+        <xsl:message>LOG: INFO: Looking for some end-of-chapter matter: class=[<xsl:value-of select="$class"/>] inside a [<xsl:value-of select="name()"/>]</xsl:message>
 
+        <xsl:if test="string-length($class) &gt; 0 and $context//*[contains(@class,$class)]//ext:solution">
+          <xsl:message>LOG: INFO: Found some end-of-chapter solutions: class=[<xsl:value-of select="$class"/>]</xsl:message>
+          
+          <div class="{$class}"><xsl:apply-templates select="$context//*[contains(@class,$class)]//ext:solution"/></div>
+        </xsl:if>
+      </xsl:for-each>
+      <xsl:comment>END: solutions ordered by cnx.eoc processing instruction</xsl:comment>
     </div>
   </xsl:for-each>
 </xsl:template>
