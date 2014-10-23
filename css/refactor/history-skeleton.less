@@ -3,6 +3,9 @@
 // See LICENSE.txt for details.
 
 .chapter .note {
+  blockquote {
+    #content>#note>#blockquote>.style();
+  }
   &.my-story {
     #content>#note>.style('my-story'; chapter);
   }
@@ -14,6 +17,12 @@
   }
   &.click-and-explore {
     #content>#note>.style('click-and-explore'; chapter);
+    > .title {
+      #content>#note>#title>.style('click-and-explore'; chapter);
+    }
+    > .body {
+       #content>#note>#body>.style('click-and-explore'; chapter);
+      }
   }
 }
 
@@ -21,12 +30,25 @@
 .cnx-eoc {
   // For history summary it is wished for sections to be displayed
   &.summary {
+    > .title, > .title span {
+      #part>#chapter-end>#summary>#title>.style();
+    }
     > .section .title {
       #part>#chapter-end>#summary>#title>.subtitle();
     }
 
-    p:nth-of-type(1) {  
+    p:nth-of-type(1) {
       #part>#chapter-end>#summary>.style();
+    }
+  }
+  &.review-questions {
+    > .title, > .title span {
+      #part>#chapter-end>#review-questions>#title>.style();
+    }
+  }
+  &.critical-thinking {
+    > .title, > .title span {
+      #part>#chapter-end>#critical-thinking>#title>.style();
     }
   }
 }
@@ -41,7 +63,7 @@ div.end-of-book-solutions {
   > .title h2 {
     #part>#book-end>#index>#title>.style();
   }
-  .index-term a { 
+  .index-term a {
     #part>#book-end>#index>.link();
   }
 }
@@ -54,7 +76,7 @@ div.end-of-book-solutions {
   > .caption {
     #content>#figure>.caption();
   }
-  &.timeline {  
+  &.timeline {
     #content>#figure>.style('timeline'; any);
   }
 }
@@ -63,7 +85,7 @@ div.book div.chapter div.titlepage > div > div > h2.title {
   #part>.title(chapter);
 }
 
-.preface .section > .table, 
-.preface .section > .table table { 
+.preface .section > .table,
+.preface .section > .table table {
   #content>#table>.style(any; preface);
 }

@@ -1,6 +1,13 @@
 // Copyright (c) 2013 Rice University
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
+
+.x-header-spacing() {
+  margin-top: 17.333px;
+  padding-bottom: 0;
+  margin-bottom: 6.6px;
+}
+
 #index {
   .term() {
     padding-bottom: 0;
@@ -84,6 +91,7 @@
       }
       .number() {
         font-size: 14pt;
+        text-transform: uppercase;
       }
     }
     #learning-objectives {
@@ -127,8 +135,9 @@
     #title {
       .style(chapter) {
         color: @red;
-        font-size: 13pt;
+        font-size: 17px !important;
         text-transform: none;
+        .x-header-spacing();
       }
     }
   }
@@ -147,9 +156,10 @@
         .style(...) {
           content: "Summary";
           color: @red;
-          font-size: 13pt;
+          font-size: 17px;
           font-weight: bold;
           border: none;
+          .x-header-spacing();
         }
         .subtitle(...) {
           display: block;
@@ -173,13 +183,12 @@
       #title {
         .style(...) {
           color: @red;
-          font-size: 13pt;
+          font-size: 17px;
           font-weight: bold;
           border: none;
-          margin-top: 1em;
-          margin-bottom: 1em;
           padding-left: 0;
           padding-bottom: 0;
+          .x-header-spacing();
         }
       }
     }
@@ -189,9 +198,10 @@
       #title {
         .style(...) {
           color: @red;
-          font-size: 13pt;
+          font-size: 17px;
           font-weight: bold;
           border: none;
+          .x-header-spacing();
         }
       }
     }
@@ -212,6 +222,7 @@
           text-transform: none;
           border: none;
           margin-left: 0;
+          .x-header-spacing();
         }
       }
     }
@@ -229,7 +240,8 @@
           color: @red;
           border: none;
           text-transform: none;
-          font-weight: 500;
+          font-weight: 700;
+          .x-header-spacing();
         }
       }
       .term(...) {}
@@ -250,7 +262,6 @@
 
 .x-history-feature(@left-color, @header-text) {
   border-left: 2.5em solid @left-color;
-
   &::before {
     background-color: @light-gray;
     border-bottom: 1px solid @orange;
@@ -270,8 +281,9 @@
   }
   > .title {
     font: italic bold 14pt/17pt @font-family-serif;
+    text-align: left;
 
-    span::before {
+    span:first-of-type::before {
       background-image: url("ccap-history/feature-title.svg");
       background-repeat: no-repeat;
       background-position: center left;
@@ -290,6 +302,12 @@
       #utils>#pb>.inside(avoid);
       padding: 0;
     }
+    #blockquote {
+      .style(){
+       margin-left: 0;
+       margin-right: 0;
+      }
+    }
     .style('my-story'; chapter) {
       .x-history-feature(@dark-blue, @cnx-string-my-story);
     }
@@ -303,28 +321,6 @@
       background-color: @yellow-35;
       margin-bottom: 2.5em;
 
-      > .body {
-        padding: 35px 20px 20px 20px;
-      }
-
-      > .body, > .body p {
-        font: normal normal 9pt/12pt @font-family-sans-serif;
-      }
-
-      > .title {
-        position: relative;
-        top: 20px;
-        border-top: 3px solid @orange;
-        border-bottom: 3px solid @orange;
-        display: block;
-        height: 30px;
-        padding-top: .3em;
-        content: @cnx-string-click-and-explore;
-        background: @dark-blue;
-        color: @yellow-50;
-        text-align: center;
-        font: bold normal 16pt/1em @font-family-serif;
-      }
 
       //clearfix
       > .body::after {
@@ -343,9 +339,30 @@
         }
       }
     }
+    #body {
+      .style('click-and-explore'; chapter) {
+        padding: 35px 20px 20px 20px;
+        font: normal normal 9pt/12pt @font-family-sans-serif;
+        text-align: left;
+      }
+    }
     #title {
       .style(non-feature) {
         border: none;
+      }
+      .style('click-and-explore'; chapter) {
+        position: relative;
+        top: 20px;
+        border-top: 3px solid @orange;
+        border-bottom: 3px solid @orange;
+        display: block;
+        height: 30px;
+        padding-top: .3em;
+        content: @cnx-string-click-and-explore;
+        background: @dark-blue;
+        color: @yellow-50;
+        text-align: center;
+        font: bold normal 16pt/1em @font-family-serif;
       }
     }
   }
@@ -404,7 +421,18 @@
         font-size: 11pt;
         line-height: 13pt;
         margin: 0.5em 0em;
+        margin-top: 1.5em;
       }
+      // H4
+      .style(any; any; section) {
+        color: @dark-blue;
+        text-transform: none;
+        font-size: 11pt;
+        line-height: 13pt;
+        margin: 0.5em 0em;
+
+      }
+
     }
   }
    // Parent level link styling

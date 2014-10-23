@@ -1,11 +1,15 @@
 // Copyright (c) 2013 Rice University
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
-
+h2, h3, h4 {
+  margin: initial;
+  sup {
+    display:none;
+  }
+}
 @kind: default;
 @part: chapter;
 @context: default;
-
 .note {
   &.howto {
     #content>#note>.style(howto);
@@ -348,16 +352,38 @@ div.colophon.end-of-book-solutions {
 
   .chapter-area {
     font-family: @font-family-serif;
-    a {
-      &.solution {
-        color: black;
-      }
+    a.solution {
+      color: black;
+    }
 
-      &.chapter * {
-        color: black;
-        font-size: medium;
+    > h2.title a.chapter,
+    > h2.title a.chapter span {
+      #part>#book-end>#end-of-book-solutions>#title>.style('chapter-area');
+    }
+    > h2.title a.chapter {
+      // Now that this is display: block it honors page break
+      // rules from .chapter {}. Reset it.
+      #utils>#pb>.before(avoid);
+      #utils>#pb>.after(avoid);
+    }
+    > h2.title a.chapter span { display: inline; } // reset display: block for spans
+
+    > div.review-exercises::before {
+      #part>#book-end>#end-of-book-solutions>#title>.style('review-exercises');
+    }
+    > div.practice-test::before {
+      #part>#book-end>#end-of-book-solutions>#title>.style('practice-test');
+    }
+    > div.try {
+      &::before { #part>#book-end>#end-of-book-solutions>#title>.style('try-it'); }
+      div.solution > div.title a.solution::before {
+        content: target-counter(attr(href), chapter) "." target-counter(attr(href), try);
       }
     }
+    > div.section-exercises::before {
+      #part>#book-end>#end-of-book-solutions>#title>.style('section-exercises');
+    }
+
 
     div.solution {
       #content>#solution>.style(@kind; book-end);
@@ -367,6 +393,11 @@ div.colophon.end-of-book-solutions {
       }
 
       > div.body {
+        div, p { display: inline; }
+        div.mediaobject {
+          display: block;
+         #content>#image>.style(any; book-end; solution);
+        }
         #content>#solution>#body>.style(@kind; book-end);
       }
     }
@@ -814,4 +845,17 @@ div.itemizedlist, div.orderedlist {
   ul, ol {
     #content>#list>.style(any; any);
   }
+}
+
+
+
+/********************************************************************
+ * SVG Color cascading.
+ ********************************************************************/
+
+// !important is used to override inline styles.
+
+g {
+  text { fill: currentColor !important; }
+  line { stroke: currentColor !important; }
 }
