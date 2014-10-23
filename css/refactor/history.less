@@ -1,3 +1,4 @@
+@import url('../ccap-tables.less');
 @import url('utils.less');
 @import url('page-slots.less');
 @import url('ccap-base-slots.less');
@@ -85,29 +86,15 @@ html {
   prince-image-resolution: 120dpi;
 }
 
-/******************************************************
- * Folio Customizations
- ******************************************************/
-
-// Make page numbers and header texts display on opposite
-// sides of the page.
-
-@page :left {
-  @top-left {
-    content: "";
-  }
-  @top-right {
-    content: string(cnx-header);
+// Enable page breaking inside tables.
+#content {
+  #table {
+    .style(...) {
+      #utils>#pb>.inside(auto);
+    }
   }
 }
-@page :right {
-  @top-right {
-    content: "";
-  }
-  @top-left {
-    content: string(cnx-header);
-  }
-}
+
 @import url('../ccap-numbering.less');
 @import url('../ccap-precalculus-numbering.less');
 @import url('page-skeleton.less');

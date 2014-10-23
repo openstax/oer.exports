@@ -1,3 +1,4 @@
+@import url('../ccap-tables.less');
 @import url('utils.less');
 @import url('page-slots.less');
 @import url('ccap-base-slots.less');
@@ -32,13 +33,14 @@
 html {
   prince-image-resolution: 150dpi;
 }
+
+@import url('../ccap-numbering.less');
+@import url('../ccap-precalculus-numbering.less');
+
 @import url('page-skeleton.less');
 @import url('ccap-base-skeleton.less');
 @import url('content-skeleton.less');
 @import url('precalculus-skeleton.less');
-
-@import url('../ccap-numbering.less');
-@import url('../ccap-precalculus-numbering.less');
 
 // These are specific to precalculus and different in other books.
 // They are located here to remove the "Cascading" rules.
@@ -56,11 +58,14 @@ html {
 @import url('unnumbered-content.less');
 
 
-// Turn equation numbering on in example exercises.
+// Equation numbering updates. This changes the numbering to use
+// ::before rather than ::after in order to avoid princexml bugs.
 div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled),
 div.book div.chapter > div.section div.example div.exercise div.equation, {
   counter-increment: equation !important; // Override !important from numbering-skeleton.
 }
+
+// Turn on ::before numbers
 div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled) span.inlinemediaobject::before,
 div.book div.chapter > div.section div.example div.exercise div.equation span.inlinemediaobject::before,
 div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled) div.mediaobject::before,
@@ -70,6 +75,14 @@ div.book div.chapter > div.section div.example div.exercise div.equation div.med
 div.book div.chapter > div.section div.equation > *:last-child::before {
   content: "(" counter(chapter, decimal) "." counter(equation) ")";
   float: right;
+
+  color: @orange;
+  font-weight: bold;
+}
+
+// Turn off ::after numbers
+div.book div.chapter > div.section div.equation > *:last-child::after {
+  display: none;
 }
 
 // Some end of chapter parts, such as review exercises, have an extra level of <section>

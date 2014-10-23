@@ -2,16 +2,20 @@
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
 
+@cnx-string-preface: "Preface";
+@cnx-string-chapter: "Chapter";
+@cnx-string-appendix: "Appendix";
 @cnx-string-introduction: "Introduction";
 @cnx-string-chapter-outline: "Chapter Outline";
 @cnx-string-learning-objectives: "Learning Objectives";
 @cnx-string-key-equations: "Key Equations";
 @cnx-string-key-concepts: "Key Concepts";
-#page {
-  .style(){
-    margin: 0.8in 1in;
-  }
-}
+
+.x-list-indent() {
+  margin: 0 0 0 40px;
+  padding:0;
+ }
+
 #part {
   #titlepage {
     #title {
@@ -25,8 +29,10 @@
     #titlepage {
       .style(...) {
         padding-bottom: 1em;
+
       }
       .title(...) {
+        string-set: cnx-header @cnx-string-preface;
         background-color: @medium-blue;
       }
     }
@@ -84,14 +90,14 @@
     #title {
       .style(...) {
         /*reset left only*/
-        margin-left:0;
-        padding-left: 0;
         font-size: 34pt; /* x-large; */
         font-weight: bold;
         text-align: left;
         color: @medium-blue;
+        margin: 0;
         padding-top: 0;
-        margin-top: 0;
+        padding-left: 0;
+        padding-right: 0;
       }
       .number(...) {
         font-weight: bold;
@@ -101,6 +107,11 @@
       .divider(...) {
         content: "| ";
         color: black;
+      }
+      .text() {
+        // Replace the default page header "Chapter number | Title",
+        // removing the "|"
+        string-set: cnx-header "@{cnx-string-chapter} " counter(chapter, decimal)  " " content();
       }
     }
 
@@ -146,7 +157,7 @@
     .style(chapter) {
       // End-of-chapter material should start on a new page
       #utils>#pb>.before(always);
-      display:inline;
+      display: inline;
     }
     #title {
       .style(chapter) {
@@ -156,7 +167,7 @@
         font-size: large;
         padding: 0em;
         display: block;
-        text-transform:uppercase;
+        text-transform: uppercase;
       }
     }
   }
@@ -177,6 +188,7 @@
         color: @medium-blue;
         font-size: large;
         font-weight: bold;
+        margin-top: 0;
         #utils>#pb>.after(avoid);
       }
     }
@@ -201,7 +213,6 @@
       #title {
         .style(...) {
           content: @cnx-string-key-equations;
-          margin-top: 1em;   // staging bug-fix.
         }
       }
     }
@@ -213,7 +224,6 @@
         .style(...) {
           content: @cnx-string-key-concepts;
           column-span: all;  // staging bug-fix.
-          margin-top: 1em;   // this too.
           margin-bottom: 0;
         }
         .link(...) {
@@ -234,7 +244,7 @@
         .style(...) {
           content: "Chapter " counter(chapter, decimal) " Review Exercises";
           column-span: all;  // staging bug-fix.
-          margin-top: 1em;   // this too.
+          margin-top: 0;
         }
       }
     }
@@ -246,7 +256,6 @@
         .style(...) {
           content: "Chapter " counter(chapter, decimal) " Practice Test";
           column-span: all;  // staging bug-fix.
-          margin-top: 1em;   // this too.
         }
       }
     }
@@ -257,7 +266,7 @@
         .x-column-count(1);
       }
       #title {
-        .style(...) {}
+        .style() {}
         .link(...) {
           color: @medium-blue;
           #utils>#pb>.after(avoid);
@@ -278,7 +287,7 @@
       }
 
       #title {
-        .style(...) {
+        .style() {
           content: "Answer Key";
           string-set: cnx-header "Answer Key";
           color: @medium-blue;
@@ -287,6 +296,34 @@
           font-size: x-large;
           font-weight: bold;
           background-color: transparent; //overwrite from .colophon title
+        }
+        .x-solutions-subheading-style() {
+          color: black;
+          font-size: 16px;
+          font-weight: 700;
+          font-family: @font-family;
+
+          display: block;
+          margin-bottom: 7.5px;
+        }
+        .style('chapter-area') {
+          .x-solutions-subheading-style();
+        }
+        .style('review-exercises') {
+          .x-solutions-subheading-style();
+          content: "Review Exercises";
+        }
+        .style('practice-test') {
+          .x-solutions-subheading-style();
+          content: "Practice Test";
+        }
+        .style('try-it') {
+          .x-solutions-subheading-style();
+          content: "Try It";
+        }
+        .style('section-exercises') {
+          .x-solutions-subheading-style();
+          content: "Section Exercises";
         }
       }
       #solution {
@@ -310,7 +347,7 @@
 
     // End of Book References
     #end-of-book-references {
-      .style(...) {}
+      .style(...) { display: none; }
 
       #title {
         .style(...) { //colophon titles are passed as h1's by default by docbook override properties here
@@ -321,6 +358,7 @@
           color: @medium-blue;
           margin-left: 0;
           padding-left: 0;
+          margin-top: 0;
         }
       }
 
@@ -355,6 +393,7 @@
       .style(...) {
         text-align: left; //override text-alignment from base .x-column-count
         column-width: auto;
+        margin-bottom: 10px;
       }
 
       #title {
@@ -382,10 +421,19 @@
     #colophon {
       .style(...) {
         padding: 0;
+        margin-top: 0;
         font-weight: bold;
         font-size: x-large;
         color: @medium-blue;
         background: none;
+      }
+    }
+
+    #appendix {
+      #title {
+        .text() {
+          string-set: cnx-header "@{cnx-string-appendix} " counter(appendix, upper-latin);
+        }
       }
     }
   }
@@ -401,6 +449,9 @@
     .style(any) {
       font-family: @font-family-serif;
     }
+    .style(any; any; list; table) {
+      font-family: @font-family;
+    }
   }
   #table {
     .style(any; any) {
@@ -409,7 +460,6 @@
       // If a table spans more than 1 page then put caption on all following pages
       prince-caption-page: all;
     }
-
 
     .style(any; any; problem; exercise; example) {
       counter-increment: table !important; // Overrides !important from base.
@@ -428,7 +478,6 @@
       caption { display: none; }
       td { border: none !important; }
     }
-
     #caption {
       .style(any; any) {
         font-family: @font-family;
@@ -470,7 +519,6 @@
         background-color: @white;
         font-size: small;
         text-align: left;
-        padding-left: .25em;
       }
       .style(colored; any) {
         background-color: @light-orange; text-align: center;
@@ -478,6 +526,7 @@
     }
     #data {
       .style(any; any) {
+        padding: 13px;
       }
 
       // Some TDs act like TH
@@ -612,6 +661,9 @@
       margin: 0; //override auto  left/right margins from base
       max-width: @page-width; //overrides width value figures/subfigures ensuring imgs do not bleed off page
     }
+    .style(any; book-end; solution) {
+      text-align: center;
+    }
   }
   #section {
     .style(any; any) {}
@@ -629,12 +681,12 @@
       .style(any; preface; section) {}
       .style(any; any) { // Section titles
         color: @medium-blue;
-        font-size: 13pt;
+        font-size: 19px;
         font-weight: bold;
       }
       .style(any; any; section) { // Sub-section titles
         color: @medium-blue;
-        font-size: 10pt;
+        font-size: 13px;
         font-weight: bold;
       }
       .style(section-exercises; @part; ...) {
@@ -643,22 +695,21 @@
         font-size: 17pt;
         color: @medium-blue;
         font-weight: bold;
+        display:block;
+        padding-bottom: 10px;
       }
     }
   }
   #list {
     .style(any; any) {
-      padding-left: 26px;
-      margin: 0;
+      .x-list-indent();
     }
     .style(any; any; solution; exercise; example) {
       // Inset lists below solution headers
-      margin-left: 2em;
-      margin-top: 2em;
+     .x-list-indent();
     }
-    .style(any; any; table) { /*
-      margin: 0; //reset
-      padding-left: 1em;*/
+    .style(any; any; table) {
+      margin: 0;
     }
     .style('no-mark'; any) {
       list-style-type: none;
@@ -752,7 +803,7 @@
   #problem {
     .style(@kind; @part; feature-try; exercise) {
       // Template design asks for lists to be set apart
-      margin-left: 4em;
+      .x-list-indent();
 
       ol,ul {
         margin-top: 1em;
@@ -832,26 +883,6 @@
       .style(@kind, book-end) {
         margin-right: .65em;
         display: inline;
-
-        * { display: inline; } // OUCH - place in .body() mixin for now.
-        // Fix a bug due to * {} being used...
-        div.table {
-          display: block;
-
-          table {
-            display: table;
-
-            caption { display: table-caption; }
-            thead { display: table-header-group; }
-            th{ display: table-cell; }
-            tbody { display: table-row-group; }
-            tfoot { display: table-footer-group; }
-            tr { display: table-row; }
-            td { display: table-cell; }
-          }
-        }
-
-
 
         // will need to change - include in .body mixin for now
         > a.target-figure {

@@ -1,11 +1,15 @@
 // Copyright (c) 2013 Rice University
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
-
+h2, h3, h4 {
+  margin: initial;
+  sup {
+    display:none;
+  }
+}
 @kind: default;
 @part: chapter;
 @context: default;
-
 .note {
   &.howto {
     #content>#note>.style(howto);
@@ -109,6 +113,17 @@ div.book div.preface {
  */
 div.part > div.titlepage { display: none; }
 
+
+/* -------------------------
+ * Put the chapter title and introduction section on the
+ * introduction page, which has reduced margin.
+ * -------------------------
+ */
+.chapter > .titlepage,
+.chapter > .introduction {
+  page: introduction;
+}
+
 /* -------------------------
  * Chapter Introduction
  * -------------------------
@@ -165,6 +180,14 @@ div.book div.chapter > div.titlepage > div > div h1.title {
     #part>#chapter>#title>.label();
   }
 }
+
+/********************************************************************
+ * Styling for Appendix
+ ********************************************************************/
+div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t {
+  #part>#book-end>#appendix>#title>.text();
+}
+
 
 /********************************************************************
  * Styling for Module Titles
@@ -291,9 +314,6 @@ div.book div > div.section > div.section {
     p:nth-of-type(1) { margin-top: 1em; }
   }
 
-
-  .problem .orderedlist { margin-left: 4em; }
-
   .problem::before {
     #content>#problem>.number(@kind; chapter-end);
   }
@@ -332,16 +352,38 @@ div.colophon.end-of-book-solutions {
 
   .chapter-area {
     font-family: @font-family-serif;
-    a {
-      &.solution {
-        color: black;
-      }
+    a.solution {
+      color: black;
+    }
 
-      &.chapter * {
-        color: black;
-        font-size: medium;
+    > h2.title a.chapter,
+    > h2.title a.chapter span {
+      #part>#book-end>#end-of-book-solutions>#title>.style('chapter-area');
+    }
+    > h2.title a.chapter {
+      // Now that this is display: block it honors page break
+      // rules from .chapter {}. Reset it.
+      #utils>#pb>.before(avoid);
+      #utils>#pb>.after(avoid);
+    }
+    > h2.title a.chapter span { display: inline; } // reset display: block for spans
+
+    > div.review-exercises::before {
+      #part>#book-end>#end-of-book-solutions>#title>.style('review-exercises');
+    }
+    > div.practice-test::before {
+      #part>#book-end>#end-of-book-solutions>#title>.style('practice-test');
+    }
+    > div.try {
+      &::before { #part>#book-end>#end-of-book-solutions>#title>.style('try-it'); }
+      div.solution > div.title a.solution::before {
+        content: target-counter(attr(href), chapter) "." target-counter(attr(href), try);
       }
     }
+    > div.section-exercises::before {
+      #part>#book-end>#end-of-book-solutions>#title>.style('section-exercises');
+    }
+
 
     div.solution {
       #content>#solution>.style(@kind; book-end);
@@ -351,6 +393,11 @@ div.colophon.end-of-book-solutions {
       }
 
       > div.body {
+        div, p { display: inline; }
+        div.mediaobject {
+          display: block;
+         #content>#image>.style(any; book-end; solution);
+        }
         #content>#solution>#body>.style(@kind; book-end);
       }
     }
@@ -614,7 +661,7 @@ div.book div.chapter > div.section div.example div.exercise .solution {
   .figure {
     #content>#figure>.style(any; any; solution; exercise; example);
 
-    .body {
+  .body {
       text-align: left;
     }
   }
@@ -642,7 +689,7 @@ div.book div.chapter > div.section div.example div.exercise .problem {
   }
 }
 div.book div.chapter > div.section div.example div.exercise .commentary {
-  .table > table > caption::before {
+   .table > table > caption::before {
     #content>#table>#caption>.style(any; any; commentary; exercise; example);
   }
   .table {
@@ -659,7 +706,6 @@ div.book div.chapter > div.section div.example div.exercise .commentary {
     #content>#figure>#title>.number(any; any; commentary; exercise; example);
   }
 }
-
 // for examples that have a problem/solution structure that need numbered headings
 .example .exercise {
   #content>#exercise>.style(any; any; example);
@@ -692,26 +738,17 @@ div.book div.chapter > div.section div.example div.exercise .commentary {
 }
 
 /******************************************************************************
- * Styling for modified table design (2 tables, one plain and one colored)
+ * Tables
  ******************************************************************************/
 
-/* -------------------------
- * Tables TODO: simplify/regroup code block //latest
- * -------------------------
- */
-.table {
-  #content>#table>.style(any; any);
+div.table {
+  // First, reset div.table so it just goes away. Apply styling to the actual
+  // table element.
+  margin: 0 auto;
+  padding: 0;
+  border: none;
 
-  caption {
-    #content>#table>#caption>.style(any; any);
-  }
-
-  // Table caption text needs to be regular
-  .table-caption.caption {
-    color: @black;
-    font-weight: normal; //override strong tag
-    font-family: @font-family;
-  }
+  // TODO: Investigate this. Figures in a table?
   .cnx-figure-horizontal .informalfigure .caption {
     text-align: center; //center subfigure caption
     * {
@@ -720,40 +757,39 @@ div.book div.chapter > div.section div.example div.exercise .commentary {
     }
   }
 
-  // Add styling for table entries that should render as table headers
-  td.header { #content>#table>#data>.style('header'; any); }
-  tr { #content>#table>#row>.style(any; any); }
-  th { #content>#table>#header>.style(any; any); }
-  td { #content>#table>#data>.style(any; any); }
-
   table {
-    border-bottom: @table-border;
+    #content>#table>.style(any; any);
+
+    caption {
+      #content>#table>#caption>.style(any; any);
+    }
 
     thead { #content>#table>#head>.style(any; any); }
     tbody { #content>#table>#body>.style(any; any); }
-  }
-  // This is just for looks for the template take out later
-  table td {
-    padding: 1em;
+    tr { #content>#table>#row>.style(any; any); }
+    th { #content>#table>#header>.style(any; any); }
+    td { #content>#table>#data>.style(any; any); }
+    // Add styling for table entries that should render as table headers
+    td.header { #content>#table>#data>.style('header'; any); }
+
   }
 
   //handle lists inside tables
-  .itemizedlist {
+ul.itemizedlist, ol.orderedlist {
     #content>#list>.style(any; any; table);
-    > .listitem > p { font-family: @font-family; } //overrides bio p font use font-family from base
+    > .listitem > p {
+      #content>#paragraph>.style(any; any; list; table);
+     }
+  }
+
+  // Special colored table...
+  &.color {
+    th { #content>#table>#header>.style(colored; any); }
+    tr { #content>#table>#row>.style(colored; any); }
+    tr td:first-child { background-color: @light-orange; width: 2.5in; font-weight: bold; }
   }
 
 }
-
-//  Add a class for tables that have special characteristics
-.table.color {
-  th { #content>#table>#header>.style(colored; any); }
-
-  tr { #content>#table>#row>.style(colored; any); }
-
-  tr td:first-child { background-color: @light-orange; width: 2.5in; font-weight: bold; }
-}
-
 
 .cnx-figure-horizontal .informalfigure .caption {
   text-align: center; //center subfigure caption
@@ -809,4 +845,17 @@ div.itemizedlist, div.orderedlist {
   ul, ol {
     #content>#list>.style(any; any);
   }
+}
+
+
+
+/********************************************************************
+ * SVG Color cascading.
+ ********************************************************************/
+
+// !important is used to override inline styles.
+
+g {
+  text { fill: currentColor !important; }
+  line { stroke: currentColor !important; }
 }

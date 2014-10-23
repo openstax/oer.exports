@@ -3,6 +3,7 @@
 // See LICENSE.txt for details.
 
 .x-header-spacing() {
+  margin-top: 17.333px;
   padding-bottom: 0;
   margin-bottom: 6.6px;
 }
@@ -91,7 +92,6 @@
         color: @dark-blue;
         padding-top: .35em;
         margin-top:.05em;
-        text-transform: none;
       }
       .number() {
         color: @dark-blue;
@@ -163,7 +163,6 @@
           color: @dark-blue;
           font-size: 13pt;
           font-weight: bold;
-          padding-top: 1em;
           padding-bottom: .2em;
           .x-header-spacing();
         }
@@ -284,6 +283,7 @@
         font-size: 1.3em;
         font-weight: bold;
         color: @dark-blue;
+        text-align: left;
       }
     }
   }
@@ -318,7 +318,7 @@
     .style('answer'; any; example) {
       text-align: right;
       background-color: @example-blue;
-      padding: 0 1em;
+      padding: 0;
       margin: 0;
     }
     #title {
@@ -338,15 +338,13 @@
       .style('answer'; any; example) {
         display: inline;
         padding-right: .5em;
-        font-size: 1.2em;
+        font-size: 13px;
         font-family: @font-family-serif;
       }
     }
     #body {
       .style('answer'; any; example) {
         display: inline;
-        font-size: 1.1em; // Slightly smaller than the Answer label,
-                          // so the stroke is not as thick.
         font-family: @font-family-serif;
       }
     }
@@ -369,7 +367,6 @@
       // H3
       .style(any; any) {
         color: @dark-blue;
-        text-transform: none; // reset from psychology
         font-size: 13pt;
       }
       // H4
@@ -382,19 +379,20 @@
   #table {
     .style(any; any) {
       padding-top: 1em;
-      border: none !important; // override inline table style=""
+      border: none;
     }
     .style(any; preface) {
       margin: 0;
-      border: none !important; // override inline table style=""
+      border: none;
     }
+
     #caption {
       .style(any; any) {
         color: @dark-blue;
         caption-side: bottom;
         border-right: none;
         border-left: none;
-        border-top: 1px solid @dark-blue !important;
+        border-top: 1px solid @dark-blue;
 
         // This is for the Table 1.1 numbering part. the actual title
         // has to be @dark-blue and has to move to top and centered.
@@ -408,10 +406,12 @@
       .style(any; any) {
         border-top: 1px solid @dark-blue;
         border-bottom: 1px solid @dark-blue;
+        font-family: @font-family-sans-serif;
       }
     }
     #body {
       .style(any; any) {
+         border: 1px solid @dark-blue;
       }
     }
     #row {
@@ -420,21 +420,21 @@
     #header {
       .style(any; any) {
         background-color: @medium-blue;
-        border: none;
-        border-right: 1px solid !important;
-        border-bottom: 0 !important;
-        border-color: @dark-blue !important;
+        border-color: @dark-blue !important; // !important is in ccap-base
+        border-bottom: 1px solid @dark-blue;
+        border-top: 1px solid @dark-blue;
         font-size: 9pt;
-        color: white;
-        text-align: center !important;
+        color: @white;
+        text-align: center;
+        vertical-align: initial;
       }
     }
     #data {
       .style(any; any) {
         font-family: @font-family-sans-serif;
         font-size: 9pt;
-        text-align: center !important;
-        border-color: @dark-blue !important;
+        text-align: center;
+        border-color: @dark-blue !important; // !important is in ccap-base
       }
       .style(any; preface) {
         padding: 5px;
@@ -460,11 +460,13 @@
   #exercise {
     .style(any; any; exercises; chapter-end) {
       margin-bottom: .2em;
+    &:last-child{
+       margin-bottom: .5em;
+      }
     }
   }
   #solution {
     .style(...) {}
-
     .style(@kind; book-end) {
       display: block;
       padding-bottom: .5em;
@@ -472,17 +474,18 @@
   }
   #list {
     .style('step-list'; any) {
-      margin-left: 0;
       list-style-type: none;
       counter-reset: steplist;
     }
     .item('step-list'; any) {
       counter-increment: steplist !important;
       text-indent: 4em hanging;
-
       p {
         display: inline;
       }
+    }
+    .style(any; end-of-book-solutions; solution) {
+      margin-left:0;
     }
     .number('step-list'; any) {
       font-style: italic;
@@ -506,10 +509,6 @@
 
   }
   #figure {
-   .style(any; any; note) {
-     padding-left: 0;
-     padding-right: 0;
-    }
     #body {
       .style(any; any) {
         margin: 10px 0;
