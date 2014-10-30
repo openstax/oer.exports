@@ -184,10 +184,27 @@ div.book div.chapter > div.titlepage > div > div h1.title {
 /********************************************************************
  * Styling for Appendix
  ********************************************************************/
-div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t {
-  #part>#book-end>#appendix>#title>.text();
+div.book > div.appendix > div.titlepage > div > div h1.title {
+  #part>#book-end>#appendix>#title>.style();
+  span.cnx-gentext-n {
+    #part>#book-end>#appendix>#title>.number();
+  }
+  span.cnx-gentext-t {
+    #part>#book-end>#appendix>#title>.text();
+    &::before {
+      #part>#book-end>#appendix>#title>.divider();
+    }
+  }
 }
 
+div.book > div.appendix > div.section > div.titlepage h2 {
+  #part>#module>#title>.style();
+
+  &::before { #part>#module>#title>.number(); }
+  span.cnx-gentext-t {
+    #part>#module>#title>.text();
+  }
+}
 
 /********************************************************************
  * Styling for Module Titles
@@ -641,10 +658,12 @@ img, figure, subfigure  { margin: 1em; }
 }
 
 
+
 /* -------------------------
  * Example Elements Styling and Numbering
  * -------------------------
  */
+.chapter .example { #content>#example>.style(any); }
 .example > .title {
   #content>#example>#title>.style(any);
 }

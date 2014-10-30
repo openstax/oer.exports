@@ -2130,7 +2130,7 @@ h4 sup {
 .note.media .itemizedlist > .listitem {
   color: #d7562c;
   font-weight: bold;
-  background: blue;
+  text-align: left;
 }
 .note.media .itemizedlist > .listitem .link.only-show-once {
   content: content();
@@ -2356,8 +2356,28 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::be
 /********************************************************************
  * Styling for Appendix
  ********************************************************************/
+div.book > div.appendix > div.titlepage > div > div h1.title {
+  font-size: 34pt;
+  font-weight: bold;
+  color: #528cbe;
+  padding: 0;
+  margin: 0;
+}
+div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-n {
+  color: #528cbe;
+  padding-right: 0;
+}
 div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "Appendix " counter(appendix, upper-latin);
+}
+div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t::before {
+  content: "| ";
+  color: black;
+}
+div.book > div.appendix > div.section > div.titlepage h2 {
+  color: #528cbe;
+  font-size: 17pt;
+  font-weight: bold;
 }
 /********************************************************************
  * Styling for Module Titles
@@ -2949,6 +2969,11 @@ subfigure {
  * Example Elements Styling and Numbering
  * -------------------------
  */
+.chapter .example {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  margin: .75em 0;
+}
 .example > .title {
   background: #233a67;
   padding-top: .3em;
@@ -3223,6 +3248,14 @@ g text {
 }
 g line {
   stroke: currentColor !important;
+}
+.glossary dl dt,
+.glossary dl dd {
+  margin-top: -5px;
+}
+.glossary dl dt:first-of-type,
+.glossary dl dd:first-of-type {
+  margin-top: 0;
 }
 /* -------------------------
  * Equations
