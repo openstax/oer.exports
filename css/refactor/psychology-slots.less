@@ -314,8 +314,9 @@
         .style(...) {
           content: @cnx-string-review-questions;
           column-span: all !important; // added override to resolve bug on staging where titles
-          margin-top: 2em;             // are spanning single column. cannot replicate locally or on naginat
+          margin-top: 2em;             // are spanning single column. cannot replicate locally or on naginata
           margin-bottom: 1em;
+          -webkit-column-span: all; /* Chrome, Safari, Opera */
         }
       }
     }
@@ -728,11 +729,15 @@
     }
   }
   #figure {
+    .style(...) {
+    padding-top:1em;
+    }
     // Full width figure titles/captions clash with rounded feature borders
     // So, we must target figures only when placed inside notes and give some padding
     .style(any; any; note) {
       margin-bottom: .5em;
     }
+    
     #title {
       .number(...) {
         color: @red;
