@@ -3,7 +3,6 @@
 // See LICENSE.txt for details.
 
 .x-header-spacing() {
-  margin-top: 17.333px;
   padding-bottom: 0;
   margin-bottom: 6.6px;
 }
@@ -36,7 +35,7 @@
         border-bottom: none;
         font-size: 14pt;
         line-height: 17pt;
-      }      
+      }
     }
     #chapter-outline {
         #title {
@@ -64,7 +63,6 @@
         font: bold normal 11pt/1em @font-family-sans-serif;
         color: @red;
         border-bottom: 1px solid @red;
-        text-align: left;
       }
     }
     #link {
@@ -154,10 +152,10 @@
   // can be refactored to use new factory mixin later. Leaving for now.
   #chapter-end{
     .style(...) {}
-
     #summary {
       .style(...) {
         margin-top: 0;
+        margin-bottom: 20px;
       }
       #title {
         .style(...) {
@@ -222,7 +220,7 @@
         column-count: 1;
       }
       #title {
-        .style(...) {
+        .style(any; any) {
           column-span: all;
           color: @red;
           font-size: 18pt;
@@ -241,7 +239,6 @@
 
     #index {
       .style(...) {}
-
       #title {
         .style(...) {
           color: @red;
@@ -290,7 +287,7 @@
     font: italic bold 14pt/17pt @font-family-serif;
     text-align: left;
 
-    span:first-of-type::before {
+    > span:first-of-type::before {
       background-image: url("ccap-history/feature-title.svg");
       background-repeat: no-repeat;
       background-position: center left;
@@ -304,16 +301,17 @@
 }
 
 #content {
+    .label(table; @part;) {
+      color: @black;
+       }
+
   #note {
     .style(...) {
       #utils>#pb>.inside(avoid);
       padding: 0;
     }
     #blockquote {
-      .style(){
-       margin-left: 0;
-       margin-right: 0;
-      }
+      .style() {}
     }
     .style('my-story'; chapter) {
       .x-history-feature(@dark-blue, @cnx-string-my-story);
@@ -427,8 +425,7 @@
         text-transform: none;
         font-size: 11pt;
         line-height: 13pt;
-        margin: 0.5em 0em;
-        margin-top: 1.5em;
+        margin-bottom: 0.5em;
       }
       // H4
       .style(any; any; section) {
@@ -464,12 +461,18 @@
       margin: 0;
       border: none;
     }
+    #header {
+      .style(any; any) {
+        background-color: @yellow-35;
+      }
+    }
     #caption {
       .style(any; any) {
         background-color: @yellow-35;
         border-style: none;
         border-bottom: 1px solid @orange;
         border-bottom-style: solid;
+        color: @red;
       }
     }
   }
