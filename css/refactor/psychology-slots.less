@@ -86,7 +86,7 @@
         border-bottom-color: @orange;
         border-bottom-width: 1px;
         border-bottom-style: solid;
-        padding: 0.2em 0em;
+        padding-bottom: 0.2em;
         font-size: 14pt;
         line-height: 17pt;
         font-weight: 700;
@@ -290,7 +290,9 @@
       }
     }
     #summary {
-      .style(...) {}
+      .style() {
+        margin-bottom: 20px;
+      }
 
       #title {
         .style(...){
@@ -309,12 +311,12 @@
         .x-column-count(2);
         column-fill: balance;
         text-align: left;
+        margin-bottom: 20px;
       }
       #title {
         .style(...) {
           content: @cnx-string-review-questions;
           column-span: all !important; // added override to resolve bug on staging where titles
-          margin-top: 2em;             // are spanning single column. cannot replicate locally or on naginata
           margin-bottom: 1em;
           -webkit-column-span: all; /* Chrome, Safari, Opera */
         }
@@ -328,7 +330,6 @@
         .style(...) {
           content: @cnx-string-critical-thinking-questions;
           column-span: all !important; // added override to resolve bug on staging where titles
-          margin-top: 2em;             // are spanning single column. cannot replicate locally or on naginat
           margin-bottom: 1em;
         }
       }
@@ -341,7 +342,6 @@
         .style(...) {
           content: @cnx-string-personal-application-questions;
           column-span: all !important; // added override to resolve bug on staging where titles
-          margin-top: 2em;             // are spanning single column. cannot replicate locally or on naginat
           margin-bottom: 1em;
         }
       }
@@ -354,10 +354,19 @@
       #title {
         .style(...) {
           margin-left: 0; // reset precalc margin.
+          margin-top: 0;
+          padding-top: 0;
           color: @red;
           text-transform: capitalize;
           font-weight: 700;
           font-size: 24px;
+          line-height: 24px;
+        }
+        .style('chapter-area'; any) {
+          font-family: @font-family-serif;
+          font-size: 13px;
+          line-height: 17px;
+          color: @black;
         }
       }
       #chapter-area {
@@ -369,7 +378,7 @@
     #end-of-book-references {
       .style(...) {
         display: block;
-        margin: 1em 0;
+        margin-bottom: 1em;
       }
       #chapter-area {
         .style(...) {
@@ -392,7 +401,7 @@
           color: black;
           font-size: 10pt;
           font-weight: bold;
-          margin: .5em 0em;
+          margin-bottom: .5em;
         }
         #title {
           .style(...) {
@@ -446,6 +455,10 @@
     }
   }
   #glossary {
+    .style(chapter) {
+      display:  block;
+      margin-bottom: 20px;
+    }
     .term(chapter) {
       display: block;
     }
@@ -456,7 +469,6 @@
     #title {
       .style(chapter) {
         font-weight: bold !important;
-
         margin-bottom: 1em;
         padding: 0.2em 0em;
         display: block !important; // This overrides a display: inline from ccap-base.
@@ -468,18 +480,20 @@
 }
 #content {
   #section {
+    .style() {
+      margin: 0 20px 0 0;
+    }
     #title {
       // H3
       .style(any; any) {
+        font-size: 14.6px;
         color: @black;
         text-transform: uppercase;
-        margin-top: 1.5em;
       }
       // H4
       .style(any; any; section) {
         color: @black;
         font-size: 13px;
-        margin-top: 1.5em;
       }
     }
   }
@@ -711,7 +725,7 @@
       color: @black;
       margin-top: 0.5em;
       margin-bottom: 0.5em;
-			
+
       // Remove quotes
       &::before,
       &::after {
@@ -737,7 +751,7 @@
     .style(any; any; note) {
       margin-bottom: .5em;
     }
-    
+
     #title {
       .number(...) {
         color: @red;
@@ -748,6 +762,9 @@
     .style(any; any) {
     }
     .item(any; any; section) {
+    }
+    .style(any; any; table) {
+      padding-left: 20px;
     }
   }
   #equation {
@@ -775,6 +792,9 @@
         border-bottom-color: @orange;
         border-bottom-width: 1px;
         border-bottom-style: solid;
+        margin-top: 0;
+        padding-top: 0;
+        line-height: 1em;
       }
     }
     .dt() {
