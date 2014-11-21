@@ -255,6 +255,9 @@
     }
   }
   #module {
+    .style(){
+      margin: 0 0 24px 0;
+    }
     #title {
       .style() {
         color: @red;
@@ -287,6 +290,13 @@
         font-size: 12pt;
         font-weight: 700;
         text-transform: none;
+      }
+    }
+    #section{
+      #title{
+        .style() {
+          padding-top: 0;
+       }
       }
     }
     #summary {
@@ -411,7 +421,7 @@
     }
     #index {
       .style(...) {
-        margin: 1em 0em 0em;
+        margin: 0;
       }
       #title {
         .style(...) {
@@ -426,6 +436,7 @@
           font-size: 18pt;
           font-weight: 700;
           text-align: left;
+          margin-top: 0;
         }
       }
       .letter(...) {
@@ -458,9 +469,11 @@
     .style(chapter) {
       display:  block;
       margin-bottom: 20px;
+      margin-top: 0;
     }
     .term(chapter) {
       display: block;
+      margin-top: 0;
     }
     .definition(chapter) {
       margin-left: 0px;
@@ -470,7 +483,7 @@
       .style(chapter) {
         font-weight: bold !important;
         margin-bottom: 1em;
-        padding: 0.2em 0em;
+        padding: 0 0 0.2em 0;
         display: block !important; // This overrides a display: inline from ccap-base.
                                    // We need to eliminate all * {} selectors.
         width: 100%;
@@ -480,8 +493,8 @@
 }
 #content {
   #section {
-    .style() {
-      margin: 0 20px 0 0;
+    .style(any; any) {
+      margin: 0  0 22px 0;
     }
     #title {
       // H3
@@ -508,6 +521,7 @@
   #table {
     .style(any; any) {
       border: @table-border;
+      margin-bottom: 22px;
     }
 
     #caption {
@@ -762,6 +776,9 @@
     .style(any; any) {
     }
     .item(any; any; section) {
+    }
+   .style(any; any; problem; exercise) {
+      list-style-position: initial;
     }
     .style(any; any; table) {
       padding-left: 20px;

@@ -109,9 +109,6 @@ div.book div.chapter > div.titlepage > div > div h1.title {
   }
 }
 
-.chapter > .module { margin: 1em 0; }
-
-
 /******************************************************
  * Learning Objectives/Chapter Objectives
  ******************************************************/
@@ -229,7 +226,7 @@ div.colophon.end-of-book-solutions .chapter-area a.chapter * {
   margin: .5em 0em;
 }
 div.colophon.end-of-book-solutions {
-> .chapter-area h2.title a.chapter {  
+> .chapter-area h2.title a.chapter {
       #part>#book-end>#end-of-book-solutions>#title>.style('chapter-area'; any);
     }
     > .chapter-area h2.title a.chapter span {
@@ -251,6 +248,18 @@ div.colophon.end-of-book-solutions .chapter-area h2 {
 /********************************************************************
  * Generic Elements
  ********************************************************************/
+
+div.book > div.chapter .section{
+  &.module {
+      #part>#module>.style();
+      >.section:last-child {
+        margin-bottom: 0;
+      }
+    }
+    &.empty {
+      margin-bottom: 0;
+    }
+}
 
 p,
 .section > p {
