@@ -3226,7 +3226,6 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
   color: #7291cb;
   text-transform: uppercase;
   font-size: x-large;
-  column-span: all;
   width: 100%;
   color: #993720;
   border-bottom-color: #f6862d;
@@ -3240,9 +3239,9 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
   text-align: left;
   color: #354da1;
   font-size: 17pt;
-  margin-top: 17.333px;
-  padding-bottom: 0;
-  margin-bottom: 6.6px;
+  -webkit-column-span: all;
+  /* Chrome, Safari, Opera */
+  column-span: all;
 }
 .index > .title h2 {
   padding: 0;
@@ -3701,13 +3700,15 @@ div.table table caption {
   padding-bottom: 1em;
   font-weight: bold;
   color: #f6862d;
-  color: #000000;
+  color: #993720;
   border-color: #f6862d;
   border-width: 1px;
   border-style: solid;
   border-bottom: none;
   padding-left: .5em;
   caption-side: top;
+  font-size: 13px;
+  line-height: 17px;
   color: #354da1;
   caption-side: bottom;
   border-right: none;
@@ -4438,6 +4439,11 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
 .table > caption,
 .table td {
   padding: 0.25em;
+}
+div.table:not(.labeled) > table > caption:not(.labeled)::before,
+div.table > table > caption > span.cnx-gentext-t,
+div.table > table > caption > span.cnx-gentext-n {
+  color: #000000;
 }
 /********************************************************************
  * End of chapter customizations
