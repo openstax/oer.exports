@@ -86,7 +86,7 @@
         border-bottom-color: @orange;
         border-bottom-width: 1px;
         border-bottom-style: solid;
-        padding: 0.2em 0em;
+        padding-bottom: 0.2em;
         font-size: 14pt;
         line-height: 17pt;
         font-weight: 700;
@@ -255,6 +255,9 @@
     }
   }
   #module {
+    .style(){
+      margin: 0 0 24px 0;
+    }
     #title {
       .style() {
         color: @red;
@@ -289,8 +292,17 @@
         text-transform: none;
       }
     }
+    #section{
+      #title{
+        .style() {
+          padding-top: 0;
+       }
+      }
+    }
     #summary {
-      .style(...) {}
+      .style() {
+        margin-bottom: 20px;
+      }
 
       #title {
         .style(...){
@@ -309,13 +321,14 @@
         .x-column-count(2);
         column-fill: balance;
         text-align: left;
+        margin-bottom: 20px;
       }
       #title {
         .style(...) {
           content: @cnx-string-review-questions;
           column-span: all !important; // added override to resolve bug on staging where titles
-          margin-top: 2em;             // are spanning single column. cannot replicate locally or on naginat
           margin-bottom: 1em;
+          -webkit-column-span: all; /* Chrome, Safari, Opera */
         }
       }
     }
@@ -327,7 +340,6 @@
         .style(...) {
           content: @cnx-string-critical-thinking-questions;
           column-span: all !important; // added override to resolve bug on staging where titles
-          margin-top: 2em;             // are spanning single column. cannot replicate locally or on naginat
           margin-bottom: 1em;
         }
       }
@@ -340,7 +352,6 @@
         .style(...) {
           content: @cnx-string-personal-application-questions;
           column-span: all !important; // added override to resolve bug on staging where titles
-          margin-top: 2em;             // are spanning single column. cannot replicate locally or on naginat
           margin-bottom: 1em;
         }
       }
@@ -350,13 +361,24 @@
   // End of Book Customizations
   #book-end {
     #end-of-book-solutions {
+      .style('review-questions') { display: inline; }
+      .style('critical-thinking') { display: inline; }
       #title {
         .style(...) {
           margin-left: 0; // reset precalc margin.
+          margin-top: 0;
+          padding-top: 0;
           color: @red;
           text-transform: capitalize;
           font-weight: 700;
           font-size: 24px;
+          line-height: 24px;
+        }
+        .style('chapter-area'; any) {
+          font-family: @font-family-serif;
+          font-size: 13px;
+          line-height: 17px;
+          color: @black;
         }
       }
       #chapter-area {
@@ -368,7 +390,7 @@
     #end-of-book-references {
       .style(...) {
         display: block;
-        margin: 1em 0;
+        margin-bottom: 1em;
       }
       #chapter-area {
         .style(...) {
@@ -391,7 +413,7 @@
           color: black;
           font-size: 10pt;
           font-weight: bold;
-          margin: .5em 0em;
+          margin-bottom: .5em;
         }
         #title {
           .style(...) {
@@ -401,7 +423,7 @@
     }
     #index {
       .style(...) {
-        margin: 1em 0em 0em;
+        margin: 0;
       }
       #title {
         .style(...) {
@@ -416,6 +438,7 @@
           font-size: 18pt;
           font-weight: 700;
           text-align: left;
+          margin-top: 0;
         }
       }
       .letter(...) {
@@ -445,8 +468,14 @@
     }
   }
   #glossary {
+    .style(chapter) {
+      display:  block;
+      margin-bottom: 20px;
+      margin-top: 0;
+    }
     .term(chapter) {
       display: block;
+      margin-top: 0;
     }
     .definition(chapter) {
       margin-left: 0px;
@@ -455,9 +484,8 @@
     #title {
       .style(chapter) {
         font-weight: bold !important;
-
         margin-bottom: 1em;
-        padding: 0.2em 0em;
+        padding: 0 0 0.2em 0;
         display: block !important; // This overrides a display: inline from ccap-base.
                                    // We need to eliminate all * {} selectors.
         width: 100%;
@@ -467,18 +495,20 @@
 }
 #content {
   #section {
+    .style(any; any) {
+      margin: 0  0 22px 0;
+    }
     #title {
       // H3
       .style(any; any) {
+        font-size: 14.6px;
         color: @black;
         text-transform: uppercase;
-        margin-top: 1.5em;
       }
       // H4
       .style(any; any; section) {
         color: @black;
         font-size: 13px;
-        margin-top: 1.5em;
       }
     }
   }
@@ -493,17 +523,20 @@
   #table {
     .style(any; any) {
       border: @table-border;
+      margin-bottom: 22px;
     }
 
     #caption {
       .style(any; any) {
-        color: @black;
+        color: @red;
         border-color: @orange;
         border-width: 1px;
         border-style: solid;
         border-bottom: none;
         padding-left: .5em;
         caption-side: top;
+        font-size: 13px;
+        line-height: 17px;
       }
     }
     #header {
@@ -710,7 +743,7 @@
       color: @black;
       margin-top: 0.5em;
       margin-bottom: 0.5em;
-			
+
       // Remove quotes
       &::before,
       &::after {
@@ -728,11 +761,15 @@
     }
   }
   #figure {
+    .style(...) {
+    padding-top:1em;
+    }
     // Full width figure titles/captions clash with rounded feature borders
     // So, we must target figures only when placed inside notes and give some padding
     .style(any; any; note) {
       margin-bottom: .5em;
     }
+
     #title {
       .number(...) {
         color: @red;
@@ -743,6 +780,13 @@
     .style(any; any) {
     }
     .item(any; any; section) {
+    }
+   .style(any; any; problem; exercise) {
+      list-style-position: initial;
+      list-style-type: lower-latin;
+    }
+    .style(any; any; table) {
+      padding-left: 20px;
     }
   }
   #equation {
@@ -770,6 +814,9 @@
         border-bottom-color: @orange;
         border-bottom-width: 1px;
         border-bottom-style: solid;
+        margin-top: 0;
+        padding-top: 0;
+        line-height: 1em;
       }
     }
     .dt() {

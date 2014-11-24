@@ -109,14 +109,23 @@ span.emphasis-leading-indent strong { content: "\00a0" content(); }
  * Tables
  ******************************************************/
 
-.table table {
-   // No slot home for this in precalc yet
-  .table-caption.caption {
-    color: @black;
-    font-weight: normal !important; //override strong tag
-    font-family: @font-family-sans-serif;
-    font-size: 9pt;
-  }
+.table {
+  > table > caption + tbody > tr:first-child > td.tablecell {
+     border-top:1px solid @dark-blue;
+    }
+    &.column-header tbody td:first-child  {
+      #content>#table>#data>.style('header'; any);
+    }
+  table {
+    // No slot home for this in precalc yet
+    
+    .table-caption.caption {
+      color: @black;
+      font-weight: normal !important; //override strong tag
+      font-family: @font-family-sans-serif;
+      font-size: 9pt;
+    }
+  }  
 }
 
 /******************************************************

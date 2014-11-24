@@ -1028,12 +1028,12 @@ div.book > div.appendix .precalculus.try > .title:not(.labeled)::before {
   @bottom-right-corner {
   }
   @top-left {
-    content: string(cnx-header);
+    content: counter(page);
   }
   @top-center {
   }
   @top-right {
-    content: counter(page);
+    content: string(cnx-header);
   }
   @bottom-left {
     color: grey;
@@ -1068,12 +1068,12 @@ div.book > div.appendix .precalculus.try > .title:not(.labeled)::before {
   @bottom-right-corner {
   }
   @top-left {
-    content: counter(page);
+    content: string(cnx-header);
   }
   @top-center {
   }
   @top-right {
-    content: string(cnx-header);
+    content: counter(page);
   }
   @bottom-left {
   }
@@ -2130,6 +2130,7 @@ h4 sup {
 .note.media .itemizedlist > .listitem {
   color: #d7562c;
   font-weight: bold;
+  text-align: left;
 }
 .note.media .itemizedlist > .listitem .link.only-show-once {
   content: content();
@@ -2160,7 +2161,7 @@ h4 sup {
   font-weight: bold;
   float: left;
   padding-left: 1.5em;
-  padding-right: .3em;
+  padding-right: .8em;
 }
 .note.try .exercise {
   margin-top: 1.5em;
@@ -2183,12 +2184,15 @@ h4 sup {
   display: none;
 }
 .note.try .exercise .problem {
-  margin: 0 0 0 40px;
-  padding: 0;
+  font-size: 13px;
+  line-height: 16px;
+  margin-left: 20px;
 }
 .note.try .exercise .problem ol,
 .note.try .exercise .problem ul {
   margin-top: 1em;
+  margin: 0 0 0 40px;
+  padding: 0;
 }
 .note.try .exercise .solution {
   display: none;
@@ -2352,8 +2356,28 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::be
 /********************************************************************
  * Styling for Appendix
  ********************************************************************/
+div.book > div.appendix > div.titlepage > div > div h1.title {
+  font-size: 34pt;
+  font-weight: bold;
+  color: #528cbe;
+  padding: 0;
+  margin: 0;
+}
+div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-n {
+  color: #528cbe;
+  padding-right: 0;
+}
 div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "Appendix " counter(appendix, upper-latin);
+}
+div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t::before {
+  content: "| ";
+  color: black;
+}
+div.book > div.appendix > div.section > div.titlepage h2 {
+  color: #528cbe;
+  font-size: 17pt;
+  font-weight: bold;
 }
 /********************************************************************
  * Styling for Module Titles
@@ -2396,6 +2420,9 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   text-align: center;
   font-weight: bold;
   font-size: large;
+}
+.section > .titlepage .abstract .itemizedlist > ul {
+  margin: 0 40px;
 }
 .section > .titlepage .abstract p {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2531,6 +2558,9 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
 }
 .cnx-eoc.cnx-solutions p:nth-of-type(1) {
   margin-top: 1em;
+}
+.cnx-eoc .problem ol {
+  list-style-position: inside;
 }
 .cnx-eoc .problem::before {
   padding-right: .5em;
@@ -2929,6 +2959,7 @@ subfigure {
 }
 .glossary dl dt::after {
   content: " ";
+  float: right;
 }
 .glossary dl {
   margin-left: 0;
@@ -2938,6 +2969,11 @@ subfigure {
  * Example Elements Styling and Numbering
  * -------------------------
  */
+.chapter .example {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  margin: .75em 0;
+}
 .example > .title {
   background: #233a67;
   padding-top: .3em;
@@ -3212,6 +3248,21 @@ g text {
 }
 g line {
   stroke: currentColor !important;
+}
+div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
+  content: "\A";
+  white-space: pre;
+}
+.end-of-book-solutions .solution .cnx-svg {
+  vertical-align: 0 !important;
+}
+.glossary dl dt,
+.glossary dl dd {
+  margin-top: -5px;
+}
+.glossary dl dt:first-of-type,
+.glossary dl dd:first-of-type {
+  margin-top: 0;
 }
 /* -------------------------
  * Equations

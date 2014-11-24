@@ -109,9 +109,6 @@ div.book div.chapter > div.titlepage > div > div h1.title {
   }
 }
 
-.chapter > .module { margin: 1em 0; }
-
-
 /******************************************************
  * Learning Objectives/Chapter Objectives
  ******************************************************/
@@ -147,7 +144,11 @@ div.book div.chapter > div.titlepage > div > div h1.title {
   }
 }
 
-
+div.table:not(.labeled) > table > caption:not(.labeled)::before,
+div.table > table > caption > span.cnx-gentext-t,
+div.table > table > caption > span.cnx-gentext-n {
+  color: @black;
+}
 /********************************************************************
  * End of chapter customizations
  ********************************************************************/
@@ -174,17 +175,11 @@ div.book div.chapter > div.titlepage > div > div h1.title {
   &.critical-thinking {
     #part>#chapter-end>#critical-thinking>.style();
     > .title { #part>#chapter-end>#critical-thinking>#title>.style(); }
-    .section > .body > .exercise {
-      margin-bottom: 1em;
-    }
   }
 
   &.personal-application {
     #part>#chapter-end>#personal-application>.style();
     > .title { #part>#chapter-end>#personal-application>#title>.style(); }
-    .section > .body > .exercise {
-      margin-bottom: 1em;
-    }
   }
 }
 
@@ -234,6 +229,15 @@ div.colophon.end-of-book-solutions .chapter-area a.chapter * {
   font-weight: bold;
   margin: .5em 0em;
 }
+div.colophon.end-of-book-solutions {
+> .chapter-area h2.title a.chapter {
+      #part>#book-end>#end-of-book-solutions>#title>.style('chapter-area'; any);
+    }
+    > .chapter-area h2.title a.chapter span {
+      #part>#book-end>#end-of-book-solutions>#title>.style('chapter-area'; any);
+      display:inline;
+    }
+}
 
 div.colophon.end-of-book-solutions .chapter-area a {
    font-family: @font-family-serif;
@@ -248,6 +252,18 @@ div.colophon.end-of-book-solutions .chapter-area h2 {
 /********************************************************************
  * Generic Elements
  ********************************************************************/
+
+div.book > div.chapter .section{
+  &.module {
+      #part>#module>.style();
+      >.section:last-child {
+        margin-bottom: 0;
+      }
+    }
+    &.empty {
+      margin-bottom: 0;
+    }
+  }
 
 p,
 .section > p {
@@ -267,7 +283,8 @@ p,
 
 // glossterm/no-emphasis doesn't occur in precalc for non-bold terms.
 // Created first attempt at home here
-em.glossterm span{ display: none; }
+em.glossterm span { display: none; }
+em.glossterm span.emphasis { display: inline; } // Emphasized parts of key terms
 .glossary .glossterm {
     #content>#glossary>.glossterm(any);
 }
@@ -303,6 +320,14 @@ div.colophon.end-of-book-solutions {
       }
     }
   }
+}
+
+/******************************************************
+ * End of book Solutions sub-sections
+ ******************************************************/
+div.colophon.end-of-book-solutions .chapter-area {
+  div.review-questions { #part>#book-end>#end-of-book-solutions>.style('review-questions'); }
+  div.critical-thinking { #part>#book-end>#end-of-book-solutions>.style('critical-thinking'); }
 }
 
 

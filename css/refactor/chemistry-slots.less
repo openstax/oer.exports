@@ -198,7 +198,9 @@
         .style(...) {
           color: @dark-blue;
           font-size: 17pt;
-          .x-header-spacing();
+          //.x-header-spacing();
+          -webkit-column-span: all; /* Chrome, Safari, Opera */
+          column-span: all;
         }
       }
       .link(...) {
@@ -428,6 +430,7 @@
         text-align: center;
         vertical-align: initial;
       }
+
     }
     #data {
       .style(any; any) {
@@ -438,6 +441,14 @@
       }
       .style(any; preface) {
         padding: 5px;
+      }
+      // Some TDs act like TH
+      .style('header'; any) {
+        background-color: @medium-blue;
+        font-size: 9pt;
+        color: @white;
+        text-align: center;
+        vertical-align: initial;
       }
     }
   }
@@ -485,7 +496,7 @@
       }
     }
     .style(any; end-of-book-solutions; solution) {
-      margin-left:0;
+
     }
     .number('step-list'; any) {
       font-style: italic;
