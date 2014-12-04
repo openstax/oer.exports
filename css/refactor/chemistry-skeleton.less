@@ -84,10 +84,14 @@
 /******************************************************
  * Step lists
  ******************************************************/
-div.step-list {
-  ul { #content>#list>.style('step-list'; any); }
-  ul li { #content>#list>.item('step-list'; any); }
-  ul li::before { #content>#list>.number('step-list'; any); }
+div.stepwise {
+  ol { #content>#list>.style('step-list'; any); }
+  ol li {
+    #content>#list>.item('step-list'; any); 
+
+    p:first-of-type { display: inline; }
+  }
+  ol li::before { #content>#list>.number('step-list'; any); }
 }
 
 // Using this long selector to override the use of '*' in numbering base...
