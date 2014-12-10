@@ -794,6 +794,7 @@ div.book *.footnote {
   color: black;
   background: none;
   font-weight: normal;
+  footnote-style-position: inside;
   text-align: left;
   margin-top: 0em;
   margin-bottom: 0em;
@@ -1459,6 +1460,7 @@ div.section > div.titlepage div.abstract ul.itemizedlist > li {
   color: black;
   background: none;
   font-weight: normal;
+  footnote-style-position: inside;
   text-align: left;
   margin-top: 0em;
   margin-bottom: 0em;
@@ -1915,6 +1917,7 @@ p:nth-of-type(2),
   color: black;
   background: none;
   font-weight: normal;
+  footnote-style-position: inside;
   text-align: left;
   margin-top: 0em;
   margin-bottom: 0em;
@@ -2004,6 +2007,7 @@ p:nth-of-type(2),
   color: black;
   background: none;
   font-weight: normal;
+  footnote-style-position: inside;
   text-align: left;
   margin-top: 0em;
   margin-bottom: 0em;
@@ -2093,6 +2097,7 @@ p:nth-of-type(2),
   color: black;
   background: none;
   font-weight: normal;
+  footnote-style-position: inside;
   text-align: left;
   margin-top: 0em;
   margin-bottom: 0em;
@@ -2182,6 +2187,7 @@ p:nth-of-type(2),
   color: black;
   background: none;
   font-weight: normal;
+  footnote-style-position: inside;
   text-align: left;
   margin-top: 0em;
   margin-bottom: 0em;
@@ -4203,12 +4209,9 @@ g line {
 }
 .chapter .note.link-to-learning .mediaobject {
   float: left;
-  width: 1.25in;
 }
 .chapter .note.link-to-learning .mediaobject img {
   margin: 0;
-  width: 1.25in;
-  height: 1.25in;
 }
 .chapter .note.link-to-learning::before {
   text-transform: uppercase;
@@ -4248,13 +4251,10 @@ g line {
 }
 .chapter .note.link-to-learning .mediaobject {
   float: left;
-  width: 97px;
   padding-right: .8em;
 }
 .chapter .note.link-to-learning .mediaobject img {
   margin: 0;
-  width: 97px;
-  height: 62px;
 }
 .chapter .note.link-to-learning > .body {
   padding: 0px 10px;
@@ -4918,12 +4918,9 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
 }
 .chapter .note.link-to-learning .mediaobject {
   float: left;
-  width: 1.25in;
 }
 .chapter .note.link-to-learning .mediaobject img {
   margin: 0;
-  width: 1.25in;
-  height: 1.25in;
 }
 .chapter .note.link-to-learning::before {
   text-transform: uppercase;
@@ -4963,13 +4960,10 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
 }
 .chapter .note.link-to-learning .mediaobject {
   float: left;
-  width: 97px;
   padding-right: .8em;
 }
 .chapter .note.link-to-learning .mediaobject img {
   margin: 0;
-  width: 97px;
-  height: 62px;
 }
 .chapter .note.link-to-learning p {
   padding-left: 107px;
@@ -5254,4 +5248,29 @@ div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
 }
 .end-of-book-solutions .solution .cnx-svg {
   vertical-align: 0 !important;
+}
+/* -------------------------
+ * Equations
+ * -------------------------
+ */
+div.book div.chapter > div.section div.equation.unnumbered,
+div.book div.chapter > div.section div.equation:not(.labeled).unnumbered,
+div.book div.chapter > div.section div.example div.exercise div.equation.unnumbered,
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled).unnumbered {
+  counter-increment: none !important;
+}
+div.book div.chapter > div.section div.equation.unnumbered > *:last-child::after,
+div.book div.chapter > div.section div.equation.unnumbered > *:last-child::before {
+  display: none !important;
+}
+/* -------------------------
+ * Tables
+ * -------------------------
+ */
+div.book div.chapter .table.unnumbered,
+div.book div.chapter .table:not(labeled).unnumbered {
+  counter-increment: none !important;
+}
+div.book div.chapter div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before {
+  display: none !important;
 }
