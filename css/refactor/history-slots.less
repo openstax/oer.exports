@@ -214,6 +214,43 @@
 
   // End of Book Customizations
   #book-end {
+    #appendix {
+      #title {
+          .style() {
+            color: @dark-blue;
+            padding: 0 0 10px 0;
+            margin-top: -25px;
+
+          }
+          .number() {
+            color: @red;
+            padding-top: 0;
+            margin-top: 0;
+            padding-right: 0;
+            font-size: 18px;
+            line-height: 18px;
+            display: inline;
+            line-height: 25px;
+          }
+          .text() {
+            text-transform: none;
+            font-family:  @font-family-serif;
+            padding-left: 0;
+            font-size: 37px;
+            line-height: 27px;
+            display: block;
+          }
+          .divider() {
+            content: "";
+          }
+          .label() {
+            color: @red;
+            display: inline;
+            font-size: 18px;
+            line-height: 25px;
+          }
+        }
+     }
     // End of Book solutions
     #end-of-book-solutions {
       .style(...) {
@@ -362,7 +399,7 @@
         border-bottom: 3px solid @orange;
         display: block;
         height: 30px;
-        padding-top: .3em;
+        padding-top: .6em;
         content: @cnx-string-click-and-explore;
         background: @dark-blue;
         color: @yellow-50;
@@ -373,9 +410,8 @@
   }
   #blockquote {
     .style(...) {
-      font-family: 10pt/13pt @font-family;
+      font: 10pt/13pt @font-family-serif;
       color: black;
-      font-size: inherit;
       margin-top: inherit;
       margin-bottom: inherit;
       line-height: inherit;
@@ -395,6 +431,9 @@
 */
   }
   #section {
+    .style(any; appendix) {
+      margin-bottom: 22px;
+    }
     #abstract { //learning objectives
       .style(...) {
         border: none;
@@ -417,6 +456,18 @@
       .style(any; preface; section) {
         color: @dark-blue;
         text-transform: none;
+        font-size: 11pt;
+        line-height: 13pt;
+      }
+       .style(any; appendix) {
+        color: @dark-blue;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+      .number(any; appendix) {
+        display: none;
+      }
+      .text(any; appendix) {
         font-size: 11pt;
         line-height: 13pt;
       }
@@ -443,6 +494,10 @@
     .style(any; any; learning-objectives) {
       padding-bottom:0px; //Remove extra padding from last-child element on list items in learning objectives
     }
+    .style(any; any; problem; exercise) {
+      list-style-type: upper-alpha;
+    }
+
   }
    // Parent level link styling
   #link {
