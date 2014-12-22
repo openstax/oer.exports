@@ -44,7 +44,11 @@ h2, h3, h4 {
   &.try {
     @context: feature-try;
     #content>#note>.style(try);
-
+    div.itemizedlist, div.orderedlist {
+      ul, ol {
+        #content>#list>.style(any; try-it);
+      }
+   }
     > .title {
       #content>#note>#title>.style(@kind; @part; @context);
     }
@@ -54,7 +58,6 @@ h2, h3, h4 {
       > .title { #content>#exercise>#title>.style(@kind; @part; @context); }
 
       .problem {
-        #content>#list>.style(any; try-it);
         #content>#problem>.style(@kind; @part; @context; exercise);
       }
       .solution {
@@ -449,13 +452,10 @@ div.colophon.end-of-book-solutions {
         div, p { display: inline; }
         div.mediaobject {
           display: block;
-          #content>#image>.style(any; book-end; solution);
+         #content>#image>.style(any; book-end; solution);
         }
         #content>#solution>#body>.style(@kind; book-end);
       }
-
-      div.table table caption { #content>#table>#caption>.style(any; book-end; solution); }
-
     }
   }
 }
