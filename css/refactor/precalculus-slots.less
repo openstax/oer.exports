@@ -331,6 +331,9 @@
           content: "Section Exercises";
         }
       }
+      #chapter-area {
+        .style() { font-family: @font-family-serif; }
+      }
       #solution {
         .style(...) {
           // The Answer Key for the PreCalculus text was converted to be in (1) one column
@@ -508,15 +511,14 @@
         color: @orange;
         caption-side:bottom;
       }
-      .style(any; any; problem; exercise; example) {
-        display: block;
-      }
-      .style(any; any; solution; exercise; example) {
-        display: block;
-      }
-      .style(any; any; commentary; exercise; example) {
-        display: block;
-      }
+      .style(any; any; problem; exercise; example) { display: block; }
+      .style(any; any; solution; exercise; example) { display: block; }
+      .style(any; any; commentary; exercise; example) { display: block; }
+
+      // Do not display numbering for tables in the answer key
+      .style(any; book-end; solution) { display: none; }
+
+      .number(any; any) {}
     }
     #head {
       .style(any; any) {
@@ -741,6 +743,11 @@
     .style(any; any) {
       .x-list-indent();
     }
+    .style(any; try-it) {
+      .x-list-indent();
+      margin-top: 1em;
+      padding-left: 10px;
+    }
     .style(any; any; solution; exercise; example) {
       // Inset lists below solution headers
      .x-list-indent();
@@ -750,6 +757,7 @@
     }
     .style(any; any; table) {
       margin: 0;
+      padding-left:  10px;
     }
     .style('no-mark'; any) {
       list-style-type: none;
@@ -848,11 +856,6 @@
      font-size:13px;
      line-height:16px;
      margin-left:20px;
-
-      ol,ul {
-        margin-top: 1em;
-         .x-list-indent();
-      }
     }
     .number(@kind; chapter-end; ...) {
       padding-right: .5em;
