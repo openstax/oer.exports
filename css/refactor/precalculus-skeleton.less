@@ -44,7 +44,11 @@ h2, h3, h4 {
   &.try {
     @context: feature-try;
     #content>#note>.style(try);
-
+    div.itemizedlist, div.orderedlist {
+      ul, ol {
+        #content>#list>.style(any; try-it);
+      }
+   }
     > .title {
       #content>#note>#title>.style(@kind; @part; @context);
     }
@@ -403,7 +407,7 @@ div.colophon.end-of-book-solutions {
   }
 
   .chapter-area {
-    font-family: @font-family-serif;
+    #part>#book-end>#end-of-book-solutions>#chapter-area>.style();
     a.solution {
       color: black;
     }
@@ -452,6 +456,7 @@ div.colophon.end-of-book-solutions {
         }
         #content>#solution>#body>.style(@kind; book-end);
       }
+      div.table table caption { #content>#table>#caption>.style(any; book-end; solution); }
     }
   }
 }
@@ -816,6 +821,10 @@ div.table {
 
     caption {
       #content>#table>#caption>.style(any; any);
+
+      &::before {
+        #content>#table>#caption>.number(any; any);
+      }
     }
 
     thead { #content>#table>#head>.style(any; any); }

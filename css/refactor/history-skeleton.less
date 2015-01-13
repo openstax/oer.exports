@@ -3,9 +3,6 @@
 // See LICENSE.txt for details.
 
 .chapter .note {
-  blockquote {
-    #content>#note>#blockquote>.style();
-  }
   &.my-story {
     #content>#note>.style('my-story'; chapter);
   }
@@ -25,6 +22,8 @@
       }
   }
 }
+
+
 .section.module > .titlepage .abstract ul.itemizedlist > .listitem:last-child {
   #content>#list>.style(any; any; learning-objectives);
 }
@@ -39,9 +38,10 @@
       #part>#chapter-end>#summary>#title>.subtitle();
     }
 
-    p:nth-of-type(1) {
-      #part>#chapter-end>#summary>.style();
+    > .section:not(.empty) {
+      #content>#section>.style(any; chapter-end; summary);
     }
+
   }
   &.review-questions {
     > .title, > .title span {
