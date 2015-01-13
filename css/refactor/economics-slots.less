@@ -279,6 +279,7 @@
       background-color: @white;
       padding: 0;
       margin: 0;
+
       border-bottom: none;
     }
 
@@ -369,7 +370,6 @@
         border-bottom: none;
         text-transform: none;
         font: bold 13pt/13pt @font-family-sans-serif;
-        #utils>#pb>.before(auto);
       }
       .number(any; appendix) {
         display: none;
@@ -385,6 +385,42 @@
     #title {
       .number(...) {
         color: @dark-blue;
+      }
+    }
+  }
+  #glossary {
+    .style(...) {
+      // Don't show the "Chapter X Review" header from PreCalc
+      &::before {
+        display: none;
+      }
+    }
+    #title {
+      .style(...) {
+        /* Change "Glossary" to "Key Terms" */
+
+        // Temp changes in place until we horizontally refactor glossary across books.
+        color: @dark-blue !important;
+        font-size: 12pt !important;
+        text-transform: uppercase !important;
+        border:none;
+        margin-top: 0;
+        padding-top: 0;
+      }
+    }
+    .dt() {
+      // prevent container from allowing meaning to wrap appropriately
+      height: 15px;
+    }
+    .dl() {
+      margin: 1em 0;
+      text-align: left;
+    }
+    .glossterm(any) {
+      font: normal normal 700 10pt/13pt @font-family-serif;
+
+      &.no-emphasis {
+        font-weight: 400;
       }
     }
   }
