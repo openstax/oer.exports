@@ -1,0 +1,128 @@
+@import url('../ccap-tables.less');
+@import url('utils.less');
+@import url('page-slots.less');
+@import url('ccap-base-slots.less');
+@import url('content-slots.less');
+@import url('precalculus-slots.less');
+@import url('calculus-slots.less');
+
+
+
+@book-title: calculus;
+
+// color palette for pre-calculus
+@dark-blue:     #233A67;
+@medium-blue:   #528CBE;
+@light-blue:    #DBE8F2;
+@light-green:   #D3ECED;
+@light-orange:  #EFD8B0;
+@orange:        #D7562C;
+@soft-orange:   #F1DDB6;
+
+@white:       #FFF;
+@black:       #000;
+
+@table-border: 1pt solid @black;
+@page-width: 6.5in;
+
+// The base CCAP books use sans fonts but the statistics book uses serif fonts.
+@font-family-serif: Liberation Serif, serif, @stix-fonts;
+
+// Finished printed size of the QR code is dependent on: 1-distance between qr code and scanning device
+// 2-size of dots in the code(amount of data inputed into the code, the smaller the dots become)
+// For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
+@qr: 1.25in;
+
+// Images in Pre-Calculus are 150DPI
+html {
+  prince-image-resolution: 150dpi;
+}
+
+@import url('../ccap-numbering.less');
+@import url('../ccap-precalculus-numbering.less');
+
+@import url('page-skeleton.less');
+@import url('ccap-base-skeleton.less');
+@import url('content-skeleton.less');
+@import url('precalculus-skeleton.less');
+@import url('calculus-skeleton.less');
+@import url('mathml-svg.less');
+
+// Reduce spacing in the EOC glossary.
+.glossary {
+  dl {
+    dt, dd {
+      margin-top: -5px;
+
+      &:first-of-type {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+// These are specific to precalculus and different in other books.
+// They are located here to remove the "Cascading" rules.
+#content {
+  #figure {
+    #title {
+      .style(...) { font-family: @font-family-serif; }
+      .number(...) { font-family: @font-family; }
+    }
+  }
+}
+
+// Ad-hoc numbering changes. Removes numbering for various pieces of content
+// which use a .unnumbered class.
+@import url('unnumbered-content.less');
+
+
+// Equation numbering updates. This changes the numbering to use
+// ::before rather than ::after in order to avoid princexml bugs.
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled),
+div.book div.chapter > div.section div.example div.exercise div.equation, {
+  counter-increment: equation !important; // Override !important from numbering-skeleton.
+}
+
+// Turn on ::before numbers
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled) span.inlinemediaobject::before,
+div.book div.chapter > div.section div.example div.exercise div.equation span.inlinemediaobject::before,
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled) div.mediaobject::before,
+div.book div.chapter > div.section div.example div.exercise div.equation div.mediaobject::before {
+  display: block;
+}
+div.book div.chapter > div.section div.equation > *:last-child::before {
+  content: "(" counter(chapter, decimal) "." counter(equation) ")";
+  float: right;
+
+  color: @orange;
+  font-weight: bold;
+}
+
+// Turn off ::after numbers
+div.book div.chapter > div.section div.equation > *:last-child::after {
+  display: none;
+}
+
+// Some end of chapter parts, such as review exercises, have an extra level of <section>
+div.book > div.chapter > div.cnx-eoc > div.section > div.body > div.section > div.exercise:not(.labeled) > div.body > div.problem::before {
+  content: counter(exercise) ".";
+  font-weight: bold;
+}
+div.book > div.chapter > div.cnx-eoc > div.section > div.body > div.section > div.exercise:not(.labeled) > div.title {
+  display: none;
+}
+
+// Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
+// originally defined in ccap-numbering.less
+// The hierarchy is copied from ccap-numbering so the selectors (and priority for which to apply) are the same
+.x-duplicate-hierarchy() {
+  > div.cnx-eoc { counter-reset: /*exercise*/ eoc-section -1; }
+}
+
+
+div.book, div.book > div.part {
+  > div.preface  { .x-duplicate-hierarchy(); }
+  > div.chapter  { .x-duplicate-hierarchy(); }
+  > div.appendix { .x-duplicate-hierarchy(); }
+}
