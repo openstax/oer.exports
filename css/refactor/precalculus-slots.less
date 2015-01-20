@@ -248,7 +248,7 @@
       #title {
         .style(...) {
           content: "Chapter " counter(chapter, decimal) " Review Exercises";
-          column-span: all;  // staging bug-fix.
+          column-span: all;
           margin-top: 0;
         }
       }
@@ -260,7 +260,7 @@
       #title {
         .style(...) {
           content: "Chapter " counter(chapter, decimal) " Practice Test";
-          column-span: all;  // staging bug-fix.
+          column-span: all;
         }
       }
     }
@@ -631,6 +631,7 @@
       font-size: 9pt;
       padding-bottom: 1em;
       text-align: left;
+      #utils>#cb>.inside(avoid);
     }
     .style('splash'; chapter){}
     .style(any; any; problem; exercise; example) {
@@ -654,7 +655,8 @@
     #title {
       .style(...) {
         display: inline;
-        text-align:center;
+        text-align: center;
+        column-break-before: avoid;
       }
       .style(any; any; feature-qa) {
         font-style: normal;
@@ -688,6 +690,10 @@
     .style(any; book-end; solution) {
       text-align: center;
     }
+    .style(any; book-end; solutions) {
+    }
+    .style(any; chapter) {
+    }
   }
   #section {
     .style(any; any) {}
@@ -695,7 +701,7 @@
     .style(section-exercises; @part; ...) {
       #utils>#pb>.before(always);
       #utils>#pb>.after(always);
-      //counter-reset: exercise;
+      .x-column-count(1);
     }
     .style(any; appendix) {}
     #title {
@@ -736,6 +742,7 @@
         font-weight: bold;
         display:block;
         padding-bottom: 10px;
+        column-span: all;
       }
     }
   }
