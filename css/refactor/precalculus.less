@@ -77,9 +77,24 @@ html {
       }
     }
     #title {
-      .style() {
+      .figure-caption() {
         display: table-caption;
         text-align: left;
+      }
+      .style() {
+        .figure-caption();
+      }
+      .style(any; any; feature-qa) {
+        .figure-caption();
+      }
+      .number(any; any; solution; exercise; example) {
+        .figure-caption();
+      }
+      .number(any; any; problem; exercise; example) {
+        .figure-caption();
+      }
+      .number(any; any; commentary; exercise; example) {
+        .figure-caption();
       }
       .number() {
         content: "Figure " counter(chapter, decimal) "." counter(figure) " ";
@@ -116,6 +131,15 @@ html {
 div.book div.chapter > div.section div.example div.exercise div.figure .caption::before {
   display: inline;
 }
+
+// Figures in the answer key
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.body {
+  div.figure { display: table; }
+  div.figure > .title { display: none; }
+}
+
+
+
 
 
 // Reduce spacing in the EOC glossary.
