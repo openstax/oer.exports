@@ -85,3 +85,20 @@ div.book > div.part {
     color: @black;
   }
 }
+
+div.book > div.chapter .section, div.book > div.appendix {
+  &.module {
+      #part>#module>.style();
+      >.section:last-child {
+        margin-bottom: 0;
+      }
+      // this is a temporary fix to style sections that do not follow another  section- this applies to first sections in modules as well as h4 level sections
+      p + .section  {
+        margin-top: 0px;
+        margin-bottom: 0px;
+      }
+    }
+    &.empty {
+      margin-bottom: 0;
+    }
+}
