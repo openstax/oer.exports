@@ -30,8 +30,38 @@ div.book div.chapter > div.section div.example div.exercise .commentary {
     }
 }
   
-//New brown note for Calculus
+//New Checkpoint and orange note for Calculus
 .note {
+  &.project {
+     @context: student-project;
+    #content>#note>.style(@context);
+
+    > .title { #content>#note>#title>.style(@kind; @part; @context); }
+  }
+  &.checkpoint {
+    @context: feature-try;
+    #content>#note>.style(checkpoint);
+    div.itemizedlist, div.orderedlist {
+      ul, ol {
+        #content>#list>.style(any; try-it);
+      }
+   }
+    > .title {
+      #content>#note>#title>.style(@kind; @part; @context);
+    }
+
+    .exercise {
+      #content>#exercise>.style(@kind; @part; @context);
+      > .title { #content>#exercise>#title>.style(@kind; @part; @context); }
+
+      .problem {
+        #content>#problem>.style(@kind; @part; @context; exercise);
+      }
+      .solution {
+        #content>#solution>.style(@kind; @part; @context; exercise);
+      }
+    }
+  }
   &.orange:not(.@{book-title}) {
     #content>#note>.style(non-feature-orange);
     }
