@@ -67,9 +67,14 @@ html {
   }
 //  - Figures render with captions similar to tables.
   #figure {
-    .style() {
+    .style(...) {
       display: table;
       caption-side: bottom;
+      padding-bottom: 0;
+      //#utils>#pb>.inside(auto);
+    }
+    .style(any; chapter-end; exercise) {
+      display: table;
     }
     #body {
       .style(any; any) {
@@ -80,20 +85,12 @@ html {
       .figure-caption() {
         display: table-caption;
         text-align: left;
+        #utils>#pb>.before(avoid);
       }
-      .style() {
+      .style(...) {
         .figure-caption();
       }
       .style(any; any; feature-qa) {
-        .figure-caption();
-      }
-      .number(any; any; solution; exercise; example) {
-        .figure-caption();
-      }
-      .number(any; any; problem; exercise; example) {
-        .figure-caption();
-      }
-      .number(any; any; commentary; exercise; example) {
         .figure-caption();
       }
       .number() {
