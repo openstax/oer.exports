@@ -34,6 +34,79 @@ html {
   prince-image-resolution: 150dpi;
 }
 
+// Specific to mathematics texts
+//  - End of chapter review exercises and practice tests
+//    are two columns.
+#part {
+  #chapter-end {
+    #review-exercises {
+      .style(...) {
+        .x-column-count(2);
+      }
+    }
+    #practice-test {
+      .style(...) {
+        .x-column-count(2);
+      }
+    }
+  }
+}
+#content {
+//  - Non-figure images are centered.
+.x-center-image() {
+    display: block;
+    margin: auto;
+  }
+  #image {
+    .style(any; chapter) {
+      .x-center-image();
+    }
+    .style(any; book-end; solutions) {
+      .x-center-image();
+    }
+  }
+//  - Figures render with captions similar to tables.
+  #figure {
+    .style(...) {
+      display: table;
+      caption-side: bottom;
+      padding-bottom: 0;
+      //#utils>#pb>.inside(auto);
+    }
+    .style(any; chapter-end; exercise) {
+      display: table;
+    }
+    #body {
+      .style(any; any) {
+        min-width: 312px;
+      }
+    }
+    #title {
+      .figure-caption() {
+        display: table-caption;
+        text-align: left;
+        #utils>#pb>.before(avoid);
+      }
+      .style(...) {
+        .figure-caption();
+      }
+      .style(any; any; feature-qa) {
+        .figure-caption();
+      }
+      .number() {
+        content: "Figure " counter(chapter, decimal) "." counter(figure) " ";
+        display: inline;
+      }
+    }
+  }
+//  - Section exercises are two columns
+  #section {
+    .style(section-exercises; @part; ...) {
+      .x-column-count(2);
+    }
+  }
+}
+
 @import url('../ccap-numbering.less');
 @import url('../ccap-precalculus-numbering.less');
 
@@ -42,6 +115,29 @@ html {
 @import url('content-skeleton.less');
 @import url('precalculus-skeleton.less');
 @import url('mathml-svg.less');
+
+
+// We are moving figure numbering to a ::before
+// on the caption element. Since we are overriding
+// slots here this goes after the import of skeletons.
+// This is only done because we want to switch the element
+// that figure numbers are attached to only in precalculus.
+.figure > .title { display: none; }
+.cnx-eoc .exercise div.title { display: none; }
+// ::before elements are turned off in base... *::before -_-
+div.book div.chapter > div.section div.example div.exercise div.figure .caption::before {
+  display: inline;
+}
+
+// Figures in the answer key
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.body {
+  div.figure { display: table; }
+  div.figure > .title { display: none; }
+}
+
+
+
+
 
 // Reduce spacing in the EOC glossary.
 .glossary {
@@ -120,4 +216,10 @@ div.book, div.book > div.part {
   > div.preface  { .x-duplicate-hierarchy(); }
   > div.chapter  { .x-duplicate-hierarchy(); }
   > div.appendix { .x-duplicate-hierarchy(); }
+}
+
+.section.section-exercises .section .exercise {
+  .problem, .solution {
+    img { margin: 1em 0; }
+  }
 }

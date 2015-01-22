@@ -689,7 +689,9 @@ Combination of formal.object and formal.object.heading -->
 					<xsl:with-param name="allow-anchors" select="1"/>
 				</xsl:apply-templates>
 			</div>
-			<xsl:apply-templates select="$c/d:caption"/>
+      <div class="caption">
+			  <xsl:apply-templates select="$c/d:caption"/>
+      </div>
 		</xsl:if>
   </div>
 </xsl:template>
@@ -728,9 +730,7 @@ Combination of formal.object and formal.object.heading -->
 </xsl:template>
 
 <xsl:template match="d:figure/d:caption">
-  <div class="caption">
-    <xsl:apply-templates/>
-  </div>
+  <xsl:apply-templates/>
 </xsl:template>
 
 <xsl:template match="db:note">

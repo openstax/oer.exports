@@ -2,9 +2,10 @@
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
 
-// Page Breaking Debugging Macro for CCAP texts
+// Page/Column Breaking Debugging Macro for CCAP texts
 
 @DEBUG_PB: 0;
+@DEBUG_CB: 0;
 
 // # Visual Page Breaks (debugging)
 
@@ -27,9 +28,8 @@
 @pb-color-light-always: #99f;
 
 #pb {
-
-  // Note: Prefix .pb-debug() because LESS will "unlock" nested mixins and we do not want conflicts
-
+  // Note: Prefix .pb-debug() because LESS will "unlock" nested
+  // mixins and we do not want conflicts
   .inside-x(@value, @color) {
     page-break-inside: @value;
     // Only put in the DEBUG rule when DEBUG is ON
@@ -75,4 +75,39 @@
   .after(left)     { .after-x(left,     @pb-color-always); }
   .after(right)    { .after-x(right,    @pb-color-always); }
 
+}
+
+#cb {
+  .inside-x(@value, @color) {
+    page-break-inside: @value; // Column breaking doubles up with
+                               // page breaking... unfortunately.
+    .cb-debug(@color) when (@DEBUG_CB > 0) {
+      background-color: @color !important;
+    }
+    .cb-debug(@color);
+  }
+  .before-x(@value, @color) {
+    column-break-before: @value;
+    // Only put in the DEBUG rule when DEBUG_CB is ON
+    .cb-debug(@color) when (@DEBUG_CB > 0) {
+      border-left: 0.9px dotted @color !important;
+    }
+    .cb-debug(@color);
+  }
+  .after-x(@value, @color) {
+    column-break-after: @value;
+    // Only put in the DEBUG rule when DEBUG_CB is ON
+    .cb-debug(@color) when (@DEBUG_CB > 0) {
+      border-right: 0.9px dotted @color !important;
+    }
+    .cb-debug(@color);
+  }
+
+  .before(auto)    { .before-x(auto,    @pb-color-auto); }
+  .before(always)  { .before-x(always,  @pb-color-always); }
+
+  .after(auto)     { .after-x(auto,     @pb-color-auto); }
+  .after(always)   { .after-x(always,   @pb-color-always); }
+
+  .inside(avoid)   { .inside-x(avoid,   @pb-color-light-avoid); }
 }
