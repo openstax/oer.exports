@@ -2,9 +2,6 @@
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
 
-@cnx-string-key-concepts-and-summary: "Key Concepts and Summary"; 
-
-
 .x-section-title-font() {
   color: @dark-blue; 
   font-size: 17pt;
@@ -14,7 +11,7 @@
   #toc {
     #title {
       .style(...) {
-        color: @blue;
+        color: @dark-blue;
         border-bottom-color: @dark-blue;
         font-weight: normal;
         font-size: large;
@@ -117,13 +114,15 @@
   }
   #chapter-end {
     .style(...){
-      .x-column-count(1);
+      .x-column-count(2);
+      column-fill: balance;
+      margin-bottom: 20px;
     }
     #section{
       #title{
         .style(...){
           a{
-            display: none;
+            display: inline;
           }
         }
       }
@@ -131,20 +130,23 @@
     #summary{
       #title{
         .style(...){
-          content: @cnx-string-key-concepts-and-summary ;         
+          content: @cnx-string-summary;
+          text-transform: capitalize;         
         }
         .link(...){
           display:inline;
-          color: @dark-blue;
+          color: @black;
         }
       }
     }
     #title {
       .style(...) {
+        -webkit-column-span: all; 
+        column-span: all;
         color: @dark-blue;
         font: normal normal 700 13pt/1em @font-family-sans-serif;
         border-bottom: none;
-        text-transform: uppercase;
+        text-transform: capitalize;
         span{
           font-size: 18px;
         }
@@ -152,7 +154,7 @@
     }
     #critical-thinking{
       .style(){
-        .x-column-count(2); 
+        .x-column-count(1); 
         column-fill: balance;
         text-align: left;
         margin-bottom: 20px;
@@ -311,7 +313,7 @@
       .x-feature(@black, @gray, bring, 0.48in);
     }
     .style('clear-it-up'; chapter) {
-      .x-feature(@black, @gray, clear, 0.53in);
+      font-weight: 500;
     }
     .style('work-it-out'; chapter) {
       .x-feature(@black, @gray, work, 0.38in);
@@ -329,7 +331,7 @@
     }
 
     #title {
-      .style('bring-it-home'; chapter) {
+      .style() {
         font-weight: bold;
         padding: 0px .5em;
         margin-top: 0.5em;
