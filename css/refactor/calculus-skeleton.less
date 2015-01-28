@@ -29,8 +29,16 @@ div.book div.chapter > div.section div.example div.exercise .commentary {
       text-align: center;
     }
 }
-  
-//New Checkpoint and orange note for Calculus
+div.book div.chapter {
+  counter-reset: theorem;
+  div.section div.theorem:not(.labeled) {
+    counter-increment: theorem;
+    > .title > span:before {
+      content: "Theorem " counter(chapter) "." counter(theorem) ": ";
+    }
+  }  
+}
+//New Checkpoint and Problem Solving notes feature for Calculus
 .note {
   &.project {
      @context: student-project;
@@ -62,7 +70,13 @@ div.book div.chapter > div.section div.example div.exercise .commentary {
       }
     }
   }
-  &.orange:not(.@{book-title}) {
-    #content>#note>.style(non-feature-orange);
+  &.definition {
+     @context: definition;
+    > .title:before { #content>#note>#title>.style(@kind; @part; @context); }
+    > .title span {display:none;}
+
+  }
+  &.problem-solving:not(.@{book-title}) {
+    #content>#note>.style(non-feature-problem-solving);
     }
 }

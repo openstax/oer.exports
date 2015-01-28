@@ -3293,6 +3293,15 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .bo
 div.book div.chapter > div.section div.example div.exercise .commentary .figure .body {
   text-align: center;
 }
+div.book div.chapter {
+  counter-reset: theorem;
+}
+div.book div.chapter div.section div.theorem:not(.labeled) {
+  counter-increment: theorem;
+}
+div.book div.chapter div.section div.theorem:not(.labeled) > .title > span:before {
+  content: "Theorem " counter(chapter) "." counter(theorem) ": ";
+}
 .note.project {
   padding-left: 1em;
   padding-right: 1em;
@@ -3400,7 +3409,16 @@ div.book div.chapter > div.section div.example div.exercise .commentary .figure 
 .note.checkpoint .exercise .solution {
   display: none;
 }
-.note.orange:not(.calculus) {
+.note.definition > .title:before {
+  margin-top: 0.5em;
+  margin-top: 0em;
+  content: "Definition: ";
+  display: block;
+}
+.note.definition > .title span {
+  display: none;
+}
+.note.problem-solving:not(.calculus) {
   padding-left: 1em;
   padding-right: 1em;
   padding-top: 0.2em;
