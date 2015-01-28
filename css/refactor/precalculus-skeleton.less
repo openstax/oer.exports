@@ -594,12 +594,12 @@ img, figure, subfigure  { margin: 1em; }
 
   // 3/4 size art
   &.medium {
-    width: @figure-width-medium;
+    //width: @figure-width-medium;
   }
 
   // 1/2 size art
   &.small {
-    width: @figure-width-small;
+    //width: @figure-width-small;
   }
 
   > .body {
@@ -611,6 +611,11 @@ img, figure, subfigure  { margin: 1em; }
   }
 
   > .caption {
+    &::before {
+      display: none; // This is overridden in precalculus.less
+                     // it exists for derived titles.
+      #content>#figure>#title>.number(); // "Figure x.x..."
+    }
     #content>#figure>#title>.style();
   }
 
@@ -910,6 +915,13 @@ div.itemizedlist, div.orderedlist {
   }
 }
 
+
+/* -------------------------
+ * Images in chapters
+ * -------------------------
+ */
+ .chapter .mediaobject img { #content>#image>.style(any; chapter); }
+ .end-of-book-solutions .mediaobject img { #content>#image>.style(any; book-end; solutions); }
 
 
 /********************************************************************
