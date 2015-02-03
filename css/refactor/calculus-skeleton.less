@@ -74,8 +74,18 @@ div.book div.chapter {
       }
     }
   }
-  &.media.calculus {
+  &.media-2 {
+    @context: feature-media;
      #content>#note>.style(media; calculus);
+     
+     .itemizedlist > .listitem {
+      #content>#list>.item(@kind, @part, @context);
+    }
+
+    // Supress the extra url generated from base that is wrapped with parentheses
+    .itemizedlist > .listitem .link.only-show-once {
+      content: content();
+    }
   }
   &.definition {
      @context: definition;
