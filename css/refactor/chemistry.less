@@ -58,10 +58,10 @@ html {
 @table-border: none;
 
 // Chemistry static strings
-@cnx-string-how-sciences-interconnect: "how sciences interconnect";
-@cnx-string-chemistry-in-everyday-life: "chemistry in everyday life";
-@cnx-string-portrait-of-a-chemist: "portrait of a chemist";
-@cnx-string-link-to-learning: "link to learning"; // Used in psychology also - unchanged
+@cnx-string-how-sciences-interconnect: "How Sciences Interconnect";
+@cnx-string-chemistry-in-everyday-life: "Chemistry in Everyday Life";
+@cnx-string-portrait-of-a-chemist: "Portrait of a Chemist";
+@cnx-string-link-to-learning: "Link to Learning"; // Used in psychology also - unchanged
 
 // Chemistry End of chapter/book strings
 @cnx-string-key-equations: "Key Equations";
@@ -80,11 +80,24 @@ html {
 @cnx-string-personal-application-questions: "Personal Application Questions";
 
 
-// Enable page breaking inside tables.
 #content {
+  // Enable page breaking inside tables.
   #table {
     .style(...) {
       #utils>#pb>.inside(auto);
+    }
+  }
+  //  - Non-figure images are centered.
+  .x-center-image() {
+    display: block;
+    margin: auto;
+  }
+  #image {
+    .style(any; chapter) {
+      .x-center-image();
+    }
+    .style(any; book-end; solutions) {
+      .x-center-image();
     }
   }
 }
@@ -97,7 +110,6 @@ html {
 @import url('precalculus-skeleton.less');
 @import url('psychology-skeleton.less');
 @import url('chemistry-skeleton.less');
-@import url('mathml-svg.less');
 
 // Ad-hoc numbering changes. Removes numbering for various pieces of content
 // which use a .unnumbered class.
