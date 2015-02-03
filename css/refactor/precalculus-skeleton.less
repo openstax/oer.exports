@@ -10,6 +10,10 @@ h2, h3, h4 {
 @kind: default;
 @part: chapter;
 @context: default;
+div[class=note] {
+  #content>#note>.style(non-feature);
+  > .title { #content>#note>#title>.style(non-feature); }
+}
 .note {
   &.howto {
     #content>#note>.style(howto);
@@ -64,10 +68,6 @@ h2, h3, h4 {
         #content>#solution>.style(@kind; @part; @context; exercise);
       }
     }
-  }
-  &:not(.@{book-title}) {
-    #content>#note>.style(non-feature);
-    > .title { #content>#note>#title>.style(non-feature); }
   }
 }
 

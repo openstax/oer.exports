@@ -73,6 +73,9 @@ td.entrytbl > table {
 /********************************************************************
  * Refactor of .x-feature() function to utilize only one paramter
  ********************************************************************/
+/********************************************************************
+ * Refactor of .x-feature() function to utilize only one paramter
+ ********************************************************************/
 html {
   prince-image-resolution: 150dpi;
 }
@@ -1390,7 +1393,6 @@ a[href^="http"] {
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
@@ -1410,6 +1412,7 @@ a[href^="http"] {
   column-count: 3;
   columns: 3;
   column-fill: auto;
+  column-gap: 24px;
 }
 .index .title * {
   display: inline;
@@ -1794,7 +1797,6 @@ p:nth-of-type(2),
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
@@ -1872,7 +1874,6 @@ p:nth-of-type(2),
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
@@ -1950,7 +1951,6 @@ p:nth-of-type(2),
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
@@ -2028,7 +2028,6 @@ p:nth-of-type(2),
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
@@ -2063,6 +2062,28 @@ h3 sup,
 h4 sup {
   display: none;
 }
+div[class=note] {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  color: #000000;
+  background-color: #dbe8f2;
+  padding-bottom: 1em;
+}
+div[class=note] > .title {
+  margin-top: 0.5em;
+  page-break-after: avoid;
+  text-align: left;
+  font-size: small;
+  margin-top: .25em;
+  margin-bottom: .5em;
+  color: #528cbe;
+  font-weight: bold;
+  border-bottom: 1px solid #528cbe;
+}
 .note.howto {
   padding-left: 1em;
   padding-right: 1em;
@@ -2074,7 +2095,7 @@ h4 sup {
   min-height: 45px;
   padding-top: 0;
   margin-top: 0;
-  background: url("ccap-calculus/howto.svg") no-repeat;
+  background: url("ccap-precalculus/howto.svg") no-repeat;
   background-position: 0 .2em;
   padding-left: 2.8em;
 }
@@ -2092,7 +2113,7 @@ h4 sup {
   min-height: 45px;
   padding-top: 0;
   margin-top: 0;
-  background: url("ccap-calculus/qa.svg") no-repeat;
+  background: url("ccap-precalculus/qa.svg") no-repeat;
   background-position: 0 .2em;
   padding-left: 2.8em;
 }
@@ -2126,11 +2147,9 @@ h4 sup {
   min-height: 45px;
   padding-top: 0;
   margin-top: 0;
-  background: url("ccap-calculus/media.svg") no-repeat;
+  background: url("ccap-precalculus/media.svg") no-repeat;
   background-position: 0 .2em;
   padding-left: 2.5em;
-  background-size: 26px;
-  padding-left: 2.8em;
 }
 .note.media .figure img {
   max-width: 6.25in;
@@ -2154,7 +2173,7 @@ h4 sup {
   min-height: 45px;
   padding-top: 0;
   margin-top: 0;
-  background: url("ccap-calculus/try.svg") no-repeat;
+  background: url("ccap-precalculus/try.svg") no-repeat;
   background-position: 0 .2em;
 }
 .note.try .figure img {
@@ -2208,28 +2227,6 @@ h4 sup {
 .note.try .exercise .solution {
   display: none;
 }
-.note:not(.calculus) {
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  color: #000000;
-  background-color: #dbe8f2;
-  padding-bottom: 1em;
-}
-.note:not(.calculus) > .title {
-  margin-top: 0.5em;
-  page-break-after: avoid;
-  text-align: left;
-  font-size: small;
-  margin-top: .25em;
-  margin-bottom: .5em;
-  color: #528cbe;
-  font-weight: bold;
-  border-bottom: 1px solid #528cbe;
-}
 /* -------------------------
  * Preface
  * -------------------------
@@ -2254,7 +2251,6 @@ div.book div.preface > div.section > div.section > div.titlepage > div > div > h
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
@@ -2481,6 +2477,7 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   column-count: 2;
   columns: 2;
   column-fill: auto;
+  column-gap: 24px;
   column-width: auto;
   column-fill: balance;
   page-break-inside: auto;
@@ -2503,6 +2500,7 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   column-count: 1;
   columns: 1;
   column-fill: auto;
+  column-gap: 24px;
 }
 .cnx-eoc.summary > .title {
   content: "Chapter " counter(chapter, decimal) " Review";
@@ -2520,6 +2518,7 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   column-count: 1;
   columns: 1;
   column-fill: auto;
+  column-gap: 24px;
 }
 .cnx-eoc.key-equations > div.title {
   content: "Key Equations";
@@ -2545,6 +2544,7 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   column-count: 1;
   columns: 1;
   column-fill: auto;
+  column-gap: 24px;
 }
 .cnx-eoc.key-concepts > div.title {
   content: "Key Concepts";
@@ -2563,6 +2563,7 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   column-count: 1;
   columns: 1;
   column-fill: auto;
+  column-gap: 24px;
 }
 .cnx-eoc.review-exercises > .title {
   content: "Chapter " counter(chapter, decimal) " Review Exercises";
@@ -2575,6 +2576,7 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   column-count: 1;
   columns: 1;
   column-fill: auto;
+  column-gap: 24px;
 }
 .cnx-eoc.practice-test > .title {
   content: "Chapter " counter(chapter, decimal) " Practice Test";
@@ -2601,7 +2603,6 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
@@ -2861,17 +2862,10 @@ subfigure {
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
-}
-.figure.medium {
-  width: auto;
-}
-.figure.small {
-  width: auto;
 }
 .figure > .title {
   color: #d7562c;
@@ -2884,6 +2878,14 @@ subfigure {
   display: inline;
   text-align: center;
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+.figure > .caption::before {
+  display: none;
+  color: #d7562c;
+  font-weight: bold;
+  text-align: left;
+  margin-right: .5em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .figure img {
   margin: 0;
@@ -2913,6 +2915,12 @@ subfigure {
 .section.section-exercises {
   page-break-before: always;
   page-break-after: always;
+  -webkit-column-count: 1;
+  -moz-column-count: 1;
+  column-count: 1;
+  columns: 1;
+  column-fill: auto;
+  column-gap: 24px;
 }
 .section.section-exercises::before {
   page-break-after: avoid;
@@ -2923,6 +2931,7 @@ subfigure {
   font-weight: bold;
   display: block;
   padding-bottom: 10px;
+  column-span: all;
 }
 .section.section-exercises > .titlepage {
   display: none;
@@ -2945,7 +2954,6 @@ subfigure {
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
@@ -3036,7 +3044,6 @@ div.book div.chapter > div.section div.example div.exercise .solution .figure {
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
@@ -3068,7 +3075,6 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure {
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
@@ -3099,7 +3105,6 @@ div.book div.chapter > div.section div.example div.exercise .commentary .figure 
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
@@ -3271,6 +3276,10 @@ div.orderedlist ol {
   margin: 0 0 0 40px;
   padding: 0;
 }
+/* -------------------------
+ * Images in chapters
+ * -------------------------
+ */
 /********************************************************************
  * SVG Color cascading.
  ********************************************************************/
@@ -3301,6 +3310,28 @@ div.book div.chapter div.section div.theorem:not(.labeled) {
 }
 div.book div.chapter div.section div.theorem:not(.labeled) > .title > span:before {
   content: "Theorem " counter(chapter) "." counter(theorem) ": ";
+}
+.note.theorem {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  color: #000000;
+  background-color: #dbe8f2;
+  padding-bottom: 1em;
+}
+.note.theorem > .title {
+  margin-top: 0.5em;
+  page-break-after: avoid;
+  text-align: left;
+  font-size: small;
+  margin-top: .25em;
+  margin-bottom: .5em;
+  color: #528cbe;
+  font-weight: bold;
+  border-bottom: 1px solid #528cbe;
 }
 .note.project {
   padding-left: 1em;
@@ -3342,7 +3373,7 @@ div.book div.chapter div.section div.theorem:not(.labeled) > .title > span:befor
   margin-bottom: 1em;
   border-bottom: none;
 }
-.note.checkpoint {
+.note.checkpoint.calculus {
   padding-left: 1em;
   padding-right: 1em;
   padding-top: 0.2em;
@@ -3356,21 +3387,20 @@ div.book div.chapter div.section div.theorem:not(.labeled) > .title > span:befor
   background: url("ccap-calculus/checkpoint.svg") no-repeat;
   background-position: 0 .2em;
   padding-left: 1.4em;
-  background-size: 30px;
 }
-.note.checkpoint .figure img {
+.note.checkpoint.calculus .figure img {
   max-width: 6.25in;
 }
-.note.checkpoint div.itemizedlist ul,
-.note.checkpoint div.orderedlist ul,
-.note.checkpoint div.itemizedlist ol,
-.note.checkpoint div.orderedlist ol {
+.note.checkpoint.calculus div.itemizedlist ul,
+.note.checkpoint.calculus div.orderedlist ul,
+.note.checkpoint.calculus div.itemizedlist ol,
+.note.checkpoint.calculus div.orderedlist ol {
   margin: 0 0 0 40px;
   padding: 0;
   margin-top: 1em;
   padding-left: 10px;
 }
-.note.checkpoint > .title {
+.note.checkpoint.calculus > .title {
   margin-top: 0.5em;
   margin-top: 0;
   color: #000000;
@@ -3381,7 +3411,7 @@ div.book div.chapter div.section div.theorem:not(.labeled) > .title > span:befor
   padding-left: 1.5em;
   padding-right: .8em;
 }
-.note.checkpoint .exercise {
+.note.checkpoint.calculus .exercise {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   margin-top: 0;
@@ -3398,16 +3428,60 @@ div.book div.chapter div.section div.theorem:not(.labeled) > .title > span:befor
       */
   margin-bottom: 0;
 }
-.note.checkpoint .exercise > .title {
+.note.checkpoint.calculus .exercise > .title {
   display: none;
 }
-.note.checkpoint .exercise .problem {
+.note.checkpoint.calculus .exercise .problem {
   font-size: 13px;
   line-height: 16px;
   margin-left: 20px;
 }
-.note.checkpoint .exercise .solution {
+.note.checkpoint.calculus .exercise .solution {
   display: none;
+}
+.note.media.calculus {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  page-break-inside: avoid;
+  background: url("ccap-precalculus/media.svg") no-repeat;
+  padding-left: 2.5em;
+  min-height: 45px;
+  padding-top: 0;
+  margin-top: 0;
+  background: url("ccap-calculus/media.svg") no-repeat;
+  background-position: 0 .2em;
+}
+.note.media.calculus .figure img {
+  max-width: 6.25in;
+}
+.note.media.calculus .figure img {
+  max-width: 6.25in;
+}
+.note.definition {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  color: #000000;
+  background-color: #dbe8f2;
+  padding-bottom: 1em;
+}
+.note.definition > .title {
+  margin-top: 0.5em;
+  page-break-after: avoid;
+  text-align: left;
+  font-size: small;
+  margin-top: .25em;
+  margin-bottom: .5em;
+  color: #528cbe;
+  font-weight: bold;
+  border-bottom: 1px solid #528cbe;
 }
 .note.definition > .title:before {
   margin-top: 0.5em;
@@ -3418,7 +3492,9 @@ div.book div.chapter div.section div.theorem:not(.labeled) > .title > span:befor
 .note.definition > .title span {
   display: none;
 }
-.note.problem-solving:not(.calculus) {
+.note.problem-solving {
+  color: #000000;
+  background-color: #dbe8f2;
   padding-left: 1em;
   padding-right: 1em;
   padding-top: 0.2em;
@@ -3427,6 +3503,17 @@ div.book div.chapter div.section div.theorem:not(.labeled) > .title > span:befor
   margin-bottom: 1.5em;
   background-color: #f1ddb6;
   padding-bottom: 1em;
+}
+.note.problem-solving > .title {
+  margin-top: 0.5em;
+  page-break-after: avoid;
+  text-align: left;
+  font-size: small;
+  margin-top: .25em;
+  margin-bottom: .5em;
+  color: #528cbe;
+  font-weight: bold;
+  border-bottom: 1px solid #528cbe;
 }
 div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
   content: "\A";

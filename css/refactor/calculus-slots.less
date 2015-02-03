@@ -17,16 +17,15 @@
       background-color: @soft-orange;
       padding-bottom: 1em;
     }
-    .style(media; ...) {
-      background-size:26px;
-      padding-left:2.8em;
+    .style(media; calculus; ...) {
+      .x-feature(media; calculus);
+      //padding-left:2.8em;
     }
  
     .style(checkpoint; ...) {
       #utils>#pb>.inside(avoid);
-      .x-feature(checkpoint);
+      .x-feature(checkpoint; calculus);
       padding-left:1.4em;
-      background-size:30px;
     } 
     .style(student-project; ... ) {
       #utils>#pb>.inside(avoid);
@@ -34,7 +33,7 @@
       &:before {
         display:block;
         content:"";
-        .x-feature(student-project);
+        .x-feature(student-project; calculus);
         padding-top:41px;
         min-height:100%;
         background-position:-5px 0px;
@@ -66,4 +65,21 @@
   }
 }
 
+/********************************************************************
+ * Refactor of .x-feature() function to utilize only one paramter
+ ********************************************************************/
+
+.x-feature (@svg, @book) {
+  // If feature is only one line prevent clipping of icon
+  min-height: 45px;
+
+  padding-top: 0;
+  margin-top: 0;
+  background: url("ccap-@{book}/@{svg}.svg") no-repeat;
+  background-position: 0 .2em;
+
+  .figure {
+    img { max-width: (@page-width - .25em); }
+  }
+}
 

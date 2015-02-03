@@ -40,13 +40,17 @@ div.book div.chapter {
 }
 //New Checkpoint and Problem Solving notes feature for Calculus
 .note {
+  &.theorem {
+    #content>#note>.style(non-feature);
+  > .title { #content>#note>#title>.style(non-feature); }
+  }
   &.project {
      @context: student-project;
     #content>#note>.style(@context);
 
     > .title { #content>#note>#title>.style(@kind; @part; @context); }
   }
-  &.checkpoint {
+  &.checkpoint.calculus {
     @context: feature-try;
     #content>#note>.style(checkpoint);
     div.itemizedlist, div.orderedlist {
@@ -70,13 +74,20 @@ div.book div.chapter {
       }
     }
   }
+  &.media.calculus {
+     #content>#note>.style(media; calculus);
+  }
   &.definition {
      @context: definition;
+     #content>#note>.style(non-feature);
+    > .title { #content>#note>#title>.style(non-feature); }
     > .title:before { #content>#note>#title>.style(@kind; @part; @context); }
     > .title span {display:none;}
 
   }
-  &.problem-solving:not(.@{book-title}) {
+  &.problem-solving {
+    #content>#note>.style(non-feature);
     #content>#note>.style(non-feature-problem-solving);
+    > .title { #content>#note>#title>.style(non-feature); }
     }
 }
