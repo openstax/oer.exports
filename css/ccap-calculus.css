@@ -936,7 +936,7 @@ div.book > div.preface {
      *  CUSTOMIZED: added reset for try-it;
      * --------------------------------------
      */
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section try;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint;
   /* -----------------------------------------------------
      *   CUSTOMIZED: Increment the counter for try-it feature
      * ------------------------------------------------------
@@ -946,16 +946,16 @@ div.book > div.preface {
      * ---------------------------------------------------
      */
 }
-div.book > div.preface .precalculus.try {
+div.book > div.preface .note.try {
   counter-increment: try;
 }
-div.book > div.preface .precalculus.try:not(.labeled) {
+div.book > div.preface .note.try:not(.labeled) {
   counter-increment: try;
 }
-div.book > div.preface .precalculus.try.labeled {
+div.book > div.preface .note.try.labeled {
   counter-increment: none;
 }
-div.book > div.preface .precalculus.try > .title:not(.labeled)::before {
+div.book > div.preface .note.try > .title:not(.labeled)::before {
   content: "" "" "" "" counter(try) " " "";
 }
 div.book div.chapter {
@@ -963,7 +963,7 @@ div.book div.chapter {
      *  CUSTOMIZED: added reset for try-it;
      * --------------------------------------
      */
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section try;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint;
   /* -----------------------------------------------------
      *   CUSTOMIZED: Increment the counter for try-it feature
      * ------------------------------------------------------
@@ -973,16 +973,16 @@ div.book div.chapter {
      * ---------------------------------------------------
      */
 }
-div.book div.chapter .precalculus.try {
+div.book div.chapter .note.try {
   counter-increment: try;
 }
-div.book div.chapter .precalculus.try:not(.labeled) {
+div.book div.chapter .note.try:not(.labeled) {
   counter-increment: try;
 }
-div.book div.chapter .precalculus.try.labeled {
+div.book div.chapter .note.try.labeled {
   counter-increment: none;
 }
-div.book div.chapter .precalculus.try > .title:not(.labeled)::before {
+div.book div.chapter .note.try > .title:not(.labeled)::before {
   content: "" "" counter(chapter, decimal) "." counter(try) " " "";
 }
 div.book > div.appendix {
@@ -990,7 +990,7 @@ div.book > div.appendix {
      *  CUSTOMIZED: added reset for try-it;
      * --------------------------------------
      */
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section try;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint;
   /* -----------------------------------------------------
      *   CUSTOMIZED: Increment the counter for try-it feature
      * ------------------------------------------------------
@@ -1000,16 +1000,16 @@ div.book > div.appendix {
      * ---------------------------------------------------
      */
 }
-div.book > div.appendix .precalculus.try {
+div.book > div.appendix .note.try {
   counter-increment: try;
 }
-div.book > div.appendix .precalculus.try:not(.labeled) {
+div.book > div.appendix .note.try:not(.labeled) {
   counter-increment: try;
 }
-div.book > div.appendix .precalculus.try.labeled {
+div.book > div.appendix .note.try.labeled {
   counter-increment: none;
 }
-div.book > div.appendix .precalculus.try > .title:not(.labeled)::before {
+div.book > div.appendix .note.try > .title:not(.labeled)::before {
   content: "" "" counter(appendix, upper-latin) "" counter(try) " " "";
 }
 @page {
@@ -1397,6 +1397,9 @@ a[href^="http"] {
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
+  display: table;
+  caption-side: bottom;
+  padding-bottom: 0;
 }
 .mathml-mi {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -1801,6 +1804,9 @@ p:nth-of-type(2),
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
+  display: table;
+  caption-side: bottom;
+  padding-bottom: 0;
 }
 .introduction .table {
   page-break-inside: avoid;
@@ -1878,6 +1884,9 @@ p:nth-of-type(2),
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
+  display: table;
+  caption-side: bottom;
+  padding-bottom: 0;
 }
 .chapter .table {
   page-break-inside: avoid;
@@ -1955,6 +1964,9 @@ p:nth-of-type(2),
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
+  display: table;
+  caption-side: bottom;
+  padding-bottom: 0;
 }
 .cnx-eoc .table {
   page-break-inside: avoid;
@@ -2032,6 +2044,9 @@ p:nth-of-type(2),
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
+  display: table;
+  caption-side: bottom;
+  padding-bottom: 0;
 }
 .colophon .table {
   page-break-inside: avoid;
@@ -2134,6 +2149,9 @@ div[class=note] > .title {
   display: inline;
   text-align: center;
   font-style: normal;
+  display: table-caption;
+  text-align: left;
+  page-break-before: avoid;
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .note.media {
@@ -2255,6 +2273,9 @@ div.book div.preface > div.section > div.section > div.titlepage > div > div > h
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
+  display: table;
+  caption-side: bottom;
+  padding-bottom: 0;
 }
 /* -------------------------
  * Book Table of Contents
@@ -2562,6 +2583,10 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   -moz-column-count: 1;
   column-count: 1;
   columns: 1;
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+  columns: 2;
   column-fill: auto;
   column-gap: 24px;
 }
@@ -2575,6 +2600,10 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   -moz-column-count: 1;
   column-count: 1;
   columns: 1;
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+  columns: 2;
   column-fill: auto;
   column-gap: 24px;
 }
@@ -2608,6 +2637,9 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   padding-bottom: 1em;
   text-align: left;
   display: block;
+  caption-side: bottom;
+  padding-bottom: 0;
+  display: table;
 }
 .review-exercises > .section > .title,
 .practice-test > .section > .title,
@@ -2866,17 +2898,28 @@ subfigure {
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
+  display: table;
+  caption-side: bottom;
+  padding-bottom: 0;
+}
+.figure > .body {
+  min-width: 312px;
 }
 .figure > .title {
   color: #d7562c;
   font-weight: bold;
   text-align: left;
   margin-right: .5em;
+  content: "Figure " counter(chapter, decimal) "." counter(figure) " ";
+  display: inline;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .figure > .caption {
   display: inline;
   text-align: center;
+  display: table-caption;
+  text-align: left;
+  page-break-before: avoid;
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .figure > .caption::before {
@@ -2885,6 +2928,8 @@ subfigure {
   font-weight: bold;
   text-align: left;
   margin-right: .5em;
+  content: "Figure " counter(chapter, decimal) "." counter(figure) " ";
+  display: inline;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .figure img {
@@ -2919,6 +2964,10 @@ subfigure {
   -moz-column-count: 1;
   column-count: 1;
   columns: 1;
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+  columns: 2;
   column-fill: auto;
   column-gap: 24px;
 }
@@ -2959,6 +3008,9 @@ subfigure {
   padding-bottom: 1em;
   text-align: left;
   text-indent: 0;
+  display: table;
+  caption-side: bottom;
+  padding-bottom: 0;
 }
 .section.section-exercises .exercise .solution {
   display: none;
@@ -3049,6 +3101,9 @@ div.book div.chapter > div.section div.example div.exercise .solution .figure {
   padding-bottom: 1em;
   text-align: left;
   counter-increment: figure !important;
+  display: table;
+  caption-side: bottom;
+  padding-bottom: 0;
 }
 div.book div.chapter > div.section div.example div.exercise .solution .figure .body {
   text-align: left;
@@ -3080,6 +3135,9 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure {
   padding-bottom: 1em;
   text-align: left;
   counter-increment: figure !important;
+  display: table;
+  caption-side: bottom;
+  padding-bottom: 0;
 }
 div.book div.chapter > div.section div.example div.exercise .problem .figure .body {
   text-align: left;
@@ -3110,6 +3168,9 @@ div.book div.chapter > div.section div.example div.exercise .commentary .figure 
   padding-bottom: 1em;
   text-align: left;
   counter-increment: figure !important;
+  display: table;
+  caption-side: bottom;
+  padding-bottom: 0;
 }
 div.book div.chapter > div.section div.example div.exercise .commentary .figure .body {
   text-align: left;
@@ -3280,6 +3341,14 @@ div.orderedlist ol {
  * Images in chapters
  * -------------------------
  */
+.chapter .mediaobject img {
+  display: block;
+  margin: auto;
+}
+.end-of-book-solutions .mediaobject img {
+  display: block;
+  margin: auto;
+}
 /********************************************************************
  * SVG Color cascading.
  ********************************************************************/
@@ -3289,10 +3358,6 @@ g text {
 g line {
   stroke: currentColor !important;
 }
-/* ---------------------------------------------------
- * Figures/Subfigures
- * ---------------------------------------------------
- */
 div.book div.chapter > div.section div.example div.exercise .solution .figure .body {
   text-align: center;
 }
@@ -3302,14 +3367,17 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .bo
 div.book div.chapter > div.section div.example div.exercise .commentary .figure .body {
   text-align: center;
 }
-div.book div.chapter {
-  counter-reset: theorem;
-}
 div.book div.chapter div.section div.theorem:not(.labeled) {
   counter-increment: theorem;
 }
 div.book div.chapter div.section div.theorem:not(.labeled) > .title > span:before {
   content: "Theorem " counter(chapter) "." counter(theorem) ": ";
+}
+div.book div.chapter .checkpoint:not(.labeled) {
+  counter-increment: checkpoint;
+}
+div.book div.chapter .checkpoint > .title:not(.labeled)::before {
+  content: "" "" counter(chapter, decimal) "." counter(checkpoint) " " "";
 }
 .note.theorem {
   padding-left: 1em;
@@ -3373,7 +3441,7 @@ div.book div.chapter div.section div.theorem:not(.labeled) > .title > span:befor
   margin-bottom: 1em;
   border-bottom: none;
 }
-.note.checkpoint.calculus {
+.note.checkpoint {
   padding-left: 1em;
   padding-right: 1em;
   padding-top: 0.2em;
@@ -3388,19 +3456,19 @@ div.book div.chapter div.section div.theorem:not(.labeled) > .title > span:befor
   background-position: 0 .2em;
   padding-left: 1.4em;
 }
-.note.checkpoint.calculus .figure img {
+.note.checkpoint .figure img {
   max-width: 6.25in;
 }
-.note.checkpoint.calculus div.itemizedlist ul,
-.note.checkpoint.calculus div.orderedlist ul,
-.note.checkpoint.calculus div.itemizedlist ol,
-.note.checkpoint.calculus div.orderedlist ol {
+.note.checkpoint div.itemizedlist ul,
+.note.checkpoint div.orderedlist ul,
+.note.checkpoint div.itemizedlist ol,
+.note.checkpoint div.orderedlist ol {
   margin: 0 0 0 40px;
   padding: 0;
   margin-top: 1em;
   padding-left: 10px;
 }
-.note.checkpoint.calculus > .title {
+.note.checkpoint > .title {
   margin-top: 0.5em;
   margin-top: 0;
   color: #000000;
@@ -3411,7 +3479,7 @@ div.book div.chapter div.section div.theorem:not(.labeled) > .title > span:befor
   padding-left: 1.5em;
   padding-right: .8em;
 }
-.note.checkpoint.calculus .exercise {
+.note.checkpoint .exercise {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   margin-top: 0;
@@ -3428,15 +3496,15 @@ div.book div.chapter div.section div.theorem:not(.labeled) > .title > span:befor
       */
   margin-bottom: 0;
 }
-.note.checkpoint.calculus .exercise > .title {
+.note.checkpoint .exercise > .title {
   display: none;
 }
-.note.checkpoint.calculus .exercise .problem {
+.note.checkpoint .exercise .problem {
   font-size: 13px;
   line-height: 16px;
   margin-left: 20px;
 }
-.note.checkpoint.calculus .exercise .solution {
+.note.checkpoint .exercise .solution {
   display: none;
 }
 .note.media-2 {
@@ -3530,6 +3598,21 @@ div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
 .end-of-book-solutions .solution .cnx-svg {
   vertical-align: 0 !important;
 }
+.figure > .title {
+  display: none;
+}
+.cnx-eoc .exercise div.title {
+  display: none;
+}
+div.book div.chapter > div.section div.example div.exercise div.figure .caption::before {
+  display: inline;
+}
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.figure {
+  display: table;
+}
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.figure > .title {
+  display: none;
+}
 .glossary dl dt,
 .glossary dl dd {
   margin-top: -5px;
@@ -3600,4 +3683,8 @@ div.book > div.part > div.chapter > div.cnx-eoc {
 div.book > div.appendix > div.cnx-eoc,
 div.book > div.part > div.appendix > div.cnx-eoc {
   counter-reset: /*exercise*/ eoc-section -1;
+}
+.section.section-exercises .section .exercise .problem img,
+.section.section-exercises .section .exercise .solution img {
+  margin: 1em 0;
 }
