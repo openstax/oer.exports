@@ -1,8 +1,6 @@
 // We are moving figure numbering to a ::before
-// on the caption element. Since we are overriding
-// slots here this goes after the import of skeletons.
-// This is only done because we want to switch the element
-// that figure numbers are attached to only in precalculus.
+// on the caption element because of princexml 
+//bug rendering ::after. The numbers were being "clipped"
 .figure > .title { display: none; }
 .cnx-eoc .exercise div.title { display: none; }
 .note.qa > .body .figure .title {display:none;}
@@ -17,10 +15,6 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.body {
   div.figure > .title { display: none; }
 }
 
-
-
-
-
 // Reduce spacing in the EOC glossary.
 .glossary {
   dl {
@@ -33,20 +27,6 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.body {
     }
   }
 }
-
-// These are specific to precalculus and different in other books.
-// They are located here to remove the "Cascading" rules.
-#content {
-  #figure {
-    #title {
-      .style(...) { font-family: @font-family-serif; }
-      .number(...) { font-family: @font-family; }
-    }
-  }
-}
-
-
-
 
 // Equation numbering updates. This changes the numbering to use
 // ::before rather than ::after in order to avoid princexml bugs.

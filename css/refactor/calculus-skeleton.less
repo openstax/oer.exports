@@ -3,24 +3,6 @@
 // See LICENSE.txt for details.
 
 
-
-// This lengthy selector is required to override a display:none.
-div.book div.chapter > div.section div.example div.exercise .solution {
-.figure .body {
-      text-align: center;
-    }
-}
-div.book div.chapter > div.section div.example div.exercise .problem {
-  .figure .body {
-      text-align: center;
-    }
-}
- 
-div.book div.chapter > div.section div.example div.exercise .commentary {
-   .figure .body {
-      text-align: center;
-    }
-}
 div.book div.chapter div.section div.theorem:not(.labeled) {
   counter-increment: theorem;
   > .title > span:before {
@@ -93,9 +75,9 @@ div.book div.chapter .checkpoint > .title:not(.labeled)::before {
 
   }
   &.problem-solving {
-    #content>#note>.style(non-feature);
-    #content>#note>.style(non-feature-problem-solving);
-    > .title { #content>#note>#title>.style(non-feature); }
+    @context: problem-solving;
+    #content>#note>.style(problem-solving);
+    > .title { #content>#note>#title>.style(@kind; @part; @context); }
     }
 }
 
