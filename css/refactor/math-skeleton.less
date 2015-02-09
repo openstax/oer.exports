@@ -1,0 +1,85 @@
+// We are moving figure numbering to a ::before
+// on the caption element because of princexml 
+//bug rendering ::after. The numbers were being "clipped"
+.figure > .title { display: none; }
+.cnx-eoc .exercise div.title { display: none; }
+.note.qa > .body .figure .title {display:none;}
+// ::before elements are turned off in base... *::before -_-
+div.book div.chapter > div.section div.example div.exercise div.figure .caption::before {
+  display: inline;
+}
+
+// Figures in the answer key
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.body {
+  div.figure { display: table; }
+  div.figure > .title { display: none; }
+}
+
+// Reduce spacing in the EOC glossary.
+.glossary {
+  dl {
+    dt, dd {
+      margin-top: -5px;
+
+      &:first-of-type {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+// Equation numbering updates. This changes the numbering to use
+// ::before rather than ::after in order to avoid princexml bugs.
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled),
+div.book div.chapter > div.section div.example div.exercise div.equation, {
+  counter-increment: equation !important; // Override !important from numbering-skeleton.
+}
+
+// Turn on ::before numbers
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled) span.inlinemediaobject::before,
+div.book div.chapter > div.section div.example div.exercise div.equation span.inlinemediaobject::before,
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled) div.mediaobject::before,
+div.book div.chapter > div.section div.example div.exercise div.equation div.mediaobject::before {
+  display: block;
+}
+div.book div.chapter > div.section div.equation > *:last-child::before {
+  content: "(" counter(chapter, decimal) "." counter(equation) ")";
+  float: right;
+
+  color: @orange;
+  font-weight: bold;
+}
+
+// Turn off ::after numbers
+div.book div.chapter > div.section div.equation > *:last-child::after {
+  display: none;
+}
+
+// Some end of chapter parts, such as review exercises, have an extra level of <section>
+div.book > div.chapter > div.cnx-eoc > div.section > div.body > div.section > div.exercise:not(.labeled) > div.body > div.problem::before {
+  content: counter(exercise) ".";
+  font-weight: bold;
+}
+div.book > div.chapter > div.cnx-eoc > div.section > div.body > div.section > div.exercise:not(.labeled) > div.title {
+  display: none;
+}
+
+// Overwrite the default end-of-chapter exercise numbering (don't reset the exercise)
+// originally defined in ccap-numbering.less
+// The hierarchy is copied from ccap-numbering so the selectors (and priority for which to apply) are the same
+.x-duplicate-hierarchy() {
+  > div.cnx-eoc { counter-reset: /*exercise*/ eoc-section -1; }
+}
+
+
+div.book, div.book > div.part {
+  > div.preface  { .x-duplicate-hierarchy(); }
+  > div.chapter  { .x-duplicate-hierarchy(); }
+  > div.appendix { .x-duplicate-hierarchy(); }
+}
+
+.section.section-exercises .section .exercise {
+  .problem, .solution {
+    img { margin: 1em 0; }
+  }
+}

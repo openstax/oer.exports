@@ -933,7 +933,7 @@ div.book > div.preface {
      *  CUSTOMIZED: added reset for try-it;
      * --------------------------------------
      */
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section try;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint;
   /* -----------------------------------------------------
      *   CUSTOMIZED: Increment the counter for try-it feature
      * ------------------------------------------------------
@@ -943,16 +943,16 @@ div.book > div.preface {
      * ---------------------------------------------------
      */
 }
-div.book > div.preface .precalculus.try {
+div.book > div.preface .note.try {
   counter-increment: try;
 }
-div.book > div.preface .precalculus.try:not(.labeled) {
+div.book > div.preface .note.try:not(.labeled) {
   counter-increment: try;
 }
-div.book > div.preface .precalculus.try.labeled {
+div.book > div.preface .note.try.labeled {
   counter-increment: none;
 }
-div.book > div.preface .precalculus.try > .title:not(.labeled)::before {
+div.book > div.preface .note.try > .title:not(.labeled)::before {
   content: "" "" "" "" counter(try) " " "";
 }
 div.book div.chapter {
@@ -960,7 +960,7 @@ div.book div.chapter {
      *  CUSTOMIZED: added reset for try-it;
      * --------------------------------------
      */
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section try;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint;
   /* -----------------------------------------------------
      *   CUSTOMIZED: Increment the counter for try-it feature
      * ------------------------------------------------------
@@ -970,16 +970,16 @@ div.book div.chapter {
      * ---------------------------------------------------
      */
 }
-div.book div.chapter .precalculus.try {
+div.book div.chapter .note.try {
   counter-increment: try;
 }
-div.book div.chapter .precalculus.try:not(.labeled) {
+div.book div.chapter .note.try:not(.labeled) {
   counter-increment: try;
 }
-div.book div.chapter .precalculus.try.labeled {
+div.book div.chapter .note.try.labeled {
   counter-increment: none;
 }
-div.book div.chapter .precalculus.try > .title:not(.labeled)::before {
+div.book div.chapter .note.try > .title:not(.labeled)::before {
   content: "" "" counter(chapter, decimal) "." counter(try) " " "";
 }
 div.book > div.appendix {
@@ -987,7 +987,7 @@ div.book > div.appendix {
      *  CUSTOMIZED: added reset for try-it;
      * --------------------------------------
      */
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section try;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint;
   /* -----------------------------------------------------
      *   CUSTOMIZED: Increment the counter for try-it feature
      * ------------------------------------------------------
@@ -997,16 +997,16 @@ div.book > div.appendix {
      * ---------------------------------------------------
      */
 }
-div.book > div.appendix .precalculus.try {
+div.book > div.appendix .note.try {
   counter-increment: try;
 }
-div.book > div.appendix .precalculus.try:not(.labeled) {
+div.book > div.appendix .note.try:not(.labeled) {
   counter-increment: try;
 }
-div.book > div.appendix .precalculus.try.labeled {
+div.book > div.appendix .note.try.labeled {
   counter-increment: none;
 }
-div.book > div.appendix .precalculus.try > .title:not(.labeled)::before {
+div.book > div.appendix .note.try > .title:not(.labeled)::before {
   content: "" "" counter(appendix, upper-latin) "" counter(try) " " "";
 }
 @page {
@@ -2261,6 +2261,36 @@ h3 sup,
 h4 sup {
   display: none;
 }
+div[class="note"] {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  color: #000000;
+  background-color: #cfe1f1;
+  padding-bottom: 1em;
+  padding: 20px;
+  background-color: #ffffff;
+  page-break-inside: auto;
+}
+div[class="note"] > .title {
+  margin-top: 0.5em;
+  page-break-after: avoid;
+  text-align: left;
+  font-size: small;
+  margin-top: .25em;
+  margin-bottom: .5em;
+  color: #83c6ee;
+  border-bottom: 1px solid #83c6ee;
+  padding: 0;
+  margin: 0;
+  color: #000000;
+  font-weight: bold;
+  border: none;
+  padding-bottom: .2em;
+}
 .note.howto {
   padding-left: 1em;
   padding-right: 1em;
@@ -2423,36 +2453,6 @@ h4 sup {
 }
 .note.try .exercise .solution {
   display: none;
-}
-.note:not(.economics) {
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  color: #000000;
-  background-color: #cfe1f1;
-  padding-bottom: 1em;
-  padding: 20px;
-  background-color: #ffffff;
-  page-break-inside: auto;
-}
-.note:not(.economics) > .title {
-  margin-top: 0.5em;
-  page-break-after: avoid;
-  text-align: left;
-  font-size: small;
-  margin-top: .25em;
-  margin-bottom: .5em;
-  color: #83c6ee;
-  border-bottom: 1px solid #83c6ee;
-  padding: 0;
-  margin: 0;
-  color: #000000;
-  font-weight: bold;
-  border: none;
-  padding-bottom: .2em;
 }
 /* -------------------------
  * Preface
