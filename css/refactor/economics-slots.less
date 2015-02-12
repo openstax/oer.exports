@@ -132,13 +132,13 @@
     }
     #summary{
       #title{
-        .style(...){
+        .style(...) {
           content: @cnx-string-summary;
-          text-transform: capitalize;
+          text-transform: uppercase;
         }
-        .link(...){
-          display:inline;
-          color: @black;
+        .link(...) {
+          display: inline;
+          color: @dark-blue;
         }
       }
     }
@@ -155,10 +155,8 @@
         }
       }
     }
-    #critical-thinking{
+    #critical-thinking {
       .style() {
-        .x-column-count(1);
-        column-fill: balance;
         text-align: left;
         margin-bottom: 20px;
       }
@@ -166,6 +164,16 @@
         .style(...) {
           -webkit-column-span: all;
           column-span: all;
+        }
+      }
+    }
+    #self-check-questions {
+      .style() {
+        .x-column-count(1);
+      }
+      #title {
+        .style() {
+          text-transform: uppercase;
         }
       }
     }
@@ -431,6 +439,9 @@
       .number(any; appendix) {
         display: none;
       }
+      .style(any; any; 'self-check-questions') {
+        display: none;
+      }
     }
   }
   #list {
@@ -479,6 +490,11 @@
       &.no-emphasis {
         font-weight: 400;
       }
+    }
+  }
+  #exercise {
+    .style(any; chapter-end) {
+      margin-bottom: .75em;
     }
   }
   #solution {
