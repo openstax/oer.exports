@@ -119,3 +119,29 @@ div.book > div.chapter .section, div.book > div.appendix {
 .table {
   #content>#table>.style(@kind; @part);
 }
+
+/********************************************************************
+ * Glossary
+ ********************************************************************/
+.glossary {
+  #content>#glossary>.style();
+
+  .title {
+    #content>#glossary>#title>.style();
+  }
+
+  // Remove ":"
+  dl dt::after { #content>#glossary>.divider(); }
+
+  dl {
+    #content>#glossary>.dl();
+
+    dt {
+      #content>#glossary>.term();
+    }
+    dd {
+      #content>#glossary>.definition();
+    }
+
+  }
+}
