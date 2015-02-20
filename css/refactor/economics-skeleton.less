@@ -9,7 +9,7 @@
   &.bringhome {
     #content>#note>.style('bring-it-home'; chapter);
 
-    > .title { #content>#note>#title>.style('bring-it-home'; chapter); }
+    //> .title { #content>#note>#title>.style('bring-it-home'; chapter); }
   }
   &.clearup  {
     #content>#note>.style('clear-it-up'; chapter);
@@ -67,6 +67,7 @@
   .section { #content>#section>.style(any; preface); }
   .table table { #content>#table>.style(any; preface); }
   .table table td { #content>#table>#data>.style(any; preface); }
+  .table table tr:first-of-type td { #content>#table>#data>.style('first-row'; preface; any); }
 }
 
 .appendix {
@@ -94,9 +95,13 @@ div.book > div.part {
     }
   }
 }
-.table {
+div.table {
   .table-caption.caption {
     color: @black;
+  }
+  table {
+    // Using td instead of tr because of border-collapse policies.
+    tr:first-of-type td { #content>#table>#data>.style('first-row'; any; any); }
   }
 }
 

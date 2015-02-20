@@ -117,32 +117,8 @@
     }
   }
   #chapter-end {
-    .style(...){
-      .x-column-count(2);
-      column-fill: balance;
+    .style(...) {
       margin-bottom: 20px;
-    }
-    #section{
-      #title{
-        .style(...){
-          a{
-            display: inline;
-          }
-        }
-      }
-    }
-    #summary{
-      #title{
-        .style(...) {
-          content: @cnx-string-summary;
-          text-transform: uppercase;
-        }
-        .link(...) {
-          display: inline;
-          color: @dark-blue;
-          font-family: @font-family-sans-serif;
-        }
-      }
     }
     #title {
       .style(...) {
@@ -157,6 +133,35 @@
         }
       }
     }
+    #section {
+      #title {
+        .style(...) {
+          a {
+            display: inline;
+          }
+        }
+      }
+    }
+    #summary {
+      #title {
+        .style(...) {
+          content: @cnx-string-summary;
+          text-transform: uppercase;
+        }
+        .link(...) {
+          display: inline;
+          color: @dark-blue;
+          font-family: @font-family-sans-serif;
+        }
+      }
+    }
+    #review-questions {
+      #title {
+        .style() {
+          text-transform: uppercase;
+        }
+      }
+    }
     #critical-thinking {
       .style() {
         .x-column-count(2);
@@ -167,6 +172,7 @@
         .style(...) {
           -webkit-column-span: all;
           column-span: all;
+          text-transform: uppercase;
         }
       }
     }
@@ -193,14 +199,18 @@
       }
     }
     #end-of-book-solutions {
-        .style(...) {
-          font-weight: 500;
-        }
+      .style(...) {
+        font-weight: 500;
+      }
       #title {
         .style() {
           color: @dark-blue;
           text-transform: uppercase;
           border: none;
+        }
+        .style('chapter-area'; any) {
+          font-size: 15px;
+          font-family: @font-family-sans-serif;
         }
       }
     }
@@ -250,14 +260,23 @@
         border: none;
       }
     }
-  }
-  #index {
-    #title {
-      .style(...) {
-        font-weight: 500;
+    #index {
+      #title {
+        .style(...) {
+          font-weight: 500;
+        }
+      }
+      .letter(...) {
+        font-family: @font-family-sans-serif;
+        padding-bottom: .5em;
+      }
+      .term(...) {
+        font-family: @font-family-sans-serif;
+        padding-bottom: 0;
       }
     }
   }
+
   // End of Book Attribution and About Connexions
   #colophon {
     .style(...) {
@@ -296,9 +315,6 @@
 
   > .title {
     font-size: large;
-    margin-top: .6em;
-    margin-bottom: .2em;
-    padding: 0px .5em;
     color: black;
     border: none;
   }
@@ -327,7 +343,7 @@
       .x-feature(@black, @gray, bring, 0.48in);
     }
     .style('clear-it-up'; chapter) {
-      font-weight: 500;
+      .x-feature(@black, @gray, bring, 0.48in);
     }
     .style('work-it-out'; chapter) {
       .x-feature(@black, @gray, work, 0.38in);
@@ -347,8 +363,8 @@
     #title {
       .style() {
         font-weight: bold;
-        padding: 0px .5em;
-        margin-top: 0.5em;
+        margin: .5em 0;
+        padding: 0 10px;
       }
       .style('chapter-objectives'; any) {
         font-size: x-large;
@@ -367,7 +383,7 @@
   }
   #table {
     .style(...) {
-      #utils>#pb>.inside(auto); 
+      #utils>#pb>.inside(auto);
     }
     .style(any; any) {
       width: 100%;
@@ -408,8 +424,8 @@
         background-color: @light-blue;
         border: none;
         border-top: 3px solid @dark-blue !important; // !important is in ccap-base
-        border-bottom: 3px solid @dark-blue !important;
         border-right: none;
+        text-align: center;
       }
     }
     #data {
@@ -417,10 +433,20 @@
         border-color: @black!important;
         border-width: thin;
         border-bottom: 1px solid @black!important;
+        font-family: @font-family-sans-serif;
 
+      }
+      .style('first-row'; any; any) {
+        border-top: 3px solid @dark-blue !important;
+      }
+      .style('first-row'; preface; any) {
+        border-top: none !important;
       }
       .style(any; preface) {
         padding: 5px;
+        font-family: @font-family-sans-serif;
+        font-size: 13px;
+        border: none !important; // Why does .style(any; any) use important?
       }
     }
   }
@@ -444,6 +470,12 @@
       }
       .style(any; any; 'self-check-questions') {
         display: none;
+      }
+      .style(any; preface) {
+        font-size: 17px;
+      }
+      .style(any; preface; section) {
+        font-size: 14px;
       }
     }
   }
@@ -472,7 +504,7 @@
 
         // Temp changes in place until we horizontally refactor glossary across books.
         color: @dark-blue !important;
-        font-size: 12pt !important;
+        font-size: 14pt !important;
         text-transform: uppercase !important;
         border:none;
         margin-top: 0;
@@ -483,6 +515,7 @@
       font: normal 700 12.7px/17px @font-family-sans-serif;
     }
     .definition() {
+      margin-left: 30px;
     }
     .glossterm(any) {
       font: inherit;
