@@ -23,6 +23,7 @@
         color: @dark-blue;
         font-weight: bold;
         font-size: 12.6px;
+        line-height: normal;
       }
     }
   }
@@ -165,6 +166,7 @@
     #critical-thinking {
       .style() {
         .x-column-count(2);
+        column-fill: balance;
         text-align: left;
         margin-bottom: 20px;
       }
@@ -180,6 +182,13 @@
       .style() {
         .x-column-count(1);
       }
+      #title {
+        .style() {
+          text-transform: uppercase;
+        }
+      }
+    }
+    #problems {
       #title {
         .style() {
           text-transform: uppercase;
@@ -243,7 +252,10 @@
           color: @dark-blue;
         }
         .text() {
-          display: none;
+          // Don't use display: none here because
+          // that will cause string-set for the cnx-header to fail.
+          visibility: hidden;
+          height: 0;
         }
         .divider() {
           display: none;
@@ -317,6 +329,7 @@
     font-size: large;
     color: black;
     border: none;
+    font-weight: bold;
   }
 
   // Must apply padding to all elements in body not just blockquote and para, tables
@@ -343,7 +356,7 @@
       .x-feature(@black, @gray, bring, 0.48in);
     }
     .style('clear-it-up'; chapter) {
-      .x-feature(@black, @gray, bring, 0.48in);
+      .x-feature(@black, @gray, clear, 0.48in);
     }
     .style('work-it-out'; chapter) {
       .x-feature(@black, @gray, work, 0.38in);
@@ -376,6 +389,14 @@
       }
     }
   }
+  #paragraph {
+    .style(any) {
+      line-height: normal;
+    }
+    .style('chapter-objectives'; introduction) {
+      font-family: @font-family-serif;
+    }
+  }
   #link {
     .style(...) {
       color: @dark-blue;
@@ -394,6 +415,9 @@
       margin: 0;
       border: none;
       #utils>#pb>.after(avoid);
+    }
+    .style(any; end-of-book-solutions) {
+      width: auto;
     }
     #caption {
       .style(any; any) {
@@ -426,6 +450,9 @@
         border-top: 3px solid @dark-blue !important; // !important is in ccap-base
         border-right: none;
         text-align: center;
+      }
+      .style(any; end-of-book-solutions) {
+        font-family: @font-family-sans-serif;
       }
     }
     #data {
@@ -468,7 +495,10 @@
       .number(any; appendix) {
         display: none;
       }
-      .style(any; any; 'self-check-questions') {
+      .style(any; chapter-end; 'self-check-questions') {
+        display: none;
+      }
+      .style(any; chapter-end; 'problems') {
         display: none;
       }
       .style(any; preface) {
@@ -489,6 +519,7 @@
       .number(...) {
         color: @dark-blue;
       }
+      .style(any; end-of-book-solutions) { display: none; }
     }
   }
   #glossary {

@@ -4,8 +4,7 @@
 @part: default;
 
 
-
-.chapter .note {
+.note {
   &.bringhome {
     #content>#note>.style('bring-it-home'; chapter);
 
@@ -44,9 +43,15 @@
       #content>#note>#title>.style('chapter-objectives'; any);
     }
 
+    p { #content>#paragraph>.style('chapter-objectives'; introduction); }
+
     ul.itemizedlist > .listitem {
       #content>#list>.item(any; introduction; note; 'chapter-objectives');
     }
+  }
+
+  > .title {
+    #content>#note>#title>.style();
   }
 }
 
@@ -57,8 +62,14 @@
       #part>#chapter-end>#self-check-questions>#title>.style();
     }
     > .section {
-      .title { #content>#section>#title>.style(any; any; 'self-check-questions'); }
+      .title { #content>#section>#title>.style(any; chapter-end; 'self-check-questions'); }
     }
+  }
+  &.problems {
+    > .title {
+      #part>#chapter-end>#problems>#title>.style();
+    }
+    > .section .title { #content>#section>#title>.style(any; chapter-end; 'problems'); }
   }
   .exercise { #content>#exercise>.style(any; chapter-end); }
 }
@@ -70,6 +81,15 @@
   .table table tr:first-of-type td { #content>#table>#data>.style('first-row'; preface; any); }
 }
 
+div.colophon.end-of-book-solutions {
+  .table table {
+    #content>#table>.style(any; end-of-book-solutions);
+    th { #content>#table>#header>.style(any; end-of-book-solutions); }
+  }
+  .chapter-area div.solution div.body div.figure {
+    > div.title { #content>#figure>#title>.style(any; end-of-book-solutions); }
+  }
+}
 .appendix {
   .note {
     &.clearup  {
