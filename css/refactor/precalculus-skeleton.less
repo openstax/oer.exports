@@ -10,6 +10,10 @@ h2, h3, h4 {
 @kind: default;
 @part: chapter;
 @context: default;
+div[class="note"] {
+  #content>#note>.style(non-feature);
+  > .title { #content>#note>#title>.style(non-feature); }
+}
 .note {
   &.howto {
     #content>#note>.style(howto);
@@ -64,10 +68,6 @@ h2, h3, h4 {
         #content>#solution>.style(@kind; @part; @context; exercise);
       }
     }
-  }
-  &:not(.@{book-title}) {
-    #content>#note>.style(non-feature);
-    > .title { #content>#note>#title>.style(non-feature); }
   }
 }
 
@@ -594,12 +594,12 @@ img, figure, subfigure  { margin: 1em; }
 
   // 3/4 size art
   &.medium {
-    width: @figure-width-medium;
+    //width: @figure-width-medium;
   }
 
   // 1/2 size art
   &.small {
-    width: @figure-width-small;
+    //width: @figure-width-small;
   }
 
   > .body {
@@ -611,6 +611,11 @@ img, figure, subfigure  { margin: 1em; }
   }
 
   > .caption {
+    &::before {
+      display: none; // This is overridden in precalculus.less
+                     // it exists for derived titles.
+      #content>#figure>#title>.number(); // "Figure x.x..."
+    }
     #content>#figure>#title>.style();
   }
 
@@ -821,7 +826,6 @@ div.table {
 
     caption {
       #content>#table>#caption>.style(any; any);
-
       &::before {
         #content>#table>#caption>.number(any; any);
       }
@@ -910,6 +914,13 @@ div.itemizedlist, div.orderedlist {
   }
 }
 
+
+/* -------------------------
+ * Images in chapters
+ * -------------------------
+ */
+ .chapter .mediaobject img { #content>#image>.style(any; chapter); }
+ .end-of-book-solutions .mediaobject img { #content>#image>.style(any; book-end; solutions); }
 
 
 /********************************************************************

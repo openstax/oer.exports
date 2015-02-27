@@ -933,7 +933,7 @@ div.book > div.preface {
      *  CUSTOMIZED: added reset for try-it;
      * --------------------------------------
      */
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section try;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint;
   /* -----------------------------------------------------
      *   CUSTOMIZED: Increment the counter for try-it feature
      * ------------------------------------------------------
@@ -943,16 +943,16 @@ div.book > div.preface {
      * ---------------------------------------------------
      */
 }
-div.book > div.preface .precalculus.try {
+div.book > div.preface .note.try {
   counter-increment: try;
 }
-div.book > div.preface .precalculus.try:not(.labeled) {
+div.book > div.preface .note.try:not(.labeled) {
   counter-increment: try;
 }
-div.book > div.preface .precalculus.try.labeled {
+div.book > div.preface .note.try.labeled {
   counter-increment: none;
 }
-div.book > div.preface .precalculus.try > .title:not(.labeled)::before {
+div.book > div.preface .note.try > .title:not(.labeled)::before {
   content: "" "" "" "" counter(try) " " "";
 }
 div.book div.chapter {
@@ -960,7 +960,7 @@ div.book div.chapter {
      *  CUSTOMIZED: added reset for try-it;
      * --------------------------------------
      */
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section try;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint;
   /* -----------------------------------------------------
      *   CUSTOMIZED: Increment the counter for try-it feature
      * ------------------------------------------------------
@@ -970,16 +970,16 @@ div.book div.chapter {
      * ---------------------------------------------------
      */
 }
-div.book div.chapter .precalculus.try {
+div.book div.chapter .note.try {
   counter-increment: try;
 }
-div.book div.chapter .precalculus.try:not(.labeled) {
+div.book div.chapter .note.try:not(.labeled) {
   counter-increment: try;
 }
-div.book div.chapter .precalculus.try.labeled {
+div.book div.chapter .note.try.labeled {
   counter-increment: none;
 }
-div.book div.chapter .precalculus.try > .title:not(.labeled)::before {
+div.book div.chapter .note.try > .title:not(.labeled)::before {
   content: "" "" counter(chapter, decimal) "." counter(try) " " "";
 }
 div.book > div.appendix {
@@ -987,7 +987,7 @@ div.book > div.appendix {
      *  CUSTOMIZED: added reset for try-it;
      * --------------------------------------
      */
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section try;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint;
   /* -----------------------------------------------------
      *   CUSTOMIZED: Increment the counter for try-it feature
      * ------------------------------------------------------
@@ -997,16 +997,16 @@ div.book > div.appendix {
      * ---------------------------------------------------
      */
 }
-div.book > div.appendix .precalculus.try {
+div.book > div.appendix .note.try {
   counter-increment: try;
 }
-div.book > div.appendix .precalculus.try:not(.labeled) {
+div.book > div.appendix .note.try:not(.labeled) {
   counter-increment: try;
 }
-div.book > div.appendix .precalculus.try.labeled {
+div.book > div.appendix .note.try.labeled {
   counter-increment: none;
 }
-div.book > div.appendix .precalculus.try > .title:not(.labeled)::before {
+div.book > div.appendix .note.try > .title:not(.labeled)::before {
   content: "" "" counter(appendix, upper-latin) "" counter(try) " " "";
 }
 @page {
@@ -1390,11 +1390,13 @@ a[href^="http"] {
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
+  display: table;
+  caption-side: bottom;
+  padding-bottom: 0;
 }
 .mathml-mi {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -1410,6 +1412,7 @@ a[href^="http"] {
   column-count: 3;
   columns: 3;
   column-fill: auto;
+  column-gap: 24px;
 }
 .index .title * {
   display: inline;
@@ -1794,11 +1797,13 @@ p:nth-of-type(2),
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
+  display: table;
+  caption-side: bottom;
+  padding-bottom: 0;
 }
 .introduction .table {
   page-break-inside: avoid;
@@ -1872,11 +1877,13 @@ p:nth-of-type(2),
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
+  display: table;
+  caption-side: bottom;
+  padding-bottom: 0;
 }
 .chapter .table {
   page-break-inside: avoid;
@@ -1950,11 +1957,13 @@ p:nth-of-type(2),
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
+  display: table;
+  caption-side: bottom;
+  padding-bottom: 0;
 }
 .cnx-eoc .table {
   page-break-inside: avoid;
@@ -2028,11 +2037,13 @@ p:nth-of-type(2),
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
+  display: table;
+  caption-side: bottom;
+  padding-bottom: 0;
 }
 .colophon .table {
   page-break-inside: avoid;
@@ -2062,6 +2073,28 @@ h2 sup,
 h3 sup,
 h4 sup {
   display: none;
+}
+div[class="note"] {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  color: #000000;
+  background-color: #dbe8f2;
+  padding-bottom: 1em;
+}
+div[class="note"] > .title {
+  margin-top: 0.5em;
+  page-break-after: avoid;
+  text-align: left;
+  font-size: small;
+  margin-top: .25em;
+  margin-bottom: .5em;
+  color: #528cbe;
+  font-weight: bold;
+  border-bottom: 1px solid #528cbe;
 }
 .note.howto {
   padding-left: 1em;
@@ -2114,6 +2147,9 @@ h4 sup {
   text-align: center;
   font-style: normal;
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  display: table-caption;
+  text-align: left;
+  page-break-before: avoid;
 }
 .note.media {
   padding-left: 1em;
@@ -2206,28 +2242,6 @@ h4 sup {
 .note.try .exercise .solution {
   display: none;
 }
-.note:not(.precalculus) {
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  color: #000000;
-  background-color: #dbe8f2;
-  padding-bottom: 1em;
-}
-.note:not(.precalculus) > .title {
-  margin-top: 0.5em;
-  page-break-after: avoid;
-  text-align: left;
-  font-size: small;
-  margin-top: .25em;
-  margin-bottom: .5em;
-  color: #528cbe;
-  font-weight: bold;
-  border-bottom: 1px solid #528cbe;
-}
 /* -------------------------
  * Preface
  * -------------------------
@@ -2252,11 +2266,13 @@ div.book div.preface > div.section > div.section > div.titlepage > div > div > h
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
+  display: table;
+  caption-side: bottom;
+  padding-bottom: 0;
 }
 /* -------------------------
  * Book Table of Contents
@@ -2479,6 +2495,7 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   column-count: 2;
   columns: 2;
   column-fill: auto;
+  column-gap: 24px;
   column-width: auto;
   column-fill: balance;
   page-break-inside: auto;
@@ -2501,6 +2518,7 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   column-count: 1;
   columns: 1;
   column-fill: auto;
+  column-gap: 24px;
 }
 .cnx-eoc.summary > .title {
   content: "Chapter " counter(chapter, decimal) " Review";
@@ -2518,6 +2536,7 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   column-count: 1;
   columns: 1;
   column-fill: auto;
+  column-gap: 24px;
 }
 .cnx-eoc.key-equations > div.title {
   content: "Key Equations";
@@ -2543,6 +2562,7 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   column-count: 1;
   columns: 1;
   column-fill: auto;
+  column-gap: 24px;
 }
 .cnx-eoc.key-concepts > div.title {
   content: "Key Concepts";
@@ -2560,7 +2580,12 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   -moz-column-count: 1;
   column-count: 1;
   columns: 1;
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+  columns: 2;
   column-fill: auto;
+  column-gap: 24px;
 }
 .cnx-eoc.review-exercises > .title {
   content: "Chapter " counter(chapter, decimal) " Review Exercises";
@@ -2572,7 +2597,12 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   -moz-column-count: 1;
   column-count: 1;
   columns: 1;
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+  columns: 2;
   column-fill: auto;
+  column-gap: 24px;
 }
 .cnx-eoc.practice-test > .title {
   content: "Chapter " counter(chapter, decimal) " Practice Test";
@@ -2599,12 +2629,14 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
   display: block;
+  caption-side: bottom;
+  padding-bottom: 0;
+  display: table;
 }
 .review-exercises > .section > .title,
 .practice-test > .section > .title,
@@ -2859,29 +2891,43 @@ subfigure {
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
+  display: table;
+  caption-side: bottom;
+  padding-bottom: 0;
 }
-.figure.medium {
-  width: 351pt;
-}
-.figure.small {
-  width: 234pt;
+.figure > .body {
+  min-width: 312px;
 }
 .figure > .title {
   color: #d7562c;
   font-weight: bold;
   text-align: left;
   margin-right: .5em;
+  content: "Figure " counter(chapter, decimal) "." counter(figure) " ";
+  display: inline;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .figure > .caption {
   display: inline;
   text-align: center;
+  display: table-caption;
+  text-align: left;
+  page-break-before: avoid;
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+.figure > .caption::before {
+  display: none;
+  color: #d7562c;
+  font-weight: bold;
+  text-align: left;
+  margin-right: .5em;
+  content: "Figure " counter(chapter, decimal) "." counter(figure) " ";
+  display: inline;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .figure img {
   margin: 0;
@@ -2911,6 +2957,16 @@ subfigure {
 .section.section-exercises {
   page-break-before: always;
   page-break-after: always;
+  -webkit-column-count: 1;
+  -moz-column-count: 1;
+  column-count: 1;
+  columns: 1;
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+  columns: 2;
+  column-fill: auto;
+  column-gap: 24px;
 }
 .section.section-exercises::before {
   page-break-after: avoid;
@@ -2921,6 +2977,7 @@ subfigure {
   font-weight: bold;
   display: block;
   padding-bottom: 10px;
+  column-span: all;
 }
 .section.section-exercises > .titlepage {
   display: none;
@@ -2943,12 +3000,14 @@ subfigure {
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
   text-indent: 0;
+  display: table;
+  caption-side: bottom;
+  padding-bottom: 0;
 }
 .section.section-exercises .exercise .solution {
   display: none;
@@ -3034,12 +3093,14 @@ div.book div.chapter > div.section div.example div.exercise .solution .figure {
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
   counter-increment: figure !important;
+  display: table;
+  caption-side: bottom;
+  padding-bottom: 0;
 }
 div.book div.chapter > div.section div.example div.exercise .solution .figure .body {
   text-align: left;
@@ -3066,12 +3127,14 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure {
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
   counter-increment: figure !important;
+  display: table;
+  caption-side: bottom;
+  padding-bottom: 0;
 }
 div.book div.chapter > div.section div.example div.exercise .problem .figure .body {
   text-align: left;
@@ -3097,12 +3160,14 @@ div.book div.chapter > div.section div.example div.exercise .commentary .figure 
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  column-break-inside: avoid;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
   counter-increment: figure !important;
+  display: table;
+  caption-side: bottom;
+  padding-bottom: 0;
 }
 div.book div.chapter > div.section div.example div.exercise .commentary .figure .body {
   text-align: left;
@@ -3269,6 +3334,18 @@ div.orderedlist ol {
   margin: 0 0 0 40px;
   padding: 0;
 }
+/* -------------------------
+ * Images in chapters
+ * -------------------------
+ */
+.chapter .mediaobject img {
+  display: block;
+  margin: auto;
+}
+.end-of-book-solutions .mediaobject img {
+  display: block;
+  margin: auto;
+}
 /********************************************************************
  * SVG Color cascading.
  ********************************************************************/
@@ -3285,6 +3362,24 @@ div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
 .end-of-book-solutions .solution .cnx-svg {
   vertical-align: 0 !important;
 }
+.figure > .title {
+  display: none;
+}
+.cnx-eoc .exercise div.title {
+  display: none;
+}
+.note.qa > .body .figure .title {
+  display: none;
+}
+div.book div.chapter > div.section div.example div.exercise div.figure .caption::before {
+  display: inline;
+}
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.figure {
+  display: table;
+}
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.figure > .title {
+  display: none;
+}
 .glossary dl dt,
 .glossary dl dd {
   margin-top: -5px;
@@ -3292,31 +3387,6 @@ div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
 .glossary dl dt:first-of-type,
 .glossary dl dd:first-of-type {
   margin-top: 0;
-}
-/* -------------------------
- * Equations
- * -------------------------
- */
-div.book div.chapter > div.section div.equation.unnumbered,
-div.book div.chapter > div.section div.equation:not(.labeled).unnumbered,
-div.book div.chapter > div.section div.example div.exercise div.equation.unnumbered,
-div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled).unnumbered {
-  counter-increment: none !important;
-}
-div.book div.chapter > div.section div.equation.unnumbered > *:last-child::after,
-div.book div.chapter > div.section div.equation.unnumbered > *:last-child::before {
-  display: none !important;
-}
-/* -------------------------
- * Tables
- * -------------------------
- */
-div.book div.chapter .table.unnumbered,
-div.book div.chapter .table:not(labeled).unnumbered {
-  counter-increment: none !important;
-}
-div.book div.chapter div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before {
-  display: none !important;
 }
 div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled),
 div.book div.chapter > div.section div.example div.exercise div.equation {
@@ -3355,4 +3425,33 @@ div.book > div.part > div.chapter > div.cnx-eoc {
 div.book > div.appendix > div.cnx-eoc,
 div.book > div.part > div.appendix > div.cnx-eoc {
   counter-reset: /*exercise*/ eoc-section -1;
+}
+.section.section-exercises .section .exercise .problem img,
+.section.section-exercises .section .exercise .solution img {
+  margin: 1em 0;
+}
+/* -------------------------
+ * Equations
+ * -------------------------
+ */
+div.book div.chapter > div.section div.equation.unnumbered,
+div.book div.chapter > div.section div.equation:not(.labeled).unnumbered,
+div.book div.chapter > div.section div.example div.exercise div.equation.unnumbered,
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled).unnumbered {
+  counter-increment: none !important;
+}
+div.book div.chapter > div.section div.equation.unnumbered > *:last-child::after,
+div.book div.chapter > div.section div.equation.unnumbered > *:last-child::before {
+  display: none !important;
+}
+/* -------------------------
+ * Tables
+ * -------------------------
+ */
+div.book div.chapter .table.unnumbered,
+div.book div.chapter .table:not(labeled).unnumbered {
+  counter-increment: none !important;
+}
+div.book div.chapter div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before {
+  display: none !important;
 }
