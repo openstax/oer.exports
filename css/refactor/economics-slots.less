@@ -3,21 +3,27 @@
 // See LICENSE.txt for details.
 
 .x-section-title-font() {
-  color: @dark-blue; 
+  color: @dark-blue;
   font-size: 17pt;
 }
 
 #part {
   #toc {
+    .style() {}
     #title {
       .style(...) {
         color: @dark-blue;
         border-bottom-color: @dark-blue;
+        font-weight: bold;
+        font-size: large;
       }
     }
     #link {
       .style(...) {
         color: @dark-blue;
+        font-weight: bold;
+        font-size: 12.6px;
+        line-height: normal;
       }
     }
   }
@@ -27,16 +33,20 @@
         padding-top: 1.5em;
       }
       .title(...) {
+        #utils>#pb>.after(avoid);
         color: @white;
         background-color: @dark-blue;
         margin: 0.5em 0;
         margin-bottom: 0;
-        padding: 0.6em 0.5em;
+        padding: 0.1em 0.5em;
         padding-left: .25em;
         font-size: 2.8em;
         font-weight: normal;
         text-transform: uppercase;
         border-bottom: none;
+      }
+      .subtitle() {
+        color: @dark-blue;
       }
     }
   }
@@ -88,8 +98,13 @@
     }
   }
   #module {
+    .style(){
+      margin-bottom: 12px;
+      #utils>#pb>.before(avoid);
+    }
     #title {
       .style() {
+        border-bottom: none;
         .x-section-title-font();
       }
       // Separate the section number and title with a pipe
@@ -103,34 +118,177 @@
     }
   }
   #chapter-end {
+    .style(...) {
+      margin-bottom: 20px;
+    }
     #title {
       .style(...) {
+        -webkit-column-span: all;
+        column-span: all;
         color: @dark-blue;
-        font: normal normal 700 13pt/1em @font-family-sans-serif;
+        font: normal normal 700 14pt/1em @font-family-sans-serif;
         border-bottom: none;
+        text-transform: capitalize;
+        span {
+          font-size: 18px;
+        }
+      }
+    }
+    #section {
+      #title {
+        .style(...) {
+          a {
+            display: inline;
+          }
+        }
+      }
+    }
+    #summary {
+      #title {
+        .style(...) {
+          content: @cnx-string-summary;
+          text-transform: uppercase;
+        }
+        .link(...) {
+          display: inline;
+          color: @dark-blue;
+          font-family: @font-family-sans-serif;
+        }
+      }
+    }
+    #review-questions {
+      #title {
+        .style() {
+          text-transform: uppercase;
+        }
+      }
+    }
+    #critical-thinking {
+      .style() {
+        .x-column-count(2);
+        column-fill: balance;
+        text-align: left;
+        margin-bottom: 20px;
+      }
+      #title {
+        .style(...) {
+          -webkit-column-span: all;
+          column-span: all;
+          text-transform: uppercase;
+        }
+      }
+    }
+    #self-check-questions {
+      .style() {
+        .x-column-count(1);
+      }
+      #title {
+        .style() {
+          text-transform: uppercase;
+        }
+      }
+    }
+    #problems {
+      #title {
+        .style() {
+          text-transform: uppercase;
+        }
       }
     }
   }
   // End of Book Customizations
   #book-end {
-    #end-of-book-solutions {
+    #index {
       #title {
         .style(...) {
-          font-weight: 500;
+          color: @dark-blue;
+          text-transform: uppercase;
+          border: none;
+        }
+      }
+    }
+    #end-of-book-solutions {
+      .style(...) {
+        font-weight: 500;
+      }
+      #title {
+        .style() {
+          color: @dark-blue;
+          text-transform: uppercase;
+          border: none;
+        }
+        .style('chapter-area'; any) {
+          font-size: 15px;
+          font-family: @font-family-sans-serif;
         }
       }
     }
     #end-of-book-references {
       .style(...) { display: block; }
+      #chapter-area {
+        .style(...) {
+          color: black;
+          font-size: 16px;
+          font-weight: 700;
+          font-family: @font-family;
+          margin: .5em 0em;
+        }
+        #title {
+          .style(...) {}
+        }
+      }
     }
-  }
-  #index {
-    #title {
-      .style(...) {
-        font-weight: 500;
+    #appendix {
+      #title {
+        .style() {
+          font-size: 34pt;
+          font-weight: bold;
+          color: @dark-blue;
+          padding: 0;
+          margin: 0;
+          text-transform: none;
+        }
+        .number() {
+          color: @dark-blue;
+        }
+        .text() {
+          // Don't use display: none here because
+          // that will cause string-set for the cnx-header to fail.
+          visibility: hidden;
+          height: 0;
+        }
+        .divider() {
+          display: none;
+        }
+        .label() {
+          display: inline;
+        }
+      }
+    }
+    #colophon {
+      .style() {
+        color: @dark-blue;
+        text-transform: uppercase;
+        border: none;
+      }
+    }
+    #index {
+      #title {
+        .style(...) {
+          font-weight: 500;
+        }
+      }
+      .letter(...) {
+        font-family: @font-family-sans-serif;
+        padding-bottom: .5em;
+      }
+      .term(...) {
+        font-family: @font-family-sans-serif;
+        padding-bottom: 0;
       }
     }
   }
+
   // End of Book Attribution and About Connexions
   #colophon {
     .style(...) {
@@ -169,11 +327,9 @@
 
   > .title {
     font-size: large;
-    margin-top: .6em;
-    margin-bottom: .2em;
-    padding: 0px .5em;
     color: black;
     border: none;
+    font-weight: bold;
   }
 
   // Must apply padding to all elements in body not just blockquote and para, tables
@@ -196,11 +352,11 @@
     .style(...) {
       #utils>#pb>.inside(auto);
     }
-    .style('bring-it-home'; chapter ) {
+    .style('bring-it-home'; chapter) {
       .x-feature(@black, @gray, bring, 0.48in);
     }
     .style('clear-it-up'; chapter) {
-      .x-feature(@black, @gray, clear, 0.53in);
+      .x-feature(@black, @gray, clear, 0.48in);
     }
     .style('work-it-out'; chapter) {
       .x-feature(@black, @gray, work, 0.38in);
@@ -214,15 +370,14 @@
       background-color: @white;
       padding: 0;
       margin: 0;
-
       border-bottom: none;
     }
 
     #title {
-      .style('bring-it-home'; chapter) {
+      .style() {
         font-weight: bold;
-        padding: 0px .5em;
-        margin-top: 0.5em;
+        margin: .5em 0;
+        padding: 0 10px;
       }
       .style('chapter-objectives'; any) {
         font-size: x-large;
@@ -234,24 +389,43 @@
       }
     }
   }
+  #paragraph {
+    .style(any) {
+      line-height: normal;
+    }
+    .style('chapter-objectives'; introduction) {
+      font-family: @font-family-serif;
+    }
+  }
   #link {
     .style(...) {
       color: @dark-blue;
     }
   }
   #table {
+    .style(...) {
+      #utils>#pb>.inside(auto);
+    }
     .style(any; any) {
       width: 100%;
       border: none;
+      margin-top: 15px;
     }
     .style(any; preface) {
       margin: 0;
       border: none;
+      #utils>#pb>.after(avoid);
+    }
+    .style(any; end-of-book-solutions) {
+      width: auto;
     }
     #caption {
       .style(any; any) {
         caption-side: bottom;
         border: none;
+        color: @dark-blue;
+      }
+      .number(any; any) {
         color: @dark-blue;
       }
     }
@@ -273,17 +447,33 @@
       .style(any; any) {
         background-color: @light-blue;
         border: none;
-        border-top: 1px solid @dark-blue !important; // !important is in ccap-base
-        border-bottom: 1px solid @dark-blue !important;
+        border-top: 3px solid @dark-blue !important; // !important is in ccap-base
         border-right: none;
+        text-align: center;
+      }
+      .style(any; end-of-book-solutions) {
+        font-family: @font-family-sans-serif;
       }
     }
     #data {
       .style(any; any) {
-        border-color: @black;
+        border-color: @black !important;
+        border-width: thin;
+        border-bottom: 1px solid @black !important;
+        font-family: @font-family-sans-serif;
+
+      }
+      .style('first-row'; any; any) {
+        border-top: 3px solid @dark-blue !important;
+      }
+      .style('first-row'; preface; any) {
+        border-top: none !important;
       }
       .style(any; preface) {
         padding: 5px;
+        font-family: @font-family-sans-serif;
+        font-size: 13px;
+        border: none !important; // Why does .style(any; any) use important?
       }
     }
   }
@@ -292,12 +482,30 @@
       #utils>#pb>.before(avoid);
       #utils>#pb>.after(avoid);
     }
+    .style(any; any) {
+      margin: 0 0 11px 0;
+    }
     #title {
       .style(any; any) {
         .x-section-title-font();
         border-bottom: none;
         text-transform: none;
         font: bold 13pt/13pt @font-family-sans-serif;
+      }
+      .number(any; appendix) {
+        display: none;
+      }
+      .style(any; chapter-end; 'self-check-questions') {
+        display: none;
+      }
+      .style(any; chapter-end; 'problems') {
+        display: none;
+      }
+      .style(any; preface) {
+        font-size: 17px;
+      }
+      .style(any; preface; section) {
+        font-size: 14px;
       }
     }
   }
@@ -311,6 +519,52 @@
       .number(...) {
         color: @dark-blue;
       }
+      .style(any; end-of-book-solutions) { display: none; }
+    }
+  }
+  #glossary {
+    .style(...) {
+      // Don't show the "Chapter X Review" header from PreCalc
+      &::before {
+        display: none;
+      }
+    }
+    #title {
+      .style(...) {
+        /* Change "Glossary" to "Key Terms" */
+
+        // Temp changes in place until we horizontally refactor glossary across books.
+        color: @dark-blue !important;
+        font-size: 14pt !important;
+        text-transform: uppercase !important;
+        border:none;
+        margin-top: 0;
+        padding-top: 0;
+      }
+    }
+    .term() {
+      font: normal 700 12.7px/17px @font-family-sans-serif;
+    }
+    .definition() {
+      margin-left: 30px;
+    }
+    .glossterm(any) {
+      font: inherit;
+    }
+    .dl() {
+      margin: 1em 0;
+      text-align: left;
+    }
+  }
+  #exercise {
+    .style(any; chapter-end) {
+      margin-bottom: .75em;
+    }
+  }
+  #solution {
+    .style(@kind, book-end) {
+      display: block;
+      padding-bottom: 10px;
     }
   }
 }
