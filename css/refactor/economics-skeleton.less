@@ -1,12 +1,12 @@
 // Copyright (c) 2013 Rice University
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
-// See LICENSE.txt for details.
+@kind: default;
+@part: default;
 
-.chapter .note {
+
+.note {
   &.bringhome {
     #content>#note>.style('bring-it-home'; chapter);
-
-    > .title { #content>#note>#title>.style('bring-it-home'; chapter); }
   }
   &.clearup  {
     #content>#note>.style('clear-it-up'; chapter);
@@ -41,14 +41,130 @@
       #content>#note>#title>.style('chapter-objectives'; any);
     }
 
+    p { #content>#paragraph>.style('chapter-objectives'; introduction); }
+
     ul.itemizedlist > .listitem {
       #content>#list>.item(any; introduction; note; 'chapter-objectives');
     }
   }
+
+  > .title {
+    #content>#note>#title>.style();
+  }
+}
+
+.cnx-eoc {
+  &.self-check-questions {
+    #part>#chapter-end>#self-check-questions>.style();
+    > .title {
+      #part>#chapter-end>#self-check-questions>#title>.style();
+    }
+    > .section {
+      .title { #content>#section>#title>.style(any; chapter-end; 'self-check-questions'); }
+    }
+  }
+  &.problems {
+    > .title {
+      #part>#chapter-end>#problems>#title>.style();
+    }
+    > .section .title { #content>#section>#title>.style(any; chapter-end; 'problems'); }
+  }
+  .exercise { #content>#exercise>.style(any; chapter-end); }
 }
 
 .preface {
   .section { #content>#section>.style(any; preface); }
   .table table { #content>#table>.style(any; preface); }
   .table table td { #content>#table>#data>.style(any; preface); }
+  .table table tr:first-of-type td { #content>#table>#data>.style('first-row'; preface; any); }
+}
+
+div.colophon.end-of-book-solutions {
+  .table table {
+    #content>#table>.style(any; end-of-book-solutions);
+    th { #content>#table>#header>.style(any; end-of-book-solutions); }
+  }
+  .chapter-area div.solution div.body div.figure {
+    > div.title { #content>#figure>#title>.style(any; end-of-book-solutions); }
+  }
+}
+.appendix {
+  .note {
+    &.clearup  {
+      #content>#note>.style('clear-it-up'; chapter);
+    }
+  }
+  .note {
+    &.workout {
+      #content>#note>.style('work-it-out'; chapter);
+
+      // Supress the extra url generated from base that is wrapped with parentheses
+      .itemizedlist > .listitem .link.only-show-once {
+        content: content();
+      }
+    }
+  }
+}
+div.book,
+div.book > div.part {
+  > div.appendix {
+    > div.section div.equation > *:last-child::after {
+      display: none;
+    }
+  }
+}
+div.table {
+  .table-caption.caption {
+    color: @black;
+  }
+  table {
+    // Using td instead of tr because of border-collapse policies.
+    tr:first-of-type td { #content>#table>#data>.style('first-row'; any; any); }
+  }
+}
+
+div.book > div.chapter .section, div.book > div.appendix {
+  &.module {
+      #part>#module>.style();
+      >.section:last-child {
+        margin-bottom: 0;
+      }
+      // this is a temporary fix to style sections that do not follow another  section- this applies to first sections in modules as well as h4 level sections
+      p + .section  {
+        margin-top: 0px;
+        margin-bottom: 0px;
+      }
+    }
+    &.empty {
+      margin-bottom: 0;
+    }
+}
+.table {
+  #content>#table>.style(@kind; @part);
+}
+
+/********************************************************************
+ * Glossary
+ ********************************************************************/
+.glossary {
+  #content>#glossary>.style();
+
+  .title {
+    #content>#glossary>#title>.style();
+  }
+
+  // Remove ":"
+  dl dt::after { #content>#glossary>.divider(); }
+
+  dl {
+    #content>#glossary>.dl();
+
+    dt {
+      #content>#glossary>.term();
+    }
+    dd {
+      #content>#glossary>.definition();
+    }
+
+  }
 }
