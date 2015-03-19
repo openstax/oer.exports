@@ -88,7 +88,9 @@ div.part > div.titlepage {display:none;}
 /******************************************************
  * Section Level Learning Objectives
  ******************************************************/
-.section > .titlepage .abstract { border: 2pt solid @green; }
+.section > .titlepage .abstract {
+  border: 2pt solid @green;
+}
 
 
 /******************************************************
@@ -127,18 +129,16 @@ div.part > div.titlepage {display:none;}
 //AP bio specific
 .visual-connection {
   page-break-inside: avoid;
-  .x-feature(black, @cream, CNX_Bio_Art);
+  .x-feature(black, @cream, Visual_Connection_Feature);
 }
 .ap-everyday {
   page-break-inside: avoid;
-  .x-feature(black, @cream, CNX_Bio_Art);
+  .x-feature(black, @cream, Everyday_AP_feature);
 }
 .ap-science-practices {
   page-break-inside: avoid;
-  .x-feature(black, @cream, CNX_Bio_Art);
+  .x-feature(black, @cream, AP_Scientific_Practices_feature);
 }
-
-
 
 .x-feature (@color, @bg-color, @svg) {
   background-color: @bg-color;
@@ -264,14 +264,14 @@ div.part > div.titlepage {display:none;}
 .multiple-choice > .title { content: "Review Questions" !important; column-span: all; margin-top: 1em; } //todo: clean code
 .free-response > .title { content: "Critical Thinking Questions"; column-span: all; margin-top: 1em; }
 
-.multiple-choice,.free-response,.art-exercise {
+.multiple-choice,.free-response,.art-exercise, .visual-exercise, .ap-test {
   > .section > .title { display: none; }
 }
 
 //AP bio specific
 .visual-exercise > .title { content: "Visual Connection Questions"; column-span: all; margin-top: 1em;
 }
-
+.ap-test > .title { column-span: all; margin-top: 1em; }
 /******************************************************
  * Generic Elements
  ******************************************************/
@@ -396,7 +396,16 @@ p {
   page-break-inside: auto;
   // If a table spans more than 1 page then put caption on all following pages
   prince-caption-page: all;
-
+  &.no-title {
+      table {
+        border-top: @table-border !important;
+      }
+    }
+    &.column-header {
+      .colsep-on {
+        background: @cream;
+      }
+    }
   caption {
     padding-top: .5em;
     padding-bottom: 1em;
@@ -503,7 +512,7 @@ div.book {
  ******************************************************/
 // TODO: If this is used by other books it should probably be moved to ccap-numbering.less
 div.end-of-book-solutions {
-   .art-exercise, .multiple-choice, .free-response {
+   .art-exercise, .multiple-choice, .free-response, .ap-test, .visual-exercise {
        display: inline;
        clear: none;
    }
@@ -534,6 +543,8 @@ div.end-of-book-solutions {
     }
   }
 }
+
+
 
 
 /******************************************************
