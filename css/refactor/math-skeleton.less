@@ -1,15 +1,130 @@
-// We are moving figure numbering to a ::before
-// on the caption element because of princexml 
-//bug rendering ::after. The numbers were being "clipped"
-.figure > .title { display: none; }
-.cnx-eoc .exercise div.title { display: none; }
-.note.qa > .body .figure .title {display:none;}
-// ::before elements are turned off in base... *::before -_-
-div.book div.chapter > div.section div.example div.exercise div.figure .caption::before {
-  display: inline;
+// Copyright (c) 2013 Rice University
+// This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+// See LICENSE.txt for details.
+
+/******************************************************
+ * Mathematics Features
+ *
+ * Features from Pre-Calculus
+ * Features from Calculus
+ *   Theorem
+ *   Student Project
+ *   Checkpoint
+ *   Media-2 (Alternative Media style)
+ *   Definition
+ *   Problem Solving
+ * Features from Basic Mathematics
+ *****************************************************/
+
+.note {
+  &.theorem {
+    #content>#note>.style(non-feature);
+    > .title { #content>#note>#title>.style(non-feature); }
+  }
+  &.project {
+    @context: student-project;
+    #content>#note>.style(@context);
+
+    > .title { #content>#note>#title>.style(@kind; @part; @context); }
+  }
+  &.checkpoint {
+    @context: feature-try;
+    #content>#note>.style(checkpoint);
+    div.itemizedlist, div.orderedlist {
+      ul, ol {
+        #content>#list>.style(any; try-it);
+      }
+    }
+    > .title {
+      #content>#note>#title>.style(@kind; @part; @context);
+    }
+
+    .exercise {
+      #content>#exercise>.style(@kind; @part; @context);
+      > .title { #content>#exercise>#title>.style(@kind; @part; @context); }
+
+      .problem {
+        #content>#problem>.style(@kind; @part; @context; exercise);
+      }
+      .solution {
+        #content>#solution>.style(@kind; @part; @context; exercise);
+      }
+    }
+  }
+  &.media-2 {
+    @context: feature-media;
+    #content>#note>.style(media-2);
+
+    .itemizedlist > .listitem {
+      #content>#list>.item(@kind, @part, @context);
+    }
+
+    // Supress the extra url generated from base that is wrapped with parentheses
+    .itemizedlist > .listitem .link.only-show-once {
+      content: content();
+    }
+  }
+  &.definition {
+    @context: definition;
+    #content>#note>.style(non-feature);
+    > .title { #content>#note>#title>.style(non-feature); }
+    > .title::before { #content>#note>#title>.style(@kind; @part; @context); }
+    > .title span { display: none; }
+  }
+  &.problem-solving {
+    @context: problem-solving;
+    #content>#note>.style(problem-solving);
+    > .title { #content>#note>#title>.style(@kind; @part; @context); }
+  }
+  div.table {
+    table {
+      #content>#table>.style(any; any; note);
+    }
+  }
 }
 
-// Figures in the answer key
+/******************************************************
+ * Mathematics Answer Key
+ *
+ * Sections from Pre-Calculus
+ * Sections from Calculus
+ *   Checkpoint
+ * Sections from Basic Mathematics
+ *****************************************************/
+
+
+
+
+// Checkpoint Solutions
+div.colophon.end-of-book-solutions .chapter-area > div.checkpoint {
+  &::before { #part>#book-end>#end-of-book-solutions>#title>.style('checkpoint'); }
+  div.solution > div.title a.solution::before {
+    content: target-counter(attr(href), chapter) "." target-counter(attr(href), checkpoint);
+  }
+}
+
+
+/******************************************************
+ * Numbering for features introduced in Calculus
+ ******************************************************/
+div.book div.chapter div.section div.theorem:not(.labeled) {
+  counter-increment: theorem;
+  > .title > span:before {
+    content: "Theorem " counter(chapter) "." counter(theorem) ": ";
+  }
+}
+div.book div.chapter .checkpoint:not(.labeled) {
+counter-increment: checkpoint;
+}
+div.book div.chapter .checkpoint > .title:not(.labeled)::before {
+  content: "" "" counter(chapter, decimal) "." counter(checkpoint) " " ""
+}
+
+
+/******************************************************
+ * Misc. Ad-hoc fixes.
+ ******************************************************/
+// Figures in the answer key also display like tables.
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body {
   div.figure { display: table; }
   div.figure > .title { display: none; }
@@ -28,13 +143,32 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.body {
   }
 }
 
-// Equation numbering updates. This changes the numbering to use
-// ::before rather than ::after in order to avoid princexml bugs.
+.section.section-exercises .section .exercise {
+  .problem, .solution {
+    img { margin: 1em 0; }
+  }
+}
+
+/******************************************************
+ * Element numbering bugfix.
+ *
+ * Due to a bug with princexml "clipping" numbering
+ * rendered in ::after pseudo-elements we have swapped
+ * these numbers to render on ::before elements.
+ * What follows are a boatload of adhoc selectors which
+ * make this switch.
+ ******************************************************/
+.figure > .title { display: none; }
+.cnx-eoc .exercise div.title { display: none; }
+.note.qa > .body .figure .title {display:none;}
+// ::before elements are turned off in base... *::before -_-
+div.book div.chapter > div.section div.example div.exercise div.figure .caption::before {
+  display: inline;
+}
 div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled),
 div.book div.chapter > div.section div.example div.exercise div.equation, {
   counter-increment: equation !important; // Override !important from numbering-skeleton.
 }
-
 // Turn on ::before numbers
 div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled) span.inlinemediaobject::before,
 div.book div.chapter > div.section div.example div.exercise div.equation span.inlinemediaobject::before,
@@ -74,20 +208,12 @@ div.appendix div.figure > div.caption::before {
 // originally defined in ccap-numbering.less
 // The hierarchy is copied from ccap-numbering so the selectors (and priority for which to apply) are the same
 .x-duplicate-hierarchy() {
-  > div.cnx-eoc { counter-reset: /*exercise*/ eoc-section -1; }
+  > div.cnx-eoc { counter-reset: eoc-section -1; }
 }
-
-
 div.book, div.book > div.part {
   > div.preface  { .x-duplicate-hierarchy(); }
   > div.chapter  { .x-duplicate-hierarchy(); }
   > div.appendix { .x-duplicate-hierarchy(); }
-}
-
-.section.section-exercises .section .exercise {
-  .problem, .solution {
-    img { margin: 1em 0; }
-  }
 }
 
 // Ad-hoc numbering changes. Removes numbering for various pieces of content
