@@ -1,5 +1,5 @@
 /*******************************************************
-* Copyright (c) 2013 Rice University
+*  Copyright (c) 2013 Rice University
 *  This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 *  See LICENSE.txt for details.
 *******************************************************/
@@ -70,9 +70,6 @@ td.entrytbl > table {
   border-left-width: 0;
   border-right-width: 0;
 }
-/********************************************************************
- * Refactor of .x-feature() function to utilize only one paramter
- ********************************************************************/
 /********************************************************************
  * Refactor of .x-feature() function to utilize only one paramter
  ********************************************************************/
@@ -3358,18 +3355,26 @@ g text {
 g line {
   stroke: currentColor !important;
 }
-div.book div.chapter div.section div.theorem:not(.labeled) {
-  counter-increment: theorem;
+div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
+  content: "\A";
+  white-space: pre;
 }
-div.book div.chapter div.section div.theorem:not(.labeled) > .title > span:before {
-  content: "Theorem " counter(chapter) "." counter(theorem) ": ";
+.end-of-book-solutions .solution .cnx-svg {
+  vertical-align: 0 !important;
 }
-div.book div.chapter .checkpoint:not(.labeled) {
-  counter-increment: checkpoint;
-}
-div.book div.chapter .checkpoint > .title:not(.labeled)::before {
-  content: "" "" counter(chapter, decimal) "." counter(checkpoint) " " "";
-}
+/******************************************************
+ * Mathematics Features
+ *
+ * Features from Pre-Calculus
+ * Features from Calculus
+ *   Theorem
+ *   Student Project
+ *   Checkpoint
+ *   Media-2 (Alternative Media style)
+ *   Definition
+ *   Problem Solving
+ * Features from Basic Mathematics
+ *****************************************************/
 .note.theorem {
   padding-left: 1em;
   padding-right: 1em;
@@ -3403,13 +3408,13 @@ div.book div.chapter .checkpoint > .title:not(.labeled)::before {
   background-color: #dbe8f2;
 }
 .note.project:before {
-  display: block;
-  content: "";
   min-height: 45px;
   padding-top: 0;
   margin-top: 0;
   background: url("ccap-calculus/student-project.svg") no-repeat;
   background-position: 0 .2em;
+  display: block;
+  content: "";
   padding-top: 41px;
   min-height: 100%;
   background-position: -5px 0px;
@@ -3505,17 +3510,11 @@ div.book div.chapter .checkpoint > .title:not(.labeled)::before {
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
-  page-break-inside: avoid;
-  background: url("ccap-precalculus/media.svg") no-repeat;
-  padding-left: 2.5em;
   min-height: 45px;
   padding-top: 0;
   margin-top: 0;
   background: url("ccap-calculus/media.svg") no-repeat;
   background-position: 0 .2em;
-}
-.note.media-2 .figure img {
-  max-width: 6.25in;
 }
 .note.media-2 .figure img {
   max-width: 6.25in;
@@ -3550,7 +3549,7 @@ div.book div.chapter .checkpoint > .title:not(.labeled)::before {
   font-weight: bold;
   border-bottom: 1px solid #528cbe;
 }
-.note.definition > .title:before {
+.note.definition > .title::before {
   margin-top: 0.5em;
   margin-top: 0em;
   content: "Definition: ";
@@ -3582,6 +3581,14 @@ div.book div.chapter .checkpoint > .title:not(.labeled)::before {
   font-weight: bold;
   border-bottom: 1px solid #528cbe;
 }
+/******************************************************
+ * Mathematics Answer Key
+ *
+ * Sections from Pre-Calculus
+ * Sections from Calculus
+ *   Checkpoint
+ * Sections from Basic Mathematics
+ *****************************************************/
 div.colophon.end-of-book-solutions .chapter-area > div.checkpoint::before {
   color: black;
   font-size: 16px;
@@ -3594,25 +3601,24 @@ div.colophon.end-of-book-solutions .chapter-area > div.checkpoint::before {
 div.colophon.end-of-book-solutions .chapter-area > div.checkpoint div.solution > div.title a.solution::before {
   content: target-counter(attr(href), chapter) "." target-counter(attr(href), checkpoint);
 }
-div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
-  content: "\A";
-  white-space: pre;
+/******************************************************
+ * Numbering for features introduced in Calculus
+ ******************************************************/
+div.book div.chapter div.section div.theorem:not(.labeled) {
+  counter-increment: theorem;
 }
-.end-of-book-solutions .solution .cnx-svg {
-  vertical-align: 0 !important;
+div.book div.chapter div.section div.theorem:not(.labeled) > .title > span:before {
+  content: "Theorem " counter(chapter) "." counter(theorem) ": ";
 }
-.figure > .title {
-  display: none;
+div.book div.chapter .checkpoint:not(.labeled) {
+  counter-increment: checkpoint;
 }
-.cnx-eoc .exercise div.title {
-  display: none;
+div.book div.chapter .checkpoint > .title:not(.labeled)::before {
+  content: "" "" counter(chapter, decimal) "." counter(checkpoint) " " "";
 }
-.note.qa > .body .figure .title {
-  display: none;
-}
-div.book div.chapter > div.section div.example div.exercise div.figure .caption::before {
-  display: inline;
-}
+/******************************************************
+ * Misc. Ad-hoc fixes.
+ ******************************************************/
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.figure {
   display: table;
 }
@@ -3626,6 +3632,31 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.fig
 .glossary dl dt:first-of-type,
 .glossary dl dd:first-of-type {
   margin-top: 0;
+}
+.section.section-exercises .section .exercise .problem img,
+.section.section-exercises .section .exercise .solution img {
+  margin: 1em 0;
+}
+/******************************************************
+ * Element numbering bugfix.
+ *
+ * Due to a bug with princexml "clipping" numbering
+ * rendered in ::after pseudo-elements we have swapped
+ * these numbers to render on ::before elements.
+ * What follows are a boatload of adhoc selectors which
+ * make this switch.
+ ******************************************************/
+.figure > .title {
+  display: none;
+}
+.cnx-eoc .exercise div.title {
+  display: none;
+}
+.note.qa > .body .figure .title {
+  display: none;
+}
+div.book div.chapter > div.section div.example div.exercise div.figure .caption::before {
+  display: inline;
 }
 div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled),
 div.book div.chapter > div.section div.example div.exercise div.equation {
@@ -3655,19 +3686,15 @@ div.book > div.chapter > div.cnx-eoc > div.section > div.body > div.section > di
 }
 div.book > div.preface > div.cnx-eoc,
 div.book > div.part > div.preface > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
+  counter-reset: eoc-section -1;
 }
 div.book > div.chapter > div.cnx-eoc,
 div.book > div.part > div.chapter > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
+  counter-reset: eoc-section -1;
 }
 div.book > div.appendix > div.cnx-eoc,
 div.book > div.part > div.appendix > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
-}
-.section.section-exercises .section .exercise .problem img,
-.section.section-exercises .section .exercise .solution img {
-  margin: 1em 0;
+  counter-reset: eoc-section -1;
 }
 /* -------------------------
  * Equations
