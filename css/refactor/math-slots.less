@@ -51,6 +51,18 @@
 }
 #content {
   #note {
+    .style(howto; ...) {
+      #utils>#pb>.inside(avoid);
+      .x-feature(howto);
+      padding-left: 2.8em;
+    }
+    .style(emphasized; howto) {
+      #content>#note>.style(howto);
+      padding-top: .4em;
+      padding-left: 3em;
+      background-position: .5em .5em;
+      background-color: @light-blue;
+    }
     .style(student-project; ...) {
       #utils>#pb>.inside(avoid);
       background-color: @light-blue;
@@ -70,7 +82,19 @@
     .style(checkpoint; ...) {
       #utils>#pb>.inside(avoid);
       .x-banner-feature(checkpoint; calculus);
-      padding-left:1.4em;
+      padding-left: 1.4em;
+    }
+    .style(quick-check; ...) {
+      #utils>#pb>.inside(avoid);
+      .x-banner-feature(quick-check; basic-math);
+      padding-left: 1.4em;
+    }
+    .style(emphasized; quick-check) {
+      #content>#note>.style(quick-check);
+      padding-top: .4em;
+      padding-left: 3em;
+      background-position: .5em .5em;
+      background-color: @soft-orange;
     }
     .style(media-2; ...) {
       .x-banner-feature(media; calculus);
@@ -79,6 +103,9 @@
       #content>#note>.style(non-feature);
       background-color: @soft-orange;
       padding-bottom: 1em;
+    }
+    .style(be-prepared) {
+      #content>#note>.style(non-feature);
     }
     #title {
       .style(@kind; @part; student-project) {
@@ -99,7 +126,10 @@
       .style(@kind; @part; problem-solving) {
         #content>#note>#title>.style(non-feature);
       }
-
+      .style(be-prepared) {
+        #content>#note>#title>.style(non-feature);
+        margin-bottom: 1em;
+      }
     }
   }
 //  - Non-figure images are centered.
@@ -157,6 +187,40 @@
       }
     }
   }
+  #exercise {
+    .style(any; any; be-prepared) {
+    }
+    #title {
+      .style(any; any; be-prepared) {
+        display: inline;
+      }
+    }
+    #body {
+      .style(any; any; be-prepared) {
+        display: inline;
+      }
+    }
+  }
+  #problem {
+    .style(any; any; be-prepared; exercise) {
+      display: inline;
+    }
+    #title {
+      .style(any; any; be-prepared; exercise) {
+        display: none;
+      }
+    }
+    #body {
+      .style(any; any; be-prepared; exercise) {
+        display: inline;
+      }
+    }
+  }
+  #solution {
+    .style(any; any; be-prepared; exercise) {
+      display: none;
+    }
+  }
 //  - Section exercises are two columns
   #section {
     .style(section-exercises; @part; ...) {
@@ -173,6 +237,11 @@
   #table {
     .style(any; any; note) {
       background-color:#fff;
+    }
+  }
+  #paragraph {
+    .style(any; any; be-prepared; exercise; problem) {
+      display: inline;
     }
   }
 }
