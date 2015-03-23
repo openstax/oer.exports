@@ -6,6 +6,7 @@
  * Mathematics Features
  *
  * Features from Pre-Calculus
+ *   How To
  * Features from Calculus
  *   Theorem
  *   Student Project
@@ -16,7 +17,16 @@
  * Features from Basic Mathematics
  *****************************************************/
 
+@kind: any;
+@part: any;
+
 .note {
+  &.howto {
+    #content>#note>.style(howto);
+  }
+  &.howto.emphasized {
+    #content>#note>.style(emphasized; howto);
+  }
   &.theorem {
     #content>#note>.style(non-feature);
     > .title { #content>#note>#title>.style(non-feature); }
@@ -28,8 +38,16 @@
     > .title { #content>#note>#title>.style(@kind; @part; @context); }
   }
   &.checkpoint {
-    @context: feature-try;
     #content>#note>.style(checkpoint);
+  }
+  &.quick-check {
+    #content>#note>.style(quick-check);
+  }
+  &.quick-check.emphasized {
+    #content>#note>.style(emphasized; quick-check);
+  }
+  &.quick-check, &.checkpoint {
+    @context: feature-try;
     div.itemizedlist, div.orderedlist {
       ul, ol {
         #content>#list>.style(any; try-it);
@@ -49,6 +67,12 @@
       .solution {
         #content>#solution>.style(@kind; @part; @context; exercise);
       }
+    }
+  }
+  // Fix problem offset inside emphasized versions of quick check and checkpoint.
+  &.quick-check, &.checkpoint {
+    &.emphasized {
+      .exercise .problem { margin-left: 2px; }
     }
   }
   &.media-2 {
@@ -76,6 +100,37 @@
     #content>#note>.style(problem-solving);
     > .title { #content>#note>#title>.style(@kind; @part; @context); }
   }
+  &.be-prepared {
+    #content>#note>.style(be-prepared);
+    > .title {
+      #content>#note>#title>.style(be-prepared); }
+    > .title::before {
+      content: "Be Prepared!";
+    }
+    > .body { padding: 0 1em; }
+    .exercise {
+      @context: be-prepared;
+      #content>#exercise>.style(@kind; @part; @context);
+      > .title { #content>#exercise>#title>.style(@kind; @part; @context); }
+      > .body { #content>#exercise>#body>.style(@kind; @part; @context); }
+
+      .problem {
+        #content>#problem>.style(@kind; @part; @context; exercise);
+        > .title { #content>#problem>#title>.style(@kind; @part; @context; exercise); }
+        > .body {
+          #content>#problem>#body>.style(@kind; @part; @context; exercise);
+          p { #content>#paragraph>.style(@kind; @part; @context; exercise; problem); }
+        }
+      }
+      .solution {
+        #content>#solution>.style(@kind; @part; @context; exercise);
+      }
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 
 /******************************************************
@@ -100,7 +155,7 @@ div.colophon.end-of-book-solutions .chapter-area > div.checkpoint {
 
 
 /******************************************************
- * Numbering for features introduced in Calculus
+ * Numbering
  ******************************************************/
 div.book div.chapter div.section div.theorem:not(.labeled) {
   counter-increment: theorem;
@@ -115,7 +170,16 @@ div.book div.chapter .checkpoint > .title:not(.labeled)::before {
   content: "" "" counter(chapter, decimal) "." counter(checkpoint) " " ""
 }
 
-
+// Exercise numbering for exercises in Be Prepared
+div.book div.chapter > div.cnx-eoc div.note.be-prepared div.exercise,
+div.book div.chapter > div.cnx-eoc div.note.be-prepared div.exercise:not(.labeled),
+div.book div.chapter > div.section div.note.be-prepared div.exercise,
+div.book div.chapter > div.section div.note.be-prepared div.exercise:not(.labeled) {
+  counter-increment: be-prepared-exercise;
+}
+div.book div.chapter > div.section div.note.be-prepared div.exercise:not(.labeled) > .title > span:first-child:not(.labeled)::before {
+  content: counter(be-prepared-exercise) ". "
+}
 /******************************************************
  * Misc. Ad-hoc fixes.
  ******************************************************/
