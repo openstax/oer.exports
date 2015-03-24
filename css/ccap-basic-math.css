@@ -3342,6 +3342,18 @@ g line {
 div[class="note"] div.table table th {
   background-color: #d7562c;
 }
+.example.multiple-solution .exercise {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  margin-top: 0;
+  counter-reset: exercise multiple-solution-example-solutions;
+}
+.example.multiple-solution .exercise .solution > .title {
+  content: "Solution (" counter(multiple-solution-example-solutions, lower-latin) ")";
+}
+div.book div.chapter > div.section div.example.multiple-solution div.exercise div.solution {
+  counter-increment: multiple-solution-example-solutions !important;
+}
 div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
   content: "\A";
   white-space: pre;
