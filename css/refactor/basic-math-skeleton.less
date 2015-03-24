@@ -10,8 +10,19 @@ div[class="note"] {
   }
 }
 
+.example.multiple-solution {
+  .exercise {
+    #content>#exercise>.style(any; any; example; multiple-solution);
+    .solution {
+
+      > .title { #content>#solution>#title>.style(any; any; example; multiple-solution; exercise); }
+    }
+  }
+}
 
 
-
-
+// Override needlessly long base numbering selector...
+div.book div.chapter > div.section div.example.multiple-solution div.exercise div.solution {
+  #content>#solution>.style(any; any; example; multiple-solution; exercise) !important;
+}
 
