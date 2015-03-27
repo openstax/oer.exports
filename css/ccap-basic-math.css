@@ -2915,6 +2915,10 @@ subfigure {
   margin: 0;
   max-width: 6.5in;
 }
+.figure + p {
+  padding-top: 1.5em;
+  margin-top: 0em;
+}
 /******************************************************************************
  * Addition of .commentary selector styling for Analysis header in examples
  ******************************************************************************/
@@ -3047,6 +3051,7 @@ subfigure {
   background: #233a67;
   padding-top: .3em;
   padding-bottom: .3em;
+  page-break-after: avoid;
 }
 .example > .title > * {
   font-size: 130%;
@@ -3445,6 +3450,7 @@ div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   page-break-inside: avoid;
+  page-break-before: always;
   background-color: #dbe8f2;
 }
 .note.project:before {
@@ -3733,6 +3739,11 @@ div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
 .note.be-prepared .exercise:last-of-type {
   margin-bottom: 0;
 }
+.note div.table table {
+  page-break-inside: avoid;
+  margin: auto;
+  background-color: #fff;
+}
 /******************************************************
  * Mathematics Answer Key
  *
@@ -3844,6 +3855,14 @@ div.book > div.chapter > div.cnx-eoc > div.section > div.body > div.section > di
 }
 div.book > div.chapter > div.cnx-eoc > div.section > div.body > div.section > div.exercise:not(.labeled) > div.title {
   display: none;
+}
+div.appendix div.figure > div.caption::before {
+  color: #d7562c;
+  font-weight: bold;
+  text-align: left;
+  margin-right: .5em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  content: "Figure " counter(appendix, upper-alpha) counter(figure);
 }
 div.book > div.preface > div.cnx-eoc,
 div.book > div.part > div.preface > div.cnx-eoc {
