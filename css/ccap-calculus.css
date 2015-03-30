@@ -3747,6 +3747,18 @@ div.colophon.end-of-book-solutions .chapter-area > div.checkpoint::before {
 div.colophon.end-of-book-solutions .chapter-area > div.checkpoint div.solution > div.title a.solution::before {
   content: target-counter(attr(href), chapter) "." target-counter(attr(href), checkpoint);
 }
+div.colophon.end-of-book-solutions .chapter-area > div.quick-check::before {
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  display: block;
+  margin-bottom: 7.5px;
+  content: "Quick Check";
+}
+div.colophon.end-of-book-solutions .chapter-area > div.quick-check div.solution > div.title a.solution::before {
+  content: target-counter(attr(href), chapter) "." target-counter(attr(href), quick-check);
+}
 /******************************************************
  * Numbering
  ******************************************************/
@@ -3760,7 +3772,13 @@ div.book div.chapter .checkpoint:not(.labeled) {
   counter-increment: checkpoint;
 }
 div.book div.chapter .checkpoint > .title:not(.labeled)::before {
-  content: "" "" counter(chapter, decimal) "." counter(checkpoint) " " "";
+  content: "" counter(chapter, decimal) "." counter(checkpoint) " ";
+}
+div.book div.chapter .quick-check:not(.labeled) {
+  counter-increment: quick-check;
+}
+div.book div.chapter .quick-check > .title:not(.labeled)::before {
+  content: "" counter(chapter, decimal) "." counter(quick-check) " ";
 }
 div.book div.chapter > div.cnx-eoc div.note.be-prepared div.exercise,
 div.book div.chapter > div.cnx-eoc div.note.be-prepared div.exercise:not(.labeled),
