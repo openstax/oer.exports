@@ -15,9 +15,6 @@ div[class="note"] {
   > .title { #content>#note>#title>.style(non-feature); }
 }
 .note {
-  &.howto {
-    #content>#note>.style(howto);
-  }
   &.qa {
     @context: feature-qa;
     #content>#note>.style(qa);
@@ -622,6 +619,9 @@ img, figure, subfigure  { margin: 1em; }
   & img {
     #content>#image>.style(@kind; @part; figure);
   }
+  & + p {
+    #content>#paragraph>.style(any; any; figure);
+  }
 
 }
 
@@ -686,7 +686,7 @@ img, figure, subfigure  { margin: 1em; }
   #content>#glossary>.style();
 
   .title {
-    #content>#glossary#title>.style();
+    #content>#glossary>#title>.style();
   }
 
   // Remove ":"
