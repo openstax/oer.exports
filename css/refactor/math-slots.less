@@ -1,0 +1,254 @@
+// Copyright (c) 2013 Rice University
+// This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+// See LICENSE.txt for details.
+
+
+@soft-orange:   #F1DDB6;
+
+
+@cnx-string-definition: "Definition: ";
+
+.x-banner-feature (@svg, @book) {
+  // If feature is only one line prevent clipping of icon
+  min-height: 45px;
+
+  padding-top: 0;
+  margin-top: 0;
+  background: url("ccap-@{book}/@{svg}.svg") no-repeat;
+  background-position: 0 .2em;
+
+  .figure {
+    img { max-width: (@page-width - .25em); }
+  }
+}
+
+
+#part {
+//  - End of chapter review exercises and practice tests
+//    are two columns.
+  #chapter-end {
+    #review-exercises {
+      .style(...) {
+        .x-column-count(2);
+      }
+    }
+    #practice-test {
+      .style(...) {
+        .x-column-count(2);
+      }
+    }
+  }
+  #book-end {
+    #end-of-book-solutions {
+      #title {
+        .style('checkpoint') {
+          .x-solutions-subheading-style();
+          content: "Checkpoint";
+        }
+        .style('quick-check') {
+          .x-solutions-subheading-style();
+          content: "Quick Check";
+        }
+      }
+    }
+  }
+}
+#content {
+  #note {
+    .style(howto; ...) {
+      #utils>#pb>.inside(avoid);
+      .x-feature(howto);
+      padding-left: 2.8em;
+    }
+    .style(emphasized; howto) {
+      #content>#note>.style(howto);
+      padding-top: .4em;
+      padding-left: 3em;
+      background-position: .5em .5em;
+      background-color: @light-blue;
+    }
+    .style(student-project; ...) {
+      #utils>#pb>.inside(avoid);
+      page-break-before: always;
+      background-color: @light-blue;
+      &:before {
+        .x-banner-feature(student-project; calculus);
+        display: block;
+        content: "";
+        padding-top: 41px;
+        min-height: 100%;
+        background-position: -5px 0px;
+        background-color: @black;
+        margin-left: -1em;
+        margin-right: -1em;
+        margin-top: -3px;
+      }
+    }
+    .style(checkpoint; ...) {
+      #utils>#pb>.inside(avoid);
+      .x-banner-feature(checkpoint; calculus);
+      padding-left: 1.4em;
+    }
+    .style(quick-check; ...) {
+      #utils>#pb>.inside(avoid);
+      .x-banner-feature(quick-check; basic-math);
+      padding-left: 1.4em;
+    }
+    .style(emphasized; quick-check) {
+      #content>#note>.style(quick-check);
+      padding-top: .4em;
+      padding-left: 3em;
+      background-position: .5em .5em;
+      background-color: @soft-orange;
+    }
+    .style(media-2; ...) {
+      .x-banner-feature(media; calculus);
+    }
+    .style(problem-solving) {
+      #content>#note>.style(non-feature);
+      background-color: @soft-orange;
+      padding-bottom: 1em;
+    }
+    .style(be-prepared) {
+      #content>#note>.style(non-feature);
+    }
+    #title {
+      .style(@kind; @part; student-project) {
+        font-family: @font-family;
+        font-weight: bold;
+        color: @dark-blue;
+        font-size: 11pt;
+        padding-bottom: 0em;
+        margin-top: 1.5em;
+        margin-bottom: 1em;
+        border-bottom: none;
+      }
+      .style(@kind; @part; definition) {
+        margin-top: 0em;
+        content: @cnx-string-definition;
+        display: block;
+      }
+      .style(@kind; @part; problem-solving) {
+        #content>#note>#title>.style(non-feature);
+      }
+      .style(be-prepared) {
+        #content>#note>#title>.style(non-feature);
+        margin-bottom: 1em;
+      }
+    }
+  }
+//  - Non-figure images are centered.
+  .x-center-image() {
+    display: block;
+    margin: auto;
+  }
+  #image {
+    .style(any; chapter) {
+      .x-center-image();
+    }
+    .style(any; book-end; solutions) {
+      .x-center-image();
+    }
+  }
+//  - Figures render with captions similar to tables.
+  #figure {
+    .style(...) {
+      display: table;
+      caption-side: bottom;
+      padding-bottom: 0;
+      //#utils>#pb>.inside(auto);
+    }
+    .style(any; chapter-end; exercise) {
+      display: table;
+    }
+    #body {
+      .style(any; any) {
+        min-width: 312px;
+      }
+    }
+    #title {
+      .figure-caption() {
+        display: table-caption;
+        text-align: left;
+        #utils>#pb>.before(avoid);
+      }
+      .style(...) {
+        .figure-caption();
+        font-family: @font-family-serif;
+      }
+
+      .style(any; any; feature-qa) {
+        .figure-caption();
+      }
+      .number() {
+        content: "Figure " counter(chapter, decimal) "." counter(figure) " ";
+        display: inline;
+      }
+      .number(...) {
+       font-family: @font-family;
+      }
+      .number(any; appendix) {
+        content: "Figure " counter(appendix, upper-alpha) counter(figure);
+      }
+    }
+  }
+  #exercise {
+    .style(any; any; be-prepared) {
+      margin-bottom: .3em;
+    }
+    #title {
+      .style(any; any; be-prepared) {
+        display: inline;
+      }
+    }
+    #body {
+      .style(any; any; be-prepared) {
+        display: inline;
+      }
+    }
+  }
+  #problem {
+    .style(any; any; be-prepared; exercise) {
+      display: inline;
+    }
+    #title {
+      .style(any; any; be-prepared; exercise) {
+        display: none;
+      }
+    }
+    #body {
+      .style(any; any; be-prepared; exercise) {
+        display: inline;
+      }
+    }
+  }
+  #solution {
+    .style(any; any; be-prepared; exercise) {
+      display: none;
+    }
+  }
+//  - Section exercises are two columns
+  #section {
+    .style(section-exercises; @part; ...) {
+      .x-column-count(2);
+    }
+  }
+  #example {
+    #title {
+      .style(any) {
+        page-break-after: avoid;
+      }
+    }
+  }
+  #table {
+    .style(any; any; note) {
+      background-color:#fff;
+    }
+  }
+  #paragraph {
+    .style(any; any; be-prepared; exercise; problem) {
+      display: inline;
+    }
+  }
+}
+

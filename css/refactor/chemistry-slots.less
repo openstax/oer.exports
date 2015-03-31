@@ -138,6 +138,7 @@
       .style(...) {
         color: @dark-blue;
         font-size: 13pt;
+        line-height: 17pt;
         .x-header-spacing();
       }
     }
@@ -182,6 +183,7 @@
     }
     #end-of-book-solutions {
       .style(...) {
+        text-align: left;
         .x-column-count(1);
       }
       #title {
@@ -208,6 +210,12 @@
           .x-header-spacing();
         }
       }
+      .letter {
+        padding-top: 0;
+      }
+      .term(...) {
+        padding-bottom: 0;
+      }
       .link(...) {
         font-family: @font-family-serif;
       }
@@ -229,6 +237,8 @@
       .style(chapter) {
         color: @dark-blue !important;
         font-size: 13pt !important;
+        line-height: 17pt;
+        border-bottom: 1px @orange solid;
         .x-header-spacing();
       }
     }
@@ -280,9 +290,19 @@
   }
 }
 #content {
+  #link {
+    .style() {
+      color: @dark-orange;
+    }
+  }
   #figure {
     .style('splash'; chapter) {
       padding-top:  0;
+    }
+    #title {
+      .number() {
+        color: @dark-orange;
+      }
     }
   }
   #paragraph {
@@ -378,6 +398,7 @@
       .style(any; any) {
         color: @dark-blue;
         font-size: 13pt;
+        text-transform: none;
       }
       // H4
       .style(any; any; section) {
@@ -398,18 +419,17 @@
 
     #caption {
       .style(any; any) {
-        color: @dark-blue;
+        color: @black;
         caption-side: bottom;
         border-right: none;
         border-left: none;
         border-top: 1px solid @dark-blue;
         padding-left: 0px;
-        // This is for the Table 1.1 numbering part. the actual title
-        // has to be @dark-blue and has to move to top and centered.
-        // This can go away maybe after bug is fixed with <title>
-        &::before {
-          color: @red;
-        }
+        font-weight: 100;
+      }
+      .number(any; any) {
+        color: @dark-orange;
+        font-weight: bold;
       }
     }
     #head {

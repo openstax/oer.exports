@@ -1,4 +1,4 @@
-#!/bin/sh -x -v
+#!/bin/sh -xv
 
 # Copyright (c) 2013 Rice University
 #

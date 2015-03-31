@@ -10,10 +10,11 @@ h2, h3, h4 {
 @kind: default;
 @part: chapter;
 @context: default;
+div[class="note"] {
+  #content>#note>.style(non-feature);
+  > .title { #content>#note>#title>.style(non-feature); }
+}
 .note {
-  &.howto {
-    #content>#note>.style(howto);
-  }
   &.qa {
     @context: feature-qa;
     #content>#note>.style(qa);
@@ -64,10 +65,6 @@ h2, h3, h4 {
         #content>#solution>.style(@kind; @part; @context; exercise);
       }
     }
-  }
-  &:not(.@{book-title}) {
-    #content>#note>.style(non-feature);
-    > .title { #content>#note>#title>.style(non-feature); }
   }
 }
 
@@ -622,6 +619,9 @@ img, figure, subfigure  { margin: 1em; }
   & img {
     #content>#image>.style(@kind; @part; figure);
   }
+  & + p {
+    #content>#paragraph>.style(any; any; figure);
+  }
 
 }
 
@@ -686,7 +686,7 @@ img, figure, subfigure  { margin: 1em; }
   #content>#glossary>.style();
 
   .title {
-    #content>#glossary#title>.style();
+    #content>#glossary>#title>.style();
   }
 
   // Remove ":"
@@ -826,7 +826,6 @@ div.table {
 
     caption {
       #content>#table>#caption>.style(any; any);
-
       &::before {
         #content>#table>#caption>.number(any; any);
       }

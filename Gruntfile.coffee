@@ -240,6 +240,7 @@ module.exports = (grunt) ->
     'psychology'
     'history'
     'chemistry'
+    'calculus'
   ]
   compileBooks = []
   for bookName in allBooks
