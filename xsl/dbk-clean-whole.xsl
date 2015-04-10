@@ -141,7 +141,7 @@
 	<!-- Skip all duplicates of letters until the last one, which we process -->
 	<xsl:if test="string-length($letters) = 1 or $letter != substring($letters,2,1)">
     <xsl:apply-templates mode="glossary" select=".//db:glossentry[$letter=translate(substring(db:glossterm/., 1, 1), $cnx.smallcase, $cnx.uppercase)]">
-      <xsl:sort select="concat(db:glossterm/., db:glossterm//.)"/>
+      <xsl:sort select="translate(concat(db:glossterm/., db:glossterm//.), $cnx.smallcase, $cnx.uppercase)"/>
     </xsl:apply-templates>
 	</xsl:if>
 
