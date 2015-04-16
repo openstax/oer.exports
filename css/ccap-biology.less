@@ -11,6 +11,7 @@
 @import url('ccap-tables-deprecated.less');
 @import url('ccap-base.less');
 @import url('ccap-numbering.less');
+@import url('refactor/unnumbered-content.less');
 
 
 // Define variables
@@ -87,7 +88,9 @@ div.part > div.titlepage {display:none;}
 /******************************************************
  * Section Level Learning Objectives
  ******************************************************/
-.section > .titlepage .abstract { border: 2pt solid @green; }
+.section > .titlepage .abstract {
+  border: 2pt solid @green;
+}
 
 
 /******************************************************
@@ -113,13 +116,56 @@ div.part > div.titlepage {display:none;}
 .evolution {
   page-break-inside: avoid;
   .x-feature(black, @cream, CNX_BioMaj_Evolution);
-  &.non-majors { .x-feature(black, @cream, CNX_BioNonMaj_Evolution); }
+  &.non-majors {
+    .x-feature(black, @cream, CNX_BioNonMaj_Evolution);
+  }
 }
 
 .scientific  {
   page-break-inside: avoid;
-  .x-feature(black, @cream, CNX_BioMaj_Scientific );
-  &.non-majors { .x-feature(black, @cream, CNX_BioNonMaj_Scientific ); }
+  .x-feature( black, @cream, CNX_BioMaj_Scientific );
+  &.non-majors {
+    .x-feature( black, @cream, CNX_BioNonMaj_Scientific );
+  }
+}
+
+
+//AP bio specific
+.visual-connection, .ap-everyday, .ap-science-practices {
+  .title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .exercise {
+    margin: 0;
+     .title {
+      font-size: 15px;
+      &:first-child {
+        margin-top: 10px;
+      }
+    }
+  }
+}
+.visual-connection {
+  page-break-inside: avoid;
+  .x-feature(black, @cream, Visual_Connection_feature);
+  &::before {
+    padding-top: 0.53in;
+  }
+}
+.ap-everyday {
+  page-break-inside: avoid;
+  .x-feature(black, @cream, Everyday_AP_feature);
+  &::before {
+    padding-top: 0.45in;
+  }
+}
+.ap-science-practices {
+  page-break-inside: avoid;
+  .x-feature(black, @cream, AP_Scientific_Practices_feature);
+  &::before {
+    padding-top: 0.46in;
+  }
 }
 
 .x-feature (@color, @bg-color, @svg) {
@@ -222,6 +268,10 @@ div.part > div.titlepage {display:none;}
     font-size: large !important;
     font-weight: bold !important;
     page-break-after: avoid;
+      span {
+        padding: 0;
+        font-size: 18px;
+      }
   }
 
   &.summary {
@@ -238,15 +288,26 @@ div.part > div.titlepage {display:none;}
   .empty { display: hidden; } //hide element but count it   *didn't use visibility property which would cause element to still take up space on page
 }
 
-.art-exercise > .title { content: "Art Connection Questions"; column-span: all; margin-top: 1em; } //need to clean redundant column-span/margin rules - this is quick and dirty
-.multiple-choice > .title { content: "Review Questions" !important; column-span: all; margin-top: 1em; } //todo: clean code
-.free-response > .title { content: "Critical Thinking Questions"; column-span: all; margin-top: 1em; }
-
-.multiple-choice,.free-response,.art-exercise {
+.art-exercise > .title {
+  content: "Art Connection Questions"; column-span: all; margin-top: 1em;
+} //need to clean redundant column-span/margin rules - this is quick and dirty
+.multiple-choice > .title {
+  content: "Review Questions" !important; column-span: all; margin-top: 1em;
+} //todo: clean code
+.free-response > .title {
+  content: "Critical Thinking Questions"; column-span: all; margin-top: 1em;
+}
+.multiple-choice,.free-response,.art-exercise, .visual-exercise, .ap-test {
   > .section > .title { display: none; }
 }
 
-
+//AP bio specific
+.visual-exercise > .title {
+  content: "Visual Connection Questions"; column-span: all; margin-top: 1em;
+}
+.ap-test > .title {
+  column-span: all; margin-top: 1em;
+}
 /******************************************************
  * Generic Elements
  ******************************************************/
@@ -280,7 +341,7 @@ img { max-height:9.5in; }
   }
 }
 
-a { font-weight: bold; color: @tuscany;}
+a { font-weight: bold; color: @tuscany; }
 
 
 h1, h2, h3, h4 {
@@ -371,7 +432,16 @@ p {
   page-break-inside: auto;
   // If a table spans more than 1 page then put caption on all following pages
   prince-caption-page: all;
-
+  &.no-title {
+      table {
+        border-top: @table-border !important;
+      }
+    }
+    &.column-header {
+      .colsep-on {
+        background: @cream;
+      }
+    }
   caption {
     padding-top: .5em;
     padding-bottom: 1em;
@@ -478,7 +548,8 @@ div.book {
  ******************************************************/
 // TODO: If this is used by other books it should probably be moved to ccap-numbering.less
 div.end-of-book-solutions {
-   .art-exercise, .multiple-choice, .free-response {
+
+   .art-exercise, .multiple-choice, .free-response, .ap-test, .visual-exercise {
        display: inline;
        clear: none;
    }
@@ -509,6 +580,8 @@ div.end-of-book-solutions {
     }
   }
 }
+
+
 
 
 /******************************************************
@@ -564,7 +637,9 @@ div.end-of-book-solutions {
   .chapter-area {
     font-family: @font-family-bio;
     a {
-      &.solution { color: black; }
+      &.solution {
+        color: black;
+      }
       &.chapter * {
         color: black;
         font-size: medium;
