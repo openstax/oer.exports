@@ -80,6 +80,7 @@ h1.title { background-color: @orange; } //ccap-chapter
     > .title { //learning objectives title
       font-weight: normal;
       background-color: @blue;
+      content: "Chapter Outline"
     }
     .toc-section {
       .cnx-gentext-n::after { display: none; } //hide ':' after section #
@@ -99,7 +100,43 @@ h1.title { background-color: @orange; } //ccap-chapter
 
 }
 
-
+div.learning-objectives {
+  // module level Learning Objectives
+  border: 1px solid @blue;
+  display:table;
+  margin: auto;
+  
+  > .titlepage h3 { //learning objectives title
+      font-weight: normal;
+      background-color: @blue;
+      color: white;
+      font-size: large;
+      text-align: center;
+      padding: 0.25em;
+      margin: 0em;
+  }
+  
+  > p {
+    padding: 0.25em 0em;
+    margin: 0em 1em 0em 1em;
+    font-weight: normal;
+  }
+  
+  ul.itemizedlist {
+    padding-left:1.5em;
+    margin-left:2.5em;
+    margin-top:.25em;
+    list-style-type: disc;
+    
+    li.listitem {
+      margin-bottom:0em;
+  
+      p {
+        margin-bottom:0em;
+      }
+    }
+  }
+}
 /***************************************************
  * PREFACE
  ***************************************************/
@@ -260,7 +297,8 @@ h2::before {
   }
 
   /* Allow sections in the 2-column problems-exercises to break */
-  &.problems-exercises .section {
+  &.problems-exercises .section,
+  &.ap-test-prep .section {
     page-break-inside: auto;
   }
 }
@@ -374,7 +412,8 @@ table.cnx-figure-horizontal td {
 .cnx-gentext-listitem.cnx-gentext-n {
 	font-weight: bold;
 }
-.problems-exercises .cnx-gentext-listitem.cnx-gentext-n {
+.problems-exercises .cnx-gentext-listitem.cnx-gentext-n,
+.ap-test-prep .cnx-gentext-listitem.cnx-gentext-n {
   font-weight: normal;
 }
 
@@ -502,3 +541,7 @@ table.cnx-figure-horizontal td {
 
 //Hide EOB References
 div.end-of-book-references { display: none; }
+
+div.book .footnote a {
+color:@dark-orange;
+}
