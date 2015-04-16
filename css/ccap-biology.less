@@ -122,7 +122,9 @@ div.part > div.titlepage {display:none;}
 .scientific  {
   page-break-inside: avoid;
   .x-feature(black, @cream, CNX_BioMaj_Scientific );
-  &.non-majors { .x-feature(black, @cream, CNX_BioNonMaj_Scientific ); }
+  &.non-majors {
+    .x-feature(black, @cream, CNX_BioNonMaj_Scientific );
+  }
 }
 
 
@@ -130,16 +132,29 @@ div.part > div.titlepage {display:none;}
 .visual-connection {
   page-break-inside: avoid;
   .x-feature(black, @cream, Visual_Connection_feature);
+  &::before {
+    padding-top: 0.53in;
+  }
 }
 .ap-everyday {
   page-break-inside: avoid;
   .x-feature(black, @cream, Everyday_AP_feature);
+  &::before {
+    padding-top: 0.45in;
+  }
 }
 .ap-science-practices {
   page-break-inside: avoid;
   .x-feature(black, @cream, AP_Scientific_Practices_feature);
-  .title {font-size: 15px; font-weight: bold;}
-  .exercise {margin: 0;}
+  .title {
+    font-size: 15px; font-weight: bold;
+  }
+  .exercise {
+    margin: 0;
+  }
+  &::before {
+    padding-top: 0.46in;
+  }
 }
 
 .x-feature (@color, @bg-color, @svg) {
@@ -262,18 +277,26 @@ div.part > div.titlepage {display:none;}
   .empty { display: hidden; } //hide element but count it   *didn't use visibility property which would cause element to still take up space on page
 }
 
-.art-exercise > .title { content: "Art Connection Questions"; column-span: all; margin-top: 1em; } //need to clean redundant column-span/margin rules - this is quick and dirty
-.multiple-choice > .title { content: "Review Questions" !important; column-span: all; margin-top: 1em; } //todo: clean code
-.free-response > .title { content: "Critical Thinking Questions"; column-span: all; margin-top: 1em; }
-.critical-thinking > .title {}
+.art-exercise > .title {
+content: "Art Connection Questions"; column-span: all; margin-top: 1em;
+} //need to clean redundant column-span/margin rules - this is quick and dirty
+.multiple-choice > .title {
+content: "Review Questions" !important; column-span: all; margin-top: 1em;
+} //todo: clean code
+.free-response > .title {
+  content: "Critical Thinking Questions"; column-span: all; margin-top: 1em;
+}
 .multiple-choice,.free-response,.art-exercise, .visual-exercise, .ap-test {
   > .section > .title { display: none; }
 }
 
 //AP bio specific
-.visual-exercise > .title { content: "Visual Connection Questions"; column-span: all; margin-top: 1em;
+.visual-exercise > .title {
+  content: "Visual Connection Questions"; column-span: all; margin-top: 1em;
 }
-.ap-test > .title { column-span: all; margin-top: 1em; }
+.ap-test > .title {
+  column-span: all; margin-top: 1em;
+}
 /******************************************************
  * Generic Elements
  ******************************************************/
@@ -603,7 +626,9 @@ div.end-of-book-solutions {
   .chapter-area {
     font-family: @font-family-bio;
     a {
-      &.solution { color: black; }
+      &.solution {
+        color: black;
+      }
       &.chapter * {
         color: black;
         font-size: medium;
