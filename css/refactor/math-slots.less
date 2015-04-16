@@ -8,13 +8,13 @@
 
 @cnx-string-definition: "Definition: ";
 
-.x-banner-feature (@svg, @book) {
+.x-banner-feature (@svg, @book, @type: "svg") {
   // If feature is only one line prevent clipping of icon
   min-height: 45px;
 
   padding-top: 0;
   margin-top: 0;
-  background: url("ccap-@{book}/@{svg}.svg") no-repeat;
+  background: url("ccap-@{book}/@{svg}.@{type}") no-repeat;
   background-position: 0 .2em;
 
   .figure {
@@ -72,16 +72,17 @@
       page-break-before: always;
       background-color: @light-blue;
       &:before {
-        .x-banner-feature(student-project; calculus);
+        .x-banner-feature(student-project; calculus; png);
         display: block;
         content: "";
-        padding-top: 41px;
+        padding-top: 56px;
         min-height: 100%;
         background-position: -5px 0px;
         background-color: @black;
         margin-left: -1em;
         margin-right: -1em;
         margin-top: -3px;
+        background-size: auto 100%;
       }
     }
     .style(checkpoint; ...) {
