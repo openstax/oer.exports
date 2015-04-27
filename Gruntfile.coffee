@@ -242,7 +242,6 @@ module.exports = (grunt) ->
     'history'
     'chemistry'
     'calculus'
-    'statistics'
     'basic-math'
   ]
   compileBooks = []
