@@ -174,6 +174,8 @@
     // - Exercises should not affect numbering and solutions should not show up in the content
     &.try {
       .x-pb-inside(auto);
+      .x-pb-after(avoid);
+      .x-pb-before(avoid);
       .x-feature(@gray, try, 0.35in);
 
       /******************************************************
@@ -187,6 +189,8 @@
         font-family: @font-family-statistics;
         font-size: medium;
         font-weight: bold;
+        .x-pb-after(avoid);
+        .x-pb-before(avoid);
 
         // Display with run-in attribute used to allow text in paragraphs to flow
         // smoothly underneath elements that are often larger than surrounding text
@@ -361,9 +365,9 @@ div.part > div.titlepage { display:none; }
       // The use of !important in .note:not(.statistics) color because of other styles overriding
       // it is causing a conflict with this manual chapter objectives note. We didn't know we would
       // need a custom chapter objectives note till after markup was completed, which should have been
-      // note.statistics.chapter-objectives.  Because of this we must use !important below for the 
+      // note.statistics.chapter-objectives.  Because of this we must use !important below for the
       // color due to generic note color using @blue and making it vanish.
-      color: white !important;  
+      color: white !important;
       text-align: center;
       text-transform: none;
       font-weight: bold;
@@ -521,10 +525,10 @@ div.part > div.titlepage { display:none; }
   }
 
   /* Originally the class for supplemental practice exercises was .bring-together-practice
-     There is an issue in the XSLT transform that if there is another CSS class with part of 
+     There is an issue in the XSLT transform that if there is another CSS class with part of
      the string the same name as another class duplication of content occurs in the other
      class with the same string in the class (practice) Will eventually need to alter
-     the XSLT to allow identical strings in multiple classes.  Changing class to 
+     the XSLT to allow identical strings in multiple classes.  Changing class to
      .bring-together-exercises to patch and stop content duplication.  Homework Bringing
      it together is safe, because the homework class is .free-response and doesn't contain
      homework string as practice did.
@@ -738,7 +742,7 @@ img, figure, subfigure  { margin: 1em; }
 
 // Blue header for example
 .example {
-  // Utilize Serif font at top level of container and then only change the delta to San Serif 
+  // Utilize Serif font at top level of container and then only change the delta to San Serif
   // that is needed for titles of problems, solutions and figures.
   font-family: @font-family-statistics;
   border-left: 1px solid @blue;
@@ -963,7 +967,7 @@ div.book > div.part {
 
 
 /******************************************************
- * Appendix 
+ * Appendix
  ******************************************************/
 
 // The Statistics Text is unlike all other CCAP books in that it contains
@@ -995,14 +999,14 @@ div.book > div.part {
 // Since these appendices have been created with subsections we must stop
 // the counter from showing and the pipe text decoration (|) per W&N design
 .appendix .section > .titlepage h2::before,
-.appendix .section > .titlepage h2 .cnx-gentext-t:before { 
+.appendix .section > .titlepage h2 .cnx-gentext-t:before {
   display: none;
 }
 
 // For the custom stats appendix hiding the Appendix header number
 // is needed along with any leading Appendix header
 div.book > div.toc > ul > li > a.target-appendix {
-  &::before { 
+  &::before {
     display: none;
   }
 

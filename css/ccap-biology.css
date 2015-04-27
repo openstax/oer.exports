@@ -1549,6 +1549,31 @@ div.book div.chapter > div.titlepage > div > div:not(:first-child),
 div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
   display: none;
 }
+/* -------------------------
+ * Equations
+ * -------------------------
+ */
+div.book div.chapter > div.section div.equation.unnumbered,
+div.book div.chapter > div.section div.equation:not(.labeled).unnumbered,
+div.book div.chapter > div.section div.example div.exercise div.equation.unnumbered,
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled).unnumbered {
+  counter-increment: none !important;
+}
+div.book div.chapter > div.section div.equation.unnumbered > *:last-child::after,
+div.book div.chapter > div.section div.equation.unnumbered > *:last-child::before {
+  display: none !important;
+}
+/* -------------------------
+ * Tables
+ * -------------------------
+ */
+div.book div.chapter .table.unnumbered,
+div.book div.chapter .table:not(labeled).unnumbered {
+  counter-increment: none !important;
+}
+div.book div.chapter div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before {
+  display: none !important;
+}
 @page {
   margin: 0.5in 1.5in;
 }
@@ -1992,6 +2017,168 @@ div.part > div.titlepage {
   font-size: x-small;
   color: #cc6633;
 }
+.visual-connection .title,
+.ap-everyday .title,
+.ap-science-practices .title {
+  font-size: 18px;
+  font-weight: bold;
+}
+.visual-connection .exercise,
+.ap-everyday .exercise,
+.ap-science-practices .exercise {
+  margin: 0;
+}
+.visual-connection .exercise .title,
+.ap-everyday .exercise .title,
+.ap-science-practices .exercise .title {
+  font-size: 15px;
+}
+.visual-connection .exercise .title:first-child,
+.ap-everyday .exercise .title:first-child,
+.ap-science-practices .exercise .title:first-child {
+  margin-top: 10px;
+}
+.visual-connection {
+  page-break-inside: avoid;
+  background-color: #ffffcc;
+}
+.visual-connection * p {
+  font-family: inherit;
+}
+.visual-connection p:nth-of-type(1) {
+  page-break-before: avoid;
+}
+.visual-connection::before {
+  background-image: url("ccap-biology/Visual_Connection_feature.svg");
+  padding-top: 0.65in;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  margin-left: -1.05em;
+  margin-right: -2.05em;
+  margin-top: -0.03in;
+}
+.visual-connection > .title {
+  display: none;
+}
+.visual-connection > .body > .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+  page-break-after: avoid;
+  page-break-before: avoid !important;
+}
+.visual-connection .figure img {
+  max-width: 5.25in !important;
+}
+.visual-connection .figure > .title {
+  font-size: x-small;
+  color: #cc6633;
+}
+.visual-connection::before {
+  padding-top: 0.53in;
+}
+.ap-everyday {
+  page-break-inside: avoid;
+  background-color: #ffffcc;
+}
+.ap-everyday * p {
+  font-family: inherit;
+}
+.ap-everyday p:nth-of-type(1) {
+  page-break-before: avoid;
+}
+.ap-everyday::before {
+  background-image: url("ccap-biology/Everyday_AP_feature.svg");
+  padding-top: 0.65in;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  margin-left: -1.05em;
+  margin-right: -2.05em;
+  margin-top: -0.03in;
+}
+.ap-everyday > .title {
+  display: none;
+}
+.ap-everyday > .body > .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+  page-break-after: avoid;
+  page-break-before: avoid !important;
+}
+.ap-everyday .figure img {
+  max-width: 5.25in !important;
+}
+.ap-everyday .figure > .title {
+  font-size: x-small;
+  color: #cc6633;
+}
+.ap-everyday::before {
+  padding-top: 0.45in;
+}
+.ap-science-practices {
+  page-break-inside: avoid;
+  background-color: #ffffcc;
+}
+.ap-science-practices * p {
+  font-family: inherit;
+}
+.ap-science-practices p:nth-of-type(1) {
+  page-break-before: avoid;
+}
+.ap-science-practices::before {
+  background-image: url("ccap-biology/AP_Scientific_Practices_feature.svg");
+  padding-top: 0.65in;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  margin-left: -1.05em;
+  margin-right: -2.05em;
+  margin-top: -0.03in;
+}
+.ap-science-practices > .title {
+  display: none;
+}
+.ap-science-practices > .body > .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+  page-break-after: avoid;
+  page-break-before: avoid !important;
+}
+.ap-science-practices .figure img {
+  max-width: 5.25in !important;
+}
+.ap-science-practices .figure > .title {
+  font-size: x-small;
+  color: #cc6633;
+}
+.ap-science-practices::before {
+  padding-top: 0.46in;
+}
 /******************************************************
  * Special Feature
  ******************************************************/
@@ -2052,6 +2239,10 @@ div.part > div.titlepage {
   font-weight: bold !important;
   page-break-after: avoid;
 }
+.cnx-eoc > .title span {
+  padding: 0;
+  font-size: 18px;
+}
 .cnx-eoc.summary {
   -webkit-column-count: 1;
   -moz-column-count: 1;
@@ -2097,8 +2288,19 @@ div.part > div.titlepage {
 }
 .multiple-choice > .section > .title,
 .free-response > .section > .title,
-.art-exercise > .section > .title {
+.art-exercise > .section > .title,
+.visual-exercise > .section > .title,
+.ap-test > .section > .title {
   display: none;
+}
+.visual-exercise > .title {
+  content: "Visual Connection Questions";
+  column-span: all;
+  margin-top: 1em;
+}
+.ap-test > .title {
+  column-span: all;
+  margin-top: 1em;
 }
 /******************************************************
  * Generic Elements
@@ -2212,6 +2414,12 @@ p {
   page-break-inside: auto;
   prince-caption-page: all;
 }
+.table.no-title table {
+  border-top: 1pt solid #336633 !important;
+}
+.table.column-header .colsep-on {
+  background: #ffffcc;
+}
 .table caption {
   padding-top: .5em;
   padding-bottom: 1em;
@@ -2299,7 +2507,9 @@ div.book > div.appendix > div.section div.equation > *:last-child::after {
  ******************************************************/
 div.end-of-book-solutions .art-exercise,
 div.end-of-book-solutions .multiple-choice,
-div.end-of-book-solutions .free-response {
+div.end-of-book-solutions .free-response,
+div.end-of-book-solutions .ap-test,
+div.end-of-book-solutions .visual-exercise {
   display: inline;
   clear: none;
 }
@@ -2384,4 +2594,9 @@ div.end-of-book-solutions .chapter-area a.chapter * {
 }
 div.end-of-book-references {
   display: none;
+}
+.footnote {
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 10px;
+  font-weight: normal;
 }

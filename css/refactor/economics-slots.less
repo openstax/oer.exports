@@ -157,6 +157,9 @@
       }
     }
     #review-questions {
+      .style() {
+        text-align: justify;
+      }
       #title {
         .style() {
           text-transform: uppercase;
@@ -167,7 +170,7 @@
       .style() {
         .x-column-count(2);
         column-fill: balance;
-        text-align: left;
+        text-align: justify;
         margin-bottom: 20px;
       }
       #title {
@@ -256,6 +259,8 @@
           // that will cause string-set for the cnx-header to fail.
           visibility: hidden;
           height: 0;
+          width: 0;
+          display: block;
         }
         .divider() {
           display: none;
@@ -356,7 +361,7 @@
       .x-feature(@black, @gray, bring, 0.48in);
     }
     .style('clear-it-up'; chapter) {
-      .x-feature(@black, @gray, clear, 0.48in);
+      .x-feature(@black, @gray, clear, 0.53in);
     }
     .style('work-it-out'; chapter) {
       .x-feature(@black, @gray, work, 0.38in);
@@ -379,8 +384,8 @@
         margin: .5em 0;
         padding: 0 10px;
       }
-      .style('chapter-objectives'; any) {
-        font-size: x-large;
+      .style('chapter-objectives'; introduction) {
+        font-size: 17pt;
         color: @dark-blue;
         // Border must be removed from title due to Precalculus thinking this is generic
         // note.  Since manual chapter objectives must be a note, we must keep Precalc at bay.
@@ -394,7 +399,13 @@
       line-height: normal;
     }
     .style('chapter-objectives'; introduction) {
-      font-family: @font-family-serif;
+      font: normal normal 10pt/14pt @font-family-serif;
+    }
+    .style(any; chapter-end; review-questions) {
+      text-align: justify;
+    }
+    .style(any; chapter-end; critical-thinking) {
+      text-align: justify;
     }
   }
   #link {
@@ -409,7 +420,7 @@
     .style(any; any) {
       width: 100%;
       border: none;
-      margin-top: 15px;
+      margin: 15px 0;
     }
     .style(any; preface) {
       margin: 0;
@@ -418,6 +429,7 @@
     }
     .style(any; end-of-book-solutions) {
       width: auto;
+      padding: 1em 0;
     }
     #caption {
       .style(any; any) {
@@ -461,7 +473,7 @@
         border-width: thin;
         border-bottom: 1px solid @black !important;
         font-family: @font-family-sans-serif;
-
+        padding: 4px 10px;
       }
       .style('first-row'; any; any) {
         border-top: 3px solid @dark-blue !important;
@@ -565,6 +577,11 @@
     .style(@kind, book-end) {
       display: block;
       padding-bottom: 10px;
+    }
+    #body {
+      .style(@kind, book-end) {
+        font: normal normal 10pt/13pt @font-family-serif;
+      }
     }
   }
 }
