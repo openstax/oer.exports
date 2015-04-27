@@ -8,13 +8,13 @@
 
 @cnx-string-definition: "Definition: ";
 
-.x-banner-feature (@svg, @book) {
+.x-banner-feature (@svg, @book, @type: "svg") {
   // If feature is only one line prevent clipping of icon
   min-height: 45px;
 
   padding-top: 0;
   margin-top: 0;
-  background: url("ccap-@{book}/@{svg}.svg") no-repeat;
+  background: url("ccap-@{book}/@{svg}.@{type}") no-repeat;
   background-position: 0 .2em;
 
   .figure {
@@ -72,12 +72,13 @@
       page-break-before: always;
       background-color: @light-blue;
       &:before {
-        .x-banner-feature(student-project; calculus);
+        .x-banner-feature(student-project; calculus; png);
         display: block;
         content: "";
-        padding-top: 41px;
-        min-height: 100%;
-        background-position: -5px 0px;
+        min-height: 55px;
+        width: auto;
+        height: auto;
+        background-position: 0px 0px;
         background-color: @black;
         margin-left: -1em;
         margin-right: -1em;
@@ -158,6 +159,9 @@
       padding-bottom: 0;
       //#utils>#pb>.inside(auto);
     }
+    .style('splash'; chapter){
+      margin-bottom: 15px;
+    }
     .style(any; chapter-end; exercise) {
       display: table;
     }
@@ -174,6 +178,7 @@
       }
       .style(...) {
         .figure-caption();
+        padding-bottom: 1em;
         font-family: @font-family-serif;
       }
 
@@ -238,11 +243,6 @@
       .style(any) {
         page-break-after: avoid;
       }
-    }
-  }
-  #table {
-    .style(any; any; note) {
-      background-color:#fff;
     }
   }
   #paragraph {
