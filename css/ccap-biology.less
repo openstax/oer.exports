@@ -35,6 +35,10 @@
 // QR code printed in a magazine/book will have a nominal effective scan distance of about 250mm (10 inches),
 @qr: 1.25in;
 
+html {
+  prince-background-image-resolution: 150dpi;
+}
+
 // Hide the end-of-chapter solutions
 .chapter > .cnx-eoc.cnx-solutions { display: none; }
 
@@ -148,27 +152,27 @@ div.part > div.titlepage {display:none;}
 }
 .visual-connection {
   page-break-inside: avoid;
-  .x-feature(black, @cream, Visual_Connection_feature);
-  &::before {
-    padding-top: 0.53in;
-  }
-}
-.ap-everyday {
-  page-break-inside: avoid;
-  .x-feature(black, @cream, Everyday_AP_feature);
-  &::before {
-    padding-top: 0.45in;
-  }
-}
-.ap-science-practices {
-  page-break-inside: avoid;
-  .x-feature(black, @cream, AP_Scientific_Practices_feature);
+  .x-feature(black, @cream, Visual_Connection_feature, png);
   &::before {
     padding-top: 0.46in;
   }
 }
+.ap-everyday {
+  page-break-inside: avoid;
+  .x-feature(black, @cream, Everyday_AP_feature, png);
+  &::before {
+    padding-top: 0.38in;
+  }
+}
+.ap-science-practices {
+  page-break-inside: avoid;
+  .x-feature(black, @cream, AP_Scientific_Practices_feature, png);
+  &::before {
+    padding-top: 0.39in;
+  }
+}
 
-.x-feature (@color, @bg-color, @svg) {
+.x-feature (@color, @bg-color, @file, @type: svg ) {
   background-color: @bg-color;
   * p { font-family: inherit; }
   p:nth-of-type(1) {
@@ -176,7 +180,7 @@ div.part > div.titlepage {display:none;}
   }
 
   &::before {
-    background-image: url("ccap-biology/@{svg}.svg");
+    background-image: url("ccap-biology/@{file}.@{type}");
     padding-top: 0.65in; // 0.65 in is from the SVG files
     background-repeat: no-repeat;
     background-position: top left;
