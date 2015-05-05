@@ -80,6 +80,7 @@ td.entrytbl > table {
   margin: 5em;
   font-size: xx-small;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  
   @footnotes {
     border-top: solid black thin;
     padding-top: 1em;
@@ -351,6 +352,9 @@ div.section > div.titlepage div.abstract ul.itemizedlist > li {
   margin-bottom: 0em;
   padding-top: 0em;
   padding-bottom: 0em;
+}
+div.footnotes {
+  display: none;
 }
 /********************** Generic Elements ********************/
 body {
@@ -769,7 +773,7 @@ div.book > div.preface > div.titlepage > div > div h1.title span.cnx-gentext-t {
   prince-text-replace: "*" "";
 }
 div.book > div.preface > div.cnx-eoc {
-  counter-reset: eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book > div.preface > div.section {
   counter-increment: section;
@@ -989,7 +993,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   prince-text-replace: "*" "";
 }
 div.book div.chapter > div.cnx-eoc {
-  counter-reset: eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book div.chapter > div.section {
   counter-increment: section;
@@ -1206,7 +1210,7 @@ div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t 
   prince-text-replace: "*" "";
 }
 div.book > div.appendix > div.cnx-eoc {
-  counter-reset: eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book > div.appendix > div.section {
   counter-increment: section;
@@ -1412,7 +1416,7 @@ div.book div.solution > a.number::before {
 div.book div.solution > a.number {
   content: "";
 }
-div.book *.footnote {
+div.book .footnote {
   counter-increment: footnote;
   color: black;
   background: none;
@@ -1425,25 +1429,25 @@ div.book *.footnote {
   padding-bottom: 0em;
   float: footnote;
 }
-div.book *.footnote * {
+div.book .footnote * {
   margin-top: 0em;
   margin-bottom: 0em;
   padding-top: 0em;
   padding-bottom: 0em;
 }
-div.book *.footnote::footnote-marker,
-div.book *.footnote > * {
+div.book .footnote::footnote-marker,
+div.book .footnote > * {
   color: black;
   font-weight: normal;
 }
-div.book *.footnote::footnote-call {
+div.book .footnote::footnote-call {
   content: "[" counter(footnote) "]";
   font-size: 83%;
   vertical-align: super;
   line-height: none;
   margin-before: 0.5em;
 }
-div.book *.footnote::footnote-marker {
+div.book .footnote::footnote-marker {
   color: black;
   font-weight: normal;
   margin-right: 0.5em;
@@ -2324,15 +2328,15 @@ div.end-of-book-solutions .interactive-exercise > div.body > a.target-figure {
 }
 div.book > div.preface > div.cnx-eoc,
 div.book > div.part > div.preface > div.cnx-eoc {
-  counter-reset: eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book > div.chapter > div.cnx-eoc,
 div.book > div.part > div.chapter > div.cnx-eoc {
-  counter-reset: eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.book > div.appendix > div.cnx-eoc,
 div.book > div.part > div.appendix > div.cnx-eoc {
-  counter-reset: eoc-section -1;
+  counter-reset: /*exercise*/ eoc-section -1;
 }
 div.end-of-book-solutions {
   prince-text-replace: "Answer:" "";
