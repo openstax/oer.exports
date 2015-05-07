@@ -80,7 +80,6 @@ td.entrytbl > table {
   margin: 5em;
   font-size: xx-small;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  
   @footnotes {
     border-top: solid black thin;
     padding-top: 1em;
@@ -370,9 +369,27 @@ a[href^="http"] {
 }
 .chapter,
 .appendix,
-.colophon {
+.colophon,
+.preface {
   page-break-before: right;
   page-break-after: left;
+}
+div.book > div.toc {
+  page: table-of-contents;
+}
+@page table-of-contents {
+  @top-right {
+    content: "";
+  }
+  @top-left {
+    content: "Table of Contents";
+  }
+}
+div.book > div.preface {
+  page: preface;
+  counter-reset: page 1;
+}
+@page preface {
 }
 .equation {
   page-break-inside: avoid;
@@ -394,8 +411,8 @@ a[href^="http"] {
 }
 /**************************** Index **************************/
 .book > .index {
-  page-break-before: always;
-  page-break-after: always;
+  page-break-before: right;
+  page-break-after: left;
   page-break-inside: auto;
   string-set: cnx-header "Index";
   -webkit-column-count: 3;
@@ -773,7 +790,7 @@ div.book > div.preface > div.titlepage > div > div h1.title span.cnx-gentext-t {
   prince-text-replace: "*" "";
 }
 div.book > div.preface > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
+  counter-reset: eoc-section -1;
 }
 div.book > div.preface > div.section {
   counter-increment: section;
@@ -993,7 +1010,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   prince-text-replace: "*" "";
 }
 div.book div.chapter > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
+  counter-reset: eoc-section -1;
 }
 div.book div.chapter > div.section {
   counter-increment: section;
@@ -1210,7 +1227,7 @@ div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t 
   prince-text-replace: "*" "";
 }
 div.book > div.appendix > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
+  counter-reset: eoc-section -1;
 }
 div.book > div.appendix > div.section {
   counter-increment: section;
@@ -2669,15 +2686,15 @@ div.end-of-book-solutions div.solution > div.body > a.target-figure {
 }
 div.book > div.preface > div.cnx-eoc,
 div.book > div.part > div.preface > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
+  counter-reset: eoc-section -1;
 }
 div.book > div.chapter > div.cnx-eoc,
 div.book > div.part > div.chapter > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
+  counter-reset: eoc-section -1;
 }
 div.book > div.appendix > div.cnx-eoc,
 div.book > div.part > div.appendix > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
+  counter-reset: eoc-section -1;
 }
 div.end-of-book-solutions {
   display: none;

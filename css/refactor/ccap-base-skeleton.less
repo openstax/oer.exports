@@ -243,10 +243,33 @@ th * { font-family: @font-family; }
 
 a[href^="http"] { content: content() " (" attr(href) ") "; }
 
-.chapter, .appendix, .colophon {
+//forcing chapter, appendix, colophon and preface to land on a right page
+.chapter, .appendix, .colophon, .preface {
   #utils>#pb>.before(right);
   #utils>#pb>.after(left);
 }
+
+//hiding page numbers on TOC pages
+div.book > div.toc {
+  page: table-of-contents;
+}
+
+@page table-of-contents {
+  @top-right { content: "" }
+  @top-left { content: "Table of Contents" }
+}
+
+//reseting page numbering to start at the preface
+div.book > div.preface {
+  page: preface;
+  counter-reset: page 1;
+}
+@page preface {
+  .x-content-counter(preface; @before; @after) {
+    content: counter(page);
+  }
+}
+
 
 .equation {
   #content>#equation>.style();
