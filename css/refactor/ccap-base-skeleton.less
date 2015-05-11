@@ -249,14 +249,16 @@ a[href^="http"] { content: content() " (" attr(href) ") "; }
   #utils>#pb>.after(left);
 }
 
-//hiding page numbers on TOC pages
+//hiding page numbers on TOC
 div.book > div.toc {
   page: table-of-contents;
 }
 
 @page table-of-contents {
+ @top-left-corner { content: "" }
+  @top-left { content: "" }
+  @top-right-corner { content: "" }
   @top-right { content: "" }
-  @top-left { content: "Table of Contents" }
 }
 
 //reseting page numbering to start at the preface
@@ -269,7 +271,6 @@ div.book > div.preface {
     content: counter(page);
   }
 }
-
 
 .equation {
   #content>#equation>.style();
