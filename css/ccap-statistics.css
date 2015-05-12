@@ -80,7 +80,6 @@ td.entrytbl > table {
   margin: 5em;
   font-size: xx-small;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  
   @footnotes {
     border-top: solid black thin;
     padding-top: 1em;
@@ -379,18 +378,27 @@ div.book > div.toc {
   page: table-of-contents;
 }
 @page table-of-contents {
-  @top-right {
+  @top-left-corner {
     content: "";
   }
   @top-left {
-    content: "Table of Contents";
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-right {
+    content: "";
   }
 }
 div.book > div.preface {
   page: preface;
   counter-reset: page 1;
 }
-@page preface {
+@page preface:right {
+  @top-right-corner {
+    content: counter(page);
+  }
 }
 .equation {
   page-break-inside: avoid;
@@ -791,7 +799,7 @@ div.book > div.preface > div.titlepage > div > div h1.title span.cnx-gentext-t {
   prince-text-replace: "*" "";
 }
 div.book > div.preface > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
+  counter-reset: eoc-section -1;
 }
 div.book > div.preface > div.section {
   counter-increment: section;
@@ -1011,7 +1019,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   prince-text-replace: "*" "";
 }
 div.book div.chapter > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
+  counter-reset: eoc-section -1;
 }
 div.book div.chapter > div.section {
   counter-increment: section;
@@ -1228,7 +1236,7 @@ div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t 
   prince-text-replace: "*" "";
 }
 div.book > div.appendix > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
+  counter-reset: eoc-section -1;
 }
 div.book > div.appendix > div.section {
   counter-increment: section;
@@ -1680,6 +1688,15 @@ div.book > div.appendix .statistics.lab.labeled {
 }
 div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
   content: "" "" counter(appendix, upper-latin) "" counter(stats-lab) " " "";
+}
+div.book > div.preface {
+  page: preface;
+  counter-reset: page 1;
+}
+@page preface:right {
+  @top-right-corner {
+    content: counter(page);
+  }
 }
 @page {
   margin: 0.5in 1in;
@@ -2687,15 +2704,15 @@ div.end-of-book-solutions div.solution > div.body > a.target-figure {
 }
 div.book > div.preface > div.cnx-eoc,
 div.book > div.part > div.preface > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
+  counter-reset: eoc-section -1;
 }
 div.book > div.chapter > div.cnx-eoc,
 div.book > div.part > div.chapter > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
+  counter-reset: eoc-section -1;
 }
 div.book > div.appendix > div.cnx-eoc,
 div.book > div.part > div.appendix > div.cnx-eoc {
-  counter-reset: /*exercise*/ eoc-section -1;
+  counter-reset: eoc-section -1;
 }
 div.end-of-book-solutions {
   display: none;

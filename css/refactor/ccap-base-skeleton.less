@@ -227,9 +227,10 @@ div.section > div.titlepage {
   #content>#footnote>.style();
 }
 
+//Hide phantom footnote
 div.footnotes {
-    #part>#footnotes>.style();
-  }
+  display: none;
+}
 
 /********************** Generic Elements ********************/
 body {
@@ -249,14 +250,16 @@ a[href^="http"] { content: content() " (" attr(href) ") "; }
   #utils>#pb>.after(left);
 }
 
-//hiding page numbers on TOC pages
+//hiding page numbers on TOC
 div.book > div.toc {
   page: table-of-contents;
 }
 
 @page table-of-contents {
-  @top-right { content: "" }
-  @top-left { content: "Table of Contents" }
+  @top-left-corner { content: ""; }
+  @top-left { content: ""; }
+  @top-right-corner { content: ""; }
+  @top-right { content: ""; }
 }
 
 //reseting page numbering to start at the preface
@@ -264,12 +267,11 @@ div.book > div.preface {
   page: preface;
   counter-reset: page 1;
 }
-@page preface {
-  .x-content-counter(preface; @before; @after) {
+@page preface:right {
+  @top-right-corner {
     content: counter(page);
   }
 }
-
 
 .equation {
   #content>#equation>.style();
