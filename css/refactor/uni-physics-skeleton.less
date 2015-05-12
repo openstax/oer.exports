@@ -2,3 +2,67 @@
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
 
+.note {
+  &.equation-callout {
+    @context: equation-callout;
+    #content>#note>.style(equation-callout);
+      > .title { 
+        #content>#note>#title>.style(@kind; @part; @context); 
+      }
+  }
+  &.check-understanding {
+    #content>#note>.style(check-understanding);
+  }
+}
+
+// Check your understanding solutions 
+div.colophon.end-of-book-solutions .chapter-area {
+  > div.check-understanding {
+    &::before { 
+      #part>#book-end>#end-of-book-solutions>#title>.style(check-understanding); 
+    }
+    div.solution > div.title a.solution::before {
+      content: target-counter(attr(href), chapter) "." target-counter(attr(href), check-understanding);
+    }
+  }
+  > div.review-conceptual-questions {
+    &::before {
+      #part>#book-end>#end-of-book-solutions>#title>.style(review-conceptual-questions);
+    }
+  }
+  > div.review-problems {
+    &::before {
+      #part>#book-end>#end-of-book-solutions>#title>.style(review-problems);
+    }
+  }
+  > div.review-challenge {
+    &::before {
+      #part>#book-end>#end-of-book-solutions>#title>.style(review-challenge);
+    }
+  }
+}
+
+
+// Numbering
+div.book div.chapter .check-understanding:not(.labeled) {
+counter-increment: check-understanding;
+}
+div.book div.chapter .check-understanding > .title:not(.labeled)::before {
+  content: "" counter(chapter, decimal) "." counter(check-understanding) " "
+}
+
+// EOC Review
+div.book > div.chapter {
+  .cnx-eoc.review-conceptual-questions::before {
+    content: "Chapter Review";
+    #part>#chapter-end>#title>.style();
+
+  }
+  .cnx-eoc > .title {
+    margin-top: 0.5em;
+    margin-bottom: 0px;
+  }
+  .cnx-eoc .section > .title {
+      margin-bottom: 1em;
+  }
+} 

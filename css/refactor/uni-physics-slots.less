@@ -9,5 +9,70 @@
 @cnx-string-chapter-outline: "Chapter Outline";
 @cnx-string-learning-objectives: "Learning Objectives";
 @cnx-string-key-equations: "Key Equations";
-@cnx-string-key-concepts: "Key Concepts";
+@cnx-string-key-concepts: "Summary";
 
+.x-solutions-subheading-style() {
+  margin-top: 7.5px;
+  color: @medium-blue;
+  text-transform: uppercase;
+}
+
+#part {
+  #book-end {
+    #end-of-book-solutions {
+      #title {
+        .style(check-understanding) {
+          .x-solutions-subheading-style();
+          content: "Check Your Understanding";
+        }
+        .style(review-conceptual-questions) {
+          .x-solutions-subheading-style();
+          content: "Conceptual Questions";
+        }
+        .style(review-problems) {
+          .x-solutions-subheading-style();
+          content: "Problems";
+        }
+        .style(review-challenge) {
+          .x-solutions-subheading-style();
+          content: "Challenge";
+        }
+      }  
+    }
+  }
+}
+#content {
+  #note {
+    .style(equation-callout) {
+      #content>#note>.style(problem-solving);
+      padding-top: 1em;
+    }
+    .style(check-understanding; ...) {
+      #content>#note>.style(checkpoint);
+      
+    }
+    #title {
+      .style(@kind; @part; equation-callout) {
+       display: none;
+      }
+    }
+  }
+  #table {
+    .style(any; any) {
+      border: none;
+    }
+    #header {
+      .style(any; any) {
+        border-right: none;
+        border-bottom-width: 2px;
+        padding:4px 1em;
+      }
+    }
+    #data {
+      .style(any; any) {
+        border:none;
+        padding:4px 1em;
+      }
+    }
+  }
+}

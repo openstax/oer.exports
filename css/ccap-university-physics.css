@@ -933,7 +933,7 @@ div.book > div.preface {
      *  CUSTOMIZED: added reset for try-it;
      * --------------------------------------
      */
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint be-prepared-exercise;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint be-prepared-exercise check-understanding;
   /* -----------------------------------------------------
      *   CUSTOMIZED: Increment the counter for try-it feature
      * ------------------------------------------------------
@@ -960,7 +960,7 @@ div.book div.chapter {
      *  CUSTOMIZED: added reset for try-it;
      * --------------------------------------
      */
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint be-prepared-exercise;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint be-prepared-exercise check-understanding;
   /* -----------------------------------------------------
      *   CUSTOMIZED: Increment the counter for try-it feature
      * ------------------------------------------------------
@@ -987,7 +987,7 @@ div.book > div.appendix {
      *  CUSTOMIZED: added reset for try-it;
      * --------------------------------------
      */
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint be-prepared-exercise;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint be-prepared-exercise check-understanding;
   /* -----------------------------------------------------
      *   CUSTOMIZED: Increment the counter for try-it feature
      * ------------------------------------------------------
@@ -1372,9 +1372,27 @@ a[href^="http"] {
 }
 .chapter,
 .appendix,
-.colophon {
+.colophon,
+.preface {
   page-break-before: right;
   page-break-after: left;
+}
+div.book > div.toc {
+  page: table-of-contents;
+}
+@page table-of-contents {
+  @top-right {
+    content: "";
+  }
+  @top-left {
+    content: "Table of Contents";
+  }
+}
+div.book > div.preface {
+  page: preface;
+  counter-reset: page 1;
+}
+@page preface {
 }
 .equation {
   page-break-inside: avoid;
@@ -1403,8 +1421,8 @@ a[href^="http"] {
 }
 /**************************** Index **************************/
 .book > .index {
-  page-break-before: always;
-  page-break-after: always;
+  page-break-before: right;
+  page-break-after: left;
   page-break-inside: auto;
   string-set: cnx-header "Index";
   -webkit-column-count: 3;
@@ -2541,7 +2559,7 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   padding-bottom: 1em;
 }
 .cnx-eoc.key-concepts > div.title {
-  content: "Key Concepts";
+  content: "Summary";
   column-span: all;
   margin-bottom: 0;
 }
@@ -2658,6 +2676,9 @@ div.colophon.end-of-book-solutions .chapter-area > h2.title a.chapter span {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   display: block;
   margin-bottom: 7.5px;
+  margin-top: 7.5px;
+  color: #528cbe;
+  text-transform: uppercase;
 }
 div.colophon.end-of-book-solutions .chapter-area > h2.title a.chapter {
   page-break-before: avoid;
@@ -2673,6 +2694,9 @@ div.colophon.end-of-book-solutions .chapter-area > div.review-exercises::before 
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   display: block;
   margin-bottom: 7.5px;
+  margin-top: 7.5px;
+  color: #528cbe;
+  text-transform: uppercase;
   content: "Review Exercises";
 }
 div.colophon.end-of-book-solutions .chapter-area > div.practice-test::before {
@@ -2682,6 +2706,9 @@ div.colophon.end-of-book-solutions .chapter-area > div.practice-test::before {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   display: block;
   margin-bottom: 7.5px;
+  margin-top: 7.5px;
+  color: #528cbe;
+  text-transform: uppercase;
   content: "Practice Test";
 }
 div.colophon.end-of-book-solutions .chapter-area > div.try::before {
@@ -2691,6 +2718,9 @@ div.colophon.end-of-book-solutions .chapter-area > div.try::before {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   display: block;
   margin-bottom: 7.5px;
+  margin-top: 7.5px;
+  color: #528cbe;
+  text-transform: uppercase;
   content: "Try It";
 }
 div.colophon.end-of-book-solutions .chapter-area > div.try div.solution > div.title a.solution::before {
@@ -2703,6 +2733,9 @@ div.colophon.end-of-book-solutions .chapter-area > div.section-exercises::before
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   display: block;
   margin-bottom: 7.5px;
+  margin-top: 7.5px;
+  color: #528cbe;
+  text-transform: uppercase;
   content: "Section Exercises";
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.title {
@@ -3220,6 +3253,7 @@ div.table table {
   margin: auto;
   page-break-inside: auto;
   prince-caption-page: all;
+  border: none;
 }
 div.table table caption {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -3237,9 +3271,14 @@ div.table table th {
   background-color: #ffffff;
   font-size: small;
   text-align: left;
+  border-right: none;
+  border-bottom-width: 2px;
+  padding: 4px 1em;
 }
 div.table table td {
   padding: 13px;
+  border: none;
+  padding: 4px 1em;
 }
 div.table table td.header {
   background-color: #ffffff;
@@ -3336,6 +3375,117 @@ g text {
 }
 g line {
   stroke: currentColor !important;
+}
+.note.equation-callout {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  color: #000000;
+  background-color: #dbe8f2;
+  background-color: #f1ddb6;
+  padding-bottom: 1em;
+  padding-top: 1em;
+}
+.note.equation-callout > .title {
+  margin-top: 0.5em;
+  display: none;
+}
+.note.check-understanding {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  page-break-inside: avoid;
+  min-height: 45px;
+  padding-top: 0;
+  margin-top: 0;
+  background: url("ccap-calculus/checkpoint.svg") no-repeat;
+  background-position: 0 .2em;
+  padding-left: 1.4em;
+}
+.note.check-understanding .figure img {
+  max-width: 6.25in;
+}
+div.colophon.end-of-book-solutions .chapter-area > div.check-understanding::before {
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  display: block;
+  margin-bottom: 7.5px;
+  margin-top: 7.5px;
+  color: #528cbe;
+  text-transform: uppercase;
+  content: "Check Your Understanding";
+}
+div.colophon.end-of-book-solutions .chapter-area > div.check-understanding div.solution > div.title a.solution::before {
+  content: target-counter(attr(href), chapter) "." target-counter(attr(href), check-understanding);
+}
+div.colophon.end-of-book-solutions .chapter-area > div.review-conceptual-questions::before {
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  display: block;
+  margin-bottom: 7.5px;
+  margin-top: 7.5px;
+  color: #528cbe;
+  text-transform: uppercase;
+  content: "Conceptual Questions";
+}
+div.colophon.end-of-book-solutions .chapter-area > div.review-problems::before {
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  display: block;
+  margin-bottom: 7.5px;
+  margin-top: 7.5px;
+  color: #528cbe;
+  text-transform: uppercase;
+  content: "Problems";
+}
+div.colophon.end-of-book-solutions .chapter-area > div.review-challenge::before {
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  display: block;
+  margin-bottom: 7.5px;
+  margin-top: 7.5px;
+  color: #528cbe;
+  text-transform: uppercase;
+  content: "Challenge";
+}
+div.book div.chapter .check-understanding:not(.labeled) {
+  counter-increment: check-understanding;
+}
+div.book div.chapter .check-understanding > .title:not(.labeled)::before {
+  content: "" counter(chapter, decimal) "." counter(check-understanding) " ";
+}
+div.book > div.chapter .cnx-eoc.review-conceptual-questions::before {
+  content: "Chapter Review";
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+  text-align: left;
+  color: #528cbe;
+  font-size: large;
+  font-weight: bold;
+  margin-top: 0;
+  page-break-after: avoid;
+}
+div.book > div.chapter .cnx-eoc > .title {
+  margin-top: 0.5em;
+  margin-bottom: 0px;
+}
+div.book > div.chapter .cnx-eoc .section > .title {
+  margin-bottom: 1em;
 }
 div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
   content: "\A";
@@ -3522,19 +3672,24 @@ div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
 }
 .note.quick-check div.itemizedlist ul,
 .note.checkpoint div.itemizedlist ul,
+.note.check-understanding div.itemizedlist ul,
 .note.quick-check div.orderedlist ul,
 .note.checkpoint div.orderedlist ul,
+.note.check-understanding div.orderedlist ul,
 .note.quick-check div.itemizedlist ol,
 .note.checkpoint div.itemizedlist ol,
+.note.check-understanding div.itemizedlist ol,
 .note.quick-check div.orderedlist ol,
-.note.checkpoint div.orderedlist ol {
+.note.checkpoint div.orderedlist ol,
+.note.check-understanding div.orderedlist ol {
   margin: 0 0 0 40px;
   padding: 0;
   margin-top: 1em;
   padding-left: 10px;
 }
 .note.quick-check > .title,
-.note.checkpoint > .title {
+.note.checkpoint > .title,
+.note.check-understanding > .title {
   margin-top: 0.5em;
   margin-top: 0;
   color: #000000;
@@ -3546,7 +3701,8 @@ div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
   padding-right: .8em;
 }
 .note.quick-check .exercise,
-.note.checkpoint .exercise {
+.note.checkpoint .exercise,
+.note.check-understanding .exercise {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   margin-top: 0;
@@ -3564,30 +3720,36 @@ div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
   margin-bottom: 0;
 }
 .note.quick-check .exercise > .title,
-.note.checkpoint .exercise > .title {
+.note.checkpoint .exercise > .title,
+.note.check-understanding .exercise > .title {
   display: none;
 }
 .note.quick-check .exercise .problem,
-.note.checkpoint .exercise .problem {
+.note.checkpoint .exercise .problem,
+.note.check-understanding .exercise .problem {
   font-size: 13px;
   line-height: 16px;
   margin-left: 20px;
 }
 .note.quick-check .exercise .solution,
-.note.checkpoint .exercise .solution {
+.note.checkpoint .exercise .solution,
+.note.check-understanding .exercise .solution {
   display: none;
 }
 .note.quick-check.emphasized > .title,
-.note.checkpoint.emphasized > .title {
+.note.checkpoint.emphasized > .title,
+.note.check-understanding.emphasized > .title {
   padding-left: 2px;
 }
 .note.quick-check.emphasized > .title::before,
-.note.checkpoint.emphasized > .title::before {
+.note.checkpoint.emphasized > .title::before,
+.note.check-understanding.emphasized > .title::before {
   display: block;
   padding-top: 6px;
 }
 .note.quick-check.emphasized .exercise .problem,
-.note.checkpoint.emphasized .exercise .problem {
+.note.checkpoint.emphasized .exercise .problem,
+.note.check-understanding.emphasized .exercise .problem {
   margin-left: 2px;
 }
 .note.media-2 {
@@ -3597,11 +3759,13 @@ div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  page-break-inside: avoid;
   min-height: 45px;
   padding-top: 0;
   margin-top: 0;
   background: url("ccap-calculus/media.svg") no-repeat;
   background-position: 0 .2em;
+  padding-left: 2.5em;
 }
 .note.media-2 .figure img {
   max-width: 6.25in;
@@ -3742,6 +3906,9 @@ div.colophon.end-of-book-solutions .chapter-area > div.checkpoint::before {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   display: block;
   margin-bottom: 7.5px;
+  margin-top: 7.5px;
+  color: #528cbe;
+  text-transform: uppercase;
   content: "Checkpoint";
 }
 div.colophon.end-of-book-solutions .chapter-area > div.checkpoint div.solution > div.title a.solution::before {
@@ -3754,6 +3921,9 @@ div.colophon.end-of-book-solutions .chapter-area > div.quick-check::before {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   display: block;
   margin-bottom: 7.5px;
+  margin-top: 7.5px;
+  color: #528cbe;
+  text-transform: uppercase;
   content: "Quick Check";
 }
 div.colophon.end-of-book-solutions .chapter-area > div.quick-check div.solution > div.title a.solution::before {
