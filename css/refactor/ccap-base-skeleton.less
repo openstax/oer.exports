@@ -227,6 +227,11 @@ div.section > div.titlepage {
   #content>#footnote>.style();
 }
 
+//Hide phantom footnote
+div.footnotes {
+  display: none;
+}
+
 /********************** Generic Elements ********************/
 body {
   font-size: 8.2pt;
@@ -239,9 +244,33 @@ th * { font-family: @font-family; }
 
 a[href^="http"] { content: content() " (" attr(href) ") "; }
 
-.chapter, .appendix, .colophon {
+//forcing chapter, appendix, colophon and preface to land on a right page
+.chapter, .appendix, .colophon, .preface {
   #utils>#pb>.before(right);
   #utils>#pb>.after(left);
+}
+
+//hiding page numbers on TOC
+div.book > div.toc {
+  page: table-of-contents;
+}
+
+@page table-of-contents {
+  @top-left-corner { content: ""; }
+  @top-left { content: ""; }
+  @top-right-corner { content: ""; }
+  @top-right { content: ""; }
+}
+
+//reseting page numbering to start at the preface
+div.book > div.preface {
+  page: preface;
+  counter-reset: page 1;
+}
+@page preface:right {
+  @top-right-corner {
+    content: counter(page);
+  }
 }
 
 .equation {

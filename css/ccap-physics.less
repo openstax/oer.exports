@@ -10,15 +10,16 @@
 
 // Import general page headers/footers, bookmark calculation, etc
 @import url('ccap-tables-deprecated.less');
-@import url('ccap-base.less');
 @import url('ccap-numbering.less');
+@import url('ccap-base.less');
+
 
 // Until we get @contexts working, we need a physics specific fix to reset
-// the exercise number for problems/exercises for each chapter.  This also 
-// saves us from regression testing all books due to this.  
-#part { 
-  .counters(@part; end-part) { counter-reset: exercise eoc-section -1; } 
-} 
+// the exercise number for problems/exercises for each chapter.  This also
+// saves us from regression testing all books due to this.
+#part {
+  .counters(@part; end-part) { counter-reset: exercise eoc-section -1; }
+}
 
 // Define variables
 @blue: #0061AA;
@@ -101,43 +102,6 @@ h1.title { background-color: @orange; } //ccap-chapter
 
 }
 
-div.learning-objectives {
-  // module level Learning Objectives
-  border: 1px solid @blue;
-  display: table;
-  margin: auto;
-  
-  > .titlepage h3 { //learning objectives title
-      font-weight: normal;
-      background-color: @blue;
-      color: white;
-      font-size: large;
-      text-align: center;
-      padding: 0.25em;
-      margin: 0em;
-  }
-  
-  > p {
-    padding: 0.25em 0em;
-    margin: 0em 1em 0em 1em;
-    font-weight: normal;
-  }
-  
-  ul.itemizedlist {
-    padding-left: 1.5em;
-    margin-left: 2.5em;
-    margin-top: .25em;
-    list-style-type: disc;
-    
-    li.listitem {
-      margin-bottom:0em;
-  
-      p {
-        margin-bottom:0em;
-      }
-    }
-  }
-}
 /***************************************************
  * PREFACE
  ***************************************************/

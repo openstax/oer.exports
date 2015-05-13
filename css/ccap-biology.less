@@ -9,8 +9,8 @@
 
 // Import general page headers/footers, bookmark calculation, etc
 @import url('ccap-tables-deprecated.less');
-@import url('ccap-base.less');
 @import url('ccap-numbering.less');
+@import url('ccap-base.less');
 @import url('refactor/unnumbered-content.less');
 
 
@@ -34,6 +34,10 @@
 // For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
 // QR code printed in a magazine/book will have a nominal effective scan distance of about 250mm (10 inches),
 @qr: 1.25in;
+
+html {
+  prince-background-image-resolution: 150dpi;
+}
 
 // Hide the end-of-chapter solutions
 .chapter > .cnx-eoc.cnx-solutions { display: none; }
@@ -148,27 +152,40 @@ div.part > div.titlepage {display:none;}
 }
 .visual-connection {
   page-break-inside: avoid;
-  .x-feature(black, @cream, Visual_Connection_feature);
-  &::before {
-    padding-top: 0.53in;
-  }
-}
-.ap-everyday {
-  page-break-inside: avoid;
-  .x-feature(black, @cream, Everyday_AP_feature);
-  &::before {
-    padding-top: 0.45in;
-  }
-}
-.ap-science-practices {
-  page-break-inside: avoid;
-  .x-feature(black, @cream, AP_Scientific_Practices_feature);
+  .x-feature(black, @cream, Visual_Connection_feature, png);
   &::before {
     padding-top: 0.46in;
   }
 }
+.ap-everyday {
+  page-break-inside: avoid;
+  .x-feature(black, @cream, Everyday_AP_feature, png);
+  &::before {
+    padding-top: 0.38in;
+  }
+}
+.ap-science-practices {
+  page-break-inside: avoid;
+  .note {
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-top: 10px;
+    padding: 0;
+    .exercise  {
+      .title {
+        margin: 5px 0 0 0;
+        padding: 0;
+      }
+    }
+  }
+  .x-feature(black, @cream, AP_Scientific_Practices_feature, png);
+  &::before {
+    padding-top: 0.39in;
+  }
+}
 
-.x-feature (@color, @bg-color, @svg) {
+.x-feature (@color, @bg-color, @file, @type: svg ) {
   background-color: @bg-color;
   * p { font-family: inherit; }
   p:nth-of-type(1) {
@@ -176,7 +193,7 @@ div.part > div.titlepage {display:none;}
   }
 
   &::before {
-    background-image: url("ccap-biology/@{svg}.svg");
+    background-image: url("ccap-biology/@{file}.@{type}");
     padding-top: 0.65in; // 0.65 in is from the SVG files
     background-repeat: no-repeat;
     background-position: top left;
@@ -294,19 +311,28 @@ div.part > div.titlepage {display:none;}
 .multiple-choice > .title {
   content: "Review Questions" !important; column-span: all; margin-top: 1em;
 } //todo: clean code
+
 .free-response > .title {
   content: "Critical Thinking Questions"; column-span: all; margin-top: 1em;
 }
-.multiple-choice,.free-response,.art-exercise, .visual-exercise, .ap-test {
+
+.ap-test-prep > .title {
+  content: "Test Prep for AP\AE  Courses"
+}
+//more semantic than multiple choice, will have to change content in Bio to match ap-bio. Right now, specific to AP-bio
+.critical-thinking  > .title , .review  > .title{
+   column-span: all; margin-top: 1em;
+}
+.multiple-choice,.free-response,.art-exercise, .ap-test-prep, .critical-thinking, .review  {
   > .section > .title { display: none; }
 }
 
 //AP bio specific
-.visual-exercise > .title {
-  content: "Visual Connection Questions"; column-span: all; margin-top: 1em;
-}
-.ap-test > .title {
+.ap-test-prep > .title {
   column-span: all; margin-top: 1em;
+}
+.os-teacher {
+  display: none;
 }
 /******************************************************
  * Generic Elements
@@ -549,7 +575,7 @@ div.book {
 // TODO: If this is used by other books it should probably be moved to ccap-numbering.less
 div.end-of-book-solutions {
 
-   .art-exercise, .multiple-choice, .free-response, .ap-test, .visual-exercise {
+   .art-exercise, .multiple-choice, .free-response, .ap-test-prep, .review, .critical-thinking {
        display: inline;
        clear: none;
    }
