@@ -51,3 +51,35 @@
   @right-bottom { #page>.right-bottom(right); }
 }
 
+
+
+//hiding page numbers on TOC
+div.book > div.toc {
+  #page>#toc >.page();
+}
+
+@page table-of-contents {
+  @top-left-corner {
+    #page>.top-left-corner(toc);
+    }
+  @top-left {
+    #page>.top-left (toc);
+    }
+  @top-right-corner {
+    #page>.top-right-corner(toc);
+  }
+  @top-right {
+  #page>.top-left(toc);
+  }
+}
+
+//reseting page numbering to start at the preface
+div.book > div.preface {
+  #page> #preface > .page();
+}
+@page preface:right {
+  @top-right {
+    #page>.top-right(right; preface);
+  }
+}
+
