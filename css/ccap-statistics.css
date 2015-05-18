@@ -77,7 +77,7 @@ td.entrytbl > table {
  * Print-specific styles <style media="print"... *
  ***************************************************/
 @page {
-  margin: 5em;
+  margin: 0.8in 1in;
   font-size: xx-small;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   @footnotes {
@@ -87,12 +87,20 @@ td.entrytbl > table {
 }
 @page :left {
   @top-left-corner {
-    content: counter(page);
-    padding-right: 1em;
+  }
+  @top-right-corner {
+  }
+  @bottom-left-corner {
+  }
+  @bottom-right-corner {
   }
   @top-left {
+    content: counter(page);
+  }
+  @top-center {
+  }
+  @top-right {
     content: string(cnx-header);
-    text-transform: uppercase;
   }
   @bottom-left {
     color: grey;
@@ -100,15 +108,90 @@ td.entrytbl > table {
     content: "This content is available for free at " string(cnx-collection-url);
     prince-text-replace: ":9680" "\2019";
   }
+  @bottom-center {
+  }
+  @bottom-right {
+  }
+  @left-top {
+  }
+  @left-middle {
+  }
+  @left-bottom {
+  }
+  @right-top {
+  }
+  @right-middle {
+  }
+  @right-bottom {
+  }
 }
 @page :right {
+  @top-left-corner {
+  }
   @top-right-corner {
-    content: counter(page);
-    padding-left: 1em;
+  }
+  @bottom-left-corner {
+  }
+  @bottom-right-corner {
+  }
+  @top-left {
+    content: string(cnx-header);
+  }
+  @top-center {
   }
   @top-right {
-    content: string(cnx-header);
-    text-transform: uppercase;
+    content: counter(page);
+  }
+  @bottom-left {
+  }
+  @bottom-center {
+  }
+  @bottom-right {
+  }
+  @left-top {
+  }
+  @left-middle {
+  }
+  @left-bottom {
+  }
+  @right-top {
+  }
+  @right-middle {
+  }
+  @right-bottom {
+  }
+}
+div.book > div.toc {
+  page: table-of-contents;
+}
+@page table-of-contents {
+  @top-left-corner {
+    content: none;
+  }
+  @top-left {
+    content: none;
+    content: none;
+  }
+  @top-right-corner {
+    content: none;
+  }
+  @top-right {
+    content: none;
+    content: none;
+  }
+}
+@page preface :blank {
+  @top-left {
+    content: none;
+  }
+}
+div.book > div.preface {
+  page: preface;
+  counter-reset: page 1;
+}
+@page preface:right {
+  @top-right {
+    content: counter(page);
   }
 }
 @namespace mml "http://www.w3.org/1998/Math/MathML";
@@ -1552,8 +1635,128 @@ div.book div.chapter > div.titlepage > div > div:not(:first-child),
 div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
   display: none;
 }
+div.book {
+  /* --------------------------------------
+   *  Define how counters are incremented
+   * --------------------------------------
+   */
+  /* -------------------------------------
+   *  All the rules for elements need to be prefixed
+   *  according to slightly different rules
+   *  - Preface isn't numbered
+   *  - Chapters are numbered
+   *  - Appendixes are lettered
+   *
+   * ie: "Figure 4.3" in chapters but "Figure A3" in an appendix
+   * -------------------------------------
+   */
+  /* -------------------------------------
+ *  The bulk of numbering!
+ *
+ *
+ *  To handle slight variations in prefixing:
+ *  @part-label is used in page headers ie "Chapter 3"
+ *  @part-counter is the prefix to things like "Table A4"
+ *  @part-target is CSS3 for making links to elements
+ *  @part-separator is the little dot in "Table 4.3"
+ * -------------------------------------
+ */
+}
+div.book div.chapter {
+  counter-increment: chapter;
+}
+div.book > div.preface {
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section stats-lab;
+  /* ------------------------------------------
+   *  Increment the counter for statistics lab
+   * -------------------------------------------
+   */
+  /* --------------------------------------
+   *  Define where counters are displayed
+   * --------------------------------------
+   */
+  /* ------------------------------------------
+   *  Display the counter for statistics lab
+   * -------------------------------------------
+   */
+}
+div.book > div.preface .statistics.lab {
+  counter-increment: stats-lab;
+}
+div.book > div.preface .statistics.lab:not(.labeled) {
+  counter-increment: stats-lab;
+}
+div.book > div.preface .statistics.lab.labeled {
+  counter-increment: none;
+}
+div.book > div.preface .statistics.lab > .title:not(.labeled)::before {
+  content: "" "" "" "" counter(stats-lab) " " "";
+}
+div.book div.chapter {
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section stats-lab;
+  /* ------------------------------------------
+   *  Increment the counter for statistics lab
+   * -------------------------------------------
+   */
+  /* --------------------------------------
+   *  Define where counters are displayed
+   * --------------------------------------
+   */
+  /* ------------------------------------------
+   *  Display the counter for statistics lab
+   * -------------------------------------------
+   */
+}
+div.book div.chapter .statistics.lab {
+  counter-increment: stats-lab;
+}
+div.book div.chapter .statistics.lab:not(.labeled) {
+  counter-increment: stats-lab;
+}
+div.book div.chapter .statistics.lab.labeled {
+  counter-increment: none;
+}
+div.book div.chapter .statistics.lab > .title:not(.labeled)::before {
+  content: "" "" counter(chapter, decimal) "." counter(stats-lab) " " "";
+}
+div.book > div.appendix {
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section stats-lab;
+  /* ------------------------------------------
+   *  Increment the counter for statistics lab
+   * -------------------------------------------
+   */
+  /* --------------------------------------
+   *  Define where counters are displayed
+   * --------------------------------------
+   */
+  /* ------------------------------------------
+   *  Display the counter for statistics lab
+   * -------------------------------------------
+   */
+}
+div.book > div.appendix .statistics.lab {
+  counter-increment: stats-lab;
+}
+div.book > div.appendix .statistics.lab:not(.labeled) {
+  counter-increment: stats-lab;
+}
+div.book > div.appendix .statistics.lab.labeled {
+  counter-increment: none;
+}
+div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
+  content: "" "" counter(appendix, upper-latin) "" counter(stats-lab) " " "";
+}
+div.book > div.preface {
+  page: preface;
+  counter-reset: page 1;
+}
+@page preface:right {
+  @top-right {
+    content: counter(page);
+  }
+}
 @page {
-  margin: 0.5in 1in;
+  margin: 0.8in 1in;
 }
 /******************************************************
  * Statistics Custom elements
