@@ -6,20 +6,20 @@
   &.equation-callout {
     @context: equation-callout;
     #content>#note>.style(equation-callout);
-      > .title { 
-        #content>#note>#title>.style(@kind; @part; @context); 
-      }
+      > .title {
+        #content>#note>#title>.style(@kind; @part; @context);
+    }
   }
   &.check-understanding {
     #content>#note>.style(check-understanding);
   }
 }
 
-// Check your understanding solutions 
+// Check your understanding solutions
 div.colophon.end-of-book-solutions .chapter-area {
   > div.check-understanding {
-    &::before { 
-      #part>#book-end>#end-of-book-solutions>#title>.style(check-understanding); 
+    &::before {
+      #part>#book-end>#end-of-book-solutions>#title>.style(check-understanding);
     }
     div.solution > div.title a.solution::before {
       content: target-counter(attr(href), chapter) "." target-counter(attr(href), check-understanding);
@@ -45,7 +45,7 @@ div.colophon.end-of-book-solutions .chapter-area {
 
 // Numbering
 div.book div.chapter .check-understanding:not(.labeled) {
-counter-increment: check-understanding;
+  counter-increment: check-understanding;
 }
 div.book div.chapter .check-understanding > .title:not(.labeled)::before {
   content: "" counter(chapter, decimal) "." counter(check-understanding) " "
@@ -53,16 +53,13 @@ div.book div.chapter .check-understanding > .title:not(.labeled)::before {
 
 // EOC Review
 div.book > div.chapter {
-  .cnx-eoc.review-conceptual-questions::before {
-    #part>#chapter-end>#title>.style('chapter-review');
-  }
   .cnx-eoc > .title {
     #part>#chapter-end>#title>.style('chapter-review'; chapter);
     > span {
       #part>#chapter-end>#title>.style('chapter-review'; chapter; title);
-    } 
+    }
   }
   .cnx-eoc .section > .title {
     #part>#chapter-end>#title>.style('chapter-review'; chapter; section; title);
   }
-} 
+}
