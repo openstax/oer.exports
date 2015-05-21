@@ -1004,6 +1004,39 @@ div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
   @right-bottom {
   }
 }
+div.book > div.toc {
+  page: table-of-contents;
+}
+@page table-of-contents {
+  @top-left-corner {
+    content: none;
+  }
+  @top-left {
+    content: none;
+    content: none;
+  }
+  @top-right-corner {
+    content: none;
+  }
+  @top-right {
+    content: none;
+    content: none;
+  }
+}
+@page preface :blank {
+  @top-left {
+    content: none;
+  }
+}
+div.book > div.preface {
+  page: preface;
+  counter-reset: page 1;
+}
+@page preface:right {
+  @top-right {
+    content: counter(page);
+  }
+}
 @namespace mml "http://www.w3.org/1998/Math/MathML";
 mml|math {
   display: none;
@@ -1378,32 +1411,6 @@ a[href^="http"] {
 .preface {
   page-break-before: right;
   page-break-after: left;
-}
-div.book > div.toc {
-  page: table-of-contents;
-}
-@page table-of-contents {
-  @top-left-corner {
-    content: "";
-  }
-  @top-left {
-    content: "";
-  }
-  @top-right-corner {
-    content: "";
-  }
-  @top-right {
-    content: "";
-  }
-}
-div.book > div.preface {
-  page: preface;
-  counter-reset: page 1;
-}
-@page preface:right {
-  @top-right-corner {
-    content: counter(page);
-  }
 }
 .equation {
   page-break-inside: avoid;
