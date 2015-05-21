@@ -933,7 +933,7 @@ div.book > div.preface {
      *  CUSTOMIZED: added reset for try-it;
      * --------------------------------------
      */
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint be-prepared-exercise;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint be-prepared-exercise check-understanding;
   /* -----------------------------------------------------
      *   CUSTOMIZED: Increment the counter for try-it feature
      * ------------------------------------------------------
@@ -960,7 +960,7 @@ div.book div.chapter {
      *  CUSTOMIZED: added reset for try-it;
      * --------------------------------------
      */
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint be-prepared-exercise;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint be-prepared-exercise check-understanding;
   /* -----------------------------------------------------
      *   CUSTOMIZED: Increment the counter for try-it feature
      * ------------------------------------------------------
@@ -987,7 +987,7 @@ div.book > div.appendix {
      *  CUSTOMIZED: added reset for try-it;
      * --------------------------------------
      */
-  counter-reset: section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint be-prepared-exercise;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint be-prepared-exercise check-understanding;
   /* -----------------------------------------------------
      *   CUSTOMIZED: Increment the counter for try-it feature
      * ------------------------------------------------------
@@ -2413,6 +2413,9 @@ div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t:
   content: "| ";
   color: black;
 }
+div.book > div.appendix .table {
+  page-break-inside: auto;
+}
 div.book > div.appendix > div.section > div.titlepage h2 {
   page-break-after: avoid;
   color: #528cbe;
@@ -3566,19 +3569,24 @@ div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
 }
 .note.quick-check div.itemizedlist ul,
 .note.checkpoint div.itemizedlist ul,
+.note.check-understanding div.itemizedlist ul,
 .note.quick-check div.orderedlist ul,
 .note.checkpoint div.orderedlist ul,
+.note.check-understanding div.orderedlist ul,
 .note.quick-check div.itemizedlist ol,
 .note.checkpoint div.itemizedlist ol,
+.note.check-understanding div.itemizedlist ol,
 .note.quick-check div.orderedlist ol,
-.note.checkpoint div.orderedlist ol {
+.note.checkpoint div.orderedlist ol,
+.note.check-understanding div.orderedlist ol {
   margin: 0 0 0 40px;
   padding: 0;
   margin-top: 1em;
   padding-left: 10px;
 }
 .note.quick-check > .title,
-.note.checkpoint > .title {
+.note.checkpoint > .title,
+.note.check-understanding > .title {
   margin-top: 0.5em;
   margin-top: 0;
   color: #000000;
@@ -3590,7 +3598,8 @@ div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
   padding-right: .8em;
 }
 .note.quick-check .exercise,
-.note.checkpoint .exercise {
+.note.checkpoint .exercise,
+.note.check-understanding .exercise {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   margin-top: 0;
@@ -3608,30 +3617,36 @@ div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
   margin-bottom: 0;
 }
 .note.quick-check .exercise > .title,
-.note.checkpoint .exercise > .title {
+.note.checkpoint .exercise > .title,
+.note.check-understanding .exercise > .title {
   display: none;
 }
 .note.quick-check .exercise .problem,
-.note.checkpoint .exercise .problem {
+.note.checkpoint .exercise .problem,
+.note.check-understanding .exercise .problem {
   font-size: 13px;
   line-height: 16px;
   margin-left: 20px;
 }
 .note.quick-check .exercise .solution,
-.note.checkpoint .exercise .solution {
+.note.checkpoint .exercise .solution,
+.note.check-understanding .exercise .solution {
   display: none;
 }
 .note.quick-check.emphasized > .title,
-.note.checkpoint.emphasized > .title {
+.note.checkpoint.emphasized > .title,
+.note.check-understanding.emphasized > .title {
   padding-left: 2px;
 }
 .note.quick-check.emphasized > .title::before,
-.note.checkpoint.emphasized > .title::before {
+.note.checkpoint.emphasized > .title::before,
+.note.check-understanding.emphasized > .title::before {
   display: block;
   padding-top: 6px;
 }
 .note.quick-check.emphasized .exercise .problem,
-.note.checkpoint.emphasized .exercise .problem {
+.note.checkpoint.emphasized .exercise .problem,
+.note.check-understanding.emphasized .exercise .problem {
   margin-left: 2px;
 }
 .note.media-2 {
@@ -3641,11 +3656,13 @@ div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  page-break-inside: avoid;
   min-height: 45px;
   padding-top: 0;
   margin-top: 0;
   background: url("ccap-calculus/media.svg") no-repeat;
   background-position: 0 .2em;
+  padding-left: 32px;
 }
 .note.media-2 .figure img {
   max-width: 6.25in;
