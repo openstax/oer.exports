@@ -1,0 +1,36 @@
+@cnx-string-preface: "Preface";
+@cnx-string-chapter: "Chapter";
+@cnx-string-appendix: "Appendix";
+@cnx-string-introduction: "Introduction";
+
+/* -------------------------
+ * Preface
+ * -------------------------
+ */
+div.book div.preface {
+  > .titlepage {
+    h1.title {
+      string-set: cnx-header @cnx-string-preface;
+    }
+  }
+}
+
+/* -------------------------
+ * Chapter
+ * -------------------------
+ */
+div.book div.chapter > div.titlepage > div > div h1.title {
+  span.cnx-gentext-t {
+    string-set: cnx-header "@{cnx-string-chapter} " counter(chapter, decimal)  " | " content();
+  }
+}
+
+/* -------------------------
+ * Appendix
+ * -------------------------
+ */
+div.book > div.appendix > div.titlepage > div > div h1.title {
+  span.cnx-gentext-t {
+    string-set: cnx-header "@{cnx-string-appendix} " counter(appendix, upper-latin);
+  }
+}
