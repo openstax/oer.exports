@@ -1212,7 +1212,6 @@ div.table-caption.caption {
  ***************************************************/
 .preface > .titlepage h1.title {
   padding-left: .25em;
-  string-set: cnx-header "Preface";
   background-color: #528cbe;
 }
 .preface > .section h2 {
@@ -2267,7 +2266,6 @@ div.book div.preface > .titlepage {
 }
 div.book div.preface > .titlepage h1.title {
   padding-left: .25em;
-  string-set: cnx-header "Preface";
   background-color: #528cbe;
 }
 div.book div.preface > div.section div.titlepage > div > div > h2 {
@@ -2391,9 +2389,6 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-n {
   padding-right: 0em;
   color: #528cbe;
 }
-div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
-  string-set: cnx-header "Chapter " counter(chapter, decimal) " " content();
-}
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::before {
   content: "| ";
   color: black;
@@ -2411,9 +2406,6 @@ div.book > div.appendix > div.titlepage > div > div h1.title {
 div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-n {
   color: #528cbe;
   padding-right: 0;
-}
-div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t {
-  string-set: cnx-header "Appendix " counter(appendix, upper-latin);
 }
 div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t::before {
   content: "| ";
@@ -3951,4 +3943,32 @@ div.book div.chapter .table:not(labeled).unnumbered {
 }
 div.book div.chapter div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before {
   display: none !important;
+}
+/* -------------------------
+ * Preface
+ * -------------------------
+ */
+div.book div.preface > .titlepage h1.title {
+  string-set: cnx-header "Preface";
+}
+/* -------------------------
+ * Chapter
+ * -------------------------
+ */
+div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
+  string-set: cnx-header "Chapter " counter(chapter, decimal) " | " content();
+}
+/* -------------------------
+ * Appendix
+ * -------------------------
+ */
+div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t {
+  string-set: cnx-header "Appendix " counter(appendix, upper-latin);
+}
+/* -------------------------
+ * Index
+ * -------------------------
+ */
+div.book div.index div.title h2 {
+  string-set: cnx-header "Index";
 }

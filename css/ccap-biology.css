@@ -1660,6 +1660,34 @@ div.book div.chapter .table:not(labeled).unnumbered {
 div.book div.chapter div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before {
   display: none !important;
 }
+/* -------------------------
+ * Preface
+ * -------------------------
+ */
+div.book div.preface > .titlepage h1.title {
+  string-set: cnx-header "Preface";
+}
+/* -------------------------
+ * Chapter
+ * -------------------------
+ */
+div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
+  string-set: cnx-header "Chapter " counter(chapter, decimal) " | " content();
+}
+/* -------------------------
+ * Appendix
+ * -------------------------
+ */
+div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t {
+  string-set: cnx-header "Appendix " counter(appendix, upper-latin);
+}
+/* -------------------------
+ * Index
+ * -------------------------
+ */
+div.book div.index div.title h2 {
+  string-set: cnx-header "Index";
+}
 @page {
   margin: 0.8in 1.5in;
 }
