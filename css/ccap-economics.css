@@ -85,7 +85,6 @@ div.book {
   /* -------------------------------------
    *  All the rules for elements need to be prefixed
    *  according to slightly different rules
-   *  - Preface isn't numbered
    *  - Chapters are numbered
    *  - Appendixes are lettered
    *
@@ -1094,9 +1093,6 @@ div.book > div.appendix .note.try > .title:not(.labeled)::before {
   @right-bottom {
   }
 }
-div.book > div.toc {
-  page: table-of-contents;
-}
 @page table-of-contents {
   @top-left-corner {
     content: none;
@@ -1119,7 +1115,6 @@ div.book > div.toc {
   }
 }
 div.book > div.preface {
-  page: preface;
   counter-reset: page 1;
 }
 @page preface:right {
@@ -5215,9 +5210,19 @@ div.book > div.appendix.empty {
   prince-text-replace: "." ":";
 }
 /* -------------------------
+ * Table of Contents
+ * -------------------------
+ */
+div.book > div.toc {
+  page: table-of-contents;
+}
+/* -------------------------
  * Preface
  * -------------------------
  */
+div.book div.preface {
+  page: preface;
+}
 div.book div.preface > .titlepage h1.title {
   string-set: cnx-header "Preface";
 }
