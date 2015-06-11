@@ -27,21 +27,7 @@ div.book {
 
   div.chapter { counter-increment: chapter; }
 
-
-  /* -------------------------------------
-   *  All the rules for elements need to be prefixed
-   *  according to slightly different rules
-   *  - Preface isn't numbered
-   *  - Chapters are numbered
-   *  - Appendixes are lettered
-   *
-   * ie: "Figure 4.3" in chapters but "Figure A3" in an appendix
-   * -------------------------------------
-   */
-  > div.preface { .x-prefixed(@preface, "", "");
- }
-
- div.chapter { .x-prefixed(@chapter,  counter(chapter, decimal), target-counter(attr(href), chapter), "." ); }
+  div.chapter { .x-prefixed(@chapter,  counter(chapter, decimal), target-counter(attr(href), chapter), "." ); }
   > div.appendix { .x-prefixed(@appendix, counter(appendix, upper-latin), target-counter(attr(href), appendix, upper-latin) ); }
 
 /* -------------------------------------
@@ -94,13 +80,3 @@ div.book {
     }
   } // .x-prefixed()
 }
-div.book > div.preface {
-  page: preface;
-  counter-reset: page 1;
-}
-@page preface:right {
-  @top-right-corner {
-    content: counter(page);
-  }
-}
-

@@ -92,7 +92,6 @@ div.book {
   /* -------------------------------------
    *  All the rules for elements need to be prefixed
    *  according to slightly different rules
-   *  - Preface isn't numbered
    *  - Chapters are numbered
    *  - Appendixes are lettered
    *
@@ -1101,6 +1100,35 @@ div.book > div.appendix .note.try > .title:not(.labeled)::before {
   @right-bottom {
   }
 }
+@page table-of-contents {
+  @top-left-corner {
+    content: none;
+  }
+  @top-left {
+    content: none;
+    content: none;
+  }
+  @top-right-corner {
+    content: none;
+  }
+  @top-right {
+    content: none;
+    content: none;
+  }
+}
+@page preface :blank {
+  @top-left {
+    content: none;
+  }
+}
+div.book > div.preface {
+  counter-reset: page 1;
+}
+@page preface:right {
+  @top-right {
+    content: counter(page);
+  }
+}
 @namespace mml "http://www.w3.org/1998/Math/MathML";
 mml|math {
   display: none;
@@ -1196,7 +1224,6 @@ div.table-caption.caption {
  ***************************************************/
 .preface > .titlepage h1.title {
   padding-left: .25em;
-  string-set: cnx-header "Preface";
   background-color: #7291cb;
   color: #993720;
   background-color: transparent;
@@ -1490,32 +1517,6 @@ a[href^="http"] {
 .preface {
   page-break-before: right;
   page-break-after: left;
-}
-div.book > div.toc {
-  page: table-of-contents;
-}
-@page table-of-contents {
-  @top-left-corner {
-    content: "";
-  }
-  @top-left {
-    content: "";
-  }
-  @top-right-corner {
-    content: "";
-  }
-  @top-right {
-    content: "";
-  }
-}
-div.book > div.preface {
-  page: preface;
-  counter-reset: page 1;
-}
-@page preface:right {
-  @top-right-corner {
-    content: counter(page);
-  }
 }
 .equation {
   page-break-inside: avoid;
@@ -2489,7 +2490,6 @@ div.book div.preface > .titlepage {
 }
 div.book div.preface > .titlepage h1.title {
   padding-left: .25em;
-  string-set: cnx-header "Preface";
   background-color: #7291cb;
   color: #993720;
   background-color: transparent;
@@ -2685,7 +2685,6 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-n {
   color: #354da1;
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
-  string-set: cnx-header "Chapter " counter(chapter, decimal) " " content();
   font: 28pt/33pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: #000000;
   border-top-color: #f6862d;
@@ -2724,9 +2723,6 @@ div.book > div.appendix > div.titlepage > div > div h1.title {
 div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-n {
   color: #7291cb;
   padding-right: 0;
-}
-div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t {
-  string-set: cnx-header "Appendix " counter(appendix, upper-latin);
 }
 div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t::before {
   content: "| ";
@@ -4411,7 +4407,6 @@ g line {
  ******************************************************/
 .preface > .titlepage h1.title {
   padding-left: .25em;
-  string-set: cnx-header "Preface";
   background-color: #7291cb;
   color: #993720;
   background-color: transparent;
@@ -5064,6 +5059,10 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
 .preface > .section h3 {
   color: #354da1;
 }
+.preface img {
+  max-width: 6.5in;
+  margin: 0;
+}
 /******************************************************
  * Chapter Outline
  ******************************************************/
@@ -5362,4 +5361,42 @@ div.book div.chapter .table:not(labeled).unnumbered {
 }
 div.book div.chapter div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before {
   display: none !important;
+}
+/* -------------------------
+ * Table of Contents
+ * -------------------------
+ */
+div.book > div.toc {
+  page: table-of-contents;
+}
+/* -------------------------
+ * Preface
+ * -------------------------
+ */
+div.book div.preface {
+  page: preface;
+}
+div.book div.preface > .titlepage h1.title {
+  string-set: cnx-header "Preface";
+}
+/* -------------------------
+ * Chapter
+ * -------------------------
+ */
+div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
+  string-set: cnx-header "Chapter " counter(chapter, decimal) " | " content();
+}
+/* -------------------------
+ * Appendix
+ * -------------------------
+ */
+div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t {
+  string-set: cnx-header "Appendix " counter(appendix, upper-latin);
+}
+/* -------------------------
+ * Index
+ * -------------------------
+ */
+div.book div.index div.title h2 {
+  string-set: cnx-header "Index";
 }
