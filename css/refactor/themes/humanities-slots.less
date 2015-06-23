@@ -1,0 +1,1906 @@
+// Copyright (c) 2013 Rice University
+// This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+// See LICENSE.txt for details.
+
+@cnx-string-chapter: "Chapter";
+@cnx-string-introduction: "Introduction";
+@cnx-string-chapter-outline: "Chapter Outline";
+@cnx-string-learning-objectives: "Learning Objectives";
+@cnx-string-key-equations: "Key Equations";
+@cnx-string-key-concepts: "Key Concepts";
+
+.x-list-indent() {
+  margin: 0 0 0 40px;
+  padding:0;
+ }
+
+#part {
+  #titlepage {
+    #title {
+      .style() {
+        font-size: 34pt;
+        text-align: left;
+      }
+    }
+  }
+  #preface {
+    #titlepage {
+      .style(...) {
+        padding-bottom: 1em;
+
+      }
+      .title(...) {
+        background-color: @medium-blue;
+      }
+    }
+  }
+  #introduction {
+    #title {
+      .style(...) {
+        content: @cnx-string-introduction;
+        font-size: x-large;
+        color: @medium-blue;
+      }
+    }
+    #chapter-outline {
+      .style(...) {
+        width: 100%;
+        border: 1px solid @medium-blue;
+      }
+      #title {
+        .style(...) {
+          #utils>#pb>.after(avoid);
+          #utils>#pb>.before(avoid);
+          content: @cnx-string-chapter-outline;
+          padding-top: .1em;
+          padding-bottom: .2em;
+          background-color: @medium-blue;
+        }
+      }
+      #entry {
+        #title {
+          .style(...) {
+            color: @medium-blue;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+
+  #toc {
+    .style(...) {
+    }
+    #title {
+      .style(...) {
+        color: @medium-blue;
+        border-bottom-color: @medium-blue;
+      }
+    }
+    #link {
+      .style(...) {
+        color: @medium-blue;
+      }
+    }
+  }
+  #chapter {
+    #title {
+      .style(...) {
+        /*reset left only*/
+        font-size: 34pt; /* x-large; */
+        font-weight: bold;
+        text-align: left;
+        color: @medium-blue;
+        margin: 0;
+        padding-top: 0;
+        padding-left: 0;
+        padding-right: 0;
+      }
+      .number(...) {
+        font-weight: bold;
+        padding-right: 0em;
+        color: @medium-blue;
+      }
+      .divider(...) {
+        content: "| ";
+        color: black;
+      }
+      .text() {
+      }
+    }
+
+    #learning-objectives {
+      .style(...) {
+        counter-reset: learning-objectives;
+        border: 1px solid @medium-blue;
+        padding: 0em;
+      }
+      #title {
+        .style(...) {
+          content: @cnx-string-learning-objectives;
+          display: inline-block;
+          width: 100%;
+          padding-top: .1em;
+          padding-bottom: .2em;
+          background-color: @medium-blue;
+          color: white;
+          text-align: center;
+          font-weight: bold;
+          font-size: large;
+        }
+      }
+      #list {
+        .style(){
+        margin: 0 40px;
+        }
+      }
+    }
+  }
+  #module {
+    #title {
+      .style() {
+        color: @medium-blue;
+        font-size: 17pt;
+        font-weight: bold;
+      }
+      // Separate the section number and title with a pipe
+      .divider() {
+        color: black;
+        content: "| ";
+      }
+      .number() {}
+      .text() {}
+    }
+  }
+  #glossary {
+    .style(chapter) {
+      // End-of-chapter material should start on a new page
+      #utils>#pb>.before(always);
+      display: inline;
+    }
+    #title {
+      .style(chapter) {
+        /* Change "Glossary" to "Key Terms" */
+        content: "Key Terms";
+        color: @medium-blue;
+        font-size: large;
+        padding: 0em;
+        display: block;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  // End-of-chapter parts
+  #chapter-end {
+    .style(...) {
+      .x-column-count(2);
+      column-width: auto;
+      column-fill: balance;
+      #utils>#pb>.inside(auto);
+      column-break-inside: auto;
+    }
+    #title {
+      .style(...) {
+        text-transform: uppercase;
+        text-align: left;
+        color: @medium-blue;
+        font-size: large;
+        font-weight: bold;
+        margin-top: 0;
+        #utils>#pb>.after(avoid);
+      }
+    }
+    #summary {
+      .style(...) {
+        .x-column-count(1);
+      }
+      #title {
+        .style(...) {
+          content: "Chapter " counter(chapter, decimal) " Review";
+        }
+        .link(...) {
+          color: @medium-blue;
+          #utils>#pb>.after(avoid);
+        }
+      }
+    }
+    #key-equations {
+      .style(...) {
+        .x-column-count(1);
+      }
+      #title {
+        .style(...) {
+          content: @cnx-string-key-equations;
+        }
+      }
+    }
+    #key-concepts {
+      .style(...) {
+        .x-column-count(1);
+        padding-bottom: 1em;
+      }
+      #title {
+        .style(...) {
+          content: @cnx-string-key-concepts;
+          column-span: all;  // staging bug-fix.
+          margin-bottom: 0;
+        }
+        .link(...) {
+          color: @medium-blue;
+        }
+        // targeting the link with layout changes not a good idea.  Must have a way to
+        // target the parent of the link (.section > .title )  See line #208 precalculus-skeleton
+        .subtitle(...) {
+          margin-bottom: 1em;
+        }
+      }
+    }
+    #review-exercises {
+      .style(...) {
+        .x-column-count(1);
+      }
+      #title {
+        .style(...) {
+          content: "Chapter " counter(chapter, decimal) " Review Exercises";
+          column-span: all;
+          margin-top: 0;
+        }
+      }
+    }
+    #practice-test {
+      .style(...) {
+        .x-column-count(1);
+      }
+      #title {
+        .style(...) {
+          content: "Chapter " counter(chapter, decimal) " Practice Test";
+          column-span: all;
+        }
+      }
+    }
+    #solution {
+      .style(...) {
+        display: none; // W&N Requested these be removed 10/25/2013
+                       // since they are collated to EOB.
+        .x-column-count(1);
+      }
+      #title {
+        .style() {}
+        .link(...) {
+          color: @medium-blue;
+          #utils>#pb>.after(avoid);
+        }
+      }
+    }
+  }
+  // End-of-book parts
+  #book-end {
+    .style(...) {}
+
+    // End of Book Solutions
+    #end-of-book-solutions {
+      .style(...) {
+        margin: 0;
+        padding: 0;
+        display: inline !important;
+      }
+
+      #title {
+        .style() {
+          content: "Answer Key";
+          string-set: cnx-header "Answer Key";
+          color: @medium-blue;
+          margin-left: 0;
+          text-transform: uppercase;
+          font-size: x-large;
+          font-weight: bold;
+          background-color: transparent; //overwrite from .colophon title
+        }
+        .style('chapter-area') {
+          .x-solutions-subheading-style();
+        }
+        .style('review-exercises') {
+          .x-solutions-subheading-style();
+          content: "Review Exercises";
+        }
+        .style('practice-test') {
+          .x-solutions-subheading-style();
+          content: "Practice Test";
+        }
+        .style('try-it') {
+          .x-solutions-subheading-style();
+          content: "Try It";
+        }
+        .style('section-exercises') {
+          .x-solutions-subheading-style();
+          content: "Section Exercises";
+        }
+      }
+      #chapter-area {
+        .style() { font-family: @font-family-serif; }
+      }
+      #solution {
+        .style(...) {
+          // The Answer Key for the PreCalculus text was converted to be in (1) one column
+          // and not inline due to the fact that some answers will be cartesian graphs (art).
+          // Not a good experience to be inline.
+          .x-column-count(1);
+        }
+        #title {
+          .style(...) {
+            display: inline;
+            a.solution {
+              color: black;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+
+    // End of Book References
+    #end-of-book-references {
+      .style(...) { display: none; }
+
+      #title {
+        .style(...) { //colophon titles are passed as h1's by default by docbook override properties here
+          string-set: cnx-header "References";
+          font-size: x-large;
+          font-weight: bold;
+          background-color: transparent;
+          color: @medium-blue;
+          margin-left: 0;
+          padding-left: 0;
+          margin-top: 0;
+        }
+      }
+
+      #chapter-area {
+        .style(...) {
+          font-family: @font-family-serif;
+          color: black;
+          font-weight: bold;
+          font-size: medium;
+          margin: .5em 0em;
+        }
+        #title {
+          .style(...) {}
+        }
+      }
+      #section-area {
+        .style(...) {}
+        #title {
+          .style(...) { display: none; } // Remove references title and superscript
+        }
+      }
+      #reference {
+        .style(...) {}
+        #title {
+          .style(...) {}
+        }
+      }
+    }
+
+    // End of Book Index
+    #index {
+      .style(...) {
+        text-align: left; //override text-alignment from base .x-column-count
+        column-width: auto;
+        margin-bottom: 10px;
+      }
+
+      #title {
+        .style(...) {
+          color: @medium-blue;
+          text-transform: uppercase;
+          font-size: x-large;
+          column-span: all;
+        }
+      }
+      .letter(...) {
+        color: inherit;
+        font-weight: bold;
+        font-size: medium;
+        padding-top: .5em;
+      }
+      .term(...) {
+        font-size: small;
+      }
+      .link(...) {
+        font-weight: bold;
+      }
+    }
+    // End of Book Attribution and About Connexions
+    #colophon {
+      .style(...) {
+        padding: 0;
+        margin-top: 0;
+        font-weight: bold;
+        font-size: x-large;
+        color: @medium-blue;
+        background: none;
+      }
+    }
+
+    #appendix {
+      #title {
+        .style() {
+          font-size: 34pt;
+          font-weight: bold;
+          color: @medium-blue;
+          padding: 0;
+          margin: 0;
+        }
+        .number() {
+          color: @medium-blue;
+          padding-right: 0;
+        }
+        .text() {
+        }
+        .divider() {
+          content: "| ";
+          color: black;
+        }
+        .label() {}
+      }
+    }
+  }
+}
+#content {
+  #body {
+    .style(any) {
+      font-size: 9.5pt;
+      text-align: justify;
+    }
+  }
+  #paragraph {
+    .style(any) {
+      font-family: @font-family-serif;
+    }
+    .style(any; any; list; table) {
+      font-family: @font-family;
+    }
+    .style(any; any; figure) {
+      padding-top:1.5em;
+      margin-top:0em;
+    }
+  }
+  #table {
+    .style(any; any) {
+      #utils>#pb>.inside(auto);
+
+      // If a table spans more than 1 page then put caption on all following pages
+      prince-caption-page: all;
+    }
+
+    .style(any; any; problem; exercise; example) {
+      counter-increment: table !important; // Overrides !important from base.
+    }
+    .style(any; any; solution; exercise; example) {
+      counter-increment: table !important; // Overrides !important from base.
+    }
+
+    // Bug fix. Remove styling for tables in "Key Equations"
+    // as these are just a wrapper for alignment.
+    // !important is used to override inline table styles.
+    .style(any; chapter; chapter-end; key-equations) {
+      margin: 0;
+      border: none !important;
+
+      caption { display: none; }
+      td { border: none !important; }
+    }
+    #caption {
+      .style(any; any) {
+        font-family: @font-family;
+        padding-top: .5em;
+        padding-bottom: 1em;
+        font-weight:bold;
+        color: @orange;
+        caption-side:bottom;
+      }
+      .style(any; any; problem; exercise; example) { display: block; }
+      .style(any; any; solution; exercise; example) { display: block; }
+      .style(any; any; commentary; exercise; example) { display: block; }
+
+      // Do not display numbering for tables in the answer key
+      .style(any; book-end; solution) { display: none; }
+
+      .number(any; any) {}
+    }
+    #head {
+      .style(any; any) {
+      }
+    }
+    #body {
+      .style(any; any) {
+      }
+    }
+    #row {
+      .style(any; any) {
+        #utils>#pb>.inside(avoid);
+      }
+      .style(colored; any) {
+        height: 1em !important;
+      }
+    }
+    #header {
+      .style(any; any) {
+        color: black;
+        background-color: @white;
+        font-size: small;
+        text-align: left;
+      }
+      .style(colored; any) {
+        background-color: @light-orange; text-align: center;
+      }
+    }
+    #data {
+      .style(any; any) {
+        padding: 13px;
+      }
+
+      // Some TDs act like TH
+      .style('header'; any) {
+        background-color: @white;
+      }
+    }
+  }
+  #note {
+    .style(...) {}
+    .style(non-feature) {
+      color: @black;
+      background-color: @light-blue;
+      padding-bottom: 1em;
+    }
+    .style(qa; ...) {
+      #utils>#pb>.inside(avoid);
+      .x-feature(qa);
+      // place adjustment for padding here so we don't
+      // have to place in #title and #body below
+      padding-left: 2.8em;
+    }
+    .style(media; ...) {
+      #utils>#pb>.inside(avoid);
+      .x-feature(media);
+      padding-left: 2.5em;
+    }
+    .style(try; ...) {
+      #utils>#pb>.inside(avoid);
+      .x-feature(try);
+    }
+    #title {
+      .style(...) {}
+      .style(non-feature) {
+        #utils>#pb>.after(avoid);
+        text-align: left;
+        font-size: small;
+        margin-top: .25em;
+        margin-bottom: .5em;
+        color: @medium-blue;
+        font-weight: bold;
+        border-bottom: 1px solid @medium-blue;
+      }
+      .style(@kind; @part; feature-try) {
+        margin-top: 0;
+        color: @black;
+        font-family: @font-family-serif;
+        font-size: 10pt;
+        font-weight: bold;
+        float: left;
+        padding-left: 1.5em;
+        padding-right: .8em;
+      }
+      .style(@kind; @part; feature-qa) {
+        font-family: @font-family-serif;
+        font-weight: bold;
+      }
+    }
+    #body {
+      .style(...) {}
+      .style(@kind; @part; feature-try) {
+        font-weight: normal;
+
+      }
+      .style(@kind; @part; feature-qa) {
+        font-weight: normal;
+        margin-top: 0;
+      }
+    }
+  }
+  #figure {
+    .style(...) {
+      font-family: @font-family;
+      font-size: 9pt;
+      padding-bottom: 1em;
+      text-align: left;
+    }
+    .style(any; any; problem; exercise; example) {
+      counter-increment: figure !important; // Overrides !important from base.
+    }
+    .style(any; any; solution; exercise; example) {
+      counter-increment: figure !important; // Overrides !important from base.
+    }
+    .style(any; any; commentary; exercise; example) {
+      counter-increment: figure !important; // Overrides !important from base.
+    }
+    .style(@kind; @part; problem; exercise; section-exercise) {
+      text-indent: 0;
+    }
+    .style(any; chapter-end; exercise) {
+      display: block; // override ccap-base display: initial.
+    }
+    #body {
+      .style(any; any) {}
+    }
+    #title {
+      .style(...) {
+        display: inline;
+        text-align: center;
+      }
+      .style(any; any; feature-qa) {
+        font-style: normal;
+      }
+      .number(any; any; solution; exercise; example) {
+        display: inline-block;
+      }
+      .number(any; any; problem; exercise; example) {
+        text-align: left;
+        display: inline-block;
+      }
+      .number(any; any; commentary; exercise; example) {
+        display: inline-block;
+      }
+      .number(...) {
+        color: @orange;
+        font-weight: bold;
+        text-align: left;
+        margin-right: .5em;
+      }
+    }
+  }
+  #image {
+    .style(any; any) {
+      max-height: 9.5in;
+    }
+    .style(@kind; @part; figure) {
+      margin: 0; //override auto  left/right margins from base
+      max-width: @page-width; //overrides width value figures/subfigures ensuring imgs do not bleed off page
+    }
+    .style(any; book-end; solution) {
+      text-align: center;
+    }
+    .style(any; book-end; solutions) {
+    }
+    .style(any; chapter) {
+    }
+  }
+  #section {
+    .style(any; any) {}
+    .style(any; any; section) {}
+    .style(section-exercises; @part; ...) {
+      #utils>#pb>.before(always);
+      #utils>#pb>.after(always);
+      .x-column-count(1);
+    }
+    .style(any; appendix) {}
+    #title {
+      .style(...) {
+        #utils>#pb>.after(avoid);
+      }
+      .style(any; preface) {}
+      .style(any; preface; section) {}
+      .style(any; appendix){
+        #part>#module>#title>.style();
+      }
+      .number(any; appendix) {
+        #part>#module>#title>.number();
+      }
+      .text(any; appendix) {
+        #part>#module>#title>.text();
+      }
+      .label(any; appendix) {}
+      .style(any; appendix; section) {}
+      .number(any; appendix; section) {}
+      .text(any; appendix; section) {}
+      .label(any; appendix; section) {}
+      .style(any; any) { // Section titles
+        color: @medium-blue;
+        font-size: 19px;
+        font-weight: bold;
+      }
+      .style(any; any; section) { // Sub-section titles
+        color: @medium-blue;
+        font-size: 13px;
+        font-weight: bold;
+      }
+      .style(section-exercises; @part; ...) {
+        content: "" " " counter(chapter, decimal) "." counter(section, decimal) " exercises" " " "";
+        text-transform: uppercase;
+        font-size: 17pt;
+        color: @medium-blue;
+        font-weight: bold;
+        display:block;
+        padding-bottom: 10px;
+        column-span: all;
+      }
+    }
+  }
+  #list {
+    .style(any; any) {
+      .x-list-indent();
+    }
+    .style(any; try-it) {
+      .x-list-indent();
+      margin-top: 1em;
+      padding-left: 10px;
+    }
+    .style(any; any; solution; exercise; example) {
+      // Inset lists below solution headers
+     .x-list-indent();
+    }
+    .style(any; any; problem; exercise) {
+      list-style-position: inside;
+    }
+    .style(any; any; table) {
+      margin: 0;
+      padding-left:  10px;
+    }
+    .style('no-mark'; any) {
+      list-style-type: none;
+    }
+    .item(@kind; @part; feature-media) {
+        color: @orange;
+        font-weight: bold;
+        text-align:  left;
+    }
+  }
+  #commentary {
+    #title {
+      .style(@kind; @part; exercise; example) {
+        font-family: @font-family;
+        font-size: 10pt;
+        color: @dark-blue;
+        font-weight: bold;
+        margin-right: .2em;
+        height: .9em;
+      }
+    }
+  }
+  #example {
+    .style(any) {
+      margin: .75em 0;
+    }
+    #title {
+      .style(any) {
+        background: @dark-blue;
+        padding-top: .3em;
+        padding-bottom: .3em;
+      }
+    }
+    #body {
+      .style(any) {
+        border-left: 1px solid @dark-blue;
+        padding: 1em 2em .5em 2em;
+      }
+    }
+  }
+  #exercise {
+    .style(...) {
+      margin-top: 0;
+    }
+    .style(any; any; example) {
+      counter-increment: none !important;
+      margin-top: 0;
+    }
+    .style(@kind; @part; feature-try) {
+      // Try-it features are considered exercises.
+      // Increment counters even though they aren't displayed.
+      // (this comment above is old original comment that I did when building template)
+
+      counter-increment: none !important;
+      // 02.21.14 - Turned this off, but no results.  I remembered working on this before when we made the template
+      // so I don't think we have to make an addition to precalculus-numbering.less, but something is incrementing
+      // exercises at the section level higher up the cascade causing this to increment.  Used !important for now
+      // until we can find out what is doing this.
+
+      /* This code snip below is what is in Firebug that is overriding the Example and Try-It Exercise counters
+      causing !important to have to be used here and on line #594 of the precalculus-skeleton.less file.  grr
+      div.book div.chapter > div.cnx-eoc div.exercise:not(.labeled),
+      div.book div.chapter > div.section div.exercise:not(.labeled) {
+        counter-increment: exercise;
+      }
+      */
+
+      /* Update to me:  Found it.  It's line #106 in the numbering.less file.  it's incrementing  > .section > .exercise
+      We have to basically make an adjustment in precalculus-numbering.less to stop this override.
+      */
+
+      margin-bottom: 0;
+    }
+    .style(@kind; @part; section) {
+      font-family: @font-family-serif;
+    }
+    .style(@kind; @part; section-exercise) { // end of section exercises
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+    #title {
+      .style(@kind; @part; feature-try) {
+        // turn off the display of exercise text label and number
+        display: none;
+      }
+      .style(@kind; @part; section-exercise) {
+        content: counter(exercise) ".";
+        float: left;
+  padding-right: .5em;
+      }
+    }
+  }
+  #problem {
+    .style(@kind; @part; feature-try; exercise) {
+      // Template design asks for lists to be set apart
+     font-size:13px;
+     line-height:16px;
+     margin-left:20px;
+    }
+    .number(@kind; chapter-end; ...) {
+      padding-right: .5em;
+    }
+    #title {
+      .style(any; any; exercise; example) {
+        font-family: @font-family;
+        font-size: 11pt;
+        color: @dark-blue;
+        font-weight: bold;
+        padding-bottom: 1em;
+      }
+    }
+    #body {
+      .style(@kind; @part; feature-try; exercise) {
+        margin-left:8px;
+      }
+    }
+  }
+  #solution {
+    .style(...) {}
+
+    .style(any; any; example) {
+      padding-top: 1em; padding-bottom: 1em;
+    }
+
+    .style(@kind; @part; feature-try; exercise) {
+      // W&N requested solutions be removed 9.24.13
+      display: none;
+    }
+    .style(@kind; book-end) {
+      // style any PreCalc solution that occurs in #book-end
+    }
+    .style(@kind; @part; exercise; section-exercise) {
+      // do not display end-of-section exercise solutions.
+      display: none;
+    }
+
+    .style(@kind; chapter) {
+      // do not display end-of-chapter exercise solutions.
+      display: none;
+    }
+
+    #title {
+      .style(...) {}
+      .style(any; any; exercise; example) {
+        content: "Solution";
+        font-family: @font-family;
+        font-size: 10pt;
+        color: @dark-blue;
+        font-weight: bold;
+        line-height: 1em;
+      }
+      .style(@kind; book-end) {
+        // Check the note at
+        // #book-end>#end-of-book-solutions>#solution
+        // This may have been set to not display inline
+        // due to a W&N request.
+        display: inline;
+
+        // Solution in Answer Key needs to have period after number.
+        &::after {
+          content: ". ";
+        }
+      }
+
+      .link(...) {}
+    }
+    #body {
+      .style(...) {}
+
+      .style(any; any; exercise; example) {
+        // Fix margins because solutions with only one paragraph
+        // do not include a <p></p> wrapper for text.
+        margin-top: .5em;
+      }
+
+      .style(@kind, book-end) {
+        margin-right: .65em;
+        display: inline;
+
+        // will need to change - include in .body mixin for now
+        > a.target-figure {
+          margin: 0em .25em;
+          color: @orange;
+        } //add margin for .xref in solution body
+      }
+    }
+  }
+  // Blockquote is actually not used in PreCalculus, so no
+  // skeleton entry is needed.  I think this style is just
+  // garden variety blockquote. Will leave as is and place
+  // Psych and History blockquote styles into appropriate slots.
+  #blockquote {
+    .style(...) {
+      color: @light-blue;
+      font-size: 150%;
+
+      &::before, &::after {
+        font-weight: bold;
+        color: black;
+      }
+
+      &::before { content: "\201C" /* open-quote */; }
+      &::after { content: "\201D" /* close-quote; */; }
+    }
+  }
+  #glossary {
+    .style(...) {
+      // End-of-chapter material should start on a new page
+      #utils>#pb>.before(always);
+      display:inline;
+
+      &::before {
+        content: "" "Chapter " counter(chapter, decimal) " Review";
+        color: @medium-blue;
+        font-size: x-large;
+        font-weight: bold;
+        padding: 0em;
+        display: block;
+        text-transform:uppercase;
+        margin-bottom: 1.0em;
+      }
+    }
+    #title {
+      .style(...) {
+        /* Change "Glossary" to "Key Terms" */
+        content: "Key Terms";
+        color: @medium-blue;
+
+        // We might as well fix it this way now and just document the problems.  This
+        // is good actually because it uncovers issues that we are having and just fix
+        // in the refactoring once and for all.  The hugest thing of all is the normalization
+        // of selectors across books. For instance, in targeting titles across books you
+        // have multitudinous ways that they are targeted, e.g.  h1.title, .chapter h1.title,
+        // .chapter .titlepage div div h1, etc.  This is the thing that is giving us so much
+        // trouble.
+
+        // Fixing this will require changes to base-skeleton, precalc-skeleton and
+        // will possibly break books.
+        font-size: 14pt !important;
+        margin-left: 0;
+
+        font-weight: bold;
+
+        // The skeleton selectors for many things are incorrect in that .titlepage here is being
+        // targeting and yield higher specificty.
+        padding: 0em !important;
+
+        display: block;
+        text-transform: uppercase;
+        page-break-after: avoid !important;
+      }
+    }
+    .dt() { }
+
+    .dl() {
+      margin-left: 0;
+      #utils>#pb>.before(avoid);
+    }
+
+    .divider(...) {
+      content: " ";
+      float:right;
+    }
+  }
+  #heading{
+    .style(h5, ...) {
+      color: @medium-blue;
+      font-size: 10pt;
+      font-weight: bold;
+      font-style: italic;
+    }
+    .style(h6, ...) {
+      color: @medium-blue;
+      font-weight: bold;
+    }
+  }
+  // Parent level link styling
+  #link {
+    .style(...) {
+      font-family: @font-family;
+      font-weight: bold;
+      color: @orange;
+    }
+  }
+}
+
+.x-solutions-subheading-style() {
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: @font-family;
+  display: block;
+  margin-bottom: 7.5px;
+}
+
+
+/********************************************************************
+ * Refactor of .x-feature() function to utilize only one paramter
+ ********************************************************************/
+
+.x-feature (@svg) {
+  // If feature is only one line prevent clipping of icon
+  min-height: 45px;
+
+  padding-top: 0;
+  margin-top: 0;
+  background: url("ccap-precalculus/@{svg}.svg") no-repeat;
+  background-position: 0 .2em;
+
+  .figure {
+    img { max-width: (@page-width - .25em); }
+  }
+}
+
+
+//end of precalculus
+
+
+// Copyright (c) 2013 Rice University
+// This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+// See LICENSE.txt for details.
+
+.x-feature-before-color(@title-color, @title) {
+  text-transform: uppercase;
+  color: @title-color;
+  content: @title;
+}
+.x-feature-color(@border-color, @title-border-color, @title-color, @background-color, @title) {
+  box-shadow: 10px 10px 5px @shadow; // On the roadmap for PrinceXML 9.1
+  border: 1px solid @border-color;
+  border-radius: 15px;
+
+  margin-top: 48px; // Clear the title ::before.
+  &::before {
+    .x-feature-before-color(@title-color, @title);
+    background-color: @background-color;
+    border: 1px solid @title-border-color;
+    border-radius: 15px;
+    width: 60%;
+
+    // Reposition the titles
+    position: absolute;
+    margin-top: -48px;
+    margin-left: -5px;
+    padding: 8px;
+    padding-left: 0px;
+
+    // Text styles
+    font-weight: 700;
+    font-size: 12pt;
+    text-indent: 0.1875in;
+  }
+}
+
+#part {
+  #toc {
+    .style(...) {}
+
+    #title {
+      .style(...) {
+        color: @red;
+        font-size: 18pt;
+        font-weight: normal;
+        text-align: center;
+        text-transform: none;
+        margin-left: 0px;
+        padding-left: 0px;
+        margin-bottom: .2em;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-bottom-color: @orange;
+        background-color: transparent;
+      }
+    }
+    #link {
+      .style(...) {
+        color: @red;
+        font: 10pt/13pt @font-family-sans-serif;
+      }
+    }
+  }
+  #preface {
+    #titlepage {
+      .title(...) {
+        color: @red;
+        background-color: transparent;
+        padding-left: 0;
+        text-transform: capitalize;
+        font-size: 18pt;
+        font-weight: 700;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-bottom-color: @orange;
+        margin-top:  0;
+        padding-top: 0;
+      }
+      .subtitle(...) {}
+    }
+  }
+  #introduction {
+    #title {
+      .style(...) {
+        color: @red;
+        border-bottom-color: @orange;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        padding-bottom: 0.2em;
+        font-size: 14pt;
+        font-weight: 700;
+        text-transform: capitalize;
+      }
+    }
+    #splash-figure {
+      .image(chapter) {
+         padding-bottom: .2em;
+        .body {
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+      }
+    }
+    #chapter-outline {
+      .style(...) {
+        border: none;
+        padding: 0em;
+        span {
+          font-weight: normal;
+          font-size: 9pt;
+          line-height: 11pt;
+        }
+
+        ul {
+          margin-left: 0.125in;
+        }
+      }
+      #title {
+        .style(...) {
+          width: 100%;
+          background-color: @white;
+          color: @light-blue;
+          text-align: left;
+          font-weight: bold;
+          font-size: 11pt;
+          padding-left: 0px;
+        }
+      }
+      #entry {
+        .style(...) {
+          margin: 0.2em 0;
+        }
+        #title {
+          .style(...) {
+            color: @black;
+            margin: 0;
+            font-weight: normal;
+            font-size: 9pt;
+            line-height: 11pt;
+          }
+        }
+      }
+    }
+  }
+  #chapter {
+    #title {
+      .style(...) {
+        color: @red;
+        border-bottom-color: @orange;
+        text-transform: none;
+        font-weight: normal;
+        font-size: 18pt;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        text-align: left;
+      }
+      .text() {
+        font: 28pt/33pt @font-family-serif;
+        color: @black;
+        border-top-color: @orange;
+        display: block;
+        font-weight: 700;
+
+        // If we truly need to take away the (.25em) left padding that
+        // is being assigned here, we will have to remove it from numbering-skeleton.less
+        // using !important for now to conform to production template as it will not
+        // override from numbering (a higher specificity for h1.title gentext-t is in numbering-skeleton)
+        padding-left: 0 !important;
+
+        padding-bottom: .3em;
+        border-top-width: 1px;
+        border-top-style: solid;
+
+        // Spacing around border.
+        margin-top: 10px;
+      }
+      .number() {
+        content: @cnx-string-chapter " " content();
+        font-size: 18pt;
+        font-weight: 700;
+        color: @red;
+        margin: 0;
+        padding: 0;
+      }
+      .label() {
+        display: none;
+      }
+      .divider(...) {
+        content: "";
+      }
+    }
+    #learning-objectives {
+      .style(...) {
+        text-align: left;
+        padding: 0;
+        border: none;
+        border-bottom: 1px solid @orange;
+        // These have to be individually set otherwise
+        // a color would have to be specified here.
+        border-top-width: 0;
+        border-left-width: 0;
+        border-right-width: 0;
+
+        /*
+          For items below, .abstract section in precalculus-skeleton
+          needs additional work to place p and ul elements into slots
+          After that, we can just insert the delta into psychology slot
+          without addtional code needed for psychology-skeleton. A possible
+          slot for this would be something like this:
+          #content>#para>.style(any; any; learning-objectives)
+        */
+
+        p {
+          font: 10pt/14pt @font-family-serif;
+          margin: 0;
+        }
+
+        > .title {
+          border: none;
+          margin-top: 0;
+        }
+
+        ul.itemizedlist {
+          > .listitem {
+            display: list-item;
+            padding-top: 0;
+            margin: 0;
+
+            p {
+              display: block;
+              margin: 0;
+            }
+
+            &::before {
+              display: none;
+            }
+            &:last-child {
+              padding-bottom: .75em;
+            }
+          }
+        }
+      }
+      #title {
+        .style(...) {
+          background-color: transparent;
+          border-bottom-color: @orange;
+          font: normal normal 700 10pt @font-family-sans-serif;
+          text-align: left;
+          margin-bottom: .5em;
+          color: @light-blue;
+        }
+      }
+    }
+  }
+  #module {
+    .style() {
+      margin: 0 0 24px 0;
+    }
+    #title {
+      .style() {
+        color: @red;
+        font-size: 14pt;
+        font-weight: 700;
+        border-bottom: 1px solid @orange;
+        padding-bottom: .2em;
+      }
+      // Remove pipe (|) from between section number and title
+      .divider() {
+        content: "";
+      }
+      .number() {}
+      .text() {}
+    }
+  }
+ // End-of-chapter parts
+  #chapter-end {
+    .style(...) {
+      font-size: 10pt;
+      line-height: 13pt;
+    }
+    #title {
+      .style(...) {
+        color: @red;
+        border-bottom-color: @orange;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        font-size: 12pt;
+        font-weight: 700;
+        text-transform: none;
+      }
+    }
+    #section {
+      #title {
+        .style() {
+          padding-top: 0;
+       }
+      }
+    }
+    #summary {
+      .style() {
+        margin-bottom: 20px;
+      }
+
+      #title {
+        .style(...){
+          content: @cnx-string-summary;
+          padding-bottom: 0;
+          margin-bottom: 1em;
+        }
+        .link(...) {
+          font: normal normal 700 10pt/13pt @font-family-serif;
+          color: @black;
+        }
+      }
+    }
+    #review-questions {
+      .style(...) {
+        .x-column-count(2);
+        column-fill: balance;
+        text-align: left;
+        margin-bottom: 20px;
+      }
+      #title {
+        .style(...) {
+          content: @cnx-string-review-questions;
+          column-span: all !important; // added override to resolve bug on staging where titles
+          margin-bottom: 1em;
+          -webkit-column-span: all; /* Chrome, Safari, Opera */
+        }
+      }
+    }
+    #critical-thinking {
+      .style(...) {
+        .x-column-count(1);
+      }
+      #title {
+        .style(...) {
+          content: @cnx-string-critical-thinking-questions;
+          column-span: all !important; // added override to resolve bug on staging where titles
+          margin-bottom: 1em;
+        }
+      }
+    }
+    #personal-application {
+      .style(...) {
+        .x-column-count(1);
+      }
+      #title {
+        .style(...) {
+          content: @cnx-string-personal-application-questions;
+          column-span: all !important; // added override to resolve bug on staging where titles
+          margin-bottom: 1em;
+        }
+      }
+    }
+  }
+
+  // End of Book Customizations
+  #book-end {
+    #end-of-book-solutions {
+      .style('review-questions') { display: inline; }
+      .style('critical-thinking') { display: inline; }
+      #title {
+        .style(...) {
+          margin-left: 0; // reset precalc margin.
+          margin-top: 0;
+          padding-top: 0;
+          color: @red;
+          text-transform: capitalize;
+          font-weight: 700;
+          font-size: 24px;
+          margin-bottom: .5em;
+        }
+        .style('chapter-area'; any) {
+          font-family: @font-family-serif;
+          font-size: 13px;
+          line-height: 17px;
+          color: @black;
+        }
+      }
+      #chapter-area {
+        .style(...) {
+          font-family: @font-family-serif;
+          margin-bottom: .5em;
+        }
+      }
+    }
+    #end-of-book-references {
+      .style(...) {
+        display: block;
+        margin-bottom: 1em;
+      }
+      #chapter-area {
+        .style(...) {
+          font-size: 10pt;
+        }
+      }
+      #reference {
+        .style(...) {
+          // Indent all but the first lines of references.
+          text-indent: -2em;
+          margin-left: 2em;
+        }
+        #title {
+          .style(...) {}
+        }
+      }
+     #chapter-area {
+        .style(...) {
+          font-family: @font-family-serif;
+          color: black;
+          font-size: 10pt;
+          font-weight: bold;
+          margin-bottom: .5em;
+        }
+        #title {
+          .style(...) {
+          }
+        }
+      }
+    }
+    #index {
+      .style(...) {
+        margin: 0;
+      }
+      #title {
+        .style(...) {
+          width: 100%;
+          color: @red;
+          border-bottom-color: @orange;
+          background-color: transparent;
+          border-bottom-width: 1px;
+          border-bottom-style: solid;
+          margin-bottom: 1em;
+          text-transform: none;
+          font-size: 18pt;
+          font-weight: 700;
+          text-align: left;
+          margin-top: 0;
+          padding-top:  0;
+        }
+      }
+      .letter(...) {
+        font-family: @font-family-serif;
+      }
+      .term(...) {
+        font-family: @font-family-serif;
+        padding-bottom: 10px;
+      }
+    }
+    // End of Book Attribution and About Connexions
+    #colophon {
+      .style(...) {
+        color: @red;
+        background: none;
+        border-bottom-color: @orange;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        margin-left: 0px;
+        padding-left: 0px;
+        padding-bottom: .2em;
+        text-transform: none;
+        font-size: 18pt;
+        font-weight: 700;
+        text-align: left;
+      }
+    }
+  }
+  #glossary {
+    .style(chapter) {
+      display:  block;
+      margin-bottom: 20px;
+      margin-top: 0;
+    }
+    .term(chapter) {
+      display: block;
+      margin-top: 0;
+    }
+    .definition(chapter) {
+      margin-left: 0px;
+      display: block;
+    }
+    #title {
+      .style(chapter) {
+        font-weight: bold !important;
+        margin-bottom: 1em;
+        padding: 0 0 0.2em 0;
+        display: block !important; // This overrides a display: inline from ccap-base.
+                                   // We need to eliminate all * {} selectors.
+        width: 100%;
+      }
+    }
+  }
+}
+#content {
+  #section {
+    .style(any; any) {
+      margin: 0  0 22px 0;
+    }
+    .style(any; chapter; summary) { padding-bottom: 10px; }
+    #title {
+      // H3
+      .style(any; any) {
+        font-size: 14.6px;
+        color: @black;
+        text-transform: uppercase;
+      }
+      // H4
+      .style(any; any; section) {
+        color: @black;
+        font-size: 14.6px;
+      }
+    }
+  }
+  #paragraph {
+    .style(any) {
+      font: 10pt/13pt @font-family-serif;
+    }
+    .style(any; any; note) {
+      font: 9pt/12pt @font-family-sans-serif;
+    }
+  }
+  #table {
+    .style(any; any) {
+      border: @table-border;
+      margin-bottom: 22px;
+    }
+
+    #caption {
+      .style(any; any) {
+        color: @red;
+        border-color: @orange;
+        border-width: 1px;
+        border-style: solid;
+        border-bottom: none;
+        padding-left: .5em;
+        caption-side: top;
+        font-size: 13px;
+        line-height: 17px;
+      }
+    }
+    #header {
+      .style(any; any) {
+        border-color: @orange !important; // !important is in ccap-base.
+
+        padding: 5px 10px;
+      }
+    }
+    #data {
+      .style(any; any) {
+        border-color: @orange;
+        font: 10pt/14pt @font-family-serif;
+
+        padding: 5px 10px;
+      }
+    }
+  }
+  #solution {
+    .style(...) {}
+
+    .style(@kind; book-end) {
+      display: inline;
+      padding: 0;
+    }
+    #title {
+      .style(...) {}
+
+      .style(@kind; book-end) {
+        display: inline;
+        padding: 0;
+
+        &::before {
+          // We must blow up "TARGET-EXERCISE" text coming from ::before
+          // in numbering.less This is the major culprit in inline-solutions bug.
+          content: " ";
+          display: inline;
+          padding: 0;
+        }
+        &::after {
+          // We need period after numbering
+          content: ".";
+          margin-right: .15em;
+        }
+      }
+
+      .link(...) {}
+    }
+    #body {
+      .style(...) {}
+
+      .style(@kind; book-end) {
+        display: inline;
+        margin-right: .15em;
+      }
+    }
+  }
+  #note {
+    .style(...) {
+      padding: 20px;
+      background-color: @white;
+    }
+    .style('everyday-connection'; ...) {
+      .x-feature-color(@dark-blue, @dark-blue, @dark-blue, @orange, @cnx-string-everyday-connection);
+    }
+    .style('dig-deeper'; ...) {
+      .x-feature-color(@dark-blue, @orange, @orange, @dark-blue, @cnx-string-dig-deeper);
+    }
+    .style('what-do-you-think'; ...) {
+      .x-feature-color(@dark-blue, @dark-blue, @white, @teal, @cnx-string-what-do-you-think);
+    }
+    .style('connect-the-concepts'; ...) {
+      // This feature is a little more complex, requiring
+      // some "hacky" bugfix type things to work. Some
+      // selectors are placed inline in this slot.
+
+      .x-feature-color(@light-blue, transparent, @light-blue, transparent, @cnx-string-connect-the-concepts);
+
+      margin-top: 1.5em; // Reset the 48px top margin used to clear
+                         // the ::before/headers of features.
+
+      // reset padding to allow title to span across top of element
+      padding: 0;
+
+      p {
+        &:last-of-type {
+          padding-bottom: 10px;
+        }
+      }
+
+      // add padding to title and body elements
+      > .body {
+          padding: 0 1em;
+      }
+
+      // paragraph titles
+      > .title {
+        padding-bottom: 0;
+        padding: 0 1em;
+
+        span.cnx-gentext-tip-t {
+          padding: 5px 0 0 0;
+          display: block;
+        }
+      }
+
+      // Create the header/title
+      &::before, > .title::before {
+        font: 700 normal normal 14pt/14pt @font-family-sans-serif;
+        width: 100%;
+        text-align: center;
+        display: inline-block;
+      }
+      &::before {
+        border-bottom: 1px solid @light-blue;
+        border-radius: 0px;
+        padding: 0px;
+        margin-left: -1px;
+        margin-top: 10px;
+        position: relative;
+      }
+      > .title::before {
+        .x-feature-before-color(@light-blue, @cnx-string-connect-the-concepts);
+        color: lighten(@black, 65%);
+        text-indent: 19px; // Fix a text-offset bug
+      }
+    }
+    .style('link-to-learning'; ...) {
+      // This feature requires some "bugfix" pieces to work
+      // properly, such as a clearfix. Selectors for these are
+      // placed inline in this slot.
+      .x-feature-color(@red, @orange, @white, @red, @cnx-string-link-to-learning);
+      #utils>#pb>.inside(avoid);
+      text-align: left;
+
+      //clearfix
+      > .body::after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+      .mediaobject {
+        float: left;
+        img {
+          margin: 0;
+        }
+      }
+    }
+    #title {
+      .style(...) {
+        padding: 0;
+        margin: 0;
+        color: @black;
+        font-weight: bold;
+        border: none;
+        padding-bottom: .2em;
+      }
+    }
+    // Manual Chapter Objectives note occurs in some books (anatomy, etc)
+    // This is a first attempt at createing a home for it.
+    .style('chapter-objectives'; ...) {
+      font: 10pt/14pt @font-family-serif;
+      text-align: left;
+      padding-left: 0;
+      margin-top: 0em;
+      padding-top: 0;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+
+      > .title {
+        font: normal normal 700 10pt @font-family-sans-serif;
+        border: none;
+        margin-top: 0;
+      }
+
+      ul.itemizedlist {
+        > .listitem {
+          display: list-item;
+          padding-top: 0;
+          margin: 0;
+
+          p {
+            display: block;
+            margin: 0;
+          }
+
+          &::before {
+            display: none;
+          }
+          &:last-child {
+            padding-bottom: .75em;
+          }
+        }
+      }
+    }
+  }
+  #blockquote {
+    .style(...) {
+      font-size: 10pt;
+      line-height: 13pt;
+      font-family: @font-family-serif;
+      color: @black;
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+
+      // Remove quotes
+      &::before,
+      &::after {
+        content: "";
+      }
+    }
+    .style(any; any; note) {
+      font-size: 9pt;
+      line-height: 12pt;
+      font-family: @font-family-sans-serif;
+    }
+  }
+  // Parent level link styling
+  #link {
+    .style(...) {
+      color: @red;
+    }
+  }
+  #figure {
+    .style(...) {
+      padding-top: 1em;
+    }
+    // Full width figure titles/captions clash with rounded feature borders
+    // So, we must target figures only when placed inside notes and give some padding
+    .style(any; any; note) {
+      margin-bottom: .5em;
+    }
+    #title {
+      .number(...) {
+        color: @red;
+      }
+    }
+  }
+  #list {
+    .style(any; any) {
+    }
+    .item(any; any; section) {
+    }
+   .style(any; any; problem; exercise) {
+      list-style-position: initial;
+      list-style-type: lower-latin;
+    }
+    .style(any; any; table) {
+      padding-left: 20px;
+    }
+  }
+  #equation {
+    .style(...) {}
+
+    .label() {
+      display: none;
+    }
+  }
+  #glossary {
+    .style(...) {
+      // Don't show the "Chapter X Review" header from PreCalc
+      &::before {
+        display: none;
+      }
+    }
+    #title {
+      .style(...) {
+        /* Change "Glossary" to "Key Terms" */
+
+        // Temp changes in place until we horizontally refactor glossary across books.
+        color: @red !important;
+        font-size: 12pt !important;
+        text-transform: capitalize !important;
+        border-bottom-color: @orange;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        margin-top: 0;
+        padding-top: 0;
+      }
+    }
+    .dt() {
+      // prevent container from allowing meaning to wrap appropriately
+      height: 15px;
+    }
+    .dl() {
+      margin: 1em 0;
+      text-align: left;
+    }
+    .glossterm(any) {
+      font: normal normal 700 10pt/13pt @font-family-serif;
+
+      &.no-emphasis {
+        font-weight: 400;
+      }
+    }
+  }
+}
+
+
+//end  of psychology
