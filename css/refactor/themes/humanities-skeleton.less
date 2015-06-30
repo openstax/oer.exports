@@ -14,289 +14,69 @@ div[class="note"] {
   #content>#note>.style(non-feature);
   > .title { #content>#note>#title>.style(non-feature); }
 }
-.note {
-  &.qa {
-    @context: feature-qa;
-    #content>#note>.style(qa);
+// .note {
+//   &.qa {
+//     @context: feature-qa;
+//     #content>#note>.style(qa);
 
-    > .title {
-      #content>#note>#title>.style(@kind; @part; @context);
-    }
-    // the paragraph inside body has to be specifically targeted here to remove top-margin. grr.
-    >.body, .body > p {
-      #content>#note>#body>.style(@kind; @part; @context);
-    }
+//     > .title {
+//       #content>#note>#title>.style(@kind; @part; @context);
+//     }
+//     // the paragraph inside body has to be specifically targeted here to remove top-margin. grr.
+//     >.body, .body > p {
+//       #content>#note>#body>.style(@kind; @part; @context);
+//     }
 
-    > .body .figure .title { #content>#figure>#title>.style(any; any; @context); }
-  }
-  &.media {
-    @context: feature-media;
-    #content>#note>.style(media);
+//     > .body .figure .title { #content>#figure>#title>.style(any; any; @context); }
+//   }
+//   &.media {
+//     @context: feature-media;
+//     #content>#note>.style(media);
 
-    .itemizedlist > .listitem {
-      #content>#list>.item(@kind, @part, @context);
-    }
+//     .itemizedlist > .listitem {
+//       #content>#list>.item(@kind, @part, @context);
+//     }
 
-    // Supress the extra url generated from base that is wrapped with parentheses
-    .itemizedlist > .listitem .link.only-show-once {
-      content: content();
-    }
-  }
-  &.try {
-    @context: feature-try;
-    #content>#note>.style(try);
-    div.itemizedlist, div.orderedlist {
-      ul, ol {
-        #content>#list>.style(any; try-it);
-      }
-   }
-    > .title {
-      #content>#note>#title>.style(@kind; @part; @context);
-    }
+//     // Supress the extra url generated from base that is wrapped with parentheses
+//     .itemizedlist > .listitem .link.only-show-once {
+//       content: content();
+//     }
+//   }
+//   &.try {
+//     @context: feature-try;
+//     #content>#note>.style(try);
+//     div.itemizedlist, div.orderedlist {
+//       ul, ol {
+//         #content>#list>.style(any; try-it);
+//       }
+//    }
+//     > .title {
+//       #content>#note>#title>.style(@kind; @part; @context);
+//     }
 
-    .exercise {
-      #content>#exercise>.style(@kind; @part; @context);
-      > .title { #content>#exercise>#title>.style(@kind; @part; @context); }
+//     .exercise {
+//       #content>#exercise>.style(@kind; @part; @context);
+//       > .title { #content>#exercise>#title>.style(@kind; @part; @context); }
 
-      .problem {
-        #content>#problem>.style(@kind; @part; @context; exercise);
-      }
-      .solution {
-        #content>#solution>.style(@kind; @part; @context; exercise);
-      }
-    }
-  }
-}
-
-/* -------------------------
- * Preface
- * -------------------------
- */
-div.book div.preface {
-  > .titlepage {
-    #part>#preface>#titlepage>.style();
-    h1.title { #part>#preface>#titlepage>.title(); }
-  }
-
-  > div.section {
-    div.titlepage > div > div > h2 {
-      #content>#section>#title>.style(any; preface);
-    }
-
-    > div.section {
-      > div.titlepage > div > div > h3 {
-        #content>#section>#title>.style(any; preface; section);
-      }
-    }
-  }
-}
-
-.chapter > .introduction > .figure.splash {
-  #content>#figure>.style('splash'; chapter);
-}
-/* -------------------------
- * Book Table of Contents
- * -------------------------
- */
-.book > .toc {
-  #part>#toc>.style();
-
-  > .title {
-    #part>#toc>#title>.style();
-  }
-
-  a {
-    #part>#toc>#link>.style();
-  }
-}
-
-/* -------------------------
- * Unit Page
- * -------------------------
- */
-div.part > div.titlepage { display: none; }
+//       .problem {
+//         #content>#problem>.style(@kind; @part; @context; exercise);
+//       }
+//       .solution {
+//         #content>#solution>.style(@kind; @part; @context; exercise);
+//       }
+//     }
+//   }
+// }
 
 
 
-/* -------------------------
- * Chapter Introduction
- * -------------------------
- */
-.chapter > .introduction {
-  >.title {
-    #part>#introduction>#title>.style();
-  }
-
-  > .toc a {
-    #part>#introduction>#chapter-outline>#entry>#title>.style();
-  }
-
-  // overide hyperlink medium blue color must be back and normal weight
-  > .toc .toc-section .cnx-gentext-t {
-    color: @black;
-    font-weight: normal;
-  }
-
-  // Take away default colon display after number
-  > .toc .toc-section .cnx-gentext-n:after {
-    content: "";
-  }
 
 
-  /******************************************************************
-   * Styling for Chapter Outline Box
-   ******************************************************************/
-  >.toc {
-    #part>#introduction>#chapter-outline>.style();
-
-    >.title {
-      #part>#introduction>#chapter-outline>#title>.style();
-    }
-  }
-}
-
-/********************************************************************
- * Styling for Chapter Titles
- ********************************************************************/
-
-div.book div.chapter > div.titlepage > div > div h1.title {
-  #part>#chapter>#title>.style();
-  span.cnx-gentext-n {
-    #part>#chapter>#title>.number();
-  }
-  span.cnx-gentext-t {
-    #part>#chapter>#title>.text();
-    &::before {
-      #part>#chapter>#title>.divider();
-    }
-  }
-  span.cnx-gentext-autogenerated {
-    #part>#chapter>#title>.label();
-  }
-}
-
-/********************************************************************
- * Styling for Appendix
- ********************************************************************/
-div.book > div.appendix > div.titlepage > div > div h1.title {
-  #part>#book-end>#appendix>#title>.style();
-
-  span.cnx-gentext-autogenerated:first-of-type {
-    #part>#book-end>#appendix>#title>.label();
-  }
-
-  span.cnx-gentext-n {
-    #part>#book-end>#appendix>#title>.number();
-  }
-  span.cnx-gentext-t {
-    #part>#book-end>#appendix>#title>.text();
-    &::before {
-      #part>#book-end>#appendix>#title>.divider();
-    }
-  }
-}
-
-div.book > div.appendix > div.section {
-  #content>#section>.style(any; appendix);
-}
-
-div.book > div.appendix .table {
-  #utils>#pb>.inside(auto);
-}
-
-//appendix  section title
-div.book > div.appendix > div.section > div.titlepage h2 {
-  #content>#section>#title>.style(any; appendix);
-  &::before {
-    #content>#section>#title>.number(any; appendix);
-  }
-  span.cnx-gentext-t {
-    #content>#section>#title>.text(any; appendix);
-  }
-  span.cnx-gentext-autogenerated:first-of-type {
-    #content>#section>#title>.label(any; appendix);
-  }
-}
-
-//appendix sub section title
-div.book > div.appendix > div.section  > div.section > div.titlepage h3 {
-  #content>#section>#title>.style(any; appendix; section);
-  &::before {
-    #content>#section>#title>.number(any; appendix; section);
-  }
-  span.cnx-gentext-t {
-    #content>#section>#title>.text(any; appendix; section);
-  }
-  span.cnx-gentext-autogenerated:first-of-type {
-    #content>#section>#title>.label(any; appendix; section);
-  }
-}
-
-/********************************************************************
- * Styling for Module Titles
- ********************************************************************/
-div.book div.chapter > div.section > div.titlepage h2 {
-  #part>#module>#title>.style();
-
-  &::before {
-    #part>#module>#title>.number();
-  }
-  span.cnx-gentext-n { #part>#module>#title>.number(); }
-
-  span.cnx-gentext-t {
-    #part>#module>#title>.text();
-    &::before { #part>#module>#title>.divider(); }
-  }
-}
-
-/********************************************************************
- * Styling for Module Section/Subsection Titles
- ********************************************************************/
-div.book div > div.section > div.section {
-  #content>#section>.style(any; any);
-  div.titlepage > div > div > h3 { #content>#section>#title>.style(any; any); }
-
-  > div.section { // Sub-sections
-    #content>#section>.style(any; any; section);
-    div.titlepage > div > div > h4 { #content>#section>#title>.style(any; any; section); }
-  }
-}
-
-/********************************************************************
- * Styling for Learning Objectives Box
- ********************************************************************/
-
-.section > .titlepage {
-  .abstract {
-    &::before {
-     #part>#chapter>#learning-objectives>#title>.style();
-    }
-    .itemizedlist > ul {
-      #part>#chapter>#learning-objectives>#list>.style();
-     }
-
-    p { font-family: @font-family; margin: 1em 0em .75em 1em; }
-
-    .itemizedlist > .listitem > p {
-      margin: 0em .3em;
-      display: inline;
-      text-align: left;
-    }
 
 
-    // Special three-part numbering for Learning Objective chapter.section.learning-objectives
-    .itemizedlist > .listitem {
-      counter-increment: learning-objectives;
-      display: block;
 
-      &::before {
-        content: "" " " counter(chapter, decimal) "." counter(section, decimal) "." counter(learning-objectives) " " "";
-        color: @medium-blue;
-        font-weight: bold;
-      }
-    }
-  }
-}
+
+
 
 /********************************************************************
  * End of chapter customizations
@@ -998,32 +778,53 @@ g {
   }
 }
 
+/* -------------------------
+ * Book Table of Contents
+ * -------------------------
+ */
+.book > .toc {
+  #part>#toc>.style();
+
+  > .title {
+    #part>#toc>#title>.style();
+  }
+
+  a {
+    #part>#toc>#link>.style();
+  }
+}
 
 /******************************************************
  * Preface
  ******************************************************/
-.preface {
-  > .titlepage h1.title {
-    #part>#preface>#titlepage>.title();
+div.book div.preface {
+  > .titlepage {
+    #part>#preface>#titlepage>.style();
+    h1.title { #part>#preface>#titlepage>.title(); }
   }
 
+  > div.section {
+    div.titlepage > div > div > h2 {
+      #content>#section>#title>.style(any; preface);
+    }
+
+    > div.section {
+      > div.titlepage > div > div > h3 {
+        #content>#section>#title>.style(any; preface; section);
+      }
+    }
+  }
   .titlepage h2,
   .titlepage h3 {
     #part>#preface>#titlepage>.subtitle();
   }
-
-  // Ask Derek/Phil about possibly using section mixin here, if not how to use #section
-  // in Preface?  The lines below are some general settings from psychology.less for prefac
-  // that can be consolidated here... or we can move into precalculus.
-  > .section h2,
-  > .section h3 {
-    font-size: 11pt;
-  }
-  > .section h3 {
-    text-transform: none;
-  }
 }
 
+/* -------------------------
+ * Unit Page
+ * -------------------------
+ */
+div.part > div.titlepage { display: none; }
 
 
 /********************************************************************
@@ -1031,21 +832,148 @@ g {
  ********************************************************************/
 
 // Reset (ccap-precalculus.less)
+// div.book div.chapter > div.titlepage > div > div h1.title {
+//   // string-set and display: none are used to get rid of the "."
+//   // in the chapter titles, since the class "...-autogenerated" is
+//   // used for both the string "chapter" and the ".".
+//   span.cnx-gentext-autogenerated {
+//     // placed in slot - but precalc doesn't have skeleton entry for ":first-of-type"
+//   }
+// }
+
+
+
+/********************************************************************
+ * Styling for Chapter Titles
+ ********************************************************************/
+
 div.book div.chapter > div.titlepage > div > div h1.title {
-  // string-set and display: none are used to get rid of the "."
-  // in the chapter titles, since the class "...-autogenerated" is
-  // used for both the string "chapter" and the ".".
+  #part>#chapter>#title>.style();
+  span.cnx-gentext-n {
+    #part>#chapter>#title>.number();
+  }
+  span.cnx-gentext-t {
+    #part>#chapter>#title>.text();
+    &::before {
+      #part>#chapter>#title>.divider();
+    }
+  }
   span.cnx-gentext-autogenerated {
-    // placed in slot - but precalc doesn't have skeleton entry for ":first-of-type"
+    #part>#chapter>#title>.label();
   }
   span.cnx-gentext-autogenerated:first-of-type {
     string-set: cnx-chapter-string content();
   }
 }
 
-/******************************************************
- * Learning Objectives/Chapter Objectives
- ******************************************************/
+
+/********************************************************************
+ * Styling for Module Titles
+ ********************************************************************/
+div.book div.chapter > div.section > div.titlepage h2 {
+  #part>#module>#title>.style();
+
+  &::before {
+    #part>#module>#title>.number();
+  }
+  span.cnx-gentext-n { #part>#module>#title>.number(); }
+
+  span.cnx-gentext-t {
+    #part>#module>#title>.text();
+    &::before { #part>#module>#title>.divider(); }
+  }
+}
+
+/********************************************************************
+ * Styling for Module Section/Subsection Titles
+ ********************************************************************/
+div.book div > div.section > div.section {
+  #content>#section>.style(any; any);
+  div.titlepage > div > div > h3 { #content>#section>#title>.style(any; any); }
+
+  > div.section { // Sub-sections
+    #content>#section>.style(any; any; section);
+    div.titlepage > div > div > h4 { #content>#section>#title>.style(any; any; section); }
+  }
+}
+
+
+/* -------------------------
+ * Chapter Introduction
+ * -------------------------
+ */
+.chapter > .introduction {
+  >.title {
+    #part>#introduction>#title>.style();
+  }
+
+  > .toc a {
+    #part>#introduction>#chapter-outline>#entry>#title>.style();
+  }
+
+  // overide hyperlink medium blue color must be back and normal weight
+  > .toc .toc-section .cnx-gentext-t {
+    color: @black;
+    font-weight: normal;
+  }
+
+  // Take away default colon display after number
+  > .toc .toc-section .cnx-gentext-n:after {
+    content: "";
+  }
+
+
+  /******************************************************************
+   * Styling for Chapter Outline Box
+   ******************************************************************/
+  >.toc {
+    #part>#introduction>#chapter-outline>.style();
+
+    >.title {
+      #part>#introduction>#chapter-outline>#title>.style();
+    }
+  }
+}
+.chapter > .introduction > .figure.splash {
+  #content>#figure>.style('splash'; chapter);
+}
+
+
+/********************************************************************
+ * Styling for Learning Objectives Box
+ ********************************************************************/
+
+.section > .titlepage {
+  .abstract {
+    &::before {
+     #part>#chapter>#learning-objectives>#title>.style();
+    }
+    .itemizedlist > ul {
+      #part>#chapter>#learning-objectives>#list>.style();
+     }
+
+    p { font-family: @font-family; margin: 1em 0em .75em 1em; }
+
+    .itemizedlist > .listitem > p {
+      margin: 0em .3em;
+      display: inline;
+      text-align: left;
+    }
+
+
+    // Special three-part numbering for Learning Objective chapter.section.learning-objectives
+    .itemizedlist > .listitem {
+      counter-increment: learning-objectives;
+      display: block;
+
+      &::before {
+        content: "" " " counter(chapter, decimal) "." counter(section, decimal) "." counter(learning-objectives) " " "";
+        color: @medium-blue;
+        font-weight: bold;
+      }
+    }
+  }
+}
 
 .section > .titlepage .abstract {
   #part>#chapter>#learning-objectives>.style();
@@ -1132,6 +1060,62 @@ div.book div.chapter > div.titlepage > div > div h1.title {
   display: none;
 }
 
+/********************************************************************
+ * Styling for Appendix
+ ********************************************************************/
+div.book > div.appendix > div.titlepage > div > div h1.title {
+  #part>#book-end>#appendix>#title>.style();
+
+  span.cnx-gentext-autogenerated:first-of-type {
+    #part>#book-end>#appendix>#title>.label();
+  }
+
+  span.cnx-gentext-n {
+    #part>#book-end>#appendix>#title>.number();
+  }
+  span.cnx-gentext-t {
+    #part>#book-end>#appendix>#title>.text();
+    &::before {
+      #part>#book-end>#appendix>#title>.divider();
+    }
+  }
+}
+
+div.book > div.appendix > div.section {
+  #content>#section>.style(any; appendix);
+}
+
+div.book > div.appendix .table {
+  #utils>#pb>.inside(auto);
+}
+
+//appendix  section title
+div.book > div.appendix > div.section > div.titlepage h2 {
+  #content>#section>#title>.style(any; appendix);
+  &::before {
+    #content>#section>#title>.number(any; appendix);
+  }
+  span.cnx-gentext-t {
+    #content>#section>#title>.text(any; appendix);
+  }
+  span.cnx-gentext-autogenerated:first-of-type {
+    #content>#section>#title>.label(any; appendix);
+  }
+}
+
+//appendix sub section title
+div.book > div.appendix > div.section  > div.section > div.titlepage h3 {
+  #content>#section>#title>.style(any; appendix; section);
+  &::before {
+    #content>#section>#title>.number(any; appendix; section);
+  }
+  span.cnx-gentext-t {
+    #content>#section>#title>.text(any; appendix; section);
+  }
+  span.cnx-gentext-autogenerated:first-of-type {
+    #content>#section>#title>.label(any; appendix; section);
+  }
+}
 
 
 /******************************************************
