@@ -14,59 +14,59 @@ div[class="note"] {
   #content>#note>.style(non-feature);
   > .title { #content>#note>#title>.style(non-feature); }
 }
-// .note {
-//   &.qa {
-//     @context: feature-qa;
-//     #content>#note>.style(qa);
+.note {
+  // &.qa {
+  //   @context: feature-qa;
+  //   #content>#note>.style(qa);
 
-//     > .title {
-//       #content>#note>#title>.style(@kind; @part; @context);
-//     }
-//     // the paragraph inside body has to be specifically targeted here to remove top-margin. grr.
-//     >.body, .body > p {
-//       #content>#note>#body>.style(@kind; @part; @context);
-//     }
+  //   > .title {
+  //     #content>#note>#title>.style(@kind; @part; @context);
+  //   }
+  //   // the paragraph inside body has to be specifically targeted here to remove top-margin. grr.
+  //   >.body, .body > p {
+  //     #content>#note>#body>.style(@kind; @part; @context);
+  //   }
 
-//     > .body .figure .title { #content>#figure>#title>.style(any; any; @context); }
-//   }
-//   &.media {
-//     @context: feature-media;
-//     #content>#note>.style(media);
+  //   > .body .figure .title { #content>#figure>#title>.style(any; any; @context); }
+  // }
+  &.media {
+    @context: feature-media;
+    #content>#note>.style(media);
 
-//     .itemizedlist > .listitem {
-//       #content>#list>.item(@kind, @part, @context);
-//     }
+    .itemizedlist > .listitem {
+      #content>#list>.item(@kind, @part, @context);
+    }
 
 //     // Supress the extra url generated from base that is wrapped with parentheses
-//     .itemizedlist > .listitem .link.only-show-once {
-//       content: content();
-//     }
-//   }
-//   &.try {
-//     @context: feature-try;
-//     #content>#note>.style(try);
-//     div.itemizedlist, div.orderedlist {
-//       ul, ol {
-//         #content>#list>.style(any; try-it);
-//       }
-//    }
-//     > .title {
-//       #content>#note>#title>.style(@kind; @part; @context);
-//     }
+    .itemizedlist > .listitem .link.only-show-once {
+      content: content();
+    }
+  }
+  // &.try {
+  //   @context: feature-try;
+  //   #content>#note>.style(try);
+  //   div.itemizedlist, div.orderedlist {
+  //     ul, ol {
+  //       #content>#list>.style(any; try-it);
+  //     }
+  //  }
+  //   > .title {
+  //     #content>#note>#title>.style(@kind; @part; @context);
+  //   }
 
-//     .exercise {
-//       #content>#exercise>.style(@kind; @part; @context);
-//       > .title { #content>#exercise>#title>.style(@kind; @part; @context); }
+  //   .exercise {
+  //     #content>#exercise>.style(@kind; @part; @context);
+  //     > .title { #content>#exercise>#title>.style(@kind; @part; @context); }
 
-//       .problem {
-//         #content>#problem>.style(@kind; @part; @context; exercise);
-//       }
-//       .solution {
-//         #content>#solution>.style(@kind; @part; @context; exercise);
-//       }
-//     }
-//   }
-// }
+  //     .problem {
+  //       #content>#problem>.style(@kind; @part; @context; exercise);
+  //     }
+  //     .solution {
+  //       #content>#solution>.style(@kind; @part; @context; exercise);
+  //     }
+  //   }
+  // }
+}
 
 
 
@@ -134,11 +134,11 @@ div[class="note"] {
   //   }
   // }
 
-  &.cnx-solutions {
-    #content>#solution>.style(@kind; chapter);
-    > .section .title > a { #content>#solution>#title>.link(); }
-    p:nth-of-type(1) { margin-top: 1em; }
-  }
+  // &.cnx-solutions {
+  //   #content>#solution>.style(@kind; chapter);
+  //   > .section .title > a { #content>#solution>#title>.link(); }
+  //   p:nth-of-type(1) { margin-top: 1em; }
+  // }
 
   .problem ol {
     #content>#list>.style(any; any; problem; exercise);
@@ -147,9 +147,9 @@ div[class="note"] {
     #content>#problem>.number(@kind; chapter-end);
   }
 
-  .empty { display: hidden; } // hide, but count, empty elements.
+  // .empty { display: hidden; } // hide, but count, empty elements.
 
-  .exercise div.body div.problem .figure { #content>#figure>.style(any; chapter-end; exercise); }
+  // .exercise div.body div.problem .figure { #content>#figure>.style(any; chapter-end; exercise); }
 }
 
 // Turn off section numbering and title for eoc collations
@@ -197,21 +197,21 @@ div.colophon.end-of-book-solutions {
     }
     > h2.title a.chapter span { display: inline; } // reset display: block for spans
 
-    > div.review-exercises::before {
-      #part>#book-end>#end-of-book-solutions>#title>.style('review-exercises');
-    }
-    > div.practice-test::before {
-      #part>#book-end>#end-of-book-solutions>#title>.style('practice-test');
-    }
-    > div.try {
-      &::before { #part>#book-end>#end-of-book-solutions>#title>.style('try-it'); }
-      div.solution > div.title a.solution::before {
-        content: target-counter(attr(href), chapter) "." target-counter(attr(href), try);
-      }
-    }
-    > div.section-exercises::before {
-      #part>#book-end>#end-of-book-solutions>#title>.style('section-exercises');
-    }
+    // > div.review-exercises::before {
+    //   #part>#book-end>#end-of-book-solutions>#title>.style('review-exercises');
+    // }
+    // > div.practice-test::before {
+    //   #part>#book-end>#end-of-book-solutions>#title>.style('practice-test');
+    // }
+    // > div.try {
+    //   &::before { #part>#book-end>#end-of-book-solutions>#title>.style('try-it'); }
+    //   div.solution > div.title a.solution::before {
+    //     content: target-counter(attr(href), chapter) "." target-counter(attr(href), try);
+    //   }
+    // }
+    // > div.section-exercises::before {
+    //   #part>#book-end>#end-of-book-solutions>#title>.style('section-exercises');
+    // }
 
 
     div.solution {
@@ -223,10 +223,10 @@ div.colophon.end-of-book-solutions {
 
       > div.body {
         div, p { display: inline; }
-        div.mediaobject {
-          display: block;
-         #content>#image>.style(any; book-end; solution);
-        }
+        // div.mediaobject {
+        //   display: block;
+        //  #content>#image>.style(any; book-end; solution);
+        // }
         #content>#solution>#body>.style(@kind; book-end);
       }
       div.table table caption { #content>#table>#caption>.style(any; book-end; solution); }
@@ -404,12 +404,12 @@ img, figure, subfigure  { margin: 1em; }
 /******************************************************************************
  * Addition of .commentary selector styling for Analysis header in examples
  ******************************************************************************/
-.example .exercise {
-  .commentary > .title {
-    #content>#commentary>#title>.style(@kind; @part; exercise; example);
+// .example .exercise {
+//   .commentary > .title {
+//     #content>#commentary>#title>.style(@kind; @part; exercise; example);
 
-  }
-}
+//   }
+// }
 
 
 /* -------------------------
@@ -417,7 +417,7 @@ img, figure, subfigure  { margin: 1em; }
  * -------------------------
  */
 
-// Headers are san-serif but the text of exercises are serif
+Headers are san-serif but the text of exercises are serif
 .section .exercise {
   #content>#exercise>.style(@kind; @part; section);
 }
@@ -478,75 +478,75 @@ img, figure, subfigure  { margin: 1em; }
  * Example Elements Styling and Numbering
  * -------------------------
  */
-.chapter .example { #content>#example>.style(any); }
-.example > .title {
-  #content>#example>#title>.style(any);
-}
-.example > .title > * {
-    font-size: 130%;
-    font-weight: 500;
-    color: #fff;
-}
-.example > .body { #content>#example>#body>.style(any); }
+// // .chapter .example { #content>#example>.style(any); }
+// // .example > .title {
+// //   #content>#example>#title>.style(any);
+// // }
+// // .example > .title > * {
+// //     font-size: 130%;
+// //     font-weight: 500;
+// //     color: #fff;
+// // }
+// // .example > .body { #content>#example>#body>.style(any); }
 
-.example .solution { #content>#solution>.style(any; any; example); }
+// // .example .solution { #content>#solution>.style(any; any; example); }
 
-// This lengthy selector is required to override a display:none.
-div.book div.chapter > div.section div.example div.exercise .solution {
-  .table > table > caption::before {
-    #content>#table>#caption>.style(any; any; solution; exercise; example);
-  }
-  .table { #content>#table>.style(any; any; solution; exercise; example); }
+// // This lengthy selector is required to override a display:none.
+// div.book div.chapter > div.section div.example div.exercise .solution {
+//   // .table > table > caption::before {
+//   //   #content>#table>#caption>.style(any; any; solution; exercise; example);
+//   // }
+//   // .table { #content>#table>.style(any; any; solution; exercise; example); }
 
-  .figure {
-    #content>#figure>.style(any; any; solution; exercise; example);
+//   // .figure {
+//   //   #content>#figure>.style(any; any; solution; exercise; example);
 
-  .body {
-      text-align: left;
-    }
-  }
+//   // .body {
+//   //     text-align: left;
+//   //   }
+//   // }
 
-  .figure .title span.cnx-gentext-t::before {
-    #content>#figure>#title>.number(any; any; solution; exercise; example);
-  }
-}
-div.book div.chapter > div.section div.example div.exercise .problem {
-  .table > table > caption::before {
-    #content>#table>#caption>.style(any; any; problem; exercise; example);
-  }
-  .table {
-    #content>#table>.style(any; any; problem; exercise; example);
-  }
-  .figure {
-    #content>#figure>.style(any; any; problem; exercise; example);
+//   // .figure .title span.cnx-gentext-t::before {
+//   //   #content>#figure>#title>.number(any; any; solution; exercise; example);
+//   // }
+// }
+// // div.book div.chapter > div.section div.example div.exercise .problem {
+// //   .table > table > caption::before {
+// //     #content>#table>#caption>.style(any; any; problem; exercise; example);
+// //   }
+//   // .table {
+//   //   #content>#table>.style(any; any; problem; exercise; example);
+//   // }
+//   // .figure {
+//   //   #content>#figure>.style(any; any; problem; exercise; example);
 
-    .body {
-      text-align: left;
-    }
-  }
-  .figure .title span.cnx-gentext-t::before {
-    #content>#figure>#title>.number(any; any; problem; exercise; example);
-  }
-}
-div.book div.chapter > div.section div.example div.exercise .commentary {
-   .table > table > caption::before {
-    #content>#table>#caption>.style(any; any; commentary; exercise; example);
-  }
-  .table {
-    #content>#table>.style(any; any; commentary; exercise; example);
-  }
-  .figure {
-    #content>#figure>.style(any; any; commentary; exercise; example);
+//   //   .body {
+//   //     text-align: left;
+//   //   }
+//   // }
+//   .figure .title span.cnx-gentext-t::before {
+//     #content>#figure>#title>.number(any; any; problem; exercise; example);
+//   }
+// }
+// div.book div.chapter > div.section div.example div.exercise .commentary {
+//    .table > table > caption::before {
+//     #content>#table>#caption>.style(any; any; commentary; exercise; example);
+//   }
+//   .table {
+//     #content>#table>.style(any; any; commentary; exercise; example);
+//   }
+//   .figure {
+//     #content>#figure>.style(any; any; commentary; exercise; example);
 
-    .body {
-      text-align: left;
-    }
-  }
-  .figure .title span.cnx-gentext-t::before {
-    #content>#figure>#title>.number(any; any; commentary; exercise; example);
-  }
-}
-// for examples that have a problem/solution structure that need numbered headings
+//     .body {
+//       text-align: left;
+//     }
+//   }
+//   .figure .title span.cnx-gentext-t::before {
+//     #content>#figure>#title>.number(any; any; commentary; exercise; example);
+//   }
+// }
+//for examples that have a problem/solution structure that need numbered headings
 .example .exercise {
   #content>#exercise>.style(any; any; example);
 
@@ -696,7 +696,7 @@ div.itemizedlist, div.orderedlist {
  * -------------------------
  */
  .chapter .mediaobject img { #content>#image>.style(any; chapter); }
- .end-of-book-solutions .mediaobject img { #content>#image>.style(any; book-end; solutions); }
+ // .end-of-book-solutions .mediaobject img { #content>#image>.style(any; book-end; solutions); }
 
 
 /********************************************************************
