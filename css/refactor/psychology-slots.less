@@ -1,7 +1,3 @@
-// Copyright (c) 2013 Rice University
-// This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
-// See LICENSE.txt for details.
-
 .x-feature-before-color(@title-color, @title) {
   text-transform: uppercase;
   color: @title-color;
@@ -11,7 +7,6 @@
   box-shadow: 10px 10px 5px @shadow; // On the roadmap for PrinceXML 9.1
   border: 1px solid @border-color;
   border-radius: 15px;
-
   margin-top: 48px; // Clear the title ::before.
   &::before {
     .x-feature-before-color(@title-color, @title);
@@ -19,587 +14,18 @@
     border: 1px solid @title-border-color;
     border-radius: 15px;
     width: 60%;
-
-    // Reposition the titles
     position: absolute;
     margin-top: -48px;
     margin-left: -5px;
     padding: 8px;
     padding-left: 0px;
-
-    // Text styles
     font-weight: 700;
     font-size: 12pt;
     text-indent: 0.1875in;
   }
 }
 
-#part {
-  #toc {
-    .style(...) {}
-
-    #title {
-      .style(...) {
-        color: @red;
-        font-size: 18pt;
-        font-weight: normal;
-        text-align: center;
-        text-transform: none;
-        margin-left: 0px;
-        padding-left: 0px;
-        margin-bottom: .2em;
-        border-bottom-width: 1px;
-        border-bottom-style: solid;
-        border-bottom-color: @orange;
-        background-color: transparent;
-      }
-    }
-    #link {
-      .style(...) {
-        color: @red;
-        font: 10pt/13pt @font-family-sans-serif;
-      }
-    }
-  }
-  #preface {
-    #titlepage {
-      .title(...) {
-        color: @red;
-        background-color: transparent;
-        padding-left: 0;
-        text-transform: capitalize;
-        font-size: 18pt;
-        font-weight: 700;
-        border-bottom-width: 1px;
-        border-bottom-style: solid;
-        border-bottom-color: @orange;
-        margin-top:  0;
-        padding-top: 0;
-      }
-      .subtitle(...) {}
-    }
-  }
-  #introduction {
-    #title {
-      .style(...) {
-        color: @red;
-        border-bottom-color: @orange;
-        border-bottom-width: 1px;
-        border-bottom-style: solid;
-        padding-bottom: 0.2em;
-        font-size: 14pt;
-        font-weight: 700;
-        text-transform: capitalize;
-      }
-    }
-    #splash-figure {
-      .image(chapter) {
-         padding-bottom: .2em;
-        .body {
-          padding-top: 0;
-          padding-bottom: 0;
-        }
-      }
-    }
-    #chapter-outline {
-      .style(...) {
-        border: none;
-        padding: 0em;
-        span {
-          font-weight: normal;
-          font-size: 9pt;
-          line-height: 11pt;
-        }
-
-        ul {
-          margin-left: 0.125in;
-        }
-      }
-      #title {
-        .style(...) {
-          width: 100%;
-          background-color: @white;
-          color: @light-blue;
-          text-align: left;
-          font-weight: bold;
-          font-size: 11pt;
-          padding-left: 0px;
-        }
-      }
-      #entry {
-        .style(...) {
-          margin: 0.2em 0;
-        }
-        #title {
-          .style(...) {
-            color: @black;
-            margin: 0;
-            font-weight: normal;
-            font-size: 9pt;
-            line-height: 11pt;
-          }
-        }
-      }
-    }
-  }
-  #chapter {
-    #title {
-      .style(...) {
-        color: @red;
-        border-bottom-color: @orange;
-        text-transform: none;
-        font-weight: normal;
-        font-size: 18pt;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        text-align: left;
-      }
-      .text() {
-        font: 28pt/33pt @font-family-serif;
-        color: @black;
-        border-top-color: @orange;
-        display: block;
-        font-weight: 700;
-
-        // If we truly need to take away the (.25em) left padding that
-        // is being assigned here, we will have to remove it from numbering-skeleton.less
-        // using !important for now to conform to production template as it will not
-        // override from numbering (a higher specificity for h1.title gentext-t is in numbering-skeleton)
-        padding-left: 0 !important;
-
-        padding-bottom: .3em;
-        border-top-width: 1px;
-        border-top-style: solid;
-
-        // Spacing around border.
-        margin-top: 10px;
-      }
-      .number() {
-        content: @cnx-string-chapter " " content();
-        font-size: 18pt;
-        font-weight: 700;
-        color: @red;
-        margin: 0;
-        padding: 0;
-      }
-      .label() {
-        display: none;
-      }
-      .divider(...) {
-        content: "";
-      }
-    }
-    #learning-objectives {
-      .style(...) {
-        text-align: left;
-        padding: 0;
-        border: none;
-        border-bottom: 1px solid @orange;
-        // These have to be individually set otherwise
-        // a color would have to be specified here.
-        border-top-width: 0;
-        border-left-width: 0;
-        border-right-width: 0;
-
-        /*
-          For items below, .abstract section in precalculus-skeleton
-          needs additional work to place p and ul elements into slots
-          After that, we can just insert the delta into psychology slot
-          without addtional code needed for psychology-skeleton. A possible
-          slot for this would be something like this:
-          #content>#para>.style(any; any; learning-objectives)
-        */
-
-        p {
-          font: 10pt/14pt @font-family-serif;
-          margin: 0;
-        }
-
-        > .title {
-          border: none;
-          margin-top: 0;
-        }
-
-        ul.itemizedlist {
-          > .listitem {
-            display: list-item;
-            padding-top: 0;
-            margin: 0;
-
-            p {
-              display: block;
-              margin: 0;
-            }
-
-            &::before {
-              display: none;
-            }
-            &:last-child {
-              padding-bottom: .75em;
-            }
-          }
-        }
-      }
-      #title {
-        .style(...) {
-          background-color: transparent;
-          border-bottom-color: @orange;
-          font: normal normal 700 10pt @font-family-sans-serif;
-          text-align: left;
-          margin-bottom: .5em;
-          color: @light-blue;
-        }
-      }
-    }
-  }
-  #module {
-    .style() {
-      margin: 0 0 24px 0;
-    }
-    #title {
-      .style() {
-        color: @red;
-        font-size: 14pt;
-        font-weight: 700;
-        border-bottom: 1px solid @orange;
-        padding-bottom: .2em;
-      }
-      // Remove pipe (|) from between section number and title
-      .divider() {
-        content: "";
-      }
-      .number() {}
-      .text() {}
-    }
-  }
- // End-of-chapter parts
-  #chapter-end {
-    .style(...) {
-      font-size: 10pt;
-      line-height: 13pt;
-    }
-    #title {
-      .style(...) {
-        color: @red;
-        border-bottom-color: @orange;
-        border-bottom-width: 1px;
-        border-bottom-style: solid;
-        font-size: 12pt;
-        font-weight: 700;
-        text-transform: none;
-      }
-    }
-    #section {
-      #title {
-        .style() {
-          padding-top: 0;
-       }
-      }
-    }
-    #summary {
-      .style() {
-        margin-bottom: 20px;
-      }
-
-      #title {
-        .style(...){
-          content: @cnx-string-summary;
-          padding-bottom: 0;
-          margin-bottom: 1em;
-        }
-        .link(...) {
-          font: normal normal 700 10pt/13pt @font-family-serif;
-          color: @black;
-        }
-      }
-    }
-    #review-questions {
-      .style(...) {
-        .x-column-count(2);
-        column-fill: balance;
-        text-align: left;
-        margin-bottom: 20px;
-      }
-      #title {
-        .style(...) {
-          content: @cnx-string-review-questions;
-          column-span: all !important; // added override to resolve bug on staging where titles
-          margin-bottom: 1em;
-          -webkit-column-span: all; /* Chrome, Safari, Opera */
-        }
-      }
-    }
-    #critical-thinking {
-      .style(...) {
-        .x-column-count(1);
-      }
-      #title {
-        .style(...) {
-          content: @cnx-string-critical-thinking-questions;
-          column-span: all !important; // added override to resolve bug on staging where titles
-          margin-bottom: 1em;
-        }
-      }
-    }
-    #personal-application {
-      .style(...) {
-        .x-column-count(1);
-      }
-      #title {
-        .style(...) {
-          content: @cnx-string-personal-application-questions;
-          column-span: all !important; // added override to resolve bug on staging where titles
-          margin-bottom: 1em;
-        }
-      }
-    }
-  }
-
-  // End of Book Customizations
-  #book-end {
-    #end-of-book-solutions {
-      .style('review-questions') { display: inline; }
-      .style('critical-thinking') { display: inline; }
-      #title {
-        .style(...) {
-          margin-left: 0; // reset precalc margin.
-          margin-top: 0;
-          padding-top: 0;
-          color: @red;
-          text-transform: capitalize;
-          font-weight: 700;
-          font-size: 24px;
-          margin-bottom: .5em;
-        }
-        .style('chapter-area'; any) {
-          font-family: @font-family-serif;
-          font-size: 13px;
-          line-height: 17px;
-          color: @black;
-        }
-      }
-      #chapter-area {
-        .style(...) {
-          font-family: @font-family-serif;
-          margin-bottom: .5em;
-        }
-      }
-    }
-    #end-of-book-references {
-      .style(...) {
-        display: block;
-        margin-bottom: 1em;
-      }
-      #chapter-area {
-        .style(...) {
-          font-size: 10pt;
-        }
-      }
-      #reference {
-        .style(...) {
-          // Indent all but the first lines of references.
-          text-indent: -2em;
-          margin-left: 2em;
-        }
-        #title {
-          .style(...) {}
-        }
-      }
-     #chapter-area {
-        .style(...) {
-          font-family: @font-family-serif;
-          color: black;
-          font-size: 10pt;
-          font-weight: bold;
-          margin-bottom: .5em;
-        }
-        #title {
-          .style(...) {
-          }
-        }
-      }
-    }
-    #index {
-      .style(...) {
-        margin: 0;
-      }
-      #title {
-        .style(...) {
-          width: 100%;
-          color: @red;
-          border-bottom-color: @orange;
-          background-color: transparent;
-          border-bottom-width: 1px;
-          border-bottom-style: solid;
-          margin-bottom: 1em;
-          text-transform: none;
-          font-size: 18pt;
-          font-weight: 700;
-          text-align: left;
-          margin-top: 0;
-          padding-top:  0;
-        }
-      }
-      .letter(...) {
-        font-family: @font-family-serif;
-      }
-      .term(...) {
-        font-family: @font-family-serif;
-        padding-bottom: 10px;
-      }
-    }
-    // End of Book Attribution and About Connexions
-    #colophon {
-      .style(...) {
-        color: @red;
-        background: none;
-        border-bottom-color: @orange;
-        border-bottom-width: 1px;
-        border-bottom-style: solid;
-        margin-left: 0px;
-        padding-left: 0px;
-        padding-bottom: .2em;
-        text-transform: none;
-        font-size: 18pt;
-        font-weight: 700;
-        text-align: left;
-      }
-    }
-  }
-  #glossary {
-    .style(chapter) {
-      display:  block;
-      margin-bottom: 20px;
-      margin-top: 0;
-    }
-    .term(chapter) {
-      display: block;
-      margin-top: 0;
-    }
-    .definition(chapter) {
-      margin-left: 0px;
-      display: block;
-    }
-    #title {
-      .style(chapter) {
-        font-weight: bold !important;
-        margin-bottom: 1em;
-        padding: 0 0 0.2em 0;
-        display: block !important; // This overrides a display: inline from ccap-base.
-                                   // We need to eliminate all * {} selectors.
-        width: 100%;
-      }
-    }
-  }
-}
-#content {
-  #section {
-    .style(any; any) {
-      margin: 0  0 22px 0;
-    }
-    .style(any; chapter; summary) { padding-bottom: 10px; }
-    #title {
-      // H3
-      .style(any; any) {
-        font-size: 14.6px;
-        color: @black;
-        text-transform: uppercase;
-      }
-      // H4
-      .style(any; any; section) {
-        color: @black;
-        font-size: 14.6px;
-      }
-    }
-  }
-  #paragraph {
-    .style(any) {
-      font: 10pt/13pt @font-family-serif;
-    }
-    .style(any; any; note) {
-      font: 9pt/12pt @font-family-sans-serif;
-    }
-  }
-  #table {
-    .style(any; any) {
-      border: @table-border;
-      margin-bottom: 22px;
-    }
-
-    #caption {
-      .style(any; any) {
-        color: @red;
-        border-color: @orange;
-        border-width: 1px;
-        border-style: solid;
-        border-bottom: none;
-        padding-left: .5em;
-        caption-side: top;
-        font-size: 13px;
-        line-height: 17px;
-      }
-    }
-    #header {
-      .style(any; any) {
-        border-color: @orange !important; // !important is in ccap-base.
-
-        padding: 5px 10px;
-      }
-    }
-    #data {
-      .style(any; any) {
-        border-color: @orange;
-        font: 10pt/14pt @font-family-serif;
-
-        padding: 5px 10px;
-      }
-    }
-  }
-  #solution {
-    .style(...) {}
-
-    .style(@kind; book-end) {
-      display: inline;
-      padding: 0;
-    }
-    #title {
-      .style(...) {}
-
-      .style(@kind; book-end) {
-        display: inline;
-        padding: 0;
-
-        &::before {
-          // We must blow up "TARGET-EXERCISE" text coming from ::before
-          // in numbering.less This is the major culprit in inline-solutions bug.
-          content: " ";
-          display: inline;
-          padding: 0;
-        }
-        &::after {
-          // We need period after numbering
-          content: ".";
-          margin-right: .15em;
-        }
-      }
-
-      .link(...) {}
-    }
-    #body {
-      .style(...) {}
-
-      .style(@kind; book-end) {
-        display: inline;
-        margin-right: .15em;
-      }
-    }
-  }
-  #note {
-    .style(...) {
-      padding: 20px;
-      background-color: @white;
-    }
+#note {
     .style('everyday-connection'; ...) {
       .x-feature-color(@dark-blue, @dark-blue, @dark-blue, @orange, @cnx-string-everyday-connection);
     }
@@ -610,40 +36,26 @@
       .x-feature-color(@dark-blue, @dark-blue, @white, @teal, @cnx-string-what-do-you-think);
     }
     .style('connect-the-concepts'; ...) {
-      // This feature is a little more complex, requiring
-      // some "hacky" bugfix type things to work. Some
-      // selectors are placed inline in this slot.
-
       .x-feature-color(@light-blue, transparent, @light-blue, transparent, @cnx-string-connect-the-concepts);
-
-      margin-top: 1.5em; // Reset the 48px top margin used to clear
-                         // the ::before/headers of features.
-
-      // reset padding to allow title to span across top of element
+      margin-top: 1.5em;
       padding: 0;
-
       p {
         &:last-of-type {
           padding-bottom: 10px;
         }
       }
-
-      // add padding to title and body elements
       > .body {
           padding: 0 1em;
       }
-
       // paragraph titles
       > .title {
         padding-bottom: 0;
         padding: 0 1em;
-
         span.cnx-gentext-tip-t {
           padding: 5px 0 0 0;
           display: block;
         }
       }
-
       // Create the header/title
       &::before, > .title::before {
         font: 700 normal normal 14pt/14pt @font-family-sans-serif;
@@ -672,7 +84,6 @@
       .x-feature-color(@red, @orange, @white, @red, @cnx-string-link-to-learning);
       #utils>#pb>.inside(avoid);
       text-align: left;
-
       //clearfix
       > .body::after {
         content: "";
@@ -686,18 +97,7 @@
         }
       }
     }
-    #title {
-      .style(...) {
-        padding: 0;
-        margin: 0;
-        color: @black;
-        font-weight: bold;
-        border: none;
-        padding-bottom: .2em;
-      }
-    }
-    // Manual Chapter Objectives note occurs in some books (anatomy, etc)
-    // This is a first attempt at createing a home for it.
+
     .style('chapter-objectives'; ...) {
       font: 10pt/14pt @font-family-serif;
       text-align: left;
@@ -706,24 +106,20 @@
       padding-top: 0;
       border-bottom-width: 1px;
       border-bottom-style: solid;
-
       > .title {
         font: normal normal 700 10pt @font-family-sans-serif;
         border: none;
         margin-top: 0;
       }
-
       ul.itemizedlist {
         > .listitem {
           display: list-item;
           padding-top: 0;
           margin: 0;
-
           p {
             display: block;
             margin: 0;
           }
-
           &::before {
             display: none;
           }
@@ -734,106 +130,3 @@
       }
     }
   }
-  #blockquote {
-    .style(...) {
-      font-size: 10pt;
-      line-height: 13pt;
-      font-family: @font-family-serif;
-      color: @black;
-      margin-top: 0.5em;
-      margin-bottom: 0.5em;
-
-      // Remove quotes
-      &::before,
-      &::after {
-        content: "";
-      }
-    }
-    .style(any; any; note) {
-      font-size: 9pt;
-      line-height: 12pt;
-      font-family: @font-family-sans-serif;
-    }
-  }
-  // Parent level link styling
-  #link {
-    .style(...) {
-      color: @red;
-    }
-  }
-  #figure {
-    .style(...) {
-      padding-top: 1em;
-    }
-    // Full width figure titles/captions clash with rounded feature borders
-    // So, we must target figures only when placed inside notes and give some padding
-    .style(any; any; note) {
-      margin-bottom: .5em;
-    }
-    #title {
-      .number(...) {
-        color: @red;
-      }
-    }
-  }
-  #list {
-    .style(any; any) {
-    }
-    .item(any; any; section) {
-    }
-   .style(any; any; problem; exercise) {
-      list-style-position: initial;
-      list-style-type: lower-latin;
-    }
-    .style(any; any; table) {
-      padding-left: 20px;
-    }
-  }
-  #equation {
-    .style(...) {}
-
-    .label() {
-      display: none;
-    }
-  }
-  #glossary {
-    .style(...) {
-      // Don't show the "Chapter X Review" header from PreCalc
-      &::before {
-        display: none;
-      }
-    }
-    #title {
-      .style(...) {
-        /* Change "Glossary" to "Key Terms" */
-
-        // Temp changes in place until we horizontally refactor glossary across books.
-        color: @red !important;
-        font-size: 12pt !important;
-        text-transform: capitalize !important;
-        border-bottom-color: @orange;
-        border-bottom-width: 1px;
-        border-bottom-style: solid;
-        margin-top: 0;
-        padding-top: 0;
-      }
-    }
-    .dt() {
-      // prevent container from allowing meaning to wrap appropriately
-      height: 15px;
-    }
-    .dl() {
-      margin: 1em 0;
-      text-align: left;
-    }
-    .glossterm(any) {
-      font: normal normal 700 10pt/13pt @font-family-serif;
-
-      &.no-emphasis {
-        font-weight: 400;
-      }
-    }
-  }
-}
-
-
