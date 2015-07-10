@@ -2321,6 +2321,13 @@ div[class="note"] {
 }
 div[class="note"] > .title {
   margin-top: 0.5em;
+  page-break-after: avoid;
+  text-align: left;
+  font-size: small;
+  margin-top: .25em;
+  margin-bottom: .5em;
+  color: #7291cb;
+  border-bottom: 1px solid #7291cb;
   padding: 0;
   margin: 0;
   color: #000000;
@@ -2329,6 +2336,149 @@ div[class="note"] > .title {
   padding-bottom: .2em;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 11pt;
+}
+.note.qa {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  page-break-inside: avoid;
+  min-height: 45px;
+  padding-top: 0;
+  margin-top: 0;
+  background: url("ccap-precalculus/qa.svg") no-repeat;
+  background-position: 0 .2em;
+  padding-left: 2.8em;
+  padding: 20px;
+  background-color: #ffffff;
+}
+.note.qa .figure img {
+  max-width: 6.25in;
+}
+.note.qa > .title {
+  margin-top: 0.5em;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  padding: 0;
+  margin: 0;
+  color: #000000;
+  font-weight: bold;
+  border: none;
+  padding-bottom: .2em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 11pt;
+}
+.note.qa > .body,
+.note.qa .body > p {
+  font-weight: normal;
+  margin-top: 0;
+}
+.note.qa > .body .figure .title {
+  display: inline;
+  text-align: center;
+  font-style: normal;
+}
+.note.media {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  page-break-inside: avoid;
+  min-height: 45px;
+  padding-top: 0;
+  margin-top: 0;
+  background: url("ccap-precalculus/media.svg") no-repeat;
+  background-position: 0 .2em;
+  padding-left: 2.5em;
+  padding: 20px;
+  background-color: #ffffff;
+}
+.note.media .figure img {
+  max-width: 6.25in;
+}
+.note.media .itemizedlist > .listitem {
+  color: #f6862d;
+  font-weight: bold;
+  text-align: left;
+}
+.note.media .itemizedlist > .listitem .link.only-show-once {
+  content: content();
+}
+.note.try {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  page-break-inside: avoid;
+  min-height: 45px;
+  padding-top: 0;
+  margin-top: 0;
+  background: url("ccap-precalculus/try.svg") no-repeat;
+  background-position: 0 .2em;
+  padding: 20px;
+  background-color: #ffffff;
+}
+.note.try .figure img {
+  max-width: 6.25in;
+}
+.note.try div.itemizedlist ul,
+.note.try div.orderedlist ul,
+.note.try div.itemizedlist ol,
+.note.try div.orderedlist ol {
+  margin: 0 0 0 40px;
+  padding: 0;
+  margin-top: 1em;
+  padding-left: 10px;
+}
+.note.try > .title {
+  margin-top: 0.5em;
+  margin-top: 0;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 10pt;
+  float: left;
+  padding-left: 1.5em;
+  padding-right: .8em;
+  padding: 0;
+  margin: 0;
+  color: #000000;
+  font-weight: bold;
+  border: none;
+  padding-bottom: .2em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 11pt;
+}
+.note.try .exercise {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  margin-top: 0;
+  counter-increment: none !important;
+  /* This code snip below is what is in Firebug that is overriding the Example and Try-It Exercise counters
+      causing !important to have to be used here and on line #594 of the precalculus-skeleton.less file.  grr
+      div.book div.chapter > div.cnx-eoc div.exercise:not(.labeled),
+      div.book div.chapter > div.section div.exercise:not(.labeled) {
+        counter-increment: exercise;
+      }
+      */
+  /* Update to me:  Found it.  It's line #106 in the numbering.less file.  it's incrementing  > .section > .exercise
+      We have to basically make an adjustment in precalculus-numbering.less to stop this override.
+      */
+  margin-bottom: 0;
+}
+.note.try .exercise > .title {
+  display: none;
+}
+.note.try .exercise .problem {
+  font-size: 13px;
+  line-height: 16px;
+  margin-left: 20px;
+}
+.note.try .exercise .solution {
+  display: none;
 }
 /* -------------------------
  * Preface
@@ -3828,6 +3978,354 @@ g line {
   text-align: left;
   padding-top: 1em;
   margin-bottom: .5em;
+}
+.chapter .note.everyday-connection {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #354da1;
+  border-radius: 15px;
+  margin-top: 48px;
+}
+.chapter .note.everyday-connection::before {
+  text-transform: uppercase;
+  text-transform: none;
+  color: #354da1;
+  content: "everyday connection";
+  background-color: #f6862d;
+  border: 1px solid #354da1;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.everyday-connection::before {
+  text-transform: uppercase;
+  text-transform: none;
+  color: #354da1;
+  content: "everyday connection";
+  background-color: #f6862d;
+  border: 1px solid #354da1;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.dig-deeper {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #354da1;
+  border-radius: 15px;
+  margin-top: 48px;
+}
+.chapter .note.dig-deeper::before {
+  text-transform: uppercase;
+  text-transform: none;
+  color: #f6862d;
+  content: "dig deeper";
+  background-color: #354da1;
+  border: 1px solid #f6862d;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.dig-deeper::before {
+  text-transform: uppercase;
+  text-transform: none;
+  color: #f6862d;
+  content: "dig deeper";
+  background-color: #354da1;
+  border: 1px solid #f6862d;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.what-do-you-think {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #354da1;
+  border-radius: 15px;
+  margin-top: 48px;
+}
+.chapter .note.what-do-you-think::before {
+  text-transform: uppercase;
+  text-transform: none;
+  color: #ffffff;
+  content: "what do you think?";
+  background-color: #3f989b;
+  border: 1px solid #354da1;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.what-do-you-think::before {
+  text-transform: uppercase;
+  text-transform: none;
+  color: #ffffff;
+  content: "what do you think?";
+  background-color: #3f989b;
+  border: 1px solid #354da1;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.connect-the-concepts {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #0067ac;
+  border-radius: 15px;
+  margin-top: 48px;
+  margin-top: 1.5em;
+  padding: 0;
+}
+.chapter .note.connect-the-concepts::before {
+  text-transform: uppercase;
+  text-transform: none;
+  color: #0067ac;
+  content: "connect the concepts";
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.connect-the-concepts::before {
+  text-transform: uppercase;
+  text-transform: none;
+  color: #0067ac;
+  content: "connect the concepts";
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.connect-the-concepts p:last-of-type {
+  padding-bottom: 10px;
+}
+.chapter .note.connect-the-concepts > .body {
+  padding: 0 1em;
+}
+.chapter .note.connect-the-concepts > .title {
+  padding-bottom: 0;
+  padding: 0 1em;
+}
+.chapter .note.connect-the-concepts > .title span.cnx-gentext-tip-t {
+  padding: 5px 0 0 0;
+  display: block;
+}
+.chapter .note.connect-the-concepts::before,
+.chapter .note.connect-the-concepts > .title::before {
+  font: 700 normal normal 14pt/14pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  width: 100%;
+  text-align: center;
+  display: inline-block;
+}
+.chapter .note.connect-the-concepts::before {
+  border-bottom: 1px solid #0067ac;
+  border-radius: 0px;
+  padding: 0px;
+  margin-left: -1px;
+  margin-top: 10px;
+  position: relative;
+}
+.chapter .note.connect-the-concepts > .title::before {
+  text-transform: uppercase;
+  text-transform: none;
+  color: #0067ac;
+  content: "connect the concepts";
+  color: #a6a6a6;
+  text-indent: 19px;
+}
+.chapter .note.link-to-learning {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #993720;
+  page-break-inside: avoid;
+  text-align: left;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #e6661f;
+  border-radius: 15px;
+  margin-top: 48px;
+}
+.chapter .note.link-to-learning::before {
+  text-transform: uppercase;
+  text-transform: none;
+  color: #ffffff;
+  content: "Link to Learning";
+  background-color: #993720;
+  border: 1px solid #f6862d;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.link-to-learning::before {
+  text-transform: uppercase;
+  text-transform: none;
+  color: #ffffff;
+  content: "Link to Learning";
+  background-color: #993720;
+  border: 1px solid #f6862d;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.link-to-learning > .body::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.chapter .note.link-to-learning .mediaobject {
+  float: left;
+}
+.chapter .note.link-to-learning .mediaobject img {
+  margin: 0;
+}
+.chapter .note.link-to-learning::before {
+  text-transform: uppercase;
+  text-transform: none;
+  color: #ffffff;
+  content: "Link to Learning";
+  background-color: #f6862d;
+  border: 1px solid #e6661f;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.link-to-learning::before {
+  text-transform: uppercase;
+  text-transform: none;
+  color: #ffffff;
+  content: "Link to Learning";
+  background-color: #f6862d;
+  border: 1px solid #e6661f;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.link-to-learning .mediaobject {
+  float: left;
+  padding-right: .8em;
+}
+.chapter .note.link-to-learning .mediaobject img {
+  margin: 0;
+}
+.chapter .note.link-to-learning > .body {
+  padding: 0px 10px;
 }
 .chapter .note .blockquote blockquote {
   color: #0067ac;
