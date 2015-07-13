@@ -15,57 +15,57 @@ div[class="note"] {
   > .title { #content>#note>#title>.style(non-feature); }
 }
 .note {
-  &.qa {
-    @context: feature-qa;
-    #content>#note>.style(qa);
+  // &.qa {
+  //   @context: feature-qa;
+  //   #content>#note>.style(qa);
 
-    > .title {
-      #content>#note>#title>.style(@kind; @part; @context);
-    }
-    // the paragraph inside body has to be specifically targeted here to remove top-margin. grr.
-    >.body, .body > p {
-      #content>#note>#body>.style(@kind; @part; @context);
-    }
+  //   > .title {
+  //     #content>#note>#title>.style(@kind; @part; @context);
+  //   }
+  //   // the paragraph inside body has to be specifically targeted here to remove top-margin. grr.
+  //   >.body, .body > p {
+  //     #content>#note>#body>.style(@kind; @part; @context);
+  //   }
 
-    > .body .figure .title { #content>#figure>#title>.style(any; any; @context); }
-  }
-  &.media {
-    @context: feature-media;
-    #content>#note>.style(media);
+  //   > .body .figure .title { #content>#figure>#title>.style(any; any; @context); }
+  // }
+  // &.media {
+  //   @context: feature-media;
+  //   #content>#note>.style(media);
 
-    .itemizedlist > .listitem {
-      #content>#list>.item(@kind, @part, @context);
-    }
+  //   .itemizedlist > .listitem {
+  //     #content>#list>.item(@kind, @part, @context);
+  //   }
 
-    // Supress the extra url generated from base that is wrapped with parentheses
-    .itemizedlist > .listitem .link.only-show-once {
-      content: content();
-    }
-  }
-  &.try {
-    @context: feature-try;
-    #content>#note>.style(try);
-    div.itemizedlist, div.orderedlist {
-      ul, ol {
-        #content>#list>.style(any; try-it);
-      }
-   }
-    > .title {
-      #content>#note>#title>.style(@kind; @part; @context);
-    }
+  //   // Supress the extra url generated from base that is wrapped with parentheses
+  //   .itemizedlist > .listitem .link.only-show-once {
+  //     content: content();
+  //   }
+  // }
+  // &.try {
+  //   @context: feature-try;
+  //   #content>#note>.style(try);
+  //   div.itemizedlist, div.orderedlist {
+  //     ul, ol {
+  //       #content>#list>.style(any; try-it);
+  //     }
+  //  }
+  //   > .title {
+  //     #content>#note>#title>.style(@kind; @part; @context);
+  //   }
 
-    .exercise {
-      #content>#exercise>.style(@kind; @part; @context);
-      > .title { #content>#exercise>#title>.style(@kind; @part; @context); }
+  //   .exercise {
+  //     #content>#exercise>.style(@kind; @part; @context);
+  //     > .title { #content>#exercise>#title>.style(@kind; @part; @context); }
 
-      .problem {
-        #content>#problem>.style(@kind; @part; @context; exercise);
-      }
-      .solution {
-        #content>#solution>.style(@kind; @part; @context; exercise);
-      }
-    }
-  }
+  //     .problem {
+  //       #content>#problem>.style(@kind; @part; @context; exercise);
+  //     }
+  //     .solution {
+  //       #content>#solution>.style(@kind; @part; @context; exercise);
+  //     }
+  //   }
+  // }
 }
 
 /* -------------------------
@@ -328,31 +328,31 @@ div.book div > div.section > div.section {
     }
   }
 
-  &.key-concepts {
-    #part>#chapter-end>#key-concepts>.style();
-    > div.title { #part>#chapter-end>#key-concepts>#title>.style(); }
-    // There doesn't seem to be a way to handle subsection titles in namespace yet.
-    // Targeting the link tag 'a' with layout change (margin, padding) doesn't work
-    // and isn't a good practice.  It's a bit like putting margin and padding on h1, h2, etc.
-    // Better to just let the container do the layout instead of the element.
-    > .section > .title { #part>#chapter-end>#key-concepts>#title>.subtitle(); }
+  // &.key-concepts {
+  //   #part>#chapter-end>#key-concepts>.style();
+  //   > div.title { #part>#chapter-end>#key-concepts>#title>.style(); }
+  //   // There doesn't seem to be a way to handle subsection titles in namespace yet.
+  //   // Targeting the link tag 'a' with layout change (margin, padding) doesn't work
+  //   // and isn't a good practice.  It's a bit like putting margin and padding on h1, h2, etc.
+  //   // Better to just let the container do the layout instead of the element.
+  //   > .section > .title { #part>#chapter-end>#key-concepts>#title>.subtitle(); }
 
-    > .section > .title > a { #part>#chapter-end>#key-concepts>#title>.link(); }
-  }
+  //   > .section > .title > a { #part>#chapter-end>#key-concepts>#title>.link(); }
+  // }
 
-  &.review-exercises {
-    #part>#chapter-end>#review-exercises>.style();
-    > .title {
-      #part>#chapter-end>#review-exercises>#title>.style();
-    }
-  }
+  // &.review-exercises {
+  //   #part>#chapter-end>#review-exercises>.style();
+  //   > .title {
+  //     #part>#chapter-end>#review-exercises>#title>.style();
+  //   }
+  // }
 
-  &.practice-test {
-    #part>#chapter-end>#practice-test>.style();
-    > .title {
-      #part>#chapter-end>#practice-test>#title>.style();
-    }
-  }
+  // &.practice-test {
+  //   #part>#chapter-end>#practice-test>.style();
+  //   > .title {
+  //     #part>#chapter-end>#practice-test>#title>.style();
+  //   }
+  // }
 
   &.cnx-solutions {
     #content>#solution>.style(@kind; chapter);
@@ -417,21 +417,21 @@ div.colophon.end-of-book-solutions {
     }
     > h2.title a.chapter span { display: inline; } // reset display: block for spans
 
-    > div.review-exercises::before {
-      #part>#book-end>#end-of-book-solutions>#title>.style('review-exercises');
-    }
-    > div.practice-test::before {
-      #part>#book-end>#end-of-book-solutions>#title>.style('practice-test');
-    }
-    > div.try {
-      &::before { #part>#book-end>#end-of-book-solutions>#title>.style('try-it'); }
-      div.solution > div.title a.solution::before {
-        content: target-counter(attr(href), chapter) "." target-counter(attr(href), try);
-      }
-    }
-    > div.section-exercises::before {
-      #part>#book-end>#end-of-book-solutions>#title>.style('section-exercises');
-    }
+    // > div.review-exercises::before {
+    //   #part>#book-end>#end-of-book-solutions>#title>.style('review-exercises');
+    // }
+    // > div.practice-test::before {
+    //   #part>#book-end>#end-of-book-solutions>#title>.style('practice-test');
+    // }
+    // > div.try {
+    //   &::before { #part>#book-end>#end-of-book-solutions>#title>.style('try-it'); }
+    //   div.solution > div.title a.solution::before {
+    //     content: target-counter(attr(href), chapter) "." target-counter(attr(href), try);
+    //   }
+    // }
+    // > div.section-exercises::before {
+    //   #part>#book-end>#end-of-book-solutions>#title>.style('section-exercises');
+    // }
 
 
     div.solution {
@@ -960,25 +960,25 @@ g {
 
   .figure { #content>#figure>.style(any; any; note); }
 
-  &.everyday-connection {
-    #content>#note>.style('everyday-connection'; any);
-  }
-  &.dig-deeper {
-    #content>#note>.style('dig-deeper'; any);
-  }
-  &.what-do-you-think {
-    #content>#note>.style('what-do-you-think'; any);
-  }
-  &.connect-the-concepts {
-    #content>#note>.style('connect-the-concepts'; any);
-  }
-  &.link-to-learning {
-    #content>#note>.style('link-to-learning'; any);
+  // &.everyday-connection {
+  //   #content>#note>.style('everyday-connection'; any);
+  // }
+  // &.dig-deeper {
+  //   #content>#note>.style('dig-deeper'; any);
+  // }
+  // &.what-do-you-think {
+  //   #content>#note>.style('what-do-you-think'; any);
+  // }
+  // &.connect-the-concepts {
+  //   #content>#note>.style('connect-the-concepts'; any);
+  // }
+  // &.link-to-learning {
+  //   #content>#note>.style('link-to-learning'; any);
 
-    > .body {
-      padding: 0px 10px;
-    }
-  }
+  //   > .body {
+  //     padding: 0px 10px;
+  //   }
+  // }
   .blockquote blockquote {
     #content>#blockquote>.style(any; any; note);
   }
