@@ -795,6 +795,7 @@
         border-top-width: 1px;
         border-top-style: solid;
         margin-top:.05em;
+        padding-top: .35em;
       }
       .number() {
         content: @cnx-string-chapter " " content();
@@ -899,24 +900,24 @@
       .text() {}
     }
   }
-    #glossary {
-    .style(chapter) {
-      // End-of-chapter material should start on a new page
-      #utils>#pb>.before(always);
-      display: inline;
-    }
-    #title {
-      .style(chapter) {
-        /* Change "Glossary" to "Key Terms" */
-        content: "Key Terms";
-        color: @medium-blue;
-        font-size: large;
-        padding: 0em;
-        display: block;
-        text-transform: uppercase;
-      }
-    }
-  }
+  //   #glossary {
+  //   .style(chapter) {
+  //     // End-of-chapter material should start on a new page
+  //     #utils>#pb>.before(always);
+  //     display: inline;
+  //   }
+  //   #title {
+  //     .style(chapter) {
+  //        Change "Glossary" to "Key Terms"
+  //       content: "Key Terms";
+  //       color: @medium-blue;
+  //       font-size: large;
+  //       padding: 0em;
+  //       display: block;
+  //       text-transform: uppercase;
+  //     }
+  //   }
+  // }
  // End-of-chapter parts
   #chapter-end {
     .style(...) {
@@ -1074,6 +1075,7 @@
           margin-left: 0; // reset precalc margin.
           margin-top: 0;
           padding-top: 0;
+          padding-left: 0;
           color: @red;
           text-transform: capitalize;
           font-weight: 700;
@@ -1199,14 +1201,14 @@
         text-align: left; //override text-alignment from base .x-column-count
         column-width: auto;
         margin: 0;
-        color: @dark-blue;
+       // color: @dark-blue;
         font-size: 17pt;
         .x-header-spacing();
       }
       #title {
         .style(...) {
           width: 100%;
-          color: @red;
+          color: @dark-blue;
           column-span: all;
           border-bottom-color: @orange;
           background-color: transparent;
@@ -1218,6 +1220,8 @@
           text-align: left;
           margin-top: 0;
           padding-top:  0;
+          padding-bottom: 0;
+        margin-bottom: 6.6px;
         }
       }
       .letter(...) {
@@ -1247,10 +1251,10 @@
         border-bottom-color: @orange;
         border-bottom-width: 1px;
         border-bottom-style: solid;
-        // margin-top: 0;
-        // margin-left: 0px;
-        // padding-left: 0px;
-        // padding-bottom: .2em;
+        margin-top: 0;
+        margin-left: 0px;
+        padding-left: 0px;
+        padding-bottom: .2em;
         text-transform: none;
         font-size: 17pt;
         font-weight: 700;
@@ -1279,37 +1283,6 @@
           color: black;
         }
         .label() {}
-      }
-    }
-  }
-
-  #glossary {
-    .style(chapter) {
-      display:  block;
-      // margin-bottom: 20px;
-      // margin-top: 0;
-      color: @dark-blue !important;
-      font-size: 13pt !important;
-      line-height: 17pt;
-      border-bottom: 1px @orange solid;
-      .x-header-spacing();
-    }
-    .term(chapter) {
-      display: block;
-      margin-top: 0;
-    }
-    .definition(chapter) {
-      margin-left: 0px;
-      display: block;
-    }
-    #title {
-      .style(chapter) {
-        font-weight: bold !important;
-        margin-bottom: 1em;
-        padding: 0 0 0.2em 0;
-        display: block !important; // This overrides a display: inline from ccap-base.
-                                   // We need to eliminate all * {} selectors.
-        width: 100%;
       }
     }
   }
@@ -1483,7 +1456,7 @@
         border-top: 1px solid @dark-blue;
         border-width: 1px;
         border-style: solid;
-       // border-bottom: none;   might want to change this, double check
+       border-bottom: none;
         border-right: none;
         border-left: none;
         padding-top: .5em;
@@ -2001,44 +1974,72 @@
     }
   }
 
-  #glossary {
-    .style(any; chapter) {}
-    .style(...) {
-      #utils>#pb>.before(always);
-      display:inline;
 
-      // Don't show the "Chapter X Review" header from PreCalc
-      // &::before {
-      //   display: none;
-      // }
+  #glossary {
+      .style(...) {
+        #utils>#pb>.before(always);
+        display:inline;
+      }
+      #title {
+        .style(...) {
+          content: "Key Terms";
+          margin-left: 0;
+         font-weight: bold;
+         padding: 0em !important;
+        display: block !important;
+        page-break-after: avoid !important;
+        color: @dark-blue !important;
+        font-size: 13pt !important;
+        line-height: 17pt;
+        border-bottom: 1px @orange solid;
+        margin-bottom: 6.6px;
+        width: 100%;
+
+      }
+      #title{
+        .style(chapter){
+          color: @dark-blue !important;
+          font-size: 13pt !important;
+          line-height: 17pt;
+          border-bottom: 1px @orange solid;
+          .x-header-spacing();
+        }
+      }
+    }
+    .style(chapter) {
+      display:  block;
+      // margin-bottom: 20px;
+      // margin-top: 0;
+      color: @dark-blue !important;
+      font-size: 13pt !important;
+      line-height: 17pt;
+      border-bottom: 1px @orange solid;
+      .x-header-spacing();
+    }
+    .term(chapter) {
+      display: block;
+      margin-top: 0;
+    }
+    .definition(chapter) {
+      margin-left: 0px;
+      display: block;
     }
     #title {
-      .style(...) {
-        /* Change "Glossary" to "Key Terms" */
-        content: "Key Terms";
-        // Temp changes in place until we horizontally refactor glossary across books.
-        color: @red !important;
-        font-size: 12pt !important;
-        text-transform: capitalize !important;
-        page-break-after: avoid !important;
-        border-bottom-color: @orange;
-        border-bottom-width: 1px;
-        border-bottom-style: solid;
-        margin-top: 0;
-        padding: 0em !important;
-        margin-left: 0;
-        font-weight: bold;
-         display: block;
-      }
-      .style(any; chapter) {
-        .x-header-spacing();
+      .style(chapter) {
+        font-weight: bold !important;
+        margin-bottom: 1em;
+        padding: 0 0 0.2em 0;
+        display: block !important; // This overrides a display: inline from ccap-base.
+                                   // We need to eliminate all * {} selectors.
+        width: 100%;
       }
     }
-    .dt() {
+        .dt() {
       // prevent container from allowing meaning to wrap appropriately
       height: 15px;
     }
     .dl() {
+      color: black;
       margin: 0 0 1em 0;
       text-align: left;
       #utils>#pb>.before(avoid);
@@ -2061,6 +2062,72 @@
       margin-left: 15px;
     }
   }
+
+
+
+  // #glossary {
+  //   .style(...) {
+  //     #utils>#pb>.before(always);
+  //     display:inline;
+  //     // Don't show the "Chapter X Review" header from PreCalc
+  //     // &::before {
+  //     //   display: none;
+  //     // }
+  //   }
+  //   #title {
+  //     .style() {
+  //       /* Change "Glossary" to "Key Terms" */
+  //       content: "Key Terms";
+  //       // Temp changes in place until we horizontally refactor glossary across books.
+  //     // color: @red !important;
+  //       //font-size: 12pt !important;
+  //       //color: @dark-blue !important;
+  //       //font-size: 13pt !important;
+  //     //  line-height: 17pt;
+  //       //border-bottom: 1px @orange solid;
+  //       // text-transform: capitalize !important;
+  //       // page-break-after: avoid !important;
+  //       // border-bottom-color: @orange;
+  //       // border-bottom-width: 1px;
+  //       // border-bottom-style: solid;
+  //       // margin-top: 0;
+  //       // padding: 0em !important;
+  //       // margin-left: 0;
+  //       // font-weight: bold;
+  //       //  display: block;
+  //     }
+  //     .style(any; chapter) {
+  //       .x-header-spacing();
+  //     }
+  //   }
+    .dt() {
+      // prevent container from allowing meaning to wrap appropriately
+      height: 15px;
+    }
+    .dl() {
+      color: black;
+      margin: 0 0 1em 0;
+      text-align: left;
+      #utils>#pb>.before(avoid);
+    }
+    .dl(any; chapter) {}
+    .divider(...) {
+      content: " ";
+      float:right;
+    }
+    .dl(any; chapter) {}
+    .term(any; chapter) {}
+    .glossterm(any) {
+      font: normal normal 700 10pt/13pt @font-family-serif;
+
+      &.no-emphasis {
+        font-weight: 400;
+      }
+    }
+    .definition(any; chapter) {
+      margin-left: 15px;
+    }
+ // }
 
     #heading{
     // H1 in the title part is the top level book title
