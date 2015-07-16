@@ -1,575 +1,73 @@
-// Copyright (c) 2013 Rice University
-// This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
-// See LICENSE.txt for details.
-
-.x-header-spacing() {
-  padding-bottom: 0;
-  margin-bottom: 6.6px;
-}
-
-.x-feature-before-color(@title-color, @title) {
-  text-transform: none;
-  color: @title-color;
-  content: @title;
-}
-.x-feature-color(@border-color, @title-border-color, @title-color, @background-color, @title) {
-  box-shadow: 10px 10px 5px @shadow; // On the roadmap for PrinceXML 9.1
-  border: 1px solid @border-color;
-  border-radius: 15px;
-
-  margin-top: 48px; // Clear the title ::before.
-  &::before {
-    .x-feature-before-color(@title-color, @title);
-    background-color: @background-color;
-    border: 1px solid @title-border-color;
-    border-radius: 15px;
-    width: 60%;
-
-    // Reposition the titles
-    position: absolute;
-    margin-top: -48px;
-    margin-left: -5px;
-    padding: 8px;
-    padding-left: 0px;
-
-    // Text styles
-    font-weight: 700;
-    font-size: 12pt;
-    text-indent: 0.1875in;
+#note {
+  .style('everyday-connection'; ...) {
+    .x-feature-color(@dark-blue, @dark-blue, @dark-blue, @orange, @cnx-string-everyday-connection);
   }
-}
-#part {
-  #toc {
-    #title {
-      .style(...) {
-        color: @dark-blue;
-        font-weight: bold;
+  .style('dig-deeper'; ...) {
+    .x-feature-color(@dark-blue, @orange, @orange, @dark-blue, @cnx-string-dig-deeper);
+  }
+  .style('what-do-you-think'; ...) {
+    .x-feature-color(@dark-blue, @dark-blue, @white, @teal, @cnx-string-what-do-you-think);
+   }
+  .style('connect-the-concepts'; ...) {
+    .x-feature-color(@light-blue, transparent, @light-blue, transparent, @cnx-string-connect-the-concepts);
+      margin-top: 1.5em;
+      padding: 0;
+    p {
+      &:last-of-type {
+        padding-bottom: 10px;
       }
+     }
+    > .body {
+        padding: 0 1em;
     }
-    #link {
-      .style(...) {
-        color: @dark-blue;
-      }
+     // paragraph titles
+     > .title {
+       padding-bottom: 0;
+      padding: 0 1em;
+       span.cnx-gentext-tip-t {
+        padding: 5px 0 0 0;
+       display: block;
+       }
+    }
+      // Create the header/title
+     &::before, > .title::before {
+     font: 700 normal normal 14pt/14pt @font-family-sans-serif;
+      width: 100%;
+      text-align: center;
+      display: inline-block;
+     }
+    &::before {
+       border-bottom: 1px solid @light-blue;
+       border-radius: 0px;
+       padding: 0px;
+       margin-left: -1px;
+      margin-top: 10px;
+       position: relative;
+     }
+  > .title::before {
+    .x-feature-before-color(@light-blue, @cnx-string-connect-the-concepts);
+      color: lighten(@black, 65%);
+     text-indent: 19px; // Fix a text-offset bug
     }
   }
-  #preface {
-    #titlepage {
-      .style() {
-        padding-bottom: .5em;
+      .style('link-to-learning'; ...) {
+      // This feature requires some "bugfix" pieces to work
+      // properly, such as a clearfix. Selectors for these are
+      // placed inline in this slot.
+      .x-feature-color(@red, @orange, @white, @red, @cnx-string-link-to-learning);
+      #utils>#pb>.inside(avoid);
+      text-align: left;
+      //clearfix
+      > .body::after {
+        content: "";
+        display: table;
+        clear: both;
       }
-      .title(...) {
-        margin-top: 0;
-        color: @dark-blue;
-        font-weight: bold;
-      }
-    }
-    .subtitle() {
-      color: @dark-blue;
-    }
-  }
-  #introduction {
-    #title {
-      .style(...) {
-        color: @dark-blue;
-        font-size: 17pt;
-        font-weight: bold;
-      }
-    }
-    #chapter-outline {
-      #title {
-        .style(...) {
-          color: @light-red;
-        }
-      }
-    }
-  }
-
-  #chapter {
-    #title{
-      .text() {
-        font-family: @font-family-sans-serif;
-        font-weight: bold;
-        color: @dark-blue;
-        padding-top: .35em;
-        padding-bottom: 0;
-        margin-top:.05em;
-      }
-      .number() {
-        color: @dark-blue;
-      }
-    }
-    #learning-objectives {
-      .style(...) {
-        border: none;
-        margin-bottom: 0;
-        margin-top: 12.48px;
-
-        ul.itemizedlist {
-          > .listitem {
-            margin-top: .4em;
-            margin-bottom: .4em;
-              &:last-child {
-                  padding-bottom: 0;
-            }
-          }
-        }
-      }
-      #title {
-        .style(...) {
-          display: none;
-        }
-      }
-    }
-  }
-  #module {
-    #title {
-      .style() {
-        color: @dark-blue;
-        font-size: 17pt;
-        #utils>#pb>.after(avoid);
-      }
-    }
-  }
-  // End-of-chapter parts
-  #chapter-end {
-    .style(...) {}
-
-    #title {
-      .style(...) {
-        color: @dark-blue;
-        font-size: 13pt;
-        line-height: 17pt;
-        .x-header-spacing();
-      }
-    }
-    #summary {
-      .style(...) {}
-
-      #title {
-        .style(...){
-          .x-header-spacing();
-        }
-
-        .link(...) {
-          font: normal normal 700 10pt/13pt @font-family-sans-serif;
-        }
-      }
-    }
-    #exercises {
-      .style(...) {
-        .x-column-count(1);
-        text-align: left;
-      }
-      #title {
-        .style(...) {
-          content: @cnx-string-exercises;
-          column-span: all;
-          color: @dark-blue;
-          font-size: 13pt;
-          font-weight: bold;
-          padding-bottom: .2em;
-          .x-header-spacing();
-        }
-        .link(...) {
-          color: black;
-        }
-      }
-    }
-  }
-  // End of Book Customizations
-  #book-end {
-    #end-of-book-references {
-      .style(...) { display: none; }
-    }
-    #end-of-book-solutions {
-      .style(...) {
-        text-align: left;
-        .x-column-count(1);
-      }
-      #title {
-        .style(...) {
-          column-span: all;
-          color: @dark-blue;
-          font-size: 17pt;
-          .x-header-spacing();
-        }
-        .style('chapter-area'; any) {
-          color: black;
-          font-size: 13.33px;
-        }
-      }
-      #chapter-area {
-        .style(any) {}
-      }
-    }
-    #index {
-      #title {
-        .style(...) {
-          color: @dark-blue;
-          font-size: 17pt;
-          .x-header-spacing();
-        }
-      }
-      .letter {
-        margin-bottom: 0.5em;
-      }
-      .term(...) {
-        padding-bottom: .25em;
-      }
-      .link(...) {
-        font-family: @font-family-serif;
-      }
-    }
-    // End of Book Attribution and About Connexions
-    #colophon {
-      .style(...) {
-        color: @dark-blue;
-        font-size: 17pt;
-        .x-header-spacing();
-      }
-    }
-  }
-  #glossary {
-    // Unfortunately even though there is no !important on anything in #glossary used in precalculus, in psychology
-    // there had to be an important to be used to make the change.  It is so here as well.  For some reason
-    // nothing in glossary seems to be able to be simply overridden. Grr. Evil Glossary
-    #title {
-      .style(chapter) {
-        color: @dark-blue !important;
-        font-size: 13pt !important;
-        line-height: 17pt;
-        border-bottom: 1px @orange solid;
-        .x-header-spacing();
-      }
-    }
-  }
-  #appendix {
-    #title {
-      .style() {
-        font-size: inherit;
-        text-transform: capitalize;
-        padding-left: 0;
-      }
-      .text() {
-        font-size: 28pt;
-        color:@dark-blue;
-        border-top: 1px solid @orange;
-        display: block;
-        margin-top: .05em;
-        padding-left:0em !important;
-        font-weight: bold;
-      }
-      .number() {
-        color: @dark-blue;
-        font-size: 17pt;
-        font-weight: bold;
-      }
-      .divider() {
-        display: none;
-      }
-      .label() {
-      }
-    }
-   #section{
-      #title{
-        .style(){
-          }
-        .number(){
-            display: none;
-          }
-        .text(){
-          color: @dark-blue;
-          font-size: 18pt;
-          margin-top: .3em;
-        }
-        .divider(){
-        }
-        .label(){
-        }
-      }
-    }
-  }
-}
-#content {
-  #link {
-    .style() {
-      color: @dark-orange;
-    }
-  }
-  #figure {
-    .style('splash'; chapter) {
-      padding-top:  0;
-    }
-    #title {
-      .number() {
-        color: @dark-orange;
-      }
-    }
-  }
-  #paragraph {
-    #title {
-      .style(any; any; example) {
-        color: @dark-blue;
-        font-size: 1.1em;
-      }
-      .style('primary'; any; example) {
-        font-size: 1.3em;
-        font-weight: bold;
-        color: @dark-blue;
-        text-align: left;
-      }
-    }
-  }
-  #image {
-    .style(any; preface) {
-      max-width: @page-width;
-      margin: 0;
-    }
-  }
-  #note {
-    .style('sciences-interconnect'; ...) {
-      .x-feature-color(@dark-blue, @dark-blue, @white, @medium-blue, @cnx-string-how-sciences-interconnect);
-    }
-    .style('everyday-life'; ...) {
-      .x-feature-color(@dark-purple, @dark-purple, @white, @purple, @cnx-string-chemistry-in-everyday-life);
-    }
-    .style('chemist-portrait'; ...) {
-      .x-feature-color(@dark-green, @dark-green, @white, @green, @cnx-string-portrait-of-a-chemist);
-    }
-    .style('link-to-learning'; ...) {
-      .x-feature-color(@dark-orange, @dark-orange, @white, @orange, @cnx-string-link-to-learning);
-
-      // QR code is going away to be replaced with just an image. Removing variable reference
-      // here to be placed at size and override psychology which is currently using QR codes.
-      // It would be better to find a way to reset width/height and place image at size instead
-      // of specificy pixel width/height. auto/inherit doesn't work. Will investigate.
       .mediaobject {
         float: left;
-        padding-right: .8em;
         img {
           margin: 0;
         }
       }
     }
-    .style('answer'; any; example) {
-      text-align: right;
-      background-color: @example-blue;
-      padding: 0;
-      margin: 0;
-    }
-    #title {
-      .style(...) {
-        font-family: @font-family-sans-serif;
-        font-size: 11pt;
-      }
-      .style('sciences-interconnect'; any) {
-        color: @medium-blue;
-      }
-      .style('everyday-life'; any) {
-        color: @purple;
-      }
-      .style('chemist-portrait'; any) {
-        color: @green;
-      }
-      .style('answer'; any; example) {
-        display: inline;
-        padding-right: .5em;
-        font-size: 13px;
-        font-family: @font-family-serif;
-      }
-    }
-    #body {
-      .style('answer'; any; example) {
-        display: inline;
-        font-family: @font-family-serif;
-        font-size: 13px;
-      }
-    }
-  }
-  #heading {
-    // H1 in the title part is the top level book title
-    .style(h1; title) {
-      color: @dark-blue;
-      margin-top: 10em;
-    }
-    .style(h2; chapter) {
-      color: @dark-blue;
-      font-size: 17pt;
-
-      &::before { color: @dark-blue; }
-    }
-  }
-  #section {
-    #title {
-      // H3
-      .style(any; any) {
-        color: @dark-blue;
-        font-size: 13pt;
-        text-transform: none;
-      }
-      // H4
-      .style(any; any; section) {
-        color: @dark-blue;
-        font-size: 11pt;
-      }
-    }
-  }
-  #table {
-    .style(any; any) {
-      padding-top: 1em;
-      border: none;
-    }
-    .style(any; preface) {
-      margin: 0;
-      border: none;
-    }
-
-    #caption {
-      .style(any; any) {
-        color: @black;
-        caption-side: bottom;
-        border-right: none;
-        border-left: none;
-        border-top: 1px solid @dark-blue;
-        padding-left: 0px;
-        font-weight: 100;
-      }
-      .number(any; any) {
-        color: @dark-orange;
-        font-weight: bold;
-      }
-    }
-    #head {
-      .style(any; any) {
-        border-top: 1px solid @dark-blue;
-        border-bottom: 1px solid @dark-blue;
-        font-family: @font-family-sans-serif;
-      }
-    }
-    #body {
-      .style(any; any) {
-         border: 1px solid @dark-blue;
-      }
-    }
-    #row {
-      border: none !important;
-    }
-    #header {
-      .style(any; any) {
-        background-color: @medium-blue;
-        border-color: @dark-blue !important; // !important is in ccap-base
-        border-bottom: none;
-        border-top: 1px solid @dark-blue;
-        font-size: 9pt;
-        color: @white;
-        text-align: center;
-        vertical-align: initial;
-      }
-      .style('first'; any) {
-        border: none !important;
-        background-color: transparent;
-        color: @dark-blue;
-        font-weight: bold;
-      }
-    }
-    #data {
-      .style(any; any) {
-        font-family: @font-family-sans-serif;
-        font-size: 9pt;
-        text-align: center;
-        border-color: @dark-blue !important; // !important is in ccap-base
-        border-top: 1px solid @dark-blue;
-        border-bottom: none;
-      }
-      .style(any; preface) {
-        padding: 5px;
-      }
-      // Some TDs act like TH
-      .style('header'; any) {
-        background-color: @medium-blue;
-        font-size: 9pt;
-        color: @white;
-        text-align: center;
-        vertical-align: initial;
-      }
-    }
-  }
-  #example {
-    .style(any; any) {
-    }
-    #title {
-      .style(any) {
-        padding-top: .3em;
-        padding-bottom: .3em;
-      }
-    }
-    #body {
-      .style(any) {
-        background: @example-blue;
-        padding: 1em 2em .5em 2em;
-      }
-    }
-  }
-  #exercise {
-    .style(any; any; exercises; chapter-end) {
-      margin-bottom: .2em;
-    &:last-child{
-       margin-bottom: .5em;
-      }
-    }
-  }
-  #solution {
-    .style(...) {}
-    .style(@kind; book-end) {
-      display: block;
-      padding-bottom: .5em;
-      font-size: 13.33px;
-    }
-  }
-  #list {
-    .style(any; any; list) {
-      list-style-type: disc;
-    }
-    .style('step-list'; any) {
-      list-style-type: none;
-      counter-reset: steplist;
-    }
-    .item('step-list'; any) {
-      counter-increment: steplist !important;
-    }
-    .style(any; end-of-book-solutions; solution) {
-    }
-    .number('step-list'; any) {
-      font-style: italic;
-      font-weight: bold;
-      content: "Step " counter(steplist) '. ';
-      padding-right: 1em;
-      display: inline-block !important;	// !important used to override numbering base.
-    }
-  }
-  #glossary {
-    .style(any; chapter) {}
-    #title {
-      .style(any; chapter) {
-        .x-header-spacing();
-      }
-    }
-    .dl () {
-      margin: 0 0 1em 0;
-    }
-    .dl(any; chapter) {}
-    .divider(any; chapter) {}
-    .term(any; chapter) {}
-    .definition(any; chapter) {
-      margin-left: 15px;
-    }
-
-  }
-  #figure {
-    #body {
-      .style(any; any) {
-        margin: 10px 0 10px 0;
-      }
-    }
-  }
 }
