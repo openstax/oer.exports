@@ -33,6 +33,8 @@ otf_files = []
 customization_layer = nil
 output_file = nil
 
+#$DEBUG=true
+
 # Set up the OptionParser
 opts = OptionParser.new
 opts.banner = "Usage: #{File.basename($0)} [OPTIONS] [DocBook Files]
@@ -71,5 +73,4 @@ db_files.each {|docbook_file|
   end  
   puts "Rendering DocBook file #{docbook_file} to #{epub_file}" if verbose
   e.render_to_file(epub_file)
-  FileUtils.remove_dir(dir)
 }  
