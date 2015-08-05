@@ -834,9 +834,11 @@ div.table {
     td { #content>#table>#data>.style(any; any); }
     // Add styling for table entries that should render as table headers
     td.header { #content>#table>#data>.style('header'; any); }
+    thead > tr:first-child {
+      #content>#table>#header>#title>.style(any; any);
+    }
 
   }
-
   //handle lists inside tables
 ul.itemizedlist, ol.orderedlist {
     #content>#list>.style(any; any; table);
@@ -1411,14 +1413,18 @@ span.emphasis-leading-indent strong { content: "\00a0" content(); }
   }
   &:not(.unnumbered) table {
     tr:first-child > th:first-child  {
-      #content>#table>#header>.style('first'; any);
+      #content>#table>#header>#title>.text(any; any);
     }
   }
+
   table .table-caption.caption {
     color: @black;
     font-weight: normal !important; //override strong tag
     font-family: @font-family-sans-serif;
     font-size: 9pt;
+  }
+   table thead > tr:first-child {
+   #content>#table>#header>#title>.style(any; any);
   }
 }
 
