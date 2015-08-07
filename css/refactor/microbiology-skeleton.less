@@ -1,4 +1,3 @@
-
 .chapter .note {
   &.clinical-focus {
     #content>#note>.style('clinical-focus'; any);
@@ -6,6 +5,12 @@
       #content>#note>#title>.style('clinical-focus'; any);
     }
   }
+  &.clinical-focus-opener {
+    #content>#note>.style('clinical-focus-opener'; any);
+	>.title {
+        #content>#note>#title>.style('clinical-focus-opener'; any);
+      }
+    }
   &.micro-connection {
     #content>#note>.style('micro-connection'; any);
     >.title {
@@ -44,3 +49,43 @@
 // }
 
 // 	#content>#table>#header>#title>.text(any; any);
+
+
+//end of chapter
+.cnx-eoc {
+  &.multiple-choice {
+	    #part>#chapter-end>#multiple-choice>.style();
+	    > .title { #part>#chapter-end>#multiple-choice>#title>.style(); }
+	    > .section .title > a { #part>#chapter-end>#multiple-choice>#title>.link(); }
+  }
+    &.matching {
+	    #part>#chapter-end>#matching>.style();
+	    > .title { #part>#chapter-end>#matching>#title>.style(); }
+	    > .section .title > a { #part>#chapter-end>#matching>#title>.link(); }
+	    table {
+	    	caption {
+				#content>#table>#caption>.style(matching; any);
+      		}
+	      	caption + tbody > tr:first-child > td.tablecell {
+				border-top: none;
+		 	 }
+			#content>#table>.style(matching; any);
+			tr {
+				#content>#table>#row>.style(matching; any);
+			}
+			td {
+				#content>#table>#data>.style(matching; any);
+			}
+	  }
+  }
+    &.true-false {
+	    #part>#chapter-end>#true-false>.style();
+	    > .title { #part>#chapter-end>#true-false>#title>.style(); }
+	    > .section .title > a { #part>#chapter-end>#true-false>#title>.link(); }
+  }
+    &.short-answer {
+	    #part>#chapter-end>#short-answer>.style();
+	    > .title { #part>#chapter-end>#short-answer>#title>.style(); }
+	    > .section .title > a { #part>#chapter-end>#short-answer>#title>.link(); }
+  }
+}
