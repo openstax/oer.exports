@@ -10,7 +10,17 @@
 // Import general page headers/footers, bookmark calculation, etc
 @import url('ccap-tables-deprecated.less');
 @import url('ccap-numbering.less');
+
+
 @import url('ccap-base.less');
+
+// ccap-base
+@import url('refactor/utils.less');
+@import url('refactor/ccap-base-slots.less');
+@import url('refactor/content-slots.less');
+@import url('refactor/ccap-base-overrides.less');
+@import url('refactor/ccap-base-skeleton.less');
+
 @import url('refactor/unnumbered-content.less');
 
 @import url('refactor/page-slots.less');
@@ -58,7 +68,7 @@ html {
 /*******************************************************
  * Unit Page
  ******************************************************/
-div.part > div.titlepage {display:none;}
+div.part > div.titlepage { display:none; }
 
 
 /******************************************************
@@ -147,9 +157,6 @@ div.part > div.titlepage {display:none;}
     margin: 0;
      .title {
       font-size: 15px;
-      &:first-child {
-        margin-top: 10px;
-      }
     }
   }
 }
@@ -170,14 +177,13 @@ div.part > div.titlepage {display:none;}
 .ap-science-practices {
   page-break-inside: avoid;
   .note {
-    margin-left: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-top: 10px;
+    margin: 0;
+    margin-bottom: 10px;
     padding: 0;
+    > div.title { padding-bottom: 5px; }
     .exercise  {
       .title {
-        margin: 5px 0 0 0;
+        margin: 0 0 0 0;
         padding: 0;
       }
     }
@@ -185,6 +191,7 @@ div.part > div.titlepage {display:none;}
   .x-feature(black, @cream, AP_Scientific_Practices_feature, png);
   &::before {
     padding-top: 0.39in;
+    margin-bottom: 10px;
   }
 }
 
@@ -296,9 +303,11 @@ div.part > div.titlepage {display:none;}
 
   &.summary {
     .x-column-count(1);
-    > .title { content: "Chapter Summary"; margin-top: 1em; }
+    > .title { content: "Chapter Summary"; }
     > .section .title > a { color: black; page-break-after: avoid; }
-    p:nth-of-type(1) {  margin-top: 1em; }
+    > .section .title { padding: 0 0 12.667px 0; }
+    p { margin: 0 0 6.333px 0; }
+    p:last-of-type { margin-bottom: 12.667px; }
   }
 
   .problem .orderedlist { margin-left: 4em;}
@@ -374,7 +383,7 @@ a { font-weight: bold; color: @tuscany; }
 
 
 h1, h2, h3, h4 {
-  margin: 0.5em 0em;
+  margin: 0em 0em .5em 0;
   text-align: left !important; //overides text alignment set in
 }
 
@@ -439,6 +448,8 @@ p {
 
   // Remove ":"
   dt::after { content: " " !important; }
+
+  dl { padding-bottom: 18px; }
 }
 
 .section > .title { page-break-after:avoid; }
@@ -450,7 +461,7 @@ p {
   //this style Attributions and About Connections
   color:white;
   background-color: @green;
-  margin: .5em 0;
+  margin: 0 0 .5em 0;
  }
 
 
