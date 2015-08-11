@@ -834,6 +834,7 @@
       // If a table spans more than 1 page then put caption on all following pages
       prince-caption-page: all;
       border: none;
+      border-collapse: collapse;
     }
     .style(any; preface) {
       margin: 0;
@@ -852,7 +853,7 @@
         border-top: 1px solid @dark-blue;
         border-width: 1px;
         border-style: solid;
-       border-bottom: none;
+        border-bottom: none;
         border-right: none;
         border-left: none;
         padding-top: .5em;
@@ -875,7 +876,7 @@
     }
     #head {
       .style(any; any) {
-        border-top: 1px solid @dark-blue;
+        border-top: none;
         border-bottom: 1px solid @dark-blue;
         font-family: @font-family-sans-serif;
       }
@@ -883,12 +884,15 @@
     #body {
       .style(any; any) {
         border: 1px solid @dark-blue;
+        border: none;
       }
     }
     #row {
       border: none !important;
       .style(any; any) {
         #utils>#pb>.inside(avoid);
+        border-left: solid 1px @dark-blue;
+        border-right: solid 1px @dark-blue;
       }
       .style(colored; any) {
         height: 1em !important;
@@ -907,10 +911,13 @@
         vertical-align: initial;
       }
       .style(colored; any) {
-        background-color: @light-orange; text-align: center;
+        background-color: @light-orange;
+        text-align: center;
       }
       #title {
         .style(any; any) {
+          border-left: 0;
+          border-right: 0;
         }
         .text(any; any) {
           border: none !important;
