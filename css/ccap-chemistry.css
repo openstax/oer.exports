@@ -3155,17 +3155,13 @@ div.table table {
   padding-top: 1em;
   prince-caption-page: all;
   border: none;
+  border-collapse: collapse;
   page-break-inside: auto;
 }
 div.table table caption {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: #000000;
-  border-top: 1px solid #354da1;
-  border-width: 1px;
-  border-style: solid;
-  border-bottom: none;
-  border-right: none;
-  border-left: none;
+  border: none;
   padding-top: .5em;
   padding-left: 0px;
   padding-bottom: 1em;
@@ -3178,8 +3174,11 @@ div.table table caption::before {
   color: #e6661f;
   font-weight: bold;
 }
+div.table table caption + tbody > tr:first-child > td.tablecell {
+  border-top: none;
+}
 div.table table thead {
-  border-top: 1px solid #354da1;
+  border-top: none;
   border-bottom: 1px solid #354da1;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
@@ -3188,6 +3187,8 @@ div.table table tbody {
 }
 div.table table tr {
   page-break-inside: avoid;
+  border-left: solid 1px #354da1;
+  border-right: solid 1px #354da1;
 }
 div.table table th {
   color: #ffffff;
@@ -3215,6 +3216,10 @@ div.table table td.header {
   color: #ffffff;
   text-align: center;
   vertical-align: initial;
+}
+div.table table thead > tr:first-child {
+  border-left: 0;
+  border-right: 0;
 }
 div.table ul.itemizedlist,
 div.table ol.orderedlist {
@@ -4102,6 +4107,10 @@ span.emphasis-leading-indent strong {
   font-weight: normal !important;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
+}
+.table table thead > tr:first-child {
+  border-left: 0;
+  border-right: 0;
 }
 /******************************************************
  * EOC Customizations
