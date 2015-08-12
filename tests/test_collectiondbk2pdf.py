@@ -52,10 +52,12 @@ class Test_collectiondbk2pdf(unittest.TestCase):
                  "-d", COLLECTION_DIR,
                  "-s", PRINT_STYLE,
                  OUTPUT_PDF]
-        subprocess.call(command)
-        info = resource.getrusage(resource.RUSAGE_CHILDREN)
-        print("\n\n")
-        print(info)
+        import collectiondbk2pdf
+        collectiondbk2pdf.main(command[1:])
+#        subprocess.call(command)
+#        info = resource.getrusage(resource.RUSAGE_CHILDREN)
+#        print("\n\n")
+#        print(info)
 
         command= ["convert",
                   "-density", "150",
