@@ -10,7 +10,15 @@
 // Import general page headers/footers, bookmark calculation, etc
 @import url('ccap-tables-deprecated.less');
 @import url('ccap-numbering.less');
-@import url('ccap-base.less');
+
+// ccap-base
+@import url('refactor/utils.less');
+@import url('refactor/ccap-base-slots.less');
+@import url('refactor/content-slots.less');
+@import url('refactor/ccap-base-overrides.less');
+@import url('refactor/ccap-base-skeleton.less');
+
+@import url('refactor/unnumbered-content.less');
 
 @import url('refactor/page-slots.less');
 @import url('refactor/page-skeleton.less');
@@ -56,7 +64,7 @@
 /*******************************************************
  * Unit Page
  ******************************************************/
-div.part > div.titlepage {display:none;}
+div.part > div.titlepage { display:none; }
 
 
 /******************************************************
@@ -183,7 +191,7 @@ div.part > div.titlepage {display:none;}
     font-size: large;
     margin: .25em 0;
     color: black;
-    font-weight:bold;
+    font-weight: bold;
     page-break-after: avoid;
    }
 
@@ -204,6 +212,7 @@ div.part > div.titlepage {display:none;}
   column-fill: balance !important;
   page-break-inside: auto;
   column-break-inside: auto;
+  margin-bottom: 1em;
 
   > .title  {
     text-transform: uppercase !important;
@@ -216,9 +225,18 @@ div.part > div.titlepage {display:none;}
 
   &.summary {
     .x-column-count(1);
-    > .title { content: "Chapter Review"; margin-top: 1em; }
+    > .title {
+      content: "Chapter Review";
+      margin: 0em;
+    }
+    > .section {
+      margin-bottom: 1em;
+    }
     > .section .title > a { color: black; page-break-after: avoid; }
     p:nth-of-type(1) { margin-top: 1em; }
+    .exercise {
+      margin-top: 0em;
+    }
   }
 
   .problem .orderedlist { margin-left: 4em;}
@@ -226,25 +244,35 @@ div.part > div.titlepage {display:none;}
   &.solutions  { display: none !important; }
 
   .empty { display: hidden; } //hide element but count it   *didn't use visibility property which would cause element to still take up space on page
+  .section .title {
+    padding-top: 0em;
+  }
 }
 
-.multiple-choice > .title {
-  content: "Review Questions";
-  column-span: all !important; // added override to resolve bug on staging where titles
-  margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginata
+.multiple-choice {
+  > .title {
+    content: "Review Questions";
+    column-span: all !important; // added override to resolve bug on staging where titles
+    margin-top: 0em;             // are spanning single column. cannot replicate locally or on naginata
+  }
 }
-.free-response > .title {
-  content: "Critical Thinking Questions";
-  column-span: all !important; // added override to resolve bug on staging where titles
-  margin-top: 1em;             // are spanning single column. cannot replicate locally or on naginata
+.free-response {
+  > .title {
+    content: "Critical Thinking Questions";
+    column-span: all !important; // added override to resolve bug on staging where titles
+    margin-top: 0em;             // are spanning single column. cannot replicate locally or on naginata
+  }
 }
 &.interactive-exercise > div.title {
   content: "Interactive Link Questions";
   column-span: all !important;  // added override to resolve bug on staging where titles
-  margin-top: 1em;              // are spanning single column. cannot replicate locally or on naginata
+  margin-top: 0em;              // are spanning single column. cannot replicate locally or on naginata
 }
 .multiple-choice,.free-response, .interactive-exercise {
   > .section > .title { display: none; }
+  .exercise {
+    margin-top: 0em;
+  }
 }
 
 
@@ -255,17 +283,35 @@ body {
   font-size: 9.5pt;
   text-align: justify !important;
 }
+ div.book > div.part > .chapter {
+   .figure {
+     margin-bottom: 0.5em
+   }
+   > .section.module {
+     > .section {
+       margin-bottom: 0.5em;
+       > .section {
+         margin-bottom: 0.5em;
+         .note.interactive:last-child {
+           margin-bottom: 1em;
+         }
+       }
+     }
+   }
+ }
 
 img { max-height:9.5in; }
 
 .chapter h1.title {
   /*reset left only*/
-  margin-left:0 !important;
+  margin-left: 0 !important;
   padding-left: 0 !important;
   font-size: 35pt; /* x-large; */
   font-weight: bold;
   text-align: left !important;
   color: @teal;
+  margin-top: 0px;
+  padding-top: 0px;
 
   .cnx-gentext-n {
     font-weight: bold;
@@ -285,7 +331,7 @@ a { font-weight: bold; color: @orange;}
 
 
 h1, h2, h3, h4, h5, h6 {
-  margin: 0.5em 0em;
+  margin: 0em 0em 0.5em;
   text-align: left !important; //overides text alignment set in
 }
 
@@ -346,18 +392,21 @@ p { font-family: @font-family-anatomy; }
 .glossary {
   // End-of-chapter material should start on a new page
   page-break-before: always;
-  display:inline;
+  display: inline;
 
-  .title {
+  .titlepage .title {
     /* Change "Glossary" to "Key Terms" */
     content: "Key Terms";
     color: @teal;
     font-size: large !important;
     padding: 0em !important;
     display: block !important;
-    text-transform:uppercase;
+    text-transform: uppercase;
+    margin-top: 0em;
   }
-
+  dl {
+    margin-bottom: 1em;
+  }
   // Remove ":"
   dt::after { content: " " !important; }
 }
@@ -368,7 +417,7 @@ img, figure, subfigure  { margin: 1em; }
 
 .colophon > h1.title {
   //this style Attributions and About Connections
-  color:white;
+  color: white;
   background-color: @teal;
   margin: .5em 0;
  }
@@ -385,9 +434,9 @@ img, figure, subfigure  { margin: 1em; }
   caption {
     padding-top: .5em;
     padding-bottom: 1em;
-    font-weight:bold;
+    font-weight: bold;
     color: @orange;
-    caption-side:bottom;
+    caption-side: bottom;
   }
 
   // Add styling for table entries that should render as table headers
@@ -411,7 +460,7 @@ img, figure, subfigure  { margin: 1em; }
   tr:first-child > th:first-child  {
     padding: .25em !important;
     color: @teal !important;
-    font-size:medium;
+    font-size: medium;
     margin-left: -1em;
     text-align: center !important;
     border-style: none !important;
@@ -444,7 +493,7 @@ img, figure, subfigure  { margin: 1em; }
     display: inline;
     color: @orange;
     font-weight: bold;
-    text-align:center;
+    text-align: center;
     margin-right: .5em;
   }
 
@@ -455,12 +504,12 @@ img, figure, subfigure  { margin: 1em; }
 
   > .caption {
     display: inline;
-    text-align:center;
+    text-align: center;
   }
 }
 
 .target-figure {
-  font-weight:bold;
+  font-weight: bold;
   color: @orange;
 }
 
@@ -493,7 +542,7 @@ div.book > div.part {
 // TODO: If this is used by other books it should probably be moved to ccap-numbering.less
 div.end-of-book-solutions {
   div.solution, .multiple-choice, .free-response, .interactive-exercise {
-    display:inline;
+    display: inline;
     clear: none;
     // Make the solutions pages span 2 columns
     //.x-column-count(2);
@@ -531,16 +580,18 @@ div.end-of-book-solutions {
   column-width: auto !important;
 
   .title h2 {
-    padding:0;
-    color:@teal;
-    text-transform:uppercase;
+    padding: 0;
+    color: @teal;
+    text-transform: uppercase;
     font-size: x-large;
   }
   h3.letter {
-    color:inherit;
-    font-weight:bold;
+    color: inherit;
+    font-weight: bold;
     font-size: medium;
-    padding-top:.5em;
+    padding-top: 0em;
+    margin-bottom: 0em;
+    line-height: 32px;
   }
 
  .index-term { font-size: small; }
@@ -572,6 +623,8 @@ div.end-of-book-solutions {
     font-size: x-large;
     font-weight: bold;
     background-color: transparent; //overwrite from .colophon title
+    margin-top: 0em;
+    padding-top: 0em;
   }
 
   .chapter-area {
@@ -599,6 +652,8 @@ div.end-of-book-references {
       background-color: transparent;
       color: @teal;
       margin-left: -.50em;
+      margin-top: 0em;
+      padding-top: 0em;
   }
 
   > .chapter-area {
