@@ -1404,30 +1404,6 @@ div.section > div.titlepage div.abstract {
           #content>#para>.style(any; any; learning-objectives)
         */
 }
-div.section > div.titlepage div.abstract p {
-  font: 10pt/14pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  margin: 0;
-}
-div.section > div.titlepage div.abstract > .title {
-  border: none;
-  margin-top: 0;
-}
-div.section > div.titlepage div.abstract ul.itemizedlist > .listitem {
-  display: list-item;
-  padding-top: 0;
-  margin-top: .4em;
-  margin-bottom: .4em;
-}
-div.section > div.titlepage div.abstract ul.itemizedlist > .listitem p {
-  display: block;
-  margin: 0;
-}
-div.section > div.titlepage div.abstract ul.itemizedlist > .listitem::before {
-  display: none;
-}
-div.section > div.titlepage div.abstract ul.itemizedlist > .listitem:last-child {
-  padding-bottom: 0;
-}
 div.section > div.titlepage div.abstract ul.itemizedlist > li {
   margin: .25em 0em;
 }
@@ -2440,29 +2416,40 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
 /********************************************************************
  * Styling for Learning Objectives Box
  ********************************************************************/
-.section > .titlepage .abstract::before {
-  display: none;
-}
-.section > .titlepage .abstract .itemizedlist > ul {
-  margin: 0 40px;
-}
-.section > .titlepage .abstract p {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  margin: 1em 0em .75em 1em;
-}
-.section > .titlepage .abstract .itemizedlist > .listitem > p {
-  margin: 0em .3em;
-  display: inline;
+div.book div > div.section > div.learning-objectives {
+  margin: 1em 0em;
+  padding: .50em;
+  page-break-inside: avoid;
+  page-break-before: avoid;
+  counter-reset: learning-objectives;
   text-align: left;
+  padding: 0;
+  margin-bottom: 0;
+  margin-top: 12.48px;
+  /*
+          For items below, .abstract section in precalculus-skeleton
+          needs additional work to place p and ul elements into slots
+          After that, we can just insert the delta into psychology slot
+          without addtional code needed for psychology-skeleton. A possible
+          slot for this would be something like this:
+          #content>#para>.style(any; any; learning-objectives)
+        */
 }
-.section > .titlepage .abstract .itemizedlist > .listitem {
-  counter-increment: learning-objectives;
-  display: block;
-}
-.section > .titlepage .abstract .itemizedlist > .listitem::before {
-  content: "" " " counter(chapter, decimal) "." counter(section, decimal) "." counter(learning-objectives) " " "";
-  color: #7291cb;
+div.book div > div.section > div.learning-objectives div.titlepage > div > div > h3 {
+  page-break-after: avoid;
+  page-break-before: avoid;
+  width: 100%;
+  color: #bb4829;
+  text-align: left;
   font-weight: bold;
+  font-size: 11pt;
+  padding-left: 0px;
+  padding-top: .1em;
+  padding-bottom: .2em;
+}
+div.book div > div.section > div.learning-objectives .itemizedlist > ul {
+  margin: 0 0 0 30px;
+  padding: 0;
 }
 /********************************************************************
  * End of chapter customizations
@@ -3220,8 +3207,6 @@ div.table table th {
 div.table table td {
   text-align: center;
   border-color: #354da1 !important;
-  border-top: 1px solid #354da1;
-  border-bottom: none;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding: 5px 10px;
@@ -3520,49 +3505,6 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
 /******************************************************
  * Learning Objectives/Chapter Objectives
  ******************************************************/
-.section > .titlepage .abstract {
-  margin: 1em 0em;
-  padding: .50em;
-  page-break-inside: avoid;
-  page-break-before: avoid;
-  counter-reset: learning-objectives;
-  text-align: left;
-  padding: 0;
-  margin-bottom: 0;
-  margin-top: 12.48px;
-  /*
-          For items below, .abstract section in precalculus-skeleton
-          needs additional work to place p and ul elements into slots
-          After that, we can just insert the delta into psychology slot
-          without addtional code needed for psychology-skeleton. A possible
-          slot for this would be something like this:
-          #content>#para>.style(any; any; learning-objectives)
-        */
-}
-.section > .titlepage .abstract p {
-  font: 10pt/14pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  margin: 0;
-}
-.section > .titlepage .abstract > .title {
-  border: none;
-  margin-top: 0;
-}
-.section > .titlepage .abstract ul.itemizedlist > .listitem {
-  display: list-item;
-  padding-top: 0;
-  margin-top: .4em;
-  margin-bottom: .4em;
-}
-.section > .titlepage .abstract ul.itemizedlist > .listitem p {
-  display: block;
-  margin: 0;
-}
-.section > .titlepage .abstract ul.itemizedlist > .listitem::before {
-  display: none;
-}
-.section > .titlepage .abstract ul.itemizedlist > .listitem:last-child {
-  padding-bottom: 0;
-}
 /******************************************************
  * Tables
  ******************************************************/
@@ -3634,8 +3576,8 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
   color: black;
   font-size: 13px;
   border-bottom: 0;
-  margin-bottom: 0;
   font-weight: bold;
+  margin-bottom: 0;
 }
 .cnx-eoc.personal-application {
   -webkit-column-count: 1;
@@ -4552,7 +4494,7 @@ div.book > div.appendix > div.section div.equation > *:last-child::after {
 }
 .cnx-eoc.multiple-choice > .title {
   color: black;
-  font-size: initial;
+  font-size: 13px;
   border-bottom: 0;
   font-weight: bold;
   margin-bottom: 0;
@@ -4562,7 +4504,7 @@ div.book > div.appendix > div.section div.equation > *:last-child::after {
 }
 .cnx-eoc.matching > .title {
   color: black;
-  font-size: initial;
+  font-size: 13px;
   border-bottom: 0;
   font-weight: bold;
   margin-bottom: 0;
@@ -4585,13 +4527,14 @@ div.book > div.appendix > div.section div.equation > *:last-child::after {
 }
 .cnx-eoc.matching table td {
   border: none;
+  text-align: left;
 }
 .cnx-eoc.matching table tbody {
   border: none;
 }
 .cnx-eoc.true-false > .title {
   color: black;
-  font-size: initial;
+  font-size: 13px;
   border-bottom: 0;
   font-weight: bold;
   margin-bottom: 0;
@@ -4601,20 +4544,20 @@ div.book > div.appendix > div.section div.equation > *:last-child::after {
 }
 .cnx-eoc.short-answer > .title {
   color: black;
-  font-size: initial;
+  font-size: 13px;
   border-bottom: 0;
-  margin-bottom: 0;
   font-weight: bold;
+  margin-bottom: 0;
 }
 .cnx-eoc.short-answer > .section .title > a {
   display: none;
 }
 .cnx-eoc.fill-in-the-blank > .title {
   color: black;
-  font-size: initial;
+  font-size: 13px;
   border-bottom: 0;
-  margin-bottom: 0;
   font-weight: bold;
+  margin-bottom: 0;
 }
 .cnx-eoc.fill-in-the-blank > .section .title > a {
   display: none;
