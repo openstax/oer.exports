@@ -93,6 +93,21 @@ Alternative script for EPUB:
     # For just a module:
     python content2epub.py -c ./static/content.css -e ./xsl/dbk2epub.xsl -t "module" -o ./m123.epub -i "m123" ./test-ccap/m-section/
 
+
+# Unit Tests
+
+There are unit tests for books in [./tests/](./tests/).
+
+To run the tests:
+
+- make sure `./config.yml` does not exist (grunt will use `./config-tests.yml`)
+- run `grunt diff`
+
+Inspect the diff HTML files in [./tests-output/](./tests-output/).
+
+To update the tests run `grunt prepare`.
+
+
 # Building, Diffing, and Coverage
 
 Testing and build tools use `grunt`. It can do several things:

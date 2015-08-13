@@ -67,7 +67,88 @@ def makeTransform(file):
     errors = extractLog(xsl.error_log)
     return xml, {}, errors
   return t
+# Use pmml2svg to convert MathML to inline SVG
+def mathml2svg(xml, files, **params):
+  math2svg=True # was defined parent function
+    
+  if math2svg:
+    formularList = MATH_XPATH(xml)
+    strErr = ''
+    if len(formularList) > 0:
 
+      # Take XML from stdin and output to stdout
+      # -s:$DOCBOOK1 -xsl:$MATH2SVG_PATH -o:$DOCBOOK2
+      strCmd = ['java','-jar', SAXON_PATH, '-s:-', '-xsl:%s' % MATH2SVG_PATH]
+
+      # run the program with subprocess and pipe the input and output to variables
+      p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True)
+      # set STDIN and STDOUT and wait untill the program finishes
+      stdOut, strErr = p.communicate(etree.tostring(xml))
+
+      #xml = etree.fromstring(stdOut, recover=True) # @xml:id is set to '' so we need a lax parser
+      parser = etree.XMLParser(recover=True)
+      xml = etree.parse(StringIO(stdOut), parser)
+
+      if strErr:
+        print >> sys.stderr, strErr.encode('utf-8')
+  return xml, {}, [] # xml, newFiles, log messages
+
+def imageResize(xml, files, **params):
+  # TODO: parse the XML and xpath/annotate it as we go.
+  newFiles = {}
+  for position, image in enumerate(DOCBOOK_IMAGE_XPATH(xml)):
+    filename = image.get('fileref')
+    mimeType = image.getparent().get('format', 'JPEG')
+    # Exception thrown if image doesn't exist
+    if filename in files:
+      try:
+        bytes = files[filename]
+        img = Image.open(StringIO(bytes))
+
+        width = img.size[0]
+        height = img.size[1]
+        if reduce_quality: # Only resize when in DEBUG mode (so content entry sees the High Resolution PDFs)
+          print >> sys.stderr, 'LOG: DEBUG: Reducing quality of %s (%s)' % (filename, mimeType)
+          # Always resave
+          fname = "_autogen-png2jpeg-%04d.jpg" % (position + 1)
+
+          bytesFile = StringIO()
+          img.save(bytesFile, 'jpeg', optimize=True, quality=30)
+          # Since we probably changed the type of file to JPEG change the format in the image tag
+          # The image type is used in the epub manifest to map images to their mime-type
+          image.set('fileref', fname)
+          image.set('format', 'JPEG')
+          image.getparent().set('format', 'JPEG')
+
+          newFiles[fname] = bytesFile.getvalue()
+
+      except IOError:
+        print >> sys.stderr, 'LOG: WARNING: Malformed image %s' % filename
+    else:
+      print >> sys.stderr, 'LOG: WARNING: Image missing %s' % filename
+      pass
+  return xml, newFiles, [] # xml, newFiles, log messages
+
+# Convert SVG elements to PNG files
+# (this mutates the document)
+def svg2pngTransform(xml, files, **params):
+  svg2png=True
+  newFiles2 = {}
+  if svg2png:
+    for position, image in enumerate(DOCBOOK_SVG_IMAGE_XPATH(xml)):
+      print >> sys.stderr, 'LOG: Converting SVG to PNG'
+      # TODO add the generated file to the edited files dictionary
+      strImageName = "_autogen-svg2png-%04d.png" % (position + 1)
+      svg = DOCBOOK_SVG_XPATH(image)[0]
+      svgStr = etree.tostring(svg)
+
+      pngStr = util.svg2png(svgStr)
+      newFiles2[strImageName] = pngStr
+      image.set('fileref', strImageName)
+      image.set('format', 'PNG')
+      image.getparent().set('format', 'PNG')
+
+  return xml, newFiles2, [] # xml, newFiles, log messages
 # Main method. Doing all steps for the Google Docs to CNXML transformation
 def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2svg=True, reduce_quality=False):
   """ Convert a cnxml file (and dictionary of filename:bytes) to a Docbook file and dict of filename:bytes) """
@@ -80,85 +161,7 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
   params = {'cnx.module.id': "'%s'" % moduleId, 'cnx.svg.chunk': 'false'}
   params.update(collParams)
 
-  # Use pmml2svg to convert MathML to inline SVG
-  def mathml2svg(xml, files, **params):
-    if math2svg:
-      formularList = MATH_XPATH(xml)
-      strErr = ''
-      if len(formularList) > 0:
 
-        # Take XML from stdin and output to stdout
-        # -s:$DOCBOOK1 -xsl:$MATH2SVG_PATH -o:$DOCBOOK2
-        strCmd = ['java','-jar', SAXON_PATH, '-s:-', '-xsl:%s' % MATH2SVG_PATH]
-
-        # run the program with subprocess and pipe the input and output to variables
-        p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True)
-        # set STDIN and STDOUT and wait untill the program finishes
-        stdOut, strErr = p.communicate(etree.tostring(xml))
-
-        #xml = etree.fromstring(stdOut, recover=True) # @xml:id is set to '' so we need a lax parser
-        parser = etree.XMLParser(recover=True)
-        xml = etree.parse(StringIO(stdOut), parser)
-
-        if strErr:
-          print >> sys.stderr, strErr.encode('utf-8')
-    return xml, {}, [] # xml, newFiles, log messages
-
-  def imageResize(xml, files, **params):
-    # TODO: parse the XML and xpath/annotate it as we go.
-    newFiles = {}
-    for position, image in enumerate(DOCBOOK_IMAGE_XPATH(xml)):
-      filename = image.get('fileref')
-      mimeType = image.getparent().get('format', 'JPEG')
-      # Exception thrown if image doesn't exist
-      if filename in files:
-        try:
-          bytes = files[filename]
-          img = Image.open(StringIO(bytes))
-
-          width = img.size[0]
-          height = img.size[1]
-          if reduce_quality: # Only resize when in DEBUG mode (so content entry sees the High Resolution PDFs)
-            print >> sys.stderr, 'LOG: DEBUG: Reducing quality of %s (%s)' % (filename, mimeType)
-            # Always resave
-            fname = "_autogen-png2jpeg-%04d.jpg" % (position + 1)
-
-            bytesFile = StringIO()
-            img.save(bytesFile, 'jpeg', optimize=True, quality=30)
-            # Since we probably changed the type of file to JPEG change the format in the image tag
-            # The image type is used in the epub manifest to map images to their mime-type
-            image.set('fileref', fname)
-            image.set('format', 'JPEG')
-            image.getparent().set('format', 'JPEG')
-
-            newFiles[fname] = bytesFile.getvalue()
-
-        except IOError:
-          print >> sys.stderr, 'LOG: WARNING: Malformed image %s' % filename
-      else:
-        print >> sys.stderr, 'LOG: WARNING: Image missing %s' % filename
-        pass
-    return xml, newFiles, [] # xml, newFiles, log messages
-
-  # Convert SVG elements to PNG files
-  # (this mutates the document)
-  def svg2pngTransform(xml, files, **params):
-    newFiles2 = {}
-    if svg2png:
-      for position, image in enumerate(DOCBOOK_SVG_IMAGE_XPATH(xml)):
-        print >> sys.stderr, 'LOG: Converting SVG to PNG'
-        # TODO add the generated file to the edited files dictionary
-        strImageName = "_autogen-svg2png-%04d.png" % (position + 1)
-        svg = DOCBOOK_SVG_XPATH(image)[0]
-        svgStr = etree.tostring(svg)
-
-        pngStr = util.svg2png(svgStr)
-        newFiles2[strImageName] = pngStr
-        image.set('fileref', strImageName)
-        image.set('format', 'PNG')
-        image.getparent().set('format', 'PNG')
-
-    return xml, newFiles2, [] # xml, newFiles, log messages
 
   PIPELINE = [
     makeTransform('cnxml-clean.xsl'),
