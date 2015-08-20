@@ -815,7 +815,14 @@ div.table {
       font-family: @font-family-serif;
     }
   }
-
+  &.column-header tbody td:first-child  {
+    #content>#table>#data>.style('header'; any);
+  }
+    &:not(.unnumbered) table {
+    thead tr:first-of-type:not(:last-child) th{
+      #content>#table>#header>#title>.text(any; any);
+    }
+  }
   table {
     #content>#table>.style(any; any);
     caption {
@@ -824,11 +831,12 @@ div.table {
         #content>#table>#caption>.number(any; any);
       }
     }
-    caption + tbody > tr:first-child > td.tablecell {
-      border-top: none;
-    }
+    // caption + tbody > tr:first-child > td.tablecell {
+    //   border-top: none;
+    // }
     thead { #content>#table>#head>.style(any; any); }
     tbody { #content>#table>#body>.style(any; any); }
+    table tbody[valign=top]>tr>td { vertical-align: top; }
     tr { #content>#table>#row>.style(any; any); }
     th { #content>#table>#header>.style(any; any); }
     td { #content>#table>#data>.style(any; any); }
@@ -855,6 +863,23 @@ ul.itemizedlist, ol.orderedlist {
     tr { #content>#table>#row>.style(colored; any); }
     tr td:first-child { background-color: @light-orange; width: 2.5in; font-weight: bold; }
   }
+  &.unstyled {
+      table {
+        #content>#table>.style(unstyled; any);
+        caption {
+          #content>#table>#caption>.style(unstyled; any);
+        }
+        tr {
+          #content>#table>#row>.style(unstyled; any);
+        }
+        td {
+        #content>#table>#data>.style(unstyled; any);
+      }
+      tbody {
+        #content>#table>#body>.style(unstyled; any);
+      }
+    }
+}
 }
 
 .cnx-figure-horizontal .informalfigure .caption {
@@ -1060,27 +1085,27 @@ div.book div.chapter > div.titlepage > div > div h1.title {
  * Tables
  ******************************************************/
 
-.table {
-  .table-caption.caption {
-    color: @red;
-    font-size: 10pt;
-    font-weight: 700 !important; // Override previously used important.
-    line-height: 13pt;
-    padding-left: 5px;
-  }
-  // @table-border is used with border-bottom in Precalculus, but the table
-  // already has a bottom border. !important is used to override this.
-  table tbody[valign=top]>tr>td { vertical-align: top; }
+// .table {
+//   // .table-caption.caption {
+//   //   color: @red;
+//   //   font-size: 10pt;
+//   //   font-weight: 700 !important; // Override previously used important.
+//   //   line-height: 13pt;
+//   //   padding-left: 5px;
+//   // }
+//   // @table-border is used with border-bottom in Precalculus, but the table
+//   // already has a bottom border. !important is used to override this.
 
-  table td {
-    border-color: @orange !important; // td's have inline style=""
-    font: 10pt/14pt @font-family-serif;
-    padding: 5px 10px;
-  }
-  > caption, td {
-    #content>#table>.cell();
-  }
-}
+
+//   // table td {
+//   //   border-color: @orange !important; // td's have inline style=""
+//   //   font: 10pt/14pt @font-family-serif;
+//   //   padding: 5px 10px;
+//   // }
+//   // > caption, td {
+//   //   #content>#table>.cell();
+//   // }
+// }
 
 
 /********************************************************************
@@ -1406,27 +1431,21 @@ span.emphasis-leading-indent strong { content: "\00a0" content(); }
  ******************************************************/
 
 .table {
-  > table > caption + tbody > tr:first-child > td.tablecell {
-    border-top:1px solid @dark-blue;
-  }
-  &.column-header tbody td:first-child  {
-    #content>#table>#data>.style('header'; any);
-  }
-  &:not(.unnumbered) table {
-    tr:first-child > th:first-child  {
-      #content>#table>#header>#title>.text(any; any);
-    }
-  }
+  // > table > caption + tbody > tr:first-child > td.tablecell {
+  //   border-top:1px solid @dark-blue;
+  // }
 
-  table .table-caption.caption {
-    color: @black;
-    font-weight: normal !important; //override strong tag
-    font-family: @font-family-sans-serif;
-    font-size: 9pt;
-  }
-   table thead > tr:first-child {
-   #content>#table>#header>#title>.style(any; any);
-  }
+
+
+  // table .table-caption.caption {
+  //   color: @black;
+  //   font-weight: normal !important; //override strong tag
+  //   font-family: @font-family-sans-serif;
+  //   font-size: 9pt;
+  // }
+  //  table thead > tr:first-child:not(:last-child) {
+  //  #content>#table>#header>#title>.style(any; any);
+  // }
 }
 
 
