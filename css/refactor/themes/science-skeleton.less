@@ -819,7 +819,7 @@ div.table {
     #content>#table>#data>.style('header'; any);
   }
     &:not(.unnumbered) table {
-    thead tr:first-of-type:not(:last-child) th{
+    thead tr:first-of-type th {
       #content>#table>#header>#title>.text(any; any);
     }
   }
@@ -835,7 +835,8 @@ div.table {
     // caption + tbody > tr:first-child > td.tablecell {
     //   border-top: none;
     // }
-    thead { #content>#table>#head>.style(any; any);
+    thead {
+      #content>#table>#head>.style(any; any);
       .footnote::footnote-call {
         #content>#table>#header>#title>.footnote(any; any);
       }
@@ -843,7 +844,7 @@ div.table {
     tbody { #content>#table>#body>.style(any; any); }
     table tbody[valign=top]>tr>td { vertical-align: top; }
     tr { #content>#table>#row>.style(any; any); }
-    th { #content>#table>#header>.style(any; any);
+    th:not(:only-child) { #content>#table>#header>.style(any; any);
     }
     td { #content>#table>#data>.style(any; any); }
     // Add styling for table entries that should render as table headers
