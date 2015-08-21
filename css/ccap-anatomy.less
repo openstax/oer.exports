@@ -250,6 +250,7 @@ div.part > div.titlepage { display:none; }
 }
 
 .multiple-choice {
+  margin-bottom: 2.5em;
   > .title {
     content: "Review Questions";
     column-span: all !important; // added override to resolve bug on staging where titles
@@ -257,10 +258,12 @@ div.part > div.titlepage { display:none; }
   }
 }
 .free-response {
+  page-break-inside: avoid;
   > .title {
     content: "Critical Thinking Questions";
     column-span: all !important; // added override to resolve bug on staging where titles
     margin-top: 0em;             // are spanning single column. cannot replicate locally or on naginata
+    page-break-after: avoid;
   }
 }
 &.interactive-exercise > div.title {
@@ -272,6 +275,7 @@ div.part > div.titlepage { display:none; }
   > .section > .title { display: none; }
   .exercise {
     margin-top: 0em;
+    margin-bottom: 0.5em;
   }
 }
 
@@ -629,6 +633,8 @@ div.end-of-book-solutions {
 
   .chapter-area {
     font-family: @font-family-anatomy;
+    margin-bottom: 8.5px;
+
     a {
       &.solution { color: black; }
       &.chapter * {
