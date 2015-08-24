@@ -11,7 +11,7 @@ from StringIO import StringIO
 from lxml import etree
 from tempfile import mkstemp
 import subprocess
-
+import numpy
 try:
   import pkg_resources
   resource_filename = pkg_resources.resource_filename
@@ -212,3 +212,11 @@ class Progress(object):
     if len(msg) > 1:
       msg = msg[1:]
     print >> sys.stderr, "STATUS: %d%% %s" % (percent * 100, ': '.join(msg))
+
+
+def mean_squared_error(imageA, imageB):
+    err = numpy.sum((imageA.astype("float") - imageB.astype("float")) ** 2)
+    err /= float(imageA.shape[0] * imageA.shape[1])
+    
+    return err
+
