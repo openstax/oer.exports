@@ -843,7 +843,8 @@ div.table {
     }
     tbody { #content>#table>#body>.style(any; any); }
     table tbody[valign=top]>tr>td { vertical-align: top; }
-    tr { #content>#table>#row>.style(any; any); }
+    tr { #content>#table>#row>.style(any; any);
+    }
     th:not(:only-child) { #content>#table>#header>.style(any; any);
     }
     td { #content>#table>#data>.style(any; any); }
@@ -883,7 +884,40 @@ ul.itemizedlist, ol.orderedlist {
         #content>#table>#body>.style(unstyled; any);
       }
     }
-}
+  }
+
+  &.multiple-headers {
+    table {
+      #content>#table>.style(multiple-headers; any);
+
+      tbody {
+        #content>#table>#body>.style(multiple-headers; any);
+      }
+      tr {
+        #content>#table>#row>.style(multiple-headers; any);
+      }
+     td {
+      #content>#table>#data>.style(multiple-headers; any);
+      }
+      tr table {
+       thead tr .tablecell {
+        #content>#table>#header>.style(multiple-header; table);
+        }
+        tbody {
+          #content>#table>#body>.style(multiple-headers; table);
+        }
+        tr {
+          #content>#table>#row>.style(multiple-headers; table);
+        }
+        thead tr:only-child, thead tr:only-child .tablecell {
+          border-top: 0px !important;
+        }
+        td {
+          #content>#table>#data>.style(multiple-headers; table);
+        }
+      }
+    }
+  }
 }
 
 .cnx-figure-horizontal .informalfigure .caption {
