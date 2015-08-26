@@ -113,31 +113,75 @@ div.part > div.titlepage { display:none; }
 .art-connection {
   page-break-inside: avoid;
   .x-feature(black, @cream, CNX_Bio_Art); //same svg header for maj/nonMaj
+
+  &::before {
+    width: 352px;
+    height: 46px;
+  }
 }
 
 .career {
   page-break-inside: avoid;
   .x-feature(black, @cream, CNX_BioMaj_Career);
-  &.non-majors { .x-feature(black, @cream, CNX_BioNonMaj_Career); }
+
+  &::before {
+    width: 352px;
+    height: 46px;
+  }
+
+  &.non-majors {
+    .x-feature(black, @cream, CNX_BioNonMaj_Career);
+
+    &::before {
+      width: 351px;
+    }
+  }
 }
 
 .everyday {
   page-break-inside: avoid;
   .x-feature(black, @cream, CNX_BioMaj_Everyday);
-  &.non-majors { .x-feature(black, @cream, CNX_BioNonMaj_Everyday); }
+  &::before {
+    width: 352px;
+    height: 37px;
+  }
+
+  &.non-majors {
+    .x-feature(black, @cream, CNX_BioNonMaj_Everyday);
+
+    &::before {
+      width: 351px;
+    }
+  }
 }
 
 .evolution {
   page-break-inside: avoid;
   .x-feature(black, @cream, CNX_BioMaj_Evolution);
+
+  &::before {
+    width: 351px;
+    height: 49px;
+  }
+
   &.non-majors {
     .x-feature(black, @cream, CNX_BioNonMaj_Evolution);
+
+    &::before {
+      height: 45px;
+    }
   }
 }
 
 .scientific  {
   page-break-inside: avoid;
   .x-feature( black, @cream, CNX_BioMaj_Scientific );
+
+  &::before {
+    width: 432px;
+    height: 45px;
+  }
+
   &.non-majors {
     .x-feature( black, @cream, CNX_BioNonMaj_Scientific );
   }
@@ -161,14 +205,16 @@ div.part > div.titlepage { display:none; }
   page-break-inside: avoid;
   .x-feature(black, @cream, Visual_Connection_feature, png);
   &::before {
-    padding-top: 0.46in;
+    width: 600px;
+    height: 71px;
   }
 }
 .ap-everyday {
   page-break-inside: avoid;
   .x-feature(black, @cream, Everyday_AP_feature, png);
   &::before {
-    padding-top: 0.38in;
+    width: 825px;
+    height: 57px;
   }
 }
 .ap-science-practices {
@@ -187,13 +233,14 @@ div.part > div.titlepage { display:none; }
   }
   .x-feature(black, @cream, AP_Scientific_Practices_feature, png);
   &::before {
-    padding-top: 0.39in;
-    margin-bottom: 10px;
+    width: 825px;
+    height: 60px;
   }
 }
 
 .x-feature (@color, @bg-color, @file, @type: svg ) {
   background-color: @bg-color;
+  display: table;
   * p { font-family: inherit; }
   p:nth-of-type(1) {
     page-break-before: avoid; // 1st para contains feature body title no break after
@@ -201,19 +248,13 @@ div.part > div.titlepage { display:none; }
 
   &::before {
     background-image: url("ccap-biology/@{file}.@{type}");
-    padding-top: 0.49in;
     background-repeat: no-repeat;
     background-position: top left;
-    background-position: top outside;
     page-break-inside: avoid;
     page-break-after: avoid;
-    background-color: white;
     content: "";
-    display:block;
-    // the following are tweaked so the overlays really do over lay
-    margin-left: -1.05em;
-    margin-right: -2.05em;
-    margin-top: -0.03in;
+    display: table-caption;
+    caption-side: top;
   }
 
   > .title { display: none; } //supress title in pdf (webview only)
