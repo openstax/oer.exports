@@ -266,37 +266,18 @@ div.book div > div.section > div.section {
  * Styling for Learning Objectives Box
  ********************************************************************/
 
-.section > .titlepage {
-  .abstract {
-    &::before {
+
+div.book div > div.section > div.learning-objectives {
+  #part>#chapter>#learning-objectives>.style();
+  div.titlepage > div > div > h3 {
      #part>#chapter>#learning-objectives>#title>.style();
     }
     .itemizedlist > ul {
       #part>#chapter>#learning-objectives>#list>.style();
      }
-
-    p { font-family: @font-family; margin: 1em 0em .75em 1em; }
-
-    .itemizedlist > .listitem > p {
-      margin: 0em .3em;
-      display: inline;
-      text-align: left;
-    }
-
-
-    // Special three-part numbering for Learning Objective chapter.section.learning-objectives
-    .itemizedlist > .listitem {
-      counter-increment: learning-objectives;
-      display: block;
-
-      &::before {
-        content: "" " " counter(chapter, decimal) "." counter(section, decimal) "." counter(learning-objectives) " " "";
-        color: @medium-blue;
-        font-weight: bold;
-      }
-    }
   }
-}
+
+
 
 /********************************************************************
  * End of chapter customizations
@@ -800,15 +781,20 @@ div.book div.chapter > div.section div.example div.exercise .commentary {
 /******************************************************************************
  * Tables
  ******************************************************************************/
-
 div.table {
   // First, reset div.table so it just goes away. Apply styling to the actual
   // table element.
   margin: 0 auto;
   padding: 0;
   border: none;
-
-  // TODO: Investigate this. Figures in a table?
+  table {
+    #content>#table>.style(any; any);
+    caption {
+      #content>#table>#caption>.style(any; any);
+      &::before {
+        #content>#table>#caption>.number(any; any);
+      }
+    }
   .cnx-figure-horizontal .informalfigure .caption {
     text-align: center; //center subfigure caption
     * {
@@ -816,27 +802,28 @@ div.table {
       font-family: @font-family-serif;
     }
   }
-
-  table {
-    #content>#table>.style(any; any);
-
-    caption {
-      #content>#table>#caption>.style(any; any);
-      &::before {
-        #content>#table>#caption>.number(any; any);
+    // caption + tbody > tr:first-child > td.tablecell {
+    //   border-top: none;
+    // }
+    thead {
+      #content>#table>#head>.style(any; any);
+      .footnote::footnote-call {
+        #content>#table>#header>#title>.footnote(any; any);
       }
     }
-
-    thead { #content>#table>#head>.style(any; any); }
     tbody { #content>#table>#body>.style(any; any); }
-    tr { #content>#table>#row>.style(any; any); }
-    th { #content>#table>#header>.style(any; any); }
+    table tbody[valign=top]>tr>td { vertical-align: top; }
+    tr { #content>#table>#row>.style(any; any);
+    }
+    th:not(:only-child) { #content>#table>#header>.style(any; any);
+    }
     td { #content>#table>#data>.style(any; any); }
     // Add styling for table entries that should render as table headers
     td.header { #content>#table>#data>.style('header'; any); }
-
+    thead > tr:first-child {
+      #content>#table>#header>#title>.style(any; any);
+    }
   }
-
   //handle lists inside tables
 ul.itemizedlist, ol.orderedlist {
     #content>#list>.style(any; any; table);
@@ -847,20 +834,82 @@ ul.itemizedlist, ol.orderedlist {
 
   // Special colored table...
   &.color {
-    th { #content>#table>#header>.style(colored; any); }
-    tr { #content>#table>#row>.style(colored; any); }
-    tr td:first-child { background-color: @light-orange; width: 2.5in; font-weight: bold; }
+    th {
+      #content>#table>#header>.style(colored; any);
+    }
+    tr {
+      #content>#table>#row>.style(colored; any);
+    }
+    tr td:first-child {
+      background-color: @light-orange;
+      width: 2.5in;
+      font-weight: bold;
+    }
   }
 
-}
+  //no borders, left aligned, no color change
+  &.unstyled {
+      table {
+        #content>#table>.style(unstyled; any);
+        caption {
+          #content>#table>#caption>.style(unstyled; any);
+        }
+        tr {
+          #content>#table>#row>.style(unstyled; any);
+        }
+        td {
+          #content>#table>#data>.style(unstyled; any);
+        }
+        tbody {
+          #content>#table>#body>.style(unstyled; any);
+      }
+    }
+  }
 
-.cnx-figure-horizontal .informalfigure .caption {
-  text-align: center; //center subfigure caption
-  * {
-    font-weight: normal; //override strong tag
-    font-family: @font-family-serif;
+  //nested tables with header rows within
+  &.multiple-headers {
+    table {
+      #content>#table>.style(multiple-headers; any);
+      tbody {
+        #content>#table>#body>.style(multiple-headers; any);
+      }
+      tr {
+        #content>#table>#row>.style(multiple-headers; any);
+      }
+      td {
+        #content>#table>#data>.style(multiple-headers; any);
+      }
+      tr table {
+       thead tr .tablecell {
+          #content>#table>#header>.style(multiple-header; table);
+        }
+        tbody {
+          #content>#table>#body>.style(multiple-headers; table);
+        }
+        tr {
+          #content>#table>#row>.style(multiple-headers; table);
+        }
+        thead tr:only-child, thead tr:only-child .tablecell {
+          border-top: 0px !important;
+        }
+        td {
+          #content>#table>#data>.style(multiple-headers; table);
+        }
+      }
+    }
+  }
+
+  //left column displays as a table head.
+  &.column-header tbody td:first-child  {
+    #content>#table>#data>.style('header'; any);
+  }
+  &:not(.unnumbered) table {
+    thead tr:first-of-type th {
+      #content>#table>#header>#title>.text(any; any);
+    }
   }
 }
+
 
 /* ---------------------------------------------------
  * Custom Equation (Non) Numbering
@@ -1048,36 +1097,10 @@ div.book div.chapter > div.titlepage > div > div h1.title {
  * Learning Objectives/Chapter Objectives
  ******************************************************/
 
-.section > .titlepage .abstract {
-  #part>#chapter>#learning-objectives>.style();
-}
+// .section > .titlepage .abstract {
+//   #part>#chapter>#learning-objectives>.style();
+// }
 
-
-/******************************************************
- * Tables
- ******************************************************/
-
-.table {
-  .table-caption.caption {
-    color: @red;
-    font-size: 10pt;
-    font-weight: 700 !important; // Override previously used important.
-    line-height: 13pt;
-    padding-left: 5px;
-  }
-  // @table-border is used with border-bottom in Precalculus, but the table
-  // already has a bottom border. !important is used to override this.
-  table tbody[valign=top]>tr>td { vertical-align: top; }
-
-  table td {
-    border-color: @orange !important; // td's have inline style=""
-    font: 10pt/14pt @font-family-serif;
-    padding: 5px 10px;
-  }
-  > caption, td {
-    #content>#table>.cell();
-  }
-}
 
 
 /********************************************************************
@@ -1398,29 +1421,6 @@ span.emphasis-two strong {
 }
 span.emphasis-leading-indent strong { content: "\00a0" content(); }
 
-/******************************************************
- * Tables
- ******************************************************/
-
-.table {
-  > table > caption + tbody > tr:first-child > td.tablecell {
-    border-top:1px solid @dark-blue;
-  }
-  &.column-header tbody td:first-child  {
-    #content>#table>#data>.style('header'; any);
-  }
-  &:not(.unnumbered) table {
-    tr:first-child > th:first-child  {
-      #content>#table>#header>.style('first'; any);
-    }
-  }
-  table .table-caption.caption {
-    color: @black;
-    font-weight: normal !important; //override strong tag
-    font-family: @font-family-sans-serif;
-    font-size: 9pt;
-  }
-}
 
 
 /******************************************************
@@ -1523,6 +1523,8 @@ div.appendix  {
   dl dd { #content>#glossary>.definition(any; chapter); }
 }
 
+
+
 /********************************************************************
  * Ad-hoc numbering
  ********************************************************************/
@@ -1532,5 +1534,6 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div spa
 div.book > div.appendix > div.section div.equation > *:last-child::after {
   display: none;
 }
-
-//end chemistry
+.footnote {
+  #content>#footnote>.style();
+}

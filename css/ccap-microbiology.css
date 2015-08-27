@@ -70,8 +70,16 @@ td.entrytbl > table {
   border-left-width: 0;
   border-right-width: 0;
 }
+#content #table #row {
+  border: none !important;
+}
+/********************************************************************
+ * Refactor of .x-feature() function to utilize only one paramter
+ ********************************************************************/
+/* The QR code variable is needed for psychology skeleton but we are not using it since it's going away */
 html {
-  prince-image-resolution: 120dpi;
+  prince-image-resolution: 200dpi;
+  prince-background-image-resolution: 200dpi;
 }
 div.book {
   /* --------------------------------------
@@ -792,6 +800,9 @@ div.book .footnote {
   margin-bottom: 0em;
   padding-top: 0em;
   padding-bottom: 0em;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 11px;
+  color: #000000;
   float: footnote;
 }
 div.book .footnote * {
@@ -1137,10 +1148,11 @@ div.table-caption.caption {
 }
 .book > .toc > .title {
   page-break-after: avoid;
+  font-size: large;
   margin-bottom: 0em;
-  color: #a63c1d;
+  color: #354da1;
   font-size: 18pt;
-  font-weight: normal;
+  font-weight: bold;
   text-align: center;
   text-transform: none;
   margin-left: 0px;
@@ -1148,12 +1160,8 @@ div.table-caption.caption {
   margin-bottom: .2em;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-bottom-color: #e28f26;
+  border-bottom-color: #f6862d;
   background-color: transparent;
-  color: #3767b1;
-  border-bottom-color: #3767b1;
-  font-weight: bold;
-  font-size: large;
 }
 .book > .toc ul,
 .book > .toc li {
@@ -1212,29 +1220,17 @@ div.table-caption.caption {
  * PREFACE
  ***************************************************/
 .preface > .titlepage h1.title {
-  color: #a63c1d;
-  background-color: transparent;
+  padding-left: .25em;
+  color: #354da1;
   padding-left: 0;
   text-transform: capitalize;
   font-size: 18pt;
   font-weight: 700;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-bottom-color: #e28f26;
+  border-bottom-color: #f6862d;
   margin-top: 0;
   padding-top: 0;
-  margin-bottom: 16px;
-  page-break-after: avoid;
-  color: #ffffff;
-  background-color: #3767b1;
-  margin: 0.5em 0;
-  margin-bottom: 0;
-  padding: 0.1em 0.5em;
-  padding-left: .25em;
-  font-size: 2.8em;
-  font-weight: normal;
-  text-transform: uppercase;
-  border-bottom: none;
 }
 .preface > .section h2 {
   font-size: medium;
@@ -1284,15 +1280,14 @@ h1.title .cnx-gentext-n {
   font-weight: bold;
   font-size: normal;
   content: "Introduction";
-  color: #a63c1d;
-  border-bottom-color: #e28f26;
+  color: #354da1;
+  border-bottom-color: #f6862d;
   border-bottom-width: 1px;
   border-bottom-style: solid;
   padding-bottom: 0.2em;
-  font-size: 14pt;
+  font-size: 17pt;
   font-weight: 700;
   text-transform: capitalize;
-  display: none;
 }
 .chapter > .introduction .splash img {
   margin-left: auto;
@@ -1314,7 +1309,6 @@ h1.title .cnx-gentext-n {
   width: 100%;
   border: none;
   padding: 0em;
-  display: none;
 }
 .chapter > .introduction > .toc span {
   font-weight: normal;
@@ -1330,17 +1324,17 @@ h1.title .cnx-gentext-n {
   text-align: center;
   padding: 0.25em;
   margin: 0em;
+  page-break-after: avoid;
+  page-break-before: avoid;
+  content: "Chapter Outline";
   width: 100%;
-  color: #cfe1f1;
+  color: #bb4829;
   text-align: left;
   font-weight: bold;
   font-size: 11pt;
   padding-left: 0px;
   padding-top: .1em;
   padding-bottom: .2em;
-  page-break-after: avoid;
-  page-break-before: avoid;
-  content: "Chapter Outline";
   content: "Learning Objectives";
 }
 .chapter > .introduction > .toc > * {
@@ -1351,6 +1345,8 @@ h1.title .cnx-gentext-n {
   list-style-type: none;
   margin: 0.50em 0em;
   margin: 0.2em 0;
+  color: #7291cb;
+  font-weight: bold;
 }
 .chapter > .introduction > .toc > ul {
   padding-left: 0em;
@@ -1361,6 +1357,7 @@ h1.title .cnx-gentext-n {
   font-weight: bold;
   padding: 0.25em 0em;
   margin: 0em 1em 0em 0.5em;
+  color: #000000;
   margin: 0;
   font-weight: normal;
   font-size: 9pt;
@@ -1400,31 +1397,8 @@ div.section > div.titlepage div.abstract {
   counter-reset: learning-objectives;
   text-align: left;
   padding: 0;
-  border-bottom: 1px solid #e28f26;
-  border-bottom: none;
-}
-div.section > div.titlepage div.abstract p {
-  font: 10pt/14pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  margin: 0;
-}
-div.section > div.titlepage div.abstract > .title {
-  border: none;
-  margin-top: 0;
-}
-div.section > div.titlepage div.abstract ul.itemizedlist > .listitem {
-  display: list-item;
-  padding-top: 0;
-  margin: 0;
-}
-div.section > div.titlepage div.abstract ul.itemizedlist > .listitem p {
-  display: block;
-  margin: 0;
-}
-div.section > div.titlepage div.abstract ul.itemizedlist > .listitem::before {
-  display: none;
-}
-div.section > div.titlepage div.abstract ul.itemizedlist > .listitem:last-child {
-  padding-bottom: .75em;
+  margin-bottom: 0;
+  margin-top: 12.48px;
 }
 div.section > div.titlepage div.abstract ul.itemizedlist > li {
   margin: .25em 0em;
@@ -1455,6 +1429,9 @@ div.section > div.titlepage div.abstract ul.itemizedlist > li {
   margin-bottom: 0em;
   padding-top: 0em;
   padding-bottom: 0em;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 11px;
+  color: #000000;
   float: footnote;
 }
 .footnote * {
@@ -1673,18 +1650,17 @@ h6 {
   margin-bottom: 1.5em;
   padding: 20px;
   background-color: #ffffff;
-  page-break-inside: auto;
 }
 .note h3 {
   margin-top: 0.5em;
   padding: 0;
   margin: 0;
   color: #000000;
+  font-weight: bold;
   border: none;
   padding-bottom: .2em;
-  font-weight: bold;
-  margin: .5em 0;
-  padding: 0 10px;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 11pt;
 }
 span.underline {
   text-decoration: underline;
@@ -1734,37 +1710,14 @@ ul.itemizedlist.no-mark {
   list-style-type: none;
 }
 /********************* Glossary Section **************/
-.glossary {
-  display: block;
-  margin-bottom: 20px;
-  margin-top: 0;
-}
-.glossary .titlepage h2 {
-  font-weight: bold !important;
-  margin-bottom: 1em;
-  padding: 0 0 0.2em 0;
-  display: block !important;
-  width: 100%;
-}
-.glossary dl {
-  display: block;
-  margin-bottom: 20px;
-  margin-top: 0;
-}
 .glossary dl dt {
   float: left;
   font-weight: bold;
-  display: block;
-  margin-top: 0;
 }
 .glossary dl dt::after {
   content: ":";
   padding-right: 0.5em;
   display: inline !important;
-}
-.glossary dl dd {
-  margin-left: 0px;
-  display: block;
 }
 em.glossterm {
   font-weight: bold;
@@ -1779,31 +1732,22 @@ em.glossterm {
 .cnx-eoc > .title {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
-  color: #a63c1d;
-  border-bottom-color: #e28f26;
+  color: #354da1;
+  text-align: left;
+  border-bottom-color: #f6862d;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  font-size: 12pt;
+  font-size: 13pt;
+  line-height: 17pt;
   font-weight: 700;
   margin-top: 0;
   page-break-after: avoid;
-  -webkit-column-span: all;
-  column-span: all;
-  color: #3767b1;
-  font: normal normal 700 14pt/1em Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  border-bottom: none;
-  text-transform: capitalize;
-}
-.cnx-eoc > .title span {
-  font-size: 18px;
+  padding-bottom: 0;
+  margin-bottom: 6.6px;
 }
 .cnx-eoc .section .title {
   padding-top: 1em;
   padding-top: 0;
-  page-break-after: avoid;
-}
-.cnx-eoc .section .title a {
-  display: inline;
 }
 .cnx-eoc .section .title a {
   font-size: small;
@@ -1894,7 +1838,6 @@ p:nth-of-type(2),
   margin-bottom: 1.5em;
   padding: 20px;
   background-color: #ffffff;
-  page-break-inside: auto;
 }
 .introduction .footnote {
   color: black;
@@ -1912,6 +1855,9 @@ p:nth-of-type(2),
   margin-bottom: 0em;
   padding-top: 0em;
   padding-bottom: 0em;
+}
+.introduction .section > .title {
+  page-break-after: avoid;
 }
 .introduction .example {
   margin-top: 1.5em;
@@ -1966,7 +1912,6 @@ p:nth-of-type(2),
   margin-bottom: 1.5em;
   padding: 20px;
   background-color: #ffffff;
-  page-break-inside: auto;
 }
 .chapter .footnote {
   color: black;
@@ -1984,6 +1929,9 @@ p:nth-of-type(2),
   margin-bottom: 0em;
   padding-top: 0em;
   padding-bottom: 0em;
+}
+.chapter .section > .title {
+  page-break-after: avoid;
 }
 .chapter .example {
   margin-top: 1.5em;
@@ -2038,7 +1986,6 @@ p:nth-of-type(2),
   margin-bottom: 1.5em;
   padding: 20px;
   background-color: #ffffff;
-  page-break-inside: auto;
 }
 .cnx-eoc .footnote {
   color: black;
@@ -2056,6 +2003,9 @@ p:nth-of-type(2),
   margin-bottom: 0em;
   padding-top: 0em;
   padding-bottom: 0em;
+}
+.cnx-eoc .section > .title {
+  page-break-after: avoid;
 }
 .cnx-eoc .example {
   margin-top: 1.5em;
@@ -2110,7 +2060,6 @@ p:nth-of-type(2),
   margin-bottom: 1.5em;
   padding: 20px;
   background-color: #ffffff;
-  page-break-inside: auto;
 }
 .colophon .footnote {
   color: black;
@@ -2128,6 +2077,9 @@ p:nth-of-type(2),
   margin-bottom: 0em;
   padding-top: 0em;
   padding-bottom: 0em;
+}
+.colophon .section > .title {
+  page-break-after: avoid;
 }
 .colophon .example {
   margin-top: 1.5em;
@@ -2192,7 +2144,6 @@ div[class="note"] {
   margin-bottom: 1.5em;
   padding: 20px;
   background-color: #ffffff;
-  page-break-inside: auto;
 }
 div[class="note"] > .title {
   margin-top: 0.5em;
@@ -2202,93 +2153,387 @@ div[class="note"] > .title {
   font-weight: bold;
   border: none;
   padding-bottom: .2em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 11pt;
 }
-.note.media {
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  padding: 20px;
-  background-color: #ffffff;
-  page-break-inside: auto;
+/* -------------------------
+ * Preface
+ * -------------------------
+ */
+div.book div.preface > .titlepage {
+  padding-bottom: .5em;
 }
-.note.media .itemizedlist > .listitem {
-  color: #e28f26;
+div.book div.preface > .titlepage h1.title {
+  padding-left: .25em;
+  color: #354da1;
+  padding-left: 0;
+  text-transform: capitalize;
+  font-size: 18pt;
+  font-weight: 700;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #f6862d;
+  margin-top: 0;
+  padding-top: 0;
+}
+div.book div.preface > div.section div.titlepage > div > div > h2 {
+  page-break-after: avoid;
+}
+div.book div.preface > div.section > div.section > div.titlepage > div > div > h3 {
+  page-break-after: avoid;
+}
+.chapter > .introduction > .figure.splash {
+  font-size: xx-small;
+  padding-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  page-break-inside: avoid;
+  padding-top: 1em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 9pt;
+  padding-bottom: 1em;
+  text-align: left;
+  padding-top: 0;
+}
+/* -------------------------
+ * Book Table of Contents
+ * -------------------------
+ */
+.book > .toc {
+  page-break-before: right;
+  page-break-after: always;
+}
+.book > .toc > .title {
+  page-break-after: avoid;
+  font-size: large;
+  margin-bottom: 0em;
+  color: #354da1;
+  font-size: 18pt;
   font-weight: bold;
+  text-align: center;
+  text-transform: none;
+  margin-left: 0px;
+  padding-left: 0px;
+  margin-bottom: .2em;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #f6862d;
+  background-color: transparent;
+}
+.book > .toc a {
+  color: #354da1;
+  font: 10pt/13pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+/* -------------------------
+ * Unit Page
+ * -------------------------
+ */
+div.part > div.titlepage {
+  display: none;
+}
+/* -------------------------
+ * Chapter Introduction
+ * -------------------------
+ */
+.chapter > .introduction {
+  /******************************************************************
+   * Styling for Chapter Outline Box
+   ******************************************************************/
+}
+.chapter > .introduction > .title {
+  content: "Introduction";
+  color: #354da1;
+  border-bottom-color: #f6862d;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  padding-bottom: 0.2em;
+  font-size: 17pt;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+.chapter > .introduction > .toc a {
+  color: inherit;
+  font-weight: bold;
+  padding: 0.25em 0em;
+  margin: 0em 1em 0em 0.5em;
+  color: #000000;
+  margin: 0;
+  font-weight: normal;
+  font-size: 9pt;
+  line-height: 11pt;
+}
+.chapter > .introduction > .toc .toc-section .cnx-gentext-t {
+  color: #000000;
+  font-weight: normal;
+}
+.chapter > .introduction > .toc .toc-section .cnx-gentext-n:after {
+  content: "";
+}
+.chapter > .introduction > .toc {
+  display: table;
+  margin: auto;
+  margin-bottom: 1em;
+  border-spacing: 0px;
+  page-break-inside: avoid;
+  width: 100%;
+  border: none;
+  padding: 0em;
+}
+.chapter > .introduction > .toc span {
+  font-weight: normal;
+  font-size: 9pt;
+  line-height: 11pt;
+}
+.chapter > .introduction > .toc ul {
+  margin-left: 0.125in;
+}
+.chapter > .introduction > .toc > .title {
+  color: white;
+  font-size: large;
+  text-align: center;
+  padding: 0.25em;
+  margin: 0em;
+  page-break-after: avoid;
+  page-break-before: avoid;
+  content: "Chapter Outline";
+  width: 100%;
+  color: #bb4829;
+  text-align: left;
+  font-weight: bold;
+  font-size: 11pt;
+  padding-left: 0px;
+  padding-top: .1em;
+  padding-bottom: .2em;
+}
+/********************************************************************
+ * Styling for Chapter Titles
+ ********************************************************************/
+div.book div.chapter > div.titlepage > div > div h1.title {
+  color: #993720;
+  border-bottom-color: #f6862d;
+  text-transform: none;
+  font-weight: normal;
+  font-size: 18pt;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   text-align: left;
 }
-.note.media .itemizedlist > .listitem .link.only-show-once {
-  content: content();
+div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-n {
+  content: "Chapter" " " content();
+  font-size: 18pt;
+  font-weight: 700;
+  color: #993720;
+  margin: 0;
+  padding: 0;
+  color: #354da1;
+}
+div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
+  font: 28pt/33pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  color: #354da1;
+  border-top-color: #f6862d;
+  display: block;
+  font-weight: 700;
+  padding-left: 0 !important;
+  padding-bottom: 0;
+  border-top-width: 1px;
+  border-top-style: solid;
+  margin-top: .05em;
+  padding-top: .35em;
+}
+div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::before {
+  color: black;
+}
+div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autogenerated {
+  display: none;
+}
+/********************************************************************
+ * Styling for Appendix
+ ********************************************************************/
+div.book > div.appendix > div.titlepage > div > div h1.title {
+  font-size: 34pt;
+  font-weight: bold;
+  color: #7291cb;
+  padding: 0;
+  margin: 0;
+}
+div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-n {
+  color: #7291cb;
+  padding-right: 0;
+}
+div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t::before {
+  content: "| ";
+  color: black;
+}
+div.book > div.appendix .table {
+  page-break-inside: auto;
+}
+div.book > div.appendix > div.section > div.titlepage h2 {
+  color: #354da1;
+  font-size: 17pt;
+  page-break-after: avoid;
+  font-weight: 700;
+  border-bottom: 1px solid #f6862d;
+  padding-bottom: .2em;
+}
+div.book > div.appendix > div.section > div.section > div.titlepage h3 {
+  page-break-after: avoid;
+}
+/********************************************************************
+ * Styling for Module Titles
+ ********************************************************************/
+div.book div.chapter > div.section > div.titlepage h2 {
+  color: #354da1;
+  font-size: 17pt;
+  page-break-after: avoid;
+  font-weight: 700;
+  border-bottom: 1px solid #f6862d;
+  padding-bottom: .2em;
+}
+div.book div.chapter > div.section > div.titlepage h2 span.cnx-gentext-t::before {
+  color: black;
+}
+/********************************************************************
+ * Styling for Module Section/Subsection Titles
+ ********************************************************************/
+div.book div > div.section > div.section {
+  margin: 0  0 22px 0;
+}
+div.book div > div.section > div.section div.titlepage > div > div > h3 {
+  page-break-after: avoid;
+  color: #354da1;
+  font-size: 13pt;
+  text-transform: none;
+  font-weight: bold;
+}
+div.book div > div.section > div.section > div.section div.titlepage > div > div > h4 {
+  page-break-after: avoid;
+  color: #354da1;
+  font-size: 11pt;
+  font-weight: bold;
+}
+/********************************************************************
+ * Styling for Learning Objectives Box
+ ********************************************************************/
+div.book div > div.section > div.learning-objectives {
+  margin: 1em 0em;
+  padding: .50em;
+  page-break-inside: avoid;
+  page-break-before: avoid;
+  counter-reset: learning-objectives;
+  text-align: left;
+  padding: 0;
+  margin-bottom: 0;
+  margin-top: 12.48px;
+}
+div.book div > div.section > div.learning-objectives div.titlepage > div > div > h3 {
+  page-break-after: avoid;
+  page-break-before: avoid;
+  width: 100%;
+  color: #bb4829;
+  text-align: left;
+  font-weight: bold;
+  font-size: 11pt;
+  padding-left: 0px;
+  padding-top: .1em;
+  padding-bottom: .2em;
+}
+div.book div > div.section > div.learning-objectives .itemizedlist > ul {
+  margin: 0 0 0 22px;
+  padding: 0;
 }
 /********************************************************************
  * End of chapter customizations
  ********************************************************************/
 .cnx-eoc > .solution > a.number {
-  color: #83c6ee;
+  color: #7291cb;
 }
 .cnx-eoc {
-  -webkit-column-count: 2;
-  -moz-column-count: 2;
-  column-count: 2;
-  columns: 2;
-  column-fill: auto;
-  column-gap: 24px;
-  column-width: auto;
-  column-fill: balance;
-  page-break-inside: auto;
-  column-break-inside: auto;
   font-size: 10pt;
   line-height: 13pt;
-  margin-bottom: 20px;
-}
-.cnx-eoc > .title {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-  color: #a63c1d;
-  border-bottom-color: #e28f26;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  font-size: 12pt;
-  font-weight: 700;
-  margin-top: 0;
-  page-break-after: avoid;
-  -webkit-column-span: all;
-  column-span: all;
-  color: #3767b1;
-  font: normal normal 700 14pt/1em Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  border-bottom: none;
-  text-transform: capitalize;
-}
-.cnx-eoc > .title span {
-  font-size: 18px;
-}
-.cnx-eoc.summary {
   -webkit-column-count: 1;
   -moz-column-count: 1;
   column-count: 1;
   columns: 1;
   column-fill: auto;
   column-gap: 24px;
+  column-width: auto;
+  column-fill: balance;
+  page-break-inside: auto;
+  column-break-inside: auto;
+}
+.cnx-eoc > .title {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  color: #354da1;
+  text-align: left;
+  border-bottom-color: #f6862d;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  font-size: 13pt;
+  line-height: 17pt;
+  font-weight: 700;
+  margin-top: 0;
+  page-break-after: avoid;
+  padding-bottom: 0;
+  margin-bottom: 6.6px;
+}
+.cnx-eoc.summary {
   margin-bottom: 20px;
+  -webkit-column-count: 1;
+  -moz-column-count: 1;
+  column-count: 1;
+  columns: 1;
+  column-fill: auto;
+  column-gap: 24px;
+  margin-bottom: 5px;
+}
+.cnx-eoc.summary:after {
+  display: block;
+  content: "Review Questions";
+  color: #354da1;
+  text-align: left;
+  border-bottom-color: #f6862d;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  font-size: 13pt;
+  line-height: 17pt;
+  font-weight: 700;
+  margin-top: 0;
+  page-break-after: avoid;
 }
 .cnx-eoc.summary > .title {
-  padding-bottom: 0;
+  content: "Summary";
   margin-bottom: 1em;
-  content: "Key Concepts and Summary";
-  text-transform: uppercase;
+  padding-bottom: 0;
+  margin-bottom: 6.6px;
 }
 .cnx-eoc.summary > .section .title > a {
-  font: normal normal 700 10pt/13pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font: normal normal 700 10pt/13pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: #000000;
   page-break-after: avoid;
-  display: inline;
-  color: #3767b1;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .cnx-eoc.summary p:nth-of-type(1) {
   margin-top: 1em;
+}
+.cnx-eoc.key-equations {
+  -webkit-column-count: 1;
+  -moz-column-count: 1;
+  column-count: 1;
+  columns: 1;
+  column-fill: auto;
+  column-gap: 24px;
+}
+.cnx-eoc.key-equations > div.title {
+  content: "Key Equations";
+}
+.cnx-eoc.key-equations > div.section > div.body div.table {
+  counter-increment: none;
+}
+.cnx-eoc.key-equations > div.section > div.body table {
+  page-break-inside: avoid;
+  margin: auto;
+  page-break-inside: auto;
 }
 .cnx-eoc.cnx-solutions {
   display: none;
@@ -2297,7 +2542,6 @@ div[class="note"] > .title {
   margin-top: 1em;
 }
 .cnx-eoc .problem ol {
-  list-style-position: initial;
   list-style-type: lower-latin;
 }
 .cnx-eoc .problem::before {
@@ -2317,6 +2561,7 @@ div[class="note"] > .title {
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
+  display: block;
 }
 .review-exercises > .section > .title,
 .practice-test > .section > .title,
@@ -2333,22 +2578,32 @@ div.colophon.end-of-book-solutions {
   margin: 0;
   padding: 0;
   display: inline !important;
-  font-weight: 500;
+  text-align: left;
+  -webkit-column-count: 1;
+  -moz-column-count: 1;
+  column-count: 1;
+  columns: 1;
+  column-fill: auto;
+  column-gap: 24px;
 }
 div.colophon.end-of-book-solutions > .title {
   content: "Answer Key";
   string-set: cnx-header "Answer Key";
   margin-left: 0;
   margin-top: 0;
-  margin-bottom: .5em;
   padding-top: 0;
-  color: #a63c1d;
+  padding-left: 0;
+  color: #993720;
   text-transform: capitalize;
   font-weight: 700;
   font-size: 24px;
-  color: #3767b1;
-  text-transform: uppercase;
-  border: none;
+  margin-bottom: .5em;
+  background-color: transparent;
+  column-span: all;
+  color: #354da1;
+  font-size: 17pt;
+  padding-bottom: 0;
+  margin-bottom: 6.6px;
 }
 div.colophon.end-of-book-solutions div.chapter-area:first-of-type h2.title {
   margin-top: 0;
@@ -2369,6 +2624,11 @@ div.colophon.end-of-book-solutions .chapter-area > h2.title a.chapter span {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   display: block;
   margin-bottom: 7.5px;
+  column-span: all;
+  color: #354da1;
+  font-size: 17pt;
+  padding-bottom: 0;
+  margin-bottom: 6.6px;
 }
 div.colophon.end-of-book-solutions .chapter-area > h2.title a.chapter {
   page-break-before: avoid;
@@ -2378,17 +2638,12 @@ div.colophon.end-of-book-solutions .chapter-area > h2.title a.chapter span {
   display: inline;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution {
-  display: inline;
-  padding: 0;
   display: block;
-  padding-bottom: 10px;
+  padding-bottom: .5em;
+  font-size: 13.33px;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.title {
   display: inline;
-  padding: 0;
-}
-div.colophon.end-of-book-solutions .chapter-area div.solution > div.title::after {
-  content: ". ";
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.title::before {
   content: " ";
@@ -2400,9 +2655,8 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.title::after
   margin-right: .15em;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body {
-  display: inline;
   margin-right: .15em;
-  font: normal normal 10pt/13pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  display: inline;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div,
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body p {
@@ -2414,7 +2668,7 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.med
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body > a.target-figure {
   margin: 0em .25em;
-  color: #e28f26;
+  color: #f6862d;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution div.table table caption {
   display: none;
@@ -2424,42 +2678,17 @@ div.colophon.end-of-book-solutions .chapter-area div.solution div.table table ca
  * ---------------------------------------------------
  */
 div.end-of-book-references {
-  margin-bottom: 1em;
-  display: block;
-}
-div.end-of-book-references > .title {
-  string-set: cnx-header "References";
-  font-weight: bold;
-  background-color: transparent;
-  color: #83c6ee;
-  margin-left: 0;
-  padding-left: 0;
-  margin-top: 0;
-}
-div.end-of-book-references > .chapter-area > .title {
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  font-size: 10pt;
-  font-weight: bold;
-  text-align: left;
-  color: black;
-  font-size: 16px;
-  font-weight: 700;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  margin: .5em 0em;
+  display: none;
 }
 div.end-of-book-references > .chapter-area > .body > .section-area > .title {
   display: none;
-}
-div.end-of-book-references > .chapter-area > .body > .section-area > .body p {
-  text-indent: -2em;
-  margin-left: 2em;
 }
 div.end-of-book-references > .chapter-area > .body > p {
   text-indent: 0em;
   margin: .5em 0em;
 }
 div.end-of-book-references > .chapter-area > .body > p > a.link {
-  color: #e28f26;
+  color: #f6862d;
   font-weight: normal;
   text-decoration: underline;
 }
@@ -2471,25 +2700,26 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
   text-align: left;
   column-width: auto;
   margin: 0;
+  font-size: 17pt;
+  padding-bottom: 0;
+  margin-bottom: 6.6px;
 }
 .index > .title {
   width: 100%;
-  color: #a63c1d;
-  border-bottom-color: #e28f26;
+  color: #354da1;
+  column-span: all;
+  border-bottom-color: #f6862d;
   background-color: transparent;
   border-bottom-width: 1px;
   border-bottom-style: solid;
   margin-bottom: 1em;
-  font-size: 18pt;
+  font-size: 17pt;
   font-weight: 700;
   text-align: left;
   margin-top: 0;
   padding-top: 0;
-  column-span: all;
-  color: #3767b1;
-  text-transform: uppercase;
-  border: none;
-  font-weight: 500;
+  padding-bottom: 0;
+  margin-bottom: 6.6px;
 }
 .index > .title h2 {
   padding: 0;
@@ -2501,8 +2731,7 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
   font-weight: bold;
   font-size: medium;
   padding-top: .5em;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding-bottom: .5em;
+  margin-bottom: 0.5em;
 }
 .index h3.letter:first-of-type {
   margin-top: 0;
@@ -2510,32 +2739,30 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
 }
 .index .index-term {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding-bottom: 10px;
+  padding-bottom: .25em;
   font-size: small;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding-bottom: 0;
 }
 .index a {
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-weight: bold;
 }
 /********************************************************************
  * Generic Elements
  ********************************************************************/
 h5 {
-  color: #83c6ee;
+  color: #7291cb;
   font-size: 10pt;
   font-weight: bold;
   font-style: italic;
 }
 h6 {
-  color: #83c6ee;
+  color: #7291cb;
   font-weight: bold;
 }
 a {
-  color: #a63c1d;
+  color: #e6661f;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-weight: bold;
-  color: #3767b1;
 }
 body {
   font-size: 9.5pt;
@@ -2550,7 +2777,6 @@ img {
 }
 p {
   font: 10pt/13pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  line-height: normal;
 }
 img,
 figure,
@@ -2562,23 +2788,22 @@ subfigure {
  * ---------------------------------------------------
  */
 .colophon > h1.title {
-  color: #a63c1d;
+  color: #354da1;
   background: none;
-  border-bottom-color: #e28f26;
+  border-bottom-color: #f6862d;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  margin-left: 0px;
   margin-top: 0;
-  padding-left: 0px;
-  padding-bottom: .2em;
+  margin-left: 0;
+  padding-left: 0;
   padding-top: 0;
+  padding-bottom: .2em;
   text-transform: none;
-  font-size: 18pt;
+  font-size: 17pt;
   font-weight: 700;
   text-align: left;
-  color: #3767b1;
-  text-transform: uppercase;
-  border: none;
+  padding-bottom: 0;
+  margin-bottom: 6.6px;
 }
 .colophon p:first-of-type {
   margin-top: 0;
@@ -2603,12 +2828,14 @@ subfigure {
   padding-bottom: 1em;
   text-align: left;
 }
+.figure > .body {
+  margin: 10px 0 10px 0;
+}
 .figure > .title {
-  color: #a63c1d;
+  color: #e6661f;
   font-weight: bold;
   text-align: left;
   margin-right: .5em;
-  color: #3767b1;
 }
 .figure > .caption {
   display: inline;
@@ -2616,11 +2843,10 @@ subfigure {
 }
 .figure > .caption::before {
   display: none;
-  color: #a63c1d;
+  color: #e6661f;
   font-weight: bold;
   text-align: left;
   margin-right: .5em;
-  color: #3767b1;
 }
 .figure img {
   margin: 0;
@@ -2633,6 +2859,14 @@ subfigure {
 /******************************************************************************
  * Addition of .commentary selector styling for Analysis header in examples
  ******************************************************************************/
+.example .exercise .commentary > .title {
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 10pt;
+  color: #354da1;
+  font-weight: bold;
+  margin-right: .2em;
+  height: .9em;
+}
 /* -------------------------
  * End of Section Exercise Styling
  * -------------------------
@@ -2652,6 +2886,17 @@ subfigure {
   columns: 1;
   column-fill: auto;
   column-gap: 24px;
+}
+.section.section-exercises::before {
+  page-break-after: avoid;
+  content: "" " " counter(chapter, decimal) "." counter(section, decimal) " exercises" " " "";
+  text-transform: uppercase;
+  font-size: 17pt;
+  color: #7291cb;
+  font-weight: bold;
+  display: block;
+  padding-bottom: 10px;
+  column-span: all;
 }
 .section.section-exercises > .titlepage {
   display: none;
@@ -2679,6 +2924,10 @@ subfigure {
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
+  text-indent: 0;
+}
+.section.section-exercises .exercise .solution {
+  display: none;
 }
 .section.section-exercises .exercise:not(.labeled) > .title > span:first-child:not(.labeled):before {
   display: none;
@@ -2689,55 +2938,166 @@ subfigure {
 .glossary {
   page-break-before: always;
   display: inline;
-}
-.glossary::before {
-  display: none;
+  margin-bottom: 20px;
+  margin-top: 0;
 }
 .glossary .title {
-  /* Change "Glossary" to "Key Terms" */
   content: "Key Terms";
-  color: #a63c1d !important;
-  font-size: 12pt !important;
-  font-weight: bold;
-  text-transform: capitalize !important;
-  border-bottom-color: #e28f26;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  padding: 0em !important;
   margin-left: 0;
-  display: block;
-  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0em !important;
+  display: block !important;
   page-break-after: avoid !important;
-  /* Change "Glossary" to "Key Terms" */
-  color: #3767b1 !important;
-  font-size: 14pt !important;
-  text-transform: uppercase !important;
-  border: none;
-  margin-top: 0;
-  padding-top: 0;
+  color: #354da1 !important;
+  font-size: 13pt !important;
+  line-height: 17pt;
+  border-bottom: 1px #f6862d solid;
+  margin-bottom: 6.6px;
+  width: 100%;
 }
 .glossary dl dt::after {
   content: " ";
   float: right;
 }
 .glossary dl {
-  page-break-before: avoid;
-  margin: 1em 0;
+  color: black;
+  margin: 0 0 1em 0;
   text-align: left;
+  page-break-before: avoid;
 }
 /* -------------------------
  * Example Elements Styling and Numbering
  * -------------------------
  */
+.chapter .example {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  margin: .75em 0;
+}
+.example > .title {
+  background: #354da1;
+  padding-top: .3em;
+  padding-bottom: .3em;
+}
+.example > .title > * {
+  font-size: 130%;
+  font-weight: 500;
+  color: #fff;
+}
+.example > .body {
+  border-left: 1px solid #354da1;
+  padding: 1em 2em .5em 2em;
+  background: #dde2f2;
+}
+.example .solution {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+div.book div.chapter > div.section div.example div.exercise .solution .table > table > caption::before {
+  display: block;
+}
+div.book div.chapter > div.section div.example div.exercise .solution .table {
+  page-break-inside: avoid;
+  margin: auto;
+  counter-increment: table !important;
+  page-break-inside: auto;
+}
+div.book div.chapter > div.section div.example div.exercise .solution .figure {
+  font-size: xx-small;
+  padding-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  page-break-inside: avoid;
+  padding-top: 1em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 9pt;
+  padding-bottom: 1em;
+  text-align: left;
+  counter-increment: figure !important;
+}
+div.book div.chapter > div.section div.example div.exercise .solution .figure .body {
+  text-align: left;
+}
+div.book div.chapter > div.section div.example div.exercise .solution .figure .title span.cnx-gentext-t::before {
+  color: #e6661f;
+  font-weight: bold;
+  text-align: left;
+  margin-right: .5em;
+  display: inline-block;
+}
+div.book div.chapter > div.section div.example div.exercise .problem .table > table > caption::before {
+  display: block;
+}
+div.book div.chapter > div.section div.example div.exercise .problem .table {
+  page-break-inside: avoid;
+  margin: auto;
+  counter-increment: table !important;
+  page-break-inside: auto;
+}
+div.book div.chapter > div.section div.example div.exercise .problem .figure {
+  font-size: xx-small;
+  padding-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  page-break-inside: avoid;
+  padding-top: 1em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 9pt;
+  padding-bottom: 1em;
+  text-align: left;
+  counter-increment: figure !important;
+}
+div.book div.chapter > div.section div.example div.exercise .problem .figure .body {
+  text-align: left;
+}
+div.book div.chapter > div.section div.example div.exercise .problem .figure .title span.cnx-gentext-t::before {
+  color: #e6661f;
+  font-weight: bold;
+  margin-right: .5em;
+  text-align: left;
+  display: inline-block;
+}
+div.book div.chapter > div.section div.example div.exercise .commentary .table > table > caption::before {
+  display: block;
+}
+div.book div.chapter > div.section div.example div.exercise .commentary .table {
+  page-break-inside: avoid;
+  margin: auto;
+  page-break-inside: auto;
+}
+div.book div.chapter > div.section div.example div.exercise .commentary .figure {
+  font-size: xx-small;
+  padding-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  page-break-inside: avoid;
+  padding-top: 1em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 9pt;
+  padding-bottom: 1em;
+  text-align: left;
+  counter-increment: figure !important;
+}
+div.book div.chapter > div.section div.example div.exercise .commentary .figure .body {
+  text-align: left;
+}
+div.book div.chapter > div.section div.example div.exercise .commentary .figure .title span.cnx-gentext-t::before {
+  color: #e6661f;
+  font-weight: bold;
+  text-align: left;
+  margin-right: .5em;
+  display: inline-block;
+}
 .example .exercise {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  counter-increment: none !important;
   margin-top: 0;
 }
 .example .exercise .problem > .title {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 11pt;
-  color: #3767b1;
+  color: #354da1;
   font-weight: bold;
   padding-bottom: 1em;
 }
@@ -2745,18 +3105,26 @@ subfigure {
   content: "Solution";
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 10pt;
-  color: #3767b1;
+  color: #354da1;
   font-weight: bold;
   line-height: 1em;
 }
+.example .exercise .solution > .body {
+  margin-top: .5em;
+}
 .example .exercise .solution > .body > a.target-figure {
-  color: #e28f26;
+  color: #f6862d;
 }
 .example .exercise .solution > .body > p:first-of-type {
   margin-top: 0;
 }
 .example .exercise .solution > .title > p {
   float: left;
+}
+.example .exercise .solution ol,
+.example .exercise .solution ul {
+  margin: 0 0 0 40px;
+  padding: 0;
 }
 /******************************************************************************
  * Tables
@@ -2766,77 +3134,90 @@ div.table {
   padding: 0;
   border: none;
 }
-div.table .cnx-figure-horizontal .informalfigure .caption {
-  text-align: center;
-}
-div.table .cnx-figure-horizontal .informalfigure .caption * {
-  font-weight: normal;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
 div.table table {
   page-break-inside: avoid;
   margin: auto;
-  border: 1pt solid #000000;
   margin-bottom: 22px;
+  padding-top: 1em;
   prince-caption-page: all;
-  page-break-inside: auto;
-  width: 100%;
   border: none;
-  margin: 15px 0;
+  border-collapse: collapse;
+  page-break-inside: auto;
 }
 div.table table caption {
-  color: #a63c1d;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  border-color: #e28f26;
-  border-width: 1px;
-  border-style: solid;
-  border-bottom: none;
-  padding-left: .5em;
+  color: #000000;
+  border: none;
   padding-top: .5em;
+  padding-left: 0px;
   padding-bottom: 1em;
-  font-weight: bold;
-  caption-side: top;
+  caption-side: bottom;
   font-size: 13px;
   line-height: 17px;
-  caption-side: bottom;
-  border: none;
-  color: #3767b1;
+  font-weight: 100;
 }
 div.table table caption::before {
-  color: #3767b1;
+  color: #e6661f;
+  font-weight: bold;
+}
+div.table table .cnx-figure-horizontal .informalfigure .caption {
+  text-align: center;
+}
+div.table table .cnx-figure-horizontal .informalfigure .caption * {
+  font-weight: normal;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+div.table table thead {
+  border-top: none;
+  border-bottom: 1px solid #354da1;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+div.table table thead .footnote::footnote-call {
+  color: #ffffff;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 div.table table tbody {
-  border-bottom: 1px solid #000000;
+  border: 1px solid #354da1;
+}
+div.table table table tbody[valign=top] > tr > td {
+  vertical-align: top;
 }
 div.table table tr {
   page-break-inside: avoid;
-  border: none;
+  border-left: solid 1px #354da1;
+  border-right: solid 1px #354da1;
 }
-div.table table th {
-  border-color: #e28f26 !important;
-  background-color: #ffffff;
-  color: black;
+div.table table th:not(:only-child) {
+  color: #ffffff;
+  border-color: #354da1 !important;
+  border-left: solid 1px #354da1;
+  border-right: solid 1px #354da1;
+  border-bottom: 1px solid #354da1;
+  border-bottom: none;
+  border-top: 1px solid #354da1;
   padding: 5px 10px;
-  font-size: small;
-  text-align: left;
-  background-color: #cfe1f1;
-  border: none;
-  border-top: 3px solid #3767b1 !important;
-  border-right: none;
+  background-color: #7291cb;
+  font-size: 9pt;
   text-align: center;
+  vertical-align: initial;
 }
 div.table table td {
-  border-color: #e28f26;
-  font: 10pt/14pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding: 5px 10px;
-  border-color: #000000 !important;
-  border-width: thin;
-  border-bottom: 1px solid #000000 !important;
+  text-align: center;
+  border-color: #354da1 !important;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding: 4px 10px;
+  font-size: 9pt;
+  padding: 5px 10px;
 }
 div.table table td.header {
-  background-color: #ffffff;
+  background-color: #7291cb;
+  font-size: 9pt;
+  color: #ffffff;
+  text-align: center;
+  vertical-align: initial;
+}
+div.table table thead > tr:first-child {
+  border-left: 0;
+  border-right: 0;
 }
 div.table ul.itemizedlist,
 div.table ol.orderedlist {
@@ -2859,12 +3240,70 @@ div.table.color tr td:first-child {
   width: 2.5in;
   font-weight: bold;
 }
-.cnx-figure-horizontal .informalfigure .caption {
-  text-align: center;
+div.table.unstyled table {
+  page-break-inside: avoid;
+  margin: auto;
+  border: none;
+  margin: 0;
+  page-break-inside: auto;
 }
-.cnx-figure-horizontal .informalfigure .caption * {
-  font-weight: normal;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+div.table.unstyled table caption {
+  display: none;
+}
+div.table.unstyled table tr {
+  border: none !important;
+}
+div.table.unstyled table td {
+  border: none;
+  text-align: left;
+}
+div.table.unstyled table tbody {
+  border: none;
+}
+div.table.multiple-headers table {
+  page-break-inside: avoid;
+  margin: auto;
+  page-break-inside: auto;
+}
+div.table.multiple-headers table tbody {
+  border: none;
+}
+div.table.multiple-headers table tr {
+  border: none;
+}
+div.table.multiple-headers table td {
+  padding: 0;
+}
+div.table.multiple-headers table tr table thead tr .tablecell {
+  background: #7291cb;
+  color: #ffffff;
+  border: solid 1px #354da1 !important;
+}
+div.table.multiple-headers table tr table tbody {
+  border: solid 1px #354da1;
+}
+div.table.multiple-headers table tr table tr {
+  border: solid 1px #354da1;
+}
+div.table.multiple-headers table tr table thead tr:only-child,
+div.table.multiple-headers table tr table thead tr:only-child .tablecell {
+  border-top: 0px !important;
+}
+div.table.multiple-headers table tr table td {
+  padding: 10px;
+}
+div.table.column-header tbody td:first-child {
+  background-color: #7291cb;
+  font-size: 9pt;
+  color: #ffffff;
+  text-align: center;
+  vertical-align: initial;
+}
+div.table:not(.unnumbered) table thead tr:first-of-type th {
+  border: none !important;
+  background-color: transparent;
+  color: #354da1;
+  font-weight: bold;
 }
 /* ---------------------------------------------------
  * Custom Equation (Non) Numbering
@@ -2888,7 +3327,7 @@ div.book > div.chapter > div.section div.equation > *:last-child::after,
 div.book > div.part > div.chapter > div.section div.equation > *:last-child::after,
 div.book > div.appendix > div.section div.equation > *:last-child::after,
 div.book > div.part > div.appendix > div.section div.equation > *:last-child::after {
-  color: #e28f26;
+  color: #f6862d;
   font-weight: bold;
 }
 h1,
@@ -2914,6 +3353,14 @@ div.orderedlist ol {
  * Images in chapters
  * -------------------------
  */
+.chapter .mediaobject img {
+  display: block;
+  margin: auto;
+}
+.end-of-book-solutions .mediaobject img {
+  display: block;
+  margin: auto;
+}
 /********************************************************************
  * SVG Color cascading.
  ********************************************************************/
@@ -2934,287 +3381,31 @@ g line {
  * Connect the Concepts
  *
  ******************************************************/
-/* -------------------------
- * Book Table of Contents
- * -------------------------
- */
-.book > .toc {
-  page-break-before: right;
-  page-break-after: always;
-}
-.book > .toc > .title {
-  page-break-after: avoid;
-  margin-bottom: 0em;
-  color: #a63c1d;
-  font-size: 18pt;
-  font-weight: normal;
-  text-align: center;
-  text-transform: none;
-  margin-left: 0px;
-  padding-left: 0px;
-  margin-bottom: .2em;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: #e28f26;
-  background-color: transparent;
-  color: #3767b1;
-  border-bottom-color: #3767b1;
-  font-weight: bold;
-  font-size: large;
-}
-.book > .toc a {
-  color: #a63c1d;
-  font: 10pt/13pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  color: #3767b1;
-  font-weight: bold;
-  font-size: 12.6px;
-  line-height: normal;
-}
-/******************************************************
- * Preface
- ******************************************************/
-div.book div.preface > .titlepage {
-  padding-top: 1.5em;
-}
-div.book div.preface > .titlepage h1.title {
-  color: #a63c1d;
-  background-color: transparent;
-  padding-left: 0;
-  text-transform: capitalize;
-  font-size: 18pt;
-  font-weight: 700;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: #e28f26;
-  margin-top: 0;
-  padding-top: 0;
-  margin-bottom: 16px;
-  page-break-after: avoid;
-  color: #ffffff;
-  background-color: #3767b1;
-  margin: 0.5em 0;
-  margin-bottom: 0;
-  padding: 0.1em 0.5em;
-  padding-left: .25em;
-  font-size: 2.8em;
-  font-weight: normal;
-  text-transform: uppercase;
-  border-bottom: none;
-}
-div.book div.preface > div.section div.titlepage > div > div > h2 {
-  font-size: 11pt;
-  font-size: 17px;
-}
-div.book div.preface > div.section > div.section > div.titlepage > div > div > h3 {
-  font-size: 14px;
-}
-div.book div.preface .titlepage h2,
-div.book div.preface .titlepage h3 {
-  color: #3767b1;
-}
-/* -------------------------
- * Unit Page
- * -------------------------
- */
-div.part > div.titlepage {
-  display: none;
-}
-/********************************************************************
- * Styling for Chapter Titles
- ********************************************************************/
-/********************************************************************
- * Styling for Chapter Titles
- ********************************************************************/
-div.book div.chapter > div.titlepage > div > div h1.title {
-  color: #a63c1d;
-  border-bottom-color: #e28f26;
-  text-transform: none;
-  font-size: 18pt;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  text-align: left;
-  color: #3767b1;
-  font: bold 34pt/34pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding-bottom: .25em;
-}
-div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-n {
-  content: "Chapter" " " content();
-  font-size: 18pt;
-  font-weight: 700;
-  color: #a63c1d;
-  margin: 0;
-  padding: 0;
-  text-align: left;
-  color: #3767b1;
-  font: bold 34pt/34pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  content: content();
-}
-div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
-  font: 28pt/33pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  color: #000000;
-  border-top-color: #e28f26;
-  display: block;
-  font-weight: 700;
-  padding-left: 0 !important;
-  padding-bottom: .3em;
-  border-top-width: 1px;
-  border-top-style: solid;
-  margin-top: 10px;
-  text-align: left;
-  color: #3767b1;
-  font: bold 34pt/34pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  border-top: none;
-  display: inline;
-  padding-left: .25em !important;
-  padding-bottom: 1em;
-}
-div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::before {
-  text-align: left;
-  color: #3767b1;
-  font: bold 34pt/34pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  content: "| ";
-  color: #000000;
-}
-div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autogenerated {
-  display: none;
-}
-div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autogenerated:first-of-type {
-  string-set: cnx-chapter-string content();
-}
-/********************************************************************
- * Styling for Module Titles
- ********************************************************************/
-div.book div.chapter > div.section > div.titlepage h2 {
-  color: #a63c1d;
-  font-size: 14pt;
-  font-weight: 700;
-  border-bottom: 1px solid #e28f26;
-  padding-bottom: .2em;
-  border-bottom: none;
-  color: #3767b1;
-  font-size: 17pt;
-}
-div.book div.chapter > div.section > div.titlepage h2::before {
-  color: #3767b1;
-  font-size: 17pt;
-}
-div.book div.chapter > div.section > div.titlepage h2 span.cnx-gentext-n {
-  color: #3767b1;
-  font-size: 17pt;
-}
-div.book div.chapter > div.section > div.titlepage h2 span.cnx-gentext-t {
-  color: #3767b1;
-  font-size: 17pt;
-}
-div.book div.chapter > div.section > div.titlepage h2 span.cnx-gentext-t::before {
-  content: "";
-  color: #3767b1;
-  font-size: 17pt;
-  color: black;
-  content: "| ";
-}
-/********************************************************************
- * Styling for Module Section/Subsection Titles
- ********************************************************************/
-div.book div > div.section > div.section {
-  margin: 0  0 22px 0;
-  margin: 0 0 11px 0;
-}
-div.book div > div.section > div.section div.titlepage > div > div > h3 {
-  color: #83c6ee;
-  font-size: 19px;
-  font-weight: bold;
-  font-size: 14.6px;
-  color: #000000;
-  text-transform: uppercase;
-  color: #3767b1;
-  font-size: 17pt;
-  border-bottom: none;
-  text-transform: none;
-  font: bold 13pt/13pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-div.book div > div.section > div.section > div.section div.titlepage > div > div > h4 {
-  color: #000000;
-  font-size: 14.6px;
-  font-weight: bold;
-}
-/* -------------------------
- * Chapter Introduction
- * -------------------------
- */
-.chapter > .introduction {
-  /******************************************************************
-   * Styling for Chapter Outline Box
-   ******************************************************************/
-}
-.chapter > .introduction > .title {
-  content: "Introduction";
-  color: #a63c1d;
-  border-bottom-color: #e28f26;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
+.chapter .note {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
   padding-bottom: 0.2em;
-  font-size: 14pt;
-  font-weight: 700;
-  text-transform: capitalize;
-  display: none;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
 }
-.chapter > .introduction > .toc a {
-  color: inherit;
-  font-weight: bold;
-  padding: 0.25em 0em;
-  margin: 0em 1em 0em 0.5em;
+.chapter .note > .title {
+  margin-top: 0.5em;
+  padding: 0;
   margin: 0;
-  font-weight: normal;
-  font-size: 9pt;
-  line-height: 11pt;
-}
-.chapter > .introduction > .toc .toc-section .cnx-gentext-t {
   color: #000000;
-  font-weight: normal;
-}
-.chapter > .introduction > .toc .toc-section .cnx-gentext-n:after {
-  content: "";
-}
-.chapter > .introduction > .toc {
-  display: table;
-  margin: auto;
-  margin-bottom: 1em;
-  border-spacing: 0px;
-  page-break-inside: avoid;
-  width: 100%;
-  border: none;
-  padding: 0em;
-  display: none;
-}
-.chapter > .introduction > .toc span {
-  font-weight: normal;
-  font-size: 9pt;
-  line-height: 11pt;
-}
-.chapter > .introduction > .toc ul {
-  margin-left: 0.125in;
-}
-.chapter > .introduction > .toc > .title {
-  color: white;
-  font-size: large;
-  text-align: center;
-  padding: 0.25em;
-  margin: 0em;
-  width: 100%;
-  color: #cfe1f1;
-  text-align: left;
   font-weight: bold;
-  font-size: 11pt;
-  padding-left: 0px;
-  padding-top: .1em;
+  border: none;
   padding-bottom: .2em;
-  page-break-after: avoid;
-  page-break-before: avoid;
-  content: "Chapter Outline";
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 11pt;
 }
-.chapter > .introduction > .figure.splash {
+.chapter .note p {
+  font: 9pt/12pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+.chapter .note .figure {
   font-size: xx-small;
   padding-bottom: 0.5em;
   margin-left: auto;
@@ -3225,100 +3416,150 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
-}
-/********************************************************************
- * Styling for Learning Objectives Box
- ********************************************************************/
-.section > .titlepage .abstract::before {
-  content: "Learning Objectives";
-  border-bottom-color: #e28f26;
-  font: normal normal 700 10pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   margin-bottom: .5em;
-  color: #cfe1f1;
-  font-weight: bold;
-  display: inline-block;
-  width: 100%;
-  padding-top: .1em;
-  padding-bottom: .2em;
-  display: none;
 }
-.section > .titlepage .abstract .itemizedlist > ul {
-  margin: 0 40px;
-}
-.section > .titlepage .abstract p {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  margin: 1em 0em .75em 1em;
-}
-.section > .titlepage .abstract .itemizedlist > .listitem > p {
-  margin: 0em .3em;
-  display: inline;
-  text-align: left;
-}
-.section > .titlepage .abstract .itemizedlist > .listitem {
-  counter-increment: learning-objectives;
-  display: block;
-}
-.section > .titlepage .abstract .itemizedlist > .listitem::before {
-  content: "" " " counter(chapter, decimal) "." counter(section, decimal) "." counter(learning-objectives) " " "";
-  color: #83c6ee;
-  font-weight: bold;
-}
-.section > .titlepage .abstract {
-  margin: 1em 0em;
-  padding: .50em;
+.chapter .note.link-to-learning {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #e6661f;
+  border-radius: 15px;
+  margin-top: 48px;
   page-break-inside: avoid;
-  page-break-before: avoid;
-  counter-reset: learning-objectives;
   text-align: left;
-  padding: 0;
-  border-bottom: 1px solid #e28f26;
-  border-bottom: none;
 }
-.section > .titlepage .abstract p {
-  font: 10pt/14pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+.chapter .note.link-to-learning::before {
+  text-transform: none;
+  color: #ffffff;
+  content: "Link to Learning";
+  background-color: #f6862d;
+  border: 1px solid #e6661f;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.link-to-learning > .body::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.chapter .note.link-to-learning .mediaobject {
+  float: left;
+  padding-right: .8em;
+}
+.chapter .note.link-to-learning .mediaobject img {
   margin: 0;
 }
-.section > .titlepage .abstract > .title {
+.chapter .note.link-to-learning > .body {
+  padding: 0px 10px;
+}
+.chapter .note .blockquote blockquote {
+  font-size: 10pt;
+  line-height: 13pt;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  color: #000000;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  font-size: 9pt;
+  line-height: 12pt;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+.chapter .note .body > .title {
+  padding: 0px 0px 10px 0px;
+  font-weight: 700;
+  font-size: 10pt;
+  line-height: 13pt;
+}
+.chapter .note .figure {
+  padding-bottom: 0;
+  padding-top: 15px;
+}
+.chapter .note.chapter-objectives {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+  font: 10pt/14pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  text-align: left;
+  padding-left: 0;
+  margin-top: 0em;
+  padding-top: 0;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+.chapter .note.chapter-objectives > .title {
+  font: normal normal 700 10pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   border: none;
   margin-top: 0;
 }
-.section > .titlepage .abstract ul.itemizedlist > .listitem {
+.chapter .note.chapter-objectives ul.itemizedlist > .listitem {
   display: list-item;
   padding-top: 0;
   margin: 0;
 }
-.section > .titlepage .abstract ul.itemizedlist > .listitem p {
+.chapter .note.chapter-objectives ul.itemizedlist > .listitem p {
   display: block;
   margin: 0;
 }
-.section > .titlepage .abstract ul.itemizedlist > .listitem::before {
+.chapter .note.chapter-objectives ul.itemizedlist > .listitem::before {
   display: none;
 }
-.section > .titlepage .abstract ul.itemizedlist > .listitem:last-child {
+.chapter .note.chapter-objectives ul.itemizedlist > .listitem:last-child {
   padding-bottom: .75em;
 }
 /******************************************************
- * Tables
+ * Preface
  ******************************************************/
-.table .table-caption.caption {
-  color: #a63c1d;
-  font-size: 10pt;
-  font-weight: 700 !important;
-  line-height: 13pt;
-  padding-left: 5px;
+.preface > .titlepage h1.title {
+  padding-left: .25em;
+  color: #354da1;
+  padding-left: 0;
+  text-transform: capitalize;
+  font-size: 18pt;
+  font-weight: 700;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #f6862d;
+  margin-top: 0;
+  padding-top: 0;
 }
-.table table tbody[valign=top] > tr > td {
-  vertical-align: top;
+.preface .titlepage h2,
+.preface .titlepage h3 {
+  color: #354da1;
 }
-.table table td {
-  border-color: #e28f26 !important;
-  font: 10pt/14pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding: 5px 10px;
+.preface > .section h2,
+.preface > .section h3 {
+  font-size: 11pt;
 }
-.table > caption,
-.table td {
-  padding: 0.25em;
+.preface > .section h3 {
+  text-transform: none;
 }
+/********************************************************************
+ * Styling for Chapter Titles
+ ********************************************************************/
+div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autogenerated:first-of-type {
+  string-set: cnx-chapter-string content();
+}
+/******************************************************
+ * Learning Objectives/Chapter Objectives
+ ******************************************************/
 /********************************************************************
  * End of chapter customizations
  ********************************************************************/
@@ -3342,7 +3583,6 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   column-fill: balance;
   text-align: left;
   margin-bottom: 20px;
-  text-align: justify;
 }
 .cnx-eoc.review-questions > .title {
   content: "Review Questions";
@@ -3350,7 +3590,6 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   margin-bottom: 1em;
   -webkit-column-span: all;
   /* Chrome, Safari, Opera */
-  text-transform: uppercase;
 }
 .cnx-eoc.review-questions p {
   text-align: left;
@@ -3360,23 +3599,18 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   -moz-column-count: 1;
   column-count: 1;
   columns: 1;
-  -webkit-column-count: 2;
-  -moz-column-count: 2;
-  column-count: 2;
-  columns: 2;
   column-fill: auto;
   column-gap: 24px;
-  column-fill: balance;
-  text-align: justify;
-  margin-bottom: 20px;
 }
 .cnx-eoc.critical-thinking > .title {
   content: "Critical Thinking Questions";
   column-span: all !important;
   margin-bottom: 1em;
-  -webkit-column-span: all;
-  column-span: all;
-  text-transform: uppercase;
+  color: black;
+  font-size: 13px;
+  border-bottom: 0;
+  font-weight: bold;
+  margin-bottom: 0;
 }
 .cnx-eoc.personal-application {
   -webkit-column-count: 1;
@@ -3405,59 +3639,6 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
 .cnx-eoc.cnx-solutions {
   display: none;
 }
-/********************************************************************
- * Styling for Appendix
- ********************************************************************/
-div.book > div.appendix > div.titlepage > div > div h1.title {
-  color: #83c6ee;
-  font-size: 34pt;
-  font-weight: bold;
-  color: #3767b1;
-  padding: 0;
-  margin: 0;
-  text-transform: none;
-}
-div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-autogenerated:first-of-type {
-  display: inline;
-}
-div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-n {
-  color: #83c6ee;
-  padding-right: 0;
-  color: #3767b1;
-}
-div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t {
-  visibility: hidden;
-  height: 0;
-  width: 0;
-  display: block;
-}
-div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t::before {
-  content: "| ";
-  color: black;
-  display: none;
-}
-div.book > div.appendix .table {
-  page-break-inside: auto;
-}
-div.book > div.appendix > div.section > div.titlepage h2 {
-  color: #a63c1d;
-  font-size: 14pt;
-  font-weight: 700;
-  border-bottom: 1px solid #e28f26;
-  padding-bottom: .2em;
-  border-bottom: none;
-  color: #3767b1;
-  font-size: 17pt;
-}
-div.book > div.appendix > div.section > div.titlepage h2::before {
-  color: #3767b1;
-  font-size: 17pt;
-  display: none;
-}
-div.book > div.appendix > div.section > div.titlepage h2 span.cnx-gentext-t {
-  color: #3767b1;
-  font-size: 17pt;
-}
 /******************************************************
  * End-of-Book Index
  ******************************************************/
@@ -3467,13 +3648,15 @@ div.book > div.appendix > div.section > div.titlepage h2 span.cnx-gentext-t {
   font-weight: bold;
   font-size: medium;
   padding-top: .5em;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding-bottom: .5em;
+  margin-bottom: 0.5em;
 }
 .index h3 {
   text-align: left;
   column-width: auto;
   margin: 0;
+  font-size: 17pt;
+  padding-bottom: 0;
+  margin-bottom: 6.6px;
 }
 div.colophon.end-of-book-solutions .chapter-area a::after {
   content: "";
@@ -3483,16 +3666,26 @@ div.colophon.end-of-book-solutions > .chapter-area h2.title a.chapter {
   font-size: 13px;
   line-height: 17px;
   color: #000000;
-  font-size: 15px;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  column-span: all;
+  color: #354da1;
+  font-size: 17pt;
+  padding-bottom: 0;
+  margin-bottom: 6.6px;
+  color: black;
+  font-size: 13.33px;
 }
 div.colophon.end-of-book-solutions > .chapter-area h2.title a.chapter span {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 13px;
   line-height: 17px;
   color: #000000;
-  font-size: 15px;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  column-span: all;
+  color: #354da1;
+  font-size: 17pt;
+  padding-bottom: 0;
+  margin-bottom: 6.6px;
+  color: black;
+  font-size: 13.33px;
   display: inline;
 }
 div.colophon.end-of-book-solutions .chapter-area a {
@@ -3507,7 +3700,6 @@ div.colophon.end-of-book-solutions .chapter-area h2 {
 div.book > div.chapter .section.module,
 div.book > div.appendix.module {
   margin: 0 0 24px 0;
-  margin-bottom: 12px;
 }
 div.book > div.chapter .section.module > .section:last-child,
 div.book > div.appendix.module > .section:last-child {
@@ -3524,66 +3716,6 @@ div.book > div.appendix.empty {
 p,
 .section > p {
   font: 10pt/13pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  line-height: normal;
-}
-.chapter .note {
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  padding: 20px;
-  background-color: #ffffff;
-  page-break-inside: auto;
-}
-.chapter .note > .title {
-  margin-top: 0.5em;
-  padding: 0;
-  margin: 0;
-  color: #000000;
-  border: none;
-  padding-bottom: .2em;
-  font-weight: bold;
-  margin: .5em 0;
-  padding: 0 10px;
-}
-.chapter .note p {
-  font: 9pt/12pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-.chapter .note .figure {
-  font-size: xx-small;
-  padding-bottom: 0.5em;
-  margin-left: auto;
-  margin-right: auto;
-  page-break-inside: avoid;
-  padding-top: 1em;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  font-size: 9pt;
-  padding-bottom: 1em;
-  text-align: left;
-  margin-bottom: .5em;
-}
-.chapter .note .blockquote blockquote {
-  font-size: 10pt;
-  line-height: 13pt;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  color: #000000;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-  font-size: 9pt;
-  line-height: 12pt;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-.chapter .note .body > .title {
-  padding: 0px 0px 10px 0px;
-  font-weight: 700;
-  font-size: 10pt;
-  line-height: 13pt;
-}
-.chapter .note .figure {
-  padding-bottom: 0;
-  padding-top: 15px;
 }
 /******************************************************
  * Key Terms / Glossary
@@ -3596,7 +3728,6 @@ em.glossterm span.emphasis {
 }
 .glossary .glossterm {
   font: normal normal 700 10pt/13pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  font: inherit;
 }
 .glossary .glossterm.no-emphasis {
   font-weight: 400;
@@ -3628,14 +3759,26 @@ div.colophon.end-of-book-solutions .chapter-area div.review-questions {
   padding: 0;
   display: inline !important;
   display: inline;
-  font-weight: 500;
+  text-align: left;
+  -webkit-column-count: 1;
+  -moz-column-count: 1;
+  column-count: 1;
+  columns: 1;
+  column-fill: auto;
+  column-gap: 24px;
 }
 div.colophon.end-of-book-solutions .chapter-area div.critical-thinking {
   margin: 0;
   padding: 0;
   display: inline !important;
   display: inline;
-  font-weight: 500;
+  text-align: left;
+  -webkit-column-count: 1;
+  -moz-column-count: 1;
+  column-count: 1;
+  columns: 1;
+  column-fill: auto;
+  column-gap: 24px;
 }
 /******************************************************
  * Equations
@@ -3643,7 +3786,11 @@ div.colophon.end-of-book-solutions .chapter-area div.critical-thinking {
 div.book > div.chapter > div.section div.equation > *:last-child::after {
   display: none;
 }
-.chapter .note.bringhome {
+#book.attribution,
+.colophon {
+  font-size: initial;
+}
+.chapter .note.sciences-interconnect {
   padding-left: 1em;
   padding-right: 1em;
   padding-top: 0.2em;
@@ -3652,518 +3799,373 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   margin-bottom: 1.5em;
   padding: 20px;
   background-color: #ffffff;
-  page-break-inside: auto;
-  color: #000000;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding: 0.2em 1em;
-  background-color: #efefef;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #354da1;
+  border-radius: 15px;
+  margin-top: 48px;
 }
-.chapter .note.bringhome p:nth-of-type(2) {
-  page-break-before: avoid;
+.chapter .note.sciences-interconnect::before {
+  text-transform: none;
+  color: #ffffff;
+  content: "How Sciences Interconnect";
+  background-color: #7291cb;
+  border: 1px solid #354da1;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
 }
-.chapter .note.bringhome::before {
-  padding-top: 0.48in;
-  background-repeat: no-repeat;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1em;
-  margin-right: -1em;
-  margin-top: -0.05in;
-}
-.chapter .note.bringhome::before {
-  background-image: url("ccap-economics/bring.svg");
-}
-.chapter .note.bringhome > .title {
-  font-size: large;
-  color: black;
-  border: none;
-  font-weight: bold;
-}
-.chapter .note.bringhome > .body {
-  padding: 0px .8em;
-}
-.chapter .note.bringhome > .body p,
-.chapter .note.bringhome > .body ol,
-.chapter .note.bringhome > .body li {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-.chapter .note.bringhome .figure img {
-  max-width: 6.25in;
-}
-.chapter .note.bringhome .figure > .title {
-  font-size: 9.5pt;
-  color: #3767b1;
-}
-.chapter .note.clearup {
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  padding: 20px;
-  background-color: #ffffff;
-  page-break-inside: auto;
-  color: #000000;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding: 0.2em 1em;
-  background-color: #efefef;
-}
-.chapter .note.clearup p:nth-of-type(2) {
-  page-break-before: avoid;
-}
-.chapter .note.clearup::before {
-  padding-top: 0.53in;
-  background-repeat: no-repeat;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1em;
-  margin-right: -1em;
-  margin-top: -0.05in;
-}
-.chapter .note.clearup::before {
-  background-image: url("ccap-economics/clear.svg");
-}
-.chapter .note.clearup > .title {
-  font-size: large;
-  color: black;
-  border: none;
-  font-weight: bold;
-}
-.chapter .note.clearup > .body {
-  padding: 0px .8em;
-}
-.chapter .note.clearup > .body p,
-.chapter .note.clearup > .body ol,
-.chapter .note.clearup > .body li {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-.chapter .note.clearup .figure img {
-  max-width: 6.25in;
-}
-.chapter .note.clearup .figure > .title {
-  font-size: 9.5pt;
-  color: #3767b1;
-}
-.chapter .note.workout {
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  padding: 20px;
-  background-color: #ffffff;
-  page-break-inside: auto;
-  color: #000000;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding: 0.2em 1em;
-  background-color: #efefef;
-}
-.chapter .note.workout p:nth-of-type(2) {
-  page-break-before: avoid;
-}
-.chapter .note.workout::before {
-  padding-top: 0.38in;
-  background-repeat: no-repeat;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1em;
-  margin-right: -1em;
-  margin-top: -0.05in;
-}
-.chapter .note.workout::before {
-  background-image: url("ccap-economics/work.svg");
-}
-.chapter .note.workout > .title {
-  font-size: large;
-  color: black;
-  border: none;
-  font-weight: bold;
-}
-.chapter .note.workout > .body {
-  padding: 0px .8em;
-}
-.chapter .note.workout > .body p,
-.chapter .note.workout > .body ol,
-.chapter .note.workout > .body li {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-.chapter .note.workout .figure img {
-  max-width: 6.25in;
-}
-.chapter .note.workout .figure > .title {
-  font-size: 9.5pt;
-  color: #3767b1;
-}
-.chapter .note.workout .itemizedlist > .listitem .link.only-show-once {
-  content: content();
-}
-.chapter .note.linkup {
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  padding: 20px;
-  background-color: #ffffff;
-  page-break-inside: auto;
-  color: #000000;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding: 0.2em 1em;
-  background-color: #efefef;
-}
-.chapter .note.linkup p:nth-of-type(2) {
-  page-break-before: avoid;
-}
-.chapter .note.linkup::before {
-  padding-top: 0.38in;
-  background-repeat: no-repeat;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  margin-left: -1em;
-  margin-right: -1em;
-  margin-top: -0.05in;
-}
-.chapter .note.linkup::before {
-  background-image: url("ccap-economics/link.svg");
-}
-.chapter .note.linkup > .title {
-  font-size: large;
-  color: black;
-  border: none;
-  font-weight: bold;
-}
-.chapter .note.linkup > .body {
-  padding: 0px .8em;
-}
-.chapter .note.linkup > .body p,
-.chapter .note.linkup > .body ol,
-.chapter .note.linkup > .body li {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-.chapter .note.linkup .figure img {
-  max-width: 6.25in;
-}
-.chapter .note.linkup .figure > .title {
-  font-size: 9.5pt;
-  color: #3767b1;
-}
-.chapter .note.linkup img {
-  display: block;
-  margin: 1em auto;
-}
-.chapter .note.linkup .link {
-  color: #3767b1;
-  font-weight: normal;
-}
-.chapter .note.chapter-objectives {
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  padding: 20px;
-  font: 10pt/14pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  text-align: left;
-  padding-left: 0;
-  margin-top: 0em;
-  padding-top: 0;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  page-break-inside: auto;
-  background-color: #ffffff;
-  padding: 0;
-  margin: 0;
-  border-bottom: none;
-}
-.chapter .note.chapter-objectives > .title {
-  font: normal normal 700 10pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  border: none;
-  margin-top: 0;
-}
-.chapter .note.chapter-objectives ul.itemizedlist > .listitem {
-  display: list-item;
-  padding-top: 0;
-  margin: 0;
-}
-.chapter .note.chapter-objectives ul.itemizedlist > .listitem p {
-  display: block;
-  margin: 0;
-}
-.chapter .note.chapter-objectives ul.itemizedlist > .listitem::before {
-  display: none;
-}
-.chapter .note.chapter-objectives ul.itemizedlist > .listitem:last-child {
-  padding-bottom: .75em;
-}
-.chapter .note.chapter-objectives > .title {
+.chapter .note.sciences-interconnect > .title {
   margin-top: 0.5em;
   padding: 0;
   margin: 0;
   color: #000000;
   font-weight: bold;
-  padding-bottom: .2em;
-  font-size: 17pt;
-  color: #3767b1;
   border: none;
-  padding-left: 0;
+  padding-bottom: .2em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 11pt;
+  color: #7291cb;
 }
-.chapter .note.chapter-objectives p {
-  font: normal normal 10pt/14pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+.chapter .note.everyday-life {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #6d0059;
+  border-radius: 15px;
+  margin-top: 48px;
 }
-.chapter .note.chapter-objectives ul.itemizedlist > .listitem {
+.chapter .note.everyday-life::before {
+  text-transform: none;
+  color: #ffffff;
+  content: "Chemistry in Everyday Life";
+  background-color: #944c8d;
+  border: 1px solid #6d0059;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.everyday-life > .title {
+  margin-top: 0.5em;
+  padding: 0;
+  margin: 0;
+  color: #000000;
+  font-weight: bold;
+  border: none;
+  padding-bottom: .2em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 11pt;
+  color: #944c8d;
+}
+.chapter .note.chemist-portrait {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #007339;
+  border-radius: 15px;
+  margin-top: 48px;
+}
+.chapter .note.chemist-portrait::before {
+  text-transform: none;
+  color: #ffffff;
+  content: "Portrait of a Chemist";
+  background-color: #8fb73e;
+  border: 1px solid #007339;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.chemist-portrait > .title {
+  margin-top: 0.5em;
+  padding: 0;
+  margin: 0;
+  color: #000000;
+  font-weight: bold;
+  border: none;
+  padding-bottom: .2em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 11pt;
+  color: #8fb73e;
+}
+.chapter .note.link-to-learning {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #e6661f;
+  border-radius: 15px;
+  margin-top: 48px;
+  page-break-inside: avoid;
+  text-align: left;
+}
+.chapter .note.link-to-learning::before {
+  text-transform: none;
+  color: #ffffff;
+  content: "Link to Learning";
+  background-color: #f6862d;
+  border: 1px solid #e6661f;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.link-to-learning > .body::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.chapter .note.link-to-learning .mediaobject {
+  float: left;
+  padding-right: .8em;
+}
+.chapter .note.link-to-learning .mediaobject img {
+  margin: 0;
+}
+.chapter .note.link-to-learning p {
+  padding-left: 107px;
+}
+/******************************************************
+ * Preface
+ ******************************************************/
+.preface > .section h2,
+.preface > .section h3 {
+  color: #354da1;
+}
+.preface img {
+  max-width: 6.5in;
+  margin: 0;
+}
+/******************************************************
+ * Chapter Outline
+ ******************************************************/
+.chapter > .introduction > .toc > * > li {
+  margin: .4em 0;
+}
+/******************************************************
+ * Example
+ ******************************************************/
+.example > .title > * {
+  font-weight: 700;
+}
+.example > .body > div.title {
+  color: #354da1;
+  font-size: 1.1em;
+}
+.example > .body > div.title:first-of-type {
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #354da1;
+  text-align: left;
+}
+.example > .body div.note {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+  text-align: right;
+  background-color: #dde2f2;
+  padding: 0;
+  margin: 0;
+}
+.example > .body div.note div.title {
+  margin-top: 0.5em;
+  padding: 0;
+  margin: 0;
+  color: #000000;
+  font-weight: bold;
+  border: none;
+  padding-bottom: .2em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 11pt;
+  display: inline;
+  padding-right: .5em;
+  font-size: 13px;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+.example > .body div.note div.body,
+.example > .body div.note div.body p {
+  display: inline;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 13px;
+}
+/******************************************************
+ * Step lists
+ ******************************************************/
+div.stepwise ol {
+  list-style-type: none;
+  counter-reset: steplist;
+}
+div.stepwise ol li {
+  counter-increment: steplist !important;
+}
+div.stepwise ol li p:first-of-type {
+  display: inline;
+}
+div.stepwise ol li::before {
+  font-style: italic;
+  font-weight: bold;
+  content: "Step " counter(steplist) '. ';
+  padding-right: 1em;
+  display: inline-block !important;
+}
+div.book div.chapter > div.section div.example div.exercise div.step-list ul li {
+  counter-increment: steplist !important;
+}
+/******************************************************
+ * List inside of a list
+ ******************************************************/
+div.orderedlist div.itemizedlist ul {
+  list-style-type: disc;
+}
+/******************************************************
+ * Ad-hoc text emphasis classes.
+ * For now we have one red, and one green class.
+ ******************************************************/
+span.emphasis-one strong {
+  font-weight: inherit;
+  color: #993720;
+}
+span.emphasis-two strong {
+  font-weight: inherit;
+  color: #8fb73e;
+}
+span.emphasis-leading-indent strong {
+  content: "\00a0" content();
+}
+/******************************************************
+ * EOC Customizations
+ ******************************************************/
+.cnx-eoc.exercises {
+  -webkit-column-count: 1;
+  -moz-column-count: 1;
+  column-count: 1;
+  columns: 1;
+  column-fill: auto;
+  column-gap: 24px;
+  text-align: left;
+}
+.cnx-eoc.exercises > .title {
+  content: "Exercises";
+  column-span: all;
+  color: #354da1;
+  font-size: 13pt;
+  font-weight: bold;
+  padding-bottom: .2em;
+  padding-bottom: 0;
+  margin-bottom: 6.6px;
+}
+.cnx-eoc.exercises p {
+  text-align: left;
+}
+.cnx-eoc.exercises > .section > .title > a {
+  color: black;
+}
+.cnx-eoc.exercises > .section > .body > .exercise {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  margin-top: 0;
+  margin-bottom: .2em;
+}
+.cnx-eoc.exercises > .section > .body > .exercise:last-child {
   margin-bottom: .5em;
 }
-.chapter .note > .title {
-  margin-top: 0.5em;
-  padding: 0;
-  margin: 0;
-  color: #000000;
-  border: none;
-  padding-bottom: .2em;
-  font-weight: bold;
-  margin: .5em 0;
-  padding: 0 10px;
+.cnx-eoc .section .title {
+  padding-top: 0;
 }
-.cnx-eoc.self-check-questions {
-  -webkit-column-count: 1;
-  -moz-column-count: 1;
-  column-count: 1;
-  columns: 1;
-  column-fill: auto;
-  column-gap: 24px;
+div.colophon.end-of-book-solutions .chapter-area {
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  margin-bottom: .5em;
 }
-.cnx-eoc.self-check-questions > .title {
-  text-transform: uppercase;
-}
-.cnx-eoc.self-check-questions > .section .title {
-  display: none;
-}
-.cnx-eoc.ap-test-prep {
-  -webkit-column-count: 1;
-  -moz-column-count: 1;
-  column-count: 1;
-  columns: 1;
-  column-fill: auto;
-  column-gap: 24px;
-}
-.cnx-eoc.ap-test-prep > .title::before {
-  content: "test prep for ap\00ae  courses";
-  text-transform: uppercase;
-}
-.cnx-eoc.ap-test-prep > .title > span {
-  display: none;
-}
-.cnx-eoc.ap-test-prep > .section .title {
-  display: none;
-}
-.cnx-eoc.review-questions p {
-  text-align: justify;
-}
-.cnx-eoc.critical-thinking p {
-  text-align: justify;
-}
-.cnx-eoc.problems > .title {
-  text-transform: uppercase;
-}
-.cnx-eoc.problems > .section .title {
-  display: none;
-}
-.cnx-eoc .exercise {
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  margin-top: 0;
-  margin-bottom: .75em;
-}
-.preface .section {
-  page-break-before: avoid;
-  page-break-after: avoid;
-}
-.preface .table table {
-  page-break-inside: avoid;
-  margin: auto;
-  page-break-inside: auto;
-  margin: 0;
-  border: none;
-  page-break-after: avoid;
-}
-.preface .table table td {
-  padding: 5px;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  font-size: 13px;
-  border: none !important;
-}
-.preface .table table tr:first-of-type td {
-  border-top: none !important;
-}
-div.colophon.end-of-book-solutions .table table {
-  page-break-inside: avoid;
-  margin: auto;
-  page-break-inside: auto;
-  width: auto;
-  padding: 1em 0;
-}
-div.colophon.end-of-book-solutions .table table th {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-div.colophon.end-of-book-solutions .chapter-area div.solution div.body div.figure > div.title {
-  display: inline;
-  text-align: center;
-  display: none;
-}
-.appendix .note.clearup {
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  padding: 20px;
-  background-color: #ffffff;
-  page-break-inside: auto;
-  color: #000000;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding: 0.2em 1em;
-  background-color: #efefef;
-}
-.appendix .note.clearup p:nth-of-type(2) {
-  page-break-before: avoid;
-}
-.appendix .note.clearup::before {
-  padding-top: 0.53in;
-  background-repeat: no-repeat;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
+div.colophon.end-of-book-solutions .chapter-area div.solution {
   display: block;
-  margin-left: -1em;
-  margin-right: -1em;
-  margin-top: -0.05in;
+  padding-bottom: .5em;
+  font-size: 13.33px;
 }
-.appendix .note.clearup::before {
-  background-image: url("ccap-economics/clear.svg");
+/******************************************************
+ * Appendix
+ ******************************************************/
+div.appendix div.titlepage > div > div h1.title {
+  font-size: inherit;
+  text-transform: capitalize;
+  padding-left: 0;
 }
-.appendix .note.clearup > .title {
-  font-size: large;
-  color: black;
-  border: none;
+div.appendix div.titlepage > div > div h1.title span.cnx-gentext-n {
+  color: #354da1;
+  font-size: 17pt;
   font-weight: bold;
 }
-.appendix .note.clearup > .body {
-  padding: 0px .8em;
+div.appendix div.titlepage > div > div h1.title span.cnx-gentext-n::before {
+  content: "Appendix ";
 }
-.appendix .note.clearup > .body p,
-.appendix .note.clearup > .body ol,
-.appendix .note.clearup > .body li {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-.appendix .note.clearup .figure img {
-  max-width: 6.25in;
-}
-.appendix .note.clearup .figure > .title {
-  font-size: 9.5pt;
-  color: #3767b1;
-}
-.appendix .note.workout {
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  padding: 20px;
-  background-color: #ffffff;
-  page-break-inside: auto;
-  color: #000000;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding: 0.2em 1em;
-  background-color: #efefef;
-}
-.appendix .note.workout p:nth-of-type(2) {
-  page-break-before: avoid;
-}
-.appendix .note.workout::before {
-  padding-top: 0.38in;
-  background-repeat: no-repeat;
-  page-break-after: avoid;
-  background-color: white;
-  content: "";
+div.appendix div.titlepage > div > div h1.title span.cnx-gentext-t {
+  font-size: 28pt;
+  color: #354da1;
+  border-top: 1px solid #f6862d;
   display: block;
-  margin-left: -1em;
-  margin-right: -1em;
-  margin-top: -0.05in;
-}
-.appendix .note.workout::before {
-  background-image: url("ccap-economics/work.svg");
-}
-.appendix .note.workout > .title {
-  font-size: large;
-  color: black;
-  border: none;
+  margin-top: .05em;
+  padding-left: 0em !important;
   font-weight: bold;
 }
-.appendix .note.workout > .body {
-  padding: 0px .8em;
-}
-.appendix .note.workout > .body p,
-.appendix .note.workout > .body ol,
-.appendix .note.workout > .body li {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-.appendix .note.workout .figure img {
-  max-width: 6.25in;
-}
-.appendix .note.workout .figure > .title {
-  font-size: 9.5pt;
-  color: #3767b1;
-}
-.appendix .note.workout .itemizedlist > .listitem .link.only-show-once {
-  content: content();
-}
-div.book > div.appendix > div.section div.equation > *:last-child::after,
-div.book > div.part > div.appendix > div.section div.equation > *:last-child::after {
+div.appendix div.titlepage > div > div h1.title span.cnx-gentext-t::before {
   display: none;
 }
-div.table .table-caption.caption {
-  font-weight: 400 !important;
-  color: #000000;
+div.appendix div.section > div.titlepage > div > div h2::before {
+  display: none;
 }
-div.table table tr:first-of-type td {
-  border-top: 3px solid #3767b1 !important;
+div.appendix div.section > div.titlepage > div > div h2 span.cnx-gentext-n {
+  display: none;
 }
-div.book > div.chapter .section.module,
-div.book > div.appendix.module {
-  margin: 0 0 24px 0;
-  margin-bottom: 12px;
-}
-div.book > div.chapter .section.module > .section:last-child,
-div.book > div.appendix.module > .section:last-child {
-  margin-bottom: 0;
-}
-div.book > div.chapter .section.module p + .section,
-div.book > div.appendix.module p + .section {
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-div.book > div.chapter .section.empty,
-div.book > div.appendix.empty {
-  margin-bottom: 0;
-}
-.table {
-  page-break-inside: avoid;
-  margin: auto;
-  page-break-inside: auto;
+div.appendix div.section > div.titlepage > div > div h2 span.cnx-gentext-t {
+  color: #354da1;
+  font-size: 18pt;
+  margin-top: .3em;
 }
 /********************************************************************
  * Glossary
@@ -4171,57 +4173,426 @@ div.book > div.appendix.empty {
 .glossary {
   page-break-before: always;
   display: inline;
-}
-.glossary::before {
-  display: none;
+  margin-bottom: 20px;
+  margin-top: 0;
 }
 .glossary .title {
-  /* Change "Glossary" to "Key Terms" */
   content: "Key Terms";
-  color: #a63c1d !important;
-  font-size: 12pt !important;
-  font-weight: bold;
-  text-transform: capitalize !important;
-  border-bottom-color: #e28f26;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  padding: 0em !important;
   margin-left: 0;
-  display: block;
-  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0em !important;
+  display: block !important;
   page-break-after: avoid !important;
-  /* Change "Glossary" to "Key Terms" */
-  color: #3767b1 !important;
-  font-size: 14pt !important;
-  text-transform: uppercase !important;
-  border: none;
-  margin-top: 0;
-  padding-top: 0;
+  color: #354da1 !important;
+  font-size: 13pt !important;
+  line-height: 17pt;
+  border-bottom: 1px #f6862d solid;
+  margin-bottom: 6.6px;
+  width: 100%;
 }
 .glossary dl dt::after {
   content: " ";
   float: right;
 }
-.glossary dl {
-  page-break-before: avoid;
-  margin: 1em 0;
-  text-align: left;
-}
-.glossary dl dt {
-  font: normal 700 12.7px/17px Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
 .glossary dl dd {
-  margin-left: 30px;
+  margin-left: 15px;
 }
-.glossary dl dd p {
-  font-size: 12.7px;
-  line-height: 17px;
+/********************************************************************
+ * Ad-hoc numbering
+ ********************************************************************/
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div span.label,
+div.book > div.appendix > div.section div.equation > *:last-child::after {
+  display: none;
 }
-.book > .toc .toc-chapter span:nth-of-type(3) {
-  prince-text-replace: none;
+.footnote {
+  color: black;
+  background: none;
+  font-weight: normal;
+  footnote-style-position: inside;
+  text-align: left;
+  margin-top: 0em;
+  margin-bottom: 0em;
+  padding-top: 0em;
+  padding-bottom: 0em;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 11px;
+  color: #000000;
+  float: footnote;
 }
-.book > .toc .toc-chapter > a span:nth-of-type(3) {
-  prince-text-replace: "." ":";
+.footnote * {
+  margin-top: 0em;
+  margin-bottom: 0em;
+  padding-top: 0em;
+  padding-bottom: 0em;
+}
+.chapter .note.clinical-focus {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #354da1;
+  border-radius: 15px;
+  margin-top: 48px;
+}
+.chapter .note.clinical-focus::before {
+  text-transform: none;
+  color: #ffffff;
+  content: "Clinical Focus";
+  background-color: #7291cb;
+  border: 1px solid #354da1;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.clinical-focus > .title {
+  margin-top: 0.5em;
+  padding: 0;
+  margin: 0;
+  color: #000000;
+  font-weight: bold;
+  border: none;
+  padding-bottom: .2em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 11pt;
+  color: #7291cb;
+}
+.chapter .note.clinical-focus-opener {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #354da1;
+  border-radius: 15px;
+  margin-top: 48px;
+  float: bottom;
+}
+.chapter .note.clinical-focus-opener::before {
+  text-transform: none;
+  color: #ffffff;
+  content: "Clinical Focus";
+  background-color: #7291cb;
+  border: 1px solid #354da1;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.clinical-focus-opener:before {
+  position: relative;
+  top: -40px;
+  padding: 10px 255px 10px 20px;
+}
+.chapter .note.clinical-focus-opener > .title {
+  margin-top: 0.5em;
+  padding: 0;
+  margin: 0;
+  color: #000000;
+  font-weight: bold;
+  border: none;
+  padding-bottom: .2em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 11pt;
+  color: #7291cb;
+  margin-top: -20px;
+}
+.chapter .note.micro-connection {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #6d0059;
+  border-radius: 15px;
+  margin-top: 48px;
+}
+.chapter .note.micro-connection::before {
+  text-transform: none;
+  color: #ffffff;
+  content: "Micro Connections";
+  background-color: #944c8d;
+  border: 1px solid #6d0059;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.micro-connection > .title {
+  margin-top: 0.5em;
+  padding: 0;
+  margin: 0;
+  color: #000000;
+  font-weight: bold;
+  border: none;
+  padding-bottom: .2em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 11pt;
+  color: #944c8d;
+}
+.chapter .note.disease-profile {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #8f5000;
+  border-radius: 15px;
+  margin-top: 48px;
+}
+.chapter .note.disease-profile::before {
+  text-transform: none;
+  color: #ffffff;
+  content: "Disease Profile";
+  background-color: #ad7b3c;
+  border: 1px solid #8f5000;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.disease-profile > .title {
+  margin-top: 0.5em;
+  padding: 0;
+  margin: 0;
+  color: #000000;
+  font-weight: bold;
+  border: none;
+  padding-bottom: .2em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 11pt;
+  color: #ad7b3c;
+}
+.chapter .note.case-in-point {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #007339;
+  border-radius: 15px;
+  margin-top: 48px;
+}
+.chapter .note.case-in-point::before {
+  text-transform: none;
+  color: #ffffff;
+  content: "Case in Point";
+  background-color: #8fb73e;
+  border: 1px solid #007339;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.case-in-point > .title {
+  margin-top: 0.5em;
+  padding: 0;
+  margin: 0;
+  color: #000000;
+  font-weight: bold;
+  border: none;
+  padding-bottom: .2em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 11pt;
+  color: #8fb73e;
+}
+.chapter .note.eye-on-ethics {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #be7d00;
+  border-radius: 15px;
+  margin-top: 48px;
+}
+.chapter .note.eye-on-ethics::before {
+  text-transform: none;
+  color: #ffffff;
+  content: "Eye on Ethics";
+  background-color: #dcb227;
+  border: 1px solid #be7d00;
+  border-radius: 15px;
+  width: 60%;
+  position: absolute;
+  margin-top: -48px;
+  margin-left: -5px;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+}
+.chapter .note.eye-on-ethics > .title {
+  margin-top: 0.5em;
+  padding: 0;
+  margin: 0;
+  color: #000000;
+  font-weight: bold;
+  border: none;
+  padding-bottom: .2em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 11pt;
+  color: #dcb227;
+}
+.chapter .note.check-your-understanding {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+}
+.chapter .note.check-your-understanding > .title {
+  margin-top: 0.5em;
+  padding: 0;
+  margin: 0;
+  color: #000000;
+  font-weight: bold;
+  border: none;
+  padding-bottom: .2em;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 11pt;
+  display: block;
+  background: url('ccap-microbiology/Check_Your_Understanding.png') no-repeat left top;
+  background-size: 70%;
+  height: 50px;
+  width: 100%;
+}
+.chapter .note.check-your-understanding > .title .cnx-gentext-tip-t {
+  display: none;
+}
+.cnx-eoc.multiple-choice > .title {
+  color: black;
+  font-size: 13px;
+  border-bottom: 0;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+.cnx-eoc.multiple-choice > .section .title > a {
+  display: none;
+}
+.cnx-eoc.matching > .title {
+  color: black;
+  font-size: 13px;
+  border-bottom: 0;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+.cnx-eoc.matching > .section .title > a {
+  display: none;
+}
+.cnx-eoc.true-false > .title {
+  color: black;
+  font-size: 13px;
+  border-bottom: 0;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+.cnx-eoc.true-false > .section .title > a {
+  display: none;
+}
+.cnx-eoc.short-answer > .title {
+  color: black;
+  font-size: 13px;
+  border-bottom: 0;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+.cnx-eoc.short-answer > .section .title > a {
+  display: none;
+}
+.cnx-eoc.fill-in-the-blank > .title {
+  color: black;
+  font-size: 13px;
+  border-bottom: 0;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+.cnx-eoc.fill-in-the-blank > .section .title > a {
+  display: none;
+}
+/* -------------------------
+ * Equations
+ * -------------------------
+ */
+div.book div.chapter > div.section div.equation.unnumbered,
+div.book div.chapter > div.section div.equation:not(.labeled).unnumbered,
+div.book div.chapter > div.section div.example div.exercise div.equation.unnumbered,
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled).unnumbered {
+  counter-increment: none !important;
+}
+div.book div.chapter > div.section div.equation.unnumbered > *:last-child::after,
+div.book div.chapter > div.section div.equation.unnumbered > *:last-child::before {
+  display: none !important;
+}
+/* -------------------------
+ * Tables
+ * -------------------------
+ */
+div.book div.chapter .table.unnumbered,
+div.book div.chapter .table:not(labeled).unnumbered {
+  counter-increment: none !important;
+}
+div.book div.chapter div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before {
+  display: none !important;
 }
 /* -------------------------
  * Table of Contents
