@@ -10,7 +10,14 @@
 // Import general page headers/footers, bookmark calculation, etc
 @import url('ccap-tables-deprecated.less');
 @import url('ccap-numbering.less');
-@import url('ccap-base.less');
+
+// ccap-base
+@import url('refactor/utils.less');
+@import url('refactor/ccap-base-slots.less');
+@import url('refactor/content-slots.less');
+@import url('refactor/ccap-base-overrides.less');
+@import url('refactor/ccap-base-skeleton.less');
+
 @import url('refactor/unnumbered-content.less');
 
 @import url('refactor/page-slots.less');
@@ -58,7 +65,7 @@ html {
 /*******************************************************
  * Unit Page
  ******************************************************/
-div.part > div.titlepage {display:none;}
+div.part > div.titlepage { display:none; }
 
 
 /******************************************************
@@ -106,31 +113,75 @@ div.part > div.titlepage {display:none;}
 .art-connection {
   page-break-inside: avoid;
   .x-feature(black, @cream, CNX_Bio_Art); //same svg header for maj/nonMaj
+
+  &::before {
+    width: 352px;
+    height: 46px;
+  }
 }
 
 .career {
   page-break-inside: avoid;
   .x-feature(black, @cream, CNX_BioMaj_Career);
-  &.non-majors { .x-feature(black, @cream, CNX_BioNonMaj_Career); }
+
+  &::before {
+    width: 352px;
+    height: 46px;
+  }
+
+  &.non-majors {
+    .x-feature(black, @cream, CNX_BioNonMaj_Career);
+
+    &::before {
+      width: 351px;
+    }
+  }
 }
 
 .everyday {
   page-break-inside: avoid;
   .x-feature(black, @cream, CNX_BioMaj_Everyday);
-  &.non-majors { .x-feature(black, @cream, CNX_BioNonMaj_Everyday); }
+  &::before {
+    width: 352px;
+    height: 37px;
+  }
+
+  &.non-majors {
+    .x-feature(black, @cream, CNX_BioNonMaj_Everyday);
+
+    &::before {
+      width: 351px;
+    }
+  }
 }
 
 .evolution {
   page-break-inside: avoid;
   .x-feature(black, @cream, CNX_BioMaj_Evolution);
+
+  &::before {
+    width: 351px;
+    height: 49px;
+  }
+
   &.non-majors {
     .x-feature(black, @cream, CNX_BioNonMaj_Evolution);
+
+    &::before {
+      height: 45px;
+    }
   }
 }
 
 .scientific  {
   page-break-inside: avoid;
   .x-feature( black, @cream, CNX_BioMaj_Scientific );
+
+  &::before {
+    width: 432px;
+    height: 45px;
+  }
+
   &.non-majors {
     .x-feature( black, @cream, CNX_BioNonMaj_Scientific );
   }
@@ -147,9 +198,6 @@ div.part > div.titlepage {display:none;}
     margin: 0;
      .title {
       font-size: 15px;
-      &:first-child {
-        margin-top: 10px;
-      }
     }
   }
 }
@@ -157,39 +205,42 @@ div.part > div.titlepage {display:none;}
   page-break-inside: avoid;
   .x-feature(black, @cream, Visual_Connection_feature, png);
   &::before {
-    padding-top: 0.46in;
+    width: 600px;
+    height: 71px;
   }
 }
 .ap-everyday {
   page-break-inside: avoid;
   .x-feature(black, @cream, Everyday_AP_feature, png);
   &::before {
-    padding-top: 0.38in;
+    width: 825px;
+    height: 57px;
   }
 }
 .ap-science-practices {
   page-break-inside: avoid;
   .note {
-    margin-left: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-top: 10px;
+    margin: 0;
+    margin-bottom: 10px;
     padding: 0;
+    > div.title { padding-bottom: 5px; }
     .exercise  {
       .title {
-        margin: 5px 0 0 0;
+        margin: 0 0 0 0;
         padding: 0;
       }
     }
   }
   .x-feature(black, @cream, AP_Scientific_Practices_feature, png);
   &::before {
-    padding-top: 0.39in;
+    width: 825px;
+    height: 60px;
   }
 }
 
 .x-feature (@color, @bg-color, @file, @type: svg ) {
   background-color: @bg-color;
+  display: table;
   * p { font-family: inherit; }
   p:nth-of-type(1) {
     page-break-before: avoid; // 1st para contains feature body title no break after
@@ -197,19 +248,13 @@ div.part > div.titlepage {display:none;}
 
   &::before {
     background-image: url("ccap-biology/@{file}.@{type}");
-    padding-top: 0.65in; // 0.65 in is from the SVG files
     background-repeat: no-repeat;
     background-position: top left;
-    background-position: top outside;
     page-break-inside: avoid;
     page-break-after: avoid;
-    background-color: white;
     content: "";
-    display:block;
-    // the following are tweaked so the overlays really do over lay
-    margin-left: -1.05em;
-    margin-right: -2.05em;
-    margin-top: -0.03in;
+    display: table-caption;
+    caption-side: top;
   }
 
   > .title { display: none; } //supress title in pdf (webview only)
@@ -296,9 +341,11 @@ div.part > div.titlepage {display:none;}
 
   &.summary {
     .x-column-count(1);
-    > .title { content: "Chapter Summary"; margin-top: 1em; }
+    > .title { content: "Chapter Summary"; }
     > .section .title > a { color: black; page-break-after: avoid; }
-    p:nth-of-type(1) {  margin-top: 1em; }
+    > .section .title { padding: 0 0 12.667px 0; }
+    p { margin: 0 0 6.333px 0; }
+    p:last-of-type { margin-bottom: 12.667px; }
   }
 
   .problem .orderedlist { margin-left: 4em;}
@@ -374,7 +421,7 @@ a { font-weight: bold; color: @tuscany; }
 
 
 h1, h2, h3, h4 {
-  margin: 0.5em 0em;
+  margin: 0em 0em .5em 0;
   text-align: left !important; //overides text alignment set in
 }
 
@@ -437,8 +484,15 @@ p {
     text-transform:uppercase;
   }
 
+  .titlepage div div .title { margin-top: 0em; }
+
   // Remove ":"
   dt::after { content: " " !important; }
+
+  dl {
+    padding-bottom: 0;
+    margin: 0;
+  }
 }
 
 .section > .title { page-break-after:avoid; }
@@ -450,7 +504,7 @@ p {
   //this style Attributions and About Connections
   color:white;
   background-color: @green;
-  margin: .5em 0;
+  margin: 0 0 .5em 0;
  }
 
 

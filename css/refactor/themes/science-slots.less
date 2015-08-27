@@ -226,65 +226,31 @@
       }
     }
     #learning-objectives {
-      .style(...) {
+      .style() {
         counter-reset: learning-objectives;
         text-align: left;
         padding: 0;
         margin-bottom: 0;
         margin-top: 12.48px;
-        /*
-          For items below, .abstract section in precalculus-skeleton
-          needs additional work to place p and ul elements into slots
-          After that, we can just insert the delta into psychology slot
-          without addtional code needed for psychology-skeleton. A possible
-          slot for this would be something like this:
-          #content>#para>.style(any; any; learning-objectives)
-        */
-        p {
-          font: 10pt/14pt @font-family-serif;
-          margin: 0;
-        }
-        > .title {
-          border: none;
-          margin-top: 0;
-        }
-        ul.itemizedlist {
-          > .listitem {
-            display: list-item;
-            padding-top: 0;
-            margin-top: .4em;
-            margin-bottom: .4em;
-            p {
-              display: block;
-              margin: 0;
-            }
-            &::before {
-              display: none;
-            }
-            &:last-child {
-              padding-bottom: 0;
-            }
-          }
-        }
       }
       #list {
         .style(){
-        margin: 0 40px;
+          margin: 0 0 0 22px;
+          padding: 0;
         }
       }
       #title {
-        .style(...) {
-          // content: @cnx-string-learning-objectives;
-          // display: inline-block;
-          // width: 100%;
-          // border-bottom-color: @orange;
-          // font: normal normal 700 10pt @font-family-sans-serif;
-          // text-align: left;
-          // margin-bottom: .5em;
-          // padding-top: .1em;
-          // padding-bottom: .2em;
-          // color: @light-blue;
-          display: none;
+        .style() {
+          #utils>#pb>.after(avoid);
+          #utils>#pb>.before(avoid);
+          width: 100%;
+          color: @light-red;
+          text-align: left;
+          font-weight: bold;
+          font-size: 11pt;
+          padding-left: 0px;
+          padding-top: .1em;
+          padding-bottom: .2em;
         }
       }
     }
@@ -302,39 +268,20 @@
         border-bottom: 1px solid @orange;
         padding-bottom: .2em;
       }
-      // Remove pipe (|) from between section number and title
       .divider() {
-       // content: "";
        color: black;
       }
       .number() {}
       .text() {}
     }
   }
-  //   #glossary {
-  //   .style(chapter) {
-  //     // End-of-chapter material should start on a new page
-  //     #utils>#pb>.before(always);
-  //     display: inline;
-  //   }
-  //   #title {
-  //     .style(chapter) {
-  //        Change "Glossary" to "Key Terms"
-  //       content: "Key Terms";
-  //       color: @medium-blue;
-  //       font-size: large;
-  //       padding: 0em;
-  //       display: block;
-  //       text-transform: uppercase;
-  //     }
-  //   }
-  // }
+
  // End-of-chapter parts
   #chapter-end {
     .style(...) {
       font-size: 10pt;
       line-height: 13pt;
-      .x-column-count(2);
+      .x-column-count(1);
       column-width: auto;
       column-fill: balance;
       #utils>#pb>.inside(auto);
@@ -523,6 +470,7 @@
             a.solution {
               color: black;
               font-weight: bold;
+              padding-right: 150px;
             }
           }
         }
@@ -663,8 +611,9 @@
         border-bottom-width: 1px;
         border-bottom-style: solid;
         margin-top: 0;
-        margin-left: 0px;
-        padding-left: 0px;
+        margin-left: 0;
+        padding-left: 0;
+        padding-top: 0;
         padding-bottom: .2em;
         text-transform: none;
         font-size: 17pt;
@@ -841,6 +790,10 @@
   }
 
   #table {
+   .style(unstyled; any) {
+     border: none;
+     margin: 0;
+   }
     .style(any; any) {
       #utils>#pb>.inside(auto);
       border: @table-border;
@@ -849,6 +802,7 @@
       // If a table spans more than 1 page then put caption on all following pages
       prince-caption-page: all;
       border: none;
+      border-collapse: collapse;
     }
     .style(any; preface) {
       margin: 0;
@@ -860,16 +814,14 @@
     .style(any; any; solution; exercise; example) {
       counter-increment: table !important; // Overrides !important from base.
     }
+    .style(multiple-headers) {
+      margin-bottom: 0;
+    }
     #caption {
       .style(any; any) {
         font-family: @font-family;
         color: @black;
-        border-top: 1px solid @dark-blue;
-        border-width: 1px;
-        border-style: solid;
-       border-bottom: none;
-        border-right: none;
-        border-left: none;
+        border: none;
         padding-top: .5em;
         padding-left: 0px;
         padding-bottom: 1em;
@@ -877,6 +829,9 @@
         font-size: 13px;
         line-height: 17px;
         font-weight: 100;
+      }
+      .style(unstyled; any) {
+        display: none;
       }
       .style(any; any; problem; exercise; example) { display: block; }
       .style(any; any; solution; exercise; example) { display: block; }
@@ -890,7 +845,7 @@
     }
     #head {
       .style(any; any) {
-        border-top: 1px solid @dark-blue;
+        border-top: none;
         border-bottom: 1px solid @dark-blue;
         font-family: @font-family-sans-serif;
       }
@@ -899,20 +854,43 @@
       .style(any; any) {
         border: 1px solid @dark-blue;
       }
+      .style(unstyled; any) {
+       border: none;
+     }
+     .style(multiple-headers; any) {
+       border: none;
+     }
+    .style(multiple-headers; table) {
+      border: solid 1px @dark-blue;
+     }
     }
     #row {
       border: none !important;
       .style(any; any) {
         #utils>#pb>.inside(avoid);
+        border-left: solid 1px @dark-blue;
+        border-right: solid 1px @dark-blue;
       }
       .style(colored; any) {
         height: 1em !important;
       }
+      .style(unstyled; any) {
+        border: none !important;
+       }
+       .style(multiple-headers; any) {
+          border: none;
+       }
+       .style(multiple-headers; table) {
+          border: solid 1px @dark-blue;
+       }
     }
     #header {
       .style(any; any) {
         color: @white;
         border-color: @dark-blue !important; // !important is in ccap-base
+        border-left: solid 1px @dark-blue;
+        border-right: solid 1px @dark-blue;
+        border-bottom: 1px solid @dark-blue;
         border-bottom: none;
         border-top: 1px solid @dark-blue;
         padding: 5px 10px;
@@ -922,13 +900,29 @@
         vertical-align: initial;
       }
       .style(colored; any) {
-        background-color: @light-orange; text-align: center;
+        background-color: @light-orange;
+        text-align: center;
       }
-      .style('first'; any) {
-        border: none !important;
-        background-color: transparent;
-        color: @dark-blue;
-        font-weight: bold;
+      .style(multiple-header; table) {
+          background: @medium-blue;
+          color: @white;
+          border: solid 1px @dark-blue !important; // !important is in ccap-base
+      }
+      #title {
+        .style(any; any) {
+          border-left: 0;
+          border-right: 0;
+        }
+        .text(any; any) {
+          border: none !important;
+          background-color: transparent;
+          color: @dark-blue;
+          font-weight: bold;
+        }
+        .footnote(any; any) {
+          color: @white;
+          font-family: @font-family-sans-serif;
+        }
       }
     }
     #data {
@@ -937,12 +931,20 @@
         font-size: 9pt;
         text-align: center;
         border-color: @dark-blue !important; // !important is in ccap-base
-        border-top: 1px solid @dark-blue;
-        border-bottom: none;
         font-family: @font-family-sans-serif;
         font-size: 9pt;
         padding: 5px 10px;
       }
+      .style(unstyled; any) {
+        border: none;
+        text-align: left;
+       }
+       .style(multiple-headers; any) {
+          padding: 0;
+       }
+       .style(multiple-headers; table) {
+          padding: 10px;
+       }
        .style(any; preface) {
         padding: 5px;
       }
@@ -958,42 +960,6 @@
         color: @white;
         text-align: center;
         vertical-align: initial;
-      }
-    }
-  }
-
-  #solution {
-    .style(...) {}
-    .style(@kind; book-end) {
-      display: block;
-      padding-bottom: .5em;
-      font-size: 13.33px;
-    }
-    #title {
-      .style(...) {}
-      .style(@kind; book-end) {
-        display: inline;
-        padding: 0;
-        &::before {
-          // We must blow up "TARGET-EXERCISE" text coming from ::before
-          // in numbering.less This is the major culprit in inline-solutions bug.
-          content: " ";
-          display: inline;
-          padding: 0;
-        }
-        &::after {
-          // We need period after numbering
-          content: ".";
-          margin-right: .15em;
-        }
-      }
-      .link(...) {}
-    }
-    #body {
-      .style(...) {}
-      .style(@kind; book-end) {
-        display: inline;
-        margin-right: .15em;
       }
     }
   }
@@ -1336,13 +1302,15 @@
   }
 
   #solution {
-    .style(...) {}
+    .style() {}
     .style(any; any; example) {
-      padding-top: 1em; padding-bottom: 1em;
+      padding-top: 1em;
+      padding-bottom: 1em;
     }
-
     .style(@kind; book-end) {
-      // style any PreCalc solution that occurs in #book-end
+      display: block;
+      padding-bottom: .5em;
+      font-size: 13.33px;
     }
     .style(@kind; @part; exercise; section-exercise) {
       // do not display end-of-section exercise solutions.
@@ -1353,7 +1321,7 @@
       display: none;
     }
     #title {
-      .style(...) {}
+      .style() {}
       .style(any; any; exercise; example) {
         content: "Solution";
         font-family: @font-family;
@@ -1368,10 +1336,17 @@
         // This may have been set to not display inline
         // due to a W&N request.
         display: inline;
-
+        &::before {
+          // We must blow up "TARGET-EXERCISE" text coming from ::before
+          // in numbering.less This is the major culprit in inline-solutions bug.
+          content: " ";
+          display: inline;
+          padding: 0;
+        }
         // Solution in Answer Key needs to have period after number.
         &::after {
-          content: ". ";
+          content: ".";
+          margin-right: .15em;
         }
       }
       .link(...) {}
@@ -1384,7 +1359,7 @@
         margin-top: .5em;
       }
       .style(@kind, book-end) {
-        margin-right: .65em;
+        margin-right: .15em;
         display: inline;
         // will need to change - include in .body mixin for now
         > a.target-figure {
@@ -1429,16 +1404,6 @@
         }
       }
     }
-    // .style(chapter) {
-    //   display:  block;
-    //   margin-bottom: 20px;
-    //   margin-top: 0;
-    //   color: @dark-blue !important;
-    //   font-size: 13pt !important;
-    //   line-height: 17pt;
-    //   border-bottom: 1px @orange solid;
-    //   .x-header-spacing();
-    // }
     .term(chapter) {
       display: block;
       margin-top: 0;
@@ -1485,44 +1450,6 @@
       margin-left: 15px;
     }
   }
-
-
-
-  // #glossary {
-  //   .style(...) {
-  //     #utils>#pb>.before(always);
-  //     display:inline;
-  //     // Don't show the "Chapter X Review" header from PreCalc
-  //     // &::before {
-  //     //   display: none;
-  //     // }
-  //   }
-  //   #title {
-  //     .style() {
-  //       /* Change "Glossary" to "Key Terms" */
-  //       content: "Key Terms";
-  //       // Temp changes in place until we horizontally refactor glossary across books.
-  //     // color: @red !important;
-  //       //font-size: 12pt !important;
-  //       //color: @dark-blue !important;
-  //       //font-size: 13pt !important;
-  //     //  line-height: 17pt;
-  //       //border-bottom: 1px @orange solid;
-  //       // text-transform: capitalize !important;
-  //       // page-break-after: avoid !important;
-  //       // border-bottom-color: @orange;
-  //       // border-bottom-width: 1px;
-  //       // border-bottom-style: solid;
-  //       // margin-top: 0;
-  //       // padding: 0em !important;
-  //       // margin-left: 0;
-  //       // font-weight: bold;
-  //       //  display: block;
-  //     }
-  //     .style(any; chapter) {
-  //       .x-header-spacing();
-  //     }
-  //   }
     .dt() {
       // prevent container from allowing meaning to wrap appropriately
       height: 15px;
@@ -1581,6 +1508,14 @@
       color: @dark-orange;
       font-family: @font-family;
       font-weight: bold;
+    }
+  }
+
+  #footnote {
+    .style(){
+      font-family: @font-family-serif;
+      font-size: 11px;
+      color: @black;
     }
   }
 }

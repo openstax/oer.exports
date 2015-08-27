@@ -799,6 +799,9 @@ div.book .footnote {
   margin-bottom: 0em;
   padding-top: 0em;
   padding-bottom: 0em;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 11px;
+  color: #000000;
   float: footnote;
 }
 div.book .footnote * {
@@ -1395,38 +1398,6 @@ div.section > div.titlepage div.abstract {
   padding: 0;
   margin-bottom: 0;
   margin-top: 12.48px;
-  /*
-          For items below, .abstract section in precalculus-skeleton
-          needs additional work to place p and ul elements into slots
-          After that, we can just insert the delta into psychology slot
-          without addtional code needed for psychology-skeleton. A possible
-          slot for this would be something like this:
-          #content>#para>.style(any; any; learning-objectives)
-        */
-}
-div.section > div.titlepage div.abstract p {
-  font: 10pt/14pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  margin: 0;
-}
-div.section > div.titlepage div.abstract > .title {
-  border: none;
-  margin-top: 0;
-}
-div.section > div.titlepage div.abstract ul.itemizedlist > .listitem {
-  display: list-item;
-  padding-top: 0;
-  margin-top: .4em;
-  margin-bottom: .4em;
-}
-div.section > div.titlepage div.abstract ul.itemizedlist > .listitem p {
-  display: block;
-  margin: 0;
-}
-div.section > div.titlepage div.abstract ul.itemizedlist > .listitem::before {
-  display: none;
-}
-div.section > div.titlepage div.abstract ul.itemizedlist > .listitem:last-child {
-  padding-bottom: 0;
 }
 div.section > div.titlepage div.abstract ul.itemizedlist > li {
   margin: .25em 0em;
@@ -1457,6 +1428,9 @@ div.section > div.titlepage div.abstract ul.itemizedlist > li {
   margin-bottom: 0em;
   padding-top: 0em;
   padding-bottom: 0em;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 11px;
+  color: #000000;
   float: footnote;
 }
 .footnote * {
@@ -2440,29 +2414,32 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
 /********************************************************************
  * Styling for Learning Objectives Box
  ********************************************************************/
-.section > .titlepage .abstract::before {
-  display: none;
-}
-.section > .titlepage .abstract .itemizedlist > ul {
-  margin: 0 40px;
-}
-.section > .titlepage .abstract p {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  margin: 1em 0em .75em 1em;
-}
-.section > .titlepage .abstract .itemizedlist > .listitem > p {
-  margin: 0em .3em;
-  display: inline;
+div.book div > div.section > div.learning-objectives {
+  margin: 1em 0em;
+  padding: .50em;
+  page-break-inside: avoid;
+  page-break-before: avoid;
+  counter-reset: learning-objectives;
   text-align: left;
+  padding: 0;
+  margin-bottom: 0;
+  margin-top: 12.48px;
 }
-.section > .titlepage .abstract .itemizedlist > .listitem {
-  counter-increment: learning-objectives;
-  display: block;
-}
-.section > .titlepage .abstract .itemizedlist > .listitem::before {
-  content: "" " " counter(chapter, decimal) "." counter(section, decimal) "." counter(learning-objectives) " " "";
-  color: #7291cb;
+div.book div > div.section > div.learning-objectives div.titlepage > div > div > h3 {
+  page-break-after: avoid;
+  page-break-before: avoid;
+  width: 100%;
+  color: #bb4829;
+  text-align: left;
   font-weight: bold;
+  font-size: 11pt;
+  padding-left: 0px;
+  padding-top: .1em;
+  padding-bottom: .2em;
+}
+div.book div > div.section > div.learning-objectives .itemizedlist > ul {
+  margin: 0 0 0 22px;
+  padding: 0;
 }
 /********************************************************************
  * End of chapter customizations
@@ -2473,10 +2450,10 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
 .cnx-eoc {
   font-size: 10pt;
   line-height: 13pt;
-  -webkit-column-count: 2;
-  -moz-column-count: 2;
-  column-count: 2;
-  columns: 2;
+  -webkit-column-count: 1;
+  -moz-column-count: 1;
+  column-count: 1;
+  columns: 1;
   column-fill: auto;
   column-gap: 24px;
   column-width: auto;
@@ -2650,7 +2627,6 @@ div.colophon.end-of-book-solutions .chapter-area div.solution {
   font-size: 13.33px;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.title {
-  padding: 0;
   display: inline;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.title::before {
@@ -2662,12 +2638,8 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.title::after
   content: ".";
   margin-right: .15em;
 }
-div.colophon.end-of-book-solutions .chapter-area div.solution > div.title::after {
-  content: ". ";
-}
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body {
   margin-right: .15em;
-  margin-right: .65em;
   display: inline;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div,
@@ -2806,8 +2778,9 @@ subfigure {
   border-bottom-width: 1px;
   border-bottom-style: solid;
   margin-top: 0;
-  margin-left: 0px;
-  padding-left: 0px;
+  margin-left: 0;
+  padding-left: 0;
+  padding-top: 0;
   padding-bottom: .2em;
   text-transform: none;
   font-size: 17pt;
@@ -3145,13 +3118,6 @@ div.table {
   padding: 0;
   border: none;
 }
-div.table .cnx-figure-horizontal .informalfigure .caption {
-  text-align: center;
-}
-div.table .cnx-figure-horizontal .informalfigure .caption * {
-  font-weight: normal;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
 div.table table {
   page-break-inside: avoid;
   margin: auto;
@@ -3159,17 +3125,13 @@ div.table table {
   padding-top: 1em;
   prince-caption-page: all;
   border: none;
+  border-collapse: collapse;
   page-break-inside: auto;
 }
 div.table table caption {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: #000000;
-  border-top: 1px solid #354da1;
-  border-width: 1px;
-  border-style: solid;
-  border-bottom: none;
-  border-right: none;
-  border-left: none;
+  border: none;
   padding-top: .5em;
   padding-left: 0px;
   padding-bottom: 1em;
@@ -3182,20 +3144,39 @@ div.table table caption::before {
   color: #e6661f;
   font-weight: bold;
 }
+div.table table .cnx-figure-horizontal .informalfigure .caption {
+  text-align: center;
+}
+div.table table .cnx-figure-horizontal .informalfigure .caption * {
+  font-weight: normal;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
 div.table table thead {
-  border-top: 1px solid #354da1;
+  border-top: none;
   border-bottom: 1px solid #354da1;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+div.table table thead .footnote::footnote-call {
+  color: #ffffff;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 div.table table tbody {
   border: 1px solid #354da1;
 }
+div.table table table tbody[valign=top] > tr > td {
+  vertical-align: top;
+}
 div.table table tr {
   page-break-inside: avoid;
+  border-left: solid 1px #354da1;
+  border-right: solid 1px #354da1;
 }
-div.table table th {
+div.table table th:not(:only-child) {
   color: #ffffff;
   border-color: #354da1 !important;
+  border-left: solid 1px #354da1;
+  border-right: solid 1px #354da1;
+  border-bottom: 1px solid #354da1;
   border-bottom: none;
   border-top: 1px solid #354da1;
   padding: 5px 10px;
@@ -3207,8 +3188,6 @@ div.table table th {
 div.table table td {
   text-align: center;
   border-color: #354da1 !important;
-  border-top: 1px solid #354da1;
-  border-bottom: none;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding: 5px 10px;
@@ -3219,6 +3198,10 @@ div.table table td.header {
   color: #ffffff;
   text-align: center;
   vertical-align: initial;
+}
+div.table table thead > tr:first-child {
+  border-left: 0;
+  border-right: 0;
 }
 div.table ul.itemizedlist,
 div.table ol.orderedlist {
@@ -3241,12 +3224,70 @@ div.table.color tr td:first-child {
   width: 2.5in;
   font-weight: bold;
 }
-.cnx-figure-horizontal .informalfigure .caption {
-  text-align: center;
+div.table.unstyled table {
+  page-break-inside: avoid;
+  margin: auto;
+  border: none;
+  margin: 0;
+  page-break-inside: auto;
 }
-.cnx-figure-horizontal .informalfigure .caption * {
-  font-weight: normal;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+div.table.unstyled table caption {
+  display: none;
+}
+div.table.unstyled table tr {
+  border: none !important;
+}
+div.table.unstyled table td {
+  border: none;
+  text-align: left;
+}
+div.table.unstyled table tbody {
+  border: none;
+}
+div.table.multiple-headers table {
+  page-break-inside: avoid;
+  margin: auto;
+  page-break-inside: auto;
+}
+div.table.multiple-headers table tbody {
+  border: none;
+}
+div.table.multiple-headers table tr {
+  border: none;
+}
+div.table.multiple-headers table td {
+  padding: 0;
+}
+div.table.multiple-headers table tr table thead tr .tablecell {
+  background: #7291cb;
+  color: #ffffff;
+  border: solid 1px #354da1 !important;
+}
+div.table.multiple-headers table tr table tbody {
+  border: solid 1px #354da1;
+}
+div.table.multiple-headers table tr table tr {
+  border: solid 1px #354da1;
+}
+div.table.multiple-headers table tr table thead tr:only-child,
+div.table.multiple-headers table tr table thead tr:only-child .tablecell {
+  border-top: 0px !important;
+}
+div.table.multiple-headers table tr table td {
+  padding: 10px;
+}
+div.table.column-header tbody td:first-child {
+  background-color: #7291cb;
+  font-size: 9pt;
+  color: #ffffff;
+  text-align: center;
+  vertical-align: initial;
+}
+div.table:not(.unnumbered) table thead tr:first-of-type th {
+  border: none !important;
+  background-color: transparent;
+  color: #354da1;
+  font-weight: bold;
 }
 /* ---------------------------------------------------
  * Custom Equation (Non) Numbering
@@ -3503,71 +3544,6 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
 /******************************************************
  * Learning Objectives/Chapter Objectives
  ******************************************************/
-.section > .titlepage .abstract {
-  margin: 1em 0em;
-  padding: .50em;
-  page-break-inside: avoid;
-  page-break-before: avoid;
-  counter-reset: learning-objectives;
-  text-align: left;
-  padding: 0;
-  margin-bottom: 0;
-  margin-top: 12.48px;
-  /*
-          For items below, .abstract section in precalculus-skeleton
-          needs additional work to place p and ul elements into slots
-          After that, we can just insert the delta into psychology slot
-          without addtional code needed for psychology-skeleton. A possible
-          slot for this would be something like this:
-          #content>#para>.style(any; any; learning-objectives)
-        */
-}
-.section > .titlepage .abstract p {
-  font: 10pt/14pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  margin: 0;
-}
-.section > .titlepage .abstract > .title {
-  border: none;
-  margin-top: 0;
-}
-.section > .titlepage .abstract ul.itemizedlist > .listitem {
-  display: list-item;
-  padding-top: 0;
-  margin-top: .4em;
-  margin-bottom: .4em;
-}
-.section > .titlepage .abstract ul.itemizedlist > .listitem p {
-  display: block;
-  margin: 0;
-}
-.section > .titlepage .abstract ul.itemizedlist > .listitem::before {
-  display: none;
-}
-.section > .titlepage .abstract ul.itemizedlist > .listitem:last-child {
-  padding-bottom: 0;
-}
-/******************************************************
- * Tables
- ******************************************************/
-.table .table-caption.caption {
-  color: #993720;
-  font-size: 10pt;
-  font-weight: 700 !important;
-  line-height: 13pt;
-  padding-left: 5px;
-}
-.table table tbody[valign=top] > tr > td {
-  vertical-align: top;
-}
-.table table td {
-  border-color: #f6862d !important;
-  font: 10pt/14pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding: 5px 10px;
-}
-.table > caption,
-.table td {
-  padding: 0.25em;
-}
 /********************************************************************
  * End of chapter customizations
  ********************************************************************/
@@ -4083,31 +4059,6 @@ span.emphasis-leading-indent strong {
   content: "\00a0" content();
 }
 /******************************************************
- * Tables
- ******************************************************/
-.table > table > caption + tbody > tr:first-child > td.tablecell {
-  border-top: 1px solid #354da1;
-}
-.table.column-header tbody td:first-child {
-  background-color: #7291cb;
-  font-size: 9pt;
-  color: #ffffff;
-  text-align: center;
-  vertical-align: initial;
-}
-.table:not(.unnumbered) table tr:first-child > th:first-child {
-  border: none !important;
-  background-color: transparent;
-  color: #354da1;
-  font-weight: bold;
-}
-.table table .table-caption.caption {
-  color: #000000;
-  font-weight: normal !important;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  font-size: 9pt;
-}
-/******************************************************
  * EOC Customizations
  ******************************************************/
 .cnx-eoc.exercises {
@@ -4231,6 +4182,27 @@ div.appendix div.section > div.titlepage > div > div h2 span.cnx-gentext-t {
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div span.label,
 div.book > div.appendix > div.section div.equation > *:last-child::after {
   display: none;
+}
+.footnote {
+  color: black;
+  background: none;
+  font-weight: normal;
+  footnote-style-position: inside;
+  text-align: left;
+  margin-top: 0em;
+  margin-bottom: 0em;
+  padding-top: 0em;
+  padding-bottom: 0em;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 11px;
+  color: #000000;
+  float: footnote;
+}
+.footnote * {
+  margin-top: 0em;
+  margin-bottom: 0em;
+  padding-top: 0em;
+  padding-bottom: 0em;
 }
 /* -------------------------
  * Equations
