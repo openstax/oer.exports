@@ -1,3 +1,9 @@
+@import url('../includes/table-slots.less');
+
+@tables: humanities;
+@import url('../includes/tables.less');
+.tables(@tables);
+
 @cnx-string-chapter: "Chapter";
 @cnx-string-introduction: "Introduction";
 @cnx-string-chapter-outline: "Chapter Outline";
@@ -663,72 +669,6 @@
     }
   }
 
-  #table {
-    .style(any; any) {
-      border: @table-border;
-      margin-bottom: 22px;
-      #utils>#pb>.inside(auto);
-      prince-caption-page: all;
-    }
-    #caption {
-      .style(any; any) {
-        color: @red;
-        font-family: @font-family;
-        border-color: @orange;
-        border-width: 1px;
-        border-style: solid;
-        border-bottom: none;  //padding-bottom: 1em;
-        padding-left: .5em;
-        padding-top: .5em;
-        padding-bottom: 1em;
-        font-weight:bold;
-        caption-side: top;
-        font-size: 13px;
-        line-height: 17px;
-      }
-      .style(any; book-end; solution) { display: none; }
-      .number(any; any) {}
-    }
-     #head {
-      .style(any; any) {
-      }
-    }
-    #header {
-      .style(any; any) {
-        border-color: @orange !important; // !important is in ccap-base.
-        background-color: @white;
-        color: black;
-        padding: 5px 10px;
-        font-size: small;
-        text-align: left;
-      }
-      .style(colored; any) {
-        background-color: @light-orange; text-align: center;
-      }
-    }
-    #body {
-      .style(any; any) {
-      }
-    }
-    #row {
-      .style(any; any) {
-        #utils>#pb>.inside(avoid);
-      }
-      .style(colored; any) {
-        height: 1em !important;
-      }
-    }
-    #data {
-      .style(any; any) {
-        border-color: @orange;
-        font: 10pt/14pt @font-family-serif;
-        padding: 5px 10px;
-      }
-      .style('header'; any) {
-       background-color: @white;
-      }
-    }
-  } //end table
   #note{
     .style(...) {
       padding: 20px;
@@ -1138,6 +1078,35 @@
     .style(h6, ...) {
       color: @medium-blue;
       font-weight: bold;
+    }
+  }
+  #table {
+    .style(any; any) {
+      border: @table-border;
+    }
+    #caption {
+      .style(any; any) {
+        color: @red;
+        font-family: @font-family;
+        border-color: @orange;
+      }
+    }
+    #header {
+      .style(any; any) {
+        border-color: @orange !important; // !important is in ccap-base.
+        background-color: @white;
+      }
+      .style(colored; any) {
+        background-color: @light-orange;
+      }
+    }
+    #data {
+      .style(any; any) {
+        border-color: @orange;
+      }
+      .style('header'; any) {
+       background-color: @white;
+      }
     }
   }
 }

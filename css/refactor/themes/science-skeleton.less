@@ -1,6 +1,8 @@
 // Copyright (c) 2013 Rice University
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
+@import url('../includes/table-skeleton.less');
+
 h2, h3, h4 {
   margin: initial;
   sup a {
@@ -198,10 +200,6 @@ div.book > div.appendix > div.titlepage > div > div h1.title {
 
 div.book > div.appendix > div.section {
   #content>#section>.style(any; appendix);
-}
-
-div.book > div.appendix .table {
-  #utils>#pb>.inside(auto);
 }
 
 //appendix  section title
@@ -777,139 +775,6 @@ div.book div.chapter > div.section div.example div.exercise .commentary {
     }
   }
 }
-
-/******************************************************************************
- * Tables
- ******************************************************************************/
-div.table {
-  // First, reset div.table so it just goes away. Apply styling to the actual
-  // table element.
-  margin: 0 auto;
-  padding: 0;
-  border: none;
-  table {
-    #content>#table>.style(any; any);
-    caption {
-      #content>#table>#caption>.style(any; any);
-      &::before {
-        #content>#table>#caption>.number(any; any);
-      }
-    }
-  .cnx-figure-horizontal .informalfigure .caption {
-    text-align: center; //center subfigure caption
-    * {
-      font-weight: normal; //override strong tag
-      font-family: @font-family-serif;
-    }
-  }
-    // caption + tbody > tr:first-child > td.tablecell {
-    //   border-top: none;
-    // }
-    thead {
-      #content>#table>#head>.style(any; any);
-      .footnote::footnote-call {
-        #content>#table>#header>#title>.footnote(any; any);
-      }
-    }
-    tbody { #content>#table>#body>.style(any; any); }
-    table tbody[valign=top]>tr>td { vertical-align: top; }
-    tr { #content>#table>#row>.style(any; any);
-    }
-    th:not(:only-child) { #content>#table>#header>.style(any; any);
-    }
-    td { #content>#table>#data>.style(any; any); }
-    // Add styling for table entries that should render as table headers
-    td.header { #content>#table>#data>.style('header'; any); }
-    thead > tr:first-child {
-      #content>#table>#header>#title>.style(any; any);
-    }
-  }
-  //handle lists inside tables
-ul.itemizedlist, ol.orderedlist {
-    #content>#list>.style(any; any; table);
-    > .listitem > p {
-      #content>#paragraph>.style(any; any; list; table);
-     }
-  }
-
-  // Special colored table...
-  &.color {
-    th {
-      #content>#table>#header>.style(colored; any);
-    }
-    tr {
-      #content>#table>#row>.style(colored; any);
-    }
-    tr td:first-child {
-      background-color: @light-orange;
-      width: 2.5in;
-      font-weight: bold;
-    }
-  }
-
-  //no borders, left aligned, no color change
-  &.unstyled {
-      table {
-        #content>#table>.style(unstyled; any);
-        caption {
-          #content>#table>#caption>.style(unstyled; any);
-        }
-        tr {
-          #content>#table>#row>.style(unstyled; any);
-        }
-        td {
-          #content>#table>#data>.style(unstyled; any);
-        }
-        tbody {
-          #content>#table>#body>.style(unstyled; any);
-      }
-    }
-  }
-
-  //nested tables with header rows within
-  &.multiple-headers {
-    table {
-      #content>#table>.style(multiple-headers; any);
-      tbody {
-        #content>#table>#body>.style(multiple-headers; any);
-      }
-      tr {
-        #content>#table>#row>.style(multiple-headers; any);
-      }
-      td {
-        #content>#table>#data>.style(multiple-headers; any);
-      }
-      tr table {
-       thead tr .tablecell {
-          #content>#table>#header>.style(multiple-header; table);
-        }
-        tbody {
-          #content>#table>#body>.style(multiple-headers; table);
-        }
-        tr {
-          #content>#table>#row>.style(multiple-headers; table);
-        }
-        thead tr:only-child, thead tr:only-child .tablecell {
-          border-top: 0px !important;
-        }
-        td {
-          #content>#table>#data>.style(multiple-headers; table);
-        }
-      }
-    }
-  }
-
-  //left column displays as a table head.
-  &.column-header tbody td:first-child  {
-    #content>#table>#data>.style('header'; any);
-  }
-  &:not(.unnumbered) table {
-    thead tr:first-of-type th {
-      #content>#table>#header>#title>.text(any; any);
-    }
-  }
-}
-
 
 /* ---------------------------------------------------
  * Custom Equation (Non) Numbering
