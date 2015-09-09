@@ -28,25 +28,55 @@
   color: @title-color;
   content: @title;
 }
+
+//Old feature mixins
+// .x-feature-color(@border-color, @title-border-color, @title-color, @background-color, @title) {
+//   box-shadow: 10px 10px 5px @shadow; // On the roadmap for PrinceXML 9.1
+//   border: 1px solid @border-color;
+//   border-radius: 15px;
+//   margin-top: 48px; // Clear the title ::before.
+//   &::before {
+//     .x-feature-before-color(@title-color, @title);
+//     background-color: @background-color;
+//     border: 1px solid @title-border-color;
+//     border-radius: 15px;
+//     width: 60%;
+//     position: absolute;
+//     margin-top: -48px;
+//     margin-left: -5px;
+//     padding: 8px;
+//     padding-left: 0px;
+//     font-weight: 700;
+//     font-size: 12pt;
+//     text-indent: 0.1875in;
+//   }
+// }
+
+
+//Refactor humanities features
 .x-feature-color(@border-color, @title-border-color, @title-color, @background-color, @title) {
   box-shadow: 10px 10px 5px @shadow; // On the roadmap for PrinceXML 9.1
   border: 1px solid @border-color;
   border-radius: 15px;
-  margin-top: 48px; // Clear the title ::before.
+  display: table;
+  z-index: 1;
   &::before {
     .x-feature-before-color(@title-color, @title);
+    display: table-caption;
+    caption-side: top;
     background-color: @background-color;
     border: 1px solid @title-border-color;
     border-radius: 15px;
     width: 60%;
-    position: absolute;
-    margin-top: -48px;
-    margin-left: -5px;
     padding: 8px;
     padding-left: 0px;
     font-weight: 700;
     font-size: 12pt;
     text-indent: 0.1875in;
+    margin-left: 16px;
+    margin-bottom: -10px;
+    position: relative;
+    z-index: 2;
   }
 }
 
