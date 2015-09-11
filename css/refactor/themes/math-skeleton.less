@@ -338,6 +338,9 @@ div.book div > div.section > div.section {
     > .section > .title { #part>#chapter-end>#key-concepts>#title>.subtitle(); }
 
     > .section > .title > a { #part>#chapter-end>#key-concepts>#title>.link(); }
+    div.itemizedlist ul {
+        margin-left: 20px;
+    }
   }
 
   &.review-exercises {
@@ -707,7 +710,12 @@ img, figure, subfigure  { margin: 1em; }
     font-weight: 500;
     color: #fff;
 }
-.example > .body { #content>#example>#body>.style(any); }
+.example > .body {
+ #content>#example>#body>.style(any);
+ p:first-child {
+  padding-bottom: 20px;
+ }
+}
 
 .example .solution { #content>#solution>.style(any; any; example); }
 
@@ -723,9 +731,6 @@ div.book div.chapter > div.section div.example div.exercise .solution {
 
   .body {
       text-align: left;
-      &p:first-child {
-        background-color: orange;
-      }
     }
   }
 
@@ -790,6 +795,7 @@ div.book div.chapter > div.section div.example div.exercise .commentary {
 
   .solution > .body {
     #content>#solution>#body>.style(any; any; exercise; example);
+
   }
   .solution > .body > a.target-figure {
     color: @orange;
