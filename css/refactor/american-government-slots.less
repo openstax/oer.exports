@@ -1,8 +1,137 @@
+.x-feature-before-color(@title-color, @title) {
+  text-transform: capitalize;
+}
+.x-feature-color(@border-color, @title-border-color, @title-color, @background-color, @title) {
+  box-shadow: none;
+  page-break-inside: avoid;
+}
+
 #content {
+  #note {
+    .style('milestone'; any) {
+      .x-feature-color(@dark-blue, @dark-blue, @dark-blue, @orange, @cnx-string-milestone);
+    }
+    .style('insider-perspective'; any) {
+      .x-feature-color(@dark-blue, @orange, @orange, @dark-blue, @cnx-string-insider-perspective);
+    }
+    .style('get-connected'; any) {
+      .x-feature-color(@dark-blue, @dark-blue, @white, @teal, @cnx-string-get-connected);
+    }
+    .style('middle-ground'; any) {
+      .x-feature-color(@dark-blue, @dark-blue, @white, @light-blue, @cnx-string-middle-ground);
+    }
+    .style('link-to-learning'; any) {
+      // This feature requires some "bugfix" pieces to work
+      // properly, such as a clearfix. Selectors for these are
+      // placed inline in this slot.
+      .x-feature-color(@red, @orange, @white, @red, @cnx-string-link-to-learning);
+      #utils>#pb>.inside(avoid);
+      text-align: left;
+
+      > .body {
+        padding: 0px 10px;
+        //clearfix
+        &::after {
+          content: "";
+          display: table;
+          clear: both;
+        }
+      }
+      .mediaobject {
+        float: left;
+        img {
+          margin: 0;
+        }
+      }
+    }
+  }
   #section {
     #title {
       .style(any; any) {
         text-transform: none;
+      }
+    }
+  }
+  #blockquote {
+    .style(any; any; note) {
+      margin-right: 0px;
+    }
+  }
+  #table {
+    .style(any; any) {
+      border: none;
+    }
+    #caption {
+      .style(any; any) {
+        color: @black;
+      }
+      .number(any; any) {
+        color: @red;
+      }
+    }
+    #head {
+      .style(any; any) {
+        border-bottom: 1px solid @orange;
+      }
+    }
+    #body {
+      .style(any; any) {
+        border: 1px solid @orange;
+      }
+      .style(multiple-headers; table) {
+        border: solid 1px @orange;
+       }
+    }
+    #row {
+      .style(any; any) {
+        border-left: solid 1px @orange;
+        border-right: solid 1px @orange;
+      }
+      .style(multiple-headers; table) {
+         border: solid 1px @orange;
+      }
+    }
+    #header {
+      .style(any; any) {
+        color: @white;
+        border-color: @orange !important; // !important is in ccap-base
+        border-left: solid 1px @orange;
+        border-right: solid 1px @orange;
+        border-bottom: 1px solid @orange;
+        border-top: 1px solid @orange;
+        background-color: @red;
+        font-family: @font-family-serif;
+        text-align:left;
+      }
+      .style(colored; any) {
+        background-color: @red;
+      }
+      .style(multiple-header; table) {
+          background: @red;
+          color: @white;
+          border: solid 1px @orange !important; // !important is in ccap-base
+      }
+      #title {
+        .text(any; any) {
+          color: @red;
+          font-family: @font-family-sans-serif;
+          text-align: center;
+        }
+        .footnote(any; any) {
+          color: @white;
+          //font-family: @font-family-sans-serif;
+        }
+      }
+    }
+    #data {
+      .style(any; any) {
+        font-family: @font-family-serif;
+        border-color: @orange !important; // !important is in ccap-base
+        text-align: left;
+      }
+      .style('header'; any) {
+        background-color: @red;
+        color: @white;
       }
     }
   }
