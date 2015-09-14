@@ -193,7 +193,8 @@
     }
     #summary {
       .style(...) {
-        .x-column-count(2);
+        .x-column-count(1);
+        width: 100px;
       }
       #title {
         .style(...) {
@@ -476,6 +477,8 @@
 
     .style(any; any; problem; exercise; example) {
       counter-increment: table !important; // Overrides !important from base.
+      display: inline-block;
+      width: @one-third;
     }
     .style(any; any; solution; exercise; example) {
       counter-increment: table !important; // Overrides !important from base.
@@ -777,19 +780,24 @@
   #example {
     .style(any) {
       margin: .75em 0;
+      border-left: 8px solid @light-blue;
+      padding-left: 2px;
+      transform: translatex(-10px);
+      margin-bottom: 25.333px;
+      margin-top: 0px;
     }
     #title {
       .style(any) {
-        background: @dark-blue;
-        padding-top: .3em;
         padding-bottom: .3em;
+        font-size: 11pt;
+        font-family: @font-family;
+        color: @dark-blue;
       }
     }
     #body {
       .style(any) {
-        border-left: 1px solid @dark-blue;
-        padding: 1em 2em .5em 2em;
-        display: inline;
+        padding: 0;
+        margin: 0;
       }
     }
   }
@@ -797,6 +805,11 @@
     .style(...) {
       margin-top: 0;
       margin-bottom: 5px;
+    }
+    .style(any; chapter-end) {
+      display: inline-block;
+      vertical-align: top;
+      width: @one-third;
     }
     .style(any; any; example) {
       counter-increment: none !important;
@@ -845,6 +858,11 @@
   padding-right: .5em;
       }
     }
+    #body {
+      .style(any; any; first-exercise; example) {
+        margin: -20px 0;
+      }
+    }
   }
   #problem {
     .style(@kind; @part; feature-try; exercise) {
@@ -861,9 +879,10 @@
         font-family: @font-family;
         font-size: 11pt;
         color: @dark-blue;
-        font-weight: bold;
-        padding-bottom: 1em;
         display: inline;
+      }
+      .style(any; any; first-problem; first-exercise; example) {
+        text-indent: 125px;
       }
     }
 
@@ -1107,20 +1126,6 @@
 
 
 #part {
-//  - End of chapter review exercises and practice tests
-//    are two columns.
-  #chapter-end {
-    #review-exercises {
-      .style(...) {
-        .x-column-count(2);
-      }
-    }
-    #practice-test {
-      .style(...) {
-        .x-column-count(2);
-      }
-    }
-  }
   #book-end {
     #end-of-book-solutions {
       #title {

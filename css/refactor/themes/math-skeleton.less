@@ -373,6 +373,10 @@ div.book div > div.section > div.section {
   .empty { display: hidden; } // hide, but count, empty elements.
 
   .exercise div.body div.problem .figure { #content>#figure>.style(any; chapter-end; exercise); }
+
+  .exercise {
+    #content>#exercise>.style(any; chapter-end);
+  }
 }
 
 // Turn off section numbering and title for eoc collations
@@ -699,8 +703,6 @@ img, figure, subfigure  { margin: 1em; }
   dl { #content>#glossary>.dl(); }
 }
 
-
-
 /* -------------------------
  * Example Elements Styling and Numbering
  * -------------------------
@@ -709,10 +711,15 @@ img, figure, subfigure  { margin: 1em; }
 .example > .title {
   #content>#example>#title>.style(any);
 }
-.example > .title > * {
-    font-size: 130%;
-    font-weight: 500;
-    color: #fff;
+
+// (╯°□°)╯︵ ┻━┻
+//
+// Reset some junk from ccap-base.
+.section .example > .title > * {
+  padding: 0;
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
 }
 .example > .body {
  #content>#example>#body>.style(any);
@@ -779,6 +786,17 @@ div.book div.chapter > div.section div.example div.exercise .commentary {
   }
 }
 // for examples that have a problem/solution structure that need numbered headings
+
+
+.example .exercise:nth-of-type(1) {
+  > .body {
+    #content>#exercise>#body>.style(any; any; first-exercise; example);
+  }
+}
+.example .exercise:nth-of-type(1) .problem:nth-of-type(1) .title{
+  #content>#problem>#title>.style(any; any; first-problem; first-exercise; example);
+}
+
 .example .exercise {
   #content>#exercise>.style(any; any; example);
 
