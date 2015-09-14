@@ -65,6 +65,9 @@ td.entrytbl > table {
   border-left-width: 0;
   border-right-width: 0;
 }
+#content #table #row {
+  border: none !important;
+}
 .index .title h2 {
   border: none;
 }
@@ -2055,25 +2058,31 @@ div.table {
 div.table table {
   page-break-inside: avoid;
   margin: auto;
-  margin-bottom: 22px;
   page-break-inside: auto;
+  margin-bottom: 22px;
+  padding-top: 1em;
   prince-caption-page: all;
+  border-collapse: collapse;
   border: 1pt solid #eead58;
+  border: none;
 }
 div.table table caption {
-  border-width: 1px;
-  border-style: solid;
-  border-bottom: none;
-  padding-left: .5em;
+  border: none;
   padding-top: .5em;
+  padding-left: 0px;
   padding-bottom: 1em;
-  font-weight: bold;
-  caption-side: top;
+  caption-side: bottom;
   font-size: 13px;
   line-height: 17px;
+  font-weight: 100;
   color: #b8292f;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   border-color: #eead58;
+  color: #000000;
+}
+div.table table caption::before {
+  font-weight: bold;
+  color: #b8292f;
 }
 div.table table .cnx-figure-horizontal .informalfigure .caption {
   text-align: center;
@@ -2082,35 +2091,80 @@ div.table table .cnx-figure-horizontal .informalfigure .caption * {
   font-weight: normal;
   font-family: URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
+div.table table thead {
+  border-top: none;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  border-bottom: 1px solid #eead58;
+}
+div.table table thead .footnote::footnote-call {
+  color: #ffffff;
+}
+div.table table tbody {
+  border: 1px solid #eead58;
+}
 div.table table table tbody[valign=top] > tr > td {
   vertical-align: top;
 }
 div.table table tr {
   page-break-inside: avoid;
+  border-left: solid 1px #eead58;
+  border-right: solid 1px #eead58;
 }
 div.table table th {
-  color: black;
+  border-bottom: none;
   padding: 5px 10px;
-  font-size: small;
-  text-align: left;
-  border-color: #eead58 !important;
+  font-size: 9pt;
+  text-align: center;
+  vertical-align: initial;
   background-color: #ffffff;
+  color: #ffffff;
+  border-color: #eead58 !important;
+  border-left: solid 1px #eead58;
+  border-right: solid 1px #eead58;
+  border-bottom: 1px solid #eead58;
+  border-top: 1px solid #eead58;
+  background-color: #b8292f;
+  font-family: URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  text-align: left;
 }
 div.table table th:not(:only-child) {
-  color: black;
+  border-bottom: none;
   padding: 5px 10px;
-  font-size: small;
-  text-align: left;
-  border-color: #eead58 !important;
+  font-size: 9pt;
+  text-align: center;
+  vertical-align: initial;
   background-color: #ffffff;
+  color: #ffffff;
+  border-color: #eead58 !important;
+  border-left: solid 1px #eead58;
+  border-right: solid 1px #eead58;
+  border-bottom: 1px solid #eead58;
+  border-top: 1px solid #eead58;
+  background-color: #b8292f;
+  font-family: URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  text-align: left;
 }
 div.table table td {
-  font: 10pt/14pt URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 9pt;
+  text-align: center;
   padding: 5px 10px;
   border-color: #eead58;
+  font-family: URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  border-color: #eead58 !important;
+  text-align: left;
 }
 div.table table td.header {
+  font-size: 9pt;
+  text-align: center;
+  vertical-align: initial;
   background-color: #ffffff;
+  background-color: #b8292f;
+  color: #ffffff;
+}
+div.table table thead > tr:first-child {
+  border-left: 0;
+  border-right: 0;
 }
 div.table ul.itemizedlist,
 div.table ol.orderedlist {
@@ -2124,6 +2178,7 @@ div.table ol.orderedlist > .listitem > p {
 div.table.color th {
   text-align: center;
   background-color: #efd8b0;
+  background-color: #b8292f;
 }
 div.table.color tr {
   height: 1em !important;
@@ -2136,17 +2191,68 @@ div.table.color tr td:first-child {
 div.table.unstyled table {
   page-break-inside: avoid;
   margin: auto;
+  border: none;
+  margin: 0;
+}
+div.table.unstyled table caption {
+  display: none;
+}
+div.table.unstyled table tr {
+  border: none !important;
+}
+div.table.unstyled table td {
+  border: none;
+  text-align: left;
+}
+div.table.unstyled table tbody {
+  border: none;
 }
 div.table.multiple-headers table {
   page-break-inside: avoid;
   margin: auto;
 }
+div.table.multiple-headers table tbody {
+  border: none;
+}
+div.table.multiple-headers table tr {
+  border: none;
+}
+div.table.multiple-headers table td {
+  padding: 0;
+}
+div.table.multiple-headers table tr table thead tr .tablecell {
+  background: #b8292f;
+  color: #ffffff;
+  border: solid 1px #eead58 !important;
+}
+div.table.multiple-headers table tr table tbody {
+  border: solid 1px #eead58;
+}
+div.table.multiple-headers table tr table tr {
+  border: solid 1px #eead58;
+}
 div.table.multiple-headers table tr table thead tr:only-child,
 div.table.multiple-headers table tr table thead tr:only-child .tablecell {
   border-top: 0px !important;
 }
+div.table.multiple-headers table tr table td {
+  padding: 10px;
+}
 div.table.column-header tbody td:first-child {
+  font-size: 9pt;
+  text-align: center;
+  vertical-align: initial;
   background-color: #ffffff;
+  background-color: #b8292f;
+  color: #ffffff;
+}
+div.table:not(.unnumbered) table thead tr:first-of-type th {
+  border: none !important;
+  background-color: transparent;
+  font-weight: bold;
+  color: #b8292f;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  text-align: center;
 }
 /********************************************************************
  * Styling for Appendix
@@ -3230,6 +3336,7 @@ p,
   font-size: 9pt;
   line-height: 12pt;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  margin-right: 0px;
 }
 .chapter .note .body > .title {
   padding: 0px 0px 10px 0px;
@@ -3296,12 +3403,274 @@ div.colophon.end-of-book-solutions .chapter-area div.critical-thinking {
 div.book > div.chapter > div.section div.equation > *:last-child::after {
   display: none;
 }
+.chapter .note.milestone {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #25408f;
+  border-radius: 15px;
+  display: table;
+  z-index: 1;
+  box-shadow: none;
+  page-break-inside: avoid;
+}
+.chapter .note.milestone::before {
+  text-transform: uppercase;
+  color: #25408f;
+  content: "Milestone";
+  text-transform: capitalize;
+  display: table-caption;
+  caption-side: top;
+  background-color: #eead58;
+  border: 1px solid #25408f;
+  border-radius: 15px;
+  width: 60%;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
+}
+.chapter .note.insider-perspective {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #25408f;
+  border-radius: 15px;
+  display: table;
+  z-index: 1;
+  box-shadow: none;
+  page-break-inside: avoid;
+}
+.chapter .note.insider-perspective::before {
+  text-transform: uppercase;
+  color: #eead58;
+  content: "Insider Perspective";
+  text-transform: capitalize;
+  display: table-caption;
+  caption-side: top;
+  background-color: #25408f;
+  border: 1px solid #eead58;
+  border-radius: 15px;
+  width: 60%;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
+}
+.chapter .note.get-connected {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #25408f;
+  border-radius: 15px;
+  display: table;
+  z-index: 1;
+  box-shadow: none;
+  page-break-inside: avoid;
+}
+.chapter .note.get-connected::before {
+  text-transform: uppercase;
+  color: #ffffff;
+  content: "Get Connected!";
+  text-transform: capitalize;
+  display: table-caption;
+  caption-side: top;
+  background-color: #3f989b;
+  border: 1px solid #25408f;
+  border-radius: 15px;
+  width: 60%;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
+}
+.chapter .note.middle-ground {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #25408f;
+  border-radius: 15px;
+  display: table;
+  z-index: 1;
+  box-shadow: none;
+  page-break-inside: avoid;
+}
+.chapter .note.middle-ground::before {
+  text-transform: uppercase;
+  color: #ffffff;
+  content: "Finding a Middle Ground";
+  text-transform: capitalize;
+  display: table-caption;
+  caption-side: top;
+  background-color: #007196;
+  border: 1px solid #25408f;
+  border-radius: 15px;
+  width: 60%;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
+}
+.chapter .note.link-to-learning {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 10px 10px 5px #888888;
+  border: 1px solid #b8292f;
+  border-radius: 15px;
+  display: table;
+  z-index: 1;
+  box-shadow: none;
+  page-break-inside: avoid;
+  text-align: left;
+}
+.chapter .note.link-to-learning::before {
+  text-transform: uppercase;
+  color: #ffffff;
+  content: "Link to Learning";
+  text-transform: capitalize;
+  display: table-caption;
+  caption-side: top;
+  background-color: #b8292f;
+  border: 1px solid #eead58;
+  border-radius: 15px;
+  width: 60%;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
+}
+.chapter .note.link-to-learning > .body::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.chapter .note.link-to-learning .mediaobject {
+  float: left;
+}
+.chapter .note.link-to-learning .mediaobject img {
+  margin: 0;
+}
+.chapter .note.link-to-learning::before {
+  text-transform: uppercase;
+  color: #ffffff;
+  content: "Link to Learning";
+  text-transform: capitalize;
+  display: table-caption;
+  caption-side: top;
+  background-color: #b8292f;
+  border: 1px solid #eead58;
+  border-radius: 15px;
+  width: 60%;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
+}
+.chapter .note.link-to-learning > .body {
+  padding: 0px 10px;
+}
+.chapter .note.link-to-learning > .body::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.chapter .note.link-to-learning .mediaobject {
+  float: left;
+}
+.chapter .note.link-to-learning .mediaobject img {
+  margin: 0;
+}
 div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
   content: "\A";
   white-space: pre;
 }
 .end-of-book-solutions .solution .cnx-svg {
   vertical-align: 0 !important;
+}
+/* -------------------------
+ * Equations
+ * -------------------------
+ */
+div.book div.chapter > div.section div.equation.unnumbered,
+div.book div.chapter > div.section div.equation:not(.labeled).unnumbered,
+div.book div.chapter > div.section div.example div.exercise div.equation.unnumbered,
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled).unnumbered {
+  counter-increment: none !important;
+}
+div.book div.chapter > div.section div.equation.unnumbered > *:last-child::after,
+div.book div.chapter > div.section div.equation.unnumbered > *:last-child::before {
+  display: none !important;
+}
+/* -------------------------
+ * Tables
+ * -------------------------
+ */
+div.book div.chapter .table.unnumbered,
+div.book div.chapter .table:not(labeled).unnumbered {
+  counter-increment: none !important;
+}
+div.book div.chapter div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before {
+  display: none !important;
 }
 .cnx-eoc p {
   margin-bottom: 0;
