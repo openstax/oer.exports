@@ -338,6 +338,9 @@ div.book div > div.section > div.section {
     > .section > .title { #part>#chapter-end>#key-concepts>#title>.subtitle(); }
 
     > .section > .title > a { #part>#chapter-end>#key-concepts>#title>.link(); }
+    div.itemizedlist ul {
+        margin-left: 20px;
+    }
   }
 
   &.review-exercises {
@@ -625,6 +628,10 @@ img, figure, subfigure  { margin: 1em; }
  * Addition of .commentary selector styling for Analysis header in examples
  ******************************************************************************/
 .example .exercise {
+  .commentary .body {
+    #content>#commentary>#body>.style(@kind; @part; exercise; example);
+    p:first-child {display: inline}
+  }
   .commentary > .title {
     #content>#commentary>#title>.style(@kind; @part; exercise; example);
 
@@ -707,7 +714,12 @@ img, figure, subfigure  { margin: 1em; }
     font-weight: 500;
     color: #fff;
 }
-.example > .body { #content>#example>#body>.style(any); }
+.example > .body {
+ #content>#example>#body>.style(any);
+ p:first-child {
+  padding-bottom: 20px;
+ }
+}
 
 .example .solution { #content>#solution>.style(any; any; example); }
 
@@ -773,6 +785,13 @@ div.book div.chapter > div.section div.example div.exercise .commentary {
   .problem > .title {
     #content>#problem>#title>.style(any; any; exercise; example);
   }
+  .problem .body {
+    #content>#problem>#body>.style(any; any; exercise; example);
+     p:first-child {
+      display: inline;
+      padding-bottom: 20px;
+    }
+  }
 
   .solution > .title {
     #content>#solution>#title>.style(any; any; exercise; example);
@@ -780,6 +799,7 @@ div.book div.chapter > div.section div.example div.exercise .commentary {
 
   .solution > .body {
     #content>#solution>#body>.style(any; any; exercise; example);
+
   }
   .solution > .body > a.target-figure {
     color: @orange;

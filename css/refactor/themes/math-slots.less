@@ -193,7 +193,7 @@
     }
     #summary {
       .style(...) {
-        .x-column-count(1);
+        .x-column-count(2);
       }
       #title {
         .style(...) {
@@ -207,7 +207,7 @@
     }
     #key-equations {
       .style(...) {
-        .x-column-count(1);
+        .x-column-count(2);
       }
       #title {
         .style(...) {
@@ -217,7 +217,7 @@
     }
     #key-concepts {
       .style(...) {
-        .x-column-count(1);
+        .x-column-count(2);
         padding-bottom: 1em;
       }
       #title {
@@ -238,7 +238,7 @@
     }
     #review-exercises {
       .style(...) {
-        .x-column-count(1);
+        .x-column-count(2);
       }
       #title {
         .style(...) {
@@ -250,7 +250,7 @@
     }
     #practice-test {
       .style(...) {
-        .x-column-count(1);
+        .x-column-count(2);
       }
       #title {
         .style(...) {
@@ -263,7 +263,7 @@
       .style(...) {
         display: none; // W&N Requested these be removed 10/25/2013
                        // since they are collated to EOB.
-        .x-column-count(1);
+        .x-column-count(2);
       }
       #title {
         .style() {}
@@ -325,7 +325,7 @@
           // The Answer Key for the PreCalculus text was converted to be in (1) one column
           // and not inline due to the fact that some answers will be cartesian graphs (art).
           // Not a good experience to be inline.
-          .x-column-count(1);
+          .x-column-count(2);
         }
         #title {
           .style(...) {
@@ -538,7 +538,7 @@
     }
     #data {
       .style(any; any) {
-        padding: 13px;
+        padding: 5px 13px;
       }
 
       // Some TDs act like TH
@@ -765,8 +765,14 @@
         font-weight: bold;
         margin-right: .2em;
         height: .9em;
+        display: inline;
       }
     }
+      #body {
+        .style(@kind; @part; exercise; example) {
+          display: inline;
+        }
+      }
   }
   #example {
     .style(any) {
@@ -783,12 +789,14 @@
       .style(any) {
         border-left: 1px solid @dark-blue;
         padding: 1em 2em .5em 2em;
+        display: inline;
       }
     }
   }
   #exercise {
     .style(...) {
       margin-top: 0;
+      margin-bottom: 5px;
     }
     .style(any; any; example) {
       counter-increment: none !important;
@@ -855,11 +863,17 @@
         color: @dark-blue;
         font-weight: bold;
         padding-bottom: 1em;
+        display: inline;
       }
     }
+
     #body {
+      .style(any; any; exercise; example) {
+        display: inline;
+      }
       .style(@kind; @part; feature-try; exercise) {
         margin-left:8px;
+
       }
     }
   }
@@ -868,6 +882,7 @@
 
     .style(any; any; example) {
       padding-top: 1em; padding-bottom: 1em;
+      display: inline-block;
     }
 
     .style(@kind; @part; feature-try; exercise) {
@@ -896,6 +911,8 @@
         color: @dark-blue;
         font-weight: bold;
         line-height: 1em;
+        display: inline;
+        padding-left: 20px;
       }
       .style(@kind; book-end) {
         // Check the note at
@@ -919,6 +936,7 @@
         // Fix margins because solutions with only one paragraph
         // do not include a <p></p> wrapper for text.
         margin-top: .5em;
+        display: inline;
       }
 
       .style(@kind, book-end) {
