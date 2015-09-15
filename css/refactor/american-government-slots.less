@@ -6,6 +6,48 @@
   page-break-inside: avoid;
 }
 
+#part {
+  #chapter-end {
+    #suggested-reading {
+      .style(...) {
+        .x-column-count(1);
+      }
+      #title {
+        .style(...) {
+          content: @cnx-string-suggested-reading;
+          column-span: all !important; // added override to resolve bug on staging where titles
+          margin-bottom: 1em;
+        }
+      }
+    }
+  }
+  #book-end {
+    #appendix {
+      #title {
+       .style() {
+         font-size: 18pt;
+         font-weight: 700;
+         color: @red;
+         margin: 0;
+         padding: 0;
+         border-bottom: 1px solid @orange;
+         margin-bottom: 1em;
+       }
+       .number() {
+         display: none;
+       }
+       .text() {
+         padding-left: 0;
+         text-transform: capitalize;
+       }
+       .divider() {
+         display: none;
+       }
+      }
+    }
+  }
+}
+
 #content {
   #note {
     .style('milestone'; any) {
@@ -49,6 +91,15 @@
     #title {
       .style(any; any) {
         text-transform: none;
+      }
+      .style(any; appendix){
+        font-size: 11pt;
+        color: #000;
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      .number(any; appendix) {
+        display: none;
       }
     }
   }
