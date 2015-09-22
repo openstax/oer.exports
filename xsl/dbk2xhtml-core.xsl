@@ -466,13 +466,13 @@ This template relies on a special:
         </div>
       </div>
     </xsl:if>
-    <xsl:if test=".//db:section[//*[contains(@class, 'reference') and not(contains(@class, 'references'))]]">
+    <xsl:if test=".//db:section[.//*[contains(@class, 'reference') and not(contains(@class, 'references'))]]">
       <div class="chapter-area">
         <div class="title">
           <xsl:apply-templates select="db:title/node()"/>
         </div>
         <div class="body">
-          <xsl:for-each select=".//db:section[.//db:section[//*[contains(@class, 'reference') and not(contains(@class, 'references'))]]]">
+          <xsl:for-each select=".//db:section[.//*[contains(@class, 'reference') and not(contains(@class, 'references'))]]">
             <div class="section-area">
               <div class="title">
                 <xsl:apply-templates select="db:sectioninfo/db:title/node()|db:title/node()"/>
