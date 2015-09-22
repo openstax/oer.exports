@@ -478,7 +478,7 @@ This template relies on a special:
                 <xsl:apply-templates select="db:sectioninfo/db:title/node()|db:title/node()"/>
               </div>
               <div class="body">
-                  <xsl:apply-templates select="//*[@class='reference']"/>
+                <xsl:apply-templates select=".//*[@class='reference']"/>
               </div>
             </div>
           </xsl:for-each>
