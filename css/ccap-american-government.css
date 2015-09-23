@@ -1300,6 +1300,7 @@ div.section > div.titlepage div.abstract {
   text-align: left;
   padding: 0;
   border-bottom: 1px solid #eead58;
+  margin: 1em 0;
 }
 div.section > div.titlepage div.abstract p {
   font: 10pt/14pt URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2126,6 +2127,7 @@ div.table table th {
   background-color: #b8292f;
   font-family: URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   text-align: left;
+  font-size: 10pt;
 }
 div.table table th:not(:only-child) {
   border-bottom: none;
@@ -2143,6 +2145,7 @@ div.table table th:not(:only-child) {
   background-color: #b8292f;
   font-family: URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   text-align: left;
+  font-size: 10pt;
 }
 div.table table td {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2246,7 +2249,7 @@ div.table.column-header tbody td:first-child {
   background-color: #b8292f;
   color: #ffffff;
 }
-div.table:not(.unnumbered) table thead tr:first-of-type th {
+div.table table thead tr:first-of-type th {
   border: none !important;
   background-color: transparent;
   font-weight: bold;
@@ -2507,6 +2510,7 @@ div.end-of-book-references > .chapter-area > .title {
   font-weight: bold;
   margin: .5em 0em;
   text-align: left;
+  counter-reset: references;
 }
 div.end-of-book-references > .chapter-area > .body > .section-area > .title {
   display: none;
@@ -2514,6 +2518,10 @@ div.end-of-book-references > .chapter-area > .body > .section-area > .title {
 div.end-of-book-references > .chapter-area > .body > .section-area > .body p {
   text-indent: -2em;
   margin-left: 2em;
+  counter-increment: references;
+  margin-left: 1em;
+  text-indent: -1em;
+  text-align: left;
 }
 div.end-of-book-references > .chapter-area > .body > p {
   text-indent: 0em;
@@ -3108,6 +3116,7 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   text-align: left;
   padding: 0;
   border-bottom: 1px solid #eead58;
+  margin: 1em 0;
 }
 .section > .titlepage .abstract p {
   font: 10pt/14pt URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -3429,6 +3438,17 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   margin-bottom: 0.5em;
   margin-right: 0px;
 }
+.chapter a.link.cite {
+  color: #b8292f;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-weight: bold;
+  content: target-counter(attr(href), references);
+  vertical-align: super;
+  font-size: 9px;
+  margin-left: -4px;
+  margin-right: 1px;
+  font-weight: 100;
+}
 .chapter .note.milestone {
   padding-left: 1em;
   padding-right: 1em;
@@ -3667,6 +3687,58 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   margin: 0;
 }
 /********************************************************************
+ * Styling for Learning Objectives Box
+ ********************************************************************/
+.section > .titlepage .abstract {
+  display: none;
+}
+.chapter > .section.module > .section.learning-objectives {
+  margin: 1em 0em;
+  padding: .50em;
+  page-break-inside: avoid;
+  page-break-before: avoid;
+  counter-reset: learning-objectives;
+  text-align: left;
+  padding: 0;
+  border-bottom: 1px solid #eead58;
+  margin: 1em 0;
+}
+.chapter > .section.module > .section.learning-objectives p {
+  font: 10pt/14pt URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  margin: 0;
+}
+.chapter > .section.module > .section.learning-objectives > .title {
+  border: none;
+  margin-top: 0;
+}
+.chapter > .section.module > .section.learning-objectives ul.itemizedlist > .listitem {
+  display: list-item;
+  padding-top: 0;
+  margin: 0;
+}
+.chapter > .section.module > .section.learning-objectives ul.itemizedlist > .listitem p {
+  display: block;
+  margin: 0;
+}
+.chapter > .section.module > .section.learning-objectives ul.itemizedlist > .listitem::before {
+  display: none;
+}
+.chapter > .section.module > .section.learning-objectives ul.itemizedlist > .listitem:last-child {
+  padding-bottom: .75em;
+}
+.chapter > .section.module > .section.learning-objectives > .titlepage > div > div > h3 > span.cnx-gentext-t {
+  content: "Learning Objectives";
+  border-bottom-color: #eead58;
+  font: normal normal 700 10pt Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  margin-bottom: .5em;
+  color: #007196;
+  font-weight: bold;
+  display: inline-block;
+  width: 100%;
+  padding-top: .1em;
+  padding-bottom: .2em;
+}
+/********************************************************************
  * End of chapter customizations
  ********************************************************************/
 .cnx-eoc.suggested-reading {
@@ -3681,6 +3753,13 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   content: "Suggested Reading";
   column-span: all !important;
   margin-bottom: 1em;
+}
+/* ---------------------------------------------------
+ * End of Book References
+ * ---------------------------------------------------
+ */
+div.end-of-book-references > .chapter-area > .body > .section-area > .body p::before {
+  content: counter(references) ".";
 }
 div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
   content: "\A";

@@ -7,6 +7,13 @@
 }
 
 #part {
+  #chapter {
+    #learning-objectives {
+      .style(...) {
+        margin: 1em 0;
+      }
+    }
+  }
   #chapter-end {
     #suggested-reading {
       .style(...) {
@@ -45,10 +52,38 @@
        }
       }
     }
+    #end-of-book-references {
+      #reference {
+        .style(...) {
+          counter-increment: references;
+          margin-left: 1em;
+          text-indent: -1em;
+          text-align: left;
+          }
+          .number() {
+            content: counter(references) ".";
+          }
+      }
+      #chapter-area {
+        .style(...) {
+          counter-reset: references;
+        }
+      }
+    }
   }
 }
 
 #content {
+  #link {
+    .style(reference; any) {
+      content: target-counter(attr(href), references);
+      vertical-align: super;
+      font-size: 9px;
+      margin-left: -4px;
+      margin-right: 1px;
+      font-weight: 100;
+    }
+  }
   #note {
     .style('milestone'; any) {
       .x-feature-color(@dark-blue, @dark-blue, @dark-blue, @orange, @cnx-string-milestone);
@@ -153,6 +188,7 @@
         background-color: @red;
         font-family: @font-family-serif;
         text-align:left;
+        font-size: 10pt;
       }
       .style(colored; any) {
         background-color: @red;

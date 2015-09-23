@@ -2,6 +2,9 @@
   blockquote {
     #content>#blockquote>.style(any; any);
   }
+  a.link.cite {
+    #content>#link>.style(reference; any);
+  }
   .note {
     &.milestone {
       #content>#note>.style('milestone'; any);
@@ -22,6 +25,25 @@
 }
 
 /********************************************************************
+ * Styling for Learning Objectives Box
+ ********************************************************************/
+
+// Override humanities :before title since we moved this to content
+.section > .titlepage {
+  .abstract {
+    display: none;
+  }
+}
+
+.chapter > .section.module > .section.learning-objectives {
+  #part>#chapter>#learning-objectives>.style();
+
+  > .titlepage > div > div > h3 > span.cnx-gentext-t {
+    #part>#chapter>#learning-objectives>#title>.style();
+  }
+}
+
+/********************************************************************
  * End of chapter customizations
  ********************************************************************/
 .cnx-eoc {
@@ -32,3 +54,13 @@
     }
   }
 }
+
+/* ---------------------------------------------------
+ * End of Book References
+ * ---------------------------------------------------
+ */
+
+ div.end-of-book-references > .chapter-area
+ > .body > .section-area > .body p::before {
+   #part>#book-end>#end-of-book-references>#reference>.number();
+ }
