@@ -348,28 +348,31 @@
 	<xsl:apply-templates select="node()"/>
 	<!-- /db:citation -->
 </xsl:template>
-<xsl:template match="c:cite[@url or @document or @target-id or @resource]">
-	<xsl:variable name="label">
-		<xsl:choose>
-			<xsl:when test="@url">
-				<xsl:text>url</xsl:text>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:text>link</xsl:text>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
+<xsl:template match="c:cite[@url or @document or @resource]">
 	<!-- db:citation -->
-	<xsl:apply-templates select="node()"/>
-	<!-- TODO: Treat it like a link....  -->
-	<xsl:text> [</xsl:text>
 	<xsl:call-template name="cnx.link">
-		<xsl:with-param name="label">
-			<xsl:value-of select="$label"/>
-		</xsl:with-param>
 	</xsl:call-template>
-	<xsl:text>]</xsl:text>
 	<!-- /db:citation -->
+</xsl:template>
+<xsl:template match="c:cite[@target-id]">
+    <xsl:variable name="document">
+        <xsl:choose>
+            <xsl:when test="@document">
+                <xsl:value-of select="@document"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$cnx.module.id"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+    <db:link class="cite">
+        <xsl:attribute name="linkend">
+            <xsl:value-of select="$document"/>
+            <xsl:value-of select="$cnx.module.separator"/>
+            <xsl:value-of select="@target-id"/>
+        </xsl:attribute>
+        <xsl:apply-templates select="@*[name()!='target-id']|node()"/>
+    </db:link>
 </xsl:template>
 <xsl:template match="c:cite-title">
 	<!-- db:citetitle -->

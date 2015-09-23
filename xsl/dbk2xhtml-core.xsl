@@ -427,10 +427,17 @@ This template relies on a special:
    3- Gets matched (hence the ext:special-element-name)
 -->
 
+<!--
+<xsl:template match="db:link[contains(@class, 'cite')]/*[contains(@class, 'reference')]">
+  <xsl:attribute name="id">
+    <xsl:value-of select="concat(@id, '-en-passant')"/>
+  </xsl:attribute>
+  <xsl:apply-templates />
+</xsl:template>
+-->
 <xsl:template match="ext:end-of-book-references-placeholder">
-    <xsl:param name="book" select="/db:book"/>
-
-	<xsl:for-each select="$book/*[self::db:preface | self::db:chapter | self::db:appendix]|$book/db:part/*[self::db:preface | self::db:chapter | self::db:appendix]">
+  <xsl:param name="book" select="/db:book"/>
+  <xsl:for-each select="$book/*[self::db:preface | self::db:chapter | self::db:appendix]|$book/db:part/*[self::db:preface | self::db:chapter | self::db:appendix]">
     <xsl:if test=".//db:section[@class = 'references']/node()">
       <div class="chapter-area">
         <!-- Print the chapter title -->
@@ -453,6 +460,25 @@ This template relies on a special:
                 <!-- references inserted into body -->
               	<xsl:apply-templates select=".//db:section[@class = 'references']/node()"/>
 
+              </div>
+            </div>
+          </xsl:for-each>
+        </div>
+      </div>
+    </xsl:if>
+    <xsl:if test=".//db:section[.//*[contains(@class, 'reference') and not(contains(@class, 'references'))]]">
+      <div class="chapter-area">
+        <div class="title">
+          <xsl:apply-templates select="db:title/node()"/>
+        </div>
+        <div class="body">
+          <xsl:for-each select=".//db:section[.//*[contains(@class, 'reference') and not(contains(@class, 'references'))]]">
+            <div class="section-area">
+              <div class="title">
+                <xsl:apply-templates select="db:sectioninfo/db:title/node()|db:title/node()"/>
+              </div>
+              <div class="body">
+                <xsl:apply-templates select=".//*[@class='reference']"/>
               </div>
             </div>
           </xsl:for-each>
