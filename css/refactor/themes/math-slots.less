@@ -843,9 +843,11 @@
     .style(@kind; @part; section) {
       font-family: @font-family-serif;
     }
-    .style(@kind; @part; section-exercise) { // end of section exercises
+    .style(@kind; @part; section-exercise) {
       margin-top: 1em;
       margin-bottom: 1em;
+      display: inline-block;
+      max-width: @one-third;
     }
     #title {
       .style(@kind; @part; feature-try) {
@@ -855,7 +857,7 @@
       .style(@kind; @part; section-exercise) {
         content: counter(exercise) ".";
         float: left;
-  padding-right: .5em;
+        padding-right: .5em;
       }
     }
     #body {
@@ -1321,12 +1323,6 @@
   #solution {
     .style(any; any; be-prepared; exercise) {
       display: none;
-    }
-  }
-//  - Section exercises are two columns
-  #section {
-    .style(section-exercises; @part; ...) {
-      .x-column-count(2);
     }
   }
   #example {
