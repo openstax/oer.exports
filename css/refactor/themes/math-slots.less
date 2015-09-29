@@ -1,6 +1,11 @@
 // Copyright (c) 2013 Rice University
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
+@import url('../includes/table-slots.less');
+
+@tables: math;
+@import url('../includes/tables.less');
+.tables(@tables);
 
 @cnx-string-chapter: "Chapter";
 @cnx-string-introduction: "Introduction";
@@ -467,80 +472,20 @@
     }
   }
   #table {
-    .style(any; any) {
-      #utils>#pb>.inside(auto);
-
-      // If a table spans more than 1 page then put caption on all following pages
-      prince-caption-page: all;
-    }
-
-    .style(any; any; problem; exercise; example) {
-      counter-increment: table !important; // Overrides !important from base.
-    }
-    .style(any; any; solution; exercise; example) {
-      counter-increment: table !important; // Overrides !important from base.
-    }
-
-    // Bug fix. Remove styling for tables in "Key Equations"
-    // as these are just a wrapper for alignment.
-    // !important is used to override inline table styles.
-    .style(any; chapter; chapter-end; key-equations) {
-      margin: 0;
-      border: none !important;
-
-      caption { display: none; }
-      td { border: none !important; }
-    }
     #caption {
       .style(any; any) {
-        font-family: @font-family;
-        padding-top: .5em;
-        padding-bottom: 1em;
-        font-weight:bold;
         color: @orange;
-        caption-side:bottom;
-      }
-      .style(any; any; problem; exercise; example) { display: block; }
-      .style(any; any; solution; exercise; example) { display: block; }
-      .style(any; any; commentary; exercise; example) { display: block; }
-
-      // Do not display numbering for tables in the answer key
-      .style(any; book-end; solution) { display: none; }
-
-      .number(any; any) {}
-    }
-    #head {
-      .style(any; any) {
-      }
-    }
-    #body {
-      .style(any; any) {
-      }
-    }
-    #row {
-      .style(any; any) {
-        #utils>#pb>.inside(avoid);
-      }
-      .style(colored; any) {
-        height: 1em !important;
       }
     }
     #header {
       .style(any; any) {
-        color: black;
         background-color: @white;
-        font-size: small;
-        text-align: left;
       }
       .style(colored; any) {
-        background-color: @light-orange; text-align: center;
+        background-color: @light-orange;
       }
     }
     #data {
-      .style(any; any) {
-        padding: 13px;
-      }
-
       // Some TDs act like TH
       .style('header'; any) {
         background-color: @white;
