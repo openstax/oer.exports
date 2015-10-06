@@ -11,8 +11,12 @@
 // Import general page headers/footers, bookmark calculation, etc
 @import url('ccap-tables-deprecated.less');
 @import url('ccap-numbering.less');
-@import url('ccap-base.less');
-
+//@import url('ccap-base.less');
+@import url('refactor/utils.less');
+@import url('refactor/ccap-base-slots.less');
+@import url('refactor/content-slots.less');
+@import url('refactor/ccap-base-overrides.less');
+@import url('refactor/ccap-base-skeleton.less');
 @import url('refactor/page-slots.less');
 @import url('refactor/page-skeleton.less');
 @import url('refactor/folio.less');
@@ -163,7 +167,7 @@
    // the following are tweaked so the overlays really do over lay
     margin-left: -1.05em;
     margin-right: -1.05em;
-    margin-top: -0.03in;
+    margin-top: -20px;
   }
   .title {
 	 color: @color;
@@ -191,6 +195,13 @@ p {
   margin-bottom: 0.25em;
   font-weight: normal;
   color: @teal;
+  margin-bottom: 10px;
+}
+.cnx-eoc .section {
+  padding-bottom: 10px;
+}
+.cnx-eoc .section .title {
+  padding-top: 0;
 }
 .example > .title > span,
 .exercise > .title > span,
@@ -227,7 +238,6 @@ p {
   color: Purple;
   font-size: x-large;
   font-weight: bold;
-  padding-top: 1em;
   padding-bottom: 1em;
 }
 
@@ -252,6 +262,7 @@ h1.title {
   background-color: Purple;
   font-size: 5em;
   padding: 0em;
+  margin-top: 0;
 }
 .book > * > .titlepage .cnx-gentext-t:before,
 h1.title .cnx-gentext-n {
@@ -274,7 +285,8 @@ a {
   color: #0061AA;
 }
 h2, h3 {
-  margin: 0.5em 0em;
+  margin: 0 0 0.5em 0;
+  line-height: 1;
 }
 h2 {
   color: Purple;
@@ -312,6 +324,7 @@ div.table-caption {
 .section > .figure {
   //float: top;
   //float: snap;
+  padding-bottom: 10px;
 }
 .figure .title {
   display: inline;
