@@ -11,13 +11,20 @@ from StringIO import StringIO
 from lxml import etree
 from tempfile import mkstemp
 import subprocess
-
+import numpy
 try:
   import pkg_resources
   resource_filename = pkg_resources.resource_filename
 except ImportError:
   def resource_filename(dir, file):
     return os.path.join(os.getcwd(), dir, file)
+
+import functools
+import memcache
+import hashlib
+
+mc = None
+
 
 ### We use BOTH inkscape AND imagemagick (convert) because:
 # Only inkscape can load the STIX fonts from the OS (imagemagick's SVG libs don't)
@@ -212,3 +219,50 @@ class Progress(object):
     if len(msg) > 1:
       msg = msg[1:]
     print >> sys.stderr, "STATUS: %d%% %s" % (percent * 100, ': '.join(msg))
+
+
+def mean_squared_error(imageA, imageB):
+    err = numpy.sum((imageA.astype("float") - imageB.astype("float")) ** 2)
+    err /= float(imageA.shape[0] * imageA.shape[1])
+
+    return err
+
+
+def validate(function):
+    @functools.wraps(function)
+    def wrapper(xml, *args, **kwds):
+        try:
+            etree.tostring(etree.fromstring(xml))
+#            xml=etree.tostring(xml)
+        except etree.XMLSyntaxError as err:
+            raise ValueError("XMLSyntaxError: " + err.message)
+
+        xml = function(xml, *args, **kwds)
+
+        parser = etree.XMLParser(recover=True)
+        try:
+            xml = etree.parse(StringIO(xml), parser)
+            xml = etree.tostring(xml)
+        except etree.XMLSyntaxError as err:
+            raise ValueError("XMLSyntaxError: " + err.message)
+        return xml
+    return wrapper
+
+
+def cache(function):
+    @functools.wraps(function)
+    def wrapper(xml, *args, **kwds):
+        global mc
+        if mc is None:
+            mc = memcache.Client(['127.0.0.1:11211'], debug=0)
+        xml_key = hashlib.md5()
+        xml_key.update(xml)
+        xml_key = xml_key.hexdigest()
+        saved_xml = mc.get(xml_key)
+        if saved_xml:
+            return saved_xml
+        else:
+            xml = function(xml, *args, **kwds)
+            mc.set(xml_key, xml)
+            return xml
+    return wrapper

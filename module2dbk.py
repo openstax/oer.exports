@@ -18,6 +18,10 @@ from lxml import etree
 import urllib2
 import util
 
+from saxon import Saxon
+
+sax = None
+
 SAXON_PATH = util.resource_filename('lib', 'saxon9he.jar')
 MATH2SVG_PATH = util.resource_filename('xslt2', 'math2svg-in-docbook.xsl')
 
@@ -68,6 +72,21 @@ def makeTransform(file):
     return xml, {}, errors
   return t
 
+
+@util.validate
+@util.cache
+def cnx_mathml2svg(mathml):
+    """Returns an SVG from the given *mathml*."""
+    global sax
+
+    if sax is None:
+        sax = Saxon()
+
+    svg = sax.convert(mathml)
+
+    return svg
+
+
 # Main method. Doing all steps for the Google Docs to CNXML transformation
 def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2svg=True, reduce_quality=False):
   """ Convert a cnxml file (and dictionary of filename:bytes) to a Docbook file and dict of filename:bytes) """
@@ -80,28 +99,16 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
   params = {'cnx.module.id': "'%s'" % moduleId, 'cnx.svg.chunk': 'false'}
   params.update(collParams)
 
-  # Use pmml2svg to convert MathML to inline SVG
   def mathml2svg(xml, files, **params):
     if math2svg:
       formularList = MATH_XPATH(xml)
       strErr = ''
-      if len(formularList) > 0:
-
-        # Take XML from stdin and output to stdout
-        # -s:$DOCBOOK1 -xsl:$MATH2SVG_PATH -o:$DOCBOOK2
-        strCmd = ['java','-jar', SAXON_PATH, '-s:-', '-xsl:%s' % MATH2SVG_PATH]
-
-        # run the program with subprocess and pipe the input and output to variables
-        p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True)
-        # set STDIN and STDOUT and wait untill the program finishes
-        stdOut, strErr = p.communicate(etree.tostring(xml))
-
-        #xml = etree.fromstring(stdOut, recover=True) # @xml:id is set to '' so we need a lax parser
-        parser = etree.XMLParser(recover=True)
-        xml = etree.parse(StringIO(stdOut), parser)
-
-        if strErr:
-          print >> sys.stderr, strErr.encode('utf-8')
+      for mathml in formularList:
+          parent_node = mathml.getparent()
+          mathml_str = etree.tostring(mathml)
+          svg_str = cnx_mathml2svg(mathml_str)
+          svg = etree.fromstring(svg_str)
+          parent_node.replace(mathml, svg)
     return xml, {}, [] # xml, newFiles, log messages
 
   def imageResize(xml, files, **params):
