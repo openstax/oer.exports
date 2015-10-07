@@ -18,6 +18,13 @@ from lxml import etree
 import urllib2
 import util
 
+from saxon import Saxon
+import memcache
+import hashlib
+sax = None
+mc = None
+parser = etree.XMLParser(recover=True)
+
 SAXON_PATH = util.resource_filename('lib', 'saxon9he.jar')
 MATH2SVG_PATH = util.resource_filename('xslt2', 'math2svg-in-docbook.xsl')
 
@@ -68,6 +75,9 @@ def makeTransform(file):
     return xml, {}, errors
   return t
 
+
+
+
 # Main method. Doing all steps for the Google Docs to CNXML transformation
 def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2svg=True, reduce_quality=False):
   """ Convert a cnxml file (and dictionary of filename:bytes) to a Docbook file and dict of filename:bytes) """
@@ -80,28 +90,57 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
   params = {'cnx.module.id': "'%s'" % moduleId, 'cnx.svg.chunk': 'false'}
   params.update(collParams)
 
-  # Use pmml2svg to convert MathML to inline SVG
   def mathml2svg(xml, files, **params):
-    if math2svg:
-      formularList = MATH_XPATH(xml)
-      strErr = ''
-      if len(formularList) > 0:
+    global parser
+    global sax
+    global mc
+    if sax is None:
+        sax = Saxon()
 
-        # Take XML from stdin and output to stdout
-        # -s:$DOCBOOK1 -xsl:$MATH2SVG_PATH -o:$DOCBOOK2
-        strCmd = ['java','-jar', SAXON_PATH, '-s:-', '-xsl:%s' % MATH2SVG_PATH]
+    if mc is None:
+        mc = memcache.Client(['127.0.0.1:11211'], debug=0)
 
-        # run the program with subprocess and pipe the input and output to variables
-        p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True)
-        # set STDIN and STDOUT and wait untill the program finishes
-        stdOut, strErr = p.communicate(etree.tostring(xml))
+    if not math2svg:
+        return xml, {}, []
 
-        #xml = etree.fromstring(stdOut, recover=True) # @xml:id is set to '' so we need a lax parser
-        parser = etree.XMLParser(recover=True)
-        xml = etree.parse(StringIO(stdOut), parser)
+    formularList = MATH_XPATH(xml)
 
-        if strErr:
-          print >> sys.stderr, strErr.encode('utf-8')
+    unprocessed_list = []
+
+    for mathml in formularList:
+        mathml_key = hashlib.md5()
+        mathml_key.update(etree.tostring(mathml))
+        mathml_key = mathml_key.hexdigest()
+        svg_str = mc.get(mathml_key)
+        if svg_str:
+            svg = etree.parse(StringIO(svg_str), parser).getroot()
+            mathml.addprevious(svg)
+        else:
+            unprocessed_list.append(mathml)
+
+    if unprocessed_list:
+        formularList=unprocessed_list
+    else:
+        return xml, {}, []
+
+    mathml_str_list = [ etree.tostring(mathml) for mathml in formularList ]
+    mathml_tree_str = "<root>" + ''.join(mathml_str_list) + "</root>"
+    mathml_svg_tree_str = sax.convert(mathml_tree_str)
+    mathml_svg_tree = etree.parse(StringIO(mathml_svg_tree_str),parser)
+    root = mathml_svg_tree.getroot()
+    mathml_svg_list = root.getchildren()
+    for expected_mathml in formularList:
+        svg = mathml_svg_list.pop(0)
+        returned_mathml = mathml_svg_list.pop(0)
+        if etree.tostring(returned_mathml) == etree.tostring(expected_mathml):
+            expected_mathml.addprevious(svg)
+            mathml_key = hashlib.md5()
+            mathml_key.update(etree.tostring(expected_mathml))
+            mathml_key = mathml_key.hexdigest()
+            mc.set(mathml_key,etree.tostring(svg))
+        else:
+            raise ValueError("returned mathml not expected")
+               
     return xml, {}, [] # xml, newFiles, log messages
 
   def imageResize(xml, files, **params):
