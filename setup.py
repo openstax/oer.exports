@@ -5,7 +5,8 @@ install_requires = (
      'argparse',
      'pillow',
      'numpy',
-     'wand'
+     'wand',
+     'python-memcached',
 )
 
 setup(
