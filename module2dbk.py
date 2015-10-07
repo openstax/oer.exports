@@ -72,6 +72,7 @@ def makeTransform(file):
     return xml, {}, errors
   return t
 
+
 @util.validate
 @util.cache
 def cnx_mathml2svg(mathml):
@@ -81,7 +82,7 @@ def cnx_mathml2svg(mathml):
     if sax is None:
         sax = Saxon()
 
-    svg =sax.convert(mathml)
+    svg = sax.convert(mathml)
 
     return svg
 
@@ -103,11 +104,11 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
       formularList = MATH_XPATH(xml)
       strErr = ''
       for mathml in formularList:
-          parent_node=mathml.getparent()
+          parent_node = mathml.getparent()
           mathml_str = etree.tostring(mathml)
           svg_str = cnx_mathml2svg(mathml_str)
           svg = etree.fromstring(svg_str)
-          parent_node.replace(mathml,svg)
+          parent_node.replace(mathml, svg)
     return xml, {}, [] # xml, newFiles, log messages
 
   def imageResize(xml, files, **params):

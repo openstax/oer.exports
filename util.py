@@ -224,33 +224,34 @@ class Progress(object):
 def mean_squared_error(imageA, imageB):
     err = numpy.sum((imageA.astype("float") - imageB.astype("float")) ** 2)
     err /= float(imageA.shape[0] * imageA.shape[1])
-    
+
     return err
+
 
 def validate(function):
     @functools.wraps(function)
-    def wrapper(xml,*args, **kwds):
+    def wrapper(xml, *args, **kwds):
         try:
             etree.tostring(etree.fromstring(xml))
 #            xml=etree.tostring(xml)
         except etree.XMLSyntaxError as err:
-            raise ValueError("XMLSyntaxError: "+err.message)
+            raise ValueError("XMLSyntaxError: " + err.message)
 
-        xml = function(xml,*args, **kwds)
+        xml = function(xml, *args, **kwds)
 
         parser = etree.XMLParser(recover=True)
         try:
-            xml=etree.parse(StringIO(xml), parser)
-            xml=etree.tostring(xml)
+            xml = etree.parse(StringIO(xml), parser)
+            xml = etree.tostring(xml)
         except etree.XMLSyntaxError as err:
-            raise ValueError("XMLSyntaxError: "+err.message)
+            raise ValueError("XMLSyntaxError: " + err.message)
         return xml
     return wrapper
 
 
 def cache(function):
     @functools.wraps(function)
-    def wrapper(xml,*args, **kwds):
+    def wrapper(xml, *args, **kwds):
         global mc
         if mc is None:
             mc = memcache.Client(['127.0.0.1:11211'], debug=0)
@@ -261,9 +262,7 @@ def cache(function):
         if saved_xml:
             return saved_xml
         else:
-            xml = function(xml,*args, **kwds)
-            mc.set(xml_key,xml)
+            xml = function(xml, *args, **kwds)
+            mc.set(xml_key, xml)
             return xml
     return wrapper
-
-
