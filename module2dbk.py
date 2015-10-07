@@ -82,7 +82,7 @@ def cnx_mathml2svg(mathml):
     if sax is None:
         sax = Saxon()
 
-    svg =sax.convert(mathml)
+    svg = sax.convert(mathml)
 
     return svg
 
@@ -105,7 +105,7 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
       formularList = MATH_XPATH(xml)
       strErr = ''
       for mathml in formularList:
-          parent_node=mathml.getparent()
+          parent_node = mathml.getparent()
           mathml_str = etree.tostring(mathml)
           svg_str = cnx_mathml2svg(mathml_str)
           svg = etree.parse(StringIO(svg_str), parser)

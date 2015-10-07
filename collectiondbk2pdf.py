@@ -192,6 +192,7 @@ def _find_pdfgen(pdfgen_file=None):
           break
     return pdfgen
 
+
 def main(argv=None):
     try:
       import argparse

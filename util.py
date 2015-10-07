@@ -224,13 +224,13 @@ class Progress(object):
 def mean_squared_error(imageA, imageB):
     err = numpy.sum((imageA.astype("float") - imageB.astype("float")) ** 2)
     err /= float(imageA.shape[0] * imageA.shape[1])
-    
+
     return err
 
 
 def cache(function):
     @functools.wraps(function)
-    def wrapper(xml,*args, **kwds):
+    def wrapper(xml, *args, **kwds):
         global mc
         if mc is None:
             mc = memcache.Client(['127.0.0.1:11211'], debug=0)
@@ -241,9 +241,7 @@ def cache(function):
         if saved_xml:
             return saved_xml
         else:
-            xml = function(xml,*args, **kwds)
-            mc.set(xml_key,xml)
+            xml = function(xml, *args, **kwds)
+            mc.set(xml_key, xml)
             return xml
     return wrapper
-
-
