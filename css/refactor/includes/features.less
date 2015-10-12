@@ -1,178 +1,87 @@
-.features (@a) when (@features = math) {
-  /********************************************************************
-   * Refactor of .x-feature() function to utilize only one paramter
-   ********************************************************************/
+/********************************************************************
+ * Math Refactor of .x-feature() function to utilize only one paramter
+ ********************************************************************/
 
-  .x-feature (@svg) {
-    // If feature is only one line prevent clipping of icon
-    min-height: 45px;
+.x-feature (@svg) {
+  // If feature is only one line prevent clipping of icon
+  min-height: 45px;
+  padding-top: 0;
+  margin-top: 0;
+  background: url("ccap-precalculus/@{svg}.svg") no-repeat;
+  background-position: 0 .2em;
 
-    padding-top: 0;
-    margin-top: 0;
-    background: url("ccap-precalculus/@{svg}.svg") no-repeat;
-    background-position: 0 .2em;
-
-    .figure {
-      img { max-width: (@page-width - .25em); }
-    }
+  .figure {
+    img { max-width: (@page-width - .25em); }
   }
+}
 
-  .x-banner-feature (@svg, @book, @type: "svg") {
-    // If feature is only one line prevent clipping of icon
-    min-height: 45px;
+.x-banner-feature (@svg, @book, @type: "svg") {
+  // If feature is only one line prevent clipping of icon
+  min-height: 45px;
+  padding-top: 0;
+  margin-top: 0;
+  background: url("ccap-@{book}/@{svg}.@{type}") no-repeat;
+  background-position: 0 .2em;
 
-    padding-top: 0;
-    margin-top: 0;
-    background: url("ccap-@{book}/@{svg}.@{type}") no-repeat;
-    background-position: 0 .2em;
-
-    .figure {
-      img { max-width: (@page-width - .25em); }
-    }
+  .figure {
+    img { max-width: (@page-width - .25em); }
   }
+}
 
-  #content {
-    #note {
-      .style(...) {}
-      .style(non-feature) {
-        color: @black;
-        background-color: @light-blue;
-        padding-bottom: 1em;
-      }
-      .style(qa; ...) {
-        #utils>#pb>.inside(avoid);
-        .x-feature(qa);
-        // place adjustment for padding here so we don't
-        // have to place in #title and #body below
-        padding-left: 2.8em;
-      }
-      .style(media; ...) {
-        #utils>#pb>.inside(avoid);
-        .x-feature(media);
-        padding-left: 2.5em;
-      }
-      .style(try; ...) {
-        #utils>#pb>.inside(avoid);
-        .x-feature(try);
-      }
-      .style(howto; ...) {
-        #utils>#pb>.inside(avoid);
-        .x-feature(howto);
-        padding-left: 2.8em;
-      }
-      .style(emphasized; howto) {
-        #content>#note>.style(howto);
-        padding-top: .4em;
-        padding-left: 3em;
-        background-position: .5em .5em;
-        background-color: @light-blue;
-      }
-      .style(student-project; ...) {
-        #utils>#pb>.inside(avoid);
-        page-break-before: always;
-        background-color: @light-blue;
-        &:before {
-          .x-banner-feature(student-project; calculus; png);
-          display: block;
-          content: "";
-          min-height: 55px;
-          width: auto;
-          height: auto;
-          background-position: 0px 0px;
-          background-color: @black;
-          margin-left: -1em;
-          margin-right: -1em;
-          margin-top: -3px;
-        }
-      }
-      .style(checkpoint; ...) {
-        #utils>#pb>.inside(avoid);
-        .x-banner-feature(checkpoint; calculus);
-        padding-left: 1.4em;
-      }
-      .style(quick-check; ...) {
-        #utils>#pb>.inside(avoid);
-        .x-banner-feature(quick-check; basic-math);
-        padding-left: 1.4em;
-      }
-      .style(emphasized; quick-check) {
-        #content>#note>.style(quick-check);
-        padding-top: .4em;
-        padding-left: 3em;
-        background-position: .5em .5em;
-        background-color: @soft-orange;
-      }
-      .style(media-2; ...) {
-        #utils>#pb>.inside(avoid);
-        .x-banner-feature(media; calculus);
-        padding-left: 32px;
-      }
-      .style(problem-solving) {
-        #content>#note>.style(non-feature);
-        background-color: @soft-orange;
-        padding-bottom: 1em;
-      }
-      .style(be-prepared) {
-        #content>#note>.style(non-feature);
-      }
-      #title {
-        .style(...) {}
-        .style(non-feature) {
-          #utils>#pb>.after(avoid);
-          text-align: left;
-          font-size: small;
-          margin-top: .25em;
-          margin-bottom: .5em;
-          color: @medium-blue;
-          font-weight: bold;
-          border-bottom: 1px solid @medium-blue;
-        }
-        .style(@kind; @part; feature-try) {
-          margin-top: 0;
-          color: @black;
-          font-family: @font-family-serif;
-          font-size: 10pt;
-          font-weight: bold;
-          float: left;
-          padding-left: 1.5em;
-          padding-right: .8em;
-        }
-        .style(@kind; @part; feature-qa) {
-          font-family: @font-family-serif;
-          font-weight: bold;
-        }
-        .style(@kind; @part; student-project) {
-          font-family: @font-family;
-          font-weight: bold;
-          color: @dark-blue;
-          font-size: 11pt;
-          padding-bottom: 0em;
-          margin-top: 1.5em;
-          margin-bottom: 1em;
-          border-bottom: none;
-        }
-        .style(@kind; @part; definition) {
-          margin-top: 0em;
-          content: @cnx-string-definition;
-          display: block;
-        }
-        .style(@kind; @part; problem-solving) {
-          #content>#note>#title>.style(non-feature);
-        }
-        .style(be-prepared) {
-          #content>#note>#title>.style(non-feature);
-          margin-bottom: 1em;
-        }
-      }
-      #body {
-        .style(...) {}
-        .style(@kind; @part; feature-try) {
-          font-weight: normal;
+//Humanities features
+.x-feature-before-color(@title-color, @title) {
+  text-transform: uppercase;
+  color: @title-color;
+  content: @title;
+}
 
-        }
-        .style(@kind; @part; feature-qa) {
-          font-weight: normal;
-          margin-top: 0;
+.x-feature-color(@border-color, @title-border-color, @title-color, @background-color, @title) {
+  box-shadow: 10px 10px 5px @shadow; // On the roadmap for PrinceXML 9.1
+  border: 1px solid @border-color;
+  border-radius: 15px;
+  display: table;
+  z-index: 1;
+  &::before {
+    .x-feature-before-color(@title-color, @title);
+    display: table-caption;
+    caption-side: top;
+    background-color: @background-color;
+    border: 1px solid @title-border-color;
+    border-radius: 15px;
+    width: 60%;
+    padding: 8px;
+    padding-left: 0px;
+    font-weight: 700;
+    font-size: 12pt;
+    text-indent: 0.1875in;
+    margin-left: 16px;
+    margin-bottom: -10px;
+    position: relative;
+    z-index: 2;
+  }
+}
+#content {
+  #note {
+    .style('link-to-learning'; ...) {
+      // This feature requires some "bugfix" pieces to work
+      // properly, such as a clearfix. Selectors for these are
+      // placed inline in this slot.
+      .x-feature-color(@red, @orange, @white, @red, @cnx-string-link-to-learning);
+      #utils>#pb>.inside(avoid);
+      text-align: left;
+      //clearfix
+      > .body {
+        padding: 0px 10px;
+      }
+      > .body::after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+      .mediaobject {
+        float: left;
+        img {
+          margin: 0;
         }
       }
     }
