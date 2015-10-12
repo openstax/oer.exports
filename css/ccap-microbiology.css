@@ -70,12 +70,12 @@ td.entrytbl > table {
   border-left-width: 0;
   border-right-width: 0;
 }
+/********************************************************************
+ * Math Refactor of .x-feature() function to utilize only one paramter
+ ********************************************************************/
 #content #table #row {
   border: none !important;
 }
-/********************************************************************
- * Refactor of .x-feature() function to utilize only one paramter
- ********************************************************************/
 /* The QR code variable is needed for psychology skeleton but we are not using it since it's going away */
 html {
   prince-image-resolution: 200dpi;
@@ -3429,31 +3429,40 @@ g line {
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  border: 1px solid #993720;
+  page-break-inside: avoid;
+  text-align: left;
   padding: 20px;
   background-color: #ffffff;
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #e6661f;
   border-radius: 15px;
-  margin-top: 48px;
-  page-break-inside: avoid;
-  text-align: left;
+  display: table;
+  z-index: 1;
 }
 .chapter .note.link-to-learning::before {
-  text-transform: none;
+  text-transform: uppercase;
   color: #ffffff;
   content: "Link to Learning";
-  background-color: #f6862d;
-  border: 1px solid #e6661f;
+  text-transform: none;
+  display: table-caption;
+  caption-side: top;
+  background-color: #993720;
+  border: 1px solid #f6862d;
   border-radius: 15px;
   width: 60%;
-  position: absolute;
-  margin-top: -48px;
-  margin-left: -5px;
   padding: 8px;
   padding-left: 0px;
   font-weight: 700;
   font-size: 12pt;
   text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
+}
+.chapter .note.link-to-learning > .body {
+  padding: 0px 10px;
 }
 .chapter .note.link-to-learning > .body::after {
   content: "";
@@ -3462,13 +3471,33 @@ g line {
 }
 .chapter .note.link-to-learning .mediaobject {
   float: left;
-  padding-right: .8em;
 }
 .chapter .note.link-to-learning .mediaobject img {
   margin: 0;
 }
-.chapter .note.link-to-learning > .body {
-  padding: 0px 10px;
+.chapter .note.link-to-learning::before {
+  text-transform: uppercase;
+  color: #ffffff;
+  content: "Link to Learning";
+  text-transform: none;
+  display: table-caption;
+  caption-side: top;
+  background-color: #f6862d;
+  border: 1px solid #e6661f;
+  border-radius: 15px;
+  width: 60%;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
+}
+.chapter .note.link-to-learning .mediaobject {
+  padding-right: .8em;
 }
 .chapter .note .blockquote blockquote {
   font-size: 10pt;
@@ -3806,24 +3835,29 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #354da1;
   border-radius: 15px;
-  margin-top: 48px;
+  display: table;
+  z-index: 1;
 }
 .chapter .note.sciences-interconnect::before {
-  text-transform: none;
+  text-transform: uppercase;
   color: #ffffff;
   content: "How Sciences Interconnect";
+  text-transform: none;
+  display: table-caption;
+  caption-side: top;
   background-color: #7291cb;
   border: 1px solid #354da1;
   border-radius: 15px;
   width: 60%;
-  position: absolute;
-  margin-top: -48px;
-  margin-left: -5px;
   padding: 8px;
   padding-left: 0px;
   font-weight: 700;
   font-size: 12pt;
   text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
 }
 .chapter .note.sciences-interconnect > .title {
   margin-top: 0.5em;
@@ -3849,24 +3883,29 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #6d0059;
   border-radius: 15px;
-  margin-top: 48px;
+  display: table;
+  z-index: 1;
 }
 .chapter .note.everyday-life::before {
-  text-transform: none;
+  text-transform: uppercase;
   color: #ffffff;
   content: "Chemistry in Everyday Life";
+  text-transform: none;
+  display: table-caption;
+  caption-side: top;
   background-color: #944c8d;
   border: 1px solid #6d0059;
   border-radius: 15px;
   width: 60%;
-  position: absolute;
-  margin-top: -48px;
-  margin-left: -5px;
   padding: 8px;
   padding-left: 0px;
   font-weight: 700;
   font-size: 12pt;
   text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
 }
 .chapter .note.everyday-life > .title {
   margin-top: 0.5em;
@@ -3892,24 +3931,29 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #007339;
   border-radius: 15px;
-  margin-top: 48px;
+  display: table;
+  z-index: 1;
 }
 .chapter .note.chemist-portrait::before {
-  text-transform: none;
+  text-transform: uppercase;
   color: #ffffff;
   content: "Portrait of a Chemist";
+  text-transform: none;
+  display: table-caption;
+  caption-side: top;
   background-color: #8fb73e;
   border: 1px solid #007339;
   border-radius: 15px;
   width: 60%;
-  position: absolute;
-  margin-top: -48px;
-  margin-left: -5px;
   padding: 8px;
   padding-left: 0px;
   font-weight: 700;
   font-size: 12pt;
   text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
 }
 .chapter .note.chemist-portrait > .title {
   margin-top: 0.5em;
@@ -3930,31 +3974,40 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  border: 1px solid #993720;
+  page-break-inside: avoid;
+  text-align: left;
   padding: 20px;
   background-color: #ffffff;
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #e6661f;
   border-radius: 15px;
-  margin-top: 48px;
-  page-break-inside: avoid;
-  text-align: left;
+  display: table;
+  z-index: 1;
 }
 .chapter .note.link-to-learning::before {
-  text-transform: none;
+  text-transform: uppercase;
   color: #ffffff;
   content: "Link to Learning";
-  background-color: #f6862d;
-  border: 1px solid #e6661f;
+  text-transform: none;
+  display: table-caption;
+  caption-side: top;
+  background-color: #993720;
+  border: 1px solid #f6862d;
   border-radius: 15px;
   width: 60%;
-  position: absolute;
-  margin-top: -48px;
-  margin-left: -5px;
   padding: 8px;
   padding-left: 0px;
   font-weight: 700;
   font-size: 12pt;
   text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
+}
+.chapter .note.link-to-learning > .body {
+  padding: 0px 10px;
 }
 .chapter .note.link-to-learning > .body::after {
   content: "";
@@ -3963,10 +4016,33 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
 }
 .chapter .note.link-to-learning .mediaobject {
   float: left;
-  padding-right: .8em;
 }
 .chapter .note.link-to-learning .mediaobject img {
   margin: 0;
+}
+.chapter .note.link-to-learning::before {
+  text-transform: uppercase;
+  color: #ffffff;
+  content: "Link to Learning";
+  text-transform: none;
+  display: table-caption;
+  caption-side: top;
+  background-color: #f6862d;
+  border: 1px solid #e6661f;
+  border-radius: 15px;
+  width: 60%;
+  padding: 8px;
+  padding-left: 0px;
+  font-weight: 700;
+  font-size: 12pt;
+  text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
+}
+.chapter .note.link-to-learning .mediaobject {
+  padding-right: .8em;
 }
 .chapter .note.link-to-learning p {
   padding-left: 107px;
@@ -4244,24 +4320,29 @@ div.book > div.appendix > div.section div.equation > *:last-child::after {
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #354da1;
   border-radius: 15px;
-  margin-top: 48px;
+  display: table;
+  z-index: 1;
 }
 .chapter .note.clinical-focus::before {
-  text-transform: none;
+  text-transform: uppercase;
   color: #ffffff;
   content: "Clinical Focus";
+  text-transform: none;
+  display: table-caption;
+  caption-side: top;
   background-color: #7291cb;
   border: 1px solid #354da1;
   border-radius: 15px;
   width: 60%;
-  position: absolute;
-  margin-top: -48px;
-  margin-left: -5px;
   padding: 8px;
   padding-left: 0px;
   font-weight: 700;
   font-size: 12pt;
   text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
 }
 .chapter .note.clinical-focus > .title {
   margin-top: 0.5em;
@@ -4287,30 +4368,30 @@ div.book > div.appendix > div.section div.equation > *:last-child::after {
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #354da1;
   border-radius: 15px;
-  margin-top: 48px;
+  display: table;
+  z-index: 1;
   float: bottom;
 }
 .chapter .note.clinical-focus-opener::before {
-  text-transform: none;
+  text-transform: uppercase;
   color: #ffffff;
   content: "Clinical Focus";
+  text-transform: none;
+  display: table-caption;
+  caption-side: top;
   background-color: #7291cb;
   border: 1px solid #354da1;
   border-radius: 15px;
   width: 60%;
-  position: absolute;
-  margin-top: -48px;
-  margin-left: -5px;
   padding: 8px;
   padding-left: 0px;
   font-weight: 700;
   font-size: 12pt;
   text-indent: 0.1875in;
-}
-.chapter .note.clinical-focus-opener:before {
+  margin-left: 16px;
+  margin-bottom: -10px;
   position: relative;
-  top: -40px;
-  padding: 10px 255px 10px 20px;
+  z-index: 2;
 }
 .chapter .note.clinical-focus-opener > .title {
   margin-top: 0.5em;
@@ -4323,7 +4404,6 @@ div.book > div.appendix > div.section div.equation > *:last-child::after {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 11pt;
   color: #7291cb;
-  margin-top: -20px;
 }
 .chapter .note.micro-connection {
   padding-left: 1em;
@@ -4337,24 +4417,29 @@ div.book > div.appendix > div.section div.equation > *:last-child::after {
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #6d0059;
   border-radius: 15px;
-  margin-top: 48px;
+  display: table;
+  z-index: 1;
 }
 .chapter .note.micro-connection::before {
-  text-transform: none;
+  text-transform: uppercase;
   color: #ffffff;
   content: "Micro Connections";
+  text-transform: none;
+  display: table-caption;
+  caption-side: top;
   background-color: #944c8d;
   border: 1px solid #6d0059;
   border-radius: 15px;
   width: 60%;
-  position: absolute;
-  margin-top: -48px;
-  margin-left: -5px;
   padding: 8px;
   padding-left: 0px;
   font-weight: 700;
   font-size: 12pt;
   text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
 }
 .chapter .note.micro-connection > .title {
   margin-top: 0.5em;
@@ -4380,24 +4465,29 @@ div.book > div.appendix > div.section div.equation > *:last-child::after {
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #8f5000;
   border-radius: 15px;
-  margin-top: 48px;
+  display: table;
+  z-index: 1;
 }
 .chapter .note.disease-profile::before {
-  text-transform: none;
+  text-transform: uppercase;
   color: #ffffff;
   content: "Disease Profile";
+  text-transform: none;
+  display: table-caption;
+  caption-side: top;
   background-color: #ad7b3c;
   border: 1px solid #8f5000;
   border-radius: 15px;
   width: 60%;
-  position: absolute;
-  margin-top: -48px;
-  margin-left: -5px;
   padding: 8px;
   padding-left: 0px;
   font-weight: 700;
   font-size: 12pt;
   text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
 }
 .chapter .note.disease-profile > .title {
   margin-top: 0.5em;
@@ -4423,24 +4513,29 @@ div.book > div.appendix > div.section div.equation > *:last-child::after {
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #007339;
   border-radius: 15px;
-  margin-top: 48px;
+  display: table;
+  z-index: 1;
 }
 .chapter .note.case-in-point::before {
-  text-transform: none;
+  text-transform: uppercase;
   color: #ffffff;
   content: "Case in Point";
+  text-transform: none;
+  display: table-caption;
+  caption-side: top;
   background-color: #8fb73e;
   border: 1px solid #007339;
   border-radius: 15px;
   width: 60%;
-  position: absolute;
-  margin-top: -48px;
-  margin-left: -5px;
   padding: 8px;
   padding-left: 0px;
   font-weight: 700;
   font-size: 12pt;
   text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
 }
 .chapter .note.case-in-point > .title {
   margin-top: 0.5em;
@@ -4466,24 +4561,29 @@ div.book > div.appendix > div.section div.equation > *:last-child::after {
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #be7d00;
   border-radius: 15px;
-  margin-top: 48px;
+  display: table;
+  z-index: 1;
 }
 .chapter .note.eye-on-ethics::before {
-  text-transform: none;
+  text-transform: uppercase;
   color: #ffffff;
   content: "Eye on Ethics";
+  text-transform: none;
+  display: table-caption;
+  caption-side: top;
   background-color: #dcb227;
   border: 1px solid #be7d00;
   border-radius: 15px;
   width: 60%;
-  position: absolute;
-  margin-top: -48px;
-  margin-left: -5px;
   padding: 8px;
   padding-left: 0px;
   font-weight: 700;
   font-size: 12pt;
   text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
 }
 .chapter .note.eye-on-ethics > .title {
   margin-top: 0.5em;

@@ -2,6 +2,7 @@
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
 @import url('../includes/table-skeleton.less');
+
 h2, h3, h4 {
   margin: initial;
   sup a {
@@ -11,63 +12,12 @@ h2, h3, h4 {
 @kind: default;
 @part: chapter;
 @context: default;
+
 div[class="note"] {
   #content>#note>.style(non-feature);
   > .title { #content>#note>#title>.style(non-feature); }
 }
-.note {
-  // &.qa {
-  //   @context: feature-qa;
-  //   #content>#note>.style(qa);
 
-  //   > .title {
-  //     #content>#note>#title>.style(@kind; @part; @context);
-  //   }
-  //   // the paragraph inside body has to be specifically targeted here to remove top-margin. grr.
-  //   >.body, .body > p {
-  //     #content>#note>#body>.style(@kind; @part; @context);
-  //   }
-
-  //   > .body .figure .title { #content>#figure>#title>.style(any; any; @context); }
-  // }
-  // &.media {
-  //   @context: feature-media;
-  //   #content>#note>.style(media);
-
-  //   .itemizedlist > .listitem {
-  //     #content>#list>.item(@kind, @part, @context);
-  //   }
-
-  //   // Supress the extra url generated from base that is wrapped with parentheses
-  //   .itemizedlist > .listitem .link.only-show-once {
-  //     content: content();
-  //   }
-  // }
-  // &.try {
-  //   @context: feature-try;
-  //   #content>#note>.style(try);
-  //   div.itemizedlist, div.orderedlist {
-  //     ul, ol {
-  //       #content>#list>.style(any; try-it);
-  //     }
-  //  }
-  //   > .title {
-  //     #content>#note>#title>.style(@kind; @part; @context);
-  //   }
-
-  //   .exercise {
-  //     #content>#exercise>.style(@kind; @part; @context);
-  //     > .title { #content>#exercise>#title>.style(@kind; @part; @context); }
-
-  //     .problem {
-  //       #content>#problem>.style(@kind; @part; @context; exercise);
-  //     }
-  //     .solution {
-  //       #content>#solution>.style(@kind; @part; @context; exercise);
-  //     }
-  //   }
-  // }
-}
 
 /* -------------------------
  * Preface
@@ -878,24 +828,8 @@ g {
 
   .figure { #content>#figure>.style(any; any; note); }
 
-  // &.everyday-connection {
-  //   #content>#note>.style('everyday-connection'; any);
-  // }
-  // &.dig-deeper {
-  //   #content>#note>.style('dig-deeper'; any);
-  // }
-  // &.what-do-you-think {
-  //   #content>#note>.style('what-do-you-think'; any);
-  // }
-  // &.connect-the-concepts {
-  //   #content>#note>.style('connect-the-concepts'; any);
-  // }
   &.link-to-learning {
     #content>#note>.style('link-to-learning'; any);
-
-    > .body {
-      padding: 0px 10px;
-    }
   }
   .blockquote blockquote {
     #content>#blockquote>.style(any; any; note);
