@@ -1,25 +1,24 @@
 // Subscripts and superscript line-height tweaks based on https://gist.github.com/unruthless/413930
 
-.sup-fix (@pre: ~'', @selector,  @font-size: 75%, @top: -0.5em) {
-  @{pre}@{selector} {
-    font-size: @font-size;
-    line-height: 0;
-    position: relative;
-    vertical-align: baseline;
-    top: @top;
-  }
+.script(@a) when (@script = sub) {
+  bottom: @bottom;
+}
+.script(@a) when (@script = sup) {
+  top: @top;
 }
 
-.sub-fix (@pre: ~'', @selector, @font-size: 75%, @bottom: -0.25em) {
-  @{pre}@{selector} {
-    font-size: @font-size;
-    line-height: 0;
-    position: relative;
-    vertical-align: baseline;
-    bottom: @bottom;
-  }
+.scripts (@script, @font-size: 75%, @top:-0.5em, @bottom: -0.25em) {
+  font-size: @font-size;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  .script(@script);
 }
 
-.sup-fix (~'', sup);
-.sub-fix (~'', sub);
+sub {
+  .scripts (@script: sub);
+}
 
+sup {
+  .scripts (@script: sup);
+}
