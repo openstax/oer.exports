@@ -12,13 +12,26 @@
 .x-list-indent() {
   margin: 0 0 0 40px;
   padding:0;
- }
+}
+
+.inline-blocks() {
+  box-sizing: border-box;
+  padding: 0 2em;
+}
+
+#utils {
+  .column-count(@num: 2) {
+    column-gap: 10px; // testing this...
+    column-fill: balance; //testing this...
+  }
+}
 
 #part {
   #titlepage {
     #title {
       .style() {
-        font-size: 34pt;
+        .font-scale(3);
+        text-shadow: 0 1px 0 rgba(166,163,157,0.75);
         text-align: left;
       }
     }
@@ -27,9 +40,9 @@
     #titlepage {
       .style(...) {
         padding-bottom: 1em;
-
       }
       .title(...) {
+        .font-scale(2);
         background-color: @medium-blue;
       }
     }
@@ -38,8 +51,8 @@
     #title {
       .style(...) {
         content: @cnx-string-introduction;
-        font-size: x-large;
         color: @medium-blue;
+        .font-scale(1);
       }
     }
     #chapter-outline {
@@ -55,6 +68,7 @@
           padding-top: .1em;
           padding-bottom: .2em;
           background-color: @medium-blue;
+          .font-scale(1);
         }
       }
       #entry {
@@ -73,21 +87,26 @@
     }
     #title {
       .style(...) {
+        .font-scale(1);
         color: @medium-blue;
-        border-bottom-color: @medium-blue;
+        text-align: right;
       }
     }
     #link {
       .style(...) {
         color: @medium-blue;
+        display: block;
+        text-align: right;
+      }
+      .number() {
+        content: "\2022 page " target-counter(attr(href), page)
       }
     }
   }
   #chapter {
     #title {
       .style(...) {
-        /*reset left only*/
-        font-size: 34pt; /* x-large; */
+        .font-scale(2);
         font-weight: bold;
         text-align: left;
         color: @medium-blue;
@@ -126,7 +145,7 @@
           color: white;
           text-align: center;
           font-weight: bold;
-          font-size: large;
+          .font-scale(1);
         }
       }
       #list {
@@ -140,8 +159,8 @@
     #title {
       .style() {
         color: @medium-blue;
-        font-size: 17pt;
         font-weight: bold;
+        .font-scale(2);
       }
       // Separate the section number and title with a pipe
       .divider() {
@@ -218,7 +237,6 @@
     }
     #key-concepts {
       .style(...) {
-        .x-column-count(2);
         padding-bottom: 1em;
       }
       #title {
@@ -451,7 +469,7 @@
 #content {
   #body {
     .style(any) {
-      font-size: 9.5pt;
+      .font-scale(0);
       text-align: justify;
     }
   }
@@ -479,6 +497,7 @@
       counter-increment: table !important; // Overrides !important from base.
       display: inline-block;
       width: @one-third;
+      .inline-blocks();
     }
     .style(any; any; solution; exercise; example) {
       counter-increment: table !important; // Overrides !important from base.
@@ -670,6 +689,7 @@
     .style(@kind; @part; figure) {
       margin: 0; //override auto  left/right margins from base
       max-width: @page-width; //overrides width value figures/subfigures ensuring imgs do not bleed off page
+      max-width: @one-third; //testing this...
     }
     .style(any; book-end; solution) {
       text-align: center;
@@ -692,8 +712,12 @@
       .style(...) {
         #utils>#pb>.after(avoid);
       }
-      .style(any; preface) {}
-      .style(any; preface; section) {}
+      .style(any; preface) {
+        .font-scale(1);
+      }
+      .style(any; preface; section) {
+        .font-scale(1);
+      }
       .style(any; appendix){
         #part>#module>#title>.style();
       }
@@ -710,12 +734,12 @@
       .label(any; appendix; section) {}
       .style(any; any) { // Section titles
         color: @medium-blue;
-        font-size: 19px;
+        .font-scale(1);
         font-weight: bold;
       }
       .style(any; any; section) { // Sub-section titles
         color: @medium-blue;
-        font-size: 13px;
+        .font-scale(1);
         font-weight: bold;
       }
       .style(section-exercises; @part; ...) {
@@ -758,6 +782,11 @@
         font-weight: bold;
         text-align:  left;
     }
+    .item(any; chapter-end; key-concepts) {
+      display: inline-block;
+      vertical-align: top;
+      width: @one-half;
+    }
   }
   #commentary {
     #title {
@@ -780,18 +809,12 @@
   #example {
     .style(any) {
       margin: .75em 0;
-      border-left: 8px solid @light-blue;
-      padding-left: 2px;
-      transform: translatex(-10px);
-      margin-bottom: 25.333px;
+      margin-bottom: 5px;
       margin-top: 0px;
     }
     #title {
       .style(any) {
-        padding-bottom: .3em;
-        font-size: 11pt;
-        font-family: @font-family;
-        color: @dark-blue;
+        display: none;
       }
     }
     #body {
@@ -810,6 +833,7 @@
       display: inline-block;
       vertical-align: top;
       width: @one-third;
+      .inline-blocks();
     }
     .style(any; any; example) {
       counter-increment: none !important;
@@ -847,7 +871,9 @@
       margin-top: 1em;
       margin-bottom: 1em;
       display: inline-block;
-      max-width: @one-third;
+      width: @one-third;
+      .inline-blocks();
+      vertical-align: top;
     }
     #title {
       .style(@kind; @part; feature-try) {
@@ -855,14 +881,8 @@
         display: none;
       }
       .style(@kind; @part; section-exercise) {
-        content: counter(exercise) ".";
-        float: left;
-        padding-right: .5em;
-      }
-    }
-    #body {
-      .style(any; any; first-exercise; example) {
-        margin: -20px 0;
+        content: counter(exercise) ". ";
+        display: inline;
       }
     }
   }
@@ -884,8 +904,9 @@
         display: inline;
       }
       .style(any; any; first-problem; first-exercise; example) {
-        text-indent: 125px;
         display: block;
+        content: "Example " counter(chapter, decimal) "." counter(example) " " content();
+        .font-scale(1);
       }
     }
 
@@ -903,8 +924,7 @@
     .style(...) {}
 
     .style(any; any; example) {
-      padding-top: 1em; padding-bottom: 1em;
-      display: inline-block;
+      /*display: inline-block;*/
     }
 
     .style(@kind; @part; feature-try; exercise) {
@@ -913,6 +933,9 @@
     }
     .style(@kind; book-end) {
       // style any PreCalc solution that occurs in #book-end
+      display: inline-block;
+      width: @one-fourth;
+      vertical-align: top;
     }
     .style(@kind; @part; exercise; section-exercise) {
       // do not display end-of-section exercise solutions.
@@ -934,7 +957,6 @@
         font-weight: bold;
         line-height: 1em;
         display: inline;
-        padding-left: 20px;
       }
       .style(@kind; book-end) {
         // Check the note at
@@ -1260,7 +1282,7 @@
     }
     #body {
       .style(any; any) {
-        min-width: 312px;
+        min-width: @one-third;
       }
     }
     #title {

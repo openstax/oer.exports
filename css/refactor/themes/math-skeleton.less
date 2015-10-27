@@ -1,6 +1,7 @@
 // Copyright (c) 2013 Rice University
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
+
 h2, h3, h4 {
   margin: initial;
   sup a {
@@ -107,8 +108,20 @@ div.book div.preface {
 
   a {
     #part>#toc>#link>.style();
+
+    &::after {
+      #part>#toc>#link>.number();
+    }
   }
 }
+
+.book > .toc .toc-chapter > .target-chapter::before {
+  content: target-counter(attr(href), chapter, decimal);
+  display: block;
+  float: left;
+  font-size: 2.333em;
+}
+
 
 /* -------------------------
  * Unit Page
@@ -669,8 +682,18 @@ img, figure, subfigure  { margin: 1em; }
     #content>#exercise>.style(@kind; @part; section-exercise);
   }
 
+  // Inline problem number/text
   .exercise > .title {
     #content>#exercise>#title>.style(@kind; @part; section-exercise);
+  }
+  .exercise > .body {
+    display: inline;
+    .problem {
+      display: inline;
+      p:first-of-type {
+        display: inline;
+      }
+    }
   }
 
   .exercise .problem .figure { #content>#figure>.style(@kind; @part; problem; exercise; section-exercise); }
@@ -707,7 +730,18 @@ img, figure, subfigure  { margin: 1em; }
  * Example Elements Styling and Numbering
  * -------------------------
  */
-.chapter .example { #content>#example>.style(any); }
+.chapter .example {
+  #content>#example>.style(any);
+
+  &::after {
+    content: " ";
+    display: block;
+    height: 2px;
+    background: -webkit-radial-gradient(center center, ellipse cover, #272727 0%, transparent 100%);
+    background-image: radial-gradient(center center, ellipse cover, #272727, transparent);
+    background-position-y: 17px;
+  }
+}
 .example > .title {
   #content>#example>#title>.style(any);
 }
@@ -721,6 +755,7 @@ img, figure, subfigure  { margin: 1em; }
   font-size: inherit;
   font-weight: inherit;
 }
+
 .example > .body {
  #content>#example>#body>.style(any);
  p:first-child {
@@ -740,7 +775,7 @@ div.book div.chapter > div.section div.example div.exercise .solution {
   .figure {
     #content>#figure>.style(any; any; solution; exercise; example);
 
-  .body {
+    .body {
       text-align: left;
     }
   }
@@ -788,12 +823,7 @@ div.book div.chapter > div.section div.example div.exercise .commentary {
 // for examples that have a problem/solution structure that need numbered headings
 
 
-.example .exercise:nth-of-type(1) {
-  > .body {
-    #content>#exercise>#body>.style(any; any; first-exercise; example);
-  }
-}
-.example .exercise:nth-of-type(1) .problem:nth-of-type(1) .title {
+.example .exercise:nth-of-type(1) .problem:nth-of-type(1) > .title {
   #content>#problem>#title>.style(any; any; first-problem; first-exercise; example);
 }
 
@@ -818,6 +848,7 @@ div.book div.chapter > div.section div.example div.exercise .commentary {
   .solution > .body {
     #content>#solution>#body>.style(any; any; exercise; example);
 
+    p:first-child { display: inline; }
   }
   .solution > .body > a.target-figure {
     color: @orange;
@@ -948,6 +979,18 @@ div.itemizedlist, div.orderedlist {
   }
 }
 
+.cnx-eoc {
+  .key-concepts {
+    div.itemizedlist, div.orderedlist {
+      ul, ol {
+        li {
+          #content>#list>.item(any; chapter-end; key-concepts);
+        }
+      }
+    }
+  }
+}
+
 
 /* -------------------------
  * Images in chapters
@@ -957,8 +1000,8 @@ div.itemizedlist, div.orderedlist {
  .end-of-book-solutions .mediaobject img { #content>#image>.style(any; book-end; solutions); }
 
 
-.chapter .section.module img {
-  max-width: 156px;
+.chapter .section img {
+  max-width: @one-third;
 }
 
 
@@ -1209,6 +1252,11 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.body {
     img { margin: 1em 0; }
   }
 }
+
+.section.section-exercises .exercise {
+  #content>#exercise>.style(any; any; section-exercises);
+}
+
 
 /******************************************************
  * Element numbering bugfix.
