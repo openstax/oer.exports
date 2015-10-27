@@ -1745,6 +1745,7 @@ em.glossterm {
   page-break-after: avoid;
   padding-bottom: 0;
   margin-bottom: 6.6px;
+  font-size: 13pt !important;
 }
 .cnx-eoc .section .title {
   padding-top: 1em;
@@ -2682,6 +2683,7 @@ div.book div > div.section > div.learning-objectives .itemizedlist > ul {
   page-break-after: avoid;
   padding-bottom: 0;
   margin-bottom: 6.6px;
+  font-size: 13pt !important;
 }
 .cnx-eoc.summary {
   margin-bottom: 20px;
@@ -2692,20 +2694,6 @@ div.book div > div.section > div.learning-objectives .itemizedlist > ul {
   column-fill: auto;
   column-gap: 24px;
   margin-bottom: 5px;
-}
-.cnx-eoc.summary:after {
-  display: block;
-  content: "Review Questions";
-  color: #194379;
-  text-align: left;
-  border-bottom-color: #f0936a;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  font-size: 13pt;
-  line-height: 17pt;
-  font-weight: 700;
-  margin-top: 0;
-  page-break-after: avoid;
 }
 .cnx-eoc.summary > .title {
   content: "Summary";
@@ -2957,8 +2945,12 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
 h5 {
   color: #007196;
   font-size: 10pt;
-  font-weight: bold;
   font-style: italic;
+  color: #000000;
+  font-style: normal;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
 }
 h6 {
   color: #007196;
@@ -3656,11 +3648,15 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
   -moz-column-count: 2;
   column-count: 2;
   columns: 2;
-  column-fill: auto;
-  column-gap: 24px;
   column-fill: balance;
   text-align: left;
   margin-bottom: 20px;
+  -webkit-column-count: 1;
+  -moz-column-count: 1;
+  column-count: 1;
+  columns: 1;
+  column-fill: auto;
+  column-gap: 24px;
 }
 .cnx-eoc.review-questions > .title {
   content: "Review Questions";
@@ -3668,6 +3664,11 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
   margin-bottom: 1em;
   -webkit-column-span: all;
   /* Chrome, Safari, Opera */
+  color: black;
+  font-size: 13px;
+  border-bottom: 0;
+  font-weight: bold;
+  margin-bottom: 0;
 }
 .cnx-eoc.review-questions p {
   text-align: left;
@@ -3684,11 +3685,6 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-autog
   content: "Critical Thinking";
   column-span: all !important;
   margin-bottom: 1em;
-  color: black;
-  font-size: 13px;
-  border-bottom: 0;
-  font-weight: bold;
-  margin-bottom: 0;
 }
 .cnx-eoc.personal-application {
   -webkit-column-count: 1;
@@ -4382,6 +4378,10 @@ div.book > div.appendix > div.section div.equation > *:last-child::after {
   padding-top: 0em;
   padding-bottom: 0em;
 }
+.cnx-eoc > .title > *,
+.glossary > .titlepage > div > div > * {
+  font-size: initial;
+}
 .chapter .note.astronomy-basics {
   padding-left: 1em;
   padding-right: 1em;
@@ -4582,54 +4582,99 @@ div.book > div.appendix > div.section div.equation > *:last-child::after {
   font-size: 11pt;
   color: #ca4142;
 }
-.cnx-eoc.multiple-choice > .title {
-  color: black;
-  font-size: 13px;
-  border-bottom: 0;
-  font-weight: bold;
-  margin-bottom: 0;
+div.book div.chapter > div.cnx-eoc.further-reading .body p {
+  margin-left: 20px;
+  text-indent: -20px;
 }
-.cnx-eoc.multiple-choice > .section .title > a {
+div.book div.chapter > div.cnx-eoc.further-reading > .section .title > a {
   display: none;
 }
-.cnx-eoc.matching > .title {
-  color: black;
-  font-size: 13px;
-  border-bottom: 0;
-  font-weight: bold;
-  margin-bottom: 0;
+div.book div.chapter > div.cnx-eoc.interactivity {
+  counter-reset: interactivity;
+  margin-bottom: 5px;
 }
-.cnx-eoc.matching > .section .title > a {
+div.book div.chapter > div.cnx-eoc.interactivity div.section.empty {
   display: none;
 }
-.cnx-eoc.true-false > .title {
-  color: black;
-  font-size: 13px;
-  border-bottom: 0;
-  font-weight: bold;
-  margin-bottom: 0;
+div.book div.chapter > div.cnx-eoc.interactivity div.section .body:before {
+  display: inline;
+  float: left;
+  margin-top: 7px;
+  padding-right: 5px;
+  content: counter(interactivity) ". ";
+  counter-increment: interactivity;
 }
-.cnx-eoc.true-false > .section .title > a {
+div.book div.chapter > div.cnx-eoc.interactivity div.section .title {
   display: none;
 }
-.cnx-eoc.short-answer > .title {
-  color: black;
-  font-size: 13px;
-  border-bottom: 0;
-  font-weight: bold;
-  margin-bottom: 0;
-}
-.cnx-eoc.short-answer > .section .title > a {
+div.book div.chapter > div.cnx-eoc.interactivity div.section.empty {
   display: none;
 }
-.cnx-eoc.fill-in-the-blank > .title {
+div.book div.chapter > div.cnx-eoc.interactivity:after {
+  display: block;
+  content: "Exercises";
+  color: #194379;
+  text-align: left;
+  border-bottom-color: #f0936a;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  font-size: 13pt;
+  line-height: 17pt;
+  font-weight: 700;
+  margin-top: 0;
+  page-break-after: avoid;
+}
+div.book div.chapter > div.cnx-eoc.interactivity > .section .title > a {
+  display: none;
+}
+div.book div.chapter > div.cnx-eoc.review-questions {
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+  columns: 2;
+  column-fill: balance;
+  text-align: left;
+  margin-bottom: 20px;
+  -webkit-column-count: 1;
+  -moz-column-count: 1;
+  column-count: 1;
+  columns: 1;
+  column-fill: auto;
+  column-gap: 24px;
+}
+div.book div.chapter > div.cnx-eoc.review-questions > .title {
+  content: "Review Questions";
+  column-span: all !important;
+  margin-bottom: 1em;
+  -webkit-column-span: all;
+  /* Chrome, Safari, Opera */
   color: black;
   font-size: 13px;
   border-bottom: 0;
   font-weight: bold;
   margin-bottom: 0;
 }
-.cnx-eoc.fill-in-the-blank > .section .title > a {
+div.book div.chapter > div.cnx-eoc.review-questions > .section .title > a {
+  display: none;
+}
+div.book div.chapter > div.cnx-eoc.thought-questions > .title {
+  color: black;
+  font-size: 13px;
+  border-bottom: 0;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+div.book div.chapter > div.cnx-eoc.thought-questions > .section .title > a {
+  display: none;
+}
+div.book div.chapter > div.cnx-eoc.figuring-for-yourself > .title {
+  color: black;
+  font-size: 13px;
+  border-bottom: 0;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+div.book div.chapter > div.cnx-eoc.figuring-for-yourself > .section .title > a {
   display: none;
 }
 .note img {

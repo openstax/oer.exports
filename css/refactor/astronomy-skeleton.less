@@ -1,3 +1,7 @@
+.cnx-eoc > .title > *, .glossary > .titlepage > div > div > * {
+  font-size: initial;
+}
+
 .chapter .note {
   &.astronomy-basics {
     #content>#note>.style('astronomy-basics'; any);
@@ -26,39 +30,61 @@
 }
 
 //end of chapter
-.cnx-eoc {
-  &.multiple-choice {
-      #part>#chapter-end>#multiple-choice>.style();
+div.book div.chapter > div.cnx-eoc {
+  &.further-reading {
+      #part>#chapter-end>#further-reading>.style();
+      .body p {
+        #part>#chapter-end>#further-reading>#item>.style();
+      }
       > .title {
-        #part>#chapter-end>#multiple-choice>#title>.style();
+        #part>#chapter-end>#further-reading>#title>.style();
       }
       > .section .title > a {
-        #part>#chapter-end>#multiple-choice>#title>.link();
+        #part>#chapter-end>#further-reading>#title>.link();
       }
   }
-    &.matching {
-      #part>#chapter-end>#matching>.style();
+  &.interactivity {
+    counter-reset: interactivity;
+    div.section {
+     &.empty {display: none;}
+     .body {
+      &:before {
+        display: inline;
+        float: left;
+        margin-top: 7px;
+        padding-right: 5px;
+        content: counter(interactivity)". ";
+        counter-increment: interactivity;
+      }
+   }
+    .title {display: none;}
+    &.empty {display: none}
+  }
+
+
+      #part>#chapter-end>#interactivity>.style();
       > .title {
-        #part>#chapter-end>#matching>#title>.style();
+        #part>#chapter-end>#interactivity>#title>.style();
       }
       > .section .title > a {
-        #part>#chapter-end>#matching>#title>.link();
+        #part>#chapter-end>#interactivity>#title>.link();
       }
+
   }
-    &.true-false {
-      #part>#chapter-end>#true-false>.style();
-      > .title { #part>#chapter-end>#true-false>#title>.style(); }
-      > .section .title > a { #part>#chapter-end>#true-false>#title>.link(); }
+    &.review-questions {
+      #part>#chapter-end>#review-questions>.style();
+      > .title { #part>#chapter-end>#review-questions>#title>.style(); }
+      > .section .title > a { #part>#chapter-end>#review-questions>#title>.link(); }
   }
-    &.short-answer {
-      #part>#chapter-end>#short-answer>.style();
-      > .title { #part>#chapter-end>#short-answer>#title>.style(); }
-      > .section .title > a { #part>#chapter-end>#short-answer>#title>.link(); }
+    &.thought-questions  {
+      #part>#chapter-end>#thought-questions >.style();
+      > .title { #part>#chapter-end>#thought-questions >#title>.style(); }
+      > .section .title > a { #part>#chapter-end>#thought-questions >#title>.link(); }
   }
-      &.fill-in-the-blank {
-      #part>#chapter-end>#fill-in-the-blank>.style();
-      > .title { #part>#chapter-end>#fill-in-the-blank>#title>.style(); }
-      > .section .title > a { #part>#chapter-end>#fill-in-the-blank>#title>.link(); }
+      &.figuring-for-yourself  {
+      #part>#chapter-end>#figuring-for-yourself >.style();
+      > .title { #part>#chapter-end>#figuring-for-yourself >#title>.style(); }
+      > .section .title > a { #part>#chapter-end>#figuring-for-yourself >#title>.link(); }
   }
 }
 
