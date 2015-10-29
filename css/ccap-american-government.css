@@ -65,6 +65,9 @@ td.entrytbl > table {
   border-left-width: 0;
   border-right-width: 0;
 }
+/********************************************************************
+ * Math Refactor of .x-feature() function to utilize only one paramter
+ ********************************************************************/
 #content #table #row {
   border: none !important;
 }
@@ -2263,6 +2266,27 @@ div.table table thead tr:first-of-type th {
 div.book > div.appendix .table {
   page-break-inside: auto;
 }
+sub {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  bottom: -0.25em;
+}
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  top: -0.5em;
+}
+.titlepage sup {
+  vertical-align: super;
+  line-height: inherit;
+  font-size: smaller;
+  position: static;
+  top: auto;
+}
 h2,
 h3,
 h4 {
@@ -3443,8 +3467,11 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-weight: bold;
   content: target-counter(attr(href), references);
-  vertical-align: super;
-  font-size: 9px;
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  top: -0.5em;
   font-weight: 100;
 }
 .chapter .note.milestone {
@@ -3461,6 +3488,8 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   border-radius: 15px;
   display: table;
   z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
   box-shadow: none;
   page-break-inside: avoid;
 }
@@ -3499,6 +3528,8 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   border-radius: 15px;
   display: table;
   z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
   box-shadow: none;
   page-break-inside: avoid;
 }
@@ -3537,6 +3568,8 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   border-radius: 15px;
   display: table;
   z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
   box-shadow: none;
   page-break-inside: avoid;
 }
@@ -3575,6 +3608,8 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   border-radius: 15px;
   display: table;
   z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
   box-shadow: none;
   page-break-inside: avoid;
 }
@@ -3606,48 +3641,18 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
-  padding: 20px;
-  background-color: #ffffff;
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #b8292f;
   border-radius: 15px;
   display: table;
   z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
   box-shadow: none;
   page-break-inside: avoid;
   text-align: left;
-}
-.chapter .note.link-to-learning::before {
-  text-transform: uppercase;
-  color: #ffffff;
-  content: "Link to Learning";
-  text-transform: capitalize;
-  display: table-caption;
-  caption-side: top;
-  background-color: #b8292f;
-  border: 1px solid #eead58;
-  border-radius: 15px;
-  width: 60%;
-  padding: 8px;
-  padding-left: 0px;
-  font-weight: 700;
-  font-size: 12pt;
-  text-indent: 0.1875in;
-  margin-left: 16px;
-  margin-bottom: -10px;
-  position: relative;
-  z-index: 2;
-}
-.chapter .note.link-to-learning > .body::after {
-  content: "";
-  display: table;
-  clear: both;
-}
-.chapter .note.link-to-learning .mediaobject {
-  float: left;
-}
-.chapter .note.link-to-learning .mediaobject img {
-  margin: 0;
+  padding: 20px;
+  background-color: #ffffff;
 }
 .chapter .note.link-to-learning::before {
   text-transform: uppercase;
