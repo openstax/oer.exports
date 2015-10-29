@@ -1,0 +1,91 @@
+/********************************************************************
+ * Math Refactor of .x-feature() function to utilize only one paramter
+ ********************************************************************/
+
+.x-feature (@svg) {
+  // If feature is only one line prevent clipping of icon
+  min-height: 45px;
+  padding-top: 0;
+  margin-top: 0;
+  background: url("ccap-precalculus/@{svg}.svg") no-repeat;
+  background-position: 0 .2em;
+
+  .figure {
+    img { max-width: (@page-width - .25em); }
+  }
+}
+
+.x-banner-feature (@svg, @book, @type: "svg") {
+  // If feature is only one line prevent clipping of icon
+  min-height: 45px;
+  padding-top: 0;
+  margin-top: 0;
+  background: url("ccap-@{book}/@{svg}.@{type}") no-repeat;
+  background-position: 0 .2em;
+
+  .figure {
+    img { max-width: (@page-width - .25em); }
+  }
+}
+
+//Humanities features
+.x-feature-before-color(@title-color, @title) {
+  text-transform: uppercase;
+  color: @title-color;
+  content: @title;
+}
+
+.x-feature-color(@border-color, @title-border-color, @title-color, @background-color, @title) {
+  box-shadow: 10px 10px 5px @shadow; // On the roadmap for PrinceXML 9.1
+  border: 1px solid @border-color;
+  border-radius: 15px;
+  display: table;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+  &::before {
+    .x-feature-before-color(@title-color, @title);
+    display: table-caption;
+    caption-side: top;
+    background-color: @background-color;
+    border: 1px solid @title-border-color;
+    border-radius: 15px;
+    width: 60%;
+    padding: 8px;
+    padding-left: 0px;
+    font-weight: 700;
+    font-size: 12pt;
+    text-indent: 0.1875in;
+    margin-left: 16px;
+    margin-bottom: -10px;
+    position: relative;
+    z-index: 2;
+  }
+}
+#content {
+  #note {
+    .style('link-to-learning'; ...) {
+      // This feature requires some "bugfix" pieces to work
+      // properly, such as a clearfix. Selectors for these are
+      // placed inline in this slot.
+      .x-feature-color(@red, @orange, @white, @red, @cnx-string-link-to-learning);
+      #utils>#pb>.inside(avoid);
+      text-align: left;
+      //clearfix
+      > .body {
+        padding: 0px 10px;
+      }
+      > .body::after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+      .mediaobject {
+        float: left;
+        img {
+          margin: 0;
+        }
+      }
+    }
+  }
+}

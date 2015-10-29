@@ -1,0 +1,31 @@
+// Subscripts and superscript line-height tweaks based on https://gist.github.com/unruthless/413930
+
+.script(@a) when (@script = sub) {
+  bottom: @bottom;
+}
+.script(@a) when (@script = sup) {
+  top: @top;
+}
+
+.scripts (@script, @font-size: 75%, @top:-0.5em, @bottom: -0.25em) {
+  font-size: @font-size;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  .script(@script);
+}
+
+sub {
+  .scripts (sub);
+}
+
+sup {
+  .scripts (sup);
+}
+.titlepage sup {
+  vertical-align: super;
+  line-height: inherit;
+  font-size: smaller;
+  position: static;
+  top: auto;
+}

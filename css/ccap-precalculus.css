@@ -71,7 +71,7 @@ td.entrytbl > table {
   border-right-width: 0;
 }
 /********************************************************************
- * Refactor of .x-feature() function to utilize only one paramter
+ * Math Refactor of .x-feature() function to utilize only one paramter
  ********************************************************************/
 html {
   prince-image-resolution: 150dpi;
@@ -2098,6 +2098,122 @@ div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
 .end-of-book-solutions .solution .cnx-svg {
   vertical-align: 0 !important;
 }
+/******************************************************************************
+ * Tables
+ ******************************************************************************/
+div.table {
+  margin: 0 auto;
+  padding: 0;
+  border: none;
+}
+div.table table {
+  page-break-inside: avoid;
+  margin: auto;
+  page-break-inside: auto;
+  prince-caption-page: all;
+}
+div.table table caption {
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  padding-top: .5em;
+  padding-bottom: 1em;
+  font-weight: bold;
+  caption-side: bottom;
+  color: #d7562c;
+}
+div.table table .cnx-figure-horizontal .informalfigure .caption {
+  text-align: center;
+}
+div.table table .cnx-figure-horizontal .informalfigure .caption * {
+  font-weight: normal;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+div.table table table tbody[valign=top] > tr > td {
+  vertical-align: top;
+}
+div.table table tr {
+  page-break-inside: avoid;
+}
+div.table table th {
+  color: black;
+  font-size: small;
+  text-align: left;
+  background-color: #ffffff;
+}
+div.table table th:not(:only-child) {
+  color: black;
+  font-size: small;
+  text-align: left;
+  background-color: #ffffff;
+}
+div.table table td {
+  padding: 13px;
+}
+div.table table td.header {
+  background-color: #ffffff;
+}
+div.table ul.itemizedlist,
+div.table ol.orderedlist {
+  margin: 0;
+  padding-left: 10px;
+}
+div.table ul.itemizedlist > .listitem > p,
+div.table ol.orderedlist > .listitem > p {
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+div.table.color th {
+  text-align: center;
+  background-color: #efd8b0;
+}
+div.table.color tr {
+  height: 1em !important;
+}
+div.table.color tr td:first-child {
+  background-color: #efd8b0;
+  width: 2.5in;
+  font-weight: bold;
+}
+div.table.unstyled table {
+  page-break-inside: avoid;
+  margin: auto;
+}
+div.table.multiple-headers table {
+  page-break-inside: avoid;
+  margin: auto;
+}
+div.table.multiple-headers table tr table thead tr:only-child,
+div.table.multiple-headers table tr table thead tr:only-child .tablecell {
+  border-top: 0px !important;
+}
+div.table.column-header tbody td:first-child {
+  background-color: #ffffff;
+}
+/********************************************************************
+ * Styling for Appendix
+ ********************************************************************/
+div.book > div.appendix .table {
+  page-break-inside: auto;
+}
+sub {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  bottom: -0.25em;
+}
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  top: -0.5em;
+}
+.titlepage sup {
+  vertical-align: super;
+  line-height: inherit;
+  font-size: smaller;
+  position: static;
+  top: auto;
+}
 h2,
 h3,
 h4 {
@@ -2106,157 +2222,6 @@ h4 {
 h2 sup a,
 h3 sup a,
 h4 sup a {
-  display: none;
-}
-div[class="note"] {
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  color: #000000;
-  background-color: #dbe8f2;
-  padding-bottom: 1em;
-}
-div[class="note"] > .title {
-  margin-top: 0.5em;
-  page-break-after: avoid;
-  text-align: left;
-  font-size: small;
-  margin-top: .25em;
-  margin-bottom: .5em;
-  color: #528cbe;
-  font-weight: bold;
-  border-bottom: 1px solid #528cbe;
-}
-.note.qa {
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  page-break-inside: avoid;
-  min-height: 45px;
-  padding-top: 0;
-  margin-top: 0;
-  background: url("ccap-precalculus/qa.svg") no-repeat;
-  background-position: 0 .2em;
-  padding-left: 2.8em;
-}
-.note.qa .figure img {
-  max-width: 6.25in;
-}
-.note.qa > .title {
-  margin-top: 0.5em;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  font-weight: bold;
-}
-.note.qa > .body,
-.note.qa .body > p {
-  font-weight: normal;
-  margin-top: 0;
-}
-.note.qa > .body .figure .title {
-  display: inline;
-  text-align: center;
-  font-style: normal;
-  padding-bottom: 1em;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  display: table-caption;
-  text-align: left;
-  page-break-before: avoid;
-}
-.note.media {
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  page-break-inside: avoid;
-  min-height: 45px;
-  padding-top: 0;
-  margin-top: 0;
-  background: url("ccap-precalculus/media.svg") no-repeat;
-  background-position: 0 .2em;
-  padding-left: 2.5em;
-}
-.note.media .figure img {
-  max-width: 6.25in;
-}
-.note.media .itemizedlist > .listitem {
-  color: #d7562c;
-  font-weight: bold;
-  text-align: left;
-}
-.note.media .itemizedlist > .listitem .link.only-show-once {
-  content: content();
-}
-.note.try {
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  page-break-inside: avoid;
-  min-height: 45px;
-  padding-top: 0;
-  margin-top: 0;
-  background: url("ccap-precalculus/try.svg") no-repeat;
-  background-position: 0 .2em;
-}
-.note.try .figure img {
-  max-width: 6.25in;
-}
-.note.try div.itemizedlist ul,
-.note.try div.orderedlist ul,
-.note.try div.itemizedlist ol,
-.note.try div.orderedlist ol {
-  margin: 0 0 0 40px;
-  padding: 0;
-  margin-top: 1em;
-  padding-left: 10px;
-}
-.note.try > .title {
-  margin-top: 0.5em;
-  margin-top: 0;
-  color: #000000;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  font-size: 10pt;
-  font-weight: bold;
-  float: left;
-  padding-left: 1.5em;
-  padding-right: .8em;
-}
-.note.try .exercise {
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  margin-top: 0;
-  counter-increment: none !important;
-  /* This code snip below is what is in Firebug that is overriding the Example and Try-It Exercise counters
-      causing !important to have to be used here and on line #594 of the precalculus-skeleton.less file.  grr
-      div.book div.chapter > div.cnx-eoc div.exercise:not(.labeled),
-      div.book div.chapter > div.section div.exercise:not(.labeled) {
-        counter-increment: exercise;
-      }
-      */
-  /* Update to me:  Found it.  It's line #106 in the numbering.less file.  it's incrementing  > .section > .exercise
-      We have to basically make an adjustment in precalculus-numbering.less to stop this override.
-      */
-  margin-bottom: 0;
-}
-.note.try .exercise > .title {
-  display: none;
-}
-.note.try .exercise .problem {
-  font-size: 13px;
-  line-height: 16px;
-  margin-left: 20px;
-}
-.note.try .exercise .solution {
   display: none;
 }
 /* -------------------------
@@ -3230,71 +3195,6 @@ div.book div.chapter > div.section div.example div.exercise .commentary .figure 
   margin: 0 0 0 40px;
   padding: 0;
 }
-/******************************************************************************
- * Tables
- ******************************************************************************/
-div.table {
-  margin: 0 auto;
-  padding: 0;
-  border: none;
-}
-div.table .cnx-figure-horizontal .informalfigure .caption {
-  text-align: center;
-}
-div.table .cnx-figure-horizontal .informalfigure .caption * {
-  font-weight: normal;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-div.table table {
-  page-break-inside: avoid;
-  margin: auto;
-  page-break-inside: auto;
-  prince-caption-page: all;
-}
-div.table table caption {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding-top: .5em;
-  padding-bottom: 1em;
-  font-weight: bold;
-  color: #d7562c;
-  caption-side: bottom;
-}
-div.table table tr {
-  page-break-inside: avoid;
-}
-div.table table th {
-  color: black;
-  background-color: #ffffff;
-  font-size: small;
-  text-align: left;
-}
-div.table table td {
-  padding: 13px;
-}
-div.table table td.header {
-  background-color: #ffffff;
-}
-div.table ul.itemizedlist,
-div.table ol.orderedlist {
-  margin: 0;
-  padding-left: 10px;
-}
-div.table ul.itemizedlist > .listitem > p,
-div.table ol.orderedlist > .listitem > p {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-div.table.color th {
-  background-color: #efd8b0;
-  text-align: center;
-}
-div.table.color tr {
-  height: 1em !important;
-}
-div.table.color tr td:first-child {
-  background-color: #efd8b0;
-  width: 2.5in;
-  font-weight: bold;
-}
 .cnx-figure-horizontal .informalfigure .caption {
   text-align: center;
 }
@@ -3381,6 +3281,157 @@ g line {
  *   Problem Solving
  * Features from Basic Mathematics
  *****************************************************/
+div[class="note"] {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  color: #000000;
+  background-color: #dbe8f2;
+  padding-bottom: 1em;
+}
+div[class="note"] > .title {
+  margin-top: 0.5em;
+  page-break-after: avoid;
+  text-align: left;
+  font-size: small;
+  margin-top: .25em;
+  margin-bottom: .5em;
+  color: #528cbe;
+  font-weight: bold;
+  border-bottom: 1px solid #528cbe;
+}
+.note.qa {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  page-break-inside: avoid;
+  min-height: 45px;
+  padding-top: 0;
+  margin-top: 0;
+  background: url("ccap-precalculus/qa.svg") no-repeat;
+  background-position: 0 .2em;
+  padding-left: 2.8em;
+}
+.note.qa .figure img {
+  max-width: 6.25in;
+}
+.note.qa > .title {
+  margin-top: 0.5em;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-weight: bold;
+}
+.note.qa > .body,
+.note.qa .body > p {
+  font-weight: normal;
+  margin-top: 0;
+}
+.note.qa > .body .figure .title {
+  display: inline;
+  text-align: center;
+  font-style: normal;
+  padding-bottom: 1em;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  display: table-caption;
+  text-align: left;
+  page-break-before: avoid;
+}
+.note.media {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  page-break-inside: avoid;
+  min-height: 45px;
+  padding-top: 0;
+  margin-top: 0;
+  background: url("ccap-precalculus/media.svg") no-repeat;
+  background-position: 0 .2em;
+  padding-left: 2.5em;
+}
+.note.media .figure img {
+  max-width: 6.25in;
+}
+.note.media .itemizedlist > .listitem {
+  color: #d7562c;
+  font-weight: bold;
+  text-align: left;
+}
+.note.media .itemizedlist > .listitem .link.only-show-once {
+  content: content();
+}
+.note.try {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  page-break-inside: avoid;
+  min-height: 45px;
+  padding-top: 0;
+  margin-top: 0;
+  background: url("ccap-precalculus/try.svg") no-repeat;
+  background-position: 0 .2em;
+}
+.note.try .figure img {
+  max-width: 6.25in;
+}
+.note.try div.itemizedlist ul,
+.note.try div.orderedlist ul,
+.note.try div.itemizedlist ol,
+.note.try div.orderedlist ol {
+  margin: 0 0 0 40px;
+  padding: 0;
+  margin-top: 1em;
+  padding-left: 10px;
+}
+.note.try > .title {
+  margin-top: 0.5em;
+  margin-top: 0;
+  color: #000000;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 10pt;
+  font-weight: bold;
+  float: left;
+  padding-left: 1.5em;
+  padding-right: .8em;
+}
+.note.try .exercise {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  margin-top: 0;
+  counter-increment: none !important;
+  /* This code snip below is what is in Firebug that is overriding the Example and Try-It Exercise counters
+      causing !important to have to be used here and on line #594 of the precalculus-skeleton.less file.  grr
+      div.book div.chapter > div.cnx-eoc div.exercise:not(.labeled),
+      div.book div.chapter > div.section div.exercise:not(.labeled) {
+        counter-increment: exercise;
+      }
+      */
+  /* Update to me:  Found it.  It's line #106 in the numbering.less file.  it's incrementing  > .section > .exercise
+      We have to basically make an adjustment in precalculus-numbering.less to stop this override.
+      */
+  margin-bottom: 0;
+}
+.note.try .exercise > .title {
+  display: none;
+}
+.note.try .exercise .problem {
+  font-size: 13px;
+  line-height: 16px;
+  margin-left: 20px;
+}
+.note.try .exercise .solution {
+  display: none;
+}
 .note.howto {
   padding-left: 1em;
   padding-right: 1em;
