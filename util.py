@@ -11,6 +11,7 @@ from StringIO import StringIO
 from lxml import etree
 from tempfile import mkstemp
 import subprocess
+
 try:
   import pkg_resources
   resource_filename = pkg_resources.resource_filename

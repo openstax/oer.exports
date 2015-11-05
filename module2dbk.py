@@ -75,9 +75,6 @@ def makeTransform(file):
     return xml, {}, errors
   return t
 
-
-
-
 # Main method. Doing all steps for the Google Docs to CNXML transformation
 def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2svg=True, reduce_quality=False):
   """ Convert a cnxml file (and dictionary of filename:bytes) to a Docbook file and dict of filename:bytes) """
