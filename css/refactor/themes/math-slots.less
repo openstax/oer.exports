@@ -270,6 +270,7 @@
       .style(...) {
         display: none; // W&N Requested these be removed 10/25/2013
                        // since they are collated to EOB.
+
         .x-column-count(1);
       }
       #title {
@@ -902,9 +903,14 @@
 
     .style(@kind; @part; feature-try; exercise) {
       // W&N requested solutions be removed 9.24.13
-      display: none;
+      display: inline-block;
+
+          text-align: justify;
+   // font-size: 2%; /* minify whitespace betwen boxes */
+    word-spacing: 1px; /* Fix opera issue */
     }
     .style(@kind; book-end) {
+      display: block;
       // style any PreCalc solution that occurs in #book-end
     }
     .style(@kind; @part; exercise; section-exercise) {
@@ -926,17 +932,26 @@
         color: @dark-blue;
         font-weight: bold;
         line-height: 1em;
+
       }
       .style(@kind; book-end) {
         // Check the note at
         // #book-end>#end-of-book-solutions>#solution
         // This may have been set to not display inline
         // due to a W&N request.
+        //display: inline;
         display: inline;
+        word-spacing: normal;
+        text-align: left;
+        direction: ltr;
+        vertical-align: text-top;
 
         // Solution in Answer Key needs to have period after number.
         &::after {
           content: ". ";
+          display: inline;
+          height: 0;
+          width: 100%;
         }
       }
 
@@ -949,11 +964,25 @@
         // Fix margins because solutions with only one paragraph
         // do not include a <p></p> wrapper for text.
         margin-top: .5em;
+
       }
 
       .style(@kind, book-end) {
         margin-right: .65em;
+        word-spacing: normal;
+        text-align: left; /* restore text-align if needed */
+        direction: ltr;
+        vertical-align: middle;
         display: inline;
+
+        .cnx-svg {
+          direction: ltr;
+          vertical-align: middle !important;
+          display: inline-block;
+          g text {
+            font-size: 8px;
+          }
+        }
 
         // will need to change - include in .body mixin for now
         > a.target-figure {

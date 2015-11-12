@@ -2696,14 +2696,29 @@ div.colophon.end-of-book-solutions .chapter-area > div.section-exercises::before
   margin-bottom: 7.5px;
   content: "Section Exercises";
 }
+div.colophon.end-of-book-solutions .chapter-area div.solution {
+  display: block;
+}
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.title {
   display: inline;
+  word-spacing: normal;
+  text-align: left;
+  direction: ltr;
+  vertical-align: text-top;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.title::after {
   content: ". ";
+  display: inline;
+  height: 0;
+  width: 100%;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body {
   margin-right: .65em;
+  word-spacing: normal;
+  text-align: left;
+  /* restore text-align if needed */
+  direction: ltr;
+  vertical-align: middle;
   display: inline;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div,
@@ -2713,6 +2728,14 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.body p {
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.mediaobject {
   display: block;
   text-align: center;
+}
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.body .cnx-svg {
+  direction: ltr;
+  vertical-align: middle !important;
+  display: inline-block;
+}
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.body .cnx-svg g text {
+  font-size: 8px;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body > a.target-figure {
   margin: 0em .25em;
@@ -3427,7 +3450,10 @@ div[class="note"] > .title {
   margin-left: 20px;
 }
 .note.try .exercise .solution {
-  display: none;
+  display: inline-block;
+  text-align: justify;
+  word-spacing: 1px;
+  /* Fix opera issue */
 }
 .note.howto {
   padding-left: 1em;
@@ -3655,7 +3681,10 @@ div[class="note"] > .title {
 .note.quick-check .exercise .solution,
 .note.checkpoint .exercise .solution,
 .note.check-understanding .exercise .solution {
-  display: none;
+  display: inline-block;
+  text-align: justify;
+  word-spacing: 1px;
+  /* Fix opera issue */
 }
 .note.quick-check.emphasized > .title,
 .note.checkpoint.emphasized > .title,
