@@ -19,10 +19,39 @@
   padding: 0 2em;
 }
 
+.chapter-page-header() {
+  background-color: @dark-blue;
+  color: @light-blue;
+}
+.page-header-content-reset() {
+  content: " "; // A PAGE AREA MUST HAVE
+                // CONTENT TO BE STYLED.
+}
+
 #utils {
   .column-count(@num: 2) {
     column-gap: 10px; // testing this...
     column-fill: balance; //testing this...
+  }
+}
+
+#page {
+  .top-left-corner(chapter) {
+    .chapter-page-header();
+    .page-header-content-reset();
+  }
+  .top-right-corner(chapter) {
+    .chapter-page-header();
+    .page-header-content-reset();
+  }
+  .top-left(chapter) {
+    .chapter-page-header();
+  }
+  .top-center(chapter) {
+    .chapter-page-header();
+  }
+  .top-right(chapter) {
+    .chapter-page-header();
   }
 }
 
@@ -88,17 +117,19 @@
     #title {
       .style(...) {
         .font-scale(1);
-        color: @medium-blue;
+        color: @dark-blue;
         text-align: left;
+        border-bottom: none;
       }
     }
     #link {
       .style(...) {
-        color: @medium-blue;
+        color: @dark-blue;
         text-align: left;
       }
       .number() {
-        content: "\2022 page " target-counter(attr(href), page)
+        content: target-counter(attr(href), page);
+        padding-left: 15px;
       }
     }
   }

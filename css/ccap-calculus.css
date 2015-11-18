@@ -70,6 +70,13 @@ td.entrytbl > table {
   border-left-width: 0;
   border-right-width: 0;
 }
+/*
+.WATNEG1 { wat: ~`scale(-1)`; }
+.WAT { wat: ~`scale(0)`; }
+.WAT1 { wat: ~`scale(1)`; }
+.WAT2 { wat: ~`scale(2)`; }
+.WAT3 { wat: ~`scale(3)`; }
+*/
 /********************************************************************
  * Refactor of .x-feature() function to utilize only one paramter
  ********************************************************************/
@@ -1114,6 +1121,30 @@ div.book > div.appendix .note.try > .title:not(.labeled)::before {
     content: none;
   }
 }
+@page chapter:nth(1) {
+  @top-left-corner {
+    background-color: #233a67;
+    color: #dbe8f2;
+    content: " ";
+  }
+  @top-right-corner {
+    background-color: #233a67;
+    color: #dbe8f2;
+    content: " ";
+  }
+  @top-left {
+    background-color: #233a67;
+    color: #dbe8f2;
+  }
+  @top-center {
+    background-color: #233a67;
+    color: #dbe8f2;
+  }
+  @top-right {
+    background-color: #233a67;
+    color: #dbe8f2;
+  }
+}
 div.book > div.preface {
   counter-reset: page 1;
 }
@@ -1121,6 +1152,10 @@ div.book > div.preface {
   @top-right {
     content: counter(page);
   }
+}
+div.chapter {
+  page: chapter;
+  prince-page-group: start;
 }
 @namespace mml "http://www.w3.org/1998/Math/MathML";
 mml|math {
@@ -1151,8 +1186,9 @@ div.table-caption.caption {
   border-bottom-width: 1px;
   border-bottom-style: solid;
   font-size: 1.333rem;
-  color: #528cbe;
-  text-align: right;
+  color: #233a67;
+  text-align: left;
+  border-bottom: none;
 }
 .book > .toc ul,
 .book > .toc li {
@@ -2322,22 +2358,61 @@ div.book div.preface > div.section > div.section > div.titlepage > div > div > h
   border-bottom-width: 1px;
   border-bottom-style: solid;
   font-size: 1.333rem;
-  color: #528cbe;
-  text-align: right;
+  color: #233a67;
+  text-align: left;
+  border-bottom: none;
 }
 .book > .toc a {
-  color: #528cbe;
-  display: block;
-  text-align: right;
+  color: #233a67;
+  text-align: left;
 }
 .book > .toc a::after {
-  content: "\2022 page " target-counter(attr(href), page);
+  content: target-counter(attr(href), page);
+  padding-left: 15px;
 }
-.book > .toc .toc-chapter > .target-chapter::before {
-  content: target-counter(attr(href), chapter, decimal);
+.book > .toc {
+  counter-reset: toc-chapter-counter 0;
+}
+.book > .toc .toc-chapter {
+  counter-increment: toc-chapter-counter;
+}
+.book > .toc .toc-chapter a.target-chapter {
+  font-size: 2.333em;
+  margin-bottom: .5em;
+  display: inline-block;
+}
+.book > .toc .toc-chapter::before {
+  content: counter(toc-chapter-counter, decimal);
   display: block;
   float: left;
   font-size: 2.333em;
+  padding: 0em .25em 0em .25em;
+  margin: 0px 15px 0px 13px;
+  height: 1.25em;
+  line-height: 1.25em;
+  border: 1px solid #dbe8f2;
+  color: #dbe8f2;
+}
+.book > .toc .toc-chapter > .target-chapter::before {
+  display: none;
+}
+.book > .toc .toc-chapter > ul {
+  margin-left: 5em;
+  border-left: 5px solid #000000;
+}
+.book > .toc .toc-chapter > ul li a span.cnx-gentext-n {
+  font-weight: 700;
+}
+.book > .toc ul,
+.book > .toc li {
+  margin-left: 0;
+}
+.book > .toc > ul > li {
+  margin: 0;
+  padding: 1em 1em 1em 0em;
+}
+.book > .toc > ul > li.toc-chapter:nth-child(2n+0) {
+  background-color: rgba(196, 206, 187, 0.1);
 }
 /* -------------------------
  * Unit Page
@@ -4123,4 +4198,13 @@ div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t 
  */
 div.book div.index div.title h2 {
   string-set: cnx-header "Index";
+}
+/* -------------------------
+ * Refactor this into folio-skeleton/folio-slots.
+ * This *should* be the same for all titles, but
+ * we're now deviating with our own designs.
+ * -------------------------
+ */
+div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
+  string-set: cnx-header "Chapter " counter(chapter, decimal) "\0020\0020\0020" content();
 }

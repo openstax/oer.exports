@@ -1,0 +1,80 @@
+// Copyright (c) 2013 Rice University
+// This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+// See LICENSE.txt for details.
+
+// This is based on the JS implementation of scale from http://www.modularscale.com/
+// Values should be the same if you use this tool to construct scales.
+
+@typography-scale: 1.3, 1.5;
+
+// This is gonna get strange. I regret nothing.
+@-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_: `(function(){
+  this.ms = function(value, bases, ratios) {
+    var msUnique = function(origArr) {
+      origArr = origArr.sort(function(a,b) {
+        var x = a[0];
+        var y = b[0];
+        return x-y;
+      });
+      newArr = [];
+      var lastVal = null;
+      for (var i = 0; i < origArr.length; i++) {
+        var currentVal = origArr[i][0];
+        if (currentVal != lastVal) {
+          newArr.push(origArr[i]);
+        }
+        lastVal = currentVal;
+      }
+      return newArr;
+    }
+
+    var bases = (''+bases).split(',');
+    var ratios = (''+ratios).split(',');
+    var r = [];
+    var strand = null;
+
+    for (var ratio = 0; ratio < ratios.length; ratio++) {
+      for (var base = 0; base < bases.length; base++) {
+        strand = (base + ratio);
+        if (value >= 0) {
+          var i = 0;
+          while((Math.pow(ratios[ratio], i) * bases[base]) >= bases[0]) {
+            r.push([Math.pow(ratios[ratio], i) * bases[base], strand]);
+            i--;
+          }
+          var i = 0;
+          while(Math.pow(ratios[ratio], i) * bases[base] <= Math.pow(ratios[ratio], value + 1) * bases[base]) {
+            r.push([Math.pow(ratios[ratio], i) * bases[base], strand]);
+            i++;
+          }
+        } else {
+          var i = 0;
+          while((Math.pow(ratios[ratio], i) * bases[base]) <= bases[0]) {
+            r.push([Math.pow(ratios[ratio], i) * bases[base], strand]);
+            i++;
+          }
+          var i = 0;
+          while((Math.pow(ratios[ratio], i) * bases[base]) >= (Math.pow(ratios[ratio], value - 1) * bases[base])) {
+            if (Math.pow(ratios[ratio], i) * bases[base] <= bases[0]) {
+              r.push([Math.pow(ratios[ratio], i) * bases[base], strand]);
+            }
+            i--;
+          }
+        }
+      }
+    }
+
+    r = msUnique(r);
+    if(value < 0) {
+      r = r.reverse();
+    }
+
+    return r[Math.abs(value)][0];
+  }
+
+  this.scale = function(base) {
+    return this.ms(base, 1, @{typography-scale}) + 'rem';
+  }
+
+  return 1;
+})()`;

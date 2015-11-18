@@ -15,6 +15,19 @@
 @light-orange:  #EFD8B0;
 @orange:        #D7562C;
 
+
+// NEW PALETTE
+//
+//  (•_•)
+//  ( •_•)>⌐■-■
+//  (⌐■_■)
+@dark-blue:     #093D4C;
+@medium-blue:   #1E7E91;
+@light-blue:    #34BDD8;
+@dull-green:    #C4CEBB;
+@light-green:   #C6CE33;
+
+
 @white:       #FFF;
 @black:       #000;
 
@@ -47,3 +60,17 @@ html {
 @import url('themes/math-skeleton.less');
 
 @import url('folio.less');
+
+
+
+/* -------------------------
+ * Refactor this into folio-skeleton/folio-slots.
+ * This *should* be the same for all titles, but
+ * we're now deviating with our own designs.
+ * -------------------------
+ */
+div.book div.chapter > div.titlepage > div > div h1.title {
+  span.cnx-gentext-t {
+    string-set: cnx-header "@{cnx-string-chapter} " counter(chapter, decimal)  "\0020\0020\0020" content();
+  }
+}

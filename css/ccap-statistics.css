@@ -76,6 +76,13 @@ td.entrytbl > table {
  * Styles used when generating a PDF from xhtml+css
  * Print-specific styles <style media="print"... *
  ***************************************************/
+/*
+.WATNEG1 { wat: ~`scale(-1)`; }
+.WAT { wat: ~`scale(0)`; }
+.WAT1 { wat: ~`scale(1)`; }
+.WAT2 { wat: ~`scale(2)`; }
+.WAT3 { wat: ~`scale(3)`; }
+*/
 @namespace mml "http://www.w3.org/1998/Math/MathML";
 mml|math {
   display: none;
@@ -1699,6 +1706,18 @@ div.book > div.appendix .statistics.lab > .title:not(.labeled)::before {
     content: none;
   }
 }
+@page chapter:nth(1) {
+  @top-left-corner {
+  }
+  @top-right-corner {
+  }
+  @top-left {
+  }
+  @top-center {
+  }
+  @top-right {
+  }
+}
 div.book > div.preface {
   counter-reset: page 1;
 }
@@ -1706,6 +1725,10 @@ div.book > div.preface {
   @top-right {
     content: counter(page);
   }
+}
+div.chapter {
+  page: chapter;
+  prince-page-group: start;
 }
 /* -------------------------
  * Table of Contents

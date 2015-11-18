@@ -2,6 +2,7 @@
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
 
+
 h2, h3, h4 {
   margin: initial;
   sup a {
@@ -115,13 +116,52 @@ div.book div.preface {
   }
 }
 
-.book > .toc .toc-chapter > .target-chapter::before {
-  content: target-counter(attr(href), chapter, decimal);
+.book > .toc {
+  counter-reset: toc-chapter-counter 0;
+}
+.book > .toc .toc-chapter {
+  counter-increment: toc-chapter-counter;
+}
+.book > .toc .toc-chapter a.target-chapter {
+  font-size: 2.333em;
+  margin-bottom: .5em;
+  display: inline-block;
+}
+.book > .toc .toc-chapter::before {
+  content: counter(toc-chapter-counter, decimal);
   display: block;
   float: left;
   font-size: 2.333em;
-}
 
+  padding: 0em .25em 0em .25em;
+  margin: 0px 15px 0px 13px;
+
+  height: 1.25em;
+  line-height: 1.25em;
+  border: 1px solid @light-blue;
+  color: @light-blue;
+}
+.book > .toc .toc-chapter > .target-chapter::before {
+  display: none;
+}
+.book > .toc .toc-chapter > ul {
+  margin-left: 5em;
+  border-left: 5px solid @dull-green;
+}
+.book > .toc .toc-chapter > ul li a span.cnx-gentext-n {
+  font-weight: 700;
+}
+.book > .toc ul,
+.book > .toc li {
+  margin-left: 0;
+}
+.book > .toc > ul > li {
+  margin: 0;
+  padding: 1em 1em 1em 0em;
+}
+.book > .toc > ul > li.toc-chapter:nth-child(2n+0) {
+  background-color: @dull-green-10;
+}
 
 /* -------------------------
  * Unit Page
