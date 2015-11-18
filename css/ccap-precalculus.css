@@ -70,13 +70,6 @@ td.entrytbl > table {
   border-left-width: 0;
   border-right-width: 0;
 }
-/*
-.WATNEG1 { wat: ~`scale(-1)`; }
-.WAT { wat: ~`scale(0)`; }
-.WAT1 { wat: ~`scale(1)`; }
-.WAT2 { wat: ~`scale(2)`; }
-.WAT3 { wat: ~`scale(3)`; }
-*/
 /********************************************************************
  * Refactor of .x-feature() function to utilize only one paramter
  ********************************************************************/
@@ -1186,9 +1179,9 @@ div.table-caption.caption {
   border-bottom-width: 1px;
   border-bottom-style: solid;
   font-size: 1.333rem;
-  color: #093d4c;
   text-align: left;
   border-bottom: none;
+  color: #1e7e91;
 }
 .book > .toc ul,
 .book > .toc li {
@@ -1384,7 +1377,6 @@ div.section > div.titlepage div.abstract {
   page-break-inside: avoid;
   page-break-before: avoid;
   counter-reset: learning-objectives;
-  border: 1px solid #1e7e91;
   padding: 0em;
 }
 div.section > div.titlepage div.abstract ul.itemizedlist > li {
@@ -1633,9 +1625,13 @@ h6 {
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  color: #000000;
+  padding: 0;
+  margin: 0;
 }
 .note h3 {
   margin-top: 0.5em;
+  padding: 7px 10px;
 }
 span.underline {
   text-decoration: underline;
@@ -1823,6 +1819,9 @@ p:nth-of-type(2),
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  color: #000000;
+  padding: 0;
+  margin: 0;
 }
 .introduction .footnote {
   color: black;
@@ -1905,6 +1904,9 @@ p:nth-of-type(2),
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  color: #000000;
+  padding: 0;
+  margin: 0;
 }
 .chapter .footnote {
   color: black;
@@ -1987,6 +1989,9 @@ p:nth-of-type(2),
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  color: #000000;
+  padding: 0;
+  margin: 0;
 }
 .cnx-eoc .footnote {
   color: black;
@@ -2069,6 +2074,9 @@ p:nth-of-type(2),
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  color: #000000;
+  padding: 0;
+  margin: 0;
 }
 .colophon .footnote {
   color: black;
@@ -2174,19 +2182,25 @@ div[class="note"] {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   color: #000000;
-  background-color: #34bdd8;
-  padding-bottom: 1em;
+  color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.05);
+  margin: 0;
+  padding: 0;
 }
 div[class="note"] > .title {
   margin-top: 0.5em;
+  padding: 7px 10px;
   page-break-after: avoid;
   text-align: left;
-  font-size: small;
-  margin-top: .25em;
-  margin-bottom: .5em;
+  text-transform: uppercase;
   color: #1e7e91;
   font-weight: bold;
-  border-bottom: 1px solid #1e7e91;
+}
+.note .body {
+  border-top: solid 1px rgba(0, 0, 0, 0.1);
+}
+.note .body p {
+  padding: 7px 10px;
 }
 .note.qa {
   padding-left: 1em;
@@ -2195,6 +2209,9 @@ div[class="note"] > .title {
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  color: #000000;
+  padding: 0;
+  margin: 0;
   page-break-inside: avoid;
   min-height: 45px;
   padding-top: 0;
@@ -2208,8 +2225,8 @@ div[class="note"] > .title {
 }
 .note.qa > .title {
   margin-top: 0.5em;
+  padding: 7px 10px;
   font-family: 'Noto Serif', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  font-weight: bold;
 }
 .note.qa > .body,
 .note.qa .body > p {
@@ -2233,6 +2250,9 @@ div[class="note"] > .title {
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  color: #000000;
+  padding: 0;
+  margin: 0;
   page-break-inside: avoid;
   min-height: 45px;
   padding-top: 0;
@@ -2259,6 +2279,9 @@ div[class="note"] > .title {
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  color: #000000;
+  padding: 0;
+  margin: 0;
   page-break-inside: avoid;
   min-height: 45px;
   padding-top: 0;
@@ -2280,14 +2303,13 @@ div[class="note"] > .title {
 }
 .note.try > .title {
   margin-top: 0.5em;
+  padding: 7px 10px;
   margin-top: 0;
   color: #000000;
   font-family: 'Noto Serif', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 10pt;
   font-weight: bold;
   float: left;
-  padding-left: 1.5em;
-  padding-right: .8em;
 }
 .note.try .exercise {
   margin-top: 1.5em;
@@ -2370,12 +2392,12 @@ div.book div.preface > div.section > div.section > div.titlepage > div > div > h
   border-bottom-width: 1px;
   border-bottom-style: solid;
   font-size: 1.333rem;
-  color: #093d4c;
   text-align: left;
   border-bottom: none;
+  color: #1e7e91;
 }
 .book > .toc a {
-  color: #093d4c;
+  color: #1e7e91;
   text-align: left;
 }
 .book > .toc a::after {
@@ -2410,7 +2432,7 @@ div.book div.preface > div.section > div.section > div.titlepage > div > div > h
 }
 .book > .toc .toc-chapter > ul {
   margin-left: 5em;
-  border-left: 5px solid #c4cebb;
+  border-left: 5px solid #000000;
 }
 .book > .toc .toc-chapter > ul li a span.cnx-gentext-n {
   font-weight: 700;
@@ -2530,7 +2552,7 @@ div.book > div.appendix .table {
 }
 div.book > div.appendix > div.section > div.titlepage h2 {
   page-break-after: avoid;
-  color: #1e7e91;
+  color: #093d4c;
   font-weight: bold;
   font-size: 1.776889rem;
 }
@@ -2541,7 +2563,7 @@ div.book > div.appendix > div.section > div.section > div.titlepage h3 {
  * Styling for Module Titles
  ********************************************************************/
 div.book div.chapter > div.section > div.titlepage h2 {
-  color: #1e7e91;
+  color: #093d4c;
   font-weight: bold;
   font-size: 1.776889rem;
 }
@@ -2573,31 +2595,28 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   width: 100%;
   padding-top: .1em;
   padding-bottom: .2em;
-  background-color: #1e7e91;
-  color: white;
-  text-align: center;
+  color: #1e7e91;
   font-weight: bold;
   font-size: 1.333rem;
 }
 .section > .titlepage .abstract .itemizedlist > ul {
-  margin: 0 40px;
+  margin-left: 10px;
 }
 .section > .titlepage .abstract p {
   font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  margin: 1em 0em .75em 1em;
+  font-weight: bold;
 }
 .section > .titlepage .abstract .itemizedlist > .listitem > p {
-  margin: 0em .3em;
   display: inline;
   text-align: left;
+  font-weight: 100;
 }
 .section > .titlepage .abstract .itemizedlist > .listitem {
-  counter-increment: learning-objectives;
   display: block;
 }
 .section > .titlepage .abstract .itemizedlist > .listitem::before {
-  content: "" " " counter(chapter, decimal) "." counter(section, decimal) "." counter(learning-objectives) " " "";
-  color: #1e7e91;
+  content: "❯ ";
+  color: #c6ce33;
   font-weight: bold;
 }
 /********************************************************************
@@ -2974,7 +2993,7 @@ h6 {
 a {
   font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-weight: bold;
-  color: #d7562c;
+  color: #34bdd8;
 }
 body {
   font-size: 1rem;
@@ -3037,7 +3056,7 @@ subfigure {
   min-width: 2.16666667in;
 }
 .figure > .title {
-  color: #d7562c;
+  color: #093d4c;
   font-weight: bold;
   text-align: left;
   margin-right: .5em;
@@ -3056,7 +3075,7 @@ subfigure {
 }
 .figure > .caption::before {
   display: none;
-  color: #d7562c;
+  color: #093d4c;
   font-weight: bold;
   text-align: left;
   margin-right: .5em;
@@ -3279,7 +3298,7 @@ div.book div.chapter > div.section div.example div.exercise .solution .figure .b
 }
 div.book div.chapter > div.section div.example div.exercise .solution .figure .title span.cnx-gentext-t::before {
   display: inline-block;
-  color: #d7562c;
+  color: #093d4c;
   font-weight: bold;
   text-align: left;
   margin-right: .5em;
@@ -3317,7 +3336,7 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .bo
 }
 div.book div.chapter > div.section div.example div.exercise .problem .figure .title span.cnx-gentext-t::before {
   display: inline-block;
-  color: #d7562c;
+  color: #093d4c;
   font-weight: bold;
   text-align: left;
   margin-right: .5em;
@@ -3350,7 +3369,7 @@ div.book div.chapter > div.section div.example div.exercise .commentary .figure 
 }
 div.book div.chapter > div.section div.example div.exercise .commentary .figure .title span.cnx-gentext-t::before {
   display: inline-block;
-  color: #d7562c;
+  color: #093d4c;
   font-weight: bold;
   text-align: left;
   margin-right: .5em;
@@ -3437,7 +3456,7 @@ div.table table caption {
   padding-top: .5em;
   padding-bottom: 1em;
   font-weight: bold;
-  color: #d7562c;
+  color: #093d4c;
   caption-side: bottom;
 }
 div.table table tr {
@@ -3580,6 +3599,9 @@ g line {
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  color: #000000;
+  padding: 0;
+  margin: 0;
   page-break-inside: avoid;
   min-height: 45px;
   padding-top: 0;
@@ -3598,6 +3620,9 @@ g line {
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  color: #000000;
+  padding: 0;
+  margin: 0;
   page-break-inside: avoid;
   min-height: 45px;
   padding-top: 0;
@@ -3621,19 +3646,19 @@ g line {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   color: #000000;
-  background-color: #34bdd8;
-  padding-bottom: 1em;
+  color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.05);
+  margin: 0;
+  padding: 0;
 }
 .note.theorem > .title {
   margin-top: 0.5em;
+  padding: 7px 10px;
   page-break-after: avoid;
   text-align: left;
-  font-size: small;
-  margin-top: .25em;
-  margin-bottom: .5em;
+  text-transform: uppercase;
   color: #1e7e91;
   font-weight: bold;
-  border-bottom: 1px solid #1e7e91;
 }
 .note.project {
   padding-left: 1em;
@@ -3642,6 +3667,9 @@ g line {
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  color: #000000;
+  padding: 0;
+  margin: 0;
   page-break-inside: avoid;
   page-break-before: always;
   background-color: #34bdd8;
@@ -3668,6 +3696,7 @@ g line {
 }
 .note.project > .title {
   margin-top: 0.5em;
+  padding: 7px 10px;
   font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-weight: bold;
   color: #093d4c;
@@ -3684,6 +3713,9 @@ g line {
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  color: #000000;
+  padding: 0;
+  margin: 0;
   page-break-inside: avoid;
   min-height: 45px;
   padding-top: 0;
@@ -3702,6 +3734,9 @@ g line {
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  color: #000000;
+  padding: 0;
+  margin: 0;
   page-break-inside: avoid;
   min-height: 45px;
   padding-top: 0;
@@ -3720,6 +3755,9 @@ g line {
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  color: #000000;
+  padding: 0;
+  margin: 0;
   page-break-inside: avoid;
   min-height: 45px;
   padding-top: 0;
@@ -3756,14 +3794,13 @@ g line {
 .note.checkpoint > .title,
 .note.check-understanding > .title {
   margin-top: 0.5em;
+  padding: 7px 10px;
   margin-top: 0;
   color: #000000;
   font-family: 'Noto Serif', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 10pt;
   font-weight: bold;
   float: left;
-  padding-left: 1.5em;
-  padding-right: .8em;
 }
 .note.quick-check .exercise,
 .note.checkpoint .exercise,
@@ -3825,6 +3862,9 @@ g line {
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  color: #000000;
+  padding: 0;
+  margin: 0;
   page-break-inside: avoid;
   min-height: 45px;
   padding-top: 0;
@@ -3852,22 +3892,23 @@ g line {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   color: #000000;
-  background-color: #34bdd8;
-  padding-bottom: 1em;
+  color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.05);
+  margin: 0;
+  padding: 0;
 }
 .note.definition > .title {
   margin-top: 0.5em;
+  padding: 7px 10px;
   page-break-after: avoid;
   text-align: left;
-  font-size: small;
-  margin-top: .25em;
-  margin-bottom: .5em;
+  text-transform: uppercase;
   color: #1e7e91;
   font-weight: bold;
-  border-bottom: 1px solid #1e7e91;
 }
 .note.definition > .title::before {
   margin-top: 0.5em;
+  padding: 7px 10px;
   margin-top: 0em;
   content: "Definition: ";
   display: block;
@@ -3883,20 +3924,21 @@ g line {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   color: #000000;
-  background-color: #34bdd8;
+  color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.05);
+  margin: 0;
+  padding: 0;
   background-color: #f1ddb6;
   padding-bottom: 1em;
 }
 .note.problem-solving > .title {
   margin-top: 0.5em;
+  padding: 7px 10px;
   page-break-after: avoid;
   text-align: left;
-  font-size: small;
-  margin-top: .25em;
-  margin-bottom: .5em;
+  text-transform: uppercase;
   color: #1e7e91;
   font-weight: bold;
-  border-bottom: 1px solid #1e7e91;
 }
 .note.be-prepared {
   padding-left: 1em;
@@ -3906,19 +3948,19 @@ g line {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   color: #000000;
-  background-color: #34bdd8;
-  padding-bottom: 1em;
+  color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.05);
+  margin: 0;
+  padding: 0;
 }
 .note.be-prepared > .title {
   margin-top: 0.5em;
+  padding: 7px 10px;
   page-break-after: avoid;
   text-align: left;
-  font-size: small;
-  margin-top: .25em;
-  margin-bottom: .5em;
+  text-transform: uppercase;
   color: #1e7e91;
   font-weight: bold;
-  border-bottom: 1px solid #1e7e91;
   margin-bottom: 1em;
 }
 .note.be-prepared > .title::before {
@@ -4095,7 +4137,7 @@ div.book > div.chapter > div.cnx-eoc > div.section > div.body > div.section > di
   display: none;
 }
 div.appendix div.figure > div.caption::before {
-  color: #d7562c;
+  color: #093d4c;
   font-weight: bold;
   text-align: left;
   margin-right: .5em;
