@@ -1,5 +1,5 @@
 .x-feature-before-color(@title-color, @title) {
-  text-transform: capitalize;
+  text-transform: none;
 }
 .x-feature-color(@border-color, @title-border-color, @title-color, @background-color, @title) {
   box-shadow: none;
@@ -24,6 +24,14 @@
           content: @cnx-string-suggested-reading;
           column-span: all !important; // added override to resolve bug on staging where titles
           margin-bottom: 1em;
+        }
+      }
+    }
+    #exercise {
+      #title {
+        .number(any; eoc) {
+          font-size: 10pt;
+          line-height: 13pt;
         }
       }
     }
@@ -92,6 +100,13 @@
       font-weight: 100;
     }
   }
+  #figure {
+    #body {
+      .style(any; end-of-book-solutions) {
+        display: block;
+      }
+    }
+  }
   #note {
     .style('milestone'; any) {
       .x-feature-color(@dark-blue, @dark-blue, @dark-blue, @orange, @cnx-string-milestone);
@@ -120,11 +135,6 @@
       .number(any; appendix) {
         display: none;
       }
-    }
-  }
-  #blockquote {
-    .style(any; any) {
-      margin-right: 0px;
     }
   }
   #table {
@@ -206,4 +216,11 @@
       }
     }
   }
+
+  #solution {
+    .style(@kind; book-end) {
+      display: block;
+    }
+  }
+
 }

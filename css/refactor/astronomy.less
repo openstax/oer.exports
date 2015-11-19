@@ -1,0 +1,141 @@
+@import url('../ccap-tables.less');
+@import url('utils.less');
+@import url('page-slots.less');
+@import url('ccap-base-slots.less');
+@import url('content-slots.less');
+@import url('themes/science-slots.less');
+@import url('astronomy-slots.less');
+
+// Color palette needed from precalculus
+@white: #FFF;
+@black: #000;
+
+//theme colors:
+@shadow: #888888;
+@light-orange: #EFD8B0;
+@orange: #E86024;
+@green: #8FB73E;
+@red: #993720;
+@light-red: #BB4829;
+@brown: #AD7B3C;
+@gold: #DCB227;
+@dark-purple: #6D0059;
+@dark-green: #007339;
+
+@example-blue: #F6F7FA;
+@dark-blue: #194379; //#1
+@dark-orange: #E86024; //#2
+@teal: #088E8E; //3
+@medium-blue: #007196; //#4
+@red: #CA4142; //5
+@yellow: #FCC765; //#6
+@purple: #8F2683; //#7
+
+
+//astronomy
+
+@bright-blue: #4F97D2; //#8
+
+//astronomy accents
+@accent-dark-blue: #607DA3; /// color 9
+@accent-med-blue:#A4B4CA; // #10
+@accent-light-blue: #D1D9E4; //11
+@accent-orange: #F0936A; //12
+@accent-purple: #B775B0; //13
+@accent-green: #6AB0B0; //14
+@accent-red: #DD7C79; //15
+
+
+
+
+
+@font-family-serif: Liberation Serif, serif, @stix-fonts;
+@font-family-sans-serif:  Liberation Sans, sans-serif, @stix-fonts;
+
+@book-title: astronomy;
+
+@page-width: 6.5in;
+
+/* The QR code variable is needed for psychology skeleton but we are not using it since it's going away */
+
+// Finished printed size of the QR code is dependent on: 1-distance between qr code and scanning device
+// 2-size of dots in the code(amount of data inputed into the code, the smaller the dots become)
+// For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
+@qr: 1.25in;
+
+// Images in astronomy are 200DPI
+html {
+  prince-image-resolution: 200dpi;
+  prince-background-image-resolution: 200dpi;
+}
+
+@table-border: none;
+
+// Chemistry static strings
+@cnx-string-how-sciences-interconnect: "How Sciences Interconnect";
+@cnx-string-chemistry-in-everyday-life: "Chemistry in Everyday Life";
+@cnx-string-portrait-of-a-chemist: "Portrait of a Chemist";
+@cnx-string-link-to-learning: "Link to Learning"; // Used in psychology also - unchanged
+
+// Chemistry End of chapter/book strings
+@cnx-string-key-equations: "Key Equations";
+@cnx-string-exercises: "Exercises";
+
+// Static strings needed from Psychology
+// @cnx-string-everyday-connection: "everyday connection";
+// @cnx-string-dig-deeper: "dig deeper";
+// @cnx-string-what-do-you-think: "what do you think?";
+// @cnx-string-connect-the-concepts: "connect the concepts";
+
+// End of chapter/book strings
+@cnx-string-summary: "Summary";
+@cnx-string-review-questions: "Review Questions";
+@cnx-string-critical-thinking-questions: "Critical Thinking";
+@cnx-string-personal-application-questions: "Personal Application Questions";
+
+
+//Astronomy
+@cnx-string-astronomy-basics: "Astronomy Basics ";
+@cnx-string-making-connections: "Making Connections";
+@cnx-string-seeing-for-yourself: "Seeing for Yourself";
+@cnx-string-voyagers-in-astronomy: "Voyagers in Astronomy";
+
+
+
+#content {
+  // Enable page breaking inside tables.
+  #table {
+    .style(...) {
+      #utils>#pb>.inside(auto);
+    }
+  }
+  //  - Non-figure images are centered.
+  .x-center-image() {
+    display: block;
+    margin: auto;
+
+
+  }
+  #image {
+    .style(any; chapter) {
+      .x-center-image();
+    }
+    .style(any; book-end; solutions) {
+      .x-center-image();
+    }
+  }
+}
+
+@import url('../ccap-numbering.less');
+@import url('../ccap-precalculus-numbering.less');
+@import url('page-skeleton.less');
+@import url('ccap-base-skeleton.less');
+@import url('content-skeleton.less');
+@import url('themes/science-skeleton.less');
+@import url('astronomy-skeleton.less');
+// Ad-hoc numbering changes. Removes numbering for various pieces of content
+// which use a .unnumbered class.
+@import url('unnumbered-content.less');
+
+
+@import url('folio.less');
