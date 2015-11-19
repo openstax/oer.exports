@@ -2091,13 +2091,6 @@ p:nth-of-type(2),
 .colophon blockquote::after {
   content: "\201D" /* close-quote; */;
 }
-div.colophon.end-of-book-solutions div.solution .cnx-svg::before {
-  content: "\A";
-  white-space: pre;
-}
-.end-of-book-solutions .solution .cnx-svg {
-  vertical-align: 0 !important;
-}
 /******************************************************************************
  * Tables
  ******************************************************************************/
@@ -2700,14 +2693,25 @@ div.colophon.end-of-book-solutions .chapter-area > div.section-exercises::before
   margin-bottom: 7.5px;
   content: "Section Exercises";
 }
+div.colophon.end-of-book-solutions .chapter-area div.solution {
+  display: block;
+}
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.title {
   display: inline;
+  word-spacing: normal;
+  text-align: left;
+  vertical-align: text-top;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.title::after {
   content: ". ";
+  display: inline;
+  height: 0;
+  width: 100%;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body {
   margin-right: .65em;
+  word-spacing: normal;
+  vertical-align: middle;
   display: inline;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div,
@@ -2721,6 +2725,11 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.med
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body > a.target-figure {
   margin: 0em .25em;
   color: #d7562c;
+}
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.body .cnx-svg {
+  direction: ltr;
+  vertical-align: middle !important;
+  display: inline-block;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution div.table table caption {
   display: none;
@@ -2964,6 +2973,7 @@ subfigure {
   margin-top: 0;
   margin-top: 1em;
   margin-bottom: 1em;
+  page-break-inside: avoid;
 }
 .section.section-exercises .exercise > .title {
   content: counter(exercise) ".";
