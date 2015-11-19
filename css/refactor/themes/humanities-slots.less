@@ -1,3 +1,12 @@
+@import url('../includes/table-slots.less');
+@import url('../includes/tables.less');
+@import url('../includes/features.less');
+
+
+@tables: humanities;
+
+.tables(@tables);
+
 @cnx-string-chapter: "Chapter";
 @cnx-string-introduction: "Introduction";
 @cnx-string-chapter-outline: "Chapter Outline";
@@ -17,32 +26,7 @@
   margin: 0 0 0 40px;
   padding:0;
  }
-.x-feature-before-color(@title-color, @title) {
-  text-transform: uppercase;
-  color: @title-color;
-  content: @title;
-}
-.x-feature-color(@border-color, @title-border-color, @title-color, @background-color, @title) {
-  box-shadow: 10px 10px 5px @shadow; // On the roadmap for PrinceXML 9.1
-  border: 1px solid @border-color;
-  border-radius: 15px;
-  margin-top: 48px; // Clear the title ::before.
-  &::before {
-    .x-feature-before-color(@title-color, @title);
-    background-color: @background-color;
-    border: 1px solid @title-border-color;
-    border-radius: 15px;
-    width: 60%;
-    position: absolute;
-    margin-top: -48px;
-    margin-left: -5px;
-    padding: 8px;
-    padding-left: 0px;
-    font-weight: 700;
-    font-size: 12pt;
-    text-indent: 0.1875in;
-  }
-}
+
 
 #part {
   #titlepage {
@@ -663,89 +647,6 @@
     }
   }
 
-  #table {
-    .style(any; any) {
-      border: @table-border;
-      margin-bottom: 22px;
-      #utils>#pb>.inside(auto);
-      prince-caption-page: all;
-    }
-    #caption {
-      .style(any; any) {
-        color: @red;
-        font-family: @font-family;
-        border-color: @orange;
-        border-width: 1px;
-        border-style: solid;
-        border-bottom: none;  //padding-bottom: 1em;
-        padding-left: .5em;
-        padding-top: .5em;
-        padding-bottom: 1em;
-        font-weight:bold;
-        caption-side: top;
-        font-size: 13px;
-        line-height: 17px;
-      }
-      .style(any; book-end; solution) { display: none; }
-      .number(any; any) {}
-    }
-     #head {
-      .style(any; any) {
-      }
-    }
-    #header {
-      .style(any; any) {
-        border-color: @orange !important; // !important is in ccap-base.
-        background-color: @white;
-        color: black;
-        padding: 5px 10px;
-        font-size: small;
-        text-align: left;
-      }
-      .style(colored; any) {
-        background-color: @light-orange; text-align: center;
-      }
-    }
-    #body {
-      .style(any; any) {
-      }
-    }
-    #row {
-      .style(any; any) {
-        #utils>#pb>.inside(avoid);
-      }
-      .style(colored; any) {
-        height: 1em !important;
-      }
-    }
-    #data {
-      .style(any; any) {
-        border-color: @orange;
-        font: 10pt/14pt @font-family-serif;
-        padding: 5px 10px;
-      }
-      .style('header'; any) {
-       background-color: @white;
-      }
-    }
-  } //end table
-  #note{
-    .style(...) {
-      padding: 20px;
-      background-color: @white;
-    }
-     #title {
-      .style(...) {
-        padding: 0;
-        margin: 0;
-        color: @black;
-        font-weight: bold;
-        border: none;
-        padding-bottom: .2em;
-      }
-    }
-
-  }
   #exercise {
     .style(...) {
       margin-top: 0;
@@ -847,77 +748,6 @@
         font-weight: bold;
         border: none;
         padding-bottom: .2em;
-      }
-    }
-    .style('everyday-connection'; ...) {
-      .x-feature-color(@dark-blue, @dark-blue, @dark-blue, @orange, @cnx-string-everyday-connection);
-    }
-    .style('dig-deeper'; ...) {
-      .x-feature-color(@dark-blue, @orange, @orange, @dark-blue, @cnx-string-dig-deeper);
-    }
-    .style('what-do-you-think'; ...) {
-      .x-feature-color(@dark-blue, @dark-blue, @white, @teal, @cnx-string-what-do-you-think);
-    }
-    .style('connect-the-concepts'; ...) {
-      .x-feature-color(@light-blue, transparent, @light-blue, transparent, @cnx-string-connect-the-concepts);
-      margin-top: 1.5em;
-      padding: 0;
-      p {
-        &:last-of-type {
-          padding-bottom: 10px;
-        }
-      }
-      > .body {
-          padding: 0 1em;
-      }
-      // paragraph titles
-      > .title {
-        padding-bottom: 0;
-        padding: 0 1em;
-        span.cnx-gentext-tip-t {
-          padding: 5px 0 0 0;
-          display: block;
-        }
-      }
-      // Create the header/title
-      &::before, > .title::before {
-        font: 700 normal normal 14pt/14pt @font-family-sans-serif;
-        width: 100%;
-        text-align: center;
-        display: inline-block;
-      }
-      &::before {
-        border-bottom: 1px solid @light-blue;
-        border-radius: 0px;
-        padding: 0px;
-        margin-left: -1px;
-        margin-top: 10px;
-        position: relative;
-      }
-      > .title::before {
-        .x-feature-before-color(@light-blue, @cnx-string-connect-the-concepts);
-        color: lighten(@black, 65%);
-        text-indent: 19px; // Fix a text-offset bug
-      }
-    }
-    .style('link-to-learning'; ...) {
-      // This feature requires some "bugfix" pieces to work
-      // properly, such as a clearfix. Selectors for these are
-      // placed inline in this slot.
-      .x-feature-color(@red, @orange, @white, @red, @cnx-string-link-to-learning);
-      #utils>#pb>.inside(avoid);
-      text-align: left;
-      //clearfix
-      > .body::after {
-        content: "";
-        display: table;
-        clear: both;
-      }
-      .mediaobject {
-        float: left;
-        img {
-          margin: 0;
-        }
       }
     }
 
@@ -1138,6 +968,35 @@
     .style(h6, ...) {
       color: @medium-blue;
       font-weight: bold;
+    }
+  }
+  #table {
+    .style(any; any) {
+      border: @table-border;
+    }
+    #caption {
+      .style(any; any) {
+        color: @red;
+        font-family: @font-family;
+        border-color: @orange;
+      }
+    }
+    #header {
+      .style(any; any) {
+        border-color: @orange !important; // !important is in ccap-base.
+        background-color: @white;
+      }
+      .style(colored; any) {
+        background-color: @light-orange;
+      }
+    }
+    #data {
+      .style(any; any) {
+        border-color: @orange;
+      }
+      .style('header'; any) {
+       background-color: @white;
+      }
     }
   }
 }

@@ -1,0 +1,271 @@
+
+.tables (@a) when (@tables = humanities) {
+  #content {
+    #table {
+      .style(any; any) {
+        margin-bottom: 22px;
+        #utils>#pb>.inside(auto);
+        prince-caption-page: all;
+      }
+      #caption {
+        .style(any; any) {
+          border-width: 1px;
+          border-style: solid;
+          border-bottom: none;  //padding-bottom: 1em;
+          padding-left: .5em;
+          padding-top: .5em;
+          padding-bottom: 1em;
+          font-weight:bold;
+          caption-side: top;
+          font-size: 13px;
+          line-height: 17px;
+        }
+        .style(any; book-end; solution) { display: none; }
+        .number(any; any) {}
+      }
+       #head {
+        .style(any; any) {
+        }
+      }
+      #header {
+        .style(any; any) {
+          color: black;
+          padding: 5px 10px;
+          font-size: small;
+          text-align: left;
+        }
+        .style(colored; any) {
+          text-align: center;
+        }
+      }
+      #body {
+        .style(any; any) {
+        }
+      }
+      #row {
+        .style(any; any) {
+          #utils>#pb>.inside(avoid);
+        }
+        .style(colored; any) {
+          height: 1em !important;
+        }
+      }
+      #data {
+        .style(any; any) {
+          font: 10pt/14pt @font-family-serif;
+          padding: 5px 10px;
+          vertical-align: top;
+        }
+      }
+    } //end table
+  }
+}
+
+.tables (@a) when (@tables = science) {
+  #content {
+    #table {
+     .style(unstyled; any) {
+       border: none;
+       margin: 0;
+     }
+      .style(any; any) {
+        #utils>#pb>.inside(auto);
+        margin-bottom: 22px;
+        padding-top: 1em;
+        // If a table spans more than 1 page then put caption on all following pages
+        prince-caption-page: all;
+        border: none;
+        border-collapse: collapse;
+      }
+      .style(any; preface) {
+        margin: 0;
+        border: none;
+      }
+      .style(any; any; problem; exercise; example) {
+        counter-increment: table !important; // Overrides !important from base.
+      }
+      .style(any; any; solution; exercise; example) {
+        counter-increment: table !important; // Overrides !important from base.
+      }
+      .style(multiple-headers) {
+        margin-bottom: 0;
+      }
+      #caption {
+        .style(any; any) {
+          font-family: @font-family;
+          border: none;
+          padding-top: .5em;
+          padding-left: 0px;
+          padding-bottom: 1em;
+          caption-side: bottom;
+          font-size: 13px;
+          line-height: 17px;
+          font-weight: 100;
+        }
+        .style(unstyled; any) {
+          display: none;
+        }
+        .style(any; any; problem; exercise; example) { display: block; }
+        .style(any; any; solution; exercise; example) { display: block; }
+        .style(any; any; commentary; exercise; example) { display: block; }
+        // Do not display numbering for tables in the answer key
+        .style(any; book-end; solution) { display: none; }
+        .number(any; any) {
+          font-weight: bold;
+        }
+      }
+      #head {
+        .style(any; any) {
+          border-top: none;
+          font-family: @font-family-sans-serif;
+        }
+      }
+      #body {
+        .style(unstyled; any) {
+         border: none;
+       }
+       .style(multiple-headers; any) {
+         border: none;
+       }
+      }
+      #row {
+        border: none !important;
+        .style(any; any) {
+          #utils>#pb>.inside(avoid);
+        }
+        .style(colored; any) {
+          height: 1em !important;
+        }
+        .style(unstyled; any) {
+          border: none !important;
+         }
+         .style(multiple-headers; any) {
+            border: none;
+         }
+      }
+      #header {
+        .style(any; any) {
+          border-bottom: none;
+          padding: 5px 10px;
+          font-size: 9pt;
+          text-align: center;
+          vertical-align: initial;
+        }
+        .style(colored; any) {
+          text-align: center;
+        }
+        #title {
+          .style(any; any) {
+            border-left: 0;
+            border-right: 0;
+          }
+          .text(any; any) {
+            border: none !important;
+            background-color: transparent;
+            font-weight: bold;
+          }
+        }
+      }
+      #data {
+        .style(any; any) {
+          font-family: @font-family-sans-serif;
+          font-size: 9pt;
+          text-align: center;
+          padding: 5px 10px;
+        }
+        .style(unstyled; any) {
+          border: none;
+          text-align: left;
+         }
+         .style(multiple-headers; any) {
+            padding: 0;
+         }
+         .style(multiple-headers; table) {
+            padding: 10px;
+         }
+         .style(any; preface) {
+          padding: 5px;
+        }
+        .style(any; chapter; chapter-end; key-equations) {
+          margin: 0;
+          border: none !important;
+          caption { display: none; }
+          td { border: none !important; }
+        }
+        .style('header'; any) {
+          font-size: 9pt;
+          text-align: center;
+          vertical-align: initial;
+        }
+      }
+    }
+  }
+}
+.tables (@a) when (@tables = math) {
+  #content {
+    #table {
+      .style(any; any) {
+        #utils>#pb>.inside(auto);
+
+        // If a table spans more than 1 page then put caption on all following pages
+        prince-caption-page: all;
+      }
+
+      .style(any; any; problem; exercise; example) {
+        counter-increment: table !important; // Overrides !important from base.
+      }
+      .style(any; any; solution; exercise; example) {
+        counter-increment: table !important; // Overrides !important from base.
+      }
+
+      // Bug fix. Remove styling for tables in "Key Equations"
+      // as these are just a wrapper for alignment.
+      // !important is used to override inline table styles.
+      .style(any; chapter; chapter-end; key-equations) {
+        margin: 0;
+        border: none !important;
+
+        caption { display: none; }
+        td { border: none !important; }
+      }
+      #caption {
+        .style(any; any) {
+          font-family: @font-family;
+          padding-top: .5em;
+          padding-bottom: 1em;
+          font-weight: bold;
+          caption-side: bottom;
+        }
+        .style(any; any; problem; exercise; example) { display: block; }
+        .style(any; any; solution; exercise; example) { display: block; }
+        .style(any; any; commentary; exercise; example) { display: block; }
+
+        // Do not display numbering for tables in the answer key
+        .style(any; book-end; solution) { display: none; }
+      }
+      #row {
+        .style(any; any) {
+          #utils>#pb>.inside(avoid);
+        }
+        .style(colored; any) {
+          height: 1em !important;
+        }
+      }
+      #header {
+        .style(any; any) {
+          color: black;
+          font-size: small;
+          text-align: left;
+        }
+        .style(colored; any) {
+          text-align: center;
+        }
+      }
+      #data {
+        .style(any; any) {
+          padding: 13px;
+        }
+      }
+    }
+  }
+}

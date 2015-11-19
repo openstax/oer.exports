@@ -1,0 +1,86 @@
+.chapter {
+  a.link.cite {
+    #content>#link>.style(reference; any);
+  }
+  .note {
+    &.milestone {
+      #content>#note>.style('milestone'; any);
+    }
+    &.insider-perspective {
+      #content>#note>.style('insider-perspective'; any);
+    }
+    &.get-connected {
+      #content>#note>.style('get-connected'; any);
+    }
+    &.middle-ground {
+      #content>#note>.style('middle-ground'; any);
+    }
+    &.link-to-learning {
+      #content>#note>.style('link-to-learning'; any);
+    }
+  }
+}
+
+/********************************************************************
+ * Styling for Learning Objectives Box
+ ********************************************************************/
+
+// Override humanities :before title since we moved this to content
+.section > .titlepage {
+  .abstract {
+    display: none;
+  }
+}
+
+.chapter > .section.module > .section.learning-objectives {
+  #part>#chapter>#learning-objectives>.style();
+
+  > .titlepage > div > div > h3 > span.cnx-gentext-t {
+    #part>#chapter>#learning-objectives>#title>.style();
+  }
+}
+
+/********************************************************************
+ * End of chapter customizations
+ ********************************************************************/
+.cnx-eoc {
+  &.suggested-reading {
+    #part>#chapter-end>#suggested-reading>.style();
+    > .title {
+      #part>#chapter-end>#suggested-reading>#title>.style();
+    }
+    > .section > .title { display: none; }
+  }
+  .exercise > .title .cnx-gentext-n {
+    #part>#chapter-end>#exercise>#title>.number(any; eoc);
+  }
+}
+
+/* ---------------------------------------------------
+ * End of Book References
+ * ---------------------------------------------------
+ */
+
+ div.end-of-book-references {
+   > .chapter-area {
+     #part>#book-end>#end-of-book-references>#chapter-area>.style();
+     > .body > .section-area .note.reference {
+       #part>#book-end>#end-of-book-references>#chapter-area>#note>.style(any; any);
+       > .body p::before {
+         #part>#book-end>#end-of-book-references>#reference>.number();
+       }
+     }
+   }
+ }
+
+/* ---------------------------------------------------
+ * Answer Key
+ * ---------------------------------------------------
+ */
+
+div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.figure {
+  #content>#figure>#body>.style(any; end-of-book-solutions);
+  > div.body {
+    #content>#figure>#body>.style(any; end-of-book-solutions);
+  }
+}

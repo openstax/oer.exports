@@ -1,0 +1,226 @@
+.x-feature-before-color(@title-color, @title) {
+  text-transform: none;
+}
+.x-feature-color(@border-color, @title-border-color, @title-color, @background-color, @title) {
+  box-shadow: none;
+  page-break-inside: avoid;
+}
+
+#part {
+  #chapter {
+    #learning-objectives {
+      .style(...) {
+        margin: 1em 0;
+      }
+    }
+  }
+  #chapter-end {
+    #suggested-reading {
+      .style(...) {
+        .x-column-count(1);
+      }
+      #title {
+        .style(...) {
+          content: @cnx-string-suggested-reading;
+          column-span: all !important; // added override to resolve bug on staging where titles
+          margin-bottom: 1em;
+        }
+      }
+    }
+    #exercise {
+      #title {
+        .number(any; eoc) {
+          font-size: 10pt;
+          line-height: 13pt;
+        }
+      }
+    }
+  }
+  #book-end {
+    #appendix {
+      #title {
+       .style() {
+         font-size: 18pt;
+         font-weight: 700;
+         color: @red;
+         margin: 0;
+         padding: 0;
+         border-bottom: 1px solid @orange;
+         margin-bottom: 1em;
+       }
+       .number() {
+         display: none;
+       }
+       .text() {
+         padding-left: 0;
+         text-transform: capitalize;
+       }
+       .divider() {
+         display: none;
+       }
+      }
+    }
+    #end-of-book-references {
+      #reference {
+        .style(...) {
+          margin-left: 1.5em;
+          text-indent: 0em;
+          text-align: left;
+          }
+          .number() {
+            content: counter(references) ".";
+            margin-left: -19px;
+            margin-right: 8px;
+          }
+      }
+      #chapter-area {
+        .style(...) {
+          counter-reset: references;
+          margin-bottom: 1em;
+        }
+        #note {
+          .style(any; any) {
+            margin: 0px;
+            padding: 0px;
+            counter-increment: references;
+          }
+        }
+      }
+    }
+  }
+}
+
+#content {
+  #link {
+    .style(reference; any) {
+      content: target-counter(attr(href), references);
+      .scripts (sup);
+      // vertical-align: super;
+      // font-size: 9px;
+      font-weight: 100;
+    }
+  }
+  #figure {
+    #body {
+      .style(any; end-of-book-solutions) {
+        display: block;
+      }
+    }
+  }
+  #note {
+    .style('milestone'; any) {
+      .x-feature-color(@dark-blue, @dark-blue, @dark-blue, @orange, @cnx-string-milestone);
+    }
+    .style('insider-perspective'; any) {
+      .x-feature-color(@dark-blue, @orange, @orange, @dark-blue, @cnx-string-insider-perspective);
+    }
+    .style('get-connected'; any) {
+      .x-feature-color(@dark-blue, @dark-blue, @white, @teal, @cnx-string-get-connected);
+    }
+    .style('middle-ground'; any) {
+      .x-feature-color(@dark-blue, @dark-blue, @white, @light-blue, @cnx-string-middle-ground);
+    }
+  }
+  #section {
+    #title {
+      .style(any; any) {
+        text-transform: none;
+      }
+      .style(any; appendix){
+        font-size: 11pt;
+        color: #000;
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      .number(any; appendix) {
+        display: none;
+      }
+    }
+  }
+  #table {
+    .style(any; any) {
+      border: none;
+    }
+    #caption {
+      .style(any; any) {
+        color: @black;
+      }
+      .number(any; any) {
+        color: @red;
+      }
+    }
+    #head {
+      .style(any; any) {
+        border-bottom: 1px solid @orange;
+      }
+    }
+    #body {
+      .style(any; any) {
+        border: 1px solid @orange;
+      }
+      .style(multiple-headers; table) {
+        border: solid 1px @orange;
+       }
+    }
+    #row {
+      .style(any; any) {
+        border-left: solid 1px @orange;
+        border-right: solid 1px @orange;
+      }
+      .style(multiple-headers; table) {
+         border: solid 1px @orange;
+      }
+    }
+    #header {
+      .style(any; any) {
+        color: @white;
+        border-color: @orange !important; // !important is in ccap-base
+        border-left: solid 1px @orange;
+        border-right: solid 1px @orange;
+        border-bottom: 1px solid @orange;
+        border-top: 1px solid @orange;
+        background-color: @red;
+        font-family: @font-family-serif;
+        text-align:left;
+        font-size: 10pt;
+      }
+      .style(colored; any) {
+        background-color: @red;
+      }
+      .style(multiple-header; table) {
+          background: @red;
+          color: @white;
+          border: solid 1px @orange !important; // !important is in ccap-base
+      }
+      #title {
+        .text(any; any) {
+          color: @red;
+          font-family: @font-family-sans-serif;
+          text-align: center;
+        }
+        .footnote(any; any) {
+          color: @white;
+          //font-family: @font-family-sans-serif;
+        }
+      }
+    }
+    #data {
+      .style(any; any) {
+        font-family: @font-family-serif;
+        border-color: @orange !important; // !important is in ccap-base
+        text-align: left;
+      }
+      .style('header'; any) {
+        background-color: @red;
+        color: @white;
+      }
+    }
+  }
+
+  #solution {
+    .style(@kind; book-end) {
+      display: block;
+    }
+  }
+
+}

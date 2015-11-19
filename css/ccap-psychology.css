@@ -65,6 +65,9 @@ td.entrytbl > table {
   border-left-width: 0;
   border-right-width: 0;
 }
+/********************************************************************
+ * Math Refactor of .x-feature() function to utilize only one paramter
+ ********************************************************************/
 .index .title h2 {
   border: none;
 }
@@ -2063,6 +2066,138 @@ p:nth-of-type(2),
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
+/******************************************************************************
+ * Tables
+ ******************************************************************************/
+div.table {
+  margin: 0 auto;
+  padding: 0;
+  border: none;
+}
+div.table table {
+  page-break-inside: avoid;
+  margin: auto;
+  margin-bottom: 22px;
+  page-break-inside: auto;
+  prince-caption-page: all;
+  border: 1pt solid #eead58;
+}
+div.table table caption {
+  border-width: 1px;
+  border-style: solid;
+  border-bottom: none;
+  padding-left: .5em;
+  padding-top: .5em;
+  padding-bottom: 1em;
+  font-weight: bold;
+  caption-side: top;
+  font-size: 13px;
+  line-height: 17px;
+  color: #b8292f;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  border-color: #eead58;
+}
+div.table table .cnx-figure-horizontal .informalfigure .caption {
+  text-align: center;
+}
+div.table table .cnx-figure-horizontal .informalfigure .caption * {
+  font-weight: normal;
+  font-family: URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+div.table table table tbody[valign=top] > tr > td {
+  vertical-align: top;
+}
+div.table table tr {
+  page-break-inside: avoid;
+}
+div.table table th {
+  color: black;
+  padding: 5px 10px;
+  font-size: small;
+  text-align: left;
+  border-color: #eead58 !important;
+  background-color: #ffffff;
+}
+div.table table th:not(:only-child) {
+  color: black;
+  padding: 5px 10px;
+  font-size: small;
+  text-align: left;
+  border-color: #eead58 !important;
+  background-color: #ffffff;
+}
+div.table table td {
+  font: 10pt/14pt URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  padding: 5px 10px;
+  vertical-align: top;
+  border-color: #eead58;
+}
+div.table table td.header {
+  background-color: #ffffff;
+}
+div.table ul.itemizedlist,
+div.table ol.orderedlist {
+  padding-left: 20px;
+  margin: 0;
+}
+div.table ul.itemizedlist > .listitem > p,
+div.table ol.orderedlist > .listitem > p {
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+div.table.color th {
+  text-align: center;
+  background-color: #efd8b0;
+}
+div.table.color tr {
+  height: 1em !important;
+}
+div.table.color tr td:first-child {
+  background-color: #efd8b0;
+  width: 2.5in;
+  font-weight: bold;
+}
+div.table.unstyled table {
+  page-break-inside: avoid;
+  margin: auto;
+}
+div.table.multiple-headers table {
+  page-break-inside: avoid;
+  margin: auto;
+}
+div.table.multiple-headers table tr table thead tr:only-child,
+div.table.multiple-headers table tr table thead tr:only-child .tablecell {
+  border-top: 0px !important;
+}
+div.table.column-header tbody td:first-child {
+  background-color: #ffffff;
+}
+/********************************************************************
+ * Styling for Appendix
+ ********************************************************************/
+div.book > div.appendix .table {
+  page-break-inside: auto;
+}
+sub {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  bottom: -0.25em;
+}
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  top: -0.5em;
+}
+.titlepage sup {
+  vertical-align: super;
+  line-height: inherit;
+  font-size: smaller;
+  position: static;
+  top: auto;
+}
 h2,
 h3,
 h4 {
@@ -2598,84 +2733,6 @@ subfigure {
 .example .exercise .solution > .title > p {
   float: left;
 }
-/******************************************************************************
- * Tables
- ******************************************************************************/
-div.table {
-  margin: 0 auto;
-  padding: 0;
-  border: none;
-}
-div.table .cnx-figure-horizontal .informalfigure .caption {
-  text-align: center;
-}
-div.table .cnx-figure-horizontal .informalfigure .caption * {
-  font-weight: normal;
-  font-family: URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-div.table table {
-  page-break-inside: avoid;
-  margin: auto;
-  border: 1pt solid #eead58;
-  margin-bottom: 22px;
-  page-break-inside: auto;
-  prince-caption-page: all;
-}
-div.table table caption {
-  color: #b8292f;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  border-color: #eead58;
-  border-width: 1px;
-  border-style: solid;
-  border-bottom: none;
-  padding-left: .5em;
-  padding-top: .5em;
-  padding-bottom: 1em;
-  font-weight: bold;
-  caption-side: top;
-  font-size: 13px;
-  line-height: 17px;
-}
-div.table table tr {
-  page-break-inside: avoid;
-}
-div.table table th {
-  border-color: #eead58 !important;
-  background-color: #ffffff;
-  color: black;
-  padding: 5px 10px;
-  font-size: small;
-  text-align: left;
-}
-div.table table td {
-  border-color: #eead58;
-  font: 10pt/14pt URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding: 5px 10px;
-}
-div.table table td.header {
-  background-color: #ffffff;
-}
-div.table ul.itemizedlist,
-div.table ol.orderedlist {
-  padding-left: 20px;
-  margin: 0;
-}
-div.table ul.itemizedlist > .listitem > p,
-div.table ol.orderedlist > .listitem > p {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-div.table.color th {
-  background-color: #efd8b0;
-  text-align: center;
-}
-div.table.color tr {
-  height: 1em !important;
-}
-div.table.color tr td:first-child {
-  background-color: #efd8b0;
-  width: 2.5in;
-  font-weight: bold;
-}
 .cnx-figure-horizontal .informalfigure .caption {
   text-align: center;
 }
@@ -2687,18 +2744,6 @@ div.table.color tr td:first-child {
  * Custom Equation (Non) Numbering
  * ---------------------------------------------------
  */
-div.book > div.preface,
-div.book > div.part > div.preface,
-div.book > div.chapter,
-div.book > div.part > div.chapter,
-div.book > div.appendix,
-div.book > div.part > div.appendix {
-  /*
-    > div.section div.equation.non-numbered > *:last-child::after {
-      display: none;
-    }
-    */
-}
 div.book > div.preface > div.section div.equation > *:last-child::after,
 div.book > div.part > div.preface > div.section div.equation > *:last-child::after,
 div.book > div.chapter > div.section div.equation > *:last-child::after,
@@ -2740,17 +2785,6 @@ g text {
 g line {
   stroke: currentColor !important;
 }
-/******************************************************
- * Custom psychology elements
- *
- * Most of the customizations are
- * `.note` elements with specific classes to create
- * the different styles of Feature elements:
- *
- * Everyday Connection, Dig Deeper, Link to Learning,
- * Connect the Concepts
- *
- ******************************************************/
 /* -------------------------
  * Book Table of Contents
  * -------------------------
@@ -2809,9 +2843,6 @@ div.book div.preface > div.section div.titlepage > div > div > h2 {
 div.part > div.titlepage {
   display: none;
 }
-/********************************************************************
- * Styling for Chapter Titles
- ********************************************************************/
 /********************************************************************
  * Styling for Chapter Titles
  ********************************************************************/
@@ -3038,28 +3069,6 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
 .section > .titlepage .abstract ul.itemizedlist > .listitem:last-child {
   padding-bottom: .75em;
 }
-/******************************************************
- * Tables
- ******************************************************/
-.table .table-caption.caption {
-  color: #b8292f;
-  font-size: 10pt;
-  font-weight: 700 !important;
-  line-height: 13pt;
-  padding-left: 5px;
-}
-.table table tbody[valign=top] > tr > td {
-  vertical-align: top;
-}
-.table table td {
-  border-color: #eead58 !important;
-  font: 10pt/14pt URW Palladio L, URWPalladioL, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  padding: 5px 10px;
-}
-.table > caption,
-.table td {
-  padding: 0.25em;
-}
 /********************************************************************
  * End of chapter customizations
  ********************************************************************/
@@ -3151,9 +3160,6 @@ div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-n 
 div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t::before {
   content: "| ";
   color: black;
-}
-div.book > div.appendix .table {
-  page-break-inside: auto;
 }
 div.book > div.appendix > div.section > div.titlepage h2 {
   color: #b8292f;
@@ -3345,41 +3351,30 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #25408f;
   border-radius: 15px;
-  margin-top: 48px;
+  display: table;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
 }
 .chapter .note.everyday-connection::before {
   text-transform: uppercase;
   color: #25408f;
   content: "Everyday Connection";
+  display: table-caption;
+  caption-side: top;
   background-color: #eead58;
   border: 1px solid #25408f;
   border-radius: 15px;
   width: 60%;
-  position: absolute;
-  margin-top: -48px;
-  margin-left: -5px;
   padding: 8px;
   padding-left: 0px;
   font-weight: 700;
   font-size: 12pt;
   text-indent: 0.1875in;
-}
-.chapter .note.everyday-connection::before {
-  text-transform: uppercase;
-  color: #25408f;
-  content: "Everyday Connection";
-  background-color: #eead58;
-  border: 1px solid #25408f;
-  border-radius: 15px;
-  width: 60%;
-  position: absolute;
-  margin-top: -48px;
-  margin-left: -5px;
-  padding: 8px;
-  padding-left: 0px;
-  font-weight: 700;
-  font-size: 12pt;
-  text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
 }
 .chapter .note.dig-deeper {
   padding-left: 1em;
@@ -3393,41 +3388,30 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #25408f;
   border-radius: 15px;
-  margin-top: 48px;
+  display: table;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
 }
 .chapter .note.dig-deeper::before {
   text-transform: uppercase;
   color: #eead58;
   content: "Dig Deeper";
+  display: table-caption;
+  caption-side: top;
   background-color: #25408f;
   border: 1px solid #eead58;
   border-radius: 15px;
   width: 60%;
-  position: absolute;
-  margin-top: -48px;
-  margin-left: -5px;
   padding: 8px;
   padding-left: 0px;
   font-weight: 700;
   font-size: 12pt;
   text-indent: 0.1875in;
-}
-.chapter .note.dig-deeper::before {
-  text-transform: uppercase;
-  color: #eead58;
-  content: "Dig Deeper";
-  background-color: #25408f;
-  border: 1px solid #eead58;
-  border-radius: 15px;
-  width: 60%;
-  position: absolute;
-  margin-top: -48px;
-  margin-left: -5px;
-  padding: 8px;
-  padding-left: 0px;
-  font-weight: 700;
-  font-size: 12pt;
-  text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
 }
 .chapter .note.what-do-you-think {
   padding-left: 1em;
@@ -3441,41 +3425,30 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #25408f;
   border-radius: 15px;
-  margin-top: 48px;
+  display: table;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
 }
 .chapter .note.what-do-you-think::before {
   text-transform: uppercase;
   color: #ffffff;
   content: "What Do You Think?";
+  display: table-caption;
+  caption-side: top;
   background-color: #3f989b;
   border: 1px solid #25408f;
   border-radius: 15px;
   width: 60%;
-  position: absolute;
-  margin-top: -48px;
-  margin-left: -5px;
   padding: 8px;
   padding-left: 0px;
   font-weight: 700;
   font-size: 12pt;
   text-indent: 0.1875in;
-}
-.chapter .note.what-do-you-think::before {
-  text-transform: uppercase;
-  color: #ffffff;
-  content: "What Do You Think?";
-  background-color: #3f989b;
-  border: 1px solid #25408f;
-  border-radius: 15px;
-  width: 60%;
-  position: absolute;
-  margin-top: -48px;
-  margin-left: -5px;
-  padding: 8px;
-  padding-left: 0px;
-  font-weight: 700;
-  font-size: 12pt;
-  text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
 }
 .chapter .note.connect-the-concepts {
   padding-left: 1em;
@@ -3488,7 +3461,10 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #007196;
   border-radius: 15px;
-  margin-top: 48px;
+  display: table;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
   margin-top: 1.5em;
   padding: 0;
 }
@@ -3496,35 +3472,21 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   text-transform: uppercase;
   color: #007196;
   content: "Connect the Concepts";
+  display: table-caption;
+  caption-side: top;
   background-color: transparent;
   border: 1px solid transparent;
   border-radius: 15px;
   width: 60%;
-  position: absolute;
-  margin-top: -48px;
-  margin-left: -5px;
   padding: 8px;
   padding-left: 0px;
   font-weight: 700;
   font-size: 12pt;
   text-indent: 0.1875in;
-}
-.chapter .note.connect-the-concepts::before {
-  text-transform: uppercase;
-  color: #007196;
-  content: "Connect the Concepts";
-  background-color: transparent;
-  border: 1px solid transparent;
-  border-radius: 15px;
-  width: 60%;
-  position: absolute;
-  margin-top: -48px;
-  margin-left: -5px;
-  padding: 8px;
-  padding-left: 0px;
-  font-weight: 700;
-  font-size: 12pt;
-  text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
 }
 .chapter .note.connect-the-concepts p:last-of-type {
   padding-bottom: 10px;
@@ -3569,48 +3531,40 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
-  padding: 20px;
-  background-color: #ffffff;
   box-shadow: 10px 10px 5px #888888;
   border: 1px solid #b8292f;
   border-radius: 15px;
-  margin-top: 48px;
+  display: table;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
   page-break-inside: avoid;
   text-align: left;
+  padding: 20px;
+  background-color: #ffffff;
 }
 .chapter .note.link-to-learning::before {
   text-transform: uppercase;
   color: #ffffff;
   content: "Link to Learning";
+  display: table-caption;
+  caption-side: top;
   background-color: #b8292f;
   border: 1px solid #eead58;
   border-radius: 15px;
   width: 60%;
-  position: absolute;
-  margin-top: -48px;
-  margin-left: -5px;
   padding: 8px;
   padding-left: 0px;
   font-weight: 700;
   font-size: 12pt;
   text-indent: 0.1875in;
+  margin-left: 16px;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 2;
 }
-.chapter .note.link-to-learning::before {
-  text-transform: uppercase;
-  color: #ffffff;
-  content: "Link to Learning";
-  background-color: #b8292f;
-  border: 1px solid #eead58;
-  border-radius: 15px;
-  width: 60%;
-  position: absolute;
-  margin-top: -48px;
-  margin-left: -5px;
-  padding: 8px;
-  padding-left: 0px;
-  font-weight: 700;
-  font-size: 12pt;
-  text-indent: 0.1875in;
+.chapter .note.link-to-learning > .body {
+  padding: 0px 10px;
 }
 .chapter .note.link-to-learning > .body::after {
   content: "";
@@ -3623,18 +3577,6 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
 .chapter .note.link-to-learning .mediaobject img {
   margin: 0;
 }
-.chapter .note.link-to-learning > .body {
-  padding: 0px 10px;
-}
-/*
-div.colophon.end-of-book-solutions {
-  div.solution {
-    .cnx-svg {
-      &::before { content: "\A"; white-space: pre; }
-    }
-  }
-}
-*/
 .end-of-book-solutions .solution .cnx-svg {
   vertical-align: 0 !important;
 }

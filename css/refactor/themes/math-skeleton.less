@@ -2,74 +2,17 @@
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
 
+@kind: default;
+@part: chapter;
+@context: default;
+
+@import url('../includes/table-skeleton.less');
+@import url('../includes/sub-sup-scripts.less');
 
 h2, h3, h4 {
   margin: initial;
   sup a {
     display:none;
-  }
-}
-@kind: default;
-@part: chapter;
-@context: default;
-div[class="note"] {
-  #content>#note>.style(non-feature);
-  > .title { #content>#note>#title>.style(non-feature); }
-}
-.note {
-  .body {
-    #content>#note>#body>.style(non-feature);
-  }
-  &.qa {
-    @context: feature-qa;
-    #content>#note>.style(qa);
-
-    > .title {
-      #content>#note>#title>.style(@kind; @part; @context);
-    }
-    // the paragraph inside body has to be specifically targeted here to remove top-margin. grr.
-    >.body, .body > p {
-      #content>#note>#body>.style(@kind; @part; @context);
-    }
-
-    > .body .figure .title { #content>#figure>#title>.style(any; any; @context); }
-  }
-  &.media {
-    @context: feature-media;
-    #content>#note>.style(media);
-
-    .itemizedlist > .listitem {
-      #content>#list>.item(@kind, @part, @context);
-    }
-
-    // Supress the extra url generated from base that is wrapped with parentheses
-    .itemizedlist > .listitem .link.only-show-once {
-      content: content();
-    }
-  }
-  &.try {
-    @context: feature-try;
-    #content>#note>.style(try);
-    div.itemizedlist, div.orderedlist {
-      ul, ol {
-        #content>#list>.style(any; try-it);
-      }
-   }
-    > .title {
-      #content>#note>#title>.style(@kind; @part; @context);
-    }
-
-    .exercise {
-      #content>#exercise>.style(@kind; @part; @context);
-      > .title { #content>#exercise>#title>.style(@kind; @part; @context); }
-
-      .problem {
-        #content>#problem>.style(@kind; @part; @context; exercise);
-      }
-      .solution {
-        #content>#solution>.style(@kind; @part; @context; exercise);
-      }
-    }
   }
 }
 
@@ -511,6 +454,11 @@ div.colophon.end-of-book-solutions {
          #content>#image>.style(any; book-end; solution);
         }
         #content>#solution>#body>.style(@kind; book-end);
+        .cnx-svg {
+          direction: ltr;
+          vertical-align: middle !important;
+          display: inline-block;
+        }
       }
       div.table table caption { #content>#table>#caption>.style(any; book-end; solution); }
     }
@@ -909,63 +857,6 @@ div.book div.chapter > div.section div.example div.exercise .commentary {
   }
 }
 
-/******************************************************************************
- * Tables
- ******************************************************************************/
-
-div.table {
-  // First, reset div.table so it just goes away. Apply styling to the actual
-  // table element.
-  margin: 0 auto;
-  padding: 0;
-  border: none;
-
-  // TODO: Investigate this. Figures in a table?
-  .cnx-figure-horizontal .informalfigure .caption {
-    text-align: center; //center subfigure caption
-    * {
-      font-weight: normal; //override strong tag
-      font-family: @font-family-serif;
-    }
-  }
-
-  table {
-    #content>#table>.style(any; any);
-
-    caption {
-      #content>#table>#caption>.style(any; any);
-      &::before {
-        #content>#table>#caption>.number(any; any);
-      }
-    }
-
-    thead { #content>#table>#head>.style(any; any); }
-    tbody { #content>#table>#body>.style(any; any); }
-    tr { #content>#table>#row>.style(any; any); }
-    th { #content>#table>#header>.style(any; any); }
-    td { #content>#table>#data>.style(any; any); }
-    // Add styling for table entries that should render as table headers
-    td.header { #content>#table>#data>.style('header'; any); }
-
-  }
-
-  //handle lists inside tables
-ul.itemizedlist, ol.orderedlist {
-    #content>#list>.style(any; any; table);
-    > .listitem > p {
-      #content>#paragraph>.style(any; any; list; table);
-     }
-  }
-
-  // Special colored table...
-  &.color {
-    th { #content>#table>#header>.style(colored; any); }
-    tr { #content>#table>#row>.style(colored; any); }
-    tr td:first-child { background-color: @light-orange; width: 2.5in; font-weight: bold; }
-  }
-
-}
-
 .cnx-figure-horizontal .informalfigure .caption {
   text-align: center; //center subfigure caption
   * {
@@ -1081,10 +972,67 @@ g {
  * Features from Basic Mathematics
  *****************************************************/
 
-@kind: any;
-@part: any;
+ @kind: any;
+ @part: any;
 
+
+div[class="note"] {
+  #content>#note>.style(non-feature);
+  > .title { #content>#note>#title>.style(non-feature); }
+}
 .note {
+  &.qa {
+    @context: feature-qa;
+    #content>#note>.style(qa);
+
+    > .title {
+      #content>#note>#title>.style(@kind; @part; @context);
+    }
+    // the paragraph inside body has to be specifically targeted here to remove top-margin. grr.
+    >.body, .body > p {
+      #content>#note>#body>.style(@kind; @part; @context);
+    }
+
+    > .body .figure .title { #content>#figure>#title>.style(any; any; @context); }
+  }
+  &.media {
+    @context: feature-media;
+    #content>#note>.style(media);
+
+    .itemizedlist > .listitem {
+      #content>#list>.item(@kind, @part, @context);
+    }
+
+    // Supress the extra url generated from base that is wrapped with parentheses
+    .itemizedlist > .listitem .link.only-show-once {
+      content: content();
+    }
+  }
+  &.try {
+    @context: feature-try;
+    #content>#note>.style(try);
+    div.itemizedlist, div.orderedlist {
+      ul, ol {
+        #content>#list>.style(any; try-it);
+      }
+   }
+    > .title {
+      #content>#note>#title>.style(@kind; @part; @context);
+    }
+
+    .exercise {
+      #content>#exercise>.style(@kind; @part; @context);
+      > .title { #content>#exercise>#title>.style(@kind; @part; @context); }
+
+      .problem {
+        #content>#problem>.style(@kind; @part; @context; exercise);
+      }
+      .solution {
+        #content>#solution>.style(@kind; @part; @context; exercise);
+      }
+    }
+  }
+
   &.howto {
     #content>#note>.style(howto);
   }

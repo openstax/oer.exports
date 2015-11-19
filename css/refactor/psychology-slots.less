@@ -1,132 +1,56 @@
-.x-feature-before-color(@title-color, @title) {
-  text-transform: uppercase;
-  color: @title-color;
-  content: @title;
-}
-.x-feature-color(@border-color, @title-border-color, @title-color, @background-color, @title) {
-  box-shadow: 10px 10px 5px @shadow; // On the roadmap for PrinceXML 9.1
-  border: 1px solid @border-color;
-  border-radius: 15px;
-  margin-top: 48px; // Clear the title ::before.
-  &::before {
-    .x-feature-before-color(@title-color, @title);
-    background-color: @background-color;
-    border: 1px solid @title-border-color;
-    border-radius: 15px;
-    width: 60%;
-    position: absolute;
-    margin-top: -48px;
-    margin-left: -5px;
-    padding: 8px;
-    padding-left: 0px;
-    font-weight: 700;
-    font-size: 12pt;
-    text-indent: 0.1875in;
-  }
-}
-
-#note {
-    .style('everyday-connection'; ...) {
-      .x-feature-color(@dark-blue, @dark-blue, @dark-blue, @orange, @cnx-string-everyday-connection);
-    }
-    .style('dig-deeper'; ...) {
-      .x-feature-color(@dark-blue, @orange, @orange, @dark-blue, @cnx-string-dig-deeper);
-    }
-    .style('what-do-you-think'; ...) {
-      .x-feature-color(@dark-blue, @dark-blue, @white, @teal, @cnx-string-what-do-you-think);
-    }
-    .style('connect-the-concepts'; ...) {
-      .x-feature-color(@light-blue, transparent, @light-blue, transparent, @cnx-string-connect-the-concepts);
-      margin-top: 1.5em;
-      padding: 0;
-      p {
-        &:last-of-type {
-          padding-bottom: 10px;
-        }
+#content {
+  #note {
+      .style('everyday-connection'; ...) {
+        .x-feature-color(@dark-blue, @dark-blue, @dark-blue, @orange, @cnx-string-everyday-connection);
       }
-      > .body {
+      .style('dig-deeper'; ...) {
+        .x-feature-color(@dark-blue, @orange, @orange, @dark-blue, @cnx-string-dig-deeper);
+      }
+      .style('what-do-you-think'; ...) {
+        .x-feature-color(@dark-blue, @dark-blue, @white, @teal, @cnx-string-what-do-you-think);
+      }
+      .style('connect-the-concepts'; ...) {
+        .x-feature-color(@light-blue, transparent, @light-blue, transparent, @cnx-string-connect-the-concepts);
+        margin-top: 1.5em;
+        padding: 0;
+        p {
+          &:last-of-type {
+            padding-bottom: 10px;
+          }
+        }
+        > .body {
+            padding: 0 1em;
+        }
+        // paragraph titles
+        > .title {
+          padding-bottom: 0;
           padding: 0 1em;
-      }
-      // paragraph titles
-      > .title {
-        padding-bottom: 0;
-        padding: 0 1em;
-        span.cnx-gentext-tip-t {
-          padding: 5px 0 0 0;
-          display: block;
-        }
-      }
-      // Create the header/title
-      &::before, > .title::before {
-        font: 700 normal normal 14pt/14pt @font-family-sans-serif;
-        width: 100%;
-        text-align: center;
-        display: inline-block;
-      }
-      &::before {
-        border-bottom: 1px solid @light-blue;
-        border-radius: 0px;
-        padding: 0px;
-        margin-left: -1px;
-        margin-top: 10px;
-        position: relative;
-      }
-      > .title::before {
-        .x-feature-before-color(@light-blue, @cnx-string-connect-the-concepts);
-        color: lighten(@black, 65%);
-        text-indent: 19px; // Fix a text-offset bug
-      }
-    }
-    .style('link-to-learning'; ...) {
-      // This feature requires some "bugfix" pieces to work
-      // properly, such as a clearfix. Selectors for these are
-      // placed inline in this slot.
-      .x-feature-color(@red, @orange, @white, @red, @cnx-string-link-to-learning);
-      #utils>#pb>.inside(avoid);
-      text-align: left;
-      //clearfix
-      > .body::after {
-        content: "";
-        display: table;
-        clear: both;
-      }
-      .mediaobject {
-        float: left;
-        img {
-          margin: 0;
-        }
-      }
-    }
-
-    .style('chapter-objectives'; ...) {
-      font: 10pt/14pt @font-family-serif;
-      text-align: left;
-      padding-left: 0;
-      margin-top: 0em;
-      padding-top: 0;
-      border-bottom-width: 1px;
-      border-bottom-style: solid;
-      > .title {
-        font: normal normal 700 10pt @font-family-sans-serif;
-        border: none;
-        margin-top: 0;
-      }
-      ul.itemizedlist {
-        > .listitem {
-          display: list-item;
-          padding-top: 0;
-          margin: 0;
-          p {
+          span.cnx-gentext-tip-t {
+            padding: 5px 0 0 0;
             display: block;
-            margin: 0;
-          }
-          &::before {
-            display: none;
-          }
-          &:last-child {
-            padding-bottom: .75em;
           }
         }
+        // Create the header/title
+        &::before,
+        > .title::before {
+          font: 700 normal normal 14pt/14pt @font-family-sans-serif;
+          width: 100%;
+          text-align: center;
+          display: inline-block;
+        }
+        &::before {
+          border-bottom: 1px solid @light-blue;
+          border-radius: 0px;
+          padding: 0px;
+          margin-left: -1px;
+          margin-top: 10px;
+          position: relative;
+       }
+       > .title::before {
+         .x-feature-before-color(@light-blue, @cnx-string-connect-the-concepts);
+         color: lighten(@black, 65%);
+         text-indent: 19px; // Fix a text-offset bug
       }
     }
   }
+}

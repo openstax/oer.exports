@@ -1,6 +1,13 @@
 // Copyright (c) 2013 Rice University
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
+@import url('../includes/table-slots.less');
+@import url('../includes/tables.less');
+@import url('../includes/features.less');
+
+@tables: math;
+
+.tables(@tables);
 
 @import url('../includes/theme-colors.less');
 
@@ -318,9 +325,8 @@
     }
     #solution {
       .style(...) {
-        display: none; // W&N Requested these be removed 10/25/2013
-                       // since they are collated to EOB.
-        .x-column-count(2);
+        display: none; // W&N Requested these be removed 10/25/2013 since they are collated to EOB.
+        .x-column-count(1);
       }
       #title {
         .style() {}
@@ -524,83 +530,20 @@
     }
   }
   #table {
-    .style(any; any) {
-      #utils>#pb>.inside(auto);
-
-      // If a table spans more than 1 page then put caption on all following pages
-      prince-caption-page: all;
-    }
-
-    .style(any; any; problem; exercise; example) {
-      counter-increment: table !important; // Overrides !important from base.
-      display: inline-block;
-      width: @one-third;
-      .inline-blocks();
-    }
-    .style(any; any; solution; exercise; example) {
-      counter-increment: table !important; // Overrides !important from base.
-    }
-
-    // Bug fix. Remove styling for tables in "Key Equations"
-    // as these are just a wrapper for alignment.
-    // !important is used to override inline table styles.
-    .style(any; chapter; chapter-end; key-equations) {
-      margin: 0;
-      border: none !important;
-
-      caption { display: none; }
-      td { border: none !important; }
-    }
     #caption {
       .style(any; any) {
-        font-family: @font-family;
-        padding-top: .5em;
-        padding-bottom: 1em;
-        font-weight:bold;
-        color: @primary-color;
-        caption-side:bottom;
-      }
-      .style(any; any; problem; exercise; example) { display: block; }
-      .style(any; any; solution; exercise; example) { display: block; }
-      .style(any; any; commentary; exercise; example) { display: block; }
-
-      // Do not display numbering for tables in the answer key
-      .style(any; book-end; solution) { display: none; }
-
-      .number(any; any) {}
-    }
-    #head {
-      .style(any; any) {
-      }
-    }
-    #body {
-      .style(any; any) {
-      }
-    }
-    #row {
-      .style(any; any) {
-        #utils>#pb>.inside(avoid);
-      }
-      .style(colored; any) {
-        height: 1em !important;
+        color: @orange;
       }
     }
     #header {
       .style(any; any) {
-        color: black;
         background-color: @white;
-        font-size: small;
-        text-align: left;
       }
       .style(colored; any) {
-        background-color: @light-orange; text-align: center;
+        background-color: @light-orange;
       }
     }
     #data {
-      .style(any; any) {
-        padding: 5px 13px;
-      }
-
       // Some TDs act like TH
       .style('header'; any) {
         background-color: @white;
@@ -636,6 +579,66 @@
       .x-feature(try);
 
     }
+    .style(howto; ...) {
+      #utils>#pb>.inside(avoid);
+      .x-feature(howto);
+      padding-left: 2.8em;
+    }
+    .style(emphasized; howto) {
+      #content>#note>.style(howto);
+      padding-top: .4em;
+      padding-left: 3em;
+      background-position: .5em .5em;
+      background-color: @light-blue;
+    }
+    .style(student-project; ...) {
+      #utils>#pb>.inside(avoid);
+      page-break-before: always;
+      background-color: @light-blue;
+      &:before {
+        .x-banner-feature(student-project; calculus; png);
+        display: block;
+        content: "";
+        min-height: 55px;
+        width: auto;
+        height: auto;
+        background-position: 0px 0px;
+        background-color: @black;
+        margin-left: -1em;
+        margin-right: -1em;
+        margin-top: -3px;
+      }
+    }
+    .style(checkpoint; ...) {
+      #utils>#pb>.inside(avoid);
+      .x-banner-feature(checkpoint; calculus);
+      padding-left: 1.4em;
+    }
+    .style(quick-check; ...) {
+      #utils>#pb>.inside(avoid);
+      .x-banner-feature(quick-check; basic-math);
+      padding-left: 1.4em;
+    }
+    .style(emphasized; quick-check) {
+      #content>#note>.style(quick-check);
+      padding-top: .4em;
+      padding-left: 3em;
+      background-position: .5em .5em;
+      background-color: @soft-orange;
+    }
+    .style(media-2; ...) {
+      #utils>#pb>.inside(avoid);
+      .x-banner-feature(media; calculus);
+      padding-left: 32px;
+    }
+    .style(problem-solving) {
+      #content>#note>.style(non-feature);
+      background-color: @soft-orange;
+      padding-bottom: 1em;
+    }
+    .style(be-prepared) {
+      #content>#note>.style(non-feature);
+    }
     #title {
       .style(...) {
         padding: 7px 10px;
@@ -659,6 +662,28 @@
       .style(@kind; @part; feature-qa) {
         font-family: @font-family-serif;
 
+      }
+      .style(@kind; @part; student-project) {
+        font-family: @font-family;
+        font-weight: bold;
+        color: @dark-blue;
+        font-size: 11pt;
+        padding-bottom: 0em;
+        margin-top: 1.5em;
+        margin-bottom: 1em;
+        border-bottom: none;
+      }
+      .style(@kind; @part; definition) {
+        margin-top: 0em;
+        content: @cnx-string-definition;
+        display: block;
+      }
+      .style(@kind; @part; problem-solving) {
+        #content>#note>#title>.style(non-feature);
+      }
+      .style(be-prepared) {
+        #content>#note>#title>.style(non-feature);
+        margin-bottom: 1em;
       }
     }
     #body {
@@ -919,6 +944,7 @@
     .style(@kind; @part; section-exercise) {
       margin-top: 1em;
       margin-bottom: 1em;
+
       display: inline-block;
       width: @one-third;
       .inline-blocks();
@@ -981,6 +1007,7 @@
       display: none;
     }
     .style(@kind; book-end) {
+      display: block;
       // style any PreCalc solution that occurs in #book-end
       display: inline-block;
       width: @one-fourth;
@@ -1008,15 +1035,16 @@
         display: inline;
       }
       .style(@kind; book-end) {
-        // Check the note at
-        // #book-end>#end-of-book-solutions>#solution
-        // This may have been set to not display inline
-        // due to a W&N request.
         display: inline;
-
+        word-spacing: normal;
+        text-align: left;
+        vertical-align: text-top;
         // Solution in Answer Key needs to have period after number.
         &::after {
           content: ". ";
+          display: inline;
+          height: 0;
+          width: 100%;
         }
       }
 
@@ -1034,8 +1062,9 @@
 
       .style(@kind, book-end) {
         margin-right: .65em;
+        word-spacing: normal;
+        vertical-align: middle;
         display: inline;
-
         // will need to change - include in .body mixin for now
         > a.target-figure {
           margin: 0em .25em;
@@ -1153,23 +1182,7 @@
 }
 
 
-/********************************************************************
- * Refactor of .x-feature() function to utilize only one paramter
- ********************************************************************/
 
-.x-feature (@svg) {
-  // If feature is only one line prevent clipping of icon
-  min-height: 45px;
-
-  padding-top: 0;
-  margin-top: 0;
-  background: url("ccap-precalculus/@{svg}.svg") no-repeat;
-  background-position: 0 .2em;
-
-  .figure {
-    img { max-width: (@page-width - .25em); }
-  }
-}
 
 
 //end of precalculus
@@ -1184,19 +1197,6 @@
 
 @cnx-string-definition: "Definition: ";
 
-.x-banner-feature (@svg, @book, @type: "svg") {
-  // If feature is only one line prevent clipping of icon
-  min-height: 45px;
-
-  padding-top: 0;
-  margin-top: 0;
-  background: url("ccap-@{book}/@{svg}.@{type}") no-repeat;
-  background-position: 0 .2em;
-
-  .figure {
-    img { max-width: (@page-width - .25em); }
-  }
-}
 
 
 #part {
@@ -1216,92 +1216,6 @@
   }
 }
 #content {
-  #note {
-    .style(howto; ...) {
-      #utils>#pb>.inside(avoid);
-      .x-feature(howto);
-      padding-left: 2.8em;
-    }
-    .style(emphasized; howto) {
-      #content>#note>.style(howto);
-      padding-top: .4em;
-      padding-left: 3em;
-      background-position: .5em .5em;
-      background-color: @tertiary-color;
-    }
-    .style(student-project; ...) {
-      #utils>#pb>.inside(avoid);
-      page-break-before: always;
-      background-color: @tertiary-color;
-      &:before {
-        .x-banner-feature(student-project; calculus; png);
-        display: block;
-        content: "";
-        min-height: 55px;
-        width: auto;
-        height: auto;
-        background-position: 0px 0px;
-        background-color: @black;
-        margin-left: -1em;
-        margin-right: -1em;
-        margin-top: -3px;
-      }
-    }
-    .style(checkpoint; ...) {
-      #utils>#pb>.inside(avoid);
-      .x-banner-feature(checkpoint; calculus);
-      padding-left: 1.4em;
-    }
-    .style(quick-check; ...) {
-      #utils>#pb>.inside(avoid);
-      .x-banner-feature(quick-check; basic-math);
-      padding-left: 1.4em;
-    }
-    .style(emphasized; quick-check) {
-      #content>#note>.style(quick-check);
-      padding-top: .4em;
-      padding-left: 3em;
-      background-position: .5em .5em;
-      background-color: @soft-orange;
-    }
-    .style(media-2; ...) {
-      #utils>#pb>.inside(avoid);
-      .x-banner-feature(media; calculus);
-      padding-left: 32px;
-    }
-    .style(problem-solving) {
-      #content>#note>.style(non-feature);
-      background-color: @soft-orange;
-      padding-bottom: 1em;
-    }
-    .style(be-prepared) {
-      #content>#note>.style(non-feature);
-    }
-    #title {
-      .style(@kind; @part; student-project) {
-        font-family: @font-family;
-        font-weight: bold;
-        color: @dark-blue;
-        font-size: 11pt;
-        padding-bottom: 0em;
-        margin-top: 1.5em;
-        margin-bottom: 1em;
-        border-bottom: none;
-      }
-      .style(@kind; @part; definition) {
-        margin-top: 0em;
-        content: @cnx-string-definition;
-        display: block;
-      }
-      .style(@kind; @part; problem-solving) {
-        #content>#note>#title>.style(non-feature);
-      }
-      .style(be-prepared) {
-        #content>#note>#title>.style(non-feature);
-        margin-bottom: 1em;
-      }
-    }
-  }
 //  - Non-figure images are centered.
   .x-center-image() {
     display: block;

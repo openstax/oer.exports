@@ -230,6 +230,9 @@ module.exports = (grunt) ->
 
   # Used for lessc compiling
   allBooks = [
+    'astronomy'
+    'microbiology'
+    'american-government'
     'university-physics'
     'physics'
     'ap-physics'

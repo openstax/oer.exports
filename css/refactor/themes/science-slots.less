@@ -1,14 +1,22 @@
-
-
 // Copyright (c) 2013 Rice University
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
+
+@import url('../includes/table-slots.less');
+@import url('../includes/tables.less');
+@import url('../includes/features.less');
+
+
+@tables: science;
+.tables(@tables);
+
 @cnx-string-chapter: "Chapter";
 @cnx-string-introduction: "Introduction";
 @cnx-string-chapter-outline: "Chapter Outline";
 @cnx-string-learning-objectives: "Learning Objectives";
 @cnx-string-key-equations: "Key Equations";
 @cnx-string-key-concepts: "Key Concepts";
+
 .x-header-spacing() {
   padding-bottom: 0;
   margin-bottom: 6.6px;
@@ -27,34 +35,8 @@
  }
 .x-feature-before-color(@title-color, @title) {
   text-transform: none;
-  color: @title-color;
-  content: @title;
 }
-.x-feature-color(@border-color, @title-border-color, @title-color, @background-color, @title) {
-  box-shadow: 10px 10px 5px @shadow; // On the roadmap for PrinceXML 9.1
-  border: 1px solid @border-color;
-  border-radius: 15px;
-  margin-top: 48px; // Clear the title ::before.
-  &::before {
-    .x-feature-before-color(@title-color, @title);
-    background-color: @background-color;
-    border: 1px solid @title-border-color;
-    border-radius: 15px;
-    width: 60%;
 
-    // Reposition the titles
-    position: absolute;
-    margin-top: -48px;
-    margin-left: -5px;
-    padding: 8px;
-    padding-left: 0px;
-
-    // Text styles
-    font-weight: 700;
-    font-size: 12pt;
-    text-indent: 0.1875in;
-  }
-}
 
 #part {
   #titlepage {
@@ -623,28 +605,28 @@
       }
     }
 
-    #appendix {
-      #title {
-        .style() {
-          font-size: 34pt;
-          font-weight: bold;
-          color: @medium-blue;
-          padding: 0;
-          margin: 0;
-        }
-        .number() {
-          color: @medium-blue;
-          padding-right: 0;
-        }
-        .text() {
-        }
-        .divider() {
-          content: "| ";
-          color: black;
-        }
-        .label() {}
-      }
-    }
+    // #appendix {
+    //   #title {
+    //     .style() {
+    //       font-size: 34pt;
+    //       font-weight: bold;
+    //       color: @dark-blue;
+    //       padding: 0;
+    //       margin: 0;
+    //     }
+    //     .number() {
+    //       color: @medium-blue;
+    //       padding-right: 0;
+    //     }
+    //     .text() {
+    //     }
+    //     .divider() {
+    //       content: "| ";
+    //       color: black;
+    //     }
+    //     .label() {}
+    //   }
+    // }
   }
 
   #appendix {
@@ -653,13 +635,17 @@
         font-size: inherit;
         text-transform: capitalize;
         padding-left: 0;
+        padding-top: 0;
+        margin-top: 0;
+
       }
       .text() {
         font-size: 28pt;
         color:@dark-blue;
         border-top: 1px solid @orange;
         display: block;
-        margin-top: .05em;
+        margin-top: .0;
+        padding-top: 0;
         padding-left:0em !important;
         font-weight: bold;
       }
@@ -722,7 +708,7 @@
       .style(any; preface) {}
       .style(any; preface; section) {}
       .style(any; appendix){
-        #part>#module>#title>.style();
+       // #part>#module>#title>.style();
       }
       .number(any; appendix) {
         #part>#module>#title>.number();
@@ -766,12 +752,15 @@
       .style(any; any; example) {
         color: @dark-blue;
         font-size: 1.1em;
+        page-break-after: avoid;
       }
       .style('primary'; any; example) {
         font-size: 1.3em;
         font-weight: bold;
         color: @dark-blue;
         text-align: left;
+        page-break-after: avoid;
+        page-break-before: avoid;
       }
     }
     .style(any) {
@@ -788,101 +777,40 @@
       margin-top:0em;
     }
   }
-
-  #table {
-   .style(unstyled; any) {
-     border: none;
-     margin: 0;
-   }
+#table {
     .style(any; any) {
-      #utils>#pb>.inside(auto);
       border: @table-border;
-      margin-bottom: 22px;
-      padding-top: 1em;
-      // If a table spans more than 1 page then put caption on all following pages
-      prince-caption-page: all;
-      border: none;
-      border-collapse: collapse;
-    }
-    .style(any; preface) {
-      margin: 0;
-      border: none;
-    }
-    .style(any; any; problem; exercise; example) {
-      counter-increment: table !important; // Overrides !important from base.
-    }
-    .style(any; any; solution; exercise; example) {
-      counter-increment: table !important; // Overrides !important from base.
-    }
-    .style(multiple-headers) {
-      margin-bottom: 0;
     }
     #caption {
       .style(any; any) {
-        font-family: @font-family;
         color: @black;
-        border: none;
-        padding-top: .5em;
-        padding-left: 0px;
-        padding-bottom: 1em;
-        caption-side: bottom;
         font-size: 13px;
-        line-height: 17px;
-        font-weight: 100;
       }
-      .style(unstyled; any) {
-        display: none;
-      }
-      .style(any; any; problem; exercise; example) { display: block; }
-      .style(any; any; solution; exercise; example) { display: block; }
-      .style(any; any; commentary; exercise; example) { display: block; }
-      // Do not display numbering for tables in the answer key
-      .style(any; book-end; solution) { display: none; }
       .number(any; any) {
         color: @dark-orange;
-        font-weight: bold;
       }
     }
     #head {
       .style(any; any) {
-        border-top: none;
         border-bottom: 1px solid @dark-blue;
-        font-family: @font-family-sans-serif;
       }
     }
     #body {
       .style(any; any) {
         border: 1px solid @dark-blue;
       }
-      .style(unstyled; any) {
-       border: none;
-     }
-     .style(multiple-headers; any) {
-       border: none;
-     }
-    .style(multiple-headers; table) {
-      border: solid 1px @dark-blue;
-     }
+      .style(multiple-headers; table) {
+        border: solid 1px @dark-blue;
+       }
     }
     #row {
-      border: none !important;
       .style(any; any) {
-        #utils>#pb>.inside(avoid);
         border-left: solid 1px @dark-blue;
         border-right: solid 1px @dark-blue;
       }
-      .style(colored; any) {
-        height: 1em !important;
+      .style(multiple-headers; table) {
+         border: solid 1px @dark-blue;
       }
-      .style(unstyled; any) {
-        border: none !important;
-       }
-       .style(multiple-headers; any) {
-          border: none;
-       }
-       .style(multiple-headers; table) {
-          border: solid 1px @dark-blue;
-       }
     }
     #header {
       .style(any; any) {
@@ -891,17 +819,12 @@
         border-left: solid 1px @dark-blue;
         border-right: solid 1px @dark-blue;
         border-bottom: 1px solid @dark-blue;
-        border-bottom: none;
         border-top: 1px solid @dark-blue;
-        padding: 5px 10px;
         background-color: @medium-blue;
-        font-size: 9pt;
-        text-align: center;
-        vertical-align: initial;
+        font-size: 12px;
       }
       .style(colored; any) {
         background-color: @light-orange;
-        text-align: center;
       }
       .style(multiple-header; table) {
           background: @medium-blue;
@@ -909,15 +832,9 @@
           border: solid 1px @dark-blue !important; // !important is in ccap-base
       }
       #title {
-        .style(any; any) {
-          border-left: 0;
-          border-right: 0;
-        }
         .text(any; any) {
-          border: none !important;
-          background-color: transparent;
           color: @dark-blue;
-          font-weight: bold;
+          font-size: 13px;
         }
         .footnote(any; any) {
           color: @white;
@@ -927,39 +844,11 @@
     }
     #data {
       .style(any; any) {
-        font-family: @font-family-sans-serif;
-        font-size: 9pt;
-        text-align: center;
         border-color: @dark-blue !important; // !important is in ccap-base
-        font-family: @font-family-sans-serif;
-        font-size: 9pt;
-        padding: 5px 10px;
-      }
-      .style(unstyled; any) {
-        border: none;
-        text-align: left;
-       }
-       .style(multiple-headers; any) {
-          padding: 0;
-       }
-       .style(multiple-headers; table) {
-          padding: 10px;
-       }
-       .style(any; preface) {
-        padding: 5px;
-      }
-      .style(any; chapter; chapter-end; key-equations) {
-        margin: 0;
-        border: none !important;
-        caption { display: none; }
-        td { border: none !important; }
       }
       .style('header'; any) {
         background-color: @medium-blue;
-        font-size: 9pt;
         color: @white;
-        text-align: center;
-        vertical-align: initial;
       }
     }
   }
@@ -979,32 +868,18 @@
       .x-feature-color(@dark-purple, @dark-purple, @white, @purple, @cnx-string-chemistry-in-everyday-life);
     }
     .style('link-to-learning'; ...) {
-      // This feature requires some "bugfix" pieces to work
-      // properly, such as a clearfix. Selectors for these are
-      // placed inline in this slot.
      .x-feature-color(@dark-orange, @dark-orange, @white, @orange, @cnx-string-link-to-learning);
-      #utils>#pb>.inside(avoid);
-      text-align: left;
 
-      //clearfix
-      > .body::after {
-        content: "";
-        display: table;
-        clear: both;
-      }
-      .mediaobject {
-        float: left;
-        padding-right: .8em;
-        img {
-          margin: 0;
-        }
-      }
-    }
+     .mediaobject {
+       padding-right: .8em;
+     }
+   }
     .style('answer'; any; example) {
       text-align: right;
       background-color: @example-blue;
       padding: 0;
       margin: 0;
+      page-break-before: avoid;
     }
     #title {
       .style(...) {
@@ -1031,6 +906,7 @@
         padding-right: .5em;
         font-size: 13px;
         font-family: @font-family-serif;
+        page-break-after: avoid;
       }
     }
     #body {
@@ -1038,6 +914,7 @@
         display: inline;
         font-family: @font-family-serif;
         font-size: 13px;
+        page-break-before: avoid;
       }
     }
     // Manual Chapter Objectives note occurs in some books (anatomy, etc)
@@ -1245,10 +1122,12 @@
         background: @dark-blue;
         padding-top: .3em;
         padding-bottom: .3em;
+        page-break-after: avoid;
       }
     }
     #body {
       .style(any) {
+        page-break-before: avoid;
         border-left: 1px solid @dark-blue;
         padding: 1em 2em .5em 2em;
         background: @example-blue;
@@ -1517,23 +1396,5 @@
       font-size: 11px;
       color: @black;
     }
-  }
-}
-
-/********************************************************************
- * Refactor of .x-feature() function to utilize only one paramter
- ********************************************************************/
-
-.x-feature (@svg) {
-  // If feature is only one line prevent clipping of icon
-  min-height: 45px;
-
-  padding-top: 0;
-  margin-top: 0;
-  background: url("ccap-precalculus/@{svg}.svg") no-repeat;
-  background-position: 0 .2em;
-
-  .figure {
-    img { max-width: (@page-width - .25em); }
   }
 }
