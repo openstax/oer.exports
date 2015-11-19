@@ -268,8 +268,7 @@
     }
     #solution {
       .style(...) {
-        display: none; // W&N Requested these be removed 10/25/2013
-                       // since they are collated to EOB.
+        display: none; // W&N Requested these be removed 10/25/2013 since they are collated to EOB.
         .x-column-count(1);
       }
       #title {
@@ -905,6 +904,7 @@
       display: none;
     }
     .style(@kind; book-end) {
+      display: block;
       // style any PreCalc solution that occurs in #book-end
     }
     .style(@kind; @part; exercise; section-exercise) {
@@ -928,15 +928,16 @@
         line-height: 1em;
       }
       .style(@kind; book-end) {
-        // Check the note at
-        // #book-end>#end-of-book-solutions>#solution
-        // This may have been set to not display inline
-        // due to a W&N request.
         display: inline;
-
+        word-spacing: normal;
+        text-align: left;
+        vertical-align: text-top;
         // Solution in Answer Key needs to have period after number.
         &::after {
           content: ". ";
+          display: inline;
+          height: 0;
+          width: 100%;
         }
       }
 
@@ -953,8 +954,9 @@
 
       .style(@kind, book-end) {
         margin-right: .65em;
+        word-spacing: normal;
+        vertical-align: middle;
         display: inline;
-
         // will need to change - include in .body mixin for now
         > a.target-figure {
           margin: 0em .25em;

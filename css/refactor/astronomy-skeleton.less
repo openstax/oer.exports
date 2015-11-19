@@ -15,7 +15,7 @@
   &.seeing-for-yourself {
     #content>#note>.style('seeing-for-yourself'; any);
     >.title {
-       #content>#note>#title>.style('seeing-for-yourself'; any);
+      #content>#note>#title>.style('seeing-for-yourself'; any);
     }
   }
   &.voyagers-in-astronomy {
@@ -28,21 +28,16 @@
 
 //end of chapter
 div.book div.chapter > div.cnx-eoc {
+
   &.further-reading {
-      #part>#chapter-end>#further-reading>.style();
-      .body p {
-        #part>#chapter-end>#further-reading>#item>.style();
-      }
-      > .title {
-        #part>#chapter-end>#further-reading>#title>.style();
-      }
-      > .section .title > a {
-        #part>#chapter-end>#further-reading>#title>.link();
-      }
+    #part>#chapter-end>#further-reading>.style();
+    .body p { #part>#chapter-end>#further-reading>#item>.style(); }
+    > .title { #part>#chapter-end>#further-reading>#title>.style(); }
+    > .section .title > a { #part>#chapter-end>#further-reading>#title>.link(); }
   }
+
   &.interactivity {
     counter-reset: interactivity;
-
     ol {
       #content>#list>.style(any; any; interactivity);
     }
@@ -52,46 +47,39 @@ div.book div.chapter > div.cnx-eoc {
       &:before {
         display: inline;
         float: left;
+        font-weight: bold;
         margin-top: 6px;
         padding-right: 5px;
         content: counter(interactivity)". ";
         counter-increment: interactivity;
         font-family: @font-family-serif
-
       }
-   }
-    .title {display: none;}
-    &.empty {display: none}
+     }
+     .title {display: none;}
+      &.empty {display: none}
+    }
+    #part>#chapter-end>#interactivity>.style();
+    > .title { #part>#chapter-end>#interactivity>#title>.style(); }
+    > .section .title > a { #part>#chapter-end>#interactivity>#title>.link(); }
   }
 
+  &.review-questions {
+    #part>#chapter-end>#review-questions>.style();
+     > .title { #part>#chapter-end>#review-questions>#title>.style(); }
+     > .section .title > a { #part>#chapter-end>#review-questions>#title>.link(); }
+  }
 
-      #part>#chapter-end>#interactivity>.style();
-      > .title {
-        #part>#chapter-end>#interactivity>#title>.style();
-      }
-      > .section .title > a {
-        #part>#chapter-end>#interactivity>#title>.link();
-      }
+  &.thought-questions  {
+    #part>#chapter-end>#thought-questions >.style();
+    > .title { #part>#chapter-end>#thought-questions>#title>.style(); }
+    > .section .title > a { #part>#chapter-end>#thought-questions>#title>.link(); }
+  }
 
-  }
-    &.review-questions {
-      #part>#chapter-end>#review-questions>.style();
-      > .title { #part>#chapter-end>#review-questions>#title>.style(); }
-      > .section .title > a { #part>#chapter-end>#review-questions>#title>.link(); }
-  }
-    &.thought-questions  {
-      #part>#chapter-end>#thought-questions >.style();
-      > .title { #part>#chapter-end>#thought-questions >#title>.style(); }
-      > .section .title > a { #part>#chapter-end>#thought-questions >#title>.link(); }
-  }
-      &.figuring-for-yourself  {
-      #part>#chapter-end>#figuring-for-yourself >.style();
-      > .title { #part>#chapter-end>#figuring-for-yourself >#title>.style(); }
-      > .section .title > a { #part>#chapter-end>#figuring-for-yourself >#title>.link(); }
+  &.figuring-for-yourself  {
+    #part>#chapter-end>#figuring-for-yourself >.style();
+    > .title { #part>#chapter-end>#figuring-for-yourself>#title>.style(); }
+    > .section .title > a { #part>#chapter-end>#figuring-for-yourself>#title>.link(); }
   }
 }
 
 .note img {max-width: 6in;}
-div.table-caption.caption {
-  //display: none;
-}
