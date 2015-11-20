@@ -197,6 +197,13 @@
         .style(){
           margin-left: 10px;
         }
+        #listitem {
+          .style() {
+            background: url("./ccap-precalculus/learning-objectives.png") no-repeat 0;
+            background-size: 3px 4px;
+            padding-left: 10px;
+          }
+        }
       }
     }
   }
@@ -557,32 +564,25 @@
       margin: 0;
     }
     .style(non-feature) {
-      color: @black-50;
-      background-color: @black-5;
-      margin: 0;
-      padding: 0;
+      background-color: fade(@quarternary-color, 10%);
     }
-    .style(qa; ...) {
+    .style(qa; ) {
       #utils>#pb>.inside(avoid);
-      .x-feature(qa);
-      // place adjustment for padding here so we don't
-      // have to place in #title and #body below
-      padding-left: 2.8em;
+      .x-feature-math(qa, "Q&A :: ");
     }
     .style(media; ...) {
       #utils>#pb>.inside(avoid);
-      .x-feature(media);
-      padding-left: 2.5em;
+      .x-feature-math(media, "Media :: ");
     }
+
     .style(try; ...) {
       #utils>#pb>.inside(avoid);
-      .x-feature(try);
+      .x-feature-math(try, "Try It :: ");
 
     }
     .style(howto; ...) {
       #utils>#pb>.inside(avoid);
-      .x-feature(howto);
-      padding-left: 2.8em;
+      .x-feature-math(how-to, "How to :: ");
     }
     .style(emphasized; howto) {
       #content>#note>.style(howto);
@@ -628,8 +628,7 @@
     }
     .style(media-2; ...) {
       #utils>#pb>.inside(avoid);
-      .x-banner-feature(media; calculus);
-      padding-left: 32px;
+      .x-feature-math(media; "Media :: ");
     }
     .style(problem-solving) {
       #content>#note>.style(non-feature);
@@ -641,23 +640,18 @@
     }
     #title {
       .style(...) {
-        padding: 7px 10px;
+
       }
       .style(non-feature) {
         #utils>#pb>.after(avoid);
         text-align: left;
-        text-transform: uppercase;
         color: @secondary-color;
-        font-weight: bold;
-
+        padding: 7px 10px;
       }
       .style(@kind; @part; feature-try) {
         margin-top: 0;
-        color: @black;
         font-family: @font-family-serif;
-        font-size: 10pt;
         font-weight: bold;
-        float: left;
       }
       .style(@kind; @part; feature-qa) {
         font-family: @font-family-serif;
@@ -666,8 +660,6 @@
       .style(@kind; @part; student-project) {
         font-family: @font-family;
         font-weight: bold;
-        color: @dark-blue;
-        font-size: 11pt;
         padding-bottom: 0em;
         margin-top: 1.5em;
         margin-bottom: 1em;
@@ -688,15 +680,17 @@
     }
     #body {
       .style(...) {
+        padding: 0;
       }
       .style(non-feature) {
-        border-top: solid 1px @black-10;
+        border-top: solid 1px fade(@black, 10%);
         p {
           padding: 7px 10px;
         }
       }
       .style(@kind; @part; feature-try) {
         font-weight: normal;
+        display: inline;
 
       }
       .style(@kind; @part; feature-qa) {
@@ -964,7 +958,7 @@
   #problem {
     .style(@kind; @part; feature-try; exercise) {
       // Template design asks for lists to be set apart
-     font-size:13px;
+    // font-size:13px;
      line-height:16px;
      margin-left:20px;
     }
