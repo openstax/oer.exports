@@ -15,30 +15,38 @@
   }
 }
 
-.x-feature-math (@png, @label: "" ) {
+.x-feature-math (@png, @label: "" , @divider: "") {
   // If feature is only one line prevent clipping of icon
   display: block;
    &:before {
-      padding: 0 5px 0 15px;
+      padding: 0 0 0 15px;
       background: url("ccap-precalculus/@{png}.png") no-repeat 0;
       background-size: 11px auto;
       content: @label;
       color: @accent-color;
-      display: inline-block;
+      display: inline;
     }
   .title {
+    &:before {
+      content: @divider;
+      color: fade(@black, 70%);
+      padding: 3px 0;
+    }
     color: @primary-color;
     text-transform: uppercase;
-    display: inline-block;
+    display: inline;
     vertical-align: top;
   }
   .body {
-    display: inline-block;
+    page-break-before: avoid;
+    display: inline;
     vertical-align: top;
     color: fade(@black, 50%);
-
+    > div {
+      display: inline;
+    }
     p:nth-of-type(1) {
-      padding-top: 0;
+      padding-top: 10px;
       margin-top:  0;
     }
   }
@@ -46,7 +54,14 @@
     img { max-width: (@page-width - .25em); }
   }
 }
-
+.x-feature-inline () {
+  .body {
+    p:nth-of-type(1){
+      display: inline;
+      padding-top: 0;
+    }
+  }
+}
 
 .x-banner-feature (@svg, @book, @type: "svg") {
   // If feature is only one line prevent clipping of icon

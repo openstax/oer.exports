@@ -947,7 +947,6 @@ g {
   line { stroke: currentColor !important; }
 }
 
-
 //end of precalculus
 
 // Copyright (c) 2013 Rice University
@@ -995,6 +994,22 @@ div[class="note"] {
 
     > .body .figure .title { #content>#figure>#title>.style(any; any; @context); }
   }
+
+  &.manipulative-math {
+    @context: manipulative-math;
+    #content>#note>.style(manipulative-math);
+
+    > .title {
+      #content>#note>#title>.style(@kind; @part; @context);
+    }
+    // the paragraph inside body has to be specifically targeted here to remove top-margin. grr.
+    >.body, .body > p {
+      #content>#note>#body>.style(@kind; @part; @context);
+    }
+
+    > .body .figure .title { #content>#figure>#title>.style(any; any; @context); }
+  }
+
   &.media {
     @context: feature-media;
     #content>#note>.style(media);

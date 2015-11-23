@@ -951,7 +951,7 @@ div.book > div.preface .note.try:not(.labeled) {
 div.book > div.preface .note.try.labeled {
   counter-increment: none;
 }
-div.book > div.preface .note.try > .title:not(.labeled)::before {
+div.book > div.preface .note.try > .title .cnx-gentext-tip-t:not(.labeled)::before {
   content: "" "" "" "" counter(try) " " "";
   color: rgba(0, 0, 0, 0.5);
   display: inline;
@@ -980,7 +980,7 @@ div.book div.chapter .note.try:not(.labeled) {
 div.book div.chapter .note.try.labeled {
   counter-increment: none;
 }
-div.book div.chapter .note.try > .title:not(.labeled)::before {
+div.book div.chapter .note.try > .title .cnx-gentext-tip-t:not(.labeled)::before {
   content: "" "" counter(chapter, decimal) "." counter(try) " " "";
   color: rgba(0, 0, 0, 0.5);
   display: inline;
@@ -1009,7 +1009,7 @@ div.book > div.appendix .note.try:not(.labeled) {
 div.book > div.appendix .note.try.labeled {
   counter-increment: none;
 }
-div.book > div.appendix .note.try > .title:not(.labeled)::before {
+div.book > div.appendix .note.try > .title .cnx-gentext-tip-t:not(.labeled)::before {
   content: "" "" counter(appendix, upper-latin) "" counter(try) " " "";
   color: rgba(0, 0, 0, 0.5);
   display: inline;
@@ -1633,7 +1633,7 @@ h6 {
   margin-bottom: 1.5em;
   color: #000000;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1rem 0;
 }
 .note h3 {
   margin-top: 0.5em;
@@ -1826,7 +1826,7 @@ p:nth-of-type(2),
   margin-bottom: 1.5em;
   color: #000000;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1rem 0;
 }
 .introduction .footnote {
   color: black;
@@ -1911,7 +1911,7 @@ p:nth-of-type(2),
   margin-bottom: 1.5em;
   color: #000000;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1rem 0;
 }
 .chapter .footnote {
   color: black;
@@ -1996,7 +1996,7 @@ p:nth-of-type(2),
   margin-bottom: 1.5em;
   color: #000000;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1rem 0;
 }
 .cnx-eoc .footnote {
   color: black;
@@ -2081,7 +2081,7 @@ p:nth-of-type(2),
   margin-bottom: 1.5em;
   color: #000000;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1rem 0;
 }
 .colophon .footnote {
   color: black;
@@ -3489,8 +3489,10 @@ div[class="note"] {
   margin-bottom: 1.5em;
   color: #000000;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1rem 0;
   background-color: rgba(196, 206, 187, 0.1);
+  border-bottom: solid 1px #C4CEBB;
+  border-radius: 5px;
 }
 div[class="note"] > .title {
   margin-top: 0.5em;
@@ -3501,7 +3503,7 @@ div[class="note"] > .title {
 }
 div[class="note"] .body {
   padding: 0;
-  border-top: solid 1px rgba(0, 0, 0, 0.1);
+  border-top: solid 1px #F1F1F1;
 }
 div[class="note"] .body p {
   padding: 7px 10px;
@@ -3515,31 +3517,40 @@ div[class="note"] .body p {
   margin-bottom: 1.5em;
   color: #000000;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1rem 0;
   page-break-inside: avoid;
   display: block;
 }
 .note.qa:before {
-  padding: 0 5px 0 15px;
+  padding: 0 0 0 15px;
   background: url("ccap-precalculus/qa.png") no-repeat 0;
   background-size: 11px auto;
-  content: "Q&A :: ";
+  content: "Q&A";
   color: #c6ce33;
-  display: inline-block;
+  display: inline;
 }
 .note.qa .title {
   color: #093d4c;
   text-transform: uppercase;
-  display: inline-block;
+  display: inline;
   vertical-align: top;
 }
+.note.qa .title:before {
+  content: " :: ";
+  color: rgba(0, 0, 0, 0.7);
+  padding: 3px 0;
+}
 .note.qa .body {
-  display: inline-block;
+  page-break-before: avoid;
+  display: inline;
   vertical-align: top;
   color: rgba(0, 0, 0, 0.5);
 }
+.note.qa .body > div {
+  display: inline;
+}
 .note.qa .body p:nth-of-type(1) {
-  padding-top: 0;
+  padding-top: 10px;
   margin-top: 0;
 }
 .note.qa .figure img {
@@ -3565,6 +3576,73 @@ div[class="note"] .body p {
   text-align: left;
   page-break-before: avoid;
 }
+.note.manipulative-math {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  color: #000000;
+  padding: 0;
+  margin: 0 0 1rem 0;
+  display: block;
+}
+.note.manipulative-math:before {
+  padding: 0 0 0 15px;
+  background: url("ccap-precalculus/manipulative-math.png") no-repeat 0;
+  background-size: 11px auto;
+  content: "Manipulative Math";
+  color: #c6ce33;
+  display: inline;
+}
+.note.manipulative-math .title {
+  color: #093d4c;
+  text-transform: uppercase;
+  display: inline;
+  vertical-align: top;
+}
+.note.manipulative-math .title:before {
+  content: " :: ";
+  color: rgba(0, 0, 0, 0.7);
+  padding: 3px 0;
+}
+.note.manipulative-math .body {
+  page-break-before: avoid;
+  display: inline;
+  vertical-align: top;
+  color: rgba(0, 0, 0, 0.5);
+}
+.note.manipulative-math .body > div {
+  display: inline;
+}
+.note.manipulative-math .body p:nth-of-type(1) {
+  padding-top: 10px;
+  margin-top: 0;
+}
+.note.manipulative-math .figure img {
+  max-width: 6.25in;
+}
+.note.manipulative-math .body p:nth-of-type(1) {
+  display: inline;
+  padding-top: 0;
+}
+.note.manipulative-math > .title {
+  margin-top: 0.5em;
+}
+.note.manipulative-math > .body,
+.note.manipulative-math .body > p {
+  padding: 0;
+}
+.note.manipulative-math > .body .figure .title {
+  display: inline;
+  text-align: center;
+  display: table-caption;
+  text-align: left;
+  page-break-before: avoid;
+  padding-bottom: 1em;
+  font-family: 'Noto Serif', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
 .note.media {
   padding-left: 1em;
   padding-right: 1em;
@@ -3574,31 +3652,40 @@ div[class="note"] .body p {
   margin-bottom: 1.5em;
   color: #000000;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1rem 0;
   page-break-inside: avoid;
   display: block;
 }
 .note.media:before {
-  padding: 0 5px 0 15px;
+  padding: 0 0 0 15px;
   background: url("ccap-precalculus/media.png") no-repeat 0;
   background-size: 11px auto;
-  content: "Media :: ";
+  content: "Media";
   color: #c6ce33;
-  display: inline-block;
+  display: inline;
 }
 .note.media .title {
   color: #093d4c;
   text-transform: uppercase;
-  display: inline-block;
+  display: inline;
   vertical-align: top;
 }
+.note.media .title:before {
+  content: " :: ";
+  color: rgba(0, 0, 0, 0.7);
+  padding: 3px 0;
+}
 .note.media .body {
-  display: inline-block;
+  page-break-before: avoid;
+  display: inline;
   vertical-align: top;
   color: rgba(0, 0, 0, 0.5);
 }
+.note.media .body > div {
+  display: inline;
+}
 .note.media .body p:nth-of-type(1) {
-  padding-top: 0;
+  padding-top: 10px;
   margin-top: 0;
 }
 .note.media .figure img {
@@ -3621,35 +3708,48 @@ div[class="note"] .body p {
   margin-bottom: 1.5em;
   color: #000000;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1rem 0;
   page-break-inside: avoid;
   display: block;
 }
 .note.try:before {
-  padding: 0 5px 0 15px;
+  padding: 0 0 0 15px;
   background: url("ccap-precalculus/try.png") no-repeat 0;
   background-size: 11px auto;
-  content: "Try It :: ";
+  content: "Try It";
   color: #c6ce33;
-  display: inline-block;
+  display: inline;
 }
 .note.try .title {
   color: #093d4c;
   text-transform: uppercase;
-  display: inline-block;
+  display: inline;
   vertical-align: top;
 }
+.note.try .title:before {
+  content: " :: ";
+  color: rgba(0, 0, 0, 0.7);
+  padding: 3px 0;
+}
 .note.try .body {
-  display: inline-block;
+  page-break-before: avoid;
+  display: inline;
   vertical-align: top;
   color: rgba(0, 0, 0, 0.5);
 }
+.note.try .body > div {
+  display: inline;
+}
 .note.try .body p:nth-of-type(1) {
-  padding-top: 0;
+  padding-top: 10px;
   margin-top: 0;
 }
 .note.try .figure img {
   max-width: 6.25in;
+}
+.note.try .body p:nth-of-type(1) {
+  display: inline;
+  padding-top: 0;
 }
 .note.try div.itemizedlist ul,
 .note.try div.orderedlist ul,
@@ -3689,7 +3789,9 @@ div[class="note"] .body p {
 }
 .note.try .exercise .problem {
   line-height: 16px;
-  margin-left: 20px;
+  margin-left: 5px;
+  margin-top: -2px;
+  font-size: 8px;
 }
 .note.try .exercise .solution {
   display: none;
@@ -3703,31 +3805,40 @@ div[class="note"] .body p {
   margin-bottom: 1.5em;
   color: #000000;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1rem 0;
   page-break-inside: avoid;
   display: block;
 }
 .note.howto:before {
-  padding: 0 5px 0 15px;
+  padding: 0 0 0 15px;
   background: url("ccap-precalculus/how-to.png") no-repeat 0;
   background-size: 11px auto;
-  content: "How to :: ";
+  content: "How to";
   color: #c6ce33;
-  display: inline-block;
+  display: inline;
 }
 .note.howto .title {
   color: #093d4c;
   text-transform: uppercase;
-  display: inline-block;
+  display: inline;
   vertical-align: top;
 }
+.note.howto .title:before {
+  content: " :: ";
+  color: rgba(0, 0, 0, 0.7);
+  padding: 3px 0;
+}
 .note.howto .body {
-  display: inline-block;
+  page-break-before: avoid;
+  display: inline;
   vertical-align: top;
   color: rgba(0, 0, 0, 0.5);
 }
+.note.howto .body > div {
+  display: inline;
+}
 .note.howto .body p:nth-of-type(1) {
-  padding-top: 0;
+  padding-top: 10px;
   margin-top: 0;
 }
 .note.howto .figure img {
@@ -3742,7 +3853,7 @@ div[class="note"] .body p {
   margin-bottom: 1.5em;
   color: #000000;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1rem 0;
   page-break-inside: avoid;
   display: block;
   padding-top: .4em;
@@ -3751,26 +3862,35 @@ div[class="note"] .body p {
   background-color: #34bdd8;
 }
 .note.howto.emphasized:before {
-  padding: 0 5px 0 15px;
+  padding: 0 0 0 15px;
   background: url("ccap-precalculus/how-to.png") no-repeat 0;
   background-size: 11px auto;
-  content: "How to :: ";
+  content: "How to";
   color: #c6ce33;
-  display: inline-block;
+  display: inline;
 }
 .note.howto.emphasized .title {
   color: #093d4c;
   text-transform: uppercase;
-  display: inline-block;
+  display: inline;
   vertical-align: top;
 }
+.note.howto.emphasized .title:before {
+  content: " :: ";
+  color: rgba(0, 0, 0, 0.7);
+  padding: 3px 0;
+}
 .note.howto.emphasized .body {
-  display: inline-block;
+  page-break-before: avoid;
+  display: inline;
   vertical-align: top;
   color: rgba(0, 0, 0, 0.5);
 }
+.note.howto.emphasized .body > div {
+  display: inline;
+}
 .note.howto.emphasized .body p:nth-of-type(1) {
-  padding-top: 0;
+  padding-top: 10px;
   margin-top: 0;
 }
 .note.howto.emphasized .figure img {
@@ -3785,8 +3905,10 @@ div[class="note"] .body p {
   margin-bottom: 1.5em;
   color: #000000;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1rem 0;
   background-color: rgba(196, 206, 187, 0.1);
+  border-bottom: solid 1px #C4CEBB;
+  border-radius: 5px;
 }
 .note.theorem > .title {
   margin-top: 0.5em;
@@ -3804,7 +3926,7 @@ div[class="note"] .body p {
   margin-bottom: 1.5em;
   color: #000000;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1rem 0;
   page-break-inside: avoid;
   page-break-before: always;
   background-color: #34bdd8;
@@ -3847,7 +3969,7 @@ div[class="note"] .body p {
   margin-bottom: 1.5em;
   color: #000000;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1rem 0;
   page-break-inside: avoid;
   min-height: 45px;
   padding-top: 0;
@@ -3868,7 +3990,7 @@ div[class="note"] .body p {
   margin-bottom: 1.5em;
   color: #000000;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1rem 0;
   page-break-inside: avoid;
   min-height: 45px;
   padding-top: 0;
@@ -3889,7 +4011,7 @@ div[class="note"] .body p {
   margin-bottom: 1.5em;
   color: #000000;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1rem 0;
   page-break-inside: avoid;
   min-height: 45px;
   padding-top: 0;
@@ -3959,7 +4081,9 @@ div[class="note"] .body p {
 .note.checkpoint .exercise .problem,
 .note.check-understanding .exercise .problem {
   line-height: 16px;
-  margin-left: 20px;
+  margin-left: 5px;
+  margin-top: -2px;
+  font-size: 8px;
 }
 .note.quick-check .exercise .solution,
 .note.checkpoint .exercise .solution,
@@ -3991,31 +4115,40 @@ div[class="note"] .body p {
   margin-bottom: 1.5em;
   color: #000000;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1rem 0;
   page-break-inside: avoid;
   display: block;
 }
 .note.media-2:before {
-  padding: 0 5px 0 15px;
+  padding: 0 0 0 15px;
   background: url("ccap-precalculus/media.png") no-repeat 0;
   background-size: 11px auto;
-  content: "Media :: ";
+  content: "Media ", " :: ";
   color: #c6ce33;
-  display: inline-block;
+  display: inline;
 }
 .note.media-2 .title {
   color: #093d4c;
   text-transform: uppercase;
-  display: inline-block;
+  display: inline;
   vertical-align: top;
 }
+.note.media-2 .title:before {
+  content: "";
+  color: rgba(0, 0, 0, 0.7);
+  padding: 3px 0;
+}
 .note.media-2 .body {
-  display: inline-block;
+  page-break-before: avoid;
+  display: inline;
   vertical-align: top;
   color: rgba(0, 0, 0, 0.5);
 }
+.note.media-2 .body > div {
+  display: inline;
+}
 .note.media-2 .body p:nth-of-type(1) {
-  padding-top: 0;
+  padding-top: 10px;
   margin-top: 0;
 }
 .note.media-2 .figure img {
@@ -4038,8 +4171,10 @@ div[class="note"] .body p {
   margin-bottom: 1.5em;
   color: #000000;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1rem 0;
   background-color: rgba(196, 206, 187, 0.1);
+  border-bottom: solid 1px #C4CEBB;
+  border-radius: 5px;
 }
 .note.definition > .title {
   margin-top: 0.5em;
@@ -4066,8 +4201,10 @@ div[class="note"] .body p {
   margin-bottom: 1.5em;
   color: #000000;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1rem 0;
   background-color: rgba(196, 206, 187, 0.1);
+  border-bottom: solid 1px #C4CEBB;
+  border-radius: 5px;
   background-color: #f1ddb6;
   padding-bottom: 1em;
 }
@@ -4087,8 +4224,10 @@ div[class="note"] .body p {
   margin-bottom: 1.5em;
   color: #000000;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1rem 0;
   background-color: rgba(196, 206, 187, 0.1);
+  border-bottom: solid 1px #C4CEBB;
+  border-radius: 5px;
 }
 .note.be-prepared > .title {
   margin-top: 0.5em;
