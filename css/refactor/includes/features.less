@@ -15,6 +15,39 @@
   }
 }
 
+.x-feature-math (@png, @label: "" ) {
+  // If feature is only one line prevent clipping of icon
+  display: block;
+   &:before {
+      padding: 0 5px 0 15px;
+      background: url("ccap-precalculus/@{png}.png") no-repeat 0;
+      background-size: 11px auto;
+      content: @label;
+      color: @accent-color;
+      display: inline-block;
+    }
+  .title {
+    color: @primary-color;
+    text-transform: uppercase;
+    display: inline-block;
+    vertical-align: top;
+  }
+  .body {
+    display: inline-block;
+    vertical-align: top;
+    color: fade(@black, 50%);
+
+    p:nth-of-type(1) {
+      padding-top: 0;
+      margin-top:  0;
+    }
+  }
+  .figure {
+    img { max-width: (@page-width - .25em); }
+  }
+}
+
+
 .x-banner-feature (@svg, @book, @type: "svg") {
   // If feature is only one line prevent clipping of icon
   min-height: 45px;
