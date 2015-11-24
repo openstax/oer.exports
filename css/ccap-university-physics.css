@@ -955,6 +955,8 @@ div.book > div.preface .note.try > .title .cnx-gentext-tip-t:not(.labeled)::befo
   content: "" "" "" "" counter(try) " " "";
   color: rgba(0, 0, 0, 0.5);
   display: inline;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  position: relative;
 }
 div.book div.chapter {
   /* --------------------------------------
@@ -984,6 +986,8 @@ div.book div.chapter .note.try > .title .cnx-gentext-tip-t:not(.labeled)::before
   content: "" "" counter(chapter, decimal) "." counter(try) " " "";
   color: rgba(0, 0, 0, 0.5);
   display: inline;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  position: relative;
 }
 div.book > div.appendix {
   /* --------------------------------------
@@ -1013,6 +1017,8 @@ div.book > div.appendix .note.try > .title .cnx-gentext-tip-t:not(.labeled)::bef
   content: "" "" counter(appendix, upper-latin) "" counter(try) " " "";
   color: rgba(0, 0, 0, 0.5);
   display: inline;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  position: relative;
 }
 @page {
   margin: 0.8in 1in;
@@ -2991,7 +2997,7 @@ img {
   max-height: 9.5in;
 }
 p {
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 img,
 figure,
@@ -3069,7 +3075,6 @@ subfigure {
 .figure img {
   margin: 0;
   max-width: 6.5in;
-  max-width: 2.16666667in;
 }
 .figure + p {
   padding-top: 1.5em;
@@ -3460,6 +3465,30 @@ div.orderedlist ol {
   margin: 0 0 0 40px;
   padding: 0;
 }
+div.orderedlist.circled ol {
+  list-style: none;
+}
+div.orderedlist.circled li {
+  display: inline;
+}
+div.orderedlist.circled li p {
+  padding: 0;
+  display: inline;
+  margin: 0;
+}
+.orderedlist.stepwise {
+  counter-reset: item;
+  list-style-type: none;
+}
+.orderedlist.stepwise li {
+  padding-bottom: 1rem;
+}
+.orderedlist.stepwise li:before {
+  content: "Step " counter(item, decimal) '. ';
+  counter-increment: item;
+  position: absolute;
+  margin-left: -40px;
+}
 .cnx-eoc .key-concepts div.itemizedlist ul li,
 .cnx-eoc .key-concepts div.orderedlist ul li,
 .cnx-eoc .key-concepts div.itemizedlist ol li,
@@ -3517,7 +3546,7 @@ div[class="note"] {
   padding: 0;
   margin: 0 0 1rem 0;
   background-color: rgba(196, 206, 187, 0.1);
-  border-bottom: solid 1px #C4CEBB;
+  border-bottom: solid 1px #f0f0f0;
   border-radius: 5px;
 }
 div[class="note"] > .title {
@@ -3532,6 +3561,35 @@ div[class="note"] .body {
   border-top: solid 1px #F1F1F1;
 }
 div[class="note"] .body p {
+  padding: 7px 10px;
+}
+.note.be-prepared {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  color: #000000;
+  padding: 0;
+  margin: 0 0 1rem 0;
+  background-color: rgba(196, 206, 187, 0.1);
+  border-bottom: solid 1px #f0f0f0;
+  border-radius: 5px;
+}
+.note.be-prepared > .title {
+  margin-top: 0.5em;
+  page-break-after: avoid;
+  text-align: left;
+  color: #1e7e91;
+  padding: 7px 10px;
+  margin-bottom: 1em;
+}
+.note.be-prepared .body {
+  padding: 0;
+  border-top: solid 1px #F1F1F1;
+}
+.note.be-prepared .body p {
   padding: 7px 10px;
 }
 .note.qa {
@@ -3552,8 +3610,10 @@ div[class="note"] .body p {
   background: url("ccap-precalculus/qa.png") no-repeat 0;
   background-size: 11px auto;
   content: "Q&A";
+  text-transform: uppercase;
   color: #c6ce33;
   display: inline;
+  font-family: 'Roboto Slab', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .note.qa .title {
   color: #093d4c;
@@ -3562,22 +3622,27 @@ div[class="note"] .body p {
   vertical-align: top;
 }
 .note.qa .title:before {
-  content: " :: ";
-  color: rgba(0, 0, 0, 0.7);
-  padding: 3px 0;
+  content: " : : ";
+  width: 20px;
+  display: inline-block;
+  text-align: center;
+  margin: auto;
+  color: #093d4c;
+  text-transform: uppercase;
+  font-family: 'Roboto Slab', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-weight: 700;
 }
 .note.qa .body {
+  padding-top: 10px;
   page-break-before: avoid;
-  display: inline;
-  vertical-align: top;
+  vertical-align: center;
   color: rgba(0, 0, 0, 0.5);
 }
-.note.qa .body > div {
-  display: inline;
-}
 .note.qa .body p:nth-of-type(1) {
-  padding-top: 10px;
   margin-top: 0;
+}
+.note.qa .body .orderedlist.stepwise {
+  margin-left: 0;
 }
 .note.qa .figure img {
   max-width: 6.25in;
@@ -3619,8 +3684,10 @@ div[class="note"] .body p {
   background: url("ccap-precalculus/manipulative-math.png") no-repeat 0;
   background-size: 11px auto;
   content: "Manipulative Math";
+  text-transform: uppercase;
   color: #c6ce33;
   display: inline;
+  font-family: 'Roboto Slab', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .note.manipulative-math .title {
   color: #093d4c;
@@ -3629,28 +3696,55 @@ div[class="note"] .body p {
   vertical-align: top;
 }
 .note.manipulative-math .title:before {
-  content: " :: ";
-  color: rgba(0, 0, 0, 0.7);
-  padding: 3px 0;
+  content: " : : ";
+  width: 20px;
+  display: inline-block;
+  text-align: center;
+  margin: auto;
+  color: #093d4c;
+  text-transform: uppercase;
+  font-family: 'Roboto Slab', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-weight: 700;
 }
 .note.manipulative-math .body {
+  padding-top: 10px;
   page-break-before: avoid;
-  display: inline;
-  vertical-align: top;
+  vertical-align: center;
   color: rgba(0, 0, 0, 0.5);
 }
-.note.manipulative-math .body > div {
-  display: inline;
-}
 .note.manipulative-math .body p:nth-of-type(1) {
-  padding-top: 10px;
   margin-top: 0;
+}
+.note.manipulative-math .body .orderedlist.stepwise {
+  margin-left: 0;
 }
 .note.manipulative-math .figure img {
   max-width: 6.25in;
 }
+.note.manipulative-math:before {
+  vertical-align: top;
+  display: inline-block;
+  width: 20%;
+}
+.note.manipulative-math .title {
+  display: inline-block;
+  vertical-align: top;
+}
+.note.manipulative-math .title:before {
+  vertical-align: top;
+  display: inline-block;
+}
+.note.manipulative-math .body {
+  width: 69%;
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 0;
+}
+.note.manipulative-math .body .problem {
+  display: inline-block;
+}
 .note.manipulative-math .body p:nth-of-type(1) {
-  display: inline;
+  display: inline-block;
   padding-top: 0;
 }
 .note.manipulative-math > .title {
@@ -3687,8 +3781,10 @@ div[class="note"] .body p {
   background: url("ccap-precalculus/media.png") no-repeat 0;
   background-size: 11px auto;
   content: "Media";
+  text-transform: uppercase;
   color: #c6ce33;
   display: inline;
+  font-family: 'Roboto Slab', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .note.media .title {
   color: #093d4c;
@@ -3697,22 +3793,27 @@ div[class="note"] .body p {
   vertical-align: top;
 }
 .note.media .title:before {
-  content: " :: ";
-  color: rgba(0, 0, 0, 0.7);
-  padding: 3px 0;
+  content: " : : ";
+  width: 20px;
+  display: inline-block;
+  text-align: center;
+  margin: auto;
+  color: #093d4c;
+  text-transform: uppercase;
+  font-family: 'Roboto Slab', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-weight: 700;
 }
 .note.media .body {
+  padding-top: 10px;
   page-break-before: avoid;
-  display: inline;
-  vertical-align: top;
+  vertical-align: center;
   color: rgba(0, 0, 0, 0.5);
 }
-.note.media .body > div {
-  display: inline;
-}
 .note.media .body p:nth-of-type(1) {
-  padding-top: 10px;
   margin-top: 0;
+}
+.note.media .body .orderedlist.stepwise {
+  margin-left: 0;
 }
 .note.media .figure img {
   max-width: 6.25in;
@@ -3743,8 +3844,10 @@ div[class="note"] .body p {
   background: url("ccap-precalculus/try.png") no-repeat 0;
   background-size: 11px auto;
   content: "Try It";
+  text-transform: uppercase;
   color: #c6ce33;
   display: inline;
+  font-family: 'Roboto Slab', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .note.try .title {
   color: #093d4c;
@@ -3753,28 +3856,55 @@ div[class="note"] .body p {
   vertical-align: top;
 }
 .note.try .title:before {
-  content: " :: ";
-  color: rgba(0, 0, 0, 0.7);
-  padding: 3px 0;
+  content: " : : ";
+  width: 20px;
+  display: inline-block;
+  text-align: center;
+  margin: auto;
+  color: #093d4c;
+  text-transform: uppercase;
+  font-family: 'Roboto Slab', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-weight: 700;
 }
 .note.try .body {
+  padding-top: 10px;
   page-break-before: avoid;
-  display: inline;
-  vertical-align: top;
+  vertical-align: center;
   color: rgba(0, 0, 0, 0.5);
 }
-.note.try .body > div {
-  display: inline;
-}
 .note.try .body p:nth-of-type(1) {
-  padding-top: 10px;
   margin-top: 0;
+}
+.note.try .body .orderedlist.stepwise {
+  margin-left: 0;
 }
 .note.try .figure img {
   max-width: 6.25in;
 }
+.note.try:before {
+  vertical-align: top;
+  display: inline-block;
+  width: 6%;
+}
+.note.try .title {
+  display: inline-block;
+  vertical-align: top;
+}
+.note.try .title:before {
+  vertical-align: top;
+  display: inline-block;
+}
+.note.try .body {
+  width: 83%;
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 0;
+}
+.note.try .body .problem {
+  display: inline-block;
+}
 .note.try .body p:nth-of-type(1) {
-  display: inline;
+  display: inline-block;
   padding-top: 0;
 }
 .note.try div.itemizedlist ul,
@@ -3817,7 +3947,6 @@ div[class="note"] .body p {
   line-height: 16px;
   margin-left: 5px;
   margin-top: -2px;
-  font-size: 8px;
 }
 .note.try .exercise .solution {
   display: none;
@@ -3840,8 +3969,10 @@ div[class="note"] .body p {
   background: url("ccap-precalculus/how-to.png") no-repeat 0;
   background-size: 11px auto;
   content: "How to";
+  text-transform: uppercase;
   color: #c6ce33;
   display: inline;
+  font-family: 'Roboto Slab', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .note.howto .title {
   color: #093d4c;
@@ -3850,22 +3981,27 @@ div[class="note"] .body p {
   vertical-align: top;
 }
 .note.howto .title:before {
-  content: " :: ";
-  color: rgba(0, 0, 0, 0.7);
-  padding: 3px 0;
+  content: " : : ";
+  width: 20px;
+  display: inline-block;
+  text-align: center;
+  margin: auto;
+  color: #093d4c;
+  text-transform: uppercase;
+  font-family: 'Roboto Slab', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-weight: 700;
 }
 .note.howto .body {
+  padding-top: 10px;
   page-break-before: avoid;
-  display: inline;
-  vertical-align: top;
+  vertical-align: center;
   color: rgba(0, 0, 0, 0.5);
 }
-.note.howto .body > div {
-  display: inline;
-}
 .note.howto .body p:nth-of-type(1) {
-  padding-top: 10px;
   margin-top: 0;
+}
+.note.howto .body .orderedlist.stepwise {
+  margin-left: 0;
 }
 .note.howto .figure img {
   max-width: 6.25in;
@@ -3892,8 +4028,10 @@ div[class="note"] .body p {
   background: url("ccap-precalculus/how-to.png") no-repeat 0;
   background-size: 11px auto;
   content: "How to";
+  text-transform: uppercase;
   color: #c6ce33;
   display: inline;
+  font-family: 'Roboto Slab', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .note.howto.emphasized .title {
   color: #093d4c;
@@ -3902,22 +4040,27 @@ div[class="note"] .body p {
   vertical-align: top;
 }
 .note.howto.emphasized .title:before {
-  content: " :: ";
-  color: rgba(0, 0, 0, 0.7);
-  padding: 3px 0;
+  content: " : : ";
+  width: 20px;
+  display: inline-block;
+  text-align: center;
+  margin: auto;
+  color: #093d4c;
+  text-transform: uppercase;
+  font-family: 'Roboto Slab', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-weight: 700;
 }
 .note.howto.emphasized .body {
+  padding-top: 10px;
   page-break-before: avoid;
-  display: inline;
-  vertical-align: top;
+  vertical-align: center;
   color: rgba(0, 0, 0, 0.5);
 }
-.note.howto.emphasized .body > div {
-  display: inline;
-}
 .note.howto.emphasized .body p:nth-of-type(1) {
-  padding-top: 10px;
   margin-top: 0;
+}
+.note.howto.emphasized .body .orderedlist.stepwise {
+  margin-left: 0;
 }
 .note.howto.emphasized .figure img {
   max-width: 6.25in;
@@ -3933,7 +4076,7 @@ div[class="note"] .body p {
   padding: 0;
   margin: 0 0 1rem 0;
   background-color: rgba(196, 206, 187, 0.1);
-  border-bottom: solid 1px #C4CEBB;
+  border-bottom: solid 1px #f0f0f0;
   border-radius: 5px;
 }
 .note.theorem > .title {
@@ -4109,7 +4252,6 @@ div[class="note"] .body p {
   line-height: 16px;
   margin-left: 5px;
   margin-top: -2px;
-  font-size: 8px;
 }
 .note.quick-check .exercise .solution,
 .note.checkpoint .exercise .solution,
@@ -4149,9 +4291,11 @@ div[class="note"] .body p {
   padding: 0 0 0 15px;
   background: url("ccap-precalculus/media.png") no-repeat 0;
   background-size: 11px auto;
-  content: "Media ", " :: ";
+  content: "Media ", " : : ";
+  text-transform: uppercase;
   color: #c6ce33;
   display: inline;
+  font-family: 'Roboto Slab', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .note.media-2 .title {
   color: #093d4c;
@@ -4161,21 +4305,26 @@ div[class="note"] .body p {
 }
 .note.media-2 .title:before {
   content: "";
-  color: rgba(0, 0, 0, 0.7);
-  padding: 3px 0;
+  width: 20px;
+  display: inline-block;
+  text-align: center;
+  margin: auto;
+  color: #093d4c;
+  text-transform: uppercase;
+  font-family: 'Roboto Slab', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-weight: 700;
 }
 .note.media-2 .body {
+  padding-top: 10px;
   page-break-before: avoid;
-  display: inline;
-  vertical-align: top;
+  vertical-align: center;
   color: rgba(0, 0, 0, 0.5);
 }
-.note.media-2 .body > div {
-  display: inline;
-}
 .note.media-2 .body p:nth-of-type(1) {
-  padding-top: 10px;
   margin-top: 0;
+}
+.note.media-2 .body .orderedlist.stepwise {
+  margin-left: 0;
 }
 .note.media-2 .figure img {
   max-width: 6.25in;
@@ -4199,7 +4348,7 @@ div[class="note"] .body p {
   padding: 0;
   margin: 0 0 1rem 0;
   background-color: rgba(196, 206, 187, 0.1);
-  border-bottom: solid 1px #C4CEBB;
+  border-bottom: solid 1px #f0f0f0;
   border-radius: 5px;
 }
 .note.definition > .title {
@@ -4229,7 +4378,7 @@ div[class="note"] .body p {
   padding: 0;
   margin: 0 0 1rem 0;
   background-color: rgba(196, 206, 187, 0.1);
-  border-bottom: solid 1px #C4CEBB;
+  border-bottom: solid 1px #f0f0f0;
   border-radius: 5px;
   background-color: #f1ddb6;
   padding-bottom: 1em;
@@ -4252,7 +4401,7 @@ div[class="note"] .body p {
   padding: 0;
   margin: 0 0 1rem 0;
   background-color: rgba(196, 206, 187, 0.1);
-  border-bottom: solid 1px #C4CEBB;
+  border-bottom: solid 1px #f0f0f0;
   border-radius: 5px;
 }
 .note.be-prepared > .title {
@@ -4498,7 +4647,7 @@ div.book div.chapter div.table:not(.labeled).unnumbered > table > caption:not(.l
   padding: 0;
   margin: 0 0 1rem 0;
   background-color: rgba(196, 206, 187, 0.1);
-  border-bottom: solid 1px #C4CEBB;
+  border-bottom: solid 1px #f0f0f0;
   border-radius: 5px;
   background-color: #f1ddb6;
   padding-bottom: 1em;

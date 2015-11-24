@@ -18,7 +18,9 @@
 @cnx-string-key-equations: "Key Equations";
 @cnx-string-key-concepts: "Key Concepts";
 
-
+//fonts
+@font-family-titles: 'Roboto Slab', sans-serif, @stix-fonts;
+@font-family-titles-serif: 'Roboto Slab', serif, @stix-fonts;
 
 //theme colors
 @primary-color: @sapphire;
@@ -526,7 +528,7 @@
   }
   #paragraph {
     .style(any) {
-      font-family: @font-family-serif;
+      font-family: @font-family;
     }
     .style(any; any; list; table) {
       font-family: @font-family;
@@ -565,33 +567,32 @@
     }
     .style(non-feature) {
       background-color: fade(@quarternary-color, 10%);
-      border-bottom: solid 1px #C4CEBB;
+      border-bottom: solid 1px #f0f0f0;
       border-radius: 5px;
     }
+    .style(be-prepared) {}
     .style(qa; ) {
       #utils>#pb>.inside(avoid);
-      .x-feature-math(qa, "Q&A", " :: ");
+      .x-feature-math(qa, "Q&A", " : : ");
     }
     .style(media; ...) {
       #utils>#pb>.inside(avoid);
-      .x-feature-math(media, "Media", " :: ");
+      .x-feature-math(media, "Media", " : : ");
     }
 
     .style(try; ...) {
       #utils>#pb>.inside(avoid);
-
-      .x-feature-math(try, "Try It", " :: ");
-      .x-feature-inline();
+      .x-feature-math(try, "Try It", " : : ");
+      .x-feature-inline(6%, 83%);
     }
 
    .style(manipulative-math, ...) {
-      .x-feature-math(manipulative-math, "Manipulative Math", " :: ");
-      .x-feature-inline();
-
+      .x-feature-math(manipulative-math, "Manipulative Math", " : : ");
+      .x-feature-inline(20%, 69%);
     }
     .style(howto; ...) {
       #utils>#pb>.inside(avoid);
-      .x-feature-math(how-to, "How to", " :: ");
+      .x-feature-math(how-to, "How to", " : : ");
     }
     .style(emphasized; howto) {
       #content>#note>.style(howto);
@@ -637,7 +638,7 @@
     }
     .style(media-2; ...) {
       #utils>#pb>.inside(avoid);
-      .x-feature-math(media; "Media ", " :: ");
+      .x-feature-math(media; "Media ", " : : ");
     }
     .style(problem-solving) {
       #content>#note>.style(non-feature);
@@ -656,6 +657,9 @@
         text-align: left;
         color: @secondary-color;
         padding: 7px 10px;
+      }
+      .style(be-prepared) {
+
       }
       .style(@kind; @part; feature-try) {
         margin-top: 0;
@@ -692,6 +696,12 @@
         padding: 0;
       }
       .style(non-feature) {
+        border-top: solid 1px #F1F1F1;
+        p {
+          padding: 7px 10px;
+        }
+      }
+      .style(be-prepared) {
         border-top: solid 1px #F1F1F1;
         p {
           padding: 7px 10px;
@@ -765,7 +775,7 @@
     .style(@kind; @part; figure) {
       margin: 0; //override auto  left/right margins from base
       max-width: @page-width; //overrides width value figures/subfigures ensuring imgs do not bleed off page
-      max-width: @one-third; //testing this...
+      //max-width: @one-third; //testing this...
     }
     .style(any; book-end; solution) {
       text-align: center;
@@ -862,6 +872,25 @@
       display: inline-block;
       vertical-align: top;
       width: @one-half;
+    }
+    .style(any; circled){
+      list-style: none;
+    }
+    .item(any; circled) {
+      display: inline;
+    }
+    .style(any; stepwise) {
+      counter-reset: item;
+      list-style-type: none;
+    }
+    .item(any; stepwise) {
+      padding-bottom: 1rem;
+      &:before {
+        content: "Step " counter(item, decimal) '. ';
+        counter-increment: item;
+        position: absolute;
+        margin-left: -40px;
+      }
     }
   }
   #commentary {
@@ -970,7 +999,6 @@
      line-height:16px;
      margin-left:5px;
      margin-top: -2px;
-     font-size: 8px;
     }
     .number(@kind; chapter-end; ...) {
       padding-right: .5em;

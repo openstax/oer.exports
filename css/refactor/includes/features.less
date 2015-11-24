@@ -23,14 +23,22 @@
       background: url("ccap-precalculus/@{png}.png") no-repeat 0;
       background-size: 11px auto;
       content: @label;
+      text-transform: uppercase;
       color: @accent-color;
       display: inline;
+      font-family: @font-family-titles;
     }
   .title {
     &:before {
       content: @divider;
-      color: fade(@black, 70%);
-      padding: 3px 0;
+      width: 20px;
+      display: inline-block;
+      text-align: center;
+      margin: auto;
+      color: @primary-color;
+      text-transform: uppercase;
+      font-family: @font-family-titles;
+      font-weight: 700;
     }
     color: @primary-color;
     text-transform: uppercase;
@@ -38,26 +46,50 @@
     vertical-align: top;
   }
   .body {
+    padding-top: 10px;
     page-break-before: avoid;
-    display: inline;
-    vertical-align: top;
+    vertical-align: center;
     color: fade(@black, 50%);
-    > div {
-      display: inline;
-    }
     p:nth-of-type(1) {
-      padding-top: 10px;
       margin-top:  0;
+    }
+    .orderedlist.stepwise {
+      margin-left: 0;
     }
   }
   .figure {
     img { max-width: (@page-width - .25em); }
   }
 }
-.x-feature-inline () {
+
+
+.x-feature-inline (@title-width, @body-width) {
+  &:before {
+      vertical-align: top;
+      display: inline-block;
+      width: @title-width;
+    }
+  .title {
+    display: inline-block;
+    vertical-align: top;
+    &:before {
+      vertical-align: top;
+      display: inline-block;
+    }
+  }
   .body {
+    width: @body-width;
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 0;
+    .problem {
+      display: inline-block;
+    }
+    // > div {
+    //   display: inline;
+    // }
     p:nth-of-type(1){
-      display: inline;
+      display: inline-block;
       padding-top: 0;
     }
   }
