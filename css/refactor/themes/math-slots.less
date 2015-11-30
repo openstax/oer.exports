@@ -18,7 +18,9 @@
 @cnx-string-key-equations: "Key Equations";
 @cnx-string-key-concepts: "Key Concepts";
 
-
+//fonts
+@font-family-titles: 'Roboto Slab', sans-serif, @stix-fonts;
+@font-family-titles-serif: 'Roboto Slab', serif, @stix-fonts;
 
 //theme colors
 @primary-color: @sapphire;
@@ -26,6 +28,9 @@
 @tertiary-color: @summer-sky;
 @quarternary-color: @harp-green;
 @accent-color: @fuego-green;
+
+
+@base-font-size: 11px;
 
 .x-list-indent() {
   margin: 0 0 0 40px;
@@ -526,7 +531,7 @@
   }
   #paragraph {
     .style(any) {
-      font-family: @font-family-serif;
+      font-family: @font-family;
     }
     .style(any; any; list; table) {
       font-family: @font-family;
@@ -561,27 +566,36 @@
     .style(...) {
       color: @black;
       padding: 0;
-      margin: 0;
+      margin: 0 0 1rem 0;
     }
     .style(non-feature) {
       background-color: fade(@quarternary-color, 10%);
+      border-bottom: solid 1px #f0f0f0;
+      border-radius: 5px;
     }
+    .style(be-prepared) {}
     .style(qa; ) {
       #utils>#pb>.inside(avoid);
-      .x-feature-math(qa, "Q&A :: ");
+      .x-feature-math(qa, "Q&A", " : : ");
     }
     .style(media; ...) {
       #utils>#pb>.inside(avoid);
-      .x-feature-math(media, "Media :: ");
+      .x-feature-math(media, "Media", " : : ");
     }
 
     .style(try; ...) {
       #utils>#pb>.inside(avoid);
-      .x-feature-math(try, "Try It :: ");
+      .x-feature-math(try, "Try It", " : : ");
+      .x-feature-inline(6%, 83%);
+    }
+
+   .style(manipulative-math, ...) {
+      .x-feature-math(manipulative-math, "Manipulative Math", " : : ");
+      .x-feature-inline(20%, 69%);
     }
     .style(howto; ...) {
       #utils>#pb>.inside(avoid);
-      .x-feature-math(how-to, "How to :: ");
+      .x-feature-math(how-to, "How to", " : : ");
     }
     .style(emphasized; howto) {
       #content>#note>.style(howto);
@@ -627,7 +641,7 @@
     }
     .style(media-2; ...) {
       #utils>#pb>.inside(avoid);
-      .x-feature-math(media; "Media :: ");
+      .x-feature-math(media; "Media ", " : : ");
     }
     .style(problem-solving) {
       #content>#note>.style(non-feature);
@@ -646,6 +660,9 @@
         text-align: left;
         color: @secondary-color;
         padding: 7px 10px;
+      }
+      .style(be-prepared) {
+
       }
       .style(@kind; @part; feature-try) {
         margin-top: 0;
@@ -682,7 +699,13 @@
         padding: 0;
       }
       .style(non-feature) {
-        border-top: solid 1px fade(@black, 10%);
+        border-top: solid 1px #F1F1F1;
+        p {
+          padding: 7px 10px;
+        }
+      }
+      .style(be-prepared) {
+        border-top: solid 1px #F1F1F1;
         p {
           padding: 7px 10px;
         }
@@ -690,7 +713,6 @@
       .style(@kind; @part; feature-try) {
         font-weight: normal;
         display: inline;
-
       }
       .style(@kind; @part; feature-qa) {
         font-weight: normal;
@@ -756,7 +778,7 @@
     .style(@kind; @part; figure) {
       margin: 0; //override auto  left/right margins from base
       max-width: @page-width; //overrides width value figures/subfigures ensuring imgs do not bleed off page
-      max-width: @one-third; //testing this...
+      //max-width: @one-third; //testing this...
     }
     .style(any; book-end; solution) {
       text-align: center;
@@ -853,6 +875,25 @@
       display: inline-block;
       vertical-align: top;
       width: @one-half;
+    }
+    .style(any; circled){
+      list-style: none;
+    }
+    .item(any; circled) {
+      display: inline;
+    }
+    .style(any; stepwise) {
+      counter-reset: item;
+      list-style-type: none;
+    }
+    .item(any; stepwise) {
+      padding-bottom: 1rem;
+      &:before {
+        content: "Step " counter(item, decimal) '. ';
+        counter-increment: item;
+        position: absolute;
+        margin-left: -40px;
+      }
     }
   }
   #commentary {
@@ -966,7 +1007,8 @@
       // Template design asks for lists to be set apart
     // font-size:13px;
      line-height:16px;
-     margin-left:20px;
+     margin-left:5px;
+     margin-top: -2px;
     }
     .number(@kind; chapter-end; ...) {
       padding-right: .5em;
@@ -975,7 +1017,7 @@
       .style(any; any; exercise; example) {
         font-family: @font-family;
         font-size: 11pt;
-        color: @dark-blue;
+        color: @primary-color;
         display: inline;
       }
       .style(any; any; first-problem; first-exercise; example) {
