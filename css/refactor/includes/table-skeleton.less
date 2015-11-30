@@ -41,8 +41,8 @@ div.table {
     th { #content>#table>#header>.style(any; any); }
     th:not(:only-child) { #content>#table>#header>.style(any; any);}
     th:nth-child(even) { #content>#table>#header>.style('even'; any); }
-    tr:last-child > th:first-child { #content>#table>#header>.style('left-rounded'; any); }
-    tr:last-child > th:last-child { #content>#table>#header>.style('right-rounded'; any); }
+    tr:first-child > th:first-child { #content>#table>#header>.style('left-rounded'; any); }
+    tr:first-child > th:last-child { #content>#table>#header>.style('right-rounded'; any); }
 
     td { #content>#table>#data>.style(any; any); }
     td:first-child { #content>#table>#data>.style('first'; any); }
@@ -52,6 +52,12 @@ div.table {
     td.header { #content>#table>#data>.style('header'; any); }
     thead > tr:first-child {
       #content>#table>#header>#title>.style(any; any);
+    }
+    thead > tr:not(:only-child):last-child th {
+      #content>#table>#header>#title>.style('header'; any);
+    }
+    thead > tr:not(:only-child):last-child th:nth-child(even) {
+      #content>#table>#header>#title>.style('even'; any);
     }
   }
 
