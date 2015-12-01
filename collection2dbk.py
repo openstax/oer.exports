@@ -73,6 +73,9 @@ def convert(p, collxml, modulesDict, temp_dir, svg2png=True, math2svg=True, redu
     for f, data in newFilesMod.items():
     	newFiles[os.path.join(module, f)] = data
 
+  # Terminate saxon process to free memory
+  if module2dbk.sax is not None:
+      module2dbk.sax.stop()
   # Combine into a single large file
   # Replacing Xpath xinclude magic with explicit pyhton code
   for i, module in enumerate(XINCLUDE_XPATH(dbk1)):

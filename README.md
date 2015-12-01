@@ -20,10 +20,14 @@ also:
     apt-get install ruby                           # Hmmm...
     apt-get install libxml2-utils                  # for xmllint
     apt-get install zip                            # building the zip
-    apt-get install openjdk-7-jre-headless
+    apt-get install unzip
+    apt-get install openjdk-7-jdk                  # for saxon
     apt-get install docbook-xsl-ns
     apt-get install xsltproc                       # for generating epub
-
+    apt-get install libopencv-dev                  # for unittests 
+    apt-get install python-opencv                  # for unittests
+    apt-get install python-dev                     # for unittest dependency builds
+    apt-get install memcached                      # for svg caching
 # For Osx
 
 Install http://mxcl.github.com/homebrew/
@@ -46,6 +50,9 @@ This will set up the virtual environment in your terminal (all packages are not 
     virtualenv .
     source bin/activate
     easy_install lxml argparse pillow
+    easy_install install numpy wand     # for unittests
+    pip install python-memcached        # for svg caching
+    pip install hashlib                 # for svg caching
 
 Once you run these steps, every time you open a terminal you will need to run `source bin/activate`.
 
@@ -72,6 +79,19 @@ To test that the TTF/OTF (note Type-1) fonts were installed, run the following a
 
     prince -v -o /dev/null ./test-fonts.html 2>&1 | diff test-fonts.out -
 
+## Compile Saxon
+
+In the eor.exports/lib directory type the following command.
+
+```
+javac -cp saxon9he.jar SaxonTransformWrapper.java
+```
+
+This should create a file named SaxonTransformWrapper.class in the eor.exports/lib directory.
+
+## Install python scripts and run unittests
+
+Run the command ``python setup.py install`` to install the scripts collectiondbk2pdf and content2epub.  To run unittests use the command ``python setup.py test`` or ``python -m unittest tests.test_collectiondbk2pdf``.  There is a bug in the OpenCV library which causes the ``libdc1394 error: Failed to initialize libdc1394`` to be thrown.  Type ``sudo ln /dev/null /dev/raw1394`` to remove the driver causing the issue. 
 
 # Generate Books
 
@@ -79,7 +99,7 @@ Ok, let's make sure you can create a PDF and EPUB!
 
 To generate a PDF:
 
-    python collectiondbk2pdf.py -p ${path-to-wkhtml2pdf-or-princexml} -d ./test-ccap -s ccap-physics ./result.pdf
+    collectiondbk2pdf -p ${path-to-wkhtml2pdf-or-princexml} -d ./test-ccap -s ccap-physics ./result.pdf
 
 To generate an EPUB:
 
@@ -88,10 +108,10 @@ To generate an EPUB:
 Alternative script for EPUB:
 
     # For a collection:
-    python content2epub.py -c ./static/content.css -e ./xsl/dbk2epub.xsl -t "collection" -o ./test-ccap.epub ./test-ccap/
+    content2epub -c ./static/content.css -e ./xsl/dbk2epub.xsl -t "collection" -o ./test-ccap.epub ./test-ccap/
 
     # For just a module:
-    python content2epub.py -c ./static/content.css -e ./xsl/dbk2epub.xsl -t "module" -o ./m123.epub -i "m123" ./test-ccap/m-section/
+    content2epub -c ./static/content.css -e ./xsl/dbk2epub.xsl -t "module" -o ./m123.epub -i "m123" ./test-ccap/m-section/
 
 # Building, Diffing, and Coverage
 
