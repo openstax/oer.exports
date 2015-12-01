@@ -18,7 +18,9 @@
 @cnx-string-key-equations: "Key Equations";
 @cnx-string-key-concepts: "Key Concepts";
 
-
+//fonts
+@font-family-titles: 'Roboto Slab', sans-serif, @stix-fonts;
+@font-family-titles-serif: 'Roboto Slab', serif, @stix-fonts;
 
 //theme colors
 @primary-color: @sapphire;
@@ -529,7 +531,7 @@
   }
   #paragraph {
     .style(any) {
-      font-family: @font-family-serif;
+      font-family: @font-family;
     }
     .style(any; any; list; table) {
       font-family: @font-family;
@@ -540,23 +542,77 @@
     }
   }
   #table {
+    .style(any; any) {
+      border: 0;
+      border-collapse: separate;
+    }
     #caption {
       .style(any; any) {
-        color: @orange;
+        color: #093D4C;
+        margin-left: 1em;
       }
     }
     #header {
       .style(any; any) {
-        background-color: @white;
+        background-color: #093D4C;
+        color: #1E7E91;
+        padding: 1em;
+        border: none;
+      }
+      .style('even'; any) {
+        background-color: #1E7E91;
+        color: #093D4C;
+      }
+      .style('left-rounded'; any) {
+        border-top-left-radius: 4px;
+      }
+      .style('right-rounded'; any) {
+        border-top-right-radius: 4px;
       }
       .style(colored; any) {
         background-color: @light-orange;
       }
+      #title {
+        .style('header'; any) {
+          background-color: #fff;
+          border-left: 2px solid #f1f1f1;
+          border-bottom: 2px solid #f1f1f1;
+          border-color: #f1f1f1 !important;
+          color: #1E7E91;
+        }
+        .style('even'; any) {
+          background-color: hsva(91.58, 9.22%, 80.78%, 0.1);
+          border-left: none;
+          border-right: 2px solid #f1f1f1;
+        }
+      }
     }
+
     #data {
+      .style(any; any) {
+        border-right: none;
+        border-bottom: 2px solid #F1F1F1;
+        padding: 1em;
+        color: #093D4C;
+      }
+      .style('first'; any) {
+        border-left: 2px solid #f1f1f1;
+      }
+      .style('last'; any) {
+        border-right: 2px solid #f1f1f1;
+      }
+      .style('left-rounded'; any) {
+        border-bottom-left-radius: 4px;
+      }
+      .style('right-rounded'; any) {
+        border-bottom-right-radius: 4px;
+      }
       // Some TDs act like TH
       .style('header'; any) {
         background-color: @white;
+      }
+      .style('even'; any) {
+        background-color: hsva(91.58, 9.22%, 80.78%, 0.1);
       }
     }
   }
@@ -568,33 +624,32 @@
     }
     .style(non-feature) {
       background-color: fade(@quarternary-color, 10%);
-      border-bottom: solid 1px #C4CEBB;
+      border-bottom: solid 1px #f0f0f0;
       border-radius: 5px;
     }
+    .style(be-prepared) {}
     .style(qa; ) {
       #utils>#pb>.inside(avoid);
-      .x-feature-math(qa, "Q&A", " :: ");
+      .x-feature-math(qa, "Q&A", " : : ");
     }
     .style(media; ...) {
       #utils>#pb>.inside(avoid);
-      .x-feature-math(media, "Media", " :: ");
+      .x-feature-math(media, "Media", " : : ");
     }
 
     .style(try; ...) {
       #utils>#pb>.inside(avoid);
-
-      .x-feature-math(try, "Try It", " :: ");
-      .x-feature-inline();
+      .x-feature-math(try, "Try It", " : : ");
+      .x-feature-inline(6%, 83%);
     }
 
    .style(manipulative-math, ...) {
-      .x-feature-math(manipulative-math, "Manipulative Math", " :: ");
-      .x-feature-inline();
-
+      .x-feature-math(manipulative-math, "Manipulative Math", " : : ");
+      .x-feature-inline(20%, 69%);
     }
     .style(howto; ...) {
       #utils>#pb>.inside(avoid);
-      .x-feature-math(how-to, "How to", " :: ");
+      .x-feature-math(how-to, "How to", " : : ");
     }
     .style(emphasized; howto) {
       #content>#note>.style(howto);
@@ -640,7 +695,7 @@
     }
     .style(media-2; ...) {
       #utils>#pb>.inside(avoid);
-      .x-feature-math(media; "Media ", " :: ");
+      .x-feature-math(media; "Media ", " : : ");
     }
     .style(problem-solving) {
       #content>#note>.style(non-feature);
@@ -659,6 +714,9 @@
         text-align: left;
         color: @secondary-color;
         padding: 7px 10px;
+      }
+      .style(be-prepared) {
+
       }
       .style(@kind; @part; feature-try) {
         margin-top: 0;
@@ -695,6 +753,12 @@
         padding: 0;
       }
       .style(non-feature) {
+        border-top: solid 1px #F1F1F1;
+        p {
+          padding: 7px 10px;
+        }
+      }
+      .style(be-prepared) {
         border-top: solid 1px #F1F1F1;
         p {
           padding: 7px 10px;
@@ -768,7 +832,7 @@
     .style(@kind; @part; figure) {
       margin: 0; //override auto  left/right margins from base
       max-width: @page-width; //overrides width value figures/subfigures ensuring imgs do not bleed off page
-      max-width: @one-third; //testing this...
+      //max-width: @one-third; //testing this...
     }
     .style(any; book-end; solution) {
       text-align: center;
@@ -866,6 +930,25 @@
       vertical-align: top;
       width: @one-half;
     }
+    .style(any; circled){
+      list-style: none;
+    }
+    .item(any; circled) {
+      display: inline;
+    }
+    .style(any; stepwise) {
+      counter-reset: item;
+      list-style-type: none;
+    }
+    .item(any; stepwise) {
+      padding-bottom: 1rem;
+      &:before {
+        content: "Step " counter(item, decimal) '. ';
+        counter-increment: item;
+        position: absolute;
+        margin-left: -40px;
+      }
+    }
   }
   #commentary {
     #title {
@@ -890,10 +973,17 @@
       margin: .75em 0;
       margin-bottom: 5px;
       margin-top: 0px;
+      border-top: 2px solid #093D4C;
     }
     #title {
       .style(any) {
-        display: none;
+        background-color: #093D4C;
+        color: #C6CE33;
+        font-size: 8pt;
+        font-weight: 600;
+        padding: 5px 10px;
+        display: inline-block;
+        text-transform: uppercase;
       }
     }
     #body {
@@ -973,7 +1063,6 @@
      line-height:16px;
      margin-left:5px;
      margin-top: -2px;
-     font-size: 8px;
     }
     .number(@kind; chapter-end; ...) {
       padding-right: .5em;
@@ -1035,11 +1124,15 @@
       .style(any; any; exercise; example) {
         content: "Solution";
         font-family: @font-family;
-        font-size: 10pt;
-        color: @dark-blue;
+        font-size: 11pt;
+        color: #231F20;
         font-weight: bold;
-        line-height: 1em;
-        display: inline;
+        line-height: 11pt;
+        display: block;
+        border-left: 3px solid #C4CEBB;
+        padding-left: 3px;
+        vertical-align: middle;
+        margin-bottom:3px;
       }
       .style(@kind; book-end) {
         display: inline;
