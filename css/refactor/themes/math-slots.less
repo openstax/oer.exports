@@ -542,23 +542,77 @@
     }
   }
   #table {
+    .style(any; any) {
+      border: 0;
+      border-collapse: separate;
+    }
     #caption {
       .style(any; any) {
-        color: @orange;
+        color: #093D4C;
+        margin-left: 1em;
       }
     }
     #header {
       .style(any; any) {
-        background-color: @white;
+        background-color: #093D4C;
+        color: #1E7E91;
+        padding: 1em;
+        border: none;
+      }
+      .style('even'; any) {
+        background-color: #1E7E91;
+        color: #093D4C;
+      }
+      .style('left-rounded'; any) {
+        border-top-left-radius: 4px;
+      }
+      .style('right-rounded'; any) {
+        border-top-right-radius: 4px;
       }
       .style(colored; any) {
         background-color: @light-orange;
       }
+      #title {
+        .style('header'; any) {
+          background-color: #fff;
+          border-left: 2px solid #f1f1f1;
+          border-bottom: 2px solid #f1f1f1;
+          border-color: #f1f1f1 !important;
+          color: #1E7E91;
+        }
+        .style('even'; any) {
+          background-color: hsva(91.58, 9.22%, 80.78%, 0.1);
+          border-left: none;
+          border-right: 2px solid #f1f1f1;
+        }
+      }
     }
+
     #data {
+      .style(any; any) {
+        border-right: none;
+        border-bottom: 2px solid #F1F1F1;
+        padding: 1em;
+        color: #093D4C;
+      }
+      .style('first'; any) {
+        border-left: 2px solid #f1f1f1;
+      }
+      .style('last'; any) {
+        border-right: 2px solid #f1f1f1;
+      }
+      .style('left-rounded'; any) {
+        border-bottom-left-radius: 4px;
+      }
+      .style('right-rounded'; any) {
+        border-bottom-right-radius: 4px;
+      }
       // Some TDs act like TH
       .style('header'; any) {
         background-color: @white;
+      }
+      .style('even'; any) {
+        background-color: hsva(91.58, 9.22%, 80.78%, 0.1);
       }
     }
   }
@@ -919,10 +973,17 @@
       margin: .75em 0;
       margin-bottom: 5px;
       margin-top: 0px;
+      border-top: 2px solid #093D4C;
     }
     #title {
       .style(any) {
-        display: none;
+        background-color: #093D4C;
+        color: #C6CE33;
+        font-size: 8pt;
+        font-weight: 600;
+        padding: 5px 10px;
+        display: inline-block;
+        text-transform: uppercase;
       }
     }
     #body {
@@ -1063,11 +1124,15 @@
       .style(any; any; exercise; example) {
         content: "Solution";
         font-family: @font-family;
-        font-size: 10pt;
-        color: @dark-blue;
+        font-size: 11pt;
+        color: #231F20;
         font-weight: bold;
-        line-height: 1em;
-        display: inline;
+        line-height: 11pt;
+        display: block;
+        border-left: 3px solid #C4CEBB;
+        padding-left: 3px;
+        vertical-align: middle;
+        margin-bottom:3px;
       }
       .style(@kind; book-end) {
         display: inline;
