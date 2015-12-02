@@ -38,6 +38,7 @@ div.book div.preface {
     }
   }
 }
+
 .chapter > .introduction > .figure.splash {
   #content>#figure>.style('splash'; chapter);
 
@@ -51,7 +52,14 @@ div.book div.preface {
   }
   div.mediaobject {
     border-left: 1.814in solid @accent-color;
+    span {
+      background: fade(@secondary-color, 50%);
+      width: 6.685in;
+      height: 2.523in;
+      position: absolute;
+      left: 0.815in;
 
+    }
     img {
       width: 6.685in;
       height: 2.523in;
@@ -108,24 +116,15 @@ div.book div.preface {
   content: counter(toc-chapter-counter, decimal);
   display: block;
   float: left;
-  .font-scale(-1);
-
-  min-width: 13px;
-  height: 13px;
-  text-align: center;
-
-  padding: 0;
-  margin: 0px 12.3px 0px 13px;
-
-  border: 1px solid @light-blue;
-  color: @light-blue;
+  .sqared;
 }
 .book > .toc .toc-chapter > .target-chapter::before {
   display: none;
 }
 .book > .toc .toc-chapter > ul {
   margin-left: 4em;
-  border-left: 5px solid @light-green;
+
+  .side-border;
 }
 .book > .toc .toc-chapter > ul li a span.cnx-gentext-n {
   font-weight: 700;
@@ -139,7 +138,7 @@ div.book div.preface {
   padding: 1em 1em 1em 0em;
 }
 .book > .toc > ul > li.toc-chapter:nth-child(2n+0) {
-  background-color: @light-green-10;
+  background-color: fade(@quarternary-color, 10%);
 }
 .book > .toc .target-index {
   margin-left: 4em;
@@ -157,12 +156,28 @@ div.part > div.titlepage { display: none; }
  */
 .chapter > .introduction {
   >.title {
+          &::before {
+          display: inline-block;
+          width: 20px;
+          height: 24px;
+          padding-right: 10px;
+           background: url("ccap-precalculus/math-intro-icon.png") no-repeat left;
+           background-size: 20px 24px;
+          content: " ";
+          bottom: 0px;
+          position:relative;
+        }
     #part>#introduction>#title>.style();
   }
 
+  > .toc> ul  {
+    .side-border;
+    margin: 0;
+  }
   > .toc a {
     #part>#introduction>#chapter-outline>#entry>#title>.style();
   }
+
 
   // overide hyperlink medium blue color must be back and normal weight
   > .toc .toc-section .cnx-gentext-t {
@@ -238,9 +253,10 @@ div.book > div.chapter > div.titlepage {
         &::before {
           content: counter(chapter);
           position: absolute;
-          left: 0.3in;
+          left: -0.3in;
           bottom: 24px;
           border: 1px solid white;
+          padding-top: 0.07in;
           min-width: 1.5em;
           min-height: 1.5em;
           text-align: center;
@@ -987,6 +1003,10 @@ div.itemizedlist, div.orderedlist {
   }
 }
 
+.token {
+  color: @secondary-color;
+  font-size: 150%;
+}
 .section.section-exercises {
    div.orderedlist.circled {
     ol {
@@ -1032,7 +1052,7 @@ div.itemizedlist, div.orderedlist {
 
 
 .chapter .section img {
-  max-width: @one-third;
+  //max-width: @one-third;
 }
 
 

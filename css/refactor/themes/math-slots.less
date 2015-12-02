@@ -19,8 +19,7 @@
 @cnx-string-key-concepts: "Key Concepts";
 
 //fonts
-@font-family-titles: 'Roboto Slab', sans-serif, @stix-fonts;
-@font-family-titles-serif: 'Roboto Slab', serif, @stix-fonts;
+@font-family-titles: 'Roboto Slab', serif, @stix-fonts;
 
 //theme colors
 @primary-color: @sapphire;
@@ -29,7 +28,22 @@
 @quarternary-color: @harp-green;
 @accent-color: @fuego-green;
 
+.side-border {
+  border-left: 3px solid #eff1ec;
+  padding-left: 8px;
+}
 
+.sqared {
+  .font-scale(-1);
+  min-width: 13px;
+  height: 13px;
+  text-align: center;
+  padding: 0;
+  margin: 0px 12.3px 0px 13px;
+  border: 1px solid @tertiary-color;
+  color: @tertiary-color;
+  font-weight: 800;
+}
 @base-font-size: 11px;
 
 .x-list-indent() {
@@ -85,6 +99,7 @@
         .font-scale(3);
         text-shadow: 0 1px 0 rgba(166,163,157,0.75);
         text-align: left;
+
       }
     }
   }
@@ -109,8 +124,8 @@
     }
     #chapter-outline {
       .style(...) {
-        width: 100%;
-        border: 1px solid @secondary-color;
+        padding-left: 0;
+        margin-left: 0;
       }
       #title {
         .style(...) {
@@ -119,7 +134,8 @@
           content: @cnx-string-chapter-outline;
           padding-top: .1em;
           padding-bottom: .2em;
-          background-color: @secondary-color;
+          color: @secondary-color;
+          text-align: left;
           .font-scale(1);
         }
       }
@@ -142,12 +158,12 @@
         .font-scale(1);
         text-align: left;
         border-bottom: none;
-        color: @secondary-color;
+        color: @primary-color;
       }
     }
     #link {
       .style(...) {
-        color: @secondary-color;
+        color: @primary-color;
         text-align: left;
       }
       .number() {
@@ -171,13 +187,14 @@
       .number(...) {
         font-weight: bold;
         padding-right: 0em;
-        color: @secondary-color;
+        color: @primary-color;
       }
       .divider(...) {
         content: "| ";
         color: black;
       }
       .text() {
+
       }
     }
 
@@ -190,12 +207,11 @@
         .style(...) {
           content: @cnx-string-learning-objectives;
           display: inline-block;
-          width: 100%;
-          padding-top: .1em;
           padding-bottom: .2em;
           color: @secondary-color;
           font-weight: bold;
-          .font-scale(1);
+          font-size: 16.5px;
+          font-family: @font-family-titles;
         }
       }
       #list {
@@ -217,14 +233,27 @@
       .style() {
         color: @primary-color;
         font-weight: bold;
+        padding-left: 0;
+        margin-left: 0;
         .font-scale(2);
       }
       // Separate the section number and title with a pipe
       .divider() {
-        color: black;
-        content: "| ";
       }
-      .number() {}
+      .number() {
+      text-align: center;
+      padding: 3px 2px 3px 4px;
+      min-width: 15px;
+      min-height: 15px;
+      margin: 0px 8px 0px 0;
+      border: 1px solid @primary-color;
+      color: @primary-color;
+      font-weight: 800;
+      font-size: 8.46667px;
+      position: relative;
+      font-family: @font-family-titles;
+      top: -5px;
+      }
       .text() {}
     }
   }
@@ -393,7 +422,7 @@
         }
       }
       #chapter-area {
-        .style() { font-family: @font-family-serif; }
+        .style() { font-family: @font-family; }
       }
       #solution {
         .style(...) {
@@ -433,10 +462,10 @@
 
       #chapter-area {
         .style(...) {
-          font-family: @font-family-serif;
+          font-family: @font-family-titles;
           color: black;
           font-weight: bold;
-          font-size: medium;
+          .font-scale(1);
           margin: .5em 0em;
         }
         #title {
@@ -724,11 +753,11 @@
       }
       .style(@kind; @part; feature-try) {
         margin-top: 0;
-        font-family: @font-family-serif;
+        font-family: @font-family-titles;
         font-weight: bold;
       }
       .style(@kind; @part; feature-qa) {
-        font-family: @font-family-serif;
+        font-family: @font-family-titles;
 
       }
       .style(@kind; @part; student-project) {
@@ -965,7 +994,6 @@
     #title {
       .style(@kind; @part; exercise; example) {
         font-family: @font-family;
-        font-size: 10pt;
         color: @dark-blue;
         font-weight: bold;
         margin-right: .2em;
@@ -982,14 +1010,15 @@
   #example {
     .style(any) {
       margin: .75em 0;
-      margin-bottom: 5px;
+      margin-bottom: 1rem;
       margin-top: 0px;
-      border-top: 2px solid #093D4C;
+      border-bottom: solid 3px @primary-color;
+      border-top: solid 3px @primary-color;
     }
     #title {
       .style(any) {
-        background-color: #093D4C;
-        color: #C6CE33;
+        background-color: @primary-color;
+        color: @accent-color;
         font-size: 8pt;
         font-weight: 600;
         padding: 5px 10px;
@@ -1045,7 +1074,7 @@
       margin-bottom: 0;
     }
     .style(@kind; @part; section) {
-      font-family: @font-family-serif;
+      font-family: @font-family-titles;
     }
     .style(@kind; @part; section-exercise) {
       margin-top: 1em;
@@ -1117,8 +1146,9 @@
       display: block;
       // style any PreCalc solution that occurs in #book-end
       display: inline-block;
-      width: @one-fourth;
+      width: 30%;
       vertical-align: top;
+      padding-left: 1em
     }
     .style(@kind; @part; exercise; section-exercise) {
       // do not display end-of-section exercise solutions.
@@ -1134,13 +1164,10 @@
       .style(...) {}
       .style(any; any; exercise; example) {
         content: "Solution";
-        font-family: @font-family;
-        font-size: 11pt;
         color: #231F20;
         font-weight: bold;
-        line-height: 11pt;
         display: block;
-        border-left: 3px solid #C4CEBB;
+        .side-border;
         padding-left: 3px;
         vertical-align: middle;
         margin-bottom:3px;
@@ -1368,7 +1395,9 @@
       .style(...) {
         .figure-caption();
         padding-bottom: 1em;
-        font-family: @font-family-serif;
+        color: fade(@primary-color, 70%);
+      .font-scale(-1);
+
       }
 
       .style(any; any; feature-qa) {
@@ -1377,6 +1406,9 @@
       .number() {
         content: "Figure " counter(chapter, decimal) "." counter(figure) " ";
         display: inline;
+            color: fade(@primary-color, 100%);
+
+
       }
       .number(...) {
        font-family: @font-family;
