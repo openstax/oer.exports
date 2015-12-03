@@ -236,6 +236,7 @@
         padding-left: 0;
         margin-left: 0;
         .font-scale(2);
+        text-indent: 30px hanging;
       }
       // Separate the section number and title with a pipe
       .divider() {
@@ -388,6 +389,7 @@
         margin: 0;
         padding: 0;
         display: inline !important;
+
       }
 
       #title {
@@ -397,12 +399,15 @@
           color: @secondary-color;
           margin-left: 0;
           text-transform: uppercase;
-          font-size: x-large;
+          .font-scale(2);
+          font-family: @font-family-titles;
           font-weight: bold;
           background-color: transparent; //overwrite from .colophon title
         }
         .style('chapter-area') {
           .x-solutions-subheading-style();
+          color: @primary-color;
+          .font-scale(1);
         }
         .style('review-exercises') {
           .x-solutions-subheading-style();
@@ -436,6 +441,7 @@
             display: inline;
             a.solution {
               color: black;
+              background: orange;
               font-weight: bold;
             }
           }
@@ -530,21 +536,32 @@
     #appendix {
       #title {
         .style() {
-          font-size: 34pt;
-          font-weight: bold;
-          color: @secondary-color;
+          .font-scale(2);
+          color: @primary-color;
+          font-family: @font-family-titles;
           padding: 0;
           margin: 0;
+          font-weight: bold;
+          text-transform: none;
         }
         .number() {
-          color: @secondary-color;
-          padding-right: 0;
+          text-align: center;
+          padding: 3px 4px 3px 4px;
+          min-width: 15px;
+          min-height: 15px;
+          margin: 0px 8px 0px 0;
+          border: 1px solid @primary-color;
+          color: @primary-color;
+          font-weight: 800;
+          font-size: 8.46667px;
+          position: relative;
+          font-family: @font-family-titles;
+          top: -5px;
         }
         .text() {
         }
         .divider() {
-          content: "| ";
-          color: black;
+
         }
         .label() {}
       }
@@ -925,13 +942,12 @@
         font-weight: bold;
       }
       .style(section-exercises; @part; ...) {
-        content: "" " " counter(chapter, decimal) "." counter(section, decimal) " exercises" " " "";
-        text-transform: uppercase;
-        font-size: 17pt;
-        color: @secondary-color;
-        font-weight: bold;
+        content: "" " " counter(chapter, decimal) "." counter(section, decimal) " : : EXERCISES" " " "";
+        .font-scale(2);
+        color: @primary-color;
+        font-family: @font-family-titles;
         display:block;
-        padding-bottom: 10px;
+        padding-bottom: 1em;
         column-span: all;
       }
     }
@@ -1116,9 +1132,9 @@
     #title {
       .style(any; any; exercise; example) {
         font-family: @font-family;
-        font-size: 11pt;
         color: @primary-color;
         display: inline;
+
       }
       .style(any; any; first-problem; first-exercise; example) {
         display: block;
@@ -1130,6 +1146,7 @@
     #body {
       .style(any; any; exercise; example) {
         display: inline;
+        padding-bottom: 1em;
       }
       .style(@kind; @part; feature-try; exercise) {
         margin-left:8px;
@@ -1152,9 +1169,10 @@
       display: block;
       // style any PreCalc solution that occurs in #book-end
       display: inline-block;
-      width: 30%;
       vertical-align: top;
-      padding-left: 1em
+      width: 30%;
+      padding-right: 1.5em;
+      padding-bottom: 1.5em;
     }
     .style(@kind; @part; exercise; section-exercise) {
       // do not display end-of-section exercise solutions.
@@ -1203,7 +1221,6 @@
         // Fix margins because solutions with only one paragraph
         // do not include a <p></p> wrapper for text.
         page-break-before: avoid;
-        margin-top: .5em;
         display: inline;
       }
 
@@ -1320,18 +1337,22 @@
 }
 
 .x-solutions-subheading-style() {
-  color: black;
-  font-size: 16px;
+  color: @secondary-color;
   font-weight: 700;
   font-family: @font-family;
   display: block;
   margin-bottom: 7.5px;
+  padding-left: 0;
+  margin-left: 0;
 }
 
 
 
-
-
+ .cnx-eoc > .title > * {
+   margin: initial;
+   padding: initial;
+   font-size: inherit;
+ }
 //end of precalculus
 
 // Copyright (c) 2013 Rice University
