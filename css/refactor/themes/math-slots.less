@@ -118,7 +118,7 @@
     #title {
       .style(...) {
         content: @cnx-string-introduction;
-        color: @secondary-color;
+        color: @primary-color;
         .font-scale(1);
       }
     }
@@ -126,7 +126,22 @@
       .style(...) {
         padding-left: 0;
         margin-left: 0;
-      }
+      }collection.xml
+m10432
+m10433
+m10434
+m10435
+m10436
+m10437
+m10438
+m10439
+m10440
+m10441
+m10442
+m10443
+m10509
+m10510
+m10515
       #title {
         .style(...) {
           #utils>#pb>.after(avoid);
@@ -396,7 +411,7 @@
         .style() {
           content: "Answer Key";
           string-set: cnx-header "Answer Key";
-          color: @secondary-color;
+          color: @primary-color;
           margin-left: 0;
           text-transform: uppercase;
           .font-scale(2);
@@ -406,7 +421,7 @@
         }
         .style('chapter-area') {
           .x-solutions-subheading-style();
-          color: @primary-color;
+          color: @secondary-color;
           .font-scale(1);
         }
         .style('review-exercises') {
@@ -546,17 +561,17 @@
         }
         .number() {
           text-align: center;
-          padding: 3px 4px 3px 4px;
-          min-width: 15px;
-          min-height: 15px;
+          padding: 6px;
+          min-width: 35px;
+          min-height: 35px;
           margin: 0px 8px 0px 0;
-          border: 1px solid @primary-color;
+          border: 1px solid @secondary-color;
           color: @primary-color;
           font-weight: 800;
           font-size: 8.46667px;
           position: relative;
           font-family: @font-family-titles;
-          top: -5px;
+          top: -10px;
         }
         .text() {
         }
@@ -682,6 +697,7 @@
       background-color: fade(@quarternary-color, 10%);
       border-bottom: solid 1px #f0f0f0;
       border-radius: 5px;
+      box-decoration-break: slice;
     }
     .style(be-prepared) {}
     .style(qa; ) {
@@ -947,6 +963,7 @@
         color: @primary-color;
         font-family: @font-family-titles;
         display:block;
+        font-weight: bold;
         padding-bottom: 1em;
         column-span: all;
       }
@@ -1064,6 +1081,7 @@
       display: inline-block;
       vertical-align: top;
       width: @one-third;
+      text-align: left;
       .inline-blocks();
     }
     .style(any; any; example) {
@@ -1170,6 +1188,7 @@
       // style any PreCalc solution that occurs in #book-end
       display: inline-block;
       vertical-align: top;
+      text-align: left;
       width: 30%;
       padding-right: 1.5em;
       padding-bottom: 1.5em;
@@ -1202,7 +1221,7 @@
         display: inline;
         word-spacing: normal;
         text-align: left;
-        vertical-align: text-top;
+        vertical-align: top;
         // Solution in Answer Key needs to have period after number.
         &::after {
           content: ". ";
@@ -1222,12 +1241,13 @@
         // do not include a <p></p> wrapper for text.
         page-break-before: avoid;
         display: inline;
+        vertical-align: top;
       }
 
       .style(@kind, book-end) {
         margin-right: .65em;
         word-spacing: normal;
-        vertical-align: middle;
+        vertical-align: top;
         display: inline;
         // will need to change - include in .body mixin for now
         > a.target-figure {
@@ -1337,8 +1357,9 @@
 }
 
 .x-solutions-subheading-style() {
-  color: @secondary-color;
+  color: @primary-color;
   font-weight: 700;
+
   font-family: @font-family;
   display: block;
   margin-bottom: 7.5px;

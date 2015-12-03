@@ -1141,12 +1141,14 @@ div[class="note"] {
     > .body .figure .title { #content>#figure>#title>.style(any; any; @context); }
   }
 
-  &.media {
+  &.media-2 {
     @context: feature-media;
     #content>#note>.style(media);
-
+    a:link {padding-right: 40px; background: url("ccap-precalculus/links-icon.png") no-repeat right; background-size:  15px 10px; }
     .itemizedlist > .listitem {
       #content>#list>.item(@kind, @part, @context);
+
+      list-style: none;
     }
 
     // Supress the extra url generated from base that is wrapped with parentheses
@@ -1244,19 +1246,19 @@ div[class="note"] {
       .exercise .problem { margin-left: 2px; }
     }
   }
-  &.media-2 {
-    @context: feature-media;
-    #content>#note>.style(media-2);
-
-    .itemizedlist > .listitem {
-      #content>#list>.item(@kind, @part, @context);
-    }
-
-    // Supress the extra url generated from base that is wrapped with parentheses
-    .itemizedlist > .listitem .link.only-show-once {
-      content: content();
-    }
-  }
+  // &.media-2 {
+  //   @context: feature-media;
+  //   #content>#note>.style(media);
+  //
+  //   .itemizedlist > .listitem {
+  //     #content>#list>.item(@kind, @part, @context);
+  //   }
+  //
+  //   // Supress the extra url generated from base that is wrapped with parentheses
+  //   .itemizedlist > .listitem .link.only-show-once {
+  //     content: content();
+  //   }
+  // }
   &.definition {
     @context: definition;
     #content>#note>.style(non-feature);
