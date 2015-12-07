@@ -2668,6 +2668,7 @@ div.book > div.chapter > div.titlepage div div > h1.title {
   padding: 0 1in 20px 100px;
   position: absolute;
   bottom: 0;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   white-space: nowrap;
   color: white;
 }
@@ -2686,7 +2687,7 @@ div.book > div.chapter > div.titlepage div div > h1.title::before {
   bottom: 24px;
   border: 1px solid white;
   padding-top: 0.07in;
-  min-width: 1.5em;
+  min-width: 1.8em;
   min-height: 1.5em;
   text-align: center;
 }
@@ -3375,7 +3376,6 @@ subfigure {
   margin-top: 0;
   margin-bottom: 5px;
   text-align: left;
-  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .section.section-exercises {
   page-break-before: always;
@@ -3389,12 +3389,15 @@ subfigure {
   column-gap: 10px;
   column-fill: balance;
 }
+.section.section-exercises .section .titlepage {
+  padding-bottom: .5em;
+}
 .section.section-exercises .section {
-  padding-bottom: 1em;
+  padding-bottom: 2em;
 }
 .section.section-exercises::before {
   page-break-after: avoid;
-  content: "" " " counter(chapter, decimal) "." counter(section, decimal) " : : EXERCISES" " " "";
+  content: "" " " counter(chapter, decimal) "." counter(section, decimal) " \00a0 : : \00a0 EXERCISES" " " "";
   font-size: 1.5rem;
   color: #093d4c;
   font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -3523,6 +3526,10 @@ subfigure {
   text-transform: uppercase;
   page-break-before: avoid;
   page-break-after: avoid;
+}
+div.book div.chapter > div.section div.example:not(.labeled) > .title > span:not(.labeled)::before {
+  position: relative;
+  top: -1px;
 }
 .section .example > .title > * {
   padding: 0;
@@ -3683,9 +3690,10 @@ div.book div.chapter > div.section div.example div.exercise .commentary .figure 
   border-left: 3px solid #eff1ec;
   padding-left: 8px;
   padding-left: 3px;
-  vertical-align: middle;
-  margin-bottom: 3px;
+  vertical-align: bottom;
+  margin-bottom: 6px;
   page-break-after: avoid;
+  line-height: 8px;
 }
 .example .exercise .solution > .body {
   page-break-before: avoid;
@@ -4146,6 +4154,10 @@ div[class="note"] .body p {
   padding-right: 40px;
   background: url("ccap-precalculus/links-icon.png") no-repeat right;
   background-size: 15px 9px;
+}
+.note.media-2 ul {
+  margin: 0;
+  padding: 0;
 }
 .note.media-2 .itemizedlist > .listitem {
   color: #d7562c;

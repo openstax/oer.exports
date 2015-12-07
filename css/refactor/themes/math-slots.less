@@ -913,7 +913,7 @@
       .x-column-count(1);
 
       .section {
-        padding-bottom: 1em;
+        padding-bottom: 2em;
       }
     }
     .style(any; appendix) {}
@@ -952,7 +952,7 @@
         font-weight: bold;
       }
       .style(section-exercises; @part; ...) {
-        content: "" " " counter(chapter, decimal) "." counter(section, decimal) " : : EXERCISES" " " "";
+        content: "" " " counter(chapter, decimal) "." counter(section, decimal) " \00a0 : : \00a0 EXERCISES" " " "";
         .font-scale(2);
         color: @primary-color;
         font-family: @font-family-titles;
@@ -1117,7 +1117,6 @@
       margin-bottom: 0;
     }
     .style(@kind; @part; section) {
-      font-family: @font-family-titles;
     }
     .style(@kind; @part; section-exercise) {
       margin-top: 1em;
@@ -1222,9 +1221,10 @@
         display: block;
         .side-border;
         padding-left: 3px;
-        vertical-align: middle;
-        margin-bottom:3px;
+        vertical-align: bottom;
+        margin-bottom:6px;
         page-break-after: avoid;
+        line-height: 8px;
       }
       .style(@kind; book-end) {
         display: inline;
