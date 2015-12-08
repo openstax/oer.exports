@@ -2947,6 +2947,7 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   column-gap: 24px;
   column-gap: 10px;
   column-fill: balance;
+  counter-reset: review-section;
 }
 .cnx-eoc.review-exercises > .title {
   content: "Chapter " counter(chapter, decimal) " Review Exercises";
@@ -2955,6 +2956,13 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
 }
 .cnx-eoc.review-exercises .section .section {
   padding-bottom: 2em;
+  counter-increment: review-section;
+}
+.cnx-eoc.review-exercises .section .section > .titlepage .cnx-gentext-t a[href^="http"] {
+  content: content();
+}
+.cnx-eoc.review-exercises .section .section > .titlepage .cnx-gentext-t a::before {
+  content: "" "" counter(chapter, decimal) "." counter(review-section) " " "";
 }
 .cnx-eoc.practice-test {
   -webkit-column-count: 1;
