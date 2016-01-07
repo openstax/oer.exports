@@ -1,12 +1,35 @@
 import subprocess
 import os
 from signal import SIGTERM
+import functools
 
 SAXON_PATH = "./lib/saxon9he.jar"
 DELIMINATOR = "END_OF_XML_BLOCK"
 MATH2SVG_PATH = "./xslt2/math2svg-in-docbook.xsl"
 
+import threading
+import thread
+always_error = False
 
+def error():
+    thread.interrupt_main()
+
+def monitor(function):
+    @functools.wraps(function)
+    def wrapper(*args, **kwargs):
+        global always_error
+        if always_error:
+            raise RuntimeError
+        error_countdown = threading.Timer(10.0,error)
+        try:
+            error_countdown.start()
+            value = function(*args, **kwargs)
+            error_countdown.cancel()
+        except KeyboardInterrupt:
+            always_error = True
+            raise RuntimeError
+        return value
+    return wrapper
 
 class Saxon:
 
@@ -47,7 +70,7 @@ class Saxon:
                                         stderr=subprocess.PIPE,
                                         close_fds=True,
                                         cwd=os.path.dirname(saxon_path))
-
+    @monitor
     def convert(self, xml):
  
         self.process.stdin.write(xml)
