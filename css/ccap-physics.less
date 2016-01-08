@@ -44,6 +44,17 @@ div.itemizedlist ul.itemizedlist li.listitem:last-child {
   margin-bottom: 0;
 }
 
+h1, h2, h3, h4 {
+  margin-top: 0;
+  sup {
+    display: none;
+    height: 0;
+    line-height: 0;
+  }
+}
+h2 {
+  margin-bottom: 0.5em;
+}
 /******************************************************
  * Book Table of Contents
  ******************************************************/
@@ -74,7 +85,7 @@ div.itemizedlist ul.itemizedlist li.listitem:last-child {
 h1.title { background-color: @orange; } //ccap-chapter
 
 .chapter > .introduction {
-
+  padding-bottom: 1.5em;
   > .title span { //.ccap-intro-title
     border-bottom: 1px solid @orange;
     padding-right: 3em; // padding was added to maintain the length of the bottom-border (regression)
@@ -82,6 +93,8 @@ h1.title { background-color: @orange; } //ccap-chapter
 
   > .toc { // Learning Objectives
     border: 1px solid @blue;
+    page-break-before: avoid;
+    page-break-inside: auto;
     > .title { //learning objectives title
       font-weight: normal;
       background-color: @blue;
@@ -148,6 +161,13 @@ div.colophon.end-of-book-solutions {
 
 /********* CNXML ELements *********/
 
+.chapter > .module {
+  margin-bottom: 1em;
+  > .section {
+    margin-bottom: 0.5em;
+  }
+}
+
 .ccap-figure-title () {
   .ccap-a;
 }
@@ -167,6 +187,7 @@ div.colophon.end-of-book-solutions {
   padding: .1em 1em;
   margin-top: 1em;
   display: inline;
+  color: orange;
 }
 .ccap-block-title-link () {
   color: white;
@@ -242,6 +263,10 @@ h2::before {
 .note { //.ccap-note
 	/* page-break-inside: avoid; Per David's request, less whitespace is better. */
 	background-color: @cream;
+  margin-top: 0;
+}
+p + .note {
+  margin-top: 1.5em;
 }
 .note h3 {
   margin-top: 0.5em;
@@ -254,13 +279,30 @@ h2::before {
   .ccap-figure-title;
 }
 
+.figure {
+  margin-bottom: 1.5em;
+}
 
-
+.example {
+  margin-top: 0;
+}
+p + .example {
+  margin-top: 1.5em;
+}
 /******************************************************
  * End of chapter customizations
  ******************************************************/
 .cnx-eoc {
-  .section .title a { color: @blue; }
+  > .title {
+    margin-bottom: 1em;
+  }
+  .section .title {
+    padding-top: 0;
+    a { color: @blue; }
+  }
+  .conceptual-questions, .section-summary {
+    padding-bottom: 1.5em;
+  }
 
   &.problems-exercises {
     .x-column-count(2);
@@ -278,6 +320,9 @@ h2::before {
 /*****************************************************
  * Appendix customizations
  *****************************************************/
+ .glossary {
+   margin-bottom: 1.5em;
+ }
 
 .list-item-spacing {
 	margin-top: 0.2em;
@@ -316,6 +361,8 @@ h2::before {
 .glossary > .titlepage {
   border-bottom: 1px solid @orange;
 	page-break-after: avoid;
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .example > .body,
@@ -334,7 +381,7 @@ h2::before {
 }
 .cnx-vertical-spacing {
 	margin-bottom: 0.25em;
-	margin-top: 0.25em;
+	//margin-top: 0.25em;
 }
 .normal-para-spacing {
 	margin-bottom: 0.25em;
