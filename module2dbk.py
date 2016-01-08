@@ -158,8 +158,8 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
     
             if strErr:
               print >> sys.stderr, strErr.encode('utf-8')                           
-      finally:
-          return xml, {}, [] # xml, newFiles, log messages
+      
+      return xml, {}, [] # xml, newFiles, log messages
 
   def imageResize(xml, files, **params):
     # TODO: parse the XML and xpath/annotate it as we go.
