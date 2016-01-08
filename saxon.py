@@ -1,7 +1,6 @@
 import subprocess
 import os
 from signal import SIGTERM
-import functools
 
 SAXON_PATH = "./lib/saxon9he.jar"
 DELIMINATOR = "END_OF_XML_BLOCK"
@@ -13,23 +12,6 @@ always_error = False
 
 def error():
     thread.interrupt_main()
-
-def monitor(function):
-    @functools.wraps(function)
-    def wrapper(*args, **kwargs):
-        global always_error
-        if always_error:
-            raise RuntimeError
-        error_countdown = threading.Timer(10.0,error)
-        try:
-            error_countdown.start()
-            value = function(*args, **kwargs)
-            error_countdown.cancel()
-        except KeyboardInterrupt:
-            always_error = True
-            raise RuntimeError
-        return value
-    return wrapper
 
 class Saxon:
 
@@ -70,26 +52,36 @@ class Saxon:
                                         stderr=subprocess.PIPE,
                                         close_fds=True,
                                         cwd=os.path.dirname(saxon_path))
-    @monitor
     def convert(self, xml):
- 
-        self.process.stdin.write(xml)
-        self.process.stdin.write("\n" + DELIMINATOR + "\n")
-        self.process.stdin.flush()
-        process_info = ''
-        process_info_line = ''
-        while DELIMINATOR not in process_info_line:
-            process_info = process_info + process_info_line
-            process_info_line = self.process.stderr.readline()
+        global always_error
+        if always_error:
+            raise RuntimeError
+        error_countdown = threading.Timer(10.0,error)
+        try:
+            error_countdown.start()
 
-
-        svg = ''
-        svg_line = ''
-        while DELIMINATOR not in svg_line:
-            svg = svg + svg_line
-            svg_line = self.process.stdout.readline()
-
-        svg = svg.strip()
+            self.process.stdin.write(xml)
+            self.process.stdin.write("\n" + DELIMINATOR + "\n")
+            self.process.stdin.flush()
+            process_info = ''
+            process_info_line = ''
+            while DELIMINATOR not in process_info_line:
+                process_info = process_info + process_info_line
+                process_info_line = self.process.stderr.readline()
+    
+    
+            svg = ''
+            svg_line = ''
+            while DELIMINATOR not in svg_line:
+                svg = svg + svg_line
+                svg_line = self.process.stdout.readline()
+    
+            svg = svg.strip()
+    
+            error_countdown.cancel()
+        except KeyboardInterrupt:
+            always_error = True
+            raise RuntimeError
         return svg
 
     def _flush(self):
