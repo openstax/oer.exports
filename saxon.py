@@ -56,7 +56,7 @@ class Saxon:
         global always_error
         if always_error:
             raise RuntimeError
-        error_countdown = threading.Timer(10.0,error)
+        error_countdown = threading.Timer(60.0,error)
         try:
             error_countdown.start()
 
