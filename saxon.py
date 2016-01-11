@@ -8,6 +8,7 @@ MATH2SVG_PATH = "./xslt2/math2svg-in-docbook.xsl"
 
 import threading
 import thread
+
 always_error = False
 
 def error():
@@ -65,10 +66,11 @@ class Saxon:
             self.process.stdin.flush()
             process_info = ''
             process_info_line = ''
+
             while DELIMINATOR not in process_info_line:
                 process_info = process_info + process_info_line
                 process_info_line = self.process.stderr.readline()
-    
+
     
             svg = ''
             svg_line = ''
@@ -96,5 +98,8 @@ class Saxon:
 
     def stop(self):
         self._close()
-        os.kill(self.process.pid,SIGTERM)
+        try:
+            os.kill(self.process.pid,SIGTERM)
+        except OSError:
+            pass
 
