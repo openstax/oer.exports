@@ -1027,6 +1027,18 @@ div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
     content: none;
   }
 }
+@page chapter:nth(1) {
+  @top-left-corner {
+  }
+  @top-right-corner {
+  }
+  @top-left {
+  }
+  @top-center {
+  }
+  @top-right {
+  }
+}
 div.book > div.preface {
   counter-reset: page 1;
 }
@@ -1035,9 +1047,17 @@ div.book > div.preface {
     content: counter(page);
   }
 }
+div.chapter {
+  page: chapter;
+  prince-page-group: start;
+}
 @namespace mml "http://www.w3.org/1998/Math/MathML";
 mml|math {
   display: none;
+}
+html,
+body {
+  font-size: 8.2pt;
 }
 /* hides the table caption in caption to place at bottom of table */
 div.table-caption.caption {
@@ -1370,7 +1390,6 @@ div.footnotes {
 }
 /********************** Generic Elements ********************/
 body {
-  font-size: 8.2pt;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 /* This NEEDS to be on its own line (can't do "body, th * { ...") */

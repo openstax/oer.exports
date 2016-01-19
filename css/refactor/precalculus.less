@@ -3,28 +3,16 @@
 @import url('page-slots.less');
 @import url('ccap-base-slots.less');
 @import url('content-slots.less');
-
 @import url('themes/math-slots.less');
 @import url('precalculus-slots.less');
 
-
-
-// color palette for pre-calculus
-@dark-blue:     #233A67;
-@medium-blue:   #528CBE;
-@light-blue:    #DBE8F2;
-@light-green:   #D3ECED;
-@light-orange:  #EFD8B0;
-@orange:        #D7562C;
-
-@white:       #FFF;
-@black:       #000;
-
 @table-border: 1pt solid @black;
-@page-width: 6.5in;
 
 // The base CCAP books use sans fonts but the statistics book uses serif fonts.
-@font-family-serif: Liberation Serif, serif, @stix-fonts;
+//@font-family-serif: Liberation Serif, serif, @stix-fonts;
+
+@font-family: 'Noto Sans', sans-serif, @stix-fonts;
+@font-family-serif: 'Noto Serif', serif, @stix-fonts;
 
 // Finished printed size of the QR code is dependent on: 1-distance between qr code and scanning device
 // 2-size of dots in the code(amount of data inputed into the code, the smaller the dots become)
@@ -44,8 +32,19 @@ html {
 @import url('ccap-base-skeleton.less');
 @import url('content-skeleton.less');
 
-
 @import url('themes/math-skeleton.less');
 @import url('precalculus-skeleton.less');
 
 @import url('folio.less');
+
+/* -------------------------
+ * Refactor this into folio-skeleton/folio-slots.
+ * This *should* be the same for all titles, but
+ * we're now deviating with our own designs.
+ * -------------------------
+ */
+div.book div.chapter > div.titlepage > div > div h1.title {
+  span.cnx-gentext-t {
+    string-set: cnx-header "@{cnx-string-chapter} " counter(chapter, decimal)  "\0020\0020\0020" content();
+  }
+}

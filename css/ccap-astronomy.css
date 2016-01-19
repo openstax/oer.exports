@@ -76,6 +76,27 @@ td.entrytbl > table {
 #content #table #row {
   border: none !important;
 }
+.cnx-svg {
+  vertical-align: middle !important;
+  display: inline-block;
+  background: orange;
+}
+.cnx-svg svg {
+  display: block;
+  preserveAspectRatio: xMinYMax !important;
+  font-size: 0;
+  line-height: 0;
+  font-family: empty;
+}
+.cnx-svg g {
+  display: block;
+  height: auto;
+  background: green;
+}
+.cnx-svg text {
+  height: 100%;
+  line-height: 0;
+}
 /* The QR code variable is needed for psychology skeleton but we are not using it since it's going away */
 html {
   prince-image-resolution: 200dpi;
@@ -959,8 +980,12 @@ div.book > div.preface .note.try:not(.labeled) {
 div.book > div.preface .note.try.labeled {
   counter-increment: none;
 }
-div.book > div.preface .note.try > .title:not(.labeled)::before {
+div.book > div.preface .note.try > .title .cnx-gentext-tip-t:not(.labeled)::before {
   content: "" "" "" "" counter(try) " " "";
+  color: rgba(0, 0, 0, 0.5);
+  display: inline;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  position: relative;
 }
 div.book div.chapter {
   /* --------------------------------------
@@ -986,8 +1011,12 @@ div.book div.chapter .note.try:not(.labeled) {
 div.book div.chapter .note.try.labeled {
   counter-increment: none;
 }
-div.book div.chapter .note.try > .title:not(.labeled)::before {
+div.book div.chapter .note.try > .title .cnx-gentext-tip-t:not(.labeled)::before {
   content: "" "" counter(chapter, decimal) "." counter(try) " " "";
+  color: rgba(0, 0, 0, 0.5);
+  display: inline;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  position: relative;
 }
 div.book > div.appendix {
   /* --------------------------------------
@@ -1013,8 +1042,12 @@ div.book > div.appendix .note.try:not(.labeled) {
 div.book > div.appendix .note.try.labeled {
   counter-increment: none;
 }
-div.book > div.appendix .note.try > .title:not(.labeled)::before {
+div.book > div.appendix .note.try > .title .cnx-gentext-tip-t:not(.labeled)::before {
   content: "" "" counter(appendix, upper-latin) "" counter(try) " " "";
+  color: rgba(0, 0, 0, 0.5);
+  display: inline;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  position: relative;
 }
 @page {
   margin: 0.8in 1in;
@@ -1122,6 +1155,18 @@ div.book > div.appendix .note.try > .title:not(.labeled)::before {
     content: none;
   }
 }
+@page chapter:nth(1) {
+  @top-left-corner {
+  }
+  @top-right-corner {
+  }
+  @top-left {
+  }
+  @top-center {
+  }
+  @top-right {
+  }
+}
 div.book > div.preface {
   counter-reset: page 1;
 }
@@ -1130,9 +1175,17 @@ div.book > div.preface {
     content: counter(page);
   }
 }
+div.chapter {
+  page: chapter;
+  prince-page-group: start;
+}
 @namespace mml "http://www.w3.org/1998/Math/MathML";
 mml|math {
   display: none;
+}
+html,
+body {
+  font-size: 8.2pt;
 }
 /* hides the table caption in caption to place at bottom of table */
 div.table-caption.caption {
@@ -1446,7 +1499,6 @@ div.footnotes {
 }
 /********************** Generic Elements ********************/
 body {
-  font-size: 8.2pt;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 /* This NEEDS to be on its own line (can't do "body, th * { ...") */

@@ -921,6 +921,10 @@ div.book > div.appendix > div.titlepage > div > div:not(:first-child) {
 mml|math {
   display: none;
 }
+html,
+body {
+  font-size: 8.2pt;
+}
 /* hides the table caption in caption to place at bottom of table */
 div.table-caption.caption {
   display: none;
@@ -1163,7 +1167,6 @@ div.footnotes {
 }
 /********************** Generic Elements ********************/
 body {
-  font-size: 8.2pt;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 /* This NEEDS to be on its own line (can't do "body, th * { ...") */
@@ -1619,6 +1622,18 @@ p:nth-of-type(2),
     content: none;
   }
 }
+@page chapter:nth(1) {
+  @top-left-corner {
+  }
+  @top-right-corner {
+  }
+  @top-left {
+  }
+  @top-center {
+  }
+  @top-right {
+  }
+}
 div.book > div.preface {
   counter-reset: page 1;
 }
@@ -1626,6 +1641,10 @@ div.book > div.preface {
   @top-right {
     content: counter(page);
   }
+}
+div.chapter {
+  page: chapter;
+  prince-page-group: start;
 }
 /* -------------------------
  * Table of Contents

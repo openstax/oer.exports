@@ -34,14 +34,30 @@ div.table {
     table tbody[valign=top]>tr>td { vertical-align: top; }
 
     tr { #content>#table>#row>.style(any; any); }
+    tr:last-child > td:first-child { #content>#table>#data>.style('left-rounded'; any); }
+    tr:last-child > td:last-child { #content>#table>#data>.style('right-rounded'; any); }
+    tr td:nth-child(even) { #content>#table>#data>.style('even'; any); }
+
     th { #content>#table>#header>.style(any; any); }
     th:not(:only-child) { #content>#table>#header>.style(any; any);}
+    th:nth-child(even) { #content>#table>#header>.style('even'; any); }
+    tr:first-child > th:first-child { #content>#table>#header>.style('left-rounded'; any); }
+    tr:first-child > th:last-child { #content>#table>#header>.style('right-rounded'; any); }
 
     td { #content>#table>#data>.style(any; any); }
+    td:first-child { #content>#table>#data>.style('first'; any); }
+    td:last-child { #content>#table>#data>.style('last'; any); }
+
     // Add styling for table entries that should render as table headers
     td.header { #content>#table>#data>.style('header'; any); }
     thead > tr:first-child {
       #content>#table>#header>#title>.style(any; any);
+    }
+    thead > tr:not(:only-child):last-child th {
+      #content>#table>#header>#title>.style('header'; any);
+    }
+    thead > tr:not(:only-child):last-child th:nth-child(even) {
+      #content>#table>#header>#title>.style('even'; any);
     }
   }
 
@@ -114,6 +130,9 @@ ul.itemizedlist, ol.orderedlist {
   //left column displays as a table head.
   &.column-header tbody td:first-child  {
     #content>#table>#data>.style('header'; any);
+  }
+  &.column-header tbody tr:nth-child(even) td:first-child {
+    #content>#table>#data>.style('header even'; any);
   }
   table {
     thead tr:first-of-type th {
