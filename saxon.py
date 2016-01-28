@@ -6,7 +6,13 @@ SAXON_PATH = "./lib/saxon9he.jar"
 DELIMINATOR = "END_OF_XML_BLOCK"
 MATH2SVG_PATH = "./xslt2/math2svg-in-docbook.xsl"
 
+import threading
+import thread
 
+always_error = False
+
+def error():
+    thread.interrupt_main()
 
 class Saxon:
 
@@ -47,26 +53,37 @@ class Saxon:
                                         stderr=subprocess.PIPE,
                                         close_fds=True,
                                         cwd=os.path.dirname(saxon_path))
-
     def convert(self, xml):
- 
-        self.process.stdin.write(xml)
-        self.process.stdin.write("\n" + DELIMINATOR + "\n")
-        self.process.stdin.flush()
-        process_info = ''
-        process_info_line = ''
-        while DELIMINATOR not in process_info_line:
-            process_info = process_info + process_info_line
-            process_info_line = self.process.stderr.readline()
+        global always_error
+        if always_error:
+            raise RuntimeError
+        error_countdown = threading.Timer(60.0,error)
+        try:
+            error_countdown.start()
 
+            self.process.stdin.write(xml)
+            self.process.stdin.write("\n" + DELIMINATOR + "\n")
+            self.process.stdin.flush()
+            process_info = ''
+            process_info_line = ''
 
-        svg = ''
-        svg_line = ''
-        while DELIMINATOR not in svg_line:
-            svg = svg + svg_line
-            svg_line = self.process.stdout.readline()
+            while DELIMINATOR not in process_info_line:
+                process_info = process_info + process_info_line
+                process_info_line = self.process.stderr.readline()
 
-        svg = svg.strip()
+    
+            svg = ''
+            svg_line = ''
+            while DELIMINATOR not in svg_line:
+                svg = svg + svg_line
+                svg_line = self.process.stdout.readline()
+    
+            svg = svg.strip()
+    
+            error_countdown.cancel()
+        except KeyboardInterrupt:
+            always_error = True
+            raise RuntimeError
         return svg
 
     def _flush(self):
@@ -81,5 +98,8 @@ class Saxon:
 
     def stop(self):
         self._close()
-        os.kill(self.process.pid,SIGTERM)
+        try:
+            os.kill(self.process.pid,SIGTERM)
+        except OSError:
+            pass
 
