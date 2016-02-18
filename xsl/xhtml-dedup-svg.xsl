@@ -10,6 +10,8 @@
 
 <xsl:include href="ident.xsl"/>
 
-<xsl:template match="//x:span[contains(@class,'cnx-svg')]/svg:svg[preceding-sibling::svg:svg]"/>
+<xsl:template match="//x:span[contains(@class,'cnx-svg')]/svg:svg[preceding-sibling::svg:svg]">
+    <xsl:message>Removing duplicate SVG</xsl:message>
+</xsl:template>
 
 </xsl:stylesheet>
