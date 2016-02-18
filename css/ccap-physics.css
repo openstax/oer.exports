@@ -1681,6 +1681,23 @@ div.itemizedlist ul.itemizedlist li.listitem {
 div.itemizedlist ul.itemizedlist li.listitem:last-child {
   margin-bottom: 0;
 }
+h1,
+h2,
+h3,
+h4 {
+  margin-top: 0;
+}
+h1 sup,
+h2 sup,
+h3 sup,
+h4 sup {
+  display: none;
+  height: 0;
+  line-height: 0;
+}
+h2 {
+  margin-bottom: 0.5em;
+}
 /******************************************************
  * Book Table of Contents
  ******************************************************/
@@ -1710,12 +1727,20 @@ div.itemizedlist ul.itemizedlist li.listitem:last-child {
 h1.title {
   background-color: #faa61a;
 }
+.preface h1 {
+  margin-bottom: .8em;
+}
+.chapter > .introduction {
+  padding-bottom: 1.5em;
+}
 .chapter > .introduction > .title span {
   border-bottom: 1px solid #faa61a;
   padding-right: 3em;
 }
 .chapter > .introduction > .toc {
   border: 1px solid #0061aa;
+  page-break-before: avoid;
+  page-break-inside: auto;
 }
 .chapter > .introduction > .toc > .title {
   font-weight: normal;
@@ -1746,6 +1771,9 @@ h1.title {
 /***************************************************
  * PREFACE
  ***************************************************/
+.preface > .section {
+  margin-bottom: 1.5em;
+}
 .preface > .section h2 {
   color: #0061aa;
   font-weight: normal;
@@ -1771,6 +1799,12 @@ div.colophon.end-of-book-solutions {
 }
 /********* HTML Element styles *********/
 /********* CNXML ELements *********/
+.chapter > .module {
+  margin-bottom: 1em;
+}
+.chapter > .module > .section {
+  margin-bottom: 0.5em;
+}
 /* Print-specific styles <style media="print"... */
 /********************** Generic Elements ********************/
 a {
@@ -1813,6 +1847,10 @@ h2::before {
 .note {
   /* page-break-inside: avoid; Per David's request, less whitespace is better. */
   background-color: #fbf2e2;
+  margin-top: 0;
+}
+p + .note {
+  margin-top: 1.5em;
 }
 .note h3 {
   margin-top: 0.5em;
@@ -1828,11 +1866,26 @@ h2::before {
   color: #a06a19;
   font-weight: bold;
 }
+.figure {
+  margin-bottom: 1em;
+}
+.example {
+  margin-top: 0;
+}
+p + .example {
+  margin-top: 1.5em;
+}
 /******************************************************
  * End of chapter customizations
  ******************************************************/
 .cnx-eoc {
   /* Allow sections in the 2-column problems-exercises to break */
+}
+.cnx-eoc > .title {
+  margin-bottom: 1em;
+}
+.cnx-eoc .section .title {
+  padding-top: 0;
 }
 .cnx-eoc .section .title a {
   color: #0061aa;
@@ -1847,12 +1900,26 @@ h2::before {
   page-break-before: always;
 }
 .cnx-eoc.problems-exercises .section,
-.cnx-eoc.ap-test-prep .section {
+.cnx-eoc.ap-test-prep .section,
+.cnx-eoc.conceptual-questions .section,
+.cnx-eoc.section-summary .section {
   page-break-inside: auto;
+  padding-bottom: 1em;
+}
+.cnx-eoc.problems-exercises .section.empty,
+.cnx-eoc.ap-test-prep .section.empty,
+.cnx-eoc.conceptual-questions .section.empty,
+.cnx-eoc.section-summary .section.empty {
+  padding: 0;
+  margin: 0;
+  line-height: 0;
 }
 /*****************************************************
  * Appendix customizations
  *****************************************************/
+.glossary {
+  margin-bottom: 1.5em;
+}
 .list-item-spacing {
   margin-top: 0.2em;
 }
@@ -1897,6 +1964,8 @@ h2::before {
 .glossary > .titlepage {
   border-bottom: 1px solid #faa61a;
   page-break-after: avoid;
+  margin-top: 0;
+  padding-top: 0;
 }
 .example > .body,
 .exercise > .body {
@@ -1912,7 +1981,6 @@ h2::before {
 }
 .cnx-vertical-spacing {
   margin-bottom: 0.25em;
-  margin-top: 0.25em;
 }
 .normal-para-spacing {
   margin-bottom: 0.25em;
