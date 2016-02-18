@@ -472,7 +472,7 @@ This template relies on a special:
           <xsl:apply-templates select="db:title/node()"/>
         </div>
         <div class="body">
-          <xsl:for-each select=".//db:section[.//*[contains(@class, 'reference') and not(contains(@class, 'references'))]]">
+          <xsl:for-each select="./db:section[.//*[contains(@class, 'reference') and not(contains(@class, 'references'))]]">
             <div class="section-area">
               <div class="title">
                 <xsl:apply-templates select="db:sectioninfo/db:title/node()|db:title/node()"/>
