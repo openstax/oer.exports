@@ -102,6 +102,7 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
               return xml, {}, []
       
           formularList = MATH_XPATH(xml)
+          svgs = {}
       
           unprocessed_list = []
       
@@ -112,32 +113,34 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
               svg_str = mc.get(mathml_key)
               if svg_str:
                   svg = etree.parse(StringIO(svg_str), parser).getroot()
-                  mathml.addprevious(svg)
               else:
-                  unprocessed_list.append(mathml)
+                  svg = None
+                  unprocessed_list.append((mathml,mathml_key))
+
+              svgs[mathml_key] = ((mathml, svg))
       
-          if unprocessed_list:
-              formularList=unprocessed_list
-          else:
+          if not unprocessed_list:
               return xml, {}, []
       
-          mathml_str_list = [ etree.tostring(mathml) for mathml in formularList ]
+          mathml_str_list = [ etree.tostring(mathml) for mathml, _ in unprocessed_list ]
           mathml_tree_str = "<root>" + ''.join(mathml_str_list) + "</root>"
           mathml_svg_tree_str = sax.convert(mathml_tree_str)
           mathml_svg_tree = etree.parse(StringIO(mathml_svg_tree_str),parser)
           root = mathml_svg_tree.getroot()
           mathml_svg_list = root.getchildren()
-          for expected_mathml in formularList:
+          for expected_mathml, mathml_key in unprocessed_list:
               svg = mathml_svg_list.pop(0)
               returned_mathml = mathml_svg_list.pop(0)
               if etree.tostring(returned_mathml) == etree.tostring(expected_mathml):
-                  expected_mathml.addprevious(svg)
-                  mathml_key = hashlib.md5()
-                  mathml_key.update(etree.tostring(expected_mathml))
-                  mathml_key = mathml_key.hexdigest()
                   mc.set(mathml_key,etree.tostring(svg))
+                  svgs[mathml_key] = ((expected_mathml, svg))
               else:
                   raise ValueError("returned mathml not expected")
+
+          # All worked, now update XML tree
+          for mathml, svg in svgs.itervalues():
+              mathml.addprevious(svg)
+
       except RuntimeError:
           formularList = MATH_XPATH(xml)
           strErr = ''
