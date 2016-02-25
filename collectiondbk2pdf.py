@@ -1,7 +1,8 @@
 """
 Copyright (c) 2013 Rice University
 
-This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+This software is subject to the provisions of the
+GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 See LICENSE.txt for details.
 """
 
@@ -26,14 +27,15 @@ import module2dbk
 import collection2dbk
 import util
 
-DEFAULT_PDFGEN_PATHS = ['/usr/bin/prince','/usr/local/bin/prince']
+DEFAULT_PDFGEN_PATHS = ['/usr/bin/prince', '/usr/local/bin/prince']
 
 path = os.path.abspath(__file__)
 BASE_PATH = os.path.dirname(path)
 
 # XSL files
-DOCBOOK2XHTML_XSL=util.makeXsl('dbk2xhtml.xsl')
+DOCBOOK2XHTML_XSL = util.makeXsl('dbk2xhtml.xsl')
 DOCBOOK_CLEANUP_XSL = util.makeXsl('dbk-clean-whole.xsl')
+DEDUPSVG_XSL = util.makeXsl('xhtml-dedup-svg.xsl')
 
 MODULES_XPATH = etree.XPath('//col:module/@document', namespaces=util.NAMESPACES)
 IMAGES_XPATH = etree.XPath('//c:*/@src[not(starts-with(.,"http:"))]', namespaces=util.NAMESPACES)
@@ -170,7 +172,11 @@ def convert(p, dbk1, files, print_style, temp_dir, output_pdf, pdfgen, verbose=F
   # Step 2 (Docbook to XHTML)
   xhtml_file = os.path.join(temp_dir, 'collection.xhtml')
   xhtml = transform(DOCBOOK2XHTML_XSL, dbk2)
-  open(xhtml_file,'w').write(etree.tostring(xhtml))
+
+  p.tick('Dedup SVGs')
+  xhtml_deduped = transform(DEDUPSVG_XSL, xhtml)
+
+  open(xhtml_file,'w').write(etree.tostring(xhtml_deduped))
 
   p.tick('Converting HTML to PDF')
   #import pdb; pdb.set_trace()
