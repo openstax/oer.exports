@@ -1008,6 +1008,31 @@ div.book > div.appendix .note.try.labeled {
 div.book > div.appendix .note.try > .title:not(.labeled)::before {
   content: "" "" counter(appendix, upper-latin) "" counter(try) " " "";
 }
+/* -------------------------
+ * Equations
+ * -------------------------
+ */
+div.book div.chapter > div.section div.equation.unnumbered,
+div.book div.chapter > div.section div.equation:not(.labeled).unnumbered,
+div.book div.chapter > div.section div.example div.exercise div.equation.unnumbered,
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled).unnumbered {
+  counter-increment: none !important;
+}
+div.book div.chapter > div.section div.equation.unnumbered > *:last-child::after,
+div.book div.chapter > div.section div.equation.unnumbered > *:last-child::before {
+  display: none !important;
+}
+/* -------------------------
+ * Tables
+ * -------------------------
+ */
+div.book div.chapter .table.unnumbered,
+div.book div.chapter .table:not(labeled).unnumbered {
+  counter-increment: none !important;
+}
+div.book div.chapter div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before {
+  display: none !important;
+}
 @page {
   margin: 0.8in 1in;
   font-size: xx-small;
@@ -2383,6 +2408,9 @@ div.book > div.appendix > div.section > div.titlepage h2 {
   font-size: 17pt;
   font-weight: bold;
 }
+div.book > div.appendix > div.section > div.titlepage h2::before {
+  display: none;
+}
 div.book > div.appendix > div.section > div.section > div.titlepage h3 {
   page-break-after: avoid;
 }
@@ -2393,6 +2421,12 @@ div.book div.chapter > div.section > div.titlepage h2 {
   color: #528cbe;
   font-size: 17pt;
   font-weight: bold;
+}
+div.book div.chapter > div.section > div.titlepage h2::before {
+  display: none;
+}
+div.book div.chapter > div.section > div.titlepage h2 span.cnx-gentext-n {
+  display: none;
 }
 div.book div.chapter > div.section > div.titlepage h2 span.cnx-gentext-t::before {
   color: black;
@@ -3977,31 +4011,6 @@ div.book > div.part > div.chapter > div.cnx-eoc {
 div.book > div.appendix > div.cnx-eoc,
 div.book > div.part > div.appendix > div.cnx-eoc {
   counter-reset: eoc-section -1;
-}
-/* -------------------------
- * Equations
- * -------------------------
- */
-div.book div.chapter > div.section div.equation.unnumbered,
-div.book div.chapter > div.section div.equation:not(.labeled).unnumbered,
-div.book div.chapter > div.section div.example div.exercise div.equation.unnumbered,
-div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled).unnumbered {
-  counter-increment: none !important;
-}
-div.book div.chapter > div.section div.equation.unnumbered > *:last-child::after,
-div.book div.chapter > div.section div.equation.unnumbered > *:last-child::before {
-  display: none !important;
-}
-/* -------------------------
- * Tables
- * -------------------------
- */
-div.book div.chapter .table.unnumbered,
-div.book div.chapter .table:not(labeled).unnumbered {
-  counter-increment: none !important;
-}
-div.book div.chapter div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before {
-  display: none !important;
 }
 .note {
   /******************************************************************************
