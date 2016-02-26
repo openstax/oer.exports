@@ -102,43 +102,40 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
               return xml, {}, []
       
           formularList = MATH_XPATH(xml)
+          math_list = []
           svgs = {}
       
           unprocessed_list = []
       
           for mathml in formularList:
-              mathml_key = hashlib.md5()
-              mathml_key.update(etree.tostring(mathml))
-              mathml_key = mathml_key.hexdigest()
+              mathml_key = hashlib.md5(etree.tostring(mathml)).hexdigest()
+              math_list.append((mathml, mathml_key))
               svg_str = mc.get(mathml_key)
               if svg_str:
-                  svg = etree.parse(StringIO(svg_str), parser).getroot()
+                  svgs[mathml_key] = svg_str
               else:
-                  svg = None
-                  unprocessed_list.append((mathml,mathml_key))
+                  unprocessed_list.append((mathml, mathml_key))
 
-              svgs[mathml_key] = ((mathml, svg))
-      
-          if not unprocessed_list:
-              return xml, {}, []
-      
-          mathml_str_list = [ etree.tostring(mathml) for mathml, _ in unprocessed_list ]
-          mathml_tree_str = "<root>" + ''.join(mathml_str_list) + "</root>"
-          mathml_svg_tree_str = sax.convert(mathml_tree_str)
-          mathml_svg_tree = etree.parse(StringIO(mathml_svg_tree_str),parser)
-          root = mathml_svg_tree.getroot()
-          mathml_svg_list = root.getchildren()
-          for expected_mathml, mathml_key in unprocessed_list:
-              svg = mathml_svg_list.pop(0)
-              returned_mathml = mathml_svg_list.pop(0)
-              if etree.tostring(returned_mathml) == etree.tostring(expected_mathml):
-                  mc.set(mathml_key,etree.tostring(svg))
-                  svgs[mathml_key] = ((expected_mathml, svg))
-              else:
-                  raise ValueError("returned mathml not expected")
+          if len(unprocessed_list) > 0:
+              mathml_str_list = [ etree.tostring(mathml) for mathml, _ in unprocessed_list ]
+              mathml_tree_str = "<root>" + ''.join(mathml_str_list) + "</root>"
+              mathml_svg_tree_str = sax.convert(mathml_tree_str)
+              mathml_svg_tree = etree.parse(StringIO(mathml_svg_tree_str),parser)
+              root = mathml_svg_tree.getroot()
+              mathml_svg_list = root.getchildren()
+              for expected_mathml, mathml_key in unprocessed_list:
+                  svg = mathml_svg_list.pop(0)
+                  returned_mathml = mathml_svg_list.pop(0)
+                  if etree.tostring(returned_mathml) == etree.tostring(expected_mathml):
+                      svg_str = etree.tostring(svg)
+                      mc.set(mathml_key, svg_str)
+                      svgs[mathml_key] = svg_str
+                  else:
+                      raise ValueError("returned mathml not expected")
 
           # All worked, now update XML tree
-          for mathml, svg in svgs.itervalues():
+          for mathml, math_key in math_list:
+              svg = etree.parse(StringIO(svgs[math_key]), parser).getroot()
               mathml.addprevious(svg)
 
       except RuntimeError:
