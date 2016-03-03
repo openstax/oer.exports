@@ -1210,7 +1210,7 @@ Combination of formal.object and formal.object.heading -->
             <xsl:value-of select="substring-before(normalize-space(db:bookinfo/db:pubdate/text()),' ')"/>
         </div>
         <div id="generated_datetime">
-          <xsl:text>PDF generated on: </xsl:text><xsl:value-of select="date:format-date(date:date-time(), 'yyyy/MM/dd hh:mm:ss')" />
+          <xsl:text>PDF Generated: </xsl:text><xsl:value-of select="date:format-date(date:date-time(), 'yyyy/MM/dd HH:mm:ss')" />
         </div>
         <xsl:if test="not(@ext:element='module')">
 	        <div id="copyright_attribution">
