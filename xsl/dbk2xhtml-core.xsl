@@ -9,6 +9,7 @@
   xmlns:ext="http://cnx.org/ns/docbook+"
   xmlns:svg="http://www.w3.org/2000/svg"
   xmlns:mml="http://www.w3.org/1998/Math/MathML"
+  xmlns:date="http://exslt.org/dates-and-times"
   version="1.0">
 
 <!-- This file converts dbk files to html (maybe chunked) which is used in EPUB and PDF generation.
@@ -1204,6 +1205,11 @@ Combination of formal.object and formal.object.heading -->
 
             <!-- FIXME: Should read "August 10, 2009".  But for now, leaving as "2009/08/10" and chopping off the rest of the time/timezone stuff. -->
             <xsl:value-of select="substring-before(normalize-space(db:bookinfo/db:pubdate/text()),' ')"/>
+        </div>
+        <div id="generated_datetime">
+          <xsl:variable name="date" select="date:date-time()" />
+          <xsl:variable name="dateformatted" select="date:format-date($date, 'CCYY/MM/DD HH:MM:SS')" />
+          <xsl:text>Collection generated on: </xsl:text><xsl:value-of select="$date" />
         </div>
         <xsl:if test="not(@ext:element='module')">
 	        <div id="copyright_attribution">
