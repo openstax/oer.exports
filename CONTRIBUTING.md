@@ -68,6 +68,6 @@ Every time the fix is verified on textbook-QA, a comment and a screen capture is
 If issues are found during regression testing, a textbook dev will create a new branch and a new PR named with the same milestone name and the suffix qa (opulent.octopus.qa for example), which becomes our new main branch and is used to address any issues. The sub-version in version.txt is bumped but the milestone name remains. For example, opulent.octopus 0.27.0 becomes opulent.octopus 0.27.1. Repeat the steps listed above (2 to 8) as necessary.
 
 ## 10. code deployment to production
-When all testing is complete, we deploy to production. We have 6 production environments: production (cnx.org) and 5 staging servers that are used for by the XML production team to develop content. The testers will create a Trello card on the devops board for deployment.
+When all testing is complete, we deploy to production. We have 6 production environments: production (cnx.org) and 5 staging servers that are used for by the XML production team to develop content. The testers will create a Trello card on the devOps board for deployment.
 
 After the code is deployed on Production and staging servers and verified, create release notes reporting on all issues submitted by Wisewire for that milestone. Not every issue may result in a fix. At that time, we may also provide them with an updated tagging legend; as well a new test collection if content doesn't exist on one of the staging servers (XML production has not started).
