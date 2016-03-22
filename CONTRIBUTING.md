@@ -16,6 +16,7 @@ Each issue will have a link to the relevant test data at the top of the descript
 Please use the issue number within commit messages, for example `issue #1111`. This will create a link within the PR to the issue itself and help track changes. Typically, only referencing the issue is enough but if there are multiple fixes for one issue, you may add a descriptive comment when needed, for example `issue #1111 - changing font-size`.
 
 ## 4. review code
+Before you push, check your code and squash any superfluous commits, such as fast forward merge commits. //test slack for Walter Cronkite notifications, review co-workers as it is pushed. 
 
 ## 5. comment on the issue when addressed in the PR
 When the fix for an issue has been pushed to github and is ready for review, go to the issue and reference the PR in the comments. For example you may have something like `Addressed in PR #1111`. This is also a good time to mention anything that the tester should be aware of or anything we may need to keep track of later on.
@@ -33,7 +34,7 @@ Fixes for individual issues are verified on [textbook-dev](https://textbook-dev.
 Regression testing is done on [textbook-qa](https://textbook-qa.openstax.org), to ensure there were no unintended consequences.
 
 ## 7. final code review
-When all the issues have been tested, fixes verified and closed on [textbook-dev](https://textbook-dev.openstax.org), the template developers review code for that branch. //day before release, person who's creating the tag.
+When all the issues have been tested, fixes verified and closed on [textbook-dev](https://textbook-dev.openstax.org), the template developers review code for that branch. //day before release, person who's creating the tag. derek will update this
 
 ## 8. code deployment to QA for regression testing
 After fix verification is complete, we merge the pull request into the master branch and create a git tag. Use `git tag list` to see the version/naming convention. We use annotated tags.
