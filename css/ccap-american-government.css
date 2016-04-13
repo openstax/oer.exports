@@ -1044,6 +1044,10 @@ div.table-caption.caption {
   display: none;
   string-set: caption-bottom content();
 }
+ol,
+ul {
+  margin-bottom: 0;
+}
 /***************************************************
  * Book Table of Contents
  ***************************************************/
@@ -1757,6 +1761,17 @@ em.glossterm {
   font-weight: bold;
   display: block;
 }
+.cnx-eoc .exercise,
+.cnx-eoc .exercise > .body,
+.cnx-eoc .exercise > .body .problem,
+.cnx-eoc .exercise > .body .problem .orderedlist,
+.cnx-eoc .exercise > .body .problem .orderedlist .listitem,
+.cnx-eoc .exercise > .body .problem .orderedlist .listitem p,
+.section-exercises .exercise .problem > .orderedlist,
+.section-exercises .exercise .problem > .orderedlist .listitem,
+.section-exercises .exercise .problem > .orderedlist .listitem p {
+  page-break-inside: avoid;
+}
 /***************************************************
  * Indentation
  ***************************************************/
@@ -2171,6 +2186,9 @@ div.table table td.header {
 div.table table thead > tr:first-child {
   border-left: 0;
   border-right: 0;
+}
+div.table table thead > tr:first-child .footnote::footnote-call {
+  color: #b8292f;
 }
 div.table ul.itemizedlist,
 div.table ol.orderedlist {
