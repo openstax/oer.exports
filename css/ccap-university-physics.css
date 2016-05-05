@@ -2411,9 +2411,6 @@ div.book > div.appendix > div.section > div.titlepage h2 {
 div.book > div.appendix > div.section > div.section > div.titlepage h3 {
   page-break-after: avoid;
 }
-div.book > div.appendix > div.section > div.section > div.titlepage h3 span.cnx-gentext-t {
-  font-size: 13px;
-}
 /********************************************************************
  * Styling for Module Titles
  ********************************************************************/
@@ -3112,6 +3109,9 @@ subfigure {
 .example .solution {
   padding-top: 1em;
   padding-bottom: 1em;
+}
+.example > div.body > div.title {
+  color: #233a67;
 }
 div.book div.chapter > div.section div.example div.exercise .solution .table > table > caption::before {
   display: block;
@@ -4008,10 +4008,12 @@ div.book div.chapter > div.section div.equation > *:last-child::before {
 div.book div.chapter > div.section div.equation > *:last-child::after {
   display: none;
 }
+div.book > div.part > div.chapter > div.cnx-eoc > div.section > div.body > div.section > div.exercise:not(.labeled) > div.body > div.problem::before,
 div.book > div.chapter > div.cnx-eoc > div.section > div.body > div.section > div.exercise:not(.labeled) > div.body > div.problem::before {
   content: counter(exercise) ".";
   font-weight: bold;
 }
+div.book > div.part > div.chapter > div.cnx-eoc > div.section > div.body > div.section > div.exercise:not(.labeled) > div.title,
 div.book > div.chapter > div.cnx-eoc > div.section > div.body > div.section > div.exercise:not(.labeled) > div.title {
   display: none;
 }
@@ -4096,6 +4098,12 @@ div.book div.appendix div.table:not(.labeled).unnumbered > table > caption:not(.
 .note.check-understanding .figure img {
   max-width: 6.25in;
 }
+.cnx-eoc.review-challenge > div.section > div.title,
+.cnx-eoc.review-conceptual-questions > div.section > div.title,
+.cnx-eoc.review-problems > div.section > div.title,
+.cnx-eoc.review-additional-problems > div.section > div.title {
+  display: none;
+}
 div.colophon.end-of-book-solutions .chapter-area > div.check-understanding::before {
   color: black;
   font-size: 16px;
@@ -4145,7 +4153,7 @@ div.colophon.end-of-book-solutions .chapter-area > div.review-challenge::before 
   margin-top: 7.5px;
   color: #528cbe;
   text-transform: uppercase;
-  content: "Challenge";
+  content: "Challenge Problems";
 }
 div.book div.chapter .check-understanding:not(.labeled) {
   counter-increment: check-understanding;
@@ -4153,6 +4161,7 @@ div.book div.chapter .check-understanding:not(.labeled) {
 div.book div.chapter .check-understanding > .title:not(.labeled)::before {
   content: "" counter(chapter, decimal) "." counter(check-understanding) " ";
 }
+div.book > div.part > div.chapter .cnx-eoc > .title,
 div.book > div.chapter .cnx-eoc > .title {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
@@ -4168,6 +4177,7 @@ div.book > div.chapter .cnx-eoc > .title {
   -webkit-column-span: all;
   column-span: all;
 }
+div.book > div.part > div.chapter .cnx-eoc > .title > span,
 div.book > div.chapter .cnx-eoc > .title > span {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
@@ -4181,6 +4191,7 @@ div.book > div.chapter .cnx-eoc > .title > span {
   margin-bottom: 0px;
   padding: 0px;
 }
+div.book > div.part > div.chapter .cnx-eoc .section > .title,
 div.book > div.chapter .cnx-eoc .section > .title {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
