@@ -2,12 +2,8 @@ require 'fileutils'
 require 'rexml/parsers/pullparser'
 
 module DocBook
-  DEBUG=true
 
   class Epub
-    # When zipping, also include HTML files in the root dir - Phil
-    HACK_INCLUDE_HTML_FILES = "start.html"
-
     CHECKER = "epubcheck"
     STYLESHEET = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', "docbook.xsl"))
     CALLOUT_PATH = File.join('images', 'callouts')
@@ -18,7 +14,7 @@ module DocBook
     OUTPUT_DIR = ".epubtmp#{Time.now.to_f.to_s}"
     MIMETYPE = "application/epub+zip"
     META_DIR = "META-INF"
-    OEBPS_DIR = "content"
+    OEBPS_DIR = "OEBPS"
     ZIPPER = "zip"
 
     attr_reader :output_dir
@@ -51,7 +47,7 @@ module DocBook
 
     def self.invalid?(file)
       # Obnoxiously, we can't just check for a non-zero output...
-      cmd = "#{CHECKER} #{file}"
+      cmd = %Q(#{CHECKER} "#{file}")
       output = `#{cmd} 2>&1`
 
       if $?.to_i == 0
@@ -73,7 +69,8 @@ module DocBook
       html_stylesheet = "--stringparam html.stylesheet #{File.basename(@css_file)}" if @css_file
       base =            "--stringparam base.dir #{OEBPS_DIR}/" 
       unless @embedded_fonts.empty? 
-        font =            "--stringparam epub.embedded.fonts \"#{@embedded_fonts.map {|file| File.basename(file)}.join(',')}\"" 
+        embedded_fonts = @embedded_fonts.map {|f| File.basename(f)}.join(',')
+        font =            "--stringparam epub.embedded.fonts \"#{embedded_fonts}\"" 
       end  
       meta =            "--stringparam epub.metainf.dir #{META_DIR}/" 
       oebps =           "--stringparam epub.oebps.dir #{OEBPS_DIR}/" 
@@ -88,7 +85,7 @@ module DocBook
                  html_stylesheet,
                 ].join(" ")
       # Double-quote stylesheet & file to help Windows cmd.exe
-      db2epub_cmd = "cd #{@output_dir} && #{XSLT_PROCESSOR} #{options} \"#{@stylesheet}\" \"#{@collapsed_docbook_file}\""
+      db2epub_cmd = %Q(cd "#{@output_dir}" && #{XSLT_PROCESSOR} #{options} "#{@stylesheet}" "#{@collapsed_docbook_file}")
       STDERR.puts db2epub_cmd if $DEBUG
       success = system(db2epub_cmd)
       raise "Could not render as .epub to #{output_file} (#{db2epub_cmd})" unless success
@@ -108,7 +105,7 @@ module DocBook
       callouts = copy_callouts()
       # zip -X -r ../book.epub mimetype META-INF OEBPS
       # Double-quote stylesheet & file to help Windows cmd.exe
-      zip_cmd = %Q(cd "#{@output_dir}" &&  #{ZIPPER} #{quiet} -X -r  "#{File.expand_path(output_file)}" "#{mimetype_filename}" "#{meta}" "#{oebps}" "#{HACK_INCLUDE_HTML_FILES}")
+      zip_cmd = %Q(cd "#{@output_dir}" &&  #{ZIPPER} #{quiet} -X -r  "#{File.expand_path(output_file)}" "#{mimetype_filename}" "#{meta}" "#{oebps}")
       puts zip_cmd if $DEBUG
       success = system(zip_cmd)
       raise "Could not bundle into .epub file to #{output_file}" unless success
@@ -118,13 +115,14 @@ module DocBook
     # were XIncluded or added by ENTITY
     #   http://sourceforge.net/tracker/?func=detail&aid=2750442&group_id=21935&atid=373747
     def collapse_docbook
+      # Double-quote stylesheet & file to help Windows cmd.exe
       collapsed_file = File.join(File.expand_path(File.dirname(@docbook_file)), 
                                  '.collapsed.' + File.basename(@docbook_file))
-      entity_collapse_command = "xmllint --loaddtd --noent -o '#{collapsed_file}' '#{@docbook_file}'"
+      entity_collapse_command = %Q(xmllint --loaddtd --noent -o "#{collapsed_file}" "#{@docbook_file}")
       entity_success = system(entity_collapse_command)
       raise "Could not collapse named entites in #{@docbook_file}" unless entity_success
 
-      xinclude_collapse_command = "xmllint --xinclude -o '#{collapsed_file}' '#{collapsed_file}'"
+      xinclude_collapse_command = %Q(xmllint --xinclude -o "#{collapsed_file}" "#{collapsed_file}")
       xinclude_success = system(xinclude_collapse_command)
       raise "Could not collapse XIncludes in #{@docbook_file}" unless xinclude_success
 
@@ -179,13 +177,9 @@ module DocBook
           # TODO: What to rescue for these two?
           FileUtils.mkdir_p(File.dirname(img_new_filename)) 
           puts(img_full + ": " + img_new_filename) if $DEBUG
-          begin
-            FileUtils.cp(img_full, img_new_filename)
-            @to_delete << img_new_filename
-            new_images << img_full
-          rescue
-            # Silently fail
-          end
+          FileUtils.cp(img_full, img_new_filename)
+          @to_delete << img_new_filename
+          new_images << img_full
         end
       }  
       return new_images
@@ -209,43 +203,13 @@ module DocBook
     def get_image_refs
       parser = REXML::Parsers::PullParser.new(File.new(@collapsed_docbook_file))
       image_refs = []
-      base_hrefs = []
-      base_nestings = []
       while parser.has_next?
         el = parser.pull
-        if el.start_element? 
-          if el[1]['xml:base']
-            # split off the file name
-            base_file = el[1]['xml:base']
-            base_paths = base_file.split("/")
-            base_paths.pop
-            if base_paths.length > 0
-              base_dir = base_paths.join("/") + "/"
-            else
-              base_dir = ""
-            end
-            base_hrefs.push(base_dir)
-            base_nestings.push(true) # add a marker to pop base_hrefs
-          else
-            base_nestings.push(false)
-          end
-          name = el[0].split(":")[-1] # in case the xml has prefixes
-          if (name == "imagedata" or name == "graphic") and el[1]['fileref'] # Inline SVG is allowed
-            href = ""
-            if base_hrefs[-1]
-              href = base_hrefs[-1]
-            end
-            image_refs << href + el[1]['fileref']
-          end
-        end
-        if el.end_element?
-          if base_nestings[-1]
-            base_hrefs.pop
-          end
-          base_nestings.pop
-        end
+        if el.start_element? and (el[0] == "imagedata" or el[0] == "graphic")
+          image_refs << el[1]['fileref'] 
+        end  
       end
-      return image_refs
+      return image_refs.uniq
     end  
 
     # Returns true if the document has code callouts
