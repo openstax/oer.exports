@@ -1,11 +1,137 @@
 // Copyright (c) 2015 Rice University
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
+
+@import url('includes/theme-colors.less');
+
+@primary-color: @sapphire;
+@secondary-color: @bright-turquoise;
+@tertiary-color: @summer-sky;
+@quaternary-color: @harp-green;
+@accent-color: @fuego-green;
+@secondary-accent-color: @light-green;
+
+@quaternary-color-10: rgba(red(@quaternary-color),
+                           green(@quaternary-color),
+                           blue(@quaternary-color),
+                           .1);
 #part {
+  #toc {
+    #title {
+      .style(...) { color: @secondary-color; }
+    }
+    #link {
+      .style(...) { color: @secondary-color; }
+    }
+    #chapter {
+      .number() {
+        display: block;
+        font-size: 2.333em;
+        border: 1px solid @light-blue;
+        color: @light-blue;
+      }
+    }
+  }
   #introduction {
     #title {
       .style() {
         font-size: 22.6px;
+      }
+    }
+  }
+  #preface {
+    #titlepage {
+      .title(...) { background-color: @secondary-color; }
+    }
+  }
+  #introduction {
+    #title {
+      .style(...) { color: @secondary-color; }
+    }
+    #chapter-outline {
+      .style(...) { border: 1px solid @secondary-color; }
+      #title {
+        .style(...) { background-color: @secondary-color; }
+      }
+      #entry {
+        #title {
+          .style(...) { color: @secondary-color; }
+        }
+      }
+    }
+  }
+  #chapter {
+    .style(any; chapter) {
+      page: chapter;
+      prince-page-group: start;
+    }
+    #title {
+      .style(...) { color: @secondary-color; }
+      .number(...) { color: @secondary-color; }
+    }
+    #learning-objectives {
+      .style(...) { border: 1px solid @secondary-color; }
+      #title {
+        .style(...) {
+          background-color: transparent;
+          color: @secondary-color;
+        }
+      }
+    }
+  }
+  #module {
+    #title {
+      .style() { color: @primary-color; }
+    }
+  }
+  #glossary {
+    #title {
+      .style(chapter) { color: @secondary-color; }
+    }
+  }
+  #chapter-end {
+    #title {
+      .style(...) { color: @secondary-color; }
+    }
+    #summary {
+      #title {
+        .link(...) { color: @secondary-color; }
+      }
+    }
+    #key-concepts {
+      #title {
+        .link(...) { color: @secondary-color; }
+      }
+    }
+    #solution {
+      #title {
+        .link(...) {  color: @secondary-color; }
+      }
+    }
+  }
+  #book-end {
+    #end-of-book-solutions {
+      #title {
+        .style() { color: @secondary-color; }
+      }
+    }
+    #end-of-book-references {
+      #title {
+        .style(...) { color: @secondary-color; }
+      }
+    }
+    #index {
+      #title {
+        .style(...) { color: @secondary-color; }
+      }
+    }
+    #colophon {
+      .style(...) { color: @secondary-color; }
+    }
+    #appendix {
+      #title {
+        .style() { color: @secondary-color; }
+        .number() { color: @secondary-color; }
       }
     }
   }
@@ -19,6 +145,18 @@
       }
       .style(any; any; note) {
         background-color: @orange;
+      }
+    }
+    #caption {
+      .style(any; any) {
+        color: @primary-color;
+      }
+    }
+  }
+  #example {
+    #title {
+      .style(any) {
+        color: @dark-blue;
       }
     }
   }
@@ -36,6 +174,75 @@
         content: "Solution (" counter(multiple-solution-example-solutions, lower-latin) ")";
       }
     }
+  }
+  #note {
+    .style(...) {
+      color: @black;
+      margin: 0;
+      padding: 0;
+    }
+    .style(qa; ...) {
+      .x-feature-math(qa, basic-math, "Q&A ::", "svg");
+    }
+    .style(media; ...) {
+      .x-feature-math(media, basic-math, "Media ::", "svg");
+    }
+    .style(try, ...) {
+      .x-feature-math(try, basic-math, "Try It ::", "svg");
+    }
+    .style(howto; ...) {
+      .x-feature-math(howto, basic-math, "How to ::", "svg");
+    }
+    .style(media-2; ...) {
+      .x-feature-math(media, basic-math, "Media ::", "svg");
+    }
+    .style(non-feature) {
+      background-color: @quaternary-color-10;
+    }
+    .style(emphasized; howto) {
+      background-color: @tertiary-color;
+    }
+    .style(student-project; ...) {
+      background-color: @tertiary-color;
+    }
+    #title {
+      .style(...) {
+        padding: 7px 10px;
+      }
+      .style(non-feature) {
+        color: @secondary-color;
+      }
+    }
+  }
+  #figure {
+    #title {
+      .number(...) { color: @primary-color; }
+    }
+  }
+  #section {
+    #title {
+      .style(any; any) { color: @secondary-color; }
+      .style(any; any; section) { color: @secondary-color; }
+      .style(section-exercises; @part; ...) { color: @secondary-color; }
+    }
+  }
+  #blockquote {
+    .style(...) { color: @tertiary-color; }
+  }
+  #glossary {
+    .style(...) {
+      &::before { color: @secondary-color; }
+    }
+    #title {
+      .style(...) { color: @secondary-color; }
+    }
+  }
+  #heading {
+    .style(h5, ...) { color: @secondary-color; }
+    .style(h6, ...) { color: @secondary-color; }
+  }
+  #link {
+    .style(...) { color: @tertiary-color; }
   }
 }
 

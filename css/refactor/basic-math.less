@@ -4,26 +4,14 @@
 @import url('ccap-base-slots.less');
 @import url('content-slots.less');
 
-@import url('themes/math-slots.less');
+@import url('themes/new-math-slots.less');
 @import url('basic-math-slots.less');
-
-
-// color palette for basic mathematics
-@dark-blue:     #233A67;
-@medium-blue:   #528CBE;
-@light-blue:    #DBE8F2;
-@light-green:   #D3ECED;
-@light-orange:  #EFD8B0;
-@orange:        #D7562C;
-@soft-orange:   #F1DDB6;
-
-@white:       #FFF;
-@black:       #000;
 
 @table-border: 1pt solid @black;
 @page-width: 6.5in;
 
-@font-family-serif: Liberation Serif, serif, @stix-fonts;
+@font-family: 'Noto Sans', sans-serif, @stix-fonts;
+@font-family-serif: 'Roboto Slab', serif, @stix-fonts;
 
 
 // Images in Basic Mathematics are 150DPI
@@ -39,8 +27,19 @@ html {
 @import url('ccap-base-skeleton.less');
 @import url('content-skeleton.less');
 
-@import url('themes/math-skeleton.less');
+@import url('themes/new-math-skeleton.less');
 @import url('basic-math-skeleton.less');
 
-
 @import url('folio.less');
+
+/* -------------------------
+ * Chapter
+ *
+ * Refactor folio.less into skeletons/slots, then this goes away.
+ * -------------------------
+ */
+div.book div.chapter > div.titlepage > div > div h1.title {
+  span.cnx-gentext-t {
+    string-set: cnx-header "@{cnx-string-chapter} " counter(chapter, decimal)  "\0020\0020\0020" content();
+  }
+}
