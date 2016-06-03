@@ -32,6 +32,11 @@
   content: " "; // Page area must have content
                 // to receive layout.
 }
+.primary-header() {
+}
+.secondary-header-toc() {
+  .font-scale(1);
+}
 #page {
   .top-left-corner(chapter) {
     .folio-chapter-header();
@@ -69,7 +74,6 @@
       }
       .title(...) {
         .font-scale(2);
-        background-color: @medium-blue;
       }
     }
   }
@@ -114,10 +118,11 @@
     }
     #title {
       .style(...) {
-        .font-scale(1);
-        color: @dark-blue;
+        .font-scale(2);
+        font-family: @font-family-serif;
         text-align: left;
         border-bottom: none;
+        margin-bottom: 11px;
       }
     }
     #link {
@@ -835,14 +840,23 @@
       width: @one-half;
     }
     .style('chapter'; any; toc) {
-      margin-left: 5em;
-      border-left: 5px solid @light-green;
+      margin-left: 46px;
+      border-left: 2px solid rgba(red(@light-green),
+                                  green(@light-green),
+                                  blue(@light-green),
+                                  .3);
     }
     .item('chapter'; any; toc) {
       counter-increment: toc-chapter-counter;
     }
+    .item('preface'; any; toc) {
+    }
+    .item(any; any; toc) {
+      margin-bottom: 11px;
+    }
     .item('2n+0', 'chapter'; any; toc) {
       background-color: @light-green-10;
+      padding: 11px 0;
     }
   }
   #commentary {
@@ -1131,9 +1145,21 @@
       color: @orange;
     }
     .style('chapter'; any; toc) {
-      font-size: 2.333em;
+      .secondary-header-toc();
       margin-bottom: .5em;
       display: inline-block;
+    }
+    .style('preface'; any; toc) {
+      .secondary-header-toc();
+      margin-left: 46px;
+    }
+    .style('appendix'; any; toc) {
+      .secondary-header-toc();
+      margin-left: 46px;
+    }
+    .style('index'; any; toc) {
+      .secondary-header-toc();
+      margin-left: 46px;
     }
   }
 }
@@ -1208,6 +1234,9 @@
     }
     .style('splash'; chapter){
       margin-bottom: 15px;
+      transform: translateX(-1in);
+      margin-left: 0;
+      margin-right: 0;
     }
     .style(any; chapter-end; exercise) {
       display: table;
