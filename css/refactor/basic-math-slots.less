@@ -35,7 +35,6 @@
   #introduction {
     #title {
       .style() {
-        font-size: 22.6px;
       }
     }
   }
@@ -46,16 +45,16 @@
   }
   #introduction {
     #title {
-      .style(...) { color: @secondary-color; }
+      .style(...) { color: @primary-color; }
     }
     #chapter-outline {
-      .style(...) { border: 1px solid @secondary-color; }
+      .style(...) {}
       #title {
-        .style(...) { background-color: @secondary-color; }
+        .style(...) {}
       }
       #entry {
         #title {
-          .style(...) { color: @secondary-color; }
+          .style(...) { color: @tertiary-color; }
         }
       }
     }
@@ -66,22 +65,33 @@
       prince-page-group: start;
     }
     #title {
-      .style(...) { color: @secondary-color; }
+      .style(...) { color: white; }
       .number(...) { color: @secondary-color; }
     }
     #learning-objectives {
-      .style(...) { border: 1px solid @secondary-color; }
+      .style(...) {}
       #title {
         .style(...) {
           background-color: transparent;
           color: @secondary-color;
+          font-family: @font-family-serif;
         }
       }
     }
   }
   #module {
     #title {
-      .style() { color: @primary-color; }
+      .style() {
+        color: @primary-color;
+        font-family: @font-family-serif;
+      }
+      .number() {
+        border: 1px solid @secondary-color;
+        padding: 4px 6px;
+        margin: 0px 11px 0px 0px;
+        display: inline-block;
+        line-height: 16px;
+      }
     }
   }
   #glossary {
@@ -221,7 +231,7 @@
   }
   #section {
     #title {
-      .style(any; any) { color: @secondary-color; }
+      .style(any; any) { color: @primary-color; }
       .style(any; any; section) { color: @secondary-color; }
       .style(section-exercises; @part; ...) { color: @secondary-color; }
     }
@@ -254,6 +264,12 @@
     }
     .style('index'; any; toc) {
       color: @secondary-color;
+    }
+  }
+  #list {
+    .style('unordered'; introduction; chapter-outline) {
+      margin: 0;
+      .side-border();
     }
   }
 }

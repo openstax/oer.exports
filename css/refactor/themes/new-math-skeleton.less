@@ -50,11 +50,21 @@ div.book div.preface {
   }
   div.mediaobject {
     border-left: 1.814in solid @accent-color;
+    height: 2.523in;
 
     img {
       width: 6.685in;
       height: 2.523in;
     }
+    &::before {
+      background: rgba(30, 126, 145, 0.5);
+      width: 6.685in;
+      height: 2.523in;
+      position: absolute;
+      left: 0.815in;
+      content: " ";
+    }
+
   }
 }
 /* -------------------------
@@ -173,10 +183,14 @@ div.part > div.titlepage { display: none; }
   /******************************************************************
    * Styling for Chapter Outline Box
    ******************************************************************/
-  >.toc {
+  > .toc {
     #part>#introduction>#chapter-outline>.style();
 
-    >.title {
+    > ul {
+      #content>#list>.style('unordered'; introduction; chapter-outline);
+    }
+
+    > .title {
       #part>#introduction>#chapter-outline>#title>.style();
     }
   }
@@ -226,7 +240,6 @@ div.book > div.chapter > div.titlepage {
             color: white;
           }
         }
-        color: white;
 
         &::before {
           content: counter(chapter);
@@ -234,6 +247,7 @@ div.book > div.chapter > div.titlepage {
           left: 0.05in;
           bottom: 24px;
           border: 1px solid white;
+          padding-top: 0.07in;
           min-width: 1.5em;
           min-height: 1.5em;
           text-align: center;
@@ -311,7 +325,7 @@ div.book div.chapter > div.section > div.titlepage h2 {
   &::before {
     #part>#module>#title>.number();
   }
-  span.cnx-gentext-n { #part>#module>#title>.number(); }
+  span.cnx-gentext-n { display: none; }
 
   span.cnx-gentext-t {
     #part>#module>#title>.text();
