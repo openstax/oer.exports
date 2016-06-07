@@ -73,6 +73,9 @@ td.entrytbl > table {
 /********************************************************************
  * Math Refactor of .x-feature() function to utilize only one paramter
  ********************************************************************/
+#content #table #row {
+  border: none !important;
+}
 html {
   prince-image-resolution: 150dpi;
 }
@@ -2165,16 +2168,27 @@ div.table table {
   page-break-inside: avoid;
   margin: auto;
   page-break-inside: auto;
+  margin-bottom: 22px;
+  padding-top: 1em;
   prince-caption-page: all;
+  border: none;
+  border-collapse: collapse;
 }
 div.table table caption {
   font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  border: none;
   padding-top: .5em;
+  padding-left: 0px;
   padding-bottom: 1em;
-  font-weight: bold;
   caption-side: bottom;
+  font-size: 8px;
+  line-height: 17px;
+  font-weight: 700;
   color: #d7562c;
   color: #093d4c;
+}
+div.table table caption::before {
+  font-weight: bold;
 }
 div.table table .cnx-figure-horizontal .informalfigure .caption {
   text-align: center;
@@ -2183,6 +2197,14 @@ div.table table .cnx-figure-horizontal .informalfigure .caption * {
   font-weight: normal;
   font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
+div.table table thead {
+  border-top: none;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+div.table table tbody {
+  border: 1px solid #f1f2f2;
+  border-top: none;
+}
 div.table table table tbody[valign=top] > tr > td {
   vertical-align: top;
 }
@@ -2190,26 +2212,43 @@ div.table table tr {
   page-break-inside: avoid;
 }
 div.table table th {
-  color: black;
-  font-size: small;
-  text-align: left;
+  border-color: rgba(30, 126, 145, 0.2) !important;
+  border-bottom: none;
+  padding: 5px 10px;
+  font-size: 9pt;
+  text-align: center;
+  vertical-align: initial;
   background-color: #ffffff;
   color: white;
   background-color: #1e7e91;
 }
 div.table table th:not(:only-child) {
-  color: black;
-  font-size: small;
-  text-align: left;
+  border-color: rgba(30, 126, 145, 0.2) !important;
+  border-bottom: none;
+  padding: 5px 10px;
+  font-size: 9pt;
+  text-align: center;
+  vertical-align: initial;
   background-color: #ffffff;
   color: white;
   background-color: #1e7e91;
 }
 div.table table td {
-  padding: 13px;
+  border-color: #f1f2f2;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 9pt;
+  text-align: center;
+  padding: 5px 10px;
 }
 div.table table td.header {
+  font-size: 9pt;
+  text-align: center;
+  vertical-align: initial;
   background-color: #ffffff;
+}
+div.table table thead > tr:first-child {
+  border-left: 0;
+  border-right: 0;
 }
 div.table ul.itemizedlist,
 div.table ol.orderedlist {
@@ -2235,17 +2274,61 @@ div.table.color tr td:first-child {
 div.table.unstyled table {
   page-break-inside: avoid;
   margin: auto;
+  border: none;
+  margin: 0;
+}
+div.table.unstyled table caption {
+  display: none;
+}
+div.table.unstyled table tr {
+  border: none !important;
+  border-top: 1px solid #f1f2f2 !important;
+}
+div.table.unstyled table tr:first-of-type {
+  border-top: none !important;
+}
+div.table.unstyled table td {
+  border: none;
+  text-align: left;
+}
+div.table.unstyled table tbody {
+  border: none;
 }
 div.table.multiple-headers table {
   page-break-inside: avoid;
   margin: auto;
 }
+div.table.multiple-headers table tbody {
+  border: none;
+}
+div.table.multiple-headers table tr {
+  border: none;
+}
+div.table.multiple-headers table td {
+  padding: 0;
+}
 div.table.multiple-headers table tr table thead tr:only-child,
 div.table.multiple-headers table tr table thead tr:only-child .tablecell {
   border-top: 0px !important;
 }
+div.table.multiple-headers table tr table td {
+  padding: 10px;
+}
 div.table.column-header tbody td:first-child {
+  font-size: 9pt;
+  text-align: center;
+  vertical-align: initial;
   background-color: #ffffff;
+}
+div.table table thead tr:first-of-type th {
+  background-color: #093d4c;
+  font-weight: bold;
+}
+div.table table thead tr:first-of-type th:first-of-type {
+  border-top-left-radius: 5px;
+}
+div.table table thead tr:first-of-type th:last-of-type {
+  border-top-right-radius: 5px;
 }
 /********************************************************************
  * Styling for Appendix
@@ -2490,6 +2573,21 @@ div.part > div.titlepage {
   content: "Introduction";
   font-size: 16px;
   font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  color: #093d4c;
+}
+.chapter > .introduction > .title::before {
+  content: "Introduction";
+  font-size: 16px;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  display: inline-block;
+  width: 20px;
+  height: 24px;
+  padding-right: 10px;
+  background: url("ccap-basic-math/math-intro-icon.png") no-repeat left;
+  background-size: 20px 24px;
+  content: " ";
+  bottom: 0px;
+  position: relative;
   color: #093d4c;
 }
 .chapter > .introduction > .toc a {
@@ -2782,14 +2880,6 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
 .cnx-eoc.key-equations > div.section > div.body table {
   page-break-inside: avoid;
   margin: auto;
-  margin: 0;
-  border: none !important;
-}
-.cnx-eoc.key-equations > div.section > div.body table caption {
-  display: none;
-}
-.cnx-eoc.key-equations > div.section > div.body table td {
-  border: none !important;
 }
 .cnx-eoc.key-concepts {
   padding-bottom: 1em;
@@ -4408,6 +4498,10 @@ div.book > div.part > div.appendix > div.cnx-eoc {
 div.chapter {
   page: chapter;
   prince-page-group: start;
+}
+.token {
+  color: #1e7e91;
+  font-size: 150%;
 }
 /* -------------------------
  * Equations
