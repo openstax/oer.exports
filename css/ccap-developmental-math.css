@@ -73,6 +73,9 @@ td.entrytbl > table {
 /********************************************************************
  * Math Refactor of .x-feature() function to utilize only one paramter
  ********************************************************************/
+#content #table #row {
+  border: none !important;
+}
 html {
   prince-image-resolution: 150dpi;
 }
@@ -1116,14 +1119,26 @@ div.book > div.appendix .note.try > .title:not(.labeled)::before {
 }
 @page chapter:nth(1) {
   @top-left-corner {
+    background-color: #093d4c;
+    color: #34bdd8;
+    content: " ";
   }
   @top-right-corner {
+    background-color: #093d4c;
+    color: #34bdd8;
+    content: " ";
   }
   @top-left {
+    background-color: #093d4c;
+    color: #34bdd8;
   }
   @top-center {
+    background-color: #093d4c;
+    color: #34bdd8;
   }
   @top-right {
+    background-color: #093d4c;
+    color: #34bdd8;
   }
 }
 div.book > div.preface {
@@ -1153,6 +1168,7 @@ ul {
 .book > .toc {
   page-break-before: right;
   page-break-after: always;
+  counter-reset: toc-chapter-counter 0;
 }
 .book > .toc > .title {
   page-break-after: avoid;
@@ -1162,8 +1178,12 @@ ul {
   margin-bottom: 0em;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  color: #528cbe;
-  border-bottom-color: #528cbe;
+  font-size: 16px;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  text-align: left;
+  border-bottom: none;
+  margin-bottom: 11px;
+  color: #093d4c;
 }
 .book > .toc ul,
 .book > .toc li {
@@ -1223,7 +1243,8 @@ ul {
  ***************************************************/
 .preface > .titlepage h1.title {
   padding-left: .25em;
-  background-color: #528cbe;
+  font-size: 16px;
+  background-color: #1e7e91;
 }
 .preface > .section h2 {
   font-size: medium;
@@ -1273,8 +1294,9 @@ h1.title .cnx-gentext-n {
   font-weight: bold;
   font-size: normal;
   content: "Introduction";
-  font-size: x-large;
-  color: #528cbe;
+  font-size: 16px;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  color: #093d4c;
 }
 .chapter > .introduction .splash img {
   margin-left: auto;
@@ -1289,7 +1311,6 @@ h1.title .cnx-gentext-n {
   border-spacing: 0px;
   page-break-inside: avoid;
   width: 100%;
-  border: 1px solid #528cbe;
 }
 .chapter > .introduction > .toc > .title {
   color: white;
@@ -1301,9 +1322,11 @@ h1.title .cnx-gentext-n {
   page-break-after: avoid;
   page-break-before: avoid;
   content: "Chapter Outline";
-  padding-top: .1em;
-  padding-bottom: .2em;
-  background-color: #528cbe;
+  color: #1e7e91;
+  font-size: 14px;
+  text-align: left;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  padding: 0em;
   content: "Learning Objectives";
 }
 .chapter > .introduction > .toc > * {
@@ -1322,8 +1345,8 @@ h1.title .cnx-gentext-n {
   color: inherit;
   padding: 0.25em 0em;
   margin: 0em 1em 0em 0.5em;
-  color: #528cbe;
   font-weight: bold;
+  color: #34bdd8;
 }
 .chapter > .introduction > .toc .toc-section .abstract {
   display: none;
@@ -1357,7 +1380,6 @@ div.section > div.titlepage div.abstract {
   page-break-inside: avoid;
   page-break-before: avoid;
   counter-reset: learning-objectives;
-  border: 1px solid #528cbe;
   padding: 0em;
 }
 div.section > div.titlepage div.abstract ul.itemizedlist > li {
@@ -1403,11 +1425,11 @@ div.footnotes {
 /********************** Generic Elements ********************/
 body {
   font-size: 8.2pt;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 /* This NEEDS to be on its own line (can't do "body, th * { ...") */
 th * {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 a[href^="http"] {
   content: content() " (" attr(href) ") ";
@@ -1433,7 +1455,7 @@ a[href^="http"] {
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
@@ -1605,9 +1627,13 @@ h6 {
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  color: #000000;
+  margin: 0;
+  padding: 0;
 }
 .note h3 {
   margin-top: 0.5em;
+  padding: 7px 10px;
 }
 span.underline {
   text-decoration: underline;
@@ -1664,11 +1690,11 @@ ul.itemizedlist.no-mark {
 .glossary .titlepage h2 {
   /* Change "Glossary" to "Key Terms" */
   content: "Key Terms";
-  color: #528cbe;
   font-size: large;
   padding: 0em;
   display: block;
   text-transform: uppercase;
+  color: #1e7e91;
 }
 .glossary dl {
   page-break-before: always;
@@ -1698,11 +1724,11 @@ em.glossterm {
   margin-bottom: 0.5em;
   text-transform: uppercase;
   text-align: left;
-  color: #528cbe;
   font-size: large;
   font-weight: bold;
   margin-top: 0;
   page-break-after: avoid;
+  color: #1e7e91;
 }
 .cnx-eoc .section .title {
   padding-top: 1em;
@@ -1805,6 +1831,9 @@ p:nth-of-type(2),
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  color: #000000;
+  margin: 0;
+  padding: 0;
 }
 .introduction .footnote {
   color: black;
@@ -1851,7 +1880,7 @@ p:nth-of-type(2),
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
@@ -1864,8 +1893,8 @@ p:nth-of-type(2),
   margin: auto;
 }
 .introduction blockquote {
-  color: #dbe8f2;
   font-size: 150%;
+  color: #34bdd8;
 }
 .introduction blockquote::before,
 .introduction blockquote::after {
@@ -1885,6 +1914,9 @@ p:nth-of-type(2),
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  color: #000000;
+  margin: 0;
+  padding: 0;
 }
 .chapter .footnote {
   color: black;
@@ -1931,7 +1963,7 @@ p:nth-of-type(2),
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
@@ -1944,8 +1976,8 @@ p:nth-of-type(2),
   margin: auto;
 }
 .chapter blockquote {
-  color: #dbe8f2;
   font-size: 150%;
+  color: #34bdd8;
 }
 .chapter blockquote::before,
 .chapter blockquote::after {
@@ -1965,6 +1997,9 @@ p:nth-of-type(2),
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  color: #000000;
+  margin: 0;
+  padding: 0;
 }
 .cnx-eoc .footnote {
   color: black;
@@ -2011,7 +2046,7 @@ p:nth-of-type(2),
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
@@ -2024,8 +2059,8 @@ p:nth-of-type(2),
   margin: auto;
 }
 .cnx-eoc blockquote {
-  color: #dbe8f2;
   font-size: 150%;
+  color: #34bdd8;
 }
 .cnx-eoc blockquote::before,
 .cnx-eoc blockquote::after {
@@ -2045,6 +2080,9 @@ p:nth-of-type(2),
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  color: #000000;
+  margin: 0;
+  padding: 0;
 }
 .colophon .footnote {
   color: black;
@@ -2091,7 +2129,7 @@ p:nth-of-type(2),
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
@@ -2104,8 +2142,8 @@ p:nth-of-type(2),
   margin: auto;
 }
 .colophon blockquote {
-  color: #dbe8f2;
   font-size: 150%;
+  color: #34bdd8;
 }
 .colophon blockquote::before,
 .colophon blockquote::after {
@@ -2130,22 +2168,42 @@ div.table table {
   page-break-inside: avoid;
   margin: auto;
   page-break-inside: auto;
+  margin-bottom: 22px;
+  padding-top: 1em;
   prince-caption-page: all;
+  border: none;
+  border-collapse: collapse;
 }
 div.table table caption {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  border: none;
   padding-top: .5em;
+  padding-left: 0px;
   padding-bottom: 1em;
-  font-weight: bold;
   caption-side: bottom;
+  font-size: 8px;
+  line-height: 17px;
+  font-weight: 700;
   color: #d7562c;
+  color: #093d4c;
+}
+div.table table caption::before {
+  font-weight: bold;
 }
 div.table table .cnx-figure-horizontal .informalfigure .caption {
   text-align: center;
 }
 div.table table .cnx-figure-horizontal .informalfigure .caption * {
   font-weight: normal;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+div.table table thead {
+  border-top: none;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+div.table table tbody {
+  border: 1px solid #f1f2f2;
+  border-top: none;
 }
 div.table table table tbody[valign=top] > tr > td {
   vertical-align: top;
@@ -2154,26 +2212,40 @@ div.table table tr {
   page-break-inside: avoid;
 }
 div.table table th {
-  color: black;
-  font-size: small;
-  text-align: left;
+  border-color: rgba(30, 126, 145, 0.2) !important;
+  border-bottom: none;
+  padding: 5px 10px;
+  font-size: 9pt;
+  vertical-align: initial;
   background-color: #ffffff;
   color: white;
-  background-color: #528cbe;
+  background-color: #1e7e91;
 }
 div.table table th:not(:only-child) {
-  color: black;
-  font-size: small;
-  text-align: left;
+  border-color: rgba(30, 126, 145, 0.2) !important;
+  border-bottom: none;
+  padding: 5px 10px;
+  font-size: 9pt;
+  vertical-align: initial;
   background-color: #ffffff;
   color: white;
-  background-color: #528cbe;
+  background-color: #1e7e91;
 }
 div.table table td {
-  padding: 13px;
+  border-color: #f1f2f2;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 9pt;
+  padding: 5px 10px;
 }
 div.table table td.header {
+  font-size: 9pt;
+  text-align: center;
+  vertical-align: initial;
   background-color: #ffffff;
+}
+div.table table thead > tr:first-child {
+  border-left: 0;
+  border-right: 0;
 }
 div.table ul.itemizedlist,
 div.table ol.orderedlist {
@@ -2182,7 +2254,7 @@ div.table ol.orderedlist {
 }
 div.table ul.itemizedlist > .listitem > p,
 div.table ol.orderedlist > .listitem > p {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 div.table.color th {
   text-align: center;
@@ -2199,17 +2271,64 @@ div.table.color tr td:first-child {
 div.table.unstyled table {
   page-break-inside: avoid;
   margin: auto;
+  border: none;
+  margin: 0;
+}
+div.table.unstyled table caption {
+  display: none;
+}
+div.table.unstyled table tr {
+  border: none !important;
+  border-top: 1px solid #f1f2f2 !important;
+}
+div.table.unstyled table tr:first-of-type {
+  border-top: none !important;
+}
+div.table.unstyled table td {
+  border: none;
+  text-align: left;
+}
+div.table.unstyled table tbody {
+  border: none;
 }
 div.table.multiple-headers table {
   page-break-inside: avoid;
   margin: auto;
 }
+div.table.multiple-headers table tbody {
+  border: none;
+}
+div.table.multiple-headers table tr {
+  border: none;
+}
+div.table.multiple-headers table td {
+  padding: 0;
+}
 div.table.multiple-headers table tr table thead tr:only-child,
 div.table.multiple-headers table tr table thead tr:only-child .tablecell {
   border-top: 0px !important;
 }
+div.table.multiple-headers table tr table td {
+  padding: 10px;
+}
 div.table.column-header tbody td:first-child {
+  font-size: 9pt;
+  text-align: center;
+  vertical-align: initial;
   background-color: #ffffff;
+}
+div.table table thead tr:first-of-type th {
+  background-color: #093d4c;
+  font-weight: bold;
+}
+div.table table thead tr:first-of-type th:first-of-type {
+  border-top-left-radius: 2.88px;
+}
+div.table table thead tr:first-of-type th:last-of-type {
+  border-top-right-radius: 2.88px;
+}
+div.table table tbody tr:last-of-type td:first-of-type {
+  border-bottom-left-radius: 2.88px;
 }
 /********************************************************************
  * Styling for Appendix
@@ -2238,6 +2357,10 @@ sup {
   position: static;
   top: auto;
 }
+html,
+body {
+  font-size: 11px;
+}
 h2,
 h3,
 h4 {
@@ -2257,13 +2380,16 @@ div.book div.preface > .titlepage {
 }
 div.book div.preface > .titlepage h1.title {
   padding-left: .25em;
-  background-color: #528cbe;
+  font-size: 16px;
+  background-color: #1e7e91;
 }
 div.book div.preface > div.section div.titlepage > div > div > h2 {
   page-break-after: avoid;
+  font-size: 14px;
 }
 div.book div.preface > div.section > div.section > div.titlepage > div > div > h3 {
   page-break-after: avoid;
+  font-size: 14px;
 }
 .chapter > .introduction > .figure.splash {
   font-size: xx-small;
@@ -2271,7 +2397,7 @@ div.book div.preface > div.section > div.section > div.titlepage > div > div > h
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
@@ -2279,6 +2405,28 @@ div.book div.preface > div.section > div.section > div.titlepage > div > div > h
   caption-side: bottom;
   padding-bottom: 0;
   margin-bottom: 15px;
+  transform: translateX(-1in);
+  margin-left: 0;
+  margin-right: 0;
+}
+.chapter > .introduction > .figure.splash div.caption {
+  width: 6.5in;
+}
+.chapter > .introduction > .figure.splash div.mediaobject {
+  border-left: 1.814in solid #c6ce33;
+  height: 2.523in;
+}
+.chapter > .introduction > .figure.splash div.mediaobject img {
+  width: 6.685in;
+  height: 2.523in;
+}
+.chapter > .introduction > .figure.splash div.mediaobject::before {
+  background: rgba(30, 126, 145, 0.5);
+  width: 6.685in;
+  height: 2.523in;
+  position: absolute;
+  left: 0.815in;
+  content: " ";
 }
 /* -------------------------
  * Book Table of Contents
@@ -2287,6 +2435,7 @@ div.book div.preface > div.section > div.section > div.titlepage > div > div > h
 .book > .toc {
   page-break-before: right;
   page-break-after: always;
+  counter-reset: toc-chapter-counter 0;
 }
 .book > .toc > .title {
   page-break-after: avoid;
@@ -2296,11 +2445,113 @@ div.book div.preface > div.section > div.section > div.titlepage > div > div > h
   margin-bottom: 0em;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  color: #528cbe;
-  border-bottom-color: #528cbe;
+  font-size: 16px;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  text-align: left;
+  border-bottom: none;
+  margin-bottom: 11px;
+  color: #093d4c;
+}
+.book > .toc > .title::before {
+  content: url("math-toc-icon.png");
+  padding-right: 15px;
+  margin-left: 10px;
 }
 .book > .toc a {
-  color: #528cbe;
+  color: #093d4c;
+  text-align: left;
+  color: #1e7e91;
+}
+.book > .toc a::after {
+  content: target-counter(attr(href), page);
+  padding-left: 15px;
+}
+.book > .toc .toc-chapter {
+  counter-increment: toc-chapter-counter;
+}
+.book > .toc .toc-chapter .cnx-gentext-chapter {
+  display: none;
+}
+.book > .toc .toc-chapter .cnx-gentext-chapter.cnx-gentext-t {
+  display: inline;
+}
+.book > .toc .toc-preface a.target-preface {
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-weight: bold;
+  color: #d7562c;
+  font-size: 14px;
+  margin-left: 46px;
+  color: #34bdd8;
+  color: #1e7e91;
+}
+.book > .toc > ul > li {
+  margin-bottom: 11px;
+}
+.book > .toc .toc-chapter::before {
+  display: none;
+  content: counter(toc-chapter-counter, decimal);
+  float: left;
+  padding: 0em .25em;
+  margin: 0px 15px 0px 13px;
+  height: 1.25em;
+  line-height: 1.25em;
+  display: block;
+  font-size: 12px;
+  border: 1px solid #34bdd8;
+  color: #34bdd8;
+}
+.book > .toc .toc-chapter a.target-chapter {
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-weight: bold;
+  color: #d7562c;
+  font-size: 14px;
+  margin-bottom: .5em;
+  display: inline-block;
+  color: #34bdd8;
+  color: #1e7e91;
+}
+.book > .toc .toc-chapter > .target-chapter::before {
+  display: none;
+}
+.book > .toc .toc-appendix > a.target-appendix {
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-weight: bold;
+  color: #d7562c;
+  font-size: 14px;
+  margin-left: 46px;
+  color: #34bdd8;
+  color: #1e7e91;
+}
+.book > .toc > ul > li.toc-appendix > a.target-appendix::before {
+  content: target-counter(attr(href), appendix, upper-latin) " ";
+}
+.book > .toc .toc-index > a.target-index {
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-weight: bold;
+  color: #d7562c;
+  font-size: 14px;
+  margin-left: 46px;
+  color: #34bdd8;
+  color: #1e7e91;
+}
+.book > .toc .toc-chapter > ul {
+  margin-left: 46px;
+  border-left: 2px solid rgba(196, 206, 187, 0.3);
+}
+.book > .toc .toc-chapter > ul li a span.cnx-gentext-n {
+  font-weight: 700;
+}
+.book > .toc ul,
+.book > .toc li {
+  margin-left: 0;
+}
+.book > .toc > ul > ul > li {
+  margin: 0;
+  padding: 1em 1em 1em 0em;
+}
+.book > .toc > ul > li.toc-chapter:nth-child(2n+0) {
+  background-color: rgba(196, 206, 187, 0.1);
+  padding: 11px 0;
 }
 /* -------------------------
  * Unit Page
@@ -2320,16 +2571,31 @@ div.part > div.titlepage {
 }
 .chapter > .introduction > .title {
   content: "Introduction";
-  font-size: x-large;
-  color: #528cbe;
-  font-size: 22.6px;
+  font-size: 16px;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  color: #093d4c;
+}
+.chapter > .introduction > .title::before {
+  content: "Introduction";
+  font-size: 16px;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  display: inline-block;
+  width: 20px;
+  height: 24px;
+  padding-right: 10px;
+  background: url("ccap-basic-math/math-intro-icon.png") no-repeat left;
+  background-size: 20px 24px;
+  content: " ";
+  bottom: 0px;
+  position: relative;
+  color: #093d4c;
 }
 .chapter > .introduction > .toc a {
   color: inherit;
   padding: 0.25em 0em;
   margin: 0em 1em 0em 0.5em;
-  color: #528cbe;
   font-weight: bold;
+  color: #34bdd8;
 }
 .chapter > .introduction > .toc .toc-section .cnx-gentext-t {
   color: #000000;
@@ -2345,7 +2611,11 @@ div.part > div.titlepage {
   border-spacing: 0px;
   page-break-inside: avoid;
   width: 100%;
-  border: 1px solid #528cbe;
+}
+.chapter > .introduction > .toc > ul {
+  padding-left: .75em;
+  margin: 0;
+  border-left: 2px solid rgba(196, 206, 187, 0.3);
 }
 .chapter > .introduction > .toc > .title {
   color: white;
@@ -2357,33 +2627,70 @@ div.part > div.titlepage {
   page-break-after: avoid;
   page-break-before: avoid;
   content: "Chapter Outline";
-  padding-top: .1em;
-  padding-bottom: .2em;
-  background-color: #528cbe;
+  color: #1e7e91;
+  font-size: 14px;
+  text-align: left;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  padding: 0em;
 }
 /********************************************************************
  * Styling for Chapter Titles
  ********************************************************************/
 div.book div.chapter > div.titlepage > div > div h1.title {
-  /*reset left only*/
-  font-size: 34pt;
-  /* x-large; */
   font-weight: bold;
   text-align: left;
-  color: #528cbe;
   margin: 0;
   padding-top: 0;
   padding-left: 0;
   padding-right: 0;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 14px;
+  color: white;
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-n {
   font-weight: bold;
   padding-right: 0em;
-  color: #528cbe;
+  color: #1e7e91;
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::before {
   content: "| ";
   color: black;
+}
+div.book > div.chapter > div.titlepage {
+  height: 2.523in;
+  position: absolute;
+  z-index: 1;
+}
+div.book > div.chapter > div.titlepage div {
+  height: inherit;
+}
+div.book > div.chapter > div.titlepage div div {
+  height: inherit;
+}
+div.book > div.chapter > div.titlepage div div > h1.title {
+  padding: 0 1in 20px 100px;
+  position: absolute;
+  bottom: 0;
+  white-space: nowrap;
+}
+div.book > div.chapter > div.titlepage div div > h1.title span.cnx-gentext-autogenerated,
+div.book > div.chapter > div.titlepage div div > h1.title span.cnx-gentext-n {
+  display: none;
+}
+div.book > div.chapter > div.titlepage div div > h1.title span.cnx-gentext-t::before {
+  content: "";
+  color: white;
+}
+div.book > div.chapter > div.titlepage div div > h1.title::before {
+  content: counter(chapter);
+  position: absolute;
+  left: 0.05in;
+  bottom: 24px;
+  border: 1px solid white;
+  padding-top: 0.07in;
+  min-width: 1.5em;
+  min-height: 1.5em;
+  text-align: center;
 }
 /********************************************************************
  * Styling for Appendix
@@ -2391,16 +2698,16 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t::be
 div.book > div.appendix > div.titlepage > div > div h1.title {
   font-size: 34pt;
   font-weight: bold;
-  color: #528cbe;
   padding: 0;
   margin: 0;
+  color: #1e7e91;
 }
 div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-autogenerated:first-of-type {
   display: inline;
 }
 div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-n {
-  color: #528cbe;
   padding-right: 0;
+  color: #1e7e91;
 }
 div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t::before {
   content: "| ";
@@ -2411,9 +2718,22 @@ div.book > div.appendix .table {
 }
 div.book > div.appendix > div.section > div.titlepage h2 {
   page-break-after: avoid;
-  color: #528cbe;
-  font-size: 17pt;
   font-weight: bold;
+  font-size: 16px;
+  color: #093d4c;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+div.book > div.appendix > div.section > div.titlepage h2::before {
+  font-size: 7px;
+  border: 1px solid #1e7e91;
+  padding: 4px 6px;
+  margin: 0px 11px 0px 0px;
+  display: inline-block;
+  line-height: 16px;
+}
+div.book > div.appendix > div.section > div.titlepage h2 span.cnx-gentext-t {
+  position: relative;
+  top: 9px;
 }
 div.book > div.appendix > div.section > div.section > div.titlepage h3 {
   page-break-after: avoid;
@@ -2422,28 +2742,43 @@ div.book > div.appendix > div.section > div.section > div.titlepage h3 {
  * Styling for Module Titles
  ********************************************************************/
 div.book div.chapter > div.section > div.titlepage h2 {
-  color: #528cbe;
-  font-size: 17pt;
   font-weight: bold;
+  font-size: 16px;
+  color: #093d4c;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+div.book div.chapter > div.section > div.titlepage h2::before {
+  font-size: 7px;
+  border: 1px solid #1e7e91;
+  padding: 4px 6px;
+  margin: 0px 11px 0px 0px;
+  display: inline-block;
+  line-height: 16px;
+}
+div.book div.chapter > div.section > div.titlepage h2 span.cnx-gentext-n {
+  display: none;
+}
+div.book div.chapter > div.section > div.titlepage h2 span.cnx-gentext-t {
+  position: relative;
+  top: 9px;
 }
 div.book div.chapter > div.section > div.titlepage h2 span.cnx-gentext-t::before {
-  color: black;
-  content: "| ";
+  display: none;
 }
 /********************************************************************
  * Styling for Module Section/Subsection Titles
  ********************************************************************/
 div.book div > div.section > div.section div.titlepage > div > div > h3 {
   page-break-after: avoid;
-  color: #528cbe;
-  font-size: 19px;
+  font-size: 14px;
   font-weight: bold;
+  color: #093d4c;
 }
 div.book div > div.section > div.section > div.section div.titlepage > div > div > h4 {
   page-break-after: avoid;
-  color: #528cbe;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: bold;
+  color: #1e7e91;
 }
 /********************************************************************
  * Styling for Learning Objectives Box
@@ -2454,38 +2789,38 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   width: 100%;
   padding-top: .1em;
   padding-bottom: .2em;
-  background-color: #528cbe;
-  color: white;
-  text-align: center;
+  background-color: #1e7e91;
   font-weight: bold;
-  font-size: large;
+  font-size: 14px;
+  background-color: transparent;
+  color: #1e7e91;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .section > .titlepage .abstract .itemizedlist > ul {
-  margin: 0 40px;
+  margin-left: 10px;
+}
+.section > .titlepage .abstract .listitem {
+  background: url("ccap-basic-math/learning-objectives.png") no-repeat 0;
+  background-size: 3px 4px;
+  padding-left: 10px;
 }
 .section > .titlepage .abstract p {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  margin: 1em 0em .75em 1em;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-weight: bold;
 }
 .section > .titlepage .abstract .itemizedlist > .listitem > p {
-  margin: 0em .3em;
   display: inline;
   text-align: left;
+  font-weight: 100;
 }
 .section > .titlepage .abstract .itemizedlist > .listitem {
-  counter-increment: learning-objectives;
   display: block;
-}
-.section > .titlepage .abstract .itemizedlist > .listitem::before {
-  content: "" " " counter(chapter, decimal) "." counter(section, decimal) "." counter(learning-objectives) " " "";
-  color: #528cbe;
-  font-weight: bold;
 }
 /********************************************************************
  * End of chapter customizations
  ********************************************************************/
 .cnx-eoc > .solution > a.number {
-  color: #528cbe;
+  color: #1e7e91;
 }
 .cnx-eoc {
   -webkit-column-count: 2;
@@ -2504,11 +2839,11 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   margin-bottom: 0.5em;
   text-transform: uppercase;
   text-align: left;
-  color: #528cbe;
   font-size: large;
   font-weight: bold;
   margin-top: 0;
   page-break-after: avoid;
+  color: #1e7e91;
 }
 .cnx-eoc.summary {
   -webkit-column-count: 1;
@@ -2522,8 +2857,8 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   content: "Chapter " counter(chapter, decimal) " Review";
 }
 .cnx-eoc.summary > .section .title > a {
-  color: #528cbe;
   page-break-after: avoid;
+  color: #1e7e91;
 }
 .cnx-eoc.summary p:nth-of-type(1) {
   margin-top: 1em;
@@ -2545,22 +2880,8 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
 .cnx-eoc.key-equations > div.section > div.body table {
   page-break-inside: avoid;
   margin: auto;
-  margin: 0;
-  border: none !important;
-}
-.cnx-eoc.key-equations > div.section > div.body table caption {
-  display: none;
-}
-.cnx-eoc.key-equations > div.section > div.body table td {
-  border: none !important;
 }
 .cnx-eoc.key-concepts {
-  -webkit-column-count: 1;
-  -moz-column-count: 1;
-  column-count: 1;
-  columns: 1;
-  column-fill: auto;
-  column-gap: 24px;
   padding-bottom: 1em;
 }
 .cnx-eoc.key-concepts > div.title {
@@ -2572,17 +2893,13 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   margin-bottom: 1em;
 }
 .cnx-eoc.key-concepts > .section > .title > a {
-  color: #528cbe;
+  color: #1e7e91;
 }
 .cnx-eoc.review-exercises {
   -webkit-column-count: 1;
   -moz-column-count: 1;
   column-count: 1;
   columns: 1;
-  -webkit-column-count: 2;
-  -moz-column-count: 2;
-  column-count: 2;
-  columns: 2;
   column-fill: auto;
   column-gap: 24px;
 }
@@ -2596,10 +2913,6 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   -moz-column-count: 1;
   column-count: 1;
   columns: 1;
-  -webkit-column-count: 2;
-  -moz-column-count: 2;
-  column-count: 2;
-  columns: 2;
   column-fill: auto;
   column-gap: 24px;
 }
@@ -2628,7 +2941,7 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
@@ -2656,19 +2969,19 @@ div.colophon.end-of-book-solutions {
 div.colophon.end-of-book-solutions > .title {
   content: "Answer Key";
   string-set: cnx-header "Answer Key";
-  color: #528cbe;
   margin-left: 0;
   text-transform: uppercase;
   font-size: x-large;
   font-weight: bold;
   background-color: transparent;
+  color: #1e7e91;
 }
 div.colophon.end-of-book-solutions div.chapter-area:first-of-type h2.title {
   margin-top: 0;
   padding-top: 0;
 }
 div.colophon.end-of-book-solutions .chapter-area {
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 div.colophon.end-of-book-solutions .chapter-area a.solution {
   color: black;
@@ -2678,7 +2991,7 @@ div.colophon.end-of-book-solutions .chapter-area > h2.title a.chapter span {
   color: black;
   font-size: 16px;
   font-weight: 700;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   display: block;
   margin-bottom: 7.5px;
 }
@@ -2693,7 +3006,7 @@ div.colophon.end-of-book-solutions .chapter-area > div.review-exercises::before 
   color: black;
   font-size: 16px;
   font-weight: 700;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   display: block;
   margin-bottom: 7.5px;
   content: "Review Exercises";
@@ -2702,7 +3015,7 @@ div.colophon.end-of-book-solutions .chapter-area > div.practice-test::before {
   color: black;
   font-size: 16px;
   font-weight: 700;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   display: block;
   margin-bottom: 7.5px;
   content: "Practice Test";
@@ -2711,7 +3024,7 @@ div.colophon.end-of-book-solutions .chapter-area > div.try::before {
   color: black;
   font-size: 16px;
   font-weight: 700;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   display: block;
   margin-bottom: 7.5px;
   content: "Try It";
@@ -2723,13 +3036,16 @@ div.colophon.end-of-book-solutions .chapter-area > div.section-exercises::before
   color: black;
   font-size: 16px;
   font-weight: 700;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   display: block;
   margin-bottom: 7.5px;
   content: "Section Exercises";
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution {
-  display: block;
+  width: 1.625in;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.title {
   display: inline;
@@ -2781,13 +3097,13 @@ div.end-of-book-references > .title {
   font-size: x-large;
   font-weight: bold;
   background-color: transparent;
-  color: #528cbe;
   margin-left: 0;
   padding-left: 0;
   margin-top: 0;
+  color: #1e7e91;
 }
 div.end-of-book-references > .chapter-area > .title {
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: black;
   font-weight: bold;
   font-size: medium;
@@ -2815,10 +3131,10 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
   margin-bottom: 10px;
 }
 .index > .title {
-  color: #528cbe;
   text-transform: uppercase;
   font-size: x-large;
   column-span: all;
+  color: #1e7e91;
 }
 .index > .title h2 {
   padding: 0;
@@ -2844,33 +3160,36 @@ div.end-of-book-references > .chapter-area > .body > p > a.link {
  * Generic Elements
  ********************************************************************/
 h5 {
-  color: #528cbe;
   font-size: 10pt;
   font-weight: bold;
   font-style: italic;
+  color: #1e7e91;
 }
 h6 {
-  color: #528cbe;
   font-weight: bold;
+  color: #1e7e91;
 }
 a {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-weight: bold;
   color: #d7562c;
+  color: #34bdd8;
 }
 body {
-  font-size: 9.5pt;
+  font-size: 11px;
   text-align: justify;
 }
 .book > .cnx-title h1 {
-  font-size: 34pt;
+  font-size: 18px;
+  text-shadow: 0 1px 0 rgba(166, 163, 157, 0.75);
   text-align: left;
 }
 img {
   max-height: 9.5in;
 }
 p {
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 img,
 figure,
@@ -2886,8 +3205,8 @@ subfigure {
   margin-top: 0;
   font-weight: bold;
   font-size: x-large;
-  color: #528cbe;
   background: none;
+  color: #1e7e91;
 }
 .colophon p:first-of-type {
   margin-top: 0;
@@ -2906,7 +3225,7 @@ subfigure {
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
@@ -2915,7 +3234,7 @@ subfigure {
   padding-bottom: 0;
 }
 .figure > .body {
-  min-width: 312px;
+  min-width: 2.16666667in;
 }
 .figure > .title {
   color: #d7562c;
@@ -2924,7 +3243,8 @@ subfigure {
   margin-right: .5em;
   content: "Figure " counter(chapter, decimal) "." counter(figure) " ";
   display: inline;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  color: #093d4c;
 }
 .figure > .caption {
   display: inline;
@@ -2933,7 +3253,7 @@ subfigure {
   text-align: left;
   page-break-before: avoid;
   padding-bottom: 1em;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .figure > .caption::before {
   display: none;
@@ -2943,7 +3263,8 @@ subfigure {
   margin-right: .5em;
   content: "Figure " counter(chapter, decimal) "." counter(figure) " ";
   display: inline;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  color: #093d4c;
 }
 .figure img {
   margin: 0;
@@ -2957,9 +3278,9 @@ subfigure {
  * Addition of .commentary selector styling for Analysis header in examples
  ******************************************************************************/
 .example .exercise .commentary > .title {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 10pt;
-  color: #233a67;
+  color: #093d4c;
   font-weight: bold;
   margin-right: .2em;
   height: .9em;
@@ -2972,7 +3293,7 @@ subfigure {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   margin-top: 0;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .section.section-exercises {
   page-break-before: always;
@@ -2981,10 +3302,6 @@ subfigure {
   -moz-column-count: 1;
   column-count: 1;
   columns: 1;
-  -webkit-column-count: 2;
-  -moz-column-count: 2;
-  column-count: 2;
-  columns: 2;
   column-fill: auto;
   column-gap: 24px;
 }
@@ -2993,11 +3310,11 @@ subfigure {
   content: "" " " counter(chapter, decimal) "." counter(section, decimal) " exercises" " " "";
   text-transform: uppercase;
   font-size: 17pt;
-  color: #528cbe;
   font-weight: bold;
   display: block;
   padding-bottom: 10px;
   column-span: all;
+  color: #1e7e91;
 }
 .section.section-exercises > .titlepage {
   display: none;
@@ -3009,11 +3326,23 @@ subfigure {
   margin-top: 1em;
   margin-bottom: 1em;
   page-break-inside: avoid;
+  vertical-align: top;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 2.16666667in;
 }
 .section.section-exercises .exercise > .title {
-  content: counter(exercise) ".";
-  float: left;
-  padding-right: .5em;
+  content: counter(exercise) ". ";
+  display: inline;
+}
+.section.section-exercises .exercise > .body {
+  display: inline;
+}
+.section.section-exercises .exercise > .body .problem {
+  display: inline;
+}
+.section.section-exercises .exercise > .body .problem p:first-of-type {
+  display: inline;
 }
 .section.section-exercises .exercise .problem .figure {
   font-size: xx-small;
@@ -3021,7 +3350,7 @@ subfigure {
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
@@ -3045,7 +3374,7 @@ subfigure {
 }
 .glossary::before {
   content: "" "Chapter " counter(chapter, decimal) " Review";
-  color: #528cbe;
+  color: #1e7e91;
   font-size: x-large;
   font-weight: bold;
   padding: 0em;
@@ -3053,10 +3382,12 @@ subfigure {
   text-transform: uppercase;
   margin-bottom: 1.0em;
 }
+.glossary::before {
+  color: #1e7e91;
+}
 .glossary .title {
   /* Change "Glossary" to "Key Terms" */
   content: "Key Terms";
-  color: #528cbe;
   font-size: 14pt !important;
   margin-left: 0;
   font-weight: bold;
@@ -3064,6 +3395,7 @@ subfigure {
   display: block;
   text-transform: uppercase;
   page-break-after: avoid !important;
+  color: #1e7e91;
 }
 .glossary dl dt::after {
   content: " ";
@@ -3081,28 +3413,26 @@ subfigure {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   margin: .75em 0;
+  margin-bottom: 5px;
+  margin-top: 0px;
 }
 .example > .title {
-  background: #233a67;
-  padding-top: .3em;
-  padding-bottom: .3em;
+  display: none;
   page-break-after: avoid;
+  color: #093d4c;
 }
-.example > .title > * {
-  font-size: 130%;
-  font-weight: 500;
-  color: #fff;
+.section .example > .title > * {
+  padding: 0;
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
 }
 .example > .body {
-  border-left: 1px solid #233a67;
-  padding: 1em 2em .5em 2em;
-}
-.example .solution {
-  padding-top: 1em;
-  padding-bottom: 1em;
+  padding: 0;
+  margin: 0;
 }
 .example > div.body > div.title {
-  color: #233a67;
+  color: #093d4c;
 }
 div.book div.chapter > div.section div.example div.exercise .solution .table > table > caption::before {
   display: block;
@@ -3118,7 +3448,7 @@ div.book div.chapter > div.section div.example div.exercise .solution .figure {
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
@@ -3136,7 +3466,8 @@ div.book div.chapter > div.section div.example div.exercise .solution .figure .t
   font-weight: bold;
   text-align: left;
   margin-right: .5em;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  color: #093d4c;
 }
 div.book div.chapter > div.section div.example div.exercise .problem .table > table > caption::before {
   display: block;
@@ -3145,6 +3476,9 @@ div.book div.chapter > div.section div.example div.exercise .problem .table {
   page-break-inside: avoid;
   margin: auto;
   counter-increment: table !important;
+  width: 2.16666667in;
+  box-sizing: border-box;
+  display: inline-block;
 }
 div.book div.chapter > div.section div.example div.exercise .problem .figure {
   font-size: xx-small;
@@ -3152,7 +3486,7 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure {
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
@@ -3170,7 +3504,8 @@ div.book div.chapter > div.section div.example div.exercise .problem .figure .ti
   font-weight: bold;
   text-align: left;
   margin-right: .5em;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  color: #093d4c;
 }
 div.book div.chapter > div.section div.example div.exercise .commentary .table > table > caption::before {
   display: block;
@@ -3185,7 +3520,7 @@ div.book div.chapter > div.section div.example div.exercise .commentary .figure 
   margin-left: auto;
   margin-right: auto;
   page-break-inside: avoid;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding-bottom: 1em;
   text-align: left;
@@ -3203,7 +3538,16 @@ div.book div.chapter > div.section div.example div.exercise .commentary .figure 
   font-weight: bold;
   text-align: left;
   margin-right: .5em;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  color: #093d4c;
+}
+.example .exercise:nth-of-type(1) > .body {
+  margin: -20px 0;
+}
+.example .exercise:nth-of-type(1) .problem:nth-of-type(1) > .title {
+  display: block;
+  content: "Example " counter(chapter, decimal) "." counter(example) " " content();
+  font-size: 14px;
 }
 .example .exercise {
   margin-top: 1.5em;
@@ -3212,22 +3556,31 @@ div.book div.chapter > div.section div.example div.exercise .commentary .figure 
   margin-top: 0;
 }
 .example .exercise .problem > .title {
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 11pt;
-  color: #233a67;
-  font-weight: bold;
-  padding-bottom: 1em;
+  color: #093d4c;
+  display: inline;
+}
+.example .exercise .problem > .body {
+  display: inline;
+}
+.example .exercise .problem > .body p:first-child {
+  display: inline;
 }
 .example .exercise .solution > .title {
   content: "Solution";
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 10pt;
-  color: #233a67;
+  color: #093d4c;
   font-weight: bold;
   line-height: 1em;
+  display: inline;
 }
 .example .exercise .solution > .body {
   margin-top: .5em;
+}
+.example .exercise .solution > .body p:first-child {
+  display: inline;
 }
 .example .exercise .solution > .body > a.target-figure {
   color: #d7562c;
@@ -3248,7 +3601,7 @@ div.book div.chapter > div.section div.example div.exercise .commentary .figure 
 }
 .cnx-figure-horizontal .informalfigure .caption * {
   font-weight: normal;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 /* ---------------------------------------------------
  * Custom Equation (Non) Numbering
@@ -3294,18 +3647,25 @@ div.orderedlist ol {
   margin: 0 0 0 40px;
   padding: 0;
 }
+cnx.eoc .key-concepts div.itemizedlist ul li,
+cnx.eoc .key-concepts div.orderedlist ul li,
+cnx.eoc .key-concepts div.itemizedlist ol li,
+cnx.eoc .key-concepts div.orderedlist ol li {
+  vertical-align: top;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 3.25in;
+}
 /* -------------------------
  * Images in chapters
  * -------------------------
  */
 .chapter .mediaobject img,
 .appendix .mediaobject img {
-  display: block;
-  margin: auto;
+  max-width: 2.16666667in;
 }
 .end-of-book-solutions .mediaobject img {
-  display: block;
-  margin: auto;
+  max-width: 2.16666667in;
 }
 /********************************************************************
  * SVG Color cascading.
@@ -3338,20 +3698,28 @@ div[class="note"] {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   color: #000000;
-  background-color: #dbe8f2;
-  padding-bottom: 1em;
+  margin: 0;
+  padding: 0;
+  background-color: rgba(196, 206, 187, 0.1);
 }
 div[class="note"] > .title {
   margin-top: 0.5em;
   page-break-after: avoid;
   text-align: left;
-  font-size: small;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  margin-top: .25em;
-  margin-bottom: .5em;
-  color: #528cbe;
-  font-weight: bold;
-  border-bottom: 1px solid #528cbe;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  padding: 7px 10px;
+  color: #1e7e91;
+}
+div[class="note"] > .body {
+  padding: 0;
+  border-top: solid 1px rgba(0, 0, 0, 0.1);
+}
+.note > .body {
+  padding: 0;
+  border-top: solid 1px rgba(0, 0, 0, 0.1);
+}
+.note > .body p {
+  padding: 7px 10px;
 }
 .note.qa {
   padding-left: 1em;
@@ -3361,23 +3729,53 @@ div[class="note"] > .title {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   page-break-inside: avoid;
-  min-height: 45px;
+  color: #000000;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+.note.qa::before {
+  padding: 0 3px 0 30px;
+  background: url("ccap-basic-math/q-a.png") no-repeat 0;
+  background-size: 20px 20px;
+  line-height: 20px;
+  content: "Q&A : : ";
+  color: #093d4c;
+  display: inline-block;
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: bold;
+  vertical-align: top;
+}
+.note.qa > .title {
+  color: #1e7e91;
+  text-transform: uppercase;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 11px;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  line-height: 21px;
+}
+.note.qa > .body {
+  color: rgba(0, 0, 0, 0.5);
+  border-top: none;
+}
+.note.qa > .body p:nth-of-type(1) {
   padding-top: 0;
   margin-top: 0;
-  background: url("ccap-precalculus/qa.svg") no-repeat;
-  background-position: 0 .2em;
-  padding-left: 2.8em;
 }
 .note.qa .figure img {
   max-width: 6.25in;
 }
 .note.qa > .title {
   margin-top: 0.5em;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-weight: bold;
+  padding: 7px 10px;
 }
 .note.qa > .body,
 .note.qa .body > p {
+  padding: 0;
   font-weight: normal;
   margin-top: 0;
 }
@@ -3386,7 +3784,7 @@ div[class="note"] > .title {
   text-align: center;
   font-style: normal;
   padding-bottom: 1em;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   display: table-caption;
   text-align: left;
   page-break-before: avoid;
@@ -3399,12 +3797,40 @@ div[class="note"] > .title {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   page-break-inside: avoid;
-  min-height: 45px;
+  color: #000000;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+.note.media::before {
+  padding: 0 3px 0 30px;
+  background: url("ccap-basic-math/media.png") no-repeat 0;
+  background-size: 20px 20px;
+  line-height: 20px;
+  content: "Media : : ";
+  color: #093d4c;
+  display: inline-block;
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: bold;
+  vertical-align: top;
+}
+.note.media > .title {
+  color: #1e7e91;
+  text-transform: uppercase;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 11px;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  line-height: 21px;
+}
+.note.media > .body {
+  color: rgba(0, 0, 0, 0.5);
+  border-top: none;
+}
+.note.media > .body p:nth-of-type(1) {
   padding-top: 0;
   margin-top: 0;
-  background: url("ccap-precalculus/media.svg") no-repeat;
-  background-position: 0 .2em;
-  padding-left: 2.5em;
 }
 .note.media .figure img {
   max-width: 6.25in;
@@ -3425,11 +3851,40 @@ div[class="note"] > .title {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   page-break-inside: avoid;
-  min-height: 45px;
+  color: #000000;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+.note.try::before {
+  padding: 0 3px 0 30px;
+  background: url("ccap-basic-math/try.png") no-repeat 0;
+  background-size: 20px 20px;
+  line-height: 20px;
+  content: "Try It : : ";
+  color: #093d4c;
+  display: inline-block;
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: bold;
+  vertical-align: top;
+}
+.note.try > .title {
+  color: #1e7e91;
+  text-transform: uppercase;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 11px;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  line-height: 21px;
+}
+.note.try > .body {
+  color: rgba(0, 0, 0, 0.5);
+  border-top: none;
+}
+.note.try > .body p:nth-of-type(1) {
   padding-top: 0;
   margin-top: 0;
-  background: url("ccap-precalculus/try.svg") no-repeat;
-  background-position: 0 .2em;
 }
 .note.try .figure img {
   max-width: 6.25in;
@@ -3446,36 +3901,31 @@ div[class="note"] > .title {
 .note.try > .title {
   margin-top: 0.5em;
   margin-top: 0;
-  color: #000000;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  font-size: 10pt;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-weight: bold;
-  float: left;
-  padding-left: 1.5em;
-  padding-right: .8em;
+  padding: 7px 10px;
+  padding: 0px;
+  font-weight: normal;
+  color: rgba(0, 0, 0, 0.5);
+}
+.note.try > .body {
+  padding: 0;
+  font-weight: normal;
+  display: inline-block;
+  border-top: none;
+  padding-top: 4px;
 }
 .note.try .exercise {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   margin-top: 0;
   counter-increment: none !important;
-  /* This code snip below is what is in Firebug that is overriding the Example and Try-It Exercise counters
-      causing !important to have to be used here and on line #594 of the precalculus-skeleton.less file.  grr
-      div.book div.chapter > div.cnx-eoc div.exercise:not(.labeled),
-      div.book div.chapter > div.section div.exercise:not(.labeled) {
-        counter-increment: exercise;
-      }
-      */
-  /* Update to me:  Found it.  It's line #106 in the numbering.less file.  it's incrementing  > .section > .exercise
-      We have to basically make an adjustment in precalculus-numbering.less to stop this override.
-      */
   margin-bottom: 0;
 }
 .note.try .exercise > .title {
   display: none;
 }
 .note.try .exercise .problem {
-  font-size: 13px;
   line-height: 16px;
   margin-left: 20px;
 }
@@ -3490,12 +3940,40 @@ div[class="note"] > .title {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   page-break-inside: avoid;
-  min-height: 45px;
+  color: #000000;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+.note.howto::before {
+  padding: 0 3px 0 30px;
+  background: url("ccap-basic-math/how-to.png") no-repeat 0;
+  background-size: 20px 20px;
+  line-height: 20px;
+  content: "How to : : ";
+  color: #093d4c;
+  display: inline-block;
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: bold;
+  vertical-align: top;
+}
+.note.howto > .title {
+  color: #1e7e91;
+  text-transform: uppercase;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 11px;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  line-height: 21px;
+}
+.note.howto > .body {
+  color: rgba(0, 0, 0, 0.5);
+  border-top: none;
+}
+.note.howto > .body p:nth-of-type(1) {
   padding-top: 0;
   margin-top: 0;
-  background: url("ccap-precalculus/howto.svg") no-repeat;
-  background-position: 0 .2em;
-  padding-left: 2.8em;
 }
 .note.howto .figure img {
   max-width: 6.25in;
@@ -3508,16 +3986,44 @@ div[class="note"] > .title {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   page-break-inside: avoid;
-  min-height: 45px;
-  padding-top: 0;
-  margin-top: 0;
-  background: url("ccap-precalculus/howto.svg") no-repeat;
-  background-position: 0 .2em;
-  padding-left: 2.8em;
+  display: block;
   padding-top: .4em;
   padding-left: 3em;
   background-position: .5em .5em;
-  background-color: #dbe8f2;
+  color: #000000;
+  margin: 0;
+  padding: 0;
+  background-color: #34bdd8;
+}
+.note.howto.emphasized::before {
+  padding: 0 3px 0 30px;
+  background: url("ccap-basic-math/how-to.png") no-repeat 0;
+  background-size: 20px 20px;
+  line-height: 20px;
+  content: "How to : : ";
+  color: #093d4c;
+  display: inline-block;
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: bold;
+  vertical-align: top;
+}
+.note.howto.emphasized > .title {
+  color: #1e7e91;
+  text-transform: uppercase;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 11px;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  line-height: 21px;
+}
+.note.howto.emphasized > .body {
+  color: rgba(0, 0, 0, 0.5);
+  border-top: none;
+}
+.note.howto.emphasized > .body p:nth-of-type(1) {
+  padding-top: 0;
+  margin-top: 0;
 }
 .note.howto.emphasized .figure img {
   max-width: 6.25in;
@@ -3530,20 +4036,17 @@ div[class="note"] > .title {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   color: #000000;
-  background-color: #dbe8f2;
-  padding-bottom: 1em;
+  margin: 0;
+  padding: 0;
+  background-color: rgba(196, 206, 187, 0.1);
 }
 .note.theorem > .title {
   margin-top: 0.5em;
   page-break-after: avoid;
   text-align: left;
-  font-size: small;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  margin-top: .25em;
-  margin-bottom: .5em;
-  color: #528cbe;
-  font-weight: bold;
-  border-bottom: 1px solid #528cbe;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  padding: 7px 10px;
+  color: #1e7e91;
 }
 .note.project {
   padding-left: 1em;
@@ -3554,7 +4057,10 @@ div[class="note"] > .title {
   margin-bottom: 1.5em;
   page-break-inside: avoid;
   page-break-before: always;
-  background-color: #dbe8f2;
+  color: #000000;
+  margin: 0;
+  padding: 0;
+  background-color: #34bdd8;
 }
 .note.project:before {
   min-height: 45px;
@@ -3578,14 +4084,13 @@ div[class="note"] > .title {
 }
 .note.project > .title {
   margin-top: 0.5em;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-weight: bold;
-  color: #233a67;
-  font-size: 11pt;
   padding-bottom: 0em;
   margin-top: 1.5em;
   margin-bottom: 1em;
   border-bottom: none;
+  padding: 7px 10px;
 }
 .note.checkpoint {
   padding-left: 1em;
@@ -3601,6 +4106,9 @@ div[class="note"] > .title {
   background: url("ccap-calculus/checkpoint.svg") no-repeat;
   background-position: 0 .2em;
   padding-left: 1.4em;
+  color: #000000;
+  margin: 0;
+  padding: 0;
 }
 .note.checkpoint .figure img {
   max-width: 6.25in;
@@ -3619,6 +4127,9 @@ div[class="note"] > .title {
   background: url("ccap-basic-math/quick-check.svg") no-repeat;
   background-position: 0 .2em;
   padding-left: 1.4em;
+  color: #000000;
+  margin: 0;
+  padding: 0;
 }
 .note.quick-check .figure img {
   max-width: 6.25in;
@@ -3641,6 +4152,9 @@ div[class="note"] > .title {
   padding-left: 3em;
   background-position: .5em .5em;
   background-color: #f1ddb6;
+  color: #000000;
+  margin: 0;
+  padding: 0;
 }
 .note.quick-check.emphasized .figure img {
   max-width: 6.25in;
@@ -3667,13 +4181,12 @@ div[class="note"] > .title {
 .note.check-understanding > .title {
   margin-top: 0.5em;
   margin-top: 0;
-  color: #000000;
-  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  font-size: 10pt;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-weight: bold;
-  float: left;
-  padding-left: 1.5em;
-  padding-right: .8em;
+  padding: 7px 10px;
+  padding: 0px;
+  font-weight: normal;
+  color: rgba(0, 0, 0, 0.5);
 }
 .note.quick-check .exercise,
 .note.checkpoint .exercise,
@@ -3682,16 +4195,6 @@ div[class="note"] > .title {
   margin-bottom: 1.5em;
   margin-top: 0;
   counter-increment: none !important;
-  /* This code snip below is what is in Firebug that is overriding the Example and Try-It Exercise counters
-      causing !important to have to be used here and on line #594 of the precalculus-skeleton.less file.  grr
-      div.book div.chapter > div.cnx-eoc div.exercise:not(.labeled),
-      div.book div.chapter > div.section div.exercise:not(.labeled) {
-        counter-increment: exercise;
-      }
-      */
-  /* Update to me:  Found it.  It's line #106 in the numbering.less file.  it's incrementing  > .section > .exercise
-      We have to basically make an adjustment in precalculus-numbering.less to stop this override.
-      */
   margin-bottom: 0;
 }
 .note.quick-check .exercise > .title,
@@ -3702,7 +4205,6 @@ div[class="note"] > .title {
 .note.quick-check .exercise .problem,
 .note.checkpoint .exercise .problem,
 .note.check-understanding .exercise .problem {
-  font-size: 13px;
   line-height: 16px;
   margin-left: 20px;
 }
@@ -3735,12 +4237,40 @@ div[class="note"] > .title {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   page-break-inside: avoid;
-  min-height: 45px;
+  color: #000000;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+.note.media-2::before {
+  padding: 0 3px 0 30px;
+  background: url("ccap-basic-math/media.png") no-repeat 0;
+  background-size: 20px 20px;
+  line-height: 20px;
+  content: "Media : : ";
+  color: #093d4c;
+  display: inline-block;
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: bold;
+  vertical-align: top;
+}
+.note.media-2 > .title {
+  color: #1e7e91;
+  text-transform: uppercase;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 11px;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  line-height: 21px;
+}
+.note.media-2 > .body {
+  color: rgba(0, 0, 0, 0.5);
+  border-top: none;
+}
+.note.media-2 > .body p:nth-of-type(1) {
   padding-top: 0;
   margin-top: 0;
-  background: url("ccap-calculus/media.svg") no-repeat;
-  background-position: 0 .2em;
-  padding-left: 32px;
 }
 .note.media-2 .figure img {
   max-width: 6.25in;
@@ -3761,26 +4291,24 @@ div[class="note"] > .title {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   color: #000000;
-  background-color: #dbe8f2;
-  padding-bottom: 1em;
+  margin: 0;
+  padding: 0;
+  background-color: rgba(196, 206, 187, 0.1);
 }
 .note.definition > .title {
   margin-top: 0.5em;
   page-break-after: avoid;
   text-align: left;
-  font-size: small;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  margin-top: .25em;
-  margin-bottom: .5em;
-  color: #528cbe;
-  font-weight: bold;
-  border-bottom: 1px solid #528cbe;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  padding: 7px 10px;
+  color: #1e7e91;
 }
 .note.definition > .title::before {
   margin-top: 0.5em;
   margin-top: 0em;
   content: "Definition: ";
   display: block;
+  padding: 7px 10px;
 }
 .note.definition > .title span {
   display: none;
@@ -3792,22 +4320,20 @@ div[class="note"] > .title {
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
-  color: #000000;
-  background-color: #dbe8f2;
+  background-color: rgba(196, 206, 187, 0.1);
   background-color: #f1ddb6;
   padding-bottom: 1em;
+  color: #000000;
+  margin: 0;
+  padding: 0;
 }
 .note.problem-solving > .title {
   margin-top: 0.5em;
   page-break-after: avoid;
   text-align: left;
-  font-size: small;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  margin-top: .25em;
-  margin-bottom: .5em;
-  color: #528cbe;
-  font-weight: bold;
-  border-bottom: 1px solid #528cbe;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  color: #1e7e91;
+  padding: 7px 10px;
 }
 .note.be-prepared {
   padding-left: 1em;
@@ -3816,22 +4342,19 @@ div[class="note"] > .title {
   padding-bottom: 0.2em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  background-color: rgba(196, 206, 187, 0.1);
   color: #000000;
-  background-color: #dbe8f2;
-  padding-bottom: 1em;
+  margin: 0;
+  padding: 0;
 }
 .note.be-prepared > .title {
   margin-top: 0.5em;
   page-break-after: avoid;
   text-align: left;
-  font-size: small;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  margin-top: .25em;
-  margin-bottom: .5em;
-  color: #528cbe;
-  font-weight: bold;
-  border-bottom: 1px solid #528cbe;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  color: #1e7e91;
   margin-bottom: 1em;
+  padding: 7px 10px;
 }
 .note.be-prepared > .title::before {
   content: "Be Prepared!";
@@ -3881,7 +4404,7 @@ div.colophon.end-of-book-solutions .chapter-area > div.checkpoint::before {
   color: black;
   font-size: 16px;
   font-weight: 700;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   display: block;
   margin-bottom: 7.5px;
   content: "Checkpoint";
@@ -3893,7 +4416,7 @@ div.colophon.end-of-book-solutions .chapter-area > div.quick-check::before {
   color: black;
   font-size: 16px;
   font-weight: 700;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   display: block;
   margin-bottom: 7.5px;
   content: "Quick Check";
@@ -3952,6 +4475,11 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.fig
 .section.section-exercises .section .exercise .solution img {
   margin: 1em 0;
 }
+.section.section-exercises .exercise {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  margin-top: 0;
+}
 /******************************************************
  * Element numbering bugfix.
  *
@@ -4006,8 +4534,9 @@ div.appendix div.figure > div.caption::before {
   font-weight: bold;
   text-align: left;
   margin-right: .5em;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   content: "Figure " counter(appendix, upper-alpha) counter(figure);
+  color: #093d4c;
 }
 div.book > div.preface > div.cnx-eoc,
 div.book > div.part > div.preface > div.cnx-eoc {
@@ -4020,6 +4549,14 @@ div.book > div.part > div.chapter > div.cnx-eoc {
 div.book > div.appendix > div.cnx-eoc,
 div.book > div.part > div.appendix > div.cnx-eoc {
   counter-reset: eoc-section -1;
+}
+div.chapter {
+  page: chapter;
+  prince-page-group: start;
+}
+.token {
+  color: #1e7e91;
+  font-size: 150%;
 }
 /* -------------------------
  * Equations
@@ -4099,4 +4636,13 @@ div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t 
  */
 div.book div.index div.title h2 {
   string-set: cnx-header "Index";
+}
+/* -------------------------
+ * Chapter
+ *
+ * Refactor folio.less into skeletons/slots, then this goes away.
+ * -------------------------
+ */
+div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
+  string-set: cnx-header "Chapter " counter(chapter, decimal) "\0020\0020\0020" content();
 }
