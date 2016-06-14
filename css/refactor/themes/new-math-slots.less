@@ -657,7 +657,7 @@
       .style(non-feature) {
         #utils>#pb>.after(avoid);
         text-align: left;
-        font-family: @font-family;
+        font-family: @font-family-serif;
         color: @secondary-color;
       }
       .style(@kind; @part; feature-try) {
@@ -691,10 +691,14 @@
       }
     }
     #body {
-      .style(...) { padding: 0; }
+      .style(...) {
+        padding: 0;
+      }
       .style(@kind; @part; feature-try) {
         font-weight: normal;
-        display: inline;
+        display: inline-block;
+        border-top: none;
+        padding-top: 4px;
       }
       .style(@kind; @part; feature-qa) {
         font-weight: normal;
@@ -920,10 +924,6 @@
       margin-top: 0;
     }
     .style(@kind; @part; feature-try) {
-      // Try-it features are considered exercises.
-      // Increment counters even though they aren't displayed.
-      // (this comment above is old original comment that I did when building template)
-
       counter-increment: none !important;
 
       margin-bottom: 0;
