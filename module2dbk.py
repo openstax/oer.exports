@@ -48,7 +48,12 @@ DOCBOOK_IMAGE_XPATH = etree.XPath('//db:imagedata[@fileref]', namespaces=util.NA
 # - dictionary of new files
 # - A list of log messages
 #
-
+import threading
+import time
+from operator import methodcaller
+mathml_semi = threading.Semaphore()
+mathml_event = threading.Event()
+mathml_lock = threading.Lock()
 def extractLog(entries):
   """ Takes in an etree.xsl.error_log and returns a list of dicts (JSON) """
   log = []
@@ -88,7 +93,12 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
   params.update(collParams)
 
   def mathml2svg(xml, files, **params):
-
+      current_thread = threading.currentThread()
+      thread_list = [ t for t in threading.enumerate() if t.getName() != 'MainThread']
+      thread_list.sort(key=methodcaller('getName')) 
+     
+      if thread_list.index(current_thread) == 0:
+          print("I'm first!!!!##@$@$#$@$") 
       formularList = MATH_XPATH(xml)
       strErr = ''
       if len(formularList) > 0:

@@ -36,6 +36,18 @@ XINCLUDE_XPATH = etree.XPath('//xi:include', namespaces=util.NAMESPACES)
 # etree.XSLT does not allow returning just a text node so the XSLT wraps it in a <root/>
 PARAMS_XPATH = etree.XPath('/root[1]/text()[1]', namespaces=util.NAMESPACES)
 
+
+import threading
+conversion_results = {}
+lock = threading.Lock()
+def worker(module, cnxml, filesDict, collParams, module_temp_dir, svg2png, math2svg, reduce_quality):
+    """thread worker function"""
+    global conversion_results
+    global lock
+    modDbk, newFilesMod = module2dbk.convert(module, cnxml, filesDict, collParams, module_temp_dir, svg2png, math2svg, reduce_quality)
+    lock.acquire()
+    conversion_results[module] = (modDbk, newFilesMod)
+    lock.release()
 def transform(xslDoc, xmlDoc):
   """ Performs an XSLT transform and parses the <xsl:message /> text """
   ret = xslDoc(xmlDoc)
@@ -61,21 +73,30 @@ def convert(p, collxml, modulesDict, temp_dir, svg2png=True, math2svg=True, redu
 
   modDbkDict = {}
   # Each module can be converted in parallel
+  threads = {}
   for module, (cnxml, filesDict) in modulesDict.items():
-
     p.tick('Converting ' + module)
     module_temp_dir = os.path.join(temp_dir, module)
     if not os.path.exists(module_temp_dir):
       os.makedirs(module_temp_dir)
-    modDbk, newFilesMod = module2dbk.convert(module, cnxml, filesDict, collParams, module_temp_dir, svg2png, math2svg, reduce_quality)
+    thread = threading.Thread(name=module, target=worker, args=(module, cnxml, filesDict, collParams, module_temp_dir, svg2png, math2svg, reduce_quality))
+    threads[module]=thread
+
+  [ thread.start() for (module, thread) in threads.items()]
+ 
+#    modDbk, newFilesMod = module2dbk.convert(module, cnxml, filesDict, collParams, module_temp_dir, svg2png, math2svg, reduce_quality)
+
+  for (module, thread) in threads.items():
+    thread.join()
+    (modDbk, newFilesMod) = conversion_results[module]
     modDbkDict[module] = etree.parse(StringIO(modDbk)).getroot()
     # Add newFiles with the module prefix
     for f, data in newFilesMod.items():
     	newFiles[os.path.join(module, f)] = data
 
   # Terminate saxon process to free memory
-  if module2dbk.sax is not None:
-      module2dbk.sax.stop()
+#  if module2dbk.sax is not None:
+#      module2dbk.sax.stop()
   # Combine into a single large file
   # Replacing Xpath xinclude magic with explicit pyhton code
   for i, module in enumerate(XINCLUDE_XPATH(dbk1)):
