@@ -88,77 +88,27 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
   params.update(collParams)
 
   def mathml2svg(xml, files, **params):
-      try: 
-          global parser
-          global sax
-          global mc
-          if sax is None:
-              sax = Saxon()
-      
-          if mc is None:
-              mc = memcache.Client(['127.0.0.1:11211'], debug=0)
-      
-          if not math2svg:
-              return xml, {}, []
-      
-          formularList = MATH_XPATH(xml)
-          math_list = []
-          svgs = {}
-      
-          unprocessed = {}
-      
-          for mathml in formularList:
-              mathml_key = hashlib.md5(etree.tostring(mathml)).hexdigest()
-              math_list.append((mathml, mathml_key))
-              svg_str = mc.get(mathml_key)
-              if svg_str:
-                  svgs[mathml_key] = svg_str
-              else:
-                  unprocessed[mathml_key] = mathml
 
-          if len(unprocessed) > 0:
-              mathml_str_list = [ etree.tostring(mathml) for mathml in unprocessed.values() ]
-              mathml_tree_str = "<root>" + ''.join(mathml_str_list) + "</root>"
-              mathml_svg_tree_str = sax.convert(mathml_tree_str)
-              mathml_svg_tree = etree.parse(StringIO(mathml_svg_tree_str),parser)
-              root = mathml_svg_tree.getroot()
-              mathml_svg_list = root.getchildren()
-              for  mathml_key, expected_mathml in unprocessed.items():
-                  svg = mathml_svg_list.pop(0)
-                  returned_mathml = mathml_svg_list.pop(0)
-                  if etree.tostring(returned_mathml) == etree.tostring(expected_mathml):
-                      svg_str = etree.tostring(svg)
-                      mc.set(mathml_key, svg_str)
-                      svgs[mathml_key] = svg_str
-                  else:
-                      raise ValueError("returned mathml not expected")
-
-          # All worked, now update XML tree
-          for mathml, math_key in math_list:
-              svg = etree.parse(StringIO(svgs[math_key]), parser).getroot()
-              mathml.addprevious(svg)
-
-      except RuntimeError:
-          formularList = MATH_XPATH(xml)
-          strErr = ''
-          if len(formularList) > 0:
-    
-            # Take XML from stdin and output to stdout
-            # -s:$DOCBOOK1 -xsl:$MATH2SVG_PATH -o:$DOCBOOK2
-            strCmd = ['java','-jar', SAXON_PATH, '-s:-', '-xsl:%s' % MATH2SVG_PATH]
-    
-            # run the program with subprocess and pipe the input and output to variables
-            p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True)
-            # set STDIN and STDOUT and wait untill the program finishes
-            stdOut, strErr = p.communicate(etree.tostring(xml))
-    
-            #xml = etree.fromstring(stdOut, recover=True) # @xml:id is set to '' so we need a lax parser
-            parser = etree.XMLParser(recover=True)
-            xml = etree.parse(StringIO(stdOut), parser)
-    
-            if strErr:
-              print >> sys.stderr, strErr.encode('utf-8')                           
-      
+      formularList = MATH_XPATH(xml)
+      strErr = ''
+      if len(formularList) > 0:
+  
+        # Take XML from stdin and output to stdout
+        # -s:$DOCBOOK1 -xsl:$MATH2SVG_PATH -o:$DOCBOOK2
+        strCmd = ['java','-jar', SAXON_PATH, '-s:-', '-xsl:%s' % MATH2SVG_PATH]
+  
+        # run the program with subprocess and pipe the input and output to variables
+        p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True)
+        # set STDIN and STDOUT and wait untill the program finishes
+        stdOut, strErr = p.communicate(etree.tostring(xml))
+  
+        #xml = etree.fromstring(stdOut, recover=True) # @xml:id is set to '' so we need a lax parser
+        parser = etree.XMLParser(recover=True)
+        xml = etree.parse(StringIO(stdOut), parser)
+  
+        if strErr:
+          print >> sys.stderr, strErr.encode('utf-8')                           
+  
       return xml, {}, [] # xml, newFiles, log messages
 
   def imageResize(xml, files, **params):
