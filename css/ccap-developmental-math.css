@@ -73,9 +73,6 @@ td.entrytbl > table {
 /********************************************************************
  * Math Refactor of .x-feature() function to utilize only one paramter
  ********************************************************************/
-#content #table #row {
-  border: none !important;
-}
 html {
   prince-image-resolution: 150dpi;
 }
@@ -2170,9 +2167,9 @@ div.table table {
   page-break-inside: auto;
   margin-bottom: 22px;
   padding-top: 1em;
+  padding-bottom: 1em;
   prince-caption-page: all;
   border: none;
-  border-collapse: collapse;
 }
 div.table table caption {
   font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2202,7 +2199,7 @@ div.table table thead {
   font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 div.table table tbody {
-  border: 1px solid #f1f2f2;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-top: none;
 }
 div.table table table tbody[valign=top] > tr > td {
@@ -2232,10 +2229,13 @@ div.table table th:not(:only-child) {
   background-color: #1e7e91;
 }
 div.table table td {
-  border-color: #f1f2f2;
+  border-color: rgba(0, 0, 0, 0);
   font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   font-size: 9pt;
   padding: 5px 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  border-left: none;
 }
 div.table table td.header {
   font-size: 9pt;
@@ -2279,7 +2279,7 @@ div.table.unstyled table caption {
 }
 div.table.unstyled table tr {
   border: none !important;
-  border-top: 1px solid #f1f2f2 !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
 }
 div.table.unstyled table tr:first-of-type {
   border-top: none !important;
@@ -2327,8 +2327,17 @@ div.table table thead tr:first-of-type th:first-of-type {
 div.table table thead tr:first-of-type th:last-of-type {
   border-top-right-radius: 2.88px;
 }
-div.table table tbody tr:last-of-type td:first-of-type {
+div.table table tbody tr td:first-child {
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+div.table table tbody tr td:last-child {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+div.table table tbody tr:last-child td:first-child {
   border-bottom-left-radius: 2.88px;
+}
+div.table table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 2.88px;
 }
 /********************************************************************
  * Styling for Appendix
@@ -4586,6 +4595,9 @@ div.book div.appendix div.table:not(.labeled).unnumbered > table > caption:not(.
 }
 div[class="note"] div.table table th {
   background-color: #d7562c;
+}
+div[class="note"] div.table table tbody {
+  background-color: #fff;
 }
 .example.multiple-solution .exercise {
   margin-top: 1.5em;

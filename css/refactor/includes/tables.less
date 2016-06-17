@@ -280,10 +280,10 @@
         #utils>#pb>.inside(auto);
         margin-bottom: 22px;
         padding-top: 1em;
+        padding-bottom: 1em;
         // If a table spans more than 1 page then put caption on all following pages
         prince-caption-page: all;
         border: none;
-        border-collapse: collapse;
       }
       .style(any; preface) {
         margin: 0;
@@ -330,7 +330,7 @@
       }
       #body {
         .style(any; any) {
-          border: 1px solid #f1f2f2;
+          border: 1px solid rgba(0,0,0,0.1);
           border-top: none;
         }
         .style(unstyled; any) {
@@ -339,9 +339,11 @@
         .style(multiple-headers; any) {
           border: none;
         }
+        .style(any; any; note) {
+          background-color: #fff;
+        }
       }
       #row {
-        border: none !important;
         .style(any; any) {
           #utils>#pb>.inside(avoid);
         }
@@ -350,7 +352,7 @@
         }
         .style(unstyled; any) {
           border: none !important;
-          border-top: 1px solid #f1f2f2 !important;
+          border-top: 1px solid rgba(0,0,0,0.1) !important;
 
           &:first-of-type {
             border-top: none !important;
@@ -390,10 +392,13 @@
       }
       #data {
         .style(any; any) {
-          border-color: #f1f2f2;
+          border-color: rgba(0,0,0,0,1);
           font-family: @font-family;
           font-size: 9pt;
           padding: 5px 10px;
+          border-bottom: 1px solid rgba(0,0,0,0.1);
+          border-right: 1px solid rgba(0,0,0,0.1);
+          border-left: none;
         }
         .style(unstyled; any) {
           border: none;
@@ -404,6 +409,12 @@
         }
         .style('last'; any) {
           border-bottom-right-radius: 2.88px;
+        }
+        .style('first-column'; any) {
+          border-left: 1px solid rgba(0,0,0,0.1);
+        }
+        .style('last-column'; any) {
+          border-right: 1px solid rgba(0,0,0,0.1);
         }
         .style(multiple-headers; any) {
           padding: 0;
