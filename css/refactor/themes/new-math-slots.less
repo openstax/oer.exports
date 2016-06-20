@@ -30,6 +30,7 @@
 .x-inline-blocks() {
   box-sizing: border-box;
   display: inline-block;
+  .scale-padding(2, padding-right);
 }
 .folio-chapter-header() {
   background-color: @dark-blue;
@@ -328,7 +329,7 @@
       }
       #title {
         .style(...) {
-          content: "Chapter " counter(chapter, decimal) " Review Exercises";
+          content: "Review Exercises";
           column-span: all;
           margin-top: 0;
         }
@@ -340,8 +341,9 @@
       }
       #title {
         .style(...) {
-          content: "Chapter " counter(chapter, decimal) " Practice Test";
+          content: "Practice Test";
           column-span: all;
+          #utils>#pb>.before(always);
         }
       }
     }
@@ -880,7 +882,7 @@
       padding: 11px 0;
     }
     .item(any; any; 'circled', list) {
-      display: inline-block;
+      .x-inline-blocks();
     }
   }
   #commentary {
@@ -900,10 +902,13 @@
       margin: .75em 0;
       margin-bottom: 5px;
       margin-top: 0px;
+      border-top: 2px solid @primary-color;
+      border-bottom: 2px solid @primary-color;
     }
     #title {
       .style(any) {
-        display: none;
+        display: block;
+        .font-scale(-1);
       }
     }
     #body {
@@ -940,7 +945,7 @@
       page-break-inside: avoid;
       vertical-align: top;
       .x-inline-blocks();
-      width: @one-third;
+      min-width: @one-third;
     }
     #title {
       .style(@kind; @part; feature-try) {
@@ -954,7 +959,7 @@
     }
     #body {
       .style('first'; any; example) {
-        margin: -20px 0;
+        margin: 0px;
       }
       .style(any; any; section-exercise) {
         display: inline;
