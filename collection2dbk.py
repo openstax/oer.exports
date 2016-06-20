@@ -82,6 +82,8 @@ def convert(p, collxml, modulesDict, temp_dir, svg2png=True, math2svg=True, redu
     thread = threading.Thread(name=module, target=worker, args=(module, cnxml, filesDict, collParams, module_temp_dir, svg2png, math2svg, reduce_quality))
     threads[module]=thread
 
+  module2dbk.TOTAL_MODULES = len(threads)
+  module2dbk.MASTER_THREAD = threads.iteritems().next()[0]
   [ thread.start() for (module, thread) in threads.items()]
  
 #    modDbk, newFilesMod = module2dbk.convert(module, cnxml, filesDict, collParams, module_temp_dir, svg2png, math2svg, reduce_quality)

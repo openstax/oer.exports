@@ -51,9 +51,27 @@ DOCBOOK_IMAGE_XPATH = etree.XPath('//db:imagedata[@fileref]', namespaces=util.NA
 import threading
 import time
 from operator import methodcaller
-mathml_semi = threading.Semaphore()
+import hashlib
+mathml_dict = {}
+sema = threading.Semaphore(value=0)
 mathml_event = threading.Event()
-mathml_lock = threading.Lock()
+xml_dict = {}
+
+def run_saxon(root):
+    strCmd = ['java','-jar', SAXON_PATH, '-s:-', '-xsl:%s' % MATH2SVG_PATH]
+    p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True)
+    stdOut, strErr = p.communicate(etree.tostring(root))
+    parser = etree.XMLParser(recover=True)
+    processed_xml = etree.parse(StringIO(stdOut), parser)
+    processed_xml_root = processed_xml.getroot()
+    for element in processed_xml_root:
+#        import ipdb; ipdb.set_trace()
+        module = element.tag
+        module_xml = element[0]
+        xml_dict[module] = module_xml
+#    import ipdb; ipdb.set_trace()
+
+
 def extractLog(entries):
   """ Takes in an etree.xsl.error_log and returns a list of dicts (JSON) """
   log = []
@@ -94,32 +112,37 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
 
   def mathml2svg(xml, files, **params):
       current_thread = threading.currentThread()
-      thread_list = [ t for t in threading.enumerate() if t.getName() != 'MainThread']
-      thread_list.sort(key=methodcaller('getName')) 
-     
-      if thread_list.index(current_thread) == 0:
-          print("I'm first!!!!##@$@$#$@$") 
-      formularList = MATH_XPATH(xml)
-      strErr = ''
-      if len(formularList) > 0:
-  
-        # Take XML from stdin and output to stdout
-        # -s:$DOCBOOK1 -xsl:$MATH2SVG_PATH -o:$DOCBOOK2
-        strCmd = ['java','-jar', SAXON_PATH, '-s:-', '-xsl:%s' % MATH2SVG_PATH]
-  
-        # run the program with subprocess and pipe the input and output to variables
-        p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True)
-        # set STDIN and STDOUT and wait untill the program finishes
-        stdOut, strErr = p.communicate(etree.tostring(xml))
-  
-        #xml = etree.fromstring(stdOut, recover=True) # @xml:id is set to '' so we need a lax parser
-        parser = etree.XMLParser(recover=True)
-        xml = etree.parse(StringIO(stdOut), parser)
-  
-        if strErr:
-          print >> sys.stderr, strErr.encode('utf-8')                           
-  
-      return xml, {}, [] # xml, newFiles, log messages
+
+      if MATH_XPATH(xml):
+          xml_dict[current_thread.getName()] = xml
+      sema.release()
+      # select first module in sorted list
+      if sema._Semaphore__value < TOTAL_MODULES:
+          mathml_event.wait()
+      else:
+          counter = 0
+          roots = [ etree.Element('root') for i in range(0, TOTAL_THREADS)]
+          while xml_dict:
+              (module, mod_xml) = xml_dict.popitem()
+              element = etree.Element(module)
+              element.append(mod_xml.getroot())
+              roots[counter % TOTAL_THREADS ].append(element)
+              counter = counter + 1
+          saxon_threads = []
+          for root in roots:
+              thread = threading.Thread(target=run_saxon, args=(root,))
+              thread.start()
+              saxon_threads.append(thread)
+          [ thread.join() for thread in saxon_threads ]
+
+          mathml_event.set()
+
+      if xml_dict.has_key(current_thread.getName()):
+          parser = etree.XMLParser(recover=True)
+          # FIXME: Is line (below) nessisary?
+          xml = etree.parse(StringIO(etree.tostring(xml_dict[current_thread.getName()])),parser)
+      return xml , {}, []
+
 
   def imageResize(xml, files, **params):
     # TODO: parse the XML and xpath/annotate it as we go.

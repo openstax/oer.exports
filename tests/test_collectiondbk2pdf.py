@@ -19,6 +19,7 @@ from wand.image import Image
 OUTPUT_DIR = "./tests/test_output"
 INPUT_DIR = "./tests/test_data"
 COLLECTION = "col11287_1.1_complete"
+#COLLECTION = "col11406_1.9_complete"
 PRINCE_PATH = "/usr/bin/prince"
 STYLE = "ccap-physics"
 
@@ -45,6 +46,7 @@ class Test_collectiondbk2pdf(unittest.TestCase):
                              "-p", PRINCE_PATH,
                              "-d", join(INPUT_DIR, COLLECTION),
                              "-s", STYLE,
+                             "--threads=1",
                              join(OUTPUT_DIR, "test_results.pdf")]
         start_time = time.time()
         collectiondbk2pdf.main(cls.setup_command[1:])
