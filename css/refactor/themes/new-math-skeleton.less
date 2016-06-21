@@ -69,6 +69,7 @@ div.book div.preface {
       left: 0.815in;
       content: " ";
     }
+
   }
 }
 /* -------------------------
@@ -82,8 +83,7 @@ div.book div.preface {
     #part>#toc>#title>.style();
 
     &::before {
-      //#part>#toc>#title>.style('icon');
-      content: url("ccap-basic-math/math-toc-icon.png");
+      content: url("math-toc-icon.png");
       padding-right: 15px;
       margin-left: 10px;
     }
@@ -152,8 +152,8 @@ div.book div.preface {
   margin: 0;
   padding: 1em 1em 1em 0em;
 }
-.book > .toc > ul > li.toc-chapter:nth-child(2n+1) {
-  #content>#list>.item('2n+1', 'chapter'; any; toc);
+.book > .toc > ul > li.toc-chapter:nth-child(2n+0) {
+  #content>#list>.item('2n+0', 'chapter'; any; toc);
 }
 
 
@@ -437,16 +437,16 @@ div.book div > div.section > div.section {
       #part>#chapter-end>#review-exercises>#title>.style();
     }
     > .section > div.body > .section {
-      > div.titlepage > div > div > h4 > span > a {
-        #content>#link>.style('link-to-section'; any; 'review-exercises');
-        &::before {
-          #content>#link>.number('link-to-section'; any; 'review-exercises');
+        > div.titlepage > div > div > h4 > span > a {
+          #content>#link>.style('link-to-section'; any; 'review-exercises');
+          &::before {
+            #content>#link>.number('link-to-section'; any; 'review-exercises');
+          }
         }
-      }
-      > p {
-        #content>#paragraph>.style('immediate-child'; any; review-exercises);
-        span.bold { font-style: normal; }
-      }
+        > p {
+          #content>#paragraph>.style('immediate-child'; any; review-exercises);
+          span.bold { font-style: normal; }
+        }
     }
   }
 
@@ -747,6 +747,7 @@ img, figure, subfigure  { margin: 1em; }
 .example .exercise {
   .commentary > .title {
     #content>#commentary>#title>.style(@kind; @part; exercise; example);
+
   }
 }
 
@@ -1193,6 +1194,7 @@ div[class="note"] {
     .exercise {
       #content>#exercise>.style(@kind; @part; @context);
       > .title { #content>#exercise>#title>.style(@kind; @part; @context); }
+
       .problem {
         #content>#problem>.style(@kind; @part; @context; exercise);
       }

@@ -1,97 +1,87 @@
+// .book > .toc {
+//     ul > .toc-chapter {
+//         > ul {
+//
+//         }
+//         .toc-section {
+//             .scale-padding(2, line-height);
+//         }
+//     }
+// }
 
-.chapter > .introduction {
-  > .toc .cnx-gentext-n {
-    #part>#introduction>#chapter-outline>#title>.number();
-  }
-}
-.chapter .note {
-  &.astronomy-basics {
-    #content>#note>.style('astronomy-basics'; any);
-    >.title {
-      #content>#note>#title>.style('astronomy-basics'; any);
-    }
-  }
-  &.making-connections {
-    #content>#note>.style('making-connections'; any);
-    >.title {
-      #content>#note>#title>.style('making-connections'; any);
-    }
-  }
-  &.seeing-for-yourself {
-    #content>#note>.style('seeing-for-yourself'; any);
-    >.title {
-      #content>#note>#title>.style('seeing-for-yourself'; any);
-    }
-  }
-  &.voyagers-in-astronomy {
-    #content>#note>.style('voyagers-in-astronomy'; any);
-    >.title {
-       #content>#note>#title>.style('voyagers-in-astronomy'; any);
-    }
+
+.chapter {
+  > .introduction {
+    #part>#introduction>.style();
   }
 }
 
-//end of chapter
-div.book div.chapter > div.cnx-eoc {
+div.book > div.chapter > div.titlepage {
+  #part>#chapter>#titlepage>.style();
 
-  &.further-exploration {
-    #part>#chapter-end>#further-exploration>.style();
-    .body p { #part>#chapter-end>#further-exploration>#item>.style(); }
-    .body ul li {
-      #content>#list>.style (any; any; further-exploration);
+  div div > h1.title {
+    #part>#chapter>#title>.style();
+    &::before {
+      #part>#chapter>#title>.number();
     }
-    > .title { #part>#chapter-end>#further-exploration>#title>.style(); }
-    > .section .title > a { #part>#chapter-end>#further-exploration>#title>.link(); }
+    &::after {
+      #part>#chapter>#title>.icon();
+    }
   }
+}
+.chapter > .introduction > .figure.splash {
+  //height: 4.3in;
 
-  &.group-activities {
-    counter-reset: group-activities;
-    ol {
-      #content>#list>.style(any; any; group-activities);
-    }
-    div.section {
-     &.empty {display: none;}
-     div.section {
-      &:before {
-        display: inline;
-        float: left;
-        font-weight: bold;
-        margin-top: 6px;
-        padding-right: 5px;
-        content: counter(group-activities)". ";
-        counter-increment: group-activities;
-        font-family: @font-family-serif
+  div.mediaobject {
+      border-left: none;
+      height: 4.53in;
+      position: relative;
+      //overflow: hidden;
+
+      &::before {
+          height: 4px;
+          background-color: @secondary-color;
+          bottom: 70px;
+          width: 100%;
+          left: 0;
+          right: 0;
       }
-     }
-     .title {display: none;}
-      &.empty {display: none}
-    }
-    #part>#chapter-end>#group-activities>.style();
-    > .title { #part>#chapter-end>#group-activities>#title>.style(); }
-    > .section .title > a { #part>#chapter-end>#group-activities>#title>.link(); }
-  }
 
-  &.review-questions {
-    #part>#chapter-end>#review-questions>.style();
-     > .title { #part>#chapter-end>#review-questions>#title>.style(); }
-     > .section .title > a { #part>#chapter-end>#review-questions>#title>.link(); }
-  }
+      &::after {
+          width: 100%;
+          content: '';
+          display: block;
+          position: absolute;
+          bottom: 0px;
+          left: 0;
+          right: 0;
+          height: 70px;
+          background-color: @quinary-color;
+      }
 
-  &.thought-questions  {
-    #part>#chapter-end>#thought-questions >.style();
-    > .title { #part>#chapter-end>#thought-questions>#title>.style(); }
-    > .section .title > a { #part>#chapter-end>#thought-questions>#title>.link(); }
-  }
-
-  &.figuring-for-yourself  {
-    #part>#chapter-end>#figuring-for-yourself >.style();
-    > .title { #part>#chapter-end>#figuring-for-yourself>#title>.style(); }
-    > .section .title > a { #part>#chapter-end>#figuring-for-yourself>#title>.link(); }
+      img {
+        width: 8.5in;
+        height: 4.53in;
+      }
   }
 }
 
-.note img {max-width: 6in;}
+.chapter > .introduction > .toc {
 
-.inlinemediaobject img{
-  #content>#image>.style(any; 'inline');
+    .cnx-gentext-n {
+      #content>#list>.number('unordered'; introduction; chapter-outline);
+    }
+    // overide hyperlink medium blue color
+    .toc-section .cnx-gentext-t {
+      color: @tertiary-color;
+    }
+}
+
+.section.learning-objectives {
+  .itemizedlist > ul {
+    #part>#chapter>#learning-objectives>#list>.style();
+  }
+  .listitem {
+    #part>#chapter>#learning-objectives>#list>#listitem>.style();
+  }
 }

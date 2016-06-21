@@ -1,215 +1,225 @@
+@import url('includes/theme-colors.less');
+
+@primary-color: @scooter-blue;
+@secondary-color: @flirt-red;
+@tertiary-color: @jagger-violet;
+@quaternary-color: @sea-buckthorn-orange;
+@quinary-color: @flamingo-orange;
+@accent-color: #F4F4F4;
+//@secondary-accent-color: rgba(#3C2747, 0.4);
+
+.folio-chapter-header() {
+  background-color: transparent;
+  color: white;
+}
+
 #part {
-  #preface {
-    .title() {
-      border-bottom-color: @dark-orange;
+  #toc {
+    #title {
+      .style() {
+        text-transform: uppercase;
+        color: @tertiary-color;
+        .scale-padding(2, margin-bottom);
+      }
+    }
+    #chapter {
+      .number() {
+        display: inline-block;
+        height: auto;
+        line-height: normal;
+        color: @secondary-color;
+        border: 1px solid @quaternary-color;
+        .font-scale(0);
+        padding: 2px 5px;
+        margin-right: 15px;
+        margin-left: 10px;
+        font-weight: 700;
+      }
+    }
+  }
+  #chapter {
+    #titlepage {
+      .style() {
+        height: 100%;
+        margin-top: 0;
+      }
+    }
+    #title {
+      .style() {
+        padding: 0;
+        padding-top: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        //bottom: -3.4in;
+        //left: 80px;
+        //right: 0;
+        width: 8.5in;
+        height: 3.53in;
+        color: @tertiary-color;
+        .font-scale(2);
+      }
+      .number() {
+        top: auto;
+        left: 0;
+        bottom: 52px;
+        background-color: white;
+        border-radius: 50%;
+        padding: 8px 15px;
+        min-width: 0;
+        min-height: 0;
+        color: @secondary-color;
+      }
+      .text() {
+        position: absolute;
+        bottom: 35px;
+        left: 80px;
+      }
+      .icon() {
+        content: '';
+        display: block;
+        background: url(ccap-astronomy/ch-intro-telescope.svg) 0 0 no-repeat;
+        width: 175px;
+        height: 55px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        transform: translate3d(-1in, 0, 0);
+      }
     }
   }
   #introduction {
+    .style() {
+      margin-top: -1in;
+    }
     #title {
       .style() {
-        content: initial;
+        color: @tertiary-color;
+        margin-bottom: 1em;
       }
     }
     #chapter-outline {
       #title {
         .style() {
-          color: @teal;
-        }
-        .number() {
-          font-weight: bold;
+          .scale-padding(1, margin-bottom);
+          .font-scale(2);
         }
       }
     }
   }
   #chapter {
-    #learning-objectives {
-       #title {
-        .style () {
-          color: @teal;
+    .style(any; chapter) {
+      page: chapter;
+      prince-page-group: start;
+    }
+    #learning-objectives{
+      #list {
+        .style() {
+          color: @tertiary-color;
+          margin-bottom: 18px;
+          list-style: none;
+        }
+        #listitem {
+          .style() {
+            background: url("ccap-astronomy/learning-objectives.svg") no-repeat 0;
+            background-size: 7px 10px;
+            margin-left: 20px;
+            padding-left: 20px;
+          }
         }
       }
-    }
-  }
-  #chapter-end {
-    #title{
-      .style() {
-        font-size: 13pt !important;
-      }
-    }
-    #summary {
-     .style() {
-        margin-bottom: 5px;
-      }
-    }
-    #further-exploration {
-      .style() {
-    }
-    #title {
-      .style() { }
-      .link() {
-        display: none;
-      }
-     }
-      #item{
-        .style(){
-         margin-left: 20px;
-         text-indent: -20px;
-        }
-      }
-    }
-    #group-activities {
-     .style() {
-        margin-bottom: 5px;
-        &:after {
-          display: block;
-          content: "Exercises";
-          color: @dark-blue;
-          text-align: left;
-          border-bottom-color: @orange;
-          border-bottom-width: 1px;
-          border-bottom-style: solid;
-          font-size: 13pt;
-          line-height: 17pt;
-          font-weight: 700;
-          margin-top: 0;
-          #utils>#pb>.after(avoid);
-        }
-     }
-     #title {
-      .style() {
-      }
-      .link() {
+
+      #title {
+        .style() {
           display: none;
         }
       }
     }
-    #review-questions {
-     .style() {
-      .x-column-count(1);
-     }
-     #title {
+  }
+  #module {
+    #title {
       .style() {
-        .x-eoc-headings();
+        font-family: @font-family-serif;
+        text-transform: uppercase;
+        color: @tertiary-color;
+        .font-scale(2);
+        font-weight: 600;
       }
-      .link() {
-        display: none;
+      .text() {
+        top: 3px;
       }
-     }
-   }
-    #thought-questions {
-      .style() { }
-      #title {
-       .style() {
-        .x-eoc-headings();
-       }
-       .link() {
-        display: none;
+      .number() {
+        border: 2px solid @quaternary-color;
+        padding: 3px 4px;
+        .font-scale(-1);
+        margin-right: 10px;
+        vertical-align: middle;
       }
-     }
-   }
-    #figuring-for-yourself {
-     .style() {
-     }
-     #title {
-      .style() {
-        .x-eoc-headings();
-      }
-      .link() {
-        display: none;
-      }
-     }
     }
   }
-}
-
-.x-eoc-headings() {
-  color: black;
-  font-size: 13px !important;
-  border-bottom: 0;
-  font-weight: bold;
-  margin-bottom: 0;
 }
 
 #content {
-  #heading {
-    .style(h5) {
-      color: @black;
-      font-style: normal;
-      font-weight: bold;
-      margin: 0;
-      padding: 0;
+  #link {
+    .style('chapter'; any; toc) {
+      position: relative;
+      color: @primary-color;
+      .scale-padding(1, margin-bottom);
+      bottom: -5px;
+    }
+    .style('index'; any; toc) {
+      color: @primary-color;
+      .scale-padding(1, margin-bottom);
     }
   }
   #list {
-    .style(any; any; problem; exercise) {
-      list-style-type: upper-latin;
+    .style('chapter'; any; toc) {
+      border-left: 4px solid @accent-color;
+      .scale-padding(0, padding-left);
     }
-    .style (any; any; further-exploration) {
-      padding-left: 20px;
-      margin-left: -25px;
+    .style('unordered'; introduction; chapter-outline) {
+        border-left: 4px solid @accent-color;
     }
-    .style(any; any; group-activities) {
-      font-family: @font-family-serif;
+    .number('unordered'; introduction; chapter-outline) {
+      color: @summer-sky;
     }
-  }
-  #note {
-    .style('astronomy-basics'; any) {
-     .x-feature-color(@dark-blue, @dark-blue, @white, @accent-dark-blue, @cnx-string-astronomy-basics );
-   }
-   .style('making-connections'; any) {
-     .x-feature-color(@purple, @accent-purple, @white, @purple, @cnx-string-making-connections);
-   }
-   .style('seeing-for-yourself'; any) {
-     .x-feature-color(@teal, @accent-green, @white, @teal, @cnx-string-seeing-for-yourself);
-   }
-   .style('voyagers-in-astronomy'; any) {
-     .x-feature-color(@red, @accent-red, @white, @red, @cnx-string-voyagers-in-astronomy);
-   }
-    .style('link-to-learning'; ...) {
-      .x-feature-color(@dark-orange, @accent-orange, @white, @dark-orange, @cnx-string-link-to-learning);
+    .item('chapter'; any; toc) {
+      margin-bottom: 20px;
     }
-   #title {
-     .style('astronomy-basics'; any) {
-      color: @accent-dark-blue;
-     }
-     .style('making-connections'; any) {
-      color: @purple;
-     }
-     .style('seeing-for-yourself'; any) {
-      color: @teal;
-     }
-     .style('voyagers-in-astronomy'; any) {
-      color: @red;
-     }
-   }
-  }
-  #exercise {
-    .style(...) {
-      margin-bottom: 0.75em;
-      margin-top: 0;
+    .item('2n+0', 'chapter'; any; toc) {
+      background-color: @accent-color;
+      padding-top: 1em;
+      padding-bottom: 1em;
     }
   }
-  #table {
-    #caption {
-      .number(any; any) {
-        padding-right: .5em;
+  #figure {
+    .style('splash'; chapter) {
+      transform: translate3d(-1in, 0, 0);
+    }
+    #title {
+      .style() {
+        color: @black-60;
+        .font-scale(-1);
+      }
+      .number() {
+        color: black;
       }
     }
-    #header {
-      .style(any; any) {
-        background-color: @accent-med-blue;
-      }
-    }
-    #data {
-      .style('header'; any) {
-        background-color: @accent-med-blue;
+    #body {
+      .style('splash'; chapter) {
+        padding-bottom: 5px;
       }
     }
   }
-  #image {
-    .style(any; 'inline') {
-      display: block;
-      margin: auto;
-    }
+  #section {
+    #title {
+        .style(any; any) {
+          font-family: @font-family-serif;
+          margin-bottom: 1em;
+          color: @secondary-color;
+          .font-scale(2);
+        }
+      }
   }
 }
