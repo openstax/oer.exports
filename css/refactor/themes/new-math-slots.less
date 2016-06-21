@@ -903,6 +903,19 @@
     .item(any; any; 'circled', list) {
       .x-inline-blocks();
     }
+    .style(any; stepwise) {
+      counter-reset: item;
+      list-style-type: none;
+    }
+    .item(any; stepwise) {
+      padding-bottom: 1rem;
+      &:before {
+        content: "Step " counter(item, decimal) '. ';
+        counter-increment: item;
+        position: absolute;
+        margin-left: -40px;
+      }
+    }
   }
   #commentary {
     #title {

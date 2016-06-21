@@ -3697,6 +3697,28 @@ div.itemizedlist ol.circled p,
 div.orderedlist ol.circled p {
   padding: 0;
 }
+div.itemizedlist ul.stepwise,
+div.orderedlist ul.stepwise,
+div.itemizedlist ol.stepwise,
+div.orderedlist ol.stepwise {
+  counter-reset: item;
+  list-style-type: none;
+}
+div.itemizedlist ul.stepwise > li,
+div.orderedlist ul.stepwise > li,
+div.itemizedlist ol.stepwise > li,
+div.orderedlist ol.stepwise > li {
+  padding-bottom: 1rem;
+}
+div.itemizedlist ul.stepwise > li:before,
+div.orderedlist ul.stepwise > li:before,
+div.itemizedlist ol.stepwise > li:before,
+div.orderedlist ol.stepwise > li:before {
+  content: "Step " counter(item, decimal) '. ';
+  counter-increment: item;
+  position: absolute;
+  margin-left: -40px;
+}
 cnx.eoc .key-concepts div.itemizedlist ul li,
 cnx.eoc .key-concepts div.orderedlist ul li,
 cnx.eoc .key-concepts div.itemizedlist ol li,
