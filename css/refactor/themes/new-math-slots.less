@@ -45,6 +45,12 @@
 .secondary-header-toc() {
   .font-scale(1);
 }
+.eo-title-style() {
+  .font-scale(2) !important;
+}
+
+
+
 #page {
   .folio-typography() {
     font-family: @font-family-serif;
@@ -292,10 +298,10 @@
         text-transform: uppercase;
         text-align: left;
         color: @medium-blue;
-        font-size: large;
         font-weight: bold;
         margin-top: 0;
         #utils>#pb>.after(avoid);
+        .eo-title-style();
       }
     }
     #summary {
@@ -835,14 +841,26 @@
         font-weight: bold;
       }
       .style(section-exercises; @part; ...) {
-        content: "" " " counter(chapter, decimal) "." counter(section, decimal) " exercises" " " "";
+        content: counter(chapter, decimal) "." counter(section, decimal) " exercises";
         text-transform: uppercase;
-        font-size: 17pt;
         color: @medium-blue;
         font-weight: bold;
-        display:block;
-        padding-bottom: 10px;
+        display: block;
         column-span: all;
+        .eo-title-style();
+
+        height: 34px;
+        background: url("ccap-basic-math/exercises.png") no-repeat left;
+        background-size: 30px 34px;
+        bottom: 0px;
+        position: relative;
+        line-height: 56px;
+        padding-left: 2.5em;
+        margin-bottom: .5em;
+      }
+      .style(any; any; section-exercises) {
+        color: @primary-color;
+        .font-scale(1);
       }
     }
   }
