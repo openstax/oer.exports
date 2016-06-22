@@ -427,6 +427,18 @@ div.book div > div.section > div.section {
     > .title {
       #part>#chapter-end>#review-exercises>#title>.style();
     }
+
+    > .section > div.body > .section {
+        > div.titlepage > div > div > h4 > span > a {
+          #content>#link>.style('link-to-section'; any; 'review-exercises');
+          &::before {
+            #content>#link>.number('link-to-section'; any; 'review-exercises');
+          }
+        }
+        > p {
+          #content>#paragraph>.style('immediate-child'; any; review-exercises);
+        }
+    }
   }
 
   &.practice-test {
@@ -744,6 +756,11 @@ img, figure, subfigure  { margin: 1em; }
   // turn off "Section Exercises" title
   > .titlepage {
     display: none;
+  }
+
+  // Paragraphs that are immediate children of sections in section-exercises
+  > div.section > p {
+    #content>#paragraph>.style('immediate-child'; any; section-exercises);
   }
 
   // Subsection titles in end of section exercises

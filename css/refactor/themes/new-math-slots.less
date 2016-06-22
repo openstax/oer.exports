@@ -47,6 +47,7 @@
 }
 .eo-title-style() {
   .font-scale(2) !important;
+  font-family: @font-family-serif;
 }
 
 
@@ -63,7 +64,7 @@
     color: @light-blue;
    }
   .top-right(left) { .folio-typography(); }
-  .rop-right(right) { .folio-typography(); }
+  .top-right(right) { .folio-typography(); }
   .top-right(chapter) {
     .folio-typography();
     color: @light-blue;
@@ -1020,6 +1021,7 @@
       .style(@kind; @part; section-exercise) {
         content: counter(exercise) ". ";
         display: inline;
+        font-weight: bold;
       }
     }
     #body {
@@ -1253,6 +1255,12 @@
       .secondary-header-toc();
       margin-left: 46px;
     }
+    .style('link-to-section'; any; 'review-exercises') {
+    }
+    .number('link-to-section'; any; 'review-exercises') {
+      content: target-counter(attr(href), chapter) "." target-counter(attr(href), section);
+      margin-right: 7px;
+    }
   }
 }
 
@@ -1423,6 +1431,10 @@
     }
     .style('first'; any; solution; exercise; example) {
       display: inline;
+    }
+    .style('immediate-child'; any; section-exercises) {
+    }
+    .style('immediate-child'; any; review-exercises) {
     }
     #title {
       .style(any; any; example) {
