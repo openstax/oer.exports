@@ -10,11 +10,22 @@
 @quaternary-color: @harp-green;
 @accent-color: @fuego-green;
 @secondary-accent-color: @light-green;
-
+@primary-color-10: rgba(red(@primary-color),
+                        green(@primary-color),
+                        blue(@primary-color),
+                        .1);
 @quaternary-color-10: rgba(red(@quaternary-color),
                            green(@quaternary-color),
                            blue(@quaternary-color),
                            .1);
+@secondary-accent-color-20: rgba(red(@secondary-accent-color),
+                                 green(@secondary-accent-color),
+                                 blue(@secondary-accent-color),
+                                 .2);
+
+@cnx-string-links-to-literacy: "LINKS TO LITERACY";
+@cnx-string-manipulative-math: "MANIPULATIVE MATHEMATICS";
+
 #part {
   #toc {
     #title {
@@ -90,7 +101,8 @@
         padding: 4px 6px;
         margin: 0px 11px 0px 0px;
         display: inline-block;
-        line-height: 16px;
+        line-height: 14px;
+        font-family: @font-family-serif;
       }
     }
   }
@@ -187,6 +199,33 @@
     }
   }
   #note {
+    .accented-feature() {
+      background-color: @primary-color-10;
+      .scale-padding(1, margin-bottom);
+      border-radius: 2px;
+      color: @primary-color;
+    }
+    .accented-feature-title() {
+      .font-scale(0);
+      font-weight: bold;
+      line-height: 35px;
+      padding: 10px 11px;
+    }
+    .accented-feature-body() {
+      border-top: solid 1px (rgba(255, 255, 255, .5));
+    }
+    .accented-feature-title-icon(@icon, @format, @width, @height) {
+      margin-top: 0;
+      padding: 0;
+      display: inline-block;
+      width: @width;
+      height: @height;
+      background: url("ccap-basic-math/@{icon}.@{format}") no-repeat left;
+      background-size: @width @height;
+      content: " ";
+      float: left;
+      .scale-padding(1, margin-right);
+    }
     .style(...) {
       color: @black;
       margin: 0;
@@ -208,7 +247,13 @@
       .x-feature-math(media, basic-math, "Media : : ", "png");
     }
     .style(non-feature) {
-      background-color: @quaternary-color-10;
+      background-color: @secondary-accent-color-20;
+    }
+    .style(links-to-literacy) {
+      .accented-feature();
+    }
+    .style(manipulative-math) {
+      .accented-feature();
     }
     .style(emphasized; howto) {
       background-color: @tertiary-color;
@@ -227,6 +272,31 @@
         padding: 0px;
         font-weight: normal;
         color: @black-50;
+      }
+      .style(@kind; @part; feature-links-to-literacy) {
+        .accented-feature-title();
+        content: @cnx-string-links-to-literacy;
+      }
+      .style(@kind; @part; feature-manipulative-math) {
+        .accented-feature-title();
+        content: @cnx-string-manipulative-math;
+      }
+      .style('icon'; @part; feature-links-to-literacy) {
+        .accented-feature-title-icon("links-to-literacy", "png", 31px, 34px);
+      }
+      .style('icon'; @part; feature-manipulative-math) {
+        .accented-feature-title-icon("manipulative-mathematics", "png", 29px, 34px);
+      }
+    }
+    #body {
+      .style(non-feature) {
+        color: @primary-color;
+      }
+      .style(@kind; @part; feature-links-to-literacy) {
+        .accented-feature-body();
+      }
+      .style(@kind; @part; feature-manipulative-math) {
+        .accented-feature-body();
       }
     }
   }

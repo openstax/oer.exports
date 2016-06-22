@@ -1067,6 +1067,36 @@ div[class="note"] {
 
     p { padding: 7px 10px; }
   }
+  &.links-to-literacy {
+    @context: feature-links-to-literacy;
+    #content>#note>.style(links-to-literacy);
+
+    > .title {
+      #content>#note>#title>.style(@kind; @part; @context);
+
+      &::before {
+        #content>#note>#title>.style('icon'; @part; @context);
+      }
+    }
+    > .body {
+      #content>#note>#body>.style(@kind; @part; @context);
+    }
+  }
+  &.manipulative-math {
+    @context: feature-manipulative-math;
+    #content>#note>.style(manipulative-math);
+
+    > .title {
+      #content>#note>#title>.style(@kind; @part; @context);
+
+      &::before {
+        #content>#note>#title>.style('icon'; @part; @context);
+      }
+    }
+    > .body {
+      #content>#note>#body>.style(@kind; @part; @context);
+    }
+  }
   &.qa {
     @context: feature-qa;
     #content>#note>.style(qa);
