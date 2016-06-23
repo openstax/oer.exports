@@ -28,6 +28,46 @@
   }
 }
 
+// New math features
+.x-feature-math(@img, @book, @label: "", @type: "png", @fsize:11px) {
+  // Prevent clipping of the icon if feature is one line
+  display: block;
+  &::before {
+    padding: 0 3px 0 30px;
+    background: url("ccap-@{book}/@{img}.@{type}") no-repeat 0;
+    background-size: 20px 20px;
+    line-height: 20px;
+    content: @label;
+    color: @primary-color;
+    display: inline-block;
+    font-size: @fsize;
+    text-transform: uppercase;
+    font-weight: bold;
+    vertical-align: top;
+  }
+  > .title {
+    color: @secondary-color;
+    text-transform: uppercase;
+    display: inline-block;
+    vertical-align: top;
+    font-size: @fsize;
+    font-family: @font-family-serif;
+    line-height: 21px;
+  }
+  > .body {
+    color: @black-50;
+    border-top: none;
+
+    p:nth-of-type(1) {
+      padding-top: 0;
+      margin-top: 0;
+    }
+  }
+  .figure {
+    img { max-width: (@page-width - .25em); }
+  }
+}
+
 //Humanities features
 .x-feature-before-color(@title-color, @title) {
   text-transform: uppercase;

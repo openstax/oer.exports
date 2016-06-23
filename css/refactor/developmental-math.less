@@ -1,0 +1,45 @@
+@import url('../ccap-tables.less');
+@import url('utils.less');
+@import url('page-slots.less');
+@import url('ccap-base-slots.less');
+@import url('content-slots.less');
+
+@import url('themes/new-math-slots.less');
+@import url('developmental-math-slots.less');
+
+@table-border: 1pt solid @black;
+@page-width: 6.5in;
+
+@font-family: 'Noto Sans', sans-serif, @stix-fonts;
+@font-family-serif: 'Roboto Slab', serif, @stix-fonts;
+
+
+// Images in Basic Mathematics are 150DPI
+html {
+  prince-image-resolution: 150dpi;
+}
+
+
+@import url('../ccap-numbering.less');
+@import url('../ccap-precalculus-numbering.less');
+
+@import url('page-skeleton.less');
+@import url('ccap-base-skeleton.less');
+@import url('content-skeleton.less');
+
+@import url('themes/new-math-skeleton.less');
+@import url('developmental-math-skeleton.less');
+
+@import url('folio.less');
+
+/* -------------------------
+ * Chapter
+ *
+ * Refactor folio.less into skeletons/slots, then this goes away.
+ * -------------------------
+ */
+div.book div.chapter > div.titlepage > div > div h1.title {
+  span.cnx-gentext-t {
+    string-set: cnx-header "@{cnx-string-chapter} " counter(chapter, decimal)  "\0020\0020\0020" content();
+  }
+}

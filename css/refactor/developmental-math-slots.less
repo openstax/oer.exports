@@ -1,0 +1,389 @@
+// Copyright (c) 2015 Rice University
+// This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+// See LICENSE.txt for details.
+
+@import url('includes/theme-colors.less');
+
+@primary-color: @sapphire;
+@secondary-color: @bright-turquoise;
+@tertiary-color: @summer-sky;
+@quaternary-color: @harp-green;
+@accent-color: @fuego-green;
+@secondary-accent-color: @light-green;
+@primary-color-10: rgba(red(@primary-color),
+                        green(@primary-color),
+                        blue(@primary-color),
+                        .1);
+@primary-color-70: rgba(red(@primary-color),
+                        green(@primary-color),
+                        blue(@primary-color),
+                        .7);
+@quaternary-color-10: rgba(red(@quaternary-color),
+                           green(@quaternary-color),
+                           blue(@quaternary-color),
+                           .1);
+@secondary-accent-color-20: rgba(red(@secondary-accent-color),
+                                 green(@secondary-accent-color),
+                                 blue(@secondary-accent-color),
+                                 .2);
+
+@cnx-string-links-to-literacy: "LINKS TO LITERACY";
+@cnx-string-manipulative-math: "MANIPULATIVE MATHEMATICS";
+
+#part {
+  #toc {
+    #title {
+      .style(...) { color: @primary-color; }
+    }
+    #link {
+      .style(...) { color: @secondary-color; }
+    }
+    #chapter {
+      .number() {
+        display: block;
+        font-size: 12px;
+        border: 1px solid @tertiary-color;
+        color: @tertiary-color;
+      }
+    }
+  }
+  #introduction {
+    #title {
+      .style() {
+      }
+    }
+  }
+  #preface {
+    #titlepage {
+      .title(...) {
+        color: @primary-color;
+        font-family: @font-family-serif;
+        font-weight: bold;
+      }
+    }
+  }
+  #introduction {
+    #title {
+      .style(...) { color: @primary-color; }
+    }
+    #chapter-outline {
+      .style(...) {}
+      #title {
+        .style(...) {}
+      }
+      #entry {
+        #title {
+          .style(...) { color: @tertiary-color; }
+        }
+      }
+    }
+  }
+  #chapter {
+    .style(any; chapter) {
+      page: chapter;
+      prince-page-group: start;
+    }
+    #title {
+      .style(...) { color: white; }
+      .number(...) { color: @secondary-color; }
+    }
+    #learning-objectives {
+      .style(...) {}
+      #title {
+        .style(...) {
+          background-color: transparent;
+          color: @secondary-color;
+          font-family: @font-family-serif;
+        }
+      }
+    }
+  }
+  #module {
+    #title {
+      .style() {
+        color: @primary-color;
+        font-family: @font-family-serif;
+      }
+      .number() {
+        border: 1px solid @secondary-color;
+        padding: 4px 6px;
+        margin: 0px 11px 0px 0px;
+        display: inline-block;
+        line-height: 14px;
+        font-family: @font-family-serif;
+      }
+    }
+  }
+  #glossary {
+    #title {
+      .style(chapter) { color: @secondary-color; }
+    }
+  }
+  #chapter-end {
+    #title {
+      .style(...) { color: @secondary-color; }
+    }
+    #summary {
+      #title {
+        .link(...) { color: @secondary-color; }
+      }
+    }
+    #key-concepts {
+      #title {
+        .link(...) { color: @secondary-color; }
+      }
+    }
+    #solution {
+      #title {
+        .link(...) {  color: @secondary-color; }
+      }
+    }
+  }
+  #book-end {
+    #end-of-book-solutions {
+      #title {
+        .style() { color: @secondary-color; }
+      }
+    }
+    #end-of-book-references {
+      #title {
+        .style(...) { color: @secondary-color; }
+      }
+    }
+    #index {
+      #title {
+        .style(...) { color: @secondary-color; }
+      }
+    }
+    #colophon {
+      .style(...) { color: @secondary-color; }
+    }
+    #appendix {
+      #title {
+        .style() { color: @secondary-color; }
+        .number() { color: @secondary-color; }
+      }
+    }
+  }
+}
+#content {
+  #table {
+    #header {
+      .style(any; any) {
+        color: white;
+        background-color: @medium-blue;
+      }
+      .style(any; any; note) {
+        background-color: @orange;
+      }
+    }
+    #caption {
+      .style(any; any) {
+        color: @primary-color;
+        .font-scale(-1);
+      }
+    }
+  }
+  #example {
+    #title {
+      .style(any) {
+        color: @dark-blue;
+      }
+    }
+  }
+  #exercise {
+    .style(any; any; example; multiple-solution) {
+      counter-reset: exercise multiple-solution-example-solutions;
+    }
+  }
+  #solution {
+    .style(any; any; example; multiple-solution; exercise) {
+      counter-increment: multiple-solution-example-solutions;
+    }
+    #title {
+      .style(any; any; example; multiple-solution; exercise) {
+        content: "Solution (" counter(multiple-solution-example-solutions, lower-latin) ")";
+      }
+    }
+  }
+  #note {
+    .accented-feature() {
+      background-color: @primary-color-10;
+      .scale-padding(1, margin-bottom);
+      border-radius: 2px;
+      color: @primary-color;
+    }
+    .accented-feature-title() {
+      .font-scale(0);
+      font-weight: bold;
+      line-height: 35px;
+      padding: 10px 11px;
+    }
+    .accented-feature-body() {
+      border-top: solid 1px (rgba(255, 255, 255, .5));
+    }
+    .accented-feature-title-icon(@icon, @format, @width, @height) {
+      margin-top: 0;
+      padding: 0;
+      display: inline-block;
+      width: @width;
+      height: @height;
+      background: url("ccap-basic-math/@{icon}.@{format}") no-repeat left;
+      background-size: @width @height;
+      content: " ";
+      float: left;
+      .scale-padding(1, margin-right);
+    }
+    .style(...) {
+      color: @black;
+      margin: 0;
+      padding: 0;
+    }
+    .style(qa; ...) {
+      .x-feature-math(q-a, basic-math, "Q&A : : ", "png");
+    }
+    .style(media; ...) {
+      .x-feature-math(media, basic-math, "Media : : ", "png");
+    }
+    .style(try, ...) {
+      .x-feature-math(try, basic-math, "Try It : : ", "png");
+    }
+    .style(howto; ...) {
+      .x-feature-math(how-to, basic-math, "How to : : ", "png");
+    }
+    .style(media-2; ...) {
+      .x-feature-math(media, basic-math, "Media : : ", "png");
+    }
+    .style(non-feature) {
+      background-color: @secondary-accent-color-20;
+    }
+    .style(links-to-literacy) {
+      .accented-feature();
+    }
+    .style(manipulative-math) {
+      .accented-feature();
+    }
+    .style(emphasized; howto) {
+      background-color: @tertiary-color;
+    }
+    .style(student-project; ...) {
+      background-color: @tertiary-color;
+    }
+    #title {
+      .style(...) {
+        padding: 7px 10px;
+      }
+      .style(non-feature) {
+        color: @secondary-color;
+      }
+      .style(@kind; @part; feature-try) {
+        padding: 0px;
+        font-weight: normal;
+        color: @black-50;
+      }
+      .style(@kind; @part; feature-links-to-literacy) {
+        .accented-feature-title();
+        content: @cnx-string-links-to-literacy;
+      }
+      .style(@kind; @part; feature-manipulative-math) {
+        .accented-feature-title();
+        content: @cnx-string-manipulative-math;
+      }
+      .style('icon'; @part; feature-links-to-literacy) {
+        .accented-feature-title-icon("links-to-literacy", "png", 31px, 34px);
+      }
+      .style('icon'; @part; feature-manipulative-math) {
+        .accented-feature-title-icon("manipulative-mathematics", "png", 29px, 34px);
+      }
+    }
+    #body {
+      .style(non-feature) {
+        color: @primary-color;
+      }
+      .style(@kind; @part; feature-links-to-literacy) {
+        .accented-feature-body();
+      }
+      .style(@kind; @part; feature-manipulative-math) {
+        .accented-feature-body();
+      }
+    }
+  }
+  #figure {
+    #title {
+      .style(...) { color: @primary-color-70; }
+      .number(...) { color: @primary-color; }
+    }
+  }
+  #section {
+    #title {
+      .style(any; any) { color: @primary-color; }
+      .style(any; any; section) { color: @secondary-color; }
+      .style(section-exercises; @part; ...) { color: @secondary-color; }
+    }
+  }
+  #blockquote {
+    .style(...) { color: @tertiary-color; }
+  }
+  #glossary {
+    .style(...) {
+      &::before { color: @secondary-color; }
+    }
+    #title {
+      .style(...) { color: @secondary-color; }
+    }
+  }
+  #heading {
+    .style(h5, ...) { color: @secondary-color; }
+    .style(h6, ...) { color: @secondary-color; }
+  }
+  #link {
+    .style(...) { color: @tertiary-color; }
+    .style('chapter'; any; toc) {
+      color: @secondary-color;
+    }
+    .style('preface'; any; toc) {
+      color: @secondary-color;
+    }
+    .style('appendix'; any; toc) {
+      color: @secondary-color;
+    }
+    .style('index'; any; toc) {
+      color: @secondary-color;
+    }
+    .eoc-subsection-title() {
+      font-weight: bold;
+      .font-scale(1);
+    }
+    .style('link-to-section'; any; 'review-exercises') {
+      color: @primary-color;
+      .eoc-subsection-title();
+    }
+    .number('link-to-section'; any; 'review-exercises') {
+      color: @secondary-color;
+      .eoc-subsection-title();
+    }
+  }
+  #list {
+    .style('unordered'; introduction; chapter-outline) {
+      margin: 0;
+      .side-border();
+    }
+  }
+  #distractor {
+    .style(any; any) {
+      color: @secondary-color;
+      font-size: 150%;
+    }
+  }
+  #paragraph {
+    .style('immediate-child'; any; section-exercises) {
+      color: @secondary-color;
+      font-style: italic;
+    }
+    .style('immediate-child'; any; review-exercises) {
+      color: @secondary-color;
+      font-style: italic;
+    }
+  }
+}
+

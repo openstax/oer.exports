@@ -32,7 +32,7 @@
   @right-bottom { #page>.right-bottom(left); }
 }
 
-@page :right {
+@page:right {
   @top-left-corner { #page>.top-left-corner(right); }
   @top-right-corner { #page>.top-right-corner(right); }
   @bottom-left-corner { #page>.bottom-left-corner(right); }
@@ -75,6 +75,14 @@ div.book > div.toc {
 @page preface:blank {
   @top-left { content: none; }
 }
+@page chapter:nth(1) {
+  @top-left-corner { #page>.top-left-corner(chapter); }
+  @top-right-corner { #page>.top-right-corner(chapter); }
+  @top-left { #page>.top-left(chapter); }
+  @top-center { #page>.top-center(chapter); }
+  @top-right { #page>.top-right(chapter); }
+}
+
 //reseting page numbering to start at the preface
 div.book > div.preface {
   #page>#preface>.page();
