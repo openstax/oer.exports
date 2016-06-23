@@ -49,8 +49,10 @@
   .font-scale(2) !important;
   font-family: @font-family-serif;
 }
-
-
+.x-center-image() {
+  display: block;
+  margin: auto;
+}
 
 #page {
   .folio-typography() {
@@ -332,6 +334,7 @@
     #key-concepts {
       .style(...) {
         padding-bottom: 1em;
+        .x-column-count(1);
       }
       #title {
         .style(...) {
@@ -814,6 +817,9 @@
     }
     .style(any; chapter) {
     }
+    .style(any; chapter; example) {
+      .x-center-image();
+    }
   }
   #section {
     .style(any; any) {}
@@ -975,6 +981,7 @@
       .style(any) {
         display: block;
         .font-scale(-1);
+        text-transform: uppercase;
       }
     }
     #body {
@@ -1077,7 +1084,7 @@
       display: none;
     }
     .style(@kind; book-end) {
-      width: @one-fourth;
+      width: @one-third;
       .x-inline-blocks();
       vertical-align: top;
       text-align: left;
@@ -1307,21 +1314,18 @@
     }
   }
 }
+
 #content {
 //  - Non-figure images are centered.
-  .x-center-image() {
-    display: block;
-    margin: auto;
-  }
   .x-layout-image() {
     //max-width: @one-third;
   }
   #image {
     .style(any; chapter) {
-      .x-layout-image();
+      .x-center-image();
     }
     .style(any; book-end; solutions) {
-      .x-layout-image();
+      .x-center-image();
     }
   }
 //  - Figures render with captions similar to tables.
@@ -1332,7 +1336,7 @@
       padding-bottom: 0;
       //#utils>#pb>.inside(auto);
     }
-    .style('splash'; chapter){
+    .style('splash'; chapter) {
       margin-bottom: 15px;
       transform: translateX(-1in);
       margin-left: 0;
@@ -1357,7 +1361,6 @@
         padding-bottom: 1em;
         font-family: @font-family;
       }
-
       .style(any; any; feature-qa) {
         .figure-caption();
       }
