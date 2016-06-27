@@ -1,0 +1,1468 @@
+// Copyright (c) 2013 Rice University
+// This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+// See LICENSE.txt for details.
+@import url('../includes/table-slots.less');
+@import url('../includes/tables.less');
+@import url('../includes/features.less');
+
+@tables: new-math;
+
+.tables(@tables);
+
+@cnx-string-chapter: "Chapter";
+@cnx-string-introduction: "Introduction";
+@cnx-string-chapter-outline: "Chapter Outline";
+@cnx-string-learning-objectives: "Learning Objectives";
+@cnx-string-key-equations: "Key Equations";
+@cnx-string-key-concepts: "Key Concepts";
+
+.side-border() {
+  border-left: 2px solid rgba(red(@light-green),
+                              green(@light-green),
+                              blue(@light-green),
+                              .3);
+}
+
+.x-list-indent() {
+  margin: 0 0 0 40px;
+  padding: 0;
+}
+.x-inline-blocks() {
+  box-sizing: border-box;
+  display: inline-block;
+  .scale-padding(2, padding-right);
+}
+.folio-chapter-header() {
+  background-color: @dark-blue;
+  color: @light-blue;
+}
+.folio-chapter-header-reset() {
+  content: " "; // Page area must have content
+                // to receive layout.
+}
+.primary-header() {
+}
+.secondary-header-toc() {
+  .font-scale(1);
+}
+.eo-title-style() {
+  .font-scale(2) !important;
+  font-family: @font-family-serif;
+}
+.x-center-image() {
+  display: block;
+  margin: auto;
+}
+
+#page {
+  .folio-typography() {
+    font-family: @font-family-serif;
+    color: @medium-blue;
+  }
+  .top-left(left) { .folio-typography(); }
+  .top-left(right) { .folio-typography(); }
+  .top-left(chapter) {
+    .folio-typography();
+    color: @light-blue;
+   }
+  .top-right(left) { .folio-typography(); }
+  .top-right(right) { .folio-typography(); }
+  .top-right(chapter) {
+    .folio-typography();
+    color: @light-blue;
+  }
+  .top-left-corner(chapter) {
+    .folio-chapter-header();
+    .folio-chapter-header-reset();
+  }
+  .top-right-corner(chapter) {
+    .folio-chapter-header();
+    .folio-chapter-header-reset();
+  }
+  .top-left(chapter) {
+    .folio-chapter-header();
+  }
+  .top-center(chapter) {
+    .folio-chapter-header();
+  }
+  .top-right(chapter) {
+    .folio-chapter-header();
+  }
+  .bottom-left(left) {
+    .folio-typography();
+  }
+}
+#part {
+  #titlepage {
+    #title {
+      .style() {
+        .font-scale(3);
+        text-shadow: 0 1px 0 rgba(166,163,157,0.75);
+        text-align: left;
+      }
+    }
+  }
+  #preface {
+    #titlepage {
+      .style(...) {
+        padding-bottom: 1em;
+
+      }
+      .title(...) {
+        .font-scale(2);
+        padding-left: 0;
+      }
+    }
+  }
+  #introduction {
+    #title {
+      .style(...) {
+        content: @cnx-string-introduction;
+        .font-scale(2);
+        font-family: @font-family-serif;
+      }
+      .style('intro-icon'; any) {
+        display: inline-block;
+        width: 20px;
+        height: 24px;
+        padding-right: 10px;
+        background: url("ccap-basic-math/math-intro-icon.png") no-repeat left;
+        background-size: 20px 24px;
+        content: " ";
+        bottom: 0px;
+        position: relative;
+      }
+    }
+    #chapter-outline {
+      .style(...) {
+        width: 100%;
+      }
+      #title {
+        .style(...) {
+          #utils>#pb>.after(avoid);
+          #utils>#pb>.before(avoid);
+          content: @cnx-string-chapter-outline;
+          color: @secondary-color;
+          .font-scale(1);
+          text-align: left;
+          font-family: @font-family-serif;
+          padding: 0em;
+        }
+      }
+      #entry {
+        #title {
+          .style(...) {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+
+  #toc {
+    .style(...) {
+      counter-reset: toc-chapter-counter 0;
+    }
+    #title {
+      .style(...) {
+        .font-scale(2);
+        font-family: @font-family-serif;
+        text-align: left;
+        border-bottom: none;
+        margin-bottom: 11px;
+      }
+    }
+    #link {
+      .style(...) {
+        color: @dark-blue;
+        text-align: left;
+      }
+      .number() {
+        content: target-counter(attr(href), page);
+        padding-left: 15px;
+      }
+    }
+    #chapter {
+      .number() {
+        display: none;
+        content: counter(toc-chapter-counter, decimal);
+        float: left;
+
+        padding: 0em .25em;
+        margin: 0px 15px 0px 13px;
+        height: 1.25em;
+        line-height: 1.25em;
+      }
+    }
+  }
+  #chapter {
+    .style(any; chapter) {}
+    #title {
+      .style(...) {
+        font-weight: bold;
+        text-align: left;
+        margin: 0;
+        padding-top: 0;
+        padding-left: 0;
+        padding-right: 0;
+
+        font-family: @font-family-serif;
+        .font-scale(1);
+      }
+      .number(...) {
+        font-weight: bold;
+        padding-right: 0em;
+        color: @medium-blue;
+      }
+      .divider(...) {
+        content: "| ";
+        color: black;
+      }
+      .text() {
+      }
+    }
+
+    #learning-objectives {
+      .style(...) {
+        counter-reset: learning-objectives;
+        padding: 0em;
+      }
+      #title {
+        .style(...) {
+          content: @cnx-string-learning-objectives;
+          display: inline-block;
+          width: 100%;
+          padding-top: .1em;
+          padding-bottom: .2em;
+          background-color: @medium-blue;
+          font-weight: bold;
+          .font-scale(1);
+        }
+      }
+      #list {
+        .style(){
+          margin-left: 10px;
+        }
+        #listitem {
+          .style() {
+            background: url("./ccap-basic-math/learning-objectives.png") no-repeat 0;
+            background-size: 3px 4px;
+            padding-left: 10px;
+          }
+        }
+      }
+    }
+  }
+  #module {
+    #title {
+      .style() {
+        font-weight: bold;
+        .font-scale(2);
+      }
+      .divider() {
+        display: none;
+      }
+      .number() { .font-scale(-1); }
+      .text() {
+        position: relative;
+        top: 9px;
+      }
+    }
+  }
+  #glossary {
+    .style(chapter) {
+      // End-of-chapter material should start on a new page
+      #utils>#pb>.before(always);
+      display: inline;
+    }
+    #title {
+      .style(chapter) {
+        /* Change "Glossary" to "Key Terms" */
+        content: "Key Terms";
+        color: @medium-blue;
+        font-size: large;
+        padding: 0em;
+        display: block;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  // End-of-chapter parts
+  #chapter-end {
+    .style(...) {
+      .x-column-count(2);
+      column-width: auto;
+      column-fill: balance;
+      #utils>#pb>.inside(auto);
+      column-break-inside: auto;
+    }
+    #title {
+      .style(...) {
+        text-transform: uppercase;
+        text-align: left;
+        color: @medium-blue;
+        font-weight: bold;
+        margin-top: 0;
+        #utils>#pb>.after(avoid);
+        .eo-title-style();
+      }
+    }
+    #summary {
+      .style(...) {
+        .x-column-count(1);
+      }
+      #title {
+        .style(...) {
+          content: "Chapter " counter(chapter, decimal) " Review";
+        }
+        .link(...) {
+          color: @medium-blue;
+          #utils>#pb>.after(avoid);
+        }
+      }
+    }
+    #key-equations {
+      .style(...) {
+        .x-column-count(1);
+      }
+      #title {
+        .style(...) {
+          content: @cnx-string-key-equations;
+        }
+      }
+    }
+    #key-concepts {
+      .style(...) {
+        padding-bottom: 1em;
+        .x-column-count(1);
+      }
+      #title {
+        .style(...) {
+          content: @cnx-string-key-concepts;
+          column-span: all;  // staging bug-fix.
+          margin-bottom: 0;
+        }
+        .link(...) {
+          color: @medium-blue;
+        }
+        // targeting the link with layout changes not a good idea.  Must have a way to
+        // target the parent of the link (.section > .title )  See line #208 precalculus-skeleton
+        .subtitle(...) {
+          margin-bottom: 1em;
+        }
+      }
+    }
+    #review-exercises {
+      .style(...) {
+        .x-column-count(1);
+      }
+      #title {
+        .style(...) {
+          content: "Review Exercises";
+          column-span: all;
+          margin-top: 0;
+        }
+      }
+    }
+    #practice-test {
+      .style(...) {
+        .x-column-count(1);
+      }
+      #title {
+        .style(...) {
+          content: "Practice Test";
+          column-span: all;
+          #utils>#pb>.before(always);
+        }
+      }
+    }
+    #solution {
+      .style(...) {
+        display: none; // W&N Requested these be removed 10/25/2013 since they are collated to EOB.
+        .x-column-count(1);
+      }
+      #title {
+        .style() {}
+        .link(...) {
+          color: @medium-blue;
+          #utils>#pb>.after(avoid);
+        }
+      }
+    }
+  }
+  // End-of-book parts
+  #book-end {
+    .style(...) {}
+
+    // End of Book Solutions
+    #end-of-book-solutions {
+      .style(...) {
+        margin: 0;
+        padding: 0;
+        display: inline !important;
+      }
+
+      #title {
+        .style() {
+          content: "Answer Key";
+          string-set: cnx-header "Answer Key";
+          color: @medium-blue;
+          margin-left: 0;
+          text-transform: uppercase;
+          font-size: x-large;
+          font-weight: bold;
+          background-color: transparent; //overwrite from .colophon title
+        }
+        .style('chapter-area') {
+          .x-solutions-subheading-style();
+        }
+        .style('review-exercises') {
+          .x-solutions-subheading-style();
+          content: "Review Exercises";
+        }
+        .style('practice-test') {
+          .x-solutions-subheading-style();
+          content: "Practice Test";
+        }
+        .style('try-it') {
+          .x-solutions-subheading-style();
+          content: "Try It";
+        }
+        .style('section-exercises') {
+          .x-solutions-subheading-style();
+          content: "Section Exercises";
+        }
+      }
+      #chapter-area {
+        .style() { font-family: @font-family-serif; }
+        .style('subsection') {
+          .scale-padding(0, margin-bottom);
+        }
+      }
+      #solution {
+        .style(...) {
+          // The Answer Key for the PreCalculus text was converted to be in (1) one column
+          // and not inline due to the fact that some answers will be cartesian graphs (art).
+          // Not a good experience to be inline.
+          .x-column-count(1);
+        }
+        #title {
+          .style(...) {
+            display: inline;
+            a.solution {
+              color: black;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+
+    // End of Book References
+    #end-of-book-references {
+      .style(...) { display: none; }
+
+      #title {
+        .style(...) { //colophon titles are passed as h1's by default by docbook override properties here
+          string-set: cnx-header "References";
+          font-size: x-large;
+          font-weight: bold;
+          background-color: transparent;
+          color: @medium-blue;
+          margin-left: 0;
+          padding-left: 0;
+          margin-top: 0;
+        }
+      }
+
+      #chapter-area {
+        .style(...) {
+          font-family: @font-family-serif;
+          color: black;
+          font-weight: bold;
+          font-size: medium;
+          margin: .5em 0em;
+        }
+        #title {
+          .style(...) {}
+        }
+      }
+      #section-area {
+        .style(...) {}
+        #title {
+          .style(...) { display: none; } // Remove references title and superscript
+        }
+      }
+      #reference {
+        .style(...) {}
+        #title {
+          .style(...) {}
+        }
+      }
+    }
+
+    // End of Book Index
+    #index {
+      .style(...) {
+        text-align: left; //override text-alignment from base .x-column-count
+        column-width: auto;
+        margin-bottom: 10px;
+      }
+
+      #title {
+        .style(...) {
+          color: @medium-blue;
+          text-transform: uppercase;
+          font-size: x-large;
+          column-span: all;
+        }
+      }
+      .letter(...) {
+        color: inherit;
+        font-weight: bold;
+        font-size: medium;
+        padding-top: .5em;
+      }
+      .term(...) {
+        font-size: small;
+      }
+      .link(...) {
+        font-weight: bold;
+      }
+    }
+    // End of Book Attribution and About Connexions
+    #colophon {
+      .style(...) {
+        padding: 0;
+        margin-top: 0;
+        font-weight: bold;
+        font-size: x-large;
+        color: @medium-blue;
+        background: none;
+      }
+    }
+
+    #appendix {
+      #title {
+        .style() {
+          font-size: 34pt;
+          font-weight: bold;
+          color: @medium-blue;
+          padding: 0;
+          margin: 0;
+        }
+        .number() {
+          color: @medium-blue;
+          padding-right: 0;
+        }
+        .text() {
+
+        }
+        .divider() {
+          content: "| ";
+          color: black;
+        }
+        .label() {
+          display: inline;
+        }
+      }
+    }
+  }
+}
+#content {
+  #body {
+    .style(any) {
+      .font-scale(0);
+      text-align: justify;
+    }
+  }
+  #paragraph {
+    .style(any) {
+      font-family: @font-family-serif;
+    }
+    .style(any; any; list; table) {
+      font-family: @font-family;
+    }
+    .style(any; any; figure) {
+      padding-top:1.5em;
+      margin-top: 0em;
+    }
+    .style('first'; any; exercise; example) {
+      display: inline;
+      padding-bottom: 20px;
+    }
+  }
+  #table {
+    .style(any; any; problem; exercise; example) {
+      width: @one-third;
+      .x-inline-blocks();
+    }
+    #caption {
+      .style(any; any) {
+        color: @orange;
+      }
+    }
+    #header {
+      .style(any; any) {
+        background-color: @white;
+      }
+      .style(colored; any) {
+        background-color: @light-orange;
+      }
+    }
+    #data {
+      // Some TDs act like TH
+      .style('header'; any) {
+        background-color: @white;
+      }
+    }
+  }
+  #note {
+    .style(...) {}
+    .style(non-feature) {
+    }
+    .style(links-to-literacy) {
+    }
+    .style(manipulative-math) {
+    }
+    .style(qa; ...) {
+      #utils>#pb>.inside(avoid);
+    }
+    .style(media; ...) {
+      #utils>#pb>.inside(avoid);
+    }
+    .style(try; ...) {
+      #utils>#pb>.inside(avoid);
+    }
+    .style(howto; ...) {
+      #utils>#pb>.inside(avoid);
+    }
+    .style(emphasized; howto) {
+      #content>#note>.style(howto);
+      padding-top: .4em;
+      padding-left: 3em;
+      background-position: .5em .5em;
+      background-color: @light-blue;
+    }
+    .style(student-project; ...) {
+      #utils>#pb>.inside(avoid);
+      page-break-before: always;
+      background-color: @light-blue;
+      &:before {
+        .x-banner-feature(student-project; calculus; png);
+        display: block;
+        content: "";
+        min-height: 55px;
+        width: auto;
+        height: auto;
+        background-position: 0px 0px;
+        background-color: @black;
+        margin-left: -1em;
+        margin-right: -1em;
+        margin-top: -3px;
+      }
+    }
+    .style(checkpoint; ...) {
+      #utils>#pb>.inside(avoid);
+      .x-banner-feature(checkpoint; calculus);
+      padding-left: 1.4em;
+    }
+    .style(quick-check; ...) {
+      #utils>#pb>.inside(avoid);
+      .x-banner-feature(quick-check; basic-math);
+      padding-left: 1.4em;
+    }
+    .style(emphasized; quick-check) {
+      #content>#note>.style(quick-check);
+      padding-top: .4em;
+      padding-left: 3em;
+      background-position: .5em .5em;
+      background-color: @soft-orange;
+    }
+    .style(media-2; ...) {
+      #utils>#pb>.inside(avoid);
+    }
+    .style(problem-solving) {
+      #content>#note>.style(non-feature);
+      background-color: @soft-orange;
+      padding-bottom: 1em;
+    }
+    .style(be-prepared) {
+      #content>#note>.style(non-feature);
+    }
+    #title {
+      .style(...) {}
+      .style(non-feature) {
+        #utils>#pb>.after(avoid);
+        text-align: left;
+        font-family: @font-family-serif;
+        color: @secondary-color;
+        font-weight: bold;
+      }
+      .style(@kind; @part; feature-links-to-literacy) {}
+      .style(@kind; @part; feature-manipulative-math) {}
+      .style('icon'; @part; feature-links-to-literacy) {}
+      .style('icon'; @part; feature-manipulative-math) {}
+      .style(@kind; @part; feature-try) {
+        margin-top: 0;
+        font-family: @font-family-serif;
+        font-weight: bold;
+      }
+      .style(@kind; @part; feature-qa) {
+        font-family: @font-family-serif;
+        font-weight: bold;
+      }
+      .style(@kind; @part; student-project) {
+        font-family: @font-family;
+        font-weight: bold;
+        padding-bottom: 0em;
+        margin-top: 1.5em;
+        margin-bottom: 1em;
+        border-bottom: none;
+      }
+      .style(@kind; @part; definition) {
+        margin-top: 0em;
+        content: @cnx-string-definition;
+        display: block;
+      }
+      .style(@kind; @part; problem-solving) {
+        #content>#note>#title>.style(non-feature);
+      }
+      .style(be-prepared) {
+        #content>#note>#title>.style(non-feature);
+        margin-bottom: 1em;
+      }
+    }
+    #body {
+      .style(...) {
+        padding: 0;
+      }
+      .style(@kind; @part; feature-try) {
+        font-weight: normal;
+        display: inline-block;
+        border-top: none;
+        padding-top: 4px;
+      }
+      .style(@kind; @part; feature-qa) {
+        font-weight: normal;
+        margin-top: 0;
+      }
+      .style(non-feature) {
+        border-top: solid 1px @black-10;
+      }
+      .style(@kind; @part; feature-links-to-literacy) {}
+      .style(@kind; @part; feature-manipulative-math) {}
+    }
+  }
+  #figure {
+    .style(...) {
+      font-family: @font-family;
+      font-size: 9pt;
+      padding-bottom: 1em;
+      text-align: left;
+    }
+    .style(any; any; problem; exercise; example) {
+      counter-increment: figure !important; // Overrides !important from base.
+    }
+    .style(any; any; solution; exercise; example) {
+      counter-increment: figure !important; // Overrides !important from base.
+    }
+    .style(any; any; commentary; exercise; example) {
+      counter-increment: figure !important; // Overrides !important from base.
+    }
+    .style(@kind; @part; problem; exercise; section-exercise) {
+      text-indent: 0;
+    }
+    .style(any; chapter-end; exercise) {
+      display: block; // override ccap-base display: initial.
+    }
+    #body {
+      .style(any; any) {
+        .scale-padding(1, padding-bottom);
+      }
+      .style('splash'; chapter) {
+        .scale-padding(1, padding-bottom);
+      }
+    }
+    #title {
+      .style(...) {
+        display: inline;
+        text-align: center;
+      }
+      .style(any; any; feature-qa) {
+        font-style: normal;
+      }
+      .number(any; any; solution; exercise; example) {
+        display: inline-block;
+      }
+      .number(any; any; problem; exercise; example) {
+        text-align: left;
+        display: inline-block;
+      }
+      .number(any; any; commentary; exercise; example) {
+        display: inline-block;
+      }
+      .number(...) {
+        color: @orange;
+        font-weight: bold;
+        text-align: left;
+        margin-right: .5em;
+      }
+    }
+  }
+  #image {
+    .style(any; any) {
+      max-height: 9.5in;
+    }
+    .style(@kind; @part; figure) {
+      margin: 0; //override auto  left/right margins from base
+      max-width: @page-width; //overrides width value figures/subfigures ensuring imgs do not bleed off page
+    }
+    .style(any; book-end; solution) {
+      text-align: center;
+    }
+    .style(any; book-end; solutions) {
+    }
+    .style(any; chapter) {
+    }
+    .style(any; chapter; example) {
+      .x-center-image();
+    }
+  }
+  #section {
+    .style(any; any) {}
+    .style(any; any; section) {}
+    .style(section-exercises; @part; ...) {
+      #utils>#pb>.before(always);
+      #utils>#pb>.after(always);
+      .x-column-count(1);
+    }
+    .style(any; appendix) {}
+    #title {
+      .style(...) {
+        #utils>#pb>.after(avoid);
+      }
+      .style(any; preface) { .font-scale(1); }
+      .style(any; preface; section) { .font-scale(1); }
+      .style(any; appendix){
+        #part>#module>#title>.style();
+      }
+      .number(any; appendix) {
+        #part>#module>#title>.number();
+      }
+      .text(any; appendix) {
+        #part>#module>#title>.text();
+      }
+      .label(any; appendix) {}
+      .style(any; appendix; section) {}
+      .number(any; appendix; section) {}
+      .text(any; appendix; section) { }
+      .label(any; appendix; section) {}
+      .style(any; any) { // Section titles
+        .font-scale(1);
+        font-weight: bold;
+      }
+      .style(any; any; section) { // Sub-section titles
+        .font-scale(1);
+        font-weight: bold;
+      }
+      .style(section-exercises; @part; ...) {
+        content: counter(chapter, decimal) "." counter(section, decimal) " exercises";
+        text-transform: uppercase;
+        color: @medium-blue;
+        font-weight: bold;
+        display: block;
+        column-span: all;
+        .eo-title-style();
+
+        height: 34px;
+        background: url("ccap-basic-math/exercises.png") no-repeat left;
+        background-size: 30px 34px;
+        bottom: 0px;
+        position: relative;
+        line-height: 56px;
+        padding-left: 2.5em;
+        margin-bottom: .5em;
+      }
+      .style(any; any; section-exercises) {
+        color: @primary-color;
+        .font-scale(1);
+        .scale-padding(1, margin-bottom);
+      }
+    }
+  }
+  #list {
+    .style(any; any) {
+      .x-list-indent();
+    }
+    .style(any; try-it) {
+      .x-list-indent();
+      margin-top: 1em;
+      padding-left: 10px;
+    }
+    .style(any; any; solution; exercise; example) {
+      // Inset lists below solution headers
+      .x-list-indent();
+    }
+    .style(any; any; problem; exercise) {
+      list-style-position: inside;
+    }
+    .style(any; any; table) {
+      margin: 0;
+      padding-left:  10px;
+    }
+    .style('no-mark'; any) {
+      list-style-type: none;
+    }
+    .item(@kind; @part; feature-media) {
+      color: @orange;
+      font-weight: bold;
+      text-align:  left;
+    }
+    .item(any; chapter-end; key-concepts) {
+      vertical-align: top;
+      .x-inline-blocks();
+      width: @one-half;
+    }
+    .style('unordered'; introduction; chapter-outline) {
+      .side-border();
+      margin: 0;
+      padding-left: .75em;
+    }
+    .style('chapter'; any; toc) {
+      margin-left: 46px;
+      .side-border();
+    }
+    .item('chapter'; any; toc) {
+      counter-increment: toc-chapter-counter;
+    }
+    .item('preface'; any; toc) {
+    }
+    .item(any; any; toc) {
+      margin-bottom: 11px;
+    }
+    .item('2n+0', 'chapter'; any; toc) {
+      background-color: @light-green-10;
+      padding: 11px 0;
+    }
+    .item(any; any; 'circled', list) {
+      .x-inline-blocks();
+    }
+    .style(any; stepwise) {
+      counter-reset: item;
+      list-style-type: none;
+    }
+    .item(any; stepwise) {
+      padding-bottom: 1rem;
+      &:before {
+        content: "Step " counter(item, decimal) '. ';
+        counter-increment: item;
+        position: absolute;
+        margin-left: -40px;
+      }
+    }
+    .style(any; book-end; solution) {
+      margin-left: 0;
+    }
+  }
+  #commentary {
+    #title {
+      .style(@kind; @part; exercise; example) {
+        font-family: @font-family;
+        font-size: 10pt;
+        color: @dark-blue;
+        font-weight: bold;
+        margin-right: .2em;
+        height: .9em;
+      }
+    }
+  }
+  #example {
+    .style(any) {
+      margin: .75em 0;
+      margin-bottom: 5px;
+      margin-top: 0px;
+      border-top: 2px solid @primary-color;
+      border-bottom: 2px solid @primary-color;
+    }
+    #title {
+      .style(any) {
+        display: block;
+        .font-scale(-1);
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+    }
+    #body {
+      .style(any) {
+        padding: 0;
+        margin: 0;
+      }
+    }
+  }
+  #exercise {
+    .style(...) {
+      margin-top: 0;
+    }
+    .style(any; chapter-end) {
+      vertical-align: top;
+      width: @one-third;
+      .x-inline-blocks();
+    }
+    .style(any; any; example) {
+      counter-increment: none !important;
+      margin-top: 0;
+    }
+    .style(@kind; @part; feature-try) {
+      counter-increment: none !important;
+      margin-bottom: 0;
+    }
+    .style(@kind; @part; section) {
+      font-family: @font-family-serif;
+    }
+    .style(@kind; @part; section-exercise) {
+      margin-top: 1em;
+      margin-bottom: 1em;
+      page-break-inside: avoid;
+      vertical-align: top;
+      .x-inline-blocks();
+      min-width: @one-third;
+    }
+    #title {
+      .style(@kind; @part; feature-try) {
+        // turn off the display of exercise text label and number
+        display: none;
+      }
+      .style(@kind; @part; section-exercise) {
+        content: counter(exercise) ". ";
+        display: inline;
+        font-weight: bold;
+      }
+    }
+    #body {
+      .style('first'; any; example) {
+        margin: 0px;
+      }
+      .style(any; any; section-exercise) {
+        display: inline;
+      }
+    }
+  }
+  #problem {
+    .style(@kind; @part; feature-try; exercise) {
+      line-height:16px;
+      margin-left:20px;
+    }
+    .number(@kind; chapter-end; ...) {
+      padding-right: .5em;
+    }
+    .style(any; any; exercise; section-exercise) {
+      display: inline;
+    }
+    #title {
+      .style(any; any; exercise; example) {
+        font-family: @font-family;
+        font-size: 11pt;
+        color: @dark-blue;
+        display: inline;
+      }
+      .style('first'; any; 'first', exercise; example) {
+        display: block;
+        content: "Example " counter(chapter, decimal) "." counter(example) " " content();
+        .font-scale(1);
+      }
+    }
+    #body {
+      .style(any; any; exercise; example) {
+        display: inline;
+      }
+      .style(@kind; @part; feature-try; exercise) {
+        margin-left: 8px;
+      }
+    }
+  }
+  #solution {
+    .style(...) {}
+
+    .style(any; any; example) {
+    }
+
+    .style(@kind; @part; feature-try; exercise) {
+      // W&N requested solutions be removed 9.24.13
+      display: none;
+    }
+    .style(@kind; book-end) {
+      width: @one-third;
+      .x-inline-blocks();
+      vertical-align: top;
+      text-align: left;
+    }
+    .style(@kind; @part; exercise; section-exercise) {
+      // do not display end-of-section exercise solutions.
+      display: none;
+    }
+
+    .style(@kind; chapter) {
+      // do not display end-of-chapter exercise solutions.
+      display: none;
+    }
+
+    #title {
+      .style(...) {}
+      .style(any; any; exercise; example) {
+        content: "Solution";
+        font-family: @font-family;
+        font-size: 10pt;
+        color: @dark-blue;
+        font-weight: bold;
+        line-height: 1em;
+        display: inline;
+      }
+      .style(@kind; book-end) {
+        display: inline;
+        word-spacing: normal;
+        text-align: left;
+        vertical-align: middle;
+        // Solution in Answer Key needs to have period after number.
+        &::after {
+          content: ". ";
+          display: inline;
+          height: 0;
+          width: 100%;
+        }
+      }
+
+      .link(...) {}
+    }
+    #body {
+      .style(...) {}
+
+      .style(any; any; exercise; example) {
+        // Fix margins because solutions with only one paragraph
+        // do not include a <p></p> wrapper for text.
+        margin-top: .5em;
+      }
+
+      .style(@kind, book-end) {
+        margin-right: .65em;
+        word-spacing: normal;
+        vertical-align: middle;
+        display: inline;
+        text-align: left;
+        // will need to change - include in .body mixin for now
+        > a.target-figure {
+          margin: 0em .25em;
+          color: @orange;
+        } //add margin for .xref in solution body
+      }
+    }
+  }
+  // Blockquote is actually not used in PreCalculus, so no
+  // skeleton entry is needed.  I think this style is just
+  // garden variety blockquote. Will leave as is and place
+  // Psych and History blockquote styles into appropriate slots.
+  #blockquote {
+    .style(...) {
+      color: @light-blue;
+      font-size: 150%;
+
+      &::before, &::after {
+        font-weight: bold;
+        color: black;
+      }
+
+      &::before { content: "\201C" /* open-quote */; }
+      &::after { content: "\201D" /* close-quote; */; }
+    }
+  }
+  #glossary {
+    .style(...) {
+      // End-of-chapter material should start on a new page
+      #utils>#pb>.before(always);
+      display: inline;
+
+      &::before {
+        content: "" "Chapter " counter(chapter, decimal) " Review";
+        color: @medium-blue;
+        font-size: x-large;
+        font-weight: bold;
+        padding: 0em;
+        display: block;
+        text-transform: uppercase;
+        margin-bottom: 1.0em;
+        font-family: @font-family-serif;
+        .font-scale(2);
+      }
+    }
+    #title {
+      .style(...) {
+        /* Change "Glossary" to "Key Terms" */
+        content: "Key Terms";
+        color: @medium-blue;
+
+        // We might as well fix it this way now and just document the problems.  This
+        // is good actually because it uncovers issues that we are having and just fix
+        // in the refactoring once and for all.  The hugest thing of all is the normalization
+        // of selectors across books. For instance, in targeting titles across books you
+        // have multitudinous ways that they are targeted, e.g.  h1.title, .chapter h1.title,
+        // .chapter .titlepage div div h1, etc.  This is the thing that is giving us so much
+        // trouble.
+
+        // Fixing this will require changes to base-skeleton, precalc-skeleton and
+        // will possibly break books.
+        font-family: @font-family-serif;
+        .font-scale(1) !important;
+        margin-left: 0;
+
+        font-weight: bold;
+
+        // The skeleton selectors for many things are incorrect in that .titlepage here is being
+        // targeting and yield higher specificty.
+        padding: 0em !important;
+
+        display: block;
+        text-transform: uppercase;
+        page-break-after: avoid !important;
+      }
+    }
+    .dt() { }
+
+    .dl() {
+      margin-left: 0;
+      #utils>#pb>.before(avoid);
+    }
+
+    .divider(...) {
+      content: " ";
+      float: right;
+    }
+  }
+  #heading{
+    .style(h5, ...) {
+      color: @medium-blue;
+      font-size: 10pt;
+      font-weight: bold;
+      font-style: italic;
+    }
+    .style(h6, ...) {
+      color: @medium-blue;
+      font-weight: bold;
+    }
+  }
+  // Parent level link styling
+  #link {
+    .style(...) {
+      font-family: @font-family;
+      font-weight: bold;
+      color: @orange;
+    }
+    .style('chapter'; any; toc) {
+      .secondary-header-toc();
+      margin-bottom: .5em;
+      display: inline-block;
+    }
+    .style('preface'; any; toc) {
+      .secondary-header-toc();
+      margin-left: 46px;
+    }
+    .style('appendix'; any; toc) {
+      .secondary-header-toc();
+      margin-left: 46px;
+    }
+    .style('index'; any; toc) {
+      .secondary-header-toc();
+      margin-left: 46px;
+    }
+    .style('link-to-section'; any; 'review-exercises') {
+    }
+    .number('link-to-section'; any; 'review-exercises') {
+      content: target-counter(attr(href), chapter) "." target-counter(attr(href), section);
+      margin-right: 7px;
+    }
+  }
+}
+
+.x-solutions-subheading-style() {
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: @font-family;
+  display: block;
+  margin-bottom: 7.5px;
+}
+
+
+
+
+
+//end of precalculus
+
+// Copyright (c) 2013 Rice University
+// This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+// See LICENSE.txt for details.
+
+
+@soft-orange:   #F1DDB6;
+
+
+@cnx-string-definition: "Definition: ";
+
+
+
+#part {
+  #book-end {
+    #end-of-book-solutions {
+      #title {
+        .style('checkpoint') {
+          .x-solutions-subheading-style();
+          content: "Checkpoint";
+        }
+        .style('quick-check') {
+          .x-solutions-subheading-style();
+          content: "Quick Check";
+        }
+      }
+    }
+  }
+}
+
+#content {
+//  - Non-figure images are centered.
+  .x-layout-image() {
+    //max-width: @one-third;
+  }
+  #image {
+    .style(any; chapter) {
+      .x-center-image();
+    }
+    .style(any; book-end; solutions) {
+      .x-center-image();
+    }
+  }
+//  - Figures render with captions similar to tables.
+  #figure {
+    .style(...) {
+      display: table;
+      caption-side: bottom;
+      padding-bottom: 0;
+      //#utils>#pb>.inside(auto);
+    }
+    .style('splash'; chapter) {
+      margin-bottom: 15px;
+      transform: translateX(-1in);
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .style(any; chapter-end; exercise) {
+      display: table;
+    }
+    #body {
+      .style(any; any) {
+        min-width: @one-third;
+      }
+    }
+    #title {
+      .figure-caption() {
+        display: table-caption;
+        text-align: left;
+        #utils>#pb>.before(avoid);
+      }
+      .style(...) {
+        .figure-caption();
+        padding-bottom: 1em;
+        font-family: @font-family;
+        //.font-scale(-1);
+      }
+      .style(any; any; feature-qa) {
+        .figure-caption();
+      }
+      .number() {
+        content: "Figure " counter(chapter, decimal) "." counter(figure) " ";
+        display: inline;
+        //.font-scale(-1);
+      }
+      .number(...) {
+       font-family: @font-family;
+      }
+      .number(any; appendix) {
+        content: "Figure " counter(appendix, upper-alpha) counter(figure);
+      }
+    }
+  }
+  #exercise {
+    .style(any; any; be-prepared) {
+      margin-bottom: .3em;
+    }
+    #title {
+      .style(any; any; be-prepared) {
+        display: inline;
+      }
+    }
+    #body {
+      .style(any; any; be-prepared) {
+        display: inline;
+      }
+    }
+  }
+  #problem {
+    .style(any; any; be-prepared; exercise) {
+      display: inline;
+    }
+    #title {
+      .style(any; any; be-prepared; exercise) {
+        display: none;
+      }
+    }
+    #body {
+      .style(any; any; be-prepared; exercise) {
+        display: inline;
+      }
+    }
+  }
+  #solution {
+    .style(any; any; be-prepared; exercise) {
+      display: none;
+    }
+  }
+  #example {
+    #title {
+      .style(any) {
+        page-break-after: avoid;
+      }
+    }
+  }
+  #paragraph {
+    .style(any) {
+      font-family: @font-family;
+    }
+    .style(any; any; be-prepared; exercise; problem) {
+      display: inline;
+    }
+    .style(any; any; example) {}
+    .style('first'; any; problem; exercise; section-exercise) {
+      display: inline;
+    }
+    .style('first'; any; problem; exercise; example) {
+      display: inline;
+    }
+    .style('first'; any; solution; exercise; example) {
+      display: inline;
+    }
+    .style('immediate-child'; any; section-exercises) {
+    }
+    .style('immediate-child'; any; review-exercises) {
+    }
+    #title {
+      .style(any; any; example) {
+        color: @dark-blue;
+      }
+    }
+  }
+  #distractor {
+    .style(any; any) {
+    }
+  }
+}
+
+/// end of math file

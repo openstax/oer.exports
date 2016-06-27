@@ -269,3 +269,172 @@
     }
   }
 }
+.tables (@a) when (@tables = new-math) {
+  #content {
+    #table {
+      .style(unstyled; any) {
+        border: none;
+        margin: 0;
+      }
+      .style(any; any) {
+        #utils>#pb>.inside(auto);
+        margin-bottom: 22px;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        // If a table spans more than 1 page then put caption on all following pages
+        prince-caption-page: all;
+        border: none;
+      }
+      .style(any; preface) {
+        margin: 0;
+        border: none;
+      }
+      .style(any; any; problem; exercise; example) {
+        counter-increment: table !important; // Overrides !important from base.
+      }
+      .style(any; any; solution; exercise; example) {
+        counter-increment: table !important; // Overrides !important from base.
+      }
+      .style(multiple-headers) {
+        margin-bottom: 0;
+      }
+      #caption {
+        .style(any; any) {
+          font-family: @font-family;
+          border: none;
+          padding-top: .5em;
+          padding-left: 0px;
+          padding-bottom: 1em;
+          caption-side: bottom;
+          font-size: 8px;
+          line-height: 17px;
+          font-weight: 700;
+        }
+        .style(unstyled; any) {
+          display: none;
+        }
+        .style(any; any; problem; exercise; example) { display: block; }
+        .style(any; any; solution; exercise; example) { display: block; }
+        .style(any; any; commentary; exercise; example) { display: block; }
+        // Do not display numbering for tables in the answer key
+        .style(any; book-end; solution) { display: none; }
+        .number(any; any) {
+          font-weight: bold;
+        }
+      }
+      #head {
+        .style(any; any) {
+          border-top: none;
+          font-family: @font-family;
+        }
+      }
+      #body {
+        .style(any; any) {
+          border: 1px solid rgba(0,0,0,0.1);
+          border-top: none;
+          color: @dark-blue;
+        }
+        .style(multiple-headers; any) {
+          border: none;
+        }
+        .style(any; any; note) {
+          background-color: #fff;
+        }
+      }
+      #row {
+        .style(any; any) {
+          #utils>#pb>.inside(avoid);
+        }
+        .style(colored; any) {
+          height: 1em !important;
+        }
+        .style(unstyled; any) {
+          border-top: 1px solid rgba(0,0,0,0.1);
+
+          &:first-of-type {
+            border-top: none !important;
+          }
+        }
+        .style(multiple-headers; any) {
+           border: none;
+        }
+      }
+      #header {
+        .style(any; any) {
+          border-color: fade(#1e7e91, 20%) !important;
+          border-bottom: none;
+          padding: 5px 10px;
+          font-size: 9pt;
+          vertical-align: initial;
+        }
+        .style(colored; any) {
+          text-align: center;
+        }
+        #title {
+          .style(any; any) {
+            border-left: 0;
+            border-right: 0;
+          }
+          .text(any; any) {
+            background-color: #093d4c;
+            font-weight: bold;
+          }
+          .style('first'; any) {
+            border-top-left-radius: 2.88px;
+          }
+          .style('last'; any) {
+            border-top-right-radius: 2.88px;
+          }
+        }
+      }
+      #data {
+        .style(any; any) {
+          border-color: rgba(0,0,0,0,1);
+          font-family: @font-family;
+          font-size: 9pt;
+          padding: 5px 10px;
+          border-bottom: 1px solid rgba(0,0,0,0.1);
+          border-right: 1px solid rgba(0,0,0,0.1);
+          border-left: none;
+        }
+        .style(unstyled; any) {
+          text-align: left;
+          border-left: none;
+          border-right: none;
+        }
+        .style('first'; any) {
+          border-bottom-left-radius: 2.88px;
+        }
+        .style('last'; any) {
+          border-bottom-right-radius: 2.88px;
+        }
+        .style('first-column'; any) {
+          border-left: 1px solid rgba(0,0,0,0.1);
+        }
+        .style('last-column'; any) {
+          border-right: 1px solid rgba(0,0,0,0.1);
+        }
+        .style(multiple-headers; any) {
+          padding: 0;
+        }
+         .style(multiple-headers; table) {
+            padding: 10px;
+         }
+         .style(any; preface) {
+          padding: 5px;
+        }
+        .style(any; chapter; chapter-end; key-equations) {
+          margin: 0;
+          border: none !important;
+          caption { display: none; }
+          td { border: none !important; }
+        }
+        .style('header'; any) {
+          font-size: 9pt;
+          text-align: center;
+          vertical-align: initial;
+        }
+      }
+    }
+  }
+}
