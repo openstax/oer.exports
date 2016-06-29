@@ -17,12 +17,8 @@ import subprocess
 from lxml import etree
 import urllib2
 import util
+import threading
 
-from saxon import Saxon
-import memcache
-import hashlib
-sax = None
-mc = None
 parser = etree.XMLParser(recover=True)
 
 SAXON_PATH = util.resource_filename('lib', 'saxon9he.jar')
@@ -48,12 +44,7 @@ DOCBOOK_IMAGE_XPATH = etree.XPath('//db:imagedata[@fileref]', namespaces=util.NA
 # - dictionary of new files
 # - A list of log messages
 #
-import threading
-import time
-from operator import methodcaller
-import hashlib
-mathml_dict = {}
-sema = threading.Semaphore(value=0)
+sema_counter = threading.Semaphore(value=0)
 mathml_event = threading.Event()
 xml_dict = {}
 
@@ -65,11 +56,9 @@ def run_saxon(root):
     processed_xml = etree.parse(StringIO(stdOut), parser)
     processed_xml_root = processed_xml.getroot()
     for element in processed_xml_root:
-#        import ipdb; ipdb.set_trace()
         module = element.tag
         module_xml = element[0]
         xml_dict[module] = module_xml
-#    import ipdb; ipdb.set_trace()
 
 
 def extractLog(entries):
@@ -115,18 +104,18 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
 
       if MATH_XPATH(xml):
           xml_dict[current_thread.getName()] = xml
-      sema.release()
+      sema_counter.release()
       # select first module in sorted list
-      if sema._Semaphore__value < TOTAL_MODULES:
+      if sema_counter._Semaphore__value < TOTAL_MODULES:
           mathml_event.wait()
       else:
           counter = 0
-          roots = [ etree.Element('root') for i in range(0, TOTAL_THREADS)]
+          roots = [ etree.Element('root') for i in range(0, SAX_TOTAL_THREADS)]
           while xml_dict:
               (module, mod_xml) = xml_dict.popitem()
               element = etree.Element(module)
               element.append(mod_xml.getroot())
-              roots[counter % TOTAL_THREADS ].append(element)
+              roots[counter % SAX_TOTAL_THREADS ].append(element)
               counter = counter + 1
           saxon_threads = []
           for root in roots:
