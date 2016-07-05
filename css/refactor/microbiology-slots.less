@@ -7,6 +7,12 @@
 }
 
 #content {
+  #paragraph{
+    .style(any; any; figure) {
+      padding-top:0px;
+      margin-top:0em;
+    }
+  }
   #note {
    .style('clinical-focus'; any) {
      .x-feature-color(@dark-blue, @dark-blue, @white, @medium-blue, @cnx-string-clinical-focus);
@@ -28,7 +34,7 @@
      .x-feature-color(@xiblue, @xiblue, @white, @xibrown, @cnx-string-eye-on-ethics);
    }
    .style('check-your-understanding'; any) {
-
+     padding: 5px;
    }
    #title {
      .style('clinical-focus'; any) {
@@ -65,120 +71,204 @@
       }
     }
   }
+  #solution {
+    .style(@kind, book-end) {
+      display: inline;
+    }
+  }
+  #glossary-def {
+    .style() {
+      margin-bottom: 0em;
+      margin-top: 0em;
+    }
+  }
+  #summary-point {
+    .style() {
+      margin-bottom: 0.25em;
+      margin-top: 0em;
+    }
+  }
+  #multiple-choice,
+  #true-false,
+  #matching,
+  #fill-in-the-blank,
+  #short-answer,
+  #critical-thinking {
+    #exercise {
+      .style() {
+        margin-bottom: 10px
+      }
+    }
+  }
+  #glossary {
+    .style(any; chapter) {
+      display: none;
+    }
+  }
+  #section {
+    .style("column-container") {
+      .x-column-count(3);
+    }
+  }
+  #list {
+    .style("column-container") {
+      list-style-type: none;
+      margin: 0px;
+      text-align: left;
+    }
+    #item {
+      .style("column-container") {
+        display: inline-block;
+      }
+    }
+    #list-text {
+      .style("column-container") {
+        margin: 0px;
+      }
+    }
+  }
 }
+
+//chapter and book end
+
+// .book{
+//   .chapter{
+//     .figure + p{
+//       padding-top: 0px;
+//     }
+//   }
+// }
 //chapter end
 
+
+//chapter and book end
 #part {
   #chapter-end {
-   #summary {
-     .style() {
-      margin-bottom: 5px;
-      &:after {
-        display: block;
-        content: "Review Questions";
-        color: @dark-blue;
-        text-align: left;
-        border-bottom-color: @orange;
-        border-bottom-width: 1px;
-        border-bottom-style: solid;
-        font-size: 13pt;
-        line-height: 17pt;
-        font-weight: 700;
-        margin-top: 0;
-        #utils>#pb>.after(avoid);
-      }
-     }
-   }
-   #multiple-choice {
-     .style() {
-
-     }
-     #title {
+    #summary {
       .style() {
-        .x-eoc-headings();
+        margin-bottom: 5px;
+        &:after {
+          display: block;
+          content: "Review Questions";
+          color: @dark-blue;
+          text-align: left;
+          border-bottom-color: @orange;
+          border-bottom-width: 1px;
+          border-bottom-style: solid;
+          font-size: 13pt;
+          line-height: 17pt;
+          font-weight: 700;
+          margin-top: 0;
+          #utils>#pb>.after(avoid);
+        }
       }
-      .link() {
-        display: none;
+      #section {
+        .style() {
+          padding-bottom: 5px;
+        }
       }
-     }
-   }
-   #matching {
-     .style() {
-
-     }
-     #title {
+    }
+    #multiple-choice {
       .style() {
-        .x-eoc-headings();
+        .x-column-count(2);
       }
-      .link() {
-        display: none;
-      }
-     }
-   }
-   #true-false {
-     .style() {
-
-     }
-     #title {
-      .style() {
-        .x-eoc-headings();
-      }
-      .link() {
-        display: none;
-      }
-     }
-   }
-   #true-false {
-     .style() {
-
-     }
-     #title {
-      .style() {
+      #title {
+        .style() {
           .x-eoc-headings();
-      }
-      .link() {
-        display: none;
-      }
-     }
-   }
-   #short-answer {
-     .style() {
-
-     }
-     #title {
-      .style() {
-        .x-eoc-headings();
-      }
-      .link() {
-        display: none;
-      }
-     }
-   }
-    #fill-in-the-blank {
-     .style() {
-
-     }
-     #title {
-      .style() {
-        .x-eoc-headings();
-      }
-      .link() {
-        display: none;
-      }
-     }
-   }
-   #critical-thinking {
-     .style() {
-
-     }
-     #title {
-      .style() {
-        .x-eoc-headings();
-      }
-      .link() {
+        }
+        .link() {
           display: none;
         }
       }
+    }
+    #matching {
+      .style() {
+
+      }
+      #title {
+        .style() {
+          .x-eoc-headings();
+        }
+        .link() {
+          display: none;
+        }
+      }
+    }
+    #true-false {
+      .style() {
+
+      }
+      #title {
+        .style() {
+          .x-eoc-headings();
+        }
+        .link() {
+          display: none;
+        }
+      }
+    }
+    #short-answer {
+      .style() {
+
+      }
+      #title {
+        .style() {
+          .x-eoc-headings();
+        }
+        .link() {
+          display: none;
+        }
+      }
+    }
+    #fill-in-the-blank {
+      .style() {
+
+      }
+      #title {
+        .style() {
+          .x-eoc-headings();
+        }
+        .link() {
+          display: none;
+        }
+      }
+    }
+    #critical-thinking {
+      .style() {
+
+      }
+      #title {
+        .style() {
+          .x-eoc-headings();
+        }
+        .link() {
+          display: none;
+        }
+      }
+    }
+  }
+  #book-end {
+    #end-of-book-solutions {
+      #multiple-choice,
+      #true-false,
+      #matching,
+      #fill-in-the-blank,
+      #short-answer,
+      #critical-thinking {
+        .style() {
+          display: inline;
+        }
+      }
+    }
+  }
+  #glossary {
+    .definition(chapter) {
+      margin-bottom: 0em;
+      margin-top: 0em;
+    }
+    .term(chapter) {
+      margin-bottom: 0em;
+      margin-top: 0em;
     }
   }
 }
