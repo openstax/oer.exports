@@ -49,7 +49,7 @@ div.table {
   }
 
   //handle lists inside tables
-ul.itemizedlist, ol.orderedlist {
+  ul.itemizedlist, ol.orderedlist {
     #content>#list>.style(any; any; table);
     > .listitem > p {
       #content>#paragraph>.style(any; any; list; table);
@@ -77,6 +77,14 @@ ul.itemizedlist, ol.orderedlist {
     }
     tbody {
       #content>#table>#body>.style(unstyled; any);
+    }
+  }
+  &:not(.unstyled) table {
+    thead + tbody > tr:first-child > td {
+      #content>#table>#data>.style('with-header'; any; 'first', row);
+    }
+    tbody > tr:first-child > td {
+      #content>#table>#data>.style(any; any; 'first', row);
     }
   }
 

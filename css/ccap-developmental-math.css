@@ -144,7 +144,7 @@ div.book > div.preface > div.titlepage > div > div h1.title span.cnx-gentext-t {
   prince-text-replace: "*" "";
 }
 div.book > div.preface > div.cnx-eoc {
-  counter-reset: eoc-section -1;
+  counter-reset: eoc-section;
 }
 div.book > div.preface > div.section {
   counter-increment: section;
@@ -364,7 +364,7 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   prince-text-replace: "*" "";
 }
 div.book div.chapter > div.cnx-eoc {
-  counter-reset: eoc-section -1;
+  counter-reset: eoc-section;
 }
 div.book div.chapter > div.section {
   counter-increment: section;
@@ -581,7 +581,7 @@ div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t 
   prince-text-replace: "*" "";
 }
 div.book > div.appendix > div.cnx-eoc {
-  counter-reset: eoc-section -1;
+  counter-reset: eoc-section;
 }
 div.book > div.appendix > div.section {
   counter-increment: section;
@@ -2315,6 +2315,12 @@ div.table.unstyled table td {
   border-left: none;
   border-right: none;
 }
+div.table:not(.unstyled) table thead + tbody > tr:first-child > td {
+  border-top: 0px;
+}
+div.table:not(.unstyled) table tbody > tr:first-child > td {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
 div.table.multiple-headers table {
   page-break-inside: avoid;
   margin: auto;
@@ -3008,7 +3014,7 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   padding-right: .5em;
 }
 .cnx-eoc .empty {
-  display: hidden;
+  display: none;
 }
 .cnx-eoc .exercise div.body div.problem .figure {
   font-size: xx-small;
@@ -3377,6 +3383,14 @@ subfigure {
   margin-right: .2em;
   height: .9em;
 }
+.exercise.material-long,
+.solution.material-long {
+  display: block;
+}
+.exercise.material-short,
+.solution.material-short {
+  display: inline-block;
+}
 /* -------------------------
  * End of Section Exercise Styling
  * -------------------------
@@ -3422,6 +3436,8 @@ subfigure {
 .section.section-exercises > div.section > p {
   color: #1e7e91;
   font-style: italic;
+  page-break-before: auto;
+  page-break-after: avoid;
 }
 .section.section-exercises > div.section > p span.bold {
   font-style: normal;
@@ -4832,15 +4848,15 @@ div.appendix div.figure > div.caption::before {
 }
 div.book > div.preface > div.cnx-eoc,
 div.book > div.part > div.preface > div.cnx-eoc {
-  counter-reset: eoc-section -1;
+  counter-reset: eoc-section;
 }
 div.book > div.chapter > div.cnx-eoc,
 div.book > div.part > div.chapter > div.cnx-eoc {
-  counter-reset: eoc-section -1;
+  counter-reset: eoc-section;
 }
 div.book > div.appendix > div.cnx-eoc,
 div.book > div.part > div.appendix > div.cnx-eoc {
-  counter-reset: eoc-section -1;
+  counter-reset: eoc-section;
 }
 div.chapter {
   page: chapter;
