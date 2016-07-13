@@ -6,11 +6,72 @@
 @quaternary-color: @sea-buckthorn-orange;
 @quinary-color: @flamingo-orange;
 @accent-color: #F4F4F4;
-//@secondary-accent-color: rgba(#3C2747, 0.4);
+@link-color: #34BDD8;
 
 .folio-chapter-header() {
   background-color: transparent;
   color: white;
+}
+
+.x-feature-astronomy(@title, @title-background-color, @background-color, @icon, @icon-width: 19px, @icon-height: 22px, @icon-top: 12px, @icon-right: 15px) {
+  display: table;
+  position: relative;
+  background-color: @background-color;
+  text-align: left;
+  color: #4F5151;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  padding: 0;
+  page-break-inside: avoid;
+
+  &::before {
+    display: table-caption;
+    content: @title;
+    font-weight: 600;
+    font-style: normal;
+    background-color: @title-background-color;
+    color: #fff;
+    line-height: 48px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    .font-scale(2);
+    font-family: @font-family-serif;
+    padding: 0 15px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+  }
+
+  div.body::before {
+    display: block;
+    content: '';
+    background: url("ccap-astronomy/@{icon}.svg") no-repeat 0;
+    width: @icon-width;
+    height: @icon-height;
+    position: absolute;
+    top: @icon-top;
+    right: @icon-right;
+  }
+
+  div.title {
+    .font-scale(2);
+    color: @tertiary-color;
+    font-weight: 600;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  div.body {
+    padding: 15px;
+    border: 0;
+
+    p {
+      padding: 0;
+    }
+
+    p:first-child {
+      margin-top: 0;
+    }
+  }
 }
 
 #part {
@@ -162,6 +223,9 @@
 
 #content {
   #link {
+    .style() {
+      color: @link-color;
+    }
     .style('chapter'; any; toc) {
       position: relative;
       color: @primary-color;
@@ -214,12 +278,80 @@
   }
   #section {
     #title {
-        .style(any; any) {
-          font-family: @font-family-serif;
-          margin-bottom: 1em;
-          color: @secondary-color;
-          .font-scale(2);
-        }
+      .style(any; any) {
+        font-family: @font-family-serif;
+        margin-bottom: 1em;
+        color: @secondary-color;
+        .font-scale(2);
       }
+    }
+  }
+  #note {
+    .style(any; any; example) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .style('link-to-learning-new'; any) {
+      .x-feature-astronomy(@cnx-string-link-to-learning, @secondary-color, fade(#327f9f, 10%), link-to-learning);
+      font-style: italic;
+      div.mediaobject {
+        display: none;
+      }
+    }
+    .style('making-connections'; any) {
+      .x-feature-astronomy(@cnx-string-making-connections, @quinary-color, fade(#7d7e7e, 10%), making-connections);
+      div.title {
+        margin-top: 15px;
+      }
+    }
+    .style('voyagers-in-astronomy'; any) {
+      .x-feature-astronomy(@cnx-string-voyagers-in-astronomy, @tertiary-color, fade(#3c2847, 5%), voyagers-in-astronomy, 120px, 122px, -12px, -21px);
+      div.title {
+        margin-top: 15px;
+        color: @primary-color;
+      }
+    }
+    .style('astronomy-basics'; any) {
+      .x-feature-astronomy(@cnx-string-astronomy-basics, @tertiary-color, fade(#3c2847, 5%), astronomy-basics, 120px, 55px, 0);
+      div.title {
+        margin-top: 15px;
+        color: @primary-color;
+      }
+    }
+    #title {
+      .style(any; any; example) {
+        padding: 0;
+        margin-bottom: 18px;
+        font-style: italic;
+      }
+    }
+    #body {
+      .style(any; any; example) {
+        padding: 0;
+      }
+    }
+  }
+  #example {
+    .style(any) {
+      border-top: 0;
+      border-bottom: 0;
+      .x-feature-astronomy("Example " counter(chapter, decimal) "." counter(example) " ", @primary-color, fade(#7d7e7e, 10%), none);
+    }
+    #title {
+      .style(any) {
+        display: none;
+      }
+    }
+  }
+  #paragraph {
+    #title {
+      .style(any; any; example) {
+        padding-left: 0;
+        padding-right: 0;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        color: @primary-color;
+      }
+    }
   }
 }
