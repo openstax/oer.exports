@@ -533,7 +533,7 @@
     }
     .style(student-project; ...) {
       #utils>#pb>.inside(avoid);
-      page-break-before: always;
+      #utils>#pb>.before(always);
       background-color: @light-blue;
       &:before {
         .x-banner-feature(student-project; calculus; png);
@@ -717,6 +717,10 @@
       .x-column-count(1);
     }
     .style(any; appendix) {}
+    .style("empty"; chapter-end) {
+      #utils>#pb>.before(avoid);
+      #utils>#pb>.after(avoid);
+    }
     #title {
       .style(...) {
         #utils>#pb>.after(avoid);
@@ -857,7 +861,7 @@
     .style(@kind; @part; section-exercise) { // end of section exercises
       margin-top: 1em;
       margin-bottom: 1em;
-      page-break-inside: avoid;
+      #utils>#pb>.inside(avoid);
     }
     #title {
       .style(@kind; @part; feature-try) {
@@ -1031,7 +1035,7 @@
 
         display: block;
         text-transform: uppercase;
-        page-break-after: avoid !important;
+        #utils>#pb>.after(avoid) !important;
       }
     }
     .dt() { }
@@ -1229,7 +1233,7 @@
   #example {
     #title {
       .style(any) {
-        page-break-after: avoid;
+        #utils>#pb>.after(avoid);
       }
     }
   }

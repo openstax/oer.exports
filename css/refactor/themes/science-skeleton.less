@@ -60,6 +60,11 @@ div.book div.preface {
     #part>#toc>#title>.style();
   }
 
+  .toc-preface.preface, .toc-appendix.appendix {
+    page-break-after: avoid;
+    page-break-before: avoid;
+  }
+
   a {
     #part>#toc>#link>.style();
   }
@@ -303,7 +308,10 @@ div.book div > div.section > div.learning-objectives {
     #content>#problem>.number(@kind; chapter-end);
   }
 
-  .empty { display: hidden; } // hide, but count, empty elements.
+  .empty { 
+    display: hidden; // hide, but count, empty elements.
+    #content>#section>.style("empty"; chapter-end);
+  }
 
   .exercise div.body div.problem .figure { #content>#figure>.style(any; chapter-end; exercise); }
 }

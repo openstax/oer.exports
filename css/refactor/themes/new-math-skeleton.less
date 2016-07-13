@@ -89,6 +89,11 @@ div.book div.preface {
     }
   }
 
+  .toc-preface.preface, .toc-appendix.appendix {
+    #utils>#pb>.before(avoid);
+    #utils>#pb>.after(avoid);
+  }
+  
   a {
     #part>#toc>#link>.style();
 
@@ -465,7 +470,10 @@ div.book div > div.section > div.section {
     #content>#problem>.number(@kind; chapter-end);
   }
 
-  .empty { display: hidden; } // hide, but count, empty elements.
+  .empty { 
+    display: hidden; // hide, but count, empty elements.
+    #content>#section>.style("empty"; chapter-end);
+  }
 
   .exercise div.body div.problem .figure { #content>#figure>.style(any; chapter-end; exercise); }
 }
@@ -742,6 +750,14 @@ img, figure, subfigure  { margin: 1em; }
   }
 }
 
+.exercise, .solution {
+  &.material-long {
+    display: block !important;
+  }
+  &.material-short {
+    display: inline-block !important;
+  }
+}
 
 /* -------------------------
  * End of Section Exercise Styling

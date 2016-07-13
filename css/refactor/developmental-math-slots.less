@@ -188,6 +188,9 @@
     }
   }
   #example {
+    .style() {
+      box-decoration-break: slice;
+    }
     #title {
       .style(any) {
         color: @dark-blue;
@@ -206,6 +209,14 @@
     #title {
       .style(any; any; example; multiple-solution; exercise) {
         content: "Solution (" counter(multiple-solution-example-solutions, lower-latin) ")";
+      }
+      .style(any; any; exercise; example) {
+        page-break-after: avoid;
+      }
+    }
+    #body{
+      .style(any; any; exercise; example) {
+        page-break-before: avoid;
       }
     }
   }
@@ -258,6 +269,7 @@
       .x-feature-math(media, basic-math, "Media : : ", "png");
     }
     .style(non-feature) {
+      box-decoration-break: slice;
       background-color: @secondary-accent-color-20;
     }
     .style(links-to-literacy) {
@@ -382,6 +394,8 @@
     .style('immediate-child'; any; section-exercises) {
       color: @secondary-color;
       font-style: italic;
+      #utils>#pb>.before(auto);
+      #utils>#pb>.after(avoid);
     }
     .style('immediate-child'; any; review-exercises) {
       color: @secondary-color;
