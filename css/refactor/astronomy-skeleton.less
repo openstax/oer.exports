@@ -100,6 +100,30 @@ div.book > div.chapter > div.titlepage {
   }
 }
 
+.cnx-eoc {
+  &.group-activities {
+    #part>#chapter-end>#group-activities>.style();
+    > div.title > span { #part>#chapter-end>#group-activities>#title>.style();}
+    > div.section {
+      > div.title { 
+        #part>#chapter-end>#group-activities>#section>#title>.style();
+      }
+      > div.body {
+        #part>#chapter-end>#group-activities>#section>#body>.style();
+        div.orderedlist > ol.orderedlist {
+          #content>#list>.style('ordered', chapter-end, group-activities);
+          > li.listitem {
+            #content>#list>.item('ordered', chapter-end, group-activities);
+            > p {
+              #content>#list>.itemtext('ordered', chapter-end, group-activities);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 .section.learning-objectives {
   .itemizedlist > ul {
     #part>#chapter>#learning-objectives>#list>.style();
