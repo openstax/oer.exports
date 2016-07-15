@@ -79,9 +79,18 @@
   #toc {
     #title {
       .style() {
+        &::before {
+          display: none;
+        }
         text-transform: uppercase;
-        color: @tertiary-color;
         .scale-padding(2, margin-bottom);
+        color: @tertiary-color;
+        display: inline-block;
+        font-family: @font-family-serif;
+        background: url("ccap-astronomy/TOC.svg") no-repeat left;
+        background-size: contain;
+        margin-bottom: 10px;
+        padding: .3em 2.3em;
       }
     }
     #chapter {
@@ -229,7 +238,6 @@
           display: inline-block;
           background: url("ccap-astronomy/Answer Key.svg") no-repeat left;
           background-size: contain;
-          position: relative;
           margin-bottom: 10px;
           padding: .3em 2.3em;
           .font-scale(2);
@@ -278,11 +286,10 @@
       #title {
         .style() {
           color: @tertiary-color;
-          font-family: @font-family-serif;
           display: inline-block;
+          font-family: @font-family-serif;
           background: url("ccap-astronomy/Collaborative Group Work.svg") no-repeat left;
           background-size: contain;
-          position: relative;
           margin-bottom: 10px;
           padding: .3em 2.3em;
           .font-scale(2);
@@ -309,11 +316,10 @@
     #title {
       .style(chapter) {
         color: @tertiary-color;
-        font-family: @font-family-serif;
         display: inline-block !important;
+        font-family: @font-family-serif;
         background: url("ccap-astronomy/Key Terms.svg") no-repeat left;
         background-size: contain;
-        position: relative;
         margin-bottom: 10px;
         padding: .3em 2.3em !important;
         font-size: 18px !important;
@@ -390,8 +396,14 @@
       position: relative;
       color: @primary-color;
       .scale-padding(1, margin-bottom);
-      bottom: -5px;
+      top: 1px;
     }
+    .style('preface'; any; toc) {
+      color: @primary-color;
+      .scale-padding(1, margin-bottom);
+      margin-left: 48px;
+    }
+
     .style('index'; any; toc) {
       color: @primary-color;
       .scale-padding(1, margin-bottom);
