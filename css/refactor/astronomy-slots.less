@@ -273,6 +273,20 @@
   #chapter-end {
     #group-activities {
       .style() {
+        &::after{
+          content: "Exercises";
+          color: @tertiary-color;
+          font-family: @font-family-serif;
+          font-weight: bold;
+          display: inline-block;
+          text-transform: uppercase;
+          background: url("ccap-astronomy/Exercises.svg") no-repeat left;
+          background-size: contain;
+          position: relative;
+          margin-bottom: 10px;
+          padding: .3em 2.3em;
+          .font-scale(2);
+        }
         .x-column-count(1);
       }
       #title {
@@ -301,6 +315,20 @@
             line-height: 1.5em;
             .font-scale(0);
           }
+        }
+      }
+    }
+    #review-questions{
+      .style(){
+        .x-column-count(1);
+      }
+      #title{
+        .style{
+          color:@secondary-color;
+          font-family: @font-family;
+          text-transform: capitalize;
+          .font-scale(1);
+          padding-left: 0px;
         }
       }
     }
@@ -360,6 +388,11 @@
       display: inline;
     }
   }
+  #image{
+    .style(any; book-end; solution){
+      display: block;
+    }
+  }
   #footnote {
     .style() {
       .font-scale(-1);
@@ -406,7 +439,19 @@
         border-left: 4px solid @accent-color;
     }
     .style(any; book-end; solution){
-      margin-left: 45px;
+      padding-top: 15px;
+      padding-left: 10px;
+      font-weight: bold;
+    }
+    .style('review ordered',chapter-end, exercises){
+      font-weight: bold;
+      font-family: @font-family;
+    }
+    .item('review ordered',chapter-end, exercises){
+      margin-bottom: 1em;
+    }
+    .itemtext('review ordered',chapter-end, exercises){
+      font-weight: normal;
     }
     .number('unordered'; introduction; chapter-outline) {
       color: @summer-sky;
@@ -418,6 +463,18 @@
       background-color: @accent-color;
       padding-top: 1em;
       padding-bottom: 1em;
+    }
+    .style('answer-key',book-end,solution){
+      text-align: left;
+      position: relative;
+      list-style-position: inside;
+    }
+    .item('answer-key',book-end,solution){
+      text-align: left;
+    }
+    .itemtext('answer-key',book-end,solution){
+      font-weight: normal;
+      padding-left: 8px;
     }
   }
   #figure {
