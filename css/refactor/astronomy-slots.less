@@ -55,7 +55,7 @@
   }
 
   div.title {
-    .font-scale(2);
+    .font-scale(1);
     color: @tertiary-color;
     font-weight: 600;
     padding-left: 15px;
@@ -288,6 +288,21 @@
   #chapter-end {
     #group-activities {
       .style() {
+        &::after{
+          content: "Exercises";
+          color: @tertiary-color;
+          font-family: @font-family-serif;
+          font-weight: bold;
+          display: inline-block;
+          text-transform: uppercase;
+          background: url("ccap-astronomy/Exercises.svg") no-repeat left;
+          background-size: contain;
+          position: relative;
+          margin-bottom: 10px;
+          padding: .3em 2.3em;
+          margin-top: 1.5em;
+          .font-scale(2);
+        }
         .x-column-count(1);
       }
       #title {
@@ -315,6 +330,20 @@
             line-height: 1.5em;
             .font-scale(0);
           }
+        }
+      }
+    }
+    #review-questions{
+      .style(){
+        .x-column-count(1);
+      }
+      #title{
+        .style{
+          color:@secondary-color;
+          font-family: @font-family;
+          text-transform: capitalize;
+          .font-scale(1);
+          padding-left: 0px;
         }
       }
     }
@@ -356,6 +385,41 @@
     background-size: 65px 1px;
     background-repeat: no-repeat;
   }
+  .folio-typography() {
+    font-family: @font-family-serif;
+    color: @tertiary-color;
+    .font-scale(-1);
+  }
+  .top-left(left) { .folio-typography(); }
+  .top-left(right) { .folio-typography(); }
+  .top-left(chapter) {
+    .folio-typography();
+   }
+  .top-right(left) { .folio-typography(); }
+  .top-right(right) { .folio-typography(); }
+  .top-right(chapter) {
+    .folio-typography();
+  }
+  .top-left-corner(chapter) {
+    .folio-chapter-header();
+    .folio-chapter-header-reset();
+  }
+  .top-right-corner(chapter) {
+    .folio-chapter-header();
+    .folio-chapter-header-reset();
+  }
+  .top-left(chapter) {
+    .folio-chapter-header();
+  }
+  .top-center(chapter) {
+    .folio-chapter-header();
+  }
+  .top-right(chapter) {
+    .folio-chapter-header();
+  }
+  .bottom-left(left) {
+    .folio-typography();
+  }
 }
 
 #content {
@@ -371,6 +435,25 @@
       margin-left: 0px;
       font-weight: normal;
       display: inline;
+    }
+  }
+  #image{
+    .style(any; book-end; solution) {
+      display: block;
+    }
+  }
+  #problem{
+    .style('review-question-number'; chapter-end; exercises) {
+      font-family: @font-family;
+      display: inline-block;
+      width: 3%;
+      vertical-align: top; 
+      padding-right: 0px;
+    }
+    .item('review-question'; chapter-end; exercises) {
+      display: inline-block;
+      width: 95%;
+      margin-top: 0px; 
     }
   }
   #footnote {
@@ -430,8 +513,20 @@
     .style('unordered'; introduction; chapter-outline) {
         border-left: 4px solid @accent-color;
     }
-    .style(any; book-end; solution){
-      margin-left: 45px;
+    .style(any; book-end; solution) {
+      padding-top: 15px;
+      padding-left: 10px;
+      font-weight: bold;
+    }
+    .style('review-ordered'; chapter-end; exercises) {
+      font-weight: bold;
+      font-family: @font-family;
+    }
+    .item('review-ordered'; chapter-end; exercises) {
+      margin-bottom: 1em;
+    }
+    .itemtext('review-ordered'; chapter-end; exercises) {
+      font-weight: normal;
     }
     .number('unordered'; introduction; chapter-outline) {
       color: @summer-sky;
@@ -446,6 +541,18 @@
     }
     .item('preface'; any; toc) {
       margin-bottom: 20px;
+    }
+    .style('answer-key'; book-end; solution) {
+      text-align: left;
+      position: relative;
+      list-style-position: inside;
+    }
+    .item('answer-key'; book-end; solution) {
+      text-align: left;
+    }
+    .itemtext('answer-key'; book-end; solution) {
+      font-weight: normal;
+      padding-left: 8px;
     }
   }
   #figure {
@@ -515,6 +622,11 @@
         margin-bottom: 18px;
         font-style: italic;
       }
+      .style(non-feature; any; example) {
+        font-family: @font-family;
+        .font-scale(0);
+        color: @secondary-color;
+      }
     }
     #body {
       .style(any; any; example) {
@@ -526,7 +638,7 @@
     .style(any) {
       border-top: 0;
       border-bottom: 0;
-      .x-feature-astronomy("Example " counter(chapter, decimal) "." counter(example) " ", @primary-color, fade(#7d7e7e, 10%), none);
+      .x-feature-astronomy("Example " counter(chapter, decimal) "." counter(example) " ", @primary-color, #ebe9e9, none);
     }
     #title {
       .style(any) {
