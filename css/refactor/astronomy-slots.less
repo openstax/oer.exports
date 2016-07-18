@@ -78,8 +78,21 @@
 }
 
 #part {
+  #preface {
+    #titlepage {
+    .style() {
+      padding-bottom: 0;
+    }
+      .title(...) {
+        color: @tertiary-color;
+        .font-scale(2);
+        font-family: @font-family-serif;
+        padding-bottom: 0;
+      }
+    }
+  }
   #toc {
-    #title {
+    #title {.font-scale(0);
       .style() {
         &::before {
           display: none;
@@ -586,6 +599,12 @@
     }
   }
   #section {
+    .style(any; preface) {
+      .scale-padding(2, margin-bottom);
+    }
+    .style(any; preface; section) {
+      .scale-padding(2, margin-bottom);
+    }
     #title {
       .style(any; any) {
         font-family: @font-family-serif;
@@ -593,6 +612,10 @@
         color: @secondary-color;
         .font-scale(2);
       }
+      .style(any; preface) {
+       color: @secondary-color;
+      .font-scale(1);
+     }
     }
   }
   #note {
