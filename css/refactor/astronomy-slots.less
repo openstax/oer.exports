@@ -6,6 +6,7 @@
 @quaternary-color: @sea-buckthorn-orange;
 @quinary-color: @flamingo-orange;
 @accent-color: #F4F4F4;
+@accent-color-tinted: #FAFAFA;
 @link-color: #34BDD8;
 @footnote-color: #6D6F71;
 
@@ -90,7 +91,8 @@
         background: url("ccap-astronomy/TOC.svg") no-repeat left;
         background-size: contain;
         margin-bottom: 10px;
-        padding: .3em 2.3em;
+        //Note: EOC sections have side paddings of 2.3 rather than 2.66, maybe change others for consistency?
+        padding: .3em 2.66em;
       }
     }
     #chapter {
@@ -105,6 +107,11 @@
         margin-right: 15px;
         margin-left: 10px;
         font-weight: 700;
+      }
+    }
+    #entry {
+      .title(section) {
+        line-height: 1.5em;
       }
     }
   }
@@ -403,16 +410,22 @@
       .scale-padding(1, margin-bottom);
       margin-left: 48px;
     }
-
     .style('index'; any; toc) {
       color: @primary-color;
       .scale-padding(1, margin-bottom);
+      margin-left: 48px;
+    }
+    .style('appendix'; any; toc) {
+      color: @primary-color;
+      .scale-padding(1, margin-bottom);
+      margin-left: 48px;
     }
   }
   #list {
     .style('chapter'; any; toc) {
       border-left: 4px solid @accent-color;
-      .scale-padding(0, padding-left);
+      margin-left: 48px;
+      .scale-padding(-1, padding-left);
     }
     .style('unordered'; introduction; chapter-outline) {
         border-left: 4px solid @accent-color;
@@ -426,10 +439,13 @@
     .item('chapter'; any; toc) {
       margin-bottom: 20px;
     }
-    .item('2n+0', 'chapter'; any; toc) {
-      background-color: @accent-color;
+    .item('2n+1', 'chapter'; any; toc) {
+      background-color: @accent-color-tinted;
       padding-top: 1em;
       padding-bottom: 1em;
+    }
+    .item('preface'; any; toc) {
+      margin-bottom: 20px;
     }
   }
   #figure {
