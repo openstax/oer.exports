@@ -223,7 +223,7 @@
         }
         #listitem {
           .style() {
-            background: url("ccap-astronomy/learning-objectives.svg") no-repeat 0;
+            background: url("ccap-astronomy/learning-objectives-default.svg") no-repeat 0;
             background-size: 7px 10px;
             margin-left: 20px;
             padding-left: 20px;
@@ -266,16 +266,21 @@
           .font-scale(2);
           font-weight: bold;
           color: @tertiary-color;
+          font-family: @font-family-serif;
           padding: 0;
           margin: 0;
+          position: relative;
+          margin-bottom: 15px;
         }
         .number() {
           border: 2px solid @quaternary-color;
-          color: @tertiary-color !important;
-          padding: 3px 5px;
+          color: @secondary-color !important;
+          padding: 4px 7px;
           .font-scale(1);
           margin-right: 10px;
           vertical-align: middle;
+          position: relative;
+          top: -2px;
         }
         .divider() {
           display: none;
@@ -472,6 +477,11 @@
 
 #content {
   #list {
+    .item(any, appendix){
+      background: url("./ccap-astronomy/learning-objectives-default.svg") no-repeat 0;
+      background-size: 7px 10px;
+      padding-left: 20px;
+    }
     .style('ordered', chapter-end, group-activities){
       margin-left: 23px;
       font-weight: bold;
@@ -634,14 +644,13 @@
     }
     #title {
       .style(any; any) {
-        font-family: @font-family-serif;
-        margin-bottom: 1em;
-        color: @secondary-color;
-        .font-scale(2);
       }
       .style(any; preface) {
        color: @secondary-color;
       .font-scale(1);
+     }
+     .style(any; appendix){
+        margin-top: 1em;
      }
      .style(any; preface; section) {
       font-family: @font-family;
@@ -651,12 +660,15 @@
      }
     .text(any; appendix) {
         .font-scale(1);
+        font-family: @font-family;
+        color: @secondary-color;
+        text-transform: capitalize;
       }
      .number(any; appendix) {
         display: none;
       }
       .style(any; appendix; section) {
-      .scale-padding(1, margin-bottom);
+      .scale-padding(0, margin-bottom);
      }
     .text(any; appendix; section) {
         .font-scale(0);
