@@ -16,12 +16,12 @@
   font-weight: bold;
 }
 
-.x-feature-astronomy(@title, @title-background-color, @background-color, @icon, @icon-width: 19px, @icon-height: 22px, @icon-top: 12px, @icon-right: 15px) {
+.x-feature-astronomy(@title, @title-background-color, @background-color, @icon, @text-color: #4F5151, @icon-width: 19px, @icon-height: 22px, @icon-top: 12px, @icon-right: 15px) {
   display: table;
   position: relative;
   background-color: @background-color;
   text-align: left;
-  color: #4F5151;
+  color: @text-color;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
   padding: 0;
@@ -37,7 +37,7 @@
     line-height: 48px;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
-    .font-scale(2);
+    .font-scale(1);
     font-family: @font-family-serif;
     padding: 0 15px;
     text-transform: uppercase;
@@ -615,6 +615,7 @@
       }
       .number() {
         color: black;
+        .font-scale(-1);
       }
     }
     #body {
@@ -667,7 +668,7 @@
       padding-right: 0;
     }
     .style('link-to-learning-new'; any) {
-      .x-feature-astronomy(@cnx-string-link-to-learning, @secondary-color, fade(#327f9f, 10%), link-to-learning);
+      .x-feature-astronomy(@cnx-string-link-to-learning, @secondary-color, #e6eaef, link-to-learning);
       font-style: italic;
       div.mediaobject {
         display: none;
@@ -680,14 +681,14 @@
       }
     }
     .style('voyagers-in-astronomy'; any) {
-      .x-feature-astronomy(@cnx-string-voyagers-in-astronomy, @tertiary-color, fade(#3c2847, 5%), voyagers-in-astronomy, 120px, 122px, -12px, -21px);
+      .x-feature-astronomy(@cnx-string-voyagers-in-astronomy, @tertiary-color, fade(#3c2847, 5%), voyagers-in-astronomy, @tertiary-color, 120px, 122px, -12px, -21px);
       div.title {
         margin-top: 15px;
         color: @primary-color;
       }
     }
     .style('astronomy-basics'; any) {
-      .x-feature-astronomy(@cnx-string-astronomy-basics, @tertiary-color, fade(#3c2847, 5%), astronomy-basics, 120px, 55px, 0);
+      .x-feature-astronomy(@cnx-string-astronomy-basics, @tertiary-color, fade(#3c2847, 5%), astronomy-basics, #4F5151, 120px, 55px, 0);
       div.title {
         margin-top: 15px;
         color: @primary-color;
@@ -754,6 +755,37 @@
         display: inline-block;
         width: 92%;
         line-height: 1.5em;
+      }
+    }
+  }
+  #table {
+    #header {
+      .style(any; any) {
+        color: @tertiary-color;
+        background-color: @quaternary-color;
+      }
+      .style(any; any; note) {
+        background-color: @quaternary-color;
+      }
+      #title {
+        .text(any; any) {
+          background-color: @quaternary-color;
+          border-bottom: 1px solid rgba(0, 0, 0, .1);
+        }
+      }
+    }
+    #caption {
+      .style(any; any) {
+        color: #58595B;
+        .font-scale(-1);
+      }
+      .number(any; any) {
+        color: #221E1F;
+      }
+    }
+    #data {
+      .style(any; any) {
+        color: @tertiary-color;
       }
     }
   }
