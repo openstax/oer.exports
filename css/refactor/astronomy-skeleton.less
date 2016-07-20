@@ -9,8 +9,8 @@
 //     }
 // }
 div.itemizedlist, div.orderedlist {
-  ul, ol{
-    li{
+  ul, ol {
+    li {
       #content>#list>.item(any; any);
     }
   }
@@ -54,41 +54,40 @@ div.book > div.chapter > div.titlepage {
   //height: 4.3in;
 
   div.mediaobject {
-      border-left: none;
+    border-left: none;
+    height: 4.53in;
+    position: relative;
+    //overflow: hidden;
+
+    &::before {
+      height: 4px;
+      background-color: @secondary-color;
+      bottom: 70px;
+      width: 100%;
+      left: 0;
+      right: 0;
+    }
+
+    &::after {
+      width: 100%;
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0px;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background-color: @quinary-color;
+    }
+
+    img {
+      width: 8.5in;
       height: 4.53in;
-      position: relative;
-      //overflow: hidden;
-
-      &::before {
-          height: 4px;
-          background-color: @secondary-color;
-          bottom: 70px;
-          width: 100%;
-          left: 0;
-          right: 0;
-      }
-
-      &::after {
-          width: 100%;
-          content: '';
-          display: block;
-          position: absolute;
-          bottom: 0px;
-          left: 0;
-          right: 0;
-          height: 70px;
-          background-color: @quinary-color;
-      }
-
-      img {
-        width: 8.5in;
-        height: 4.53in;
-      }
+    }
   }
 }
 
 .chapter > .introduction > .toc {
-
     .cnx-gentext-n {
       #content>#list>.number('unordered'; introduction; chapter-outline);
     }
@@ -233,10 +232,9 @@ div.appendix {
 
 div.colophon.end-of-book-solutions {
   div.chapter-area div.solution div.body img {display:block; margin: 0 auto;}
-  div.orderedlist
-    >ol.orderedlist {
-      #content>#list>.style('answer-key'; book-end; solution);
-    >li.listitem {
+  div.orderedlist > ol.orderedlist {
+    #content>#list>.style('answer-key'; book-end; solution);
+    > li.listitem {
       #content>#list>.item('answer-key'; book-end; solution);
       p {
         #content>#list>.itemtext('answer-key'; book-end; solution);
