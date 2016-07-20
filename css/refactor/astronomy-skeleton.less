@@ -1,97 +1,250 @@
-
-.chapter > .introduction {
-  > .toc .cnx-gentext-n {
-    #part>#introduction>#chapter-outline>#title>.number();
+// .book > .toc {
+//     ul > .toc-chapter {
+//         > ul {
+//
+//         }
+//         .toc-section {
+//             .scale-padding(2, line-height);
+//         }
+//     }
+// }
+div.itemizedlist, div.orderedlist {
+  ul, ol {
+    li {
+      #content>#list>.item(any; any);
+    }
   }
 }
-.chapter .note {
-  &.astronomy-basics {
-    #content>#note>.style('astronomy-basics'; any);
-    >.title {
-      #content>#note>#title>.style('astronomy-basics'; any);
+
+
+div.book div.preface {
+  > div.section {
+    #content>#section>.style(any; preface);
+    p + .section {
+      margin-top: 18px;
     }
+    > div.section {
+      #content>#section>.style(any; preface; section);
+    }
+  }
+  > p + .section {
+      margin-top: 18px;
+  }
+}
+.chapter {
+  > .introduction {
+    #part>#introduction>.style();
+  }
+}
+
+div.book > div.chapter > div.titlepage {
+  #part>#chapter>#titlepage>.style();
+
+  div div > h1.title {
+    #part>#chapter>#title>.style();
+    &::before {
+      #part>#chapter>#title>.number();
+    }
+    &::after {
+      #part>#chapter>#title>.icon();
+    }
+  }
+}
+.chapter > .introduction > .figure.splash {
+  //height: 4.3in;
+
+  div.mediaobject {
+    border-left: none;
+    height: 4.53in;
+    position: relative;
+    //overflow: hidden;
+
+    &::before {
+      height: 4px;
+      background-color: @secondary-color;
+      bottom: 70px;
+      width: 100%;
+      left: 0;
+      right: 0;
+    }
+
+    &::after {
+      width: 100%;
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0px;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background-color: @quinary-color;
+    }
+
+    img {
+      width: 8.5in;
+      height: 4.53in;
+    }
+  }
+}
+
+.chapter > .introduction > .toc {
+    .cnx-gentext-n {
+      #content>#list>.number('unordered'; introduction; chapter-outline);
+    }
+    // overide hyperlink medium blue color
+    .toc-section .cnx-gentext-t {
+      color: @tertiary-color;
+    }
+}
+.chapter .note {
+  &.link-to-learning {
+    #content>#note>.style('link-to-learning-new'; any);
   }
   &.making-connections {
     #content>#note>.style('making-connections'; any);
-    >.title {
-      #content>#note>#title>.style('making-connections'; any);
-    }
-  }
-  &.seeing-for-yourself {
-    #content>#note>.style('seeing-for-yourself'; any);
-    >.title {
-      #content>#note>#title>.style('seeing-for-yourself'; any);
-    }
   }
   &.voyagers-in-astronomy {
     #content>#note>.style('voyagers-in-astronomy'; any);
-    >.title {
-       #content>#note>#title>.style('voyagers-in-astronomy'; any);
-    }
+  }
+  &.astronomy-basics {
+    #content>#note>.style('astronomy-basics'; any);
+  }
+  &.seeing-for-yourself {
+    #content>#note>.style('seeing-for-yourself'; any);
+  }
+}
+.example > div.body > div.note {
+  #content>#note>.style(any; any; example);
+  div.title {
+    #content>#note>#title>.style(any; any; example);
+  }
+  div.body {
+    #content>#note>#body>.style(any; any; example);
   }
 }
 
-//end of chapter
-div.book div.chapter > div.cnx-eoc {
-
+.cnx-eoc {
+  &.group-activities {
+    #part>#chapter-end>#group-activities>.style();
+    > div.title > span { #part>#chapter-end>#group-activities>#title>.style();}
+    > div.section {
+      > div.title {
+        #part>#chapter-end>#group-activities>#section>#title>.style();
+      }
+      > div.body {
+        #part>#chapter-end>#group-activities>#section>#body>.style();
+        div.orderedlist > ol.orderedlist {
+          #content>#list>.style('ordered', chapter-end, group-activities);
+          > li.listitem {
+            #content>#list>.item('ordered', chapter-end, group-activities);
+            > p {
+              #content>#list>.itemtext('ordered', chapter-end, group-activities);
+            }
+          }
+        }
+      }
+    }
+  }
+  &.review-questions, &.thought-questions, &.figuring-for-yourself {
+    #part>#chapter-end>#review-questions>.style();
+    > div.title > span {
+      #part>#chapter-end>#review-questions>#title>.style();
+    }
+    > .section {
+      > div.title { display: none; }
+      > div.body {
+        div.problem::before {
+          #content > #problem > .style('review-question-number'; chapter-end; exercises);
+        }
+        div.problem > p {
+          #content > #problem > .item('review-question'; chapter-end; exercises);
+        }
+        div.orderedlist > ol.orderedlist {
+          #content>#list>.style('review-ordered'; chapter-end; exercises);
+          >li.listitem {
+            #content>#list>.item('review-ordered'; chapter-end; exercises);
+            > p {
+              #content>#list>.itemtext('review-ordered'; chapter-end; exercises);
+            }
+          }
+        }
+      }
+    }
+  }
   &.further-exploration {
     #part>#chapter-end>#further-exploration>.style();
-    .body p { #part>#chapter-end>#further-exploration>#item>.style(); }
-    .body ul li {
-      #content>#list>.style (any; any; further-exploration);
+    > div.title > span {
+      #part>#chapter-end>#further-exploration>#title>.style();
     }
-    > .title { #part>#chapter-end>#further-exploration>#title>.style(); }
-    > .section .title > a { #part>#chapter-end>#further-exploration>#title>.link(); }
-  }
-
-  &.group-activities {
-    counter-reset: group-activities;
-    ol {
-      #content>#list>.style(any; any; group-activities);
-    }
-    div.section {
-     &.empty {display: none;}
-     div.section {
-      &:before {
-        display: inline;
-        float: left;
-        font-weight: bold;
-        margin-top: 6px;
-        padding-right: 5px;
-        content: counter(group-activities)". ";
-        counter-increment: group-activities;
-        font-family: @font-family-serif
+    > .section {
+      > div.title { display: none; }
+      > div.body > div.section {
+        #part>#chapter-end>#further-exploration>#section>.style();
       }
-     }
-     .title {display: none;}
-      &.empty {display: none}
+      > div.body div.titlepage h4 {
+        #part>#chapter-end>#further-exploration>#section>#title>.style();
+      }
+      div.titlepage h5 { display: none; }
     }
-    #part>#chapter-end>#group-activities>.style();
-    > .title { #part>#chapter-end>#group-activities>#title>.style(); }
-    > .section .title > a { #part>#chapter-end>#group-activities>#title>.link(); }
   }
-
-  &.review-questions {
-    #part>#chapter-end>#review-questions>.style();
-     > .title { #part>#chapter-end>#review-questions>#title>.style(); }
-     > .section .title > a { #part>#chapter-end>#review-questions>#title>.link(); }
+}
+div.abstract {
+  display: none;
+}
+div.book div > div.section > div.section.learning-objectives {
+  > div.titlepage > div > div > h3 {
+    #part>#chapter>#learning-objectives>#titlepage>.style();
   }
-
-  &.thought-questions  {
-    #part>#chapter-end>#thought-questions >.style();
-    > .title { #part>#chapter-end>#thought-questions>#title>.style(); }
-    > .section .title > a { #part>#chapter-end>#thought-questions>#title>.link(); }
+  .itemizedlist > ul {
+    #part>#chapter>#learning-objectives>#list>.style();
   }
+  .listitem {
+    #part>#chapter>#learning-objectives>#list>#listitem>.style();
 
-  &.figuring-for-yourself  {
-    #part>#chapter-end>#figuring-for-yourself >.style();
-    > .title { #part>#chapter-end>#figuring-for-yourself>#title>.style(); }
-    > .section .title > a { #part>#chapter-end>#figuring-for-yourself>#title>.link(); }
+    p { margin-bottom: 0; }
   }
 }
 
-.note img {max-width: 6in;}
+div.book > div.appendix > div.section > div.titlepage {
+  #content>#section>#title>.style(any; appendix);
+  &::before {
+    #content>#section>#title>.number(any; appendix);
+  }
+  span.cnx-gentext-t {
+    #content>#section>#title>.text(any; appendix);
+  }
+  span.cnx-gentext-autogenerated:first-of-type {
+    #content>#section>#title>.label(any; appendix);
+  }
+}
 
-.inlinemediaobject img{
-  #content>#image>.style(any; 'inline');
+div.appendix {
+  div.itemizedlist, div.orderedlist {
+    ul, ol {
+      list-style: none;
+      margin: 0 0 0 30px;
+      li {
+        #content>#list>.item(any; appendix);
+      }
+    }
+  }
+}
+
+div.colophon.end-of-book-solutions {
+  div.chapter-area div.solution div.body img {display:block; margin: 0 auto;}
+  div.orderedlist > ol.orderedlist {
+    #content>#list>.style('answer-key'; book-end; solution);
+    > li.listitem {
+      #content>#list>.item('answer-key'; book-end; solution);
+      p {
+        #content>#list>.itemtext('answer-key'; book-end; solution);
+      }
+    }
+  }
+}
+
+.preface, .chapter .introduction, .appendix {
+  > p {
+    .line-height();
+  }
 }
