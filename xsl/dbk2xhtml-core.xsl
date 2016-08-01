@@ -369,20 +369,24 @@
         </xsl:call-template>
       </h2>
 
-      <xsl:comment>START: solutions that don't have a cnx.eoc processing instruction</xsl:comment>
+      <xsl:comment>START: solutions that don't have a processing instruction</xsl:comment>
       <!-- Since they're in the content they should occur BEFORE all the other solutions -->
       <xsl:variable name="instructions">
         <xsl:for-each select="$context//processing-instruction('cnx.eoc')">
           <xsl:value-of select="."/>
           <xsl:text> | </xsl:text>
         </xsl:for-each>
+        <xsl:for-each select="$context//processing-instruction('cnx.answers')">
+          <xsl:value-of select="."/>
+          <xsl:text> | </xsl:text>
+        </xsl:for-each>
       </xsl:variable>
       <xsl:for-each select="$context//ext:exercise">
-        <xsl:if test="not(contains($instructions, @class))">
+        <xsl:if test="not(contains($instructions, ancestor-or-self::node()/@class))">
           <xsl:apply-templates select="./ext:solution"/>
         </xsl:if>
       </xsl:for-each>
-      <xsl:comment>END: solutions that don't have a cnx.eoc processing instruction</xsl:comment>
+      <xsl:comment>END: solutions that don't have a processing instruction</xsl:comment>
 
       <xsl:comment>START: solutions ordered by cnx.answers processing instruction</xsl:comment>
       <xsl:for-each select=".//processing-instruction('cnx.answers')">
