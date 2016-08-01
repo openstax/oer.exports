@@ -3552,6 +3552,7 @@ subfigure {
   font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: black;
   font-size: 9.23076923px;
+  content: string(cnx-figure-title);
 }
 .figure > .caption {
   display: inline;
@@ -3577,6 +3578,7 @@ subfigure {
   font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: black;
   font-size: 9.23076923px;
+  content: string(cnx-figure-title);
 }
 .figure img {
   margin: 0;
@@ -5449,6 +5451,9 @@ div.book div > div.section > div.section.learning-objectives .listitem::marker {
 div.book div > div.section > div.section.learning-objectives .listitem p {
   margin-bottom: 0;
 }
+.figure > .title {
+  string-set: cnx-figure-title content();
+}
 div.book > div.appendix > div.section > div.titlepage {
   page-break-after: avoid;
   font-weight: bold;
@@ -5564,6 +5569,18 @@ div.book div.chapter .table:not(labeled).unnumbered {
 }
 div.book div.chapter div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before,
 div.book div.appendix div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before {
+  display: none !important;
+}
+/* -------------------------
+ * Figures
+ * -------------------------
+ */
+div.book div.chapter .figure.unnumbered,
+div.book div.chapter .figure:not(.labeled).unnumbered {
+  counter-increment: none !important;
+}
+div.book div.chapter div.figure:not(.labeled).unnumbered > .caption:not(.labeled)::before,
+div.book div.appendix div.figure:not(.labeled).unnumbered > .caption:not(.labeled)::before {
   display: none !important;
 }
 /* -------------------------
