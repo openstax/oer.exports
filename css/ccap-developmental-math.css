@@ -2152,7 +2152,7 @@ div.table table caption {
   color: #D7562C;
   padding-bottom: 11px;
   color: #093D4C;
-  font-size: 8.46153846px;
+  font-size: 10px;
 }
 div.table table caption::before {
   font-weight: bold;
@@ -3033,6 +3033,7 @@ div.colophon.end-of-book-solutions .chapter-area > h2.title a.chapter span {
   font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   display: block;
   margin-bottom: 7.5px;
+  page-break-after: avoid;
 }
 div.colophon.end-of-book-solutions .chapter-area > h2.title a.chapter {
   page-break-before: avoid;
@@ -3049,6 +3050,7 @@ div.colophon.end-of-book-solutions .chapter-area > div.review-exercises::before 
   display: block;
   margin-bottom: 7.5px;
   content: "Review Exercises";
+  page-break-after: avoid;
 }
 div.colophon.end-of-book-solutions .chapter-area > div.practice-test::before {
   color: black;
@@ -3058,6 +3060,7 @@ div.colophon.end-of-book-solutions .chapter-area > div.practice-test::before {
   display: block;
   margin-bottom: 7.5px;
   content: "Practice Test";
+  page-break-after: avoid;
 }
 div.colophon.end-of-book-solutions .chapter-area > div.try::before {
   color: black;
@@ -3067,6 +3070,7 @@ div.colophon.end-of-book-solutions .chapter-area > div.try::before {
   display: block;
   margin-bottom: 7.5px;
   content: "Try It";
+  page-break-after: avoid;
 }
 div.colophon.end-of-book-solutions .chapter-area > div.try div.solution > div.title a.solution::before {
   content: target-counter(attr(href), chapter) "." target-counter(attr(href), try);
@@ -3079,6 +3083,7 @@ div.colophon.end-of-book-solutions .chapter-area > div.section-exercises::before
   display: block;
   margin-bottom: 7.5px;
   content: "Section Exercises";
+  page-break-after: avoid;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution {
   width: 2.16666667in;
@@ -3514,6 +3519,7 @@ subfigure {
   font-weight: bold;
   page-break-after: avoid;
   color: #093D4C;
+  font-size: 11px;
 }
 .example > .title span::before {
   background-color: #093D4C;
@@ -3816,6 +3822,7 @@ cnx.eoc .key-concepts div.orderedlist ol li {
 .appendix .mediaobject img {
   display: block;
   margin: auto;
+  margin-bottom: 1em;
 }
 .chapter .example .mediaobject img,
 .appendix .example .mediaobject img,
@@ -4694,6 +4701,7 @@ div.colophon.end-of-book-solutions .chapter-area > div.checkpoint::before {
   font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   display: block;
   margin-bottom: 7.5px;
+  page-break-after: avoid;
   content: "Checkpoint";
 }
 div.colophon.end-of-book-solutions .chapter-area > div.checkpoint div.solution > div.title a.solution::before {
@@ -4706,6 +4714,7 @@ div.colophon.end-of-book-solutions .chapter-area > div.quick-check::before {
   font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   display: block;
   margin-bottom: 7.5px;
+  page-break-after: avoid;
   content: "Quick Check";
 }
 div.colophon.end-of-book-solutions .chapter-area > div.quick-check div.solution > div.title a.solution::before {
@@ -4872,6 +4881,37 @@ div.book div.chapter div.table:not(.labeled).unnumbered > table > caption:not(.l
 div.book div.appendix div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before {
   display: none !important;
 }
+/* -------------------------
+ * Figures
+ * -------------------------
+ */
+div.book div.chapter .figure.unnumbered,
+div.book div.chapter .figure:not(.labeled).unnumbered {
+  counter-increment: none !important;
+}
+div.book div.chapter div.figure:not(.labeled).unnumbered > .caption:not(.labeled)::before,
+div.book div.appendix div.figure:not(.labeled).unnumbered > .caption:not(.labeled)::before {
+  display: none !important;
+}
+div.table table td.text-align-left {
+  text-align: left;
+}
+div.table table td.text-align-center {
+  text-align: center;
+}
+div.table table td.text-align-right {
+  text-align: right;
+}
+div.table table td.text-align-left > .mediaobject,
+div.table table td.text-align-center > .mediaobject,
+div.table table td.text-align-right > .mediaobject {
+  line-height: 0px;
+}
+div.table table td.text-align-left > .mediaobject > img,
+div.table table td.text-align-center > .mediaobject > img,
+div.table table td.text-align-right > .mediaobject > img {
+  display: inline-block;
+}
 div[class="note"] div.table table th {
   background-color: #D7562C;
 }
@@ -4897,8 +4937,65 @@ div[class="note"]::after {
 .example.multiple-solution .exercise .solution > .title {
   content: "Solution (" counter(multiple-solution-example-solutions, lower-latin) ")";
 }
+div.note > div.body > div.mediaobject {
+  padding: 0;
+  padding: 10px;
+}
 div.book div.chapter > div.section div.example.multiple-solution div.exercise div.solution {
   counter-increment: multiple-solution-example-solutions !important;
+}
+div.section.section-exercises > div.section.practice-perfect > div.exercise {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  margin-top: 0;
+  width: 31%;
+  min-width: initial;
+}
+div.section.section-exercises > div.section.everyday > div.exercise {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  margin-top: 0;
+  width: 48%;
+  min-width: initial;
+}
+div.section.section-exercises > div.section.writing > div.exercise {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  margin-top: 0;
+  width: 48%;
+  min-width: initial;
+}
+div.cnx-eoc.practice-test > div.section div.exercise {
+  margin-top: 1.5em;
+  width: 29%;
+  min-width: initial;
+  display: inline-block;
+  vertical-align: text-top;
+  margin-bottom: 1.5em;
+  margin-top: 0;
+  padding-right: 16.5px;
+}
+div.cnx-eoc.review-exercises > div.section div.exercise {
+  margin-top: 1.5em;
+  width: 29%;
+  min-width: initial;
+  display: inline-block;
+  vertical-align: text-top;
+  margin-bottom: 1.5em;
+  margin-top: 0;
+  padding-right: 16.5px;
+}
+.chapter div.figure div.mediaobject > img,
+.appendix div.figure div.mediaobject > img {
+  margin: auto;
+}
+.example > .title > span > span.cnx-gentext-example.cnx-gentext-t {
+  display: inline-table;
+  width: 80%;
+  padding-left: 5px;
+  color: #1E7E91;
+  font-weight: normal;
+  font-family: 'Roboto Slab', serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 /* -------------------------
  * Table of Contents

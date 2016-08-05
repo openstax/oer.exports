@@ -2883,7 +2883,7 @@ g line {
  ******************************************************/
 div.book div.preface div.section,
 div.book div.preface div.section div.section {
-  margin-bottom: 0;
+  margin-bottom: 18px;
 }
 div.book div.preface > .titlepage h1.title {
   padding-left: .25em;
@@ -3660,11 +3660,23 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
 .chapter .note.link-to-learning .mediaobject img {
   margin: 0;
 }
+div.book div.preface div.section .titlepage + .section {
+  margin-top: 0.5em;
+}
+div.book div.preface div.section > p + div.section {
+  margin-top: 18px;
+}
+div.book div.preface > p + .section {
+  margin-top: 18px;
+}
 /********************************************************************
  * Styling for Learning Objectives Box
  ********************************************************************/
 .section > .titlepage .abstract {
   display: none;
+}
+div.book div.chapter > div.section > p + div.section {
+  margin-top: 22px;
 }
 .chapter > .section.module > .section.learning-objectives {
   margin: 1em 0em;
@@ -3800,6 +3812,18 @@ div.book div.chapter .table:not(labeled).unnumbered {
 }
 div.book div.chapter div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before,
 div.book div.appendix div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before {
+  display: none !important;
+}
+/* -------------------------
+ * Figures
+ * -------------------------
+ */
+div.book div.chapter .figure.unnumbered,
+div.book div.chapter .figure:not(.labeled).unnumbered {
+  counter-increment: none !important;
+}
+div.book div.chapter div.figure:not(.labeled).unnumbered > .caption:not(.labeled)::before,
+div.book div.appendix div.figure:not(.labeled).unnumbered > .caption:not(.labeled)::before {
   display: none !important;
 }
 .cnx-eoc p {

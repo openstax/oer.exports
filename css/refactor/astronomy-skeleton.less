@@ -1,13 +1,3 @@
-// .book > .toc {
-//     ul > .toc-chapter {
-//         > ul {
-//
-//         }
-//         .toc-section {
-//             .scale-padding(2, line-height);
-//         }
-//     }
-// }
 div.itemizedlist, div.orderedlist {
   ul, ol {
     li {
@@ -51,21 +41,28 @@ div.book > div.chapter > div.titlepage {
   }
 }
 .chapter > .introduction > .figure.splash {
-  //height: 4.3in;
+  position: relative;
+
+  &::before {
+    background: transparent url('ccap-astronomy/folio-bg.png') 0 0 repeat-x;
+    background-size: 100% 122px;
+    height: 122px;
+    width: 8.5in;
+    display: block;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -1in;
+    right: -1in;
+  }
 
   div.mediaobject {
     border-left: none;
     height: 4.53in;
     position: relative;
-    //overflow: hidden;
 
     &::before {
-      height: 4px;
-      background-color: @secondary-color;
-      bottom: 70px;
-      width: 100%;
-      left: 0;
-      right: 0;
+      display: none;
     }
 
     &::after {
@@ -78,6 +75,7 @@ div.book > div.chapter > div.titlepage {
       right: 0;
       height: 70px;
       background-color: @quinary-color;
+      border-top: 4px solid rgba(60 ,39, 71, .5);
     }
 
     img {
@@ -91,6 +89,7 @@ div.book > div.chapter > div.titlepage {
     .cnx-gentext-n {
       #content>#list>.number('unordered'; introduction; chapter-outline);
     }
+
     // overide hyperlink medium blue color
     .toc-section .cnx-gentext-t {
       color: @tertiary-color;
@@ -154,10 +153,10 @@ div.book > div.chapter > div.titlepage {
       > div.title { display: none; }
       > div.body {
         div.problem::before {
-          #content > #problem > .style('review-question-number'; chapter-end; exercises);
+          #content>#problem>.style('review-question-number'; chapter-end; exercises);
         }
         div.problem > p {
-          #content > #problem > .item('review-question'; chapter-end; exercises);
+          #content>#problem>.item('review-question'; chapter-end; exercises);
         }
         div.orderedlist > ol.orderedlist {
           #content>#list>.style('review-ordered'; chapter-end; exercises);
@@ -180,11 +179,17 @@ div.book > div.chapter > div.titlepage {
       > div.title { display: none; }
       > div.body > div.section {
         #part>#chapter-end>#further-exploration>#section>.style();
+        > div.section {
+          &:not(:last-child) { margin-bottom: 10px; }
+        }
+        > div.titlepage + div.section { margin-top: 10px; }
       }
       > div.body div.titlepage h4 {
         #part>#chapter-end>#further-exploration>#section>#title>.style();
       }
-      div.titlepage h5 { display: none; }
+      div.titlepage h5 {
+        #part>#chapter-end>#further-exploration>#section>#subtitle>.style();
+      }
     }
   }
 }
@@ -201,8 +206,16 @@ div.book div > div.section > div.section.learning-objectives {
   .listitem {
     #part>#chapter>#learning-objectives>#list>#listitem>.style();
 
+    &::marker {
+      #part>#chapter>#learning-objectives>#list>#listitem>.marker();
+    }
+
     p { margin-bottom: 0; }
   }
+}
+
+.figure > .title {
+  string-set: cnx-figure-title content();
 }
 
 div.book > div.appendix > div.section > div.titlepage {
@@ -219,14 +232,16 @@ div.book > div.appendix > div.section > div.titlepage {
 }
 
 div.appendix {
-  div.itemizedlist, div.orderedlist {
-    ul, ol {
-      list-style: none;
+  div.itemizedlist,
+  div.orderedlist {
+    ul,
+    ol {
       margin: 0 0 0 30px;
-      li {
-        #content>#list>.item(any; appendix);
-      }
+      .line-height();
     }
+  }
+  div.itemizedlist ul .listitem::marker {
+    #content>#list>.marker(any; appendix);
   }
 }
 
@@ -247,4 +262,30 @@ div.colophon.end-of-book-solutions {
   > p {
     .line-height();
   }
+}
+
+div.table table {
+  thead tr:last-of-type th:first-child {
+    #content>#table>#header>#title>.style('first'; any);
+  }
+  thead tr:last-of-type th:last-child {
+    #content>#table>#header>#title>.style('last'; any);
+  }
+}
+
+.book > .toc .toc-chapter .cnx-gentext-chapter.cnx-gentext-t {
+  #content>#link>.text('chapter'; any; toc);
+}
+
+.book > .toc > ul > li.toc-appendix > a.target-appendix::before {
+  #part>#toc>#chapter>.number('appendix'; any; toc);
+}
+
+div.book > div.appendix > div.section div.equation:not(.labeled).unnumbered {
+  counter-increment: none !important;
+}
+
+div.book div.appendix > div.section div.equation.unnumbered > *:last-child::after,
+div.book div.appendix > div.section div.equation.unnumbered > *:last-child::before {
+  display: none !important;
 }
