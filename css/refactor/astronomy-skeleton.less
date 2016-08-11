@@ -58,7 +58,7 @@ div.book > div.chapter > div.titlepage {
 
   div.mediaobject {
     border-left: none;
-    height: 4.53in;
+    height: 4.3in;
     position: relative;
 
     &::before {
@@ -80,7 +80,7 @@ div.book > div.chapter > div.titlepage {
 
     img {
       width: 8.5in;
-      height: 4.53in;
+      height: 3.58in;
     }
   }
 }
@@ -132,10 +132,10 @@ div.book > div.chapter > div.titlepage {
       }
       > div.body {
         #part>#chapter-end>#group-activities>#section>#body>.style();
-        div.orderedlist > ol.orderedlist {
+        div.orderedlist > ol.orderedlist,
+        div.itemizedlist > ul.itemizedlist {
           #content>#list>.style('ordered', chapter-end, group-activities);
           > li.listitem {
-            #content>#list>.item('ordered', chapter-end, group-activities);
             > p {
               #content>#list>.itemtext('ordered', chapter-end, group-activities);
             }
@@ -288,4 +288,10 @@ div.book > div.appendix > div.section div.equation:not(.labeled).unnumbered {
 div.book div.appendix > div.section div.equation.unnumbered > *:last-child::after,
 div.book div.appendix > div.section div.equation.unnumbered > *:last-child::before {
   display: none !important;
+}
+
+.chapter, .appendix {
+  .figure.small {
+    #content>#figure>.style('small'; any);
+  }
 }

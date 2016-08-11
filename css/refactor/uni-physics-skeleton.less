@@ -2,6 +2,23 @@
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
 
+.section > .titlepage {
+  .abstract {
+    .itemizedlist {
+      .listitem {
+        #part>#chapter>#learning-objectives>#listitem>.style();
+        p {
+          display: inline-block;
+          vertical-align: text-top;
+        }
+        &::before {
+          #part>#chapter>#learning-objectives>#before>.style();
+        }
+      }
+    }
+  }
+}
+
 div.example {
   > div.body {
     > div.mediaobject {
@@ -44,6 +61,10 @@ div.example {
     & > div.section > div.title {
       display: none;
     }
+  }
+
+  &.key-equations div.table {
+    #content>#table>.style('key-equations'; eoc);
   }
 }
 

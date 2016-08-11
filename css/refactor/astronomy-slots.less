@@ -29,6 +29,7 @@
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
   padding: 0;
+  box-sizing: border-box;
 
   &::before {
     display: table-caption;
@@ -153,19 +154,25 @@
         left: 0;
         right: 0;
         width: 8.5in;
-        height: 3.53in;
+        height: 3.5in;
         color: @tertiary-color;
         .font-scale(2);
       }
       .number() {
+        font-family: @font-family;
         top: auto;
         left: 0;
         bottom: 52px;
         background-color: white;
         border-radius: 50%;
-        padding: 8px 15px;
         min-width: 0;
         min-height: 0;
+        width: 45px;
+        height: 45px;
+        padding-top: 0;
+        border: none;
+        display: block;
+        line-height: 45px;
         color: @secondary-color;
       }
       .text() {
@@ -191,7 +198,7 @@
   }
   #introduction {
     .style() {
-      margin-top: -1in;
+      margin-top: -0.80in;
     }
     #title {
       .style() {
@@ -567,15 +574,14 @@
     }
     .style('ordered', chapter-end, group-activities) {
       margin-left: 23px;
+      .line-height();
       font-weight: bold;
     }
-    .item('ordered', chapter-end, group-activities) {
-      margin-bottom: 1em;
-    }
+    .item('ordered', chapter-end, group-activities) {}
     .itemtext('ordered', chapter-end, group-activities) {
       margin-left: 0px;
       font-weight: normal;
-      display: inline;
+      margin-bottom: 1em;
     }
   }
   #image {
@@ -667,6 +673,9 @@
       margin-left: .20em;
       font-size: 16px;
     }
+    .style('target-figure'; any) {
+      color: @link-color;
+    }
   }
   #list {
     .style('chapter'; any; toc) {
@@ -720,6 +729,12 @@
     }
   }
   #figure {
+    .style(...) {
+      width: 100%;
+    }
+    .style('small'; any) {
+      width: initial;
+    }
     .style('splash'; chapter) {
       transform: translate3d(-1in, 0, 0);
     }
