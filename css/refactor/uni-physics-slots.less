@@ -16,6 +16,8 @@
 @cnx-string-review-conceptual-questions: "Conceptual Questions";
 @cnx-string-review-problems: "Problems";
 @cnx-string-review-challenge: "Challenge Problems";
+@cnx-string-review-additional-problems: "Additional Problems";
+
 
 .x-solutions-subheading-style() {
   margin-top: 7.5px;
@@ -24,6 +26,20 @@
 }
 
 #part {
+  #chapter {
+    #learning-objectives {
+      #listitem {
+        .style() {
+          display: list-item;
+        }
+      }
+      #before {
+        .style() {
+          display: none;
+        }
+      }
+    }
+  }
   #chapter-end {
     #title {
       .style(...) {
@@ -59,6 +75,10 @@
           .x-solutions-subheading-style();
           content: @cnx-string-review-problems;
         }
+        .style(additional-problems) {
+          .x-solutions-subheading-style();
+          content: @cnx-string-review-additional-problems;
+        }
         .style(review-challenge) {
           .x-solutions-subheading-style();
           content: @cnx-string-review-challenge;
@@ -68,6 +88,22 @@
   }
 }
 #content {
+  #media-object {
+    .style(any; example) {
+      text-align: center;
+    }
+    .style('list-item'; example) {
+      text-align: center;
+    }
+  }
+  #image {
+    .style(any; example) {
+      display: inline-block;
+    }
+    .style('list-item'; example) {
+      display: inline-block;
+    }
+  }
   #note {
     .style(equation-callout) {
       #content>#note>.style(problem-solving);
@@ -85,6 +121,12 @@
   #table {
     .style(any; any) {
       border: none;
+    }
+    .style('key-equations'; eoc) {
+      #utils>#pb>.inside(auto);
+    }
+    .style(any; chapter; chapter-end; key-equations) {
+      #utils>#pb>.inside(auto);
     }
     #header {
       .style(any; any) {

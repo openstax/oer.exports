@@ -137,7 +137,7 @@
         }
       }
       #list {
-        .style(){
+        .style() {
         margin: 0 40px;
         }
       }
@@ -727,7 +727,7 @@
       }
       .style(any; preface) {}
       .style(any; preface; section) {}
-      .style(any; appendix){
+      .style(any; appendix) {
         #part>#module>#title>.style();
       }
       .number(any; appendix) {
@@ -869,9 +869,14 @@
         display: none;
       }
       .style(@kind; @part; section-exercise) {
+        display: inline;
+        padding-right: .5em;
         content: counter(exercise) ".";
-        float: left;
-  padding-right: .5em;
+      }
+    }
+    #body {
+      .style(@kind; @part; section-exercise) {
+        display: inline;
       }
     }
   }
@@ -881,6 +886,12 @@
      font-size:13px;
      line-height:16px;
      margin-left:20px;
+    }
+    .style(@kind; @part; section-exercise) {
+      display: inline;
+    }
+    .text(@kind; @part; section-exercise) {
+      display: inline;
     }
     .number(@kind; chapter-end; ...) {
       padding-right: .5em;
@@ -939,7 +950,6 @@
         display: inline;
         word-spacing: normal;
         text-align: left;
-        vertical-align: text-top;
         // Solution in Answer Key needs to have period after number.
         &::after {
           content: ". ";
@@ -963,7 +973,6 @@
       .style(@kind, book-end) {
         margin-right: .65em;
         word-spacing: normal;
-        vertical-align: middle;
         display: inline;
         // will need to change - include in .body mixin for now
         > a.target-figure {
@@ -1151,7 +1160,7 @@
       padding-bottom: 0;
       //#utils>#pb>.inside(auto);
     }
-    .style('splash'; chapter){
+    .style('splash'; chapter) {
       margin-bottom: 15px;
     }
     .style(any; chapter-end; exercise) {

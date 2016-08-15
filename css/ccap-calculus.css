@@ -1034,6 +1034,18 @@ div.book div.chapter div.table:not(.labeled).unnumbered > table > caption:not(.l
 div.book div.appendix div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before {
   display: none !important;
 }
+/* -------------------------
+ * Figures
+ * -------------------------
+ */
+div.book div.chapter .figure.unnumbered,
+div.book div.chapter .figure:not(.labeled).unnumbered {
+  counter-increment: none !important;
+}
+div.book div.chapter div.figure:not(.labeled).unnumbered > .caption:not(.labeled)::before,
+div.book div.appendix div.figure:not(.labeled).unnumbered > .caption:not(.labeled)::before {
+  display: none !important;
+}
 @page {
   margin: 0.8in 1in;
   font-size: xx-small;
@@ -2704,7 +2716,6 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.title {
   display: inline;
   word-spacing: normal;
   text-align: left;
-  vertical-align: text-top;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.title::after {
   content: ". ";
@@ -2715,7 +2726,6 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.title::after
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body {
   margin-right: .65em;
   word-spacing: normal;
-  vertical-align: middle;
   display: inline;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div,
@@ -2980,9 +2990,18 @@ subfigure {
   page-break-inside: avoid;
 }
 .section.section-exercises .exercise > .title {
-  content: counter(exercise) ".";
-  float: left;
+  display: inline;
   padding-right: .5em;
+  content: counter(exercise) ".";
+}
+.section.section-exercises .exercise > .body {
+  display: inline;
+}
+.section.section-exercises .exercise > .body .problem {
+  display: inline;
+}
+.section.section-exercises .exercise > .body .problem p {
+  display: inline;
 }
 .section.section-exercises .exercise .problem .figure {
   font-size: xx-small;

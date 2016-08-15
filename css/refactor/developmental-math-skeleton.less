@@ -2,6 +2,23 @@
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
 
+div.table table td {
+  &.text-align-left { text-align: left;}
+  &.text-align-center { text-align: center; }
+  &.text-align-right { text-align: right; }
+  &.text-align-left,
+  &.text-align-center,
+  &.text-align-right {
+    > .mediaobject {
+      line-height: 0px;
+      > img { display: inline-block; }
+    }
+    > .inlinemediaobject {
+      > img { display: inline; }
+    }
+  }
+}
+
 div[class="note"] {
   div.table {
     table {
@@ -31,8 +48,54 @@ div[class="note"] {
   }
 }
 
+div.note > div.body > div.mediaobject {
+  #content>#note>#body>.style(note-image);
+}
 
 // Override needlessly long base numbering selector...
 div.book div.chapter > div.section div.example.multiple-solution div.exercise div.solution {
   #content>#solution>.style(any; any; example; multiple-solution; exercise) !important;
+}
+
+div.section.section-exercises {
+  > div.section.practice-perfect {
+    > div.exercise {
+      #content>#exercise>.style(any; any; practice-perfect);
+    }
+  }
+  > div.section.everyday {
+    > div.exercise {
+      #content>#exercise>.style(any; any; everyday);
+    }
+  }
+  > div.section.writing {
+    > div.exercise {
+      #content>#exercise>.style(any; any; writing);
+    }
+  }
+}
+
+div.cnx-eoc.practice-test {
+  > div.section {
+    div.exercise {
+      #content>#exercise>.style(any; any; practice-test);
+    }
+  }
+}
+
+div.cnx-eoc.review-exercises {
+  > div.section {
+    div.exercise {
+      #content>#exercise>.style(any; any; review-exercises);
+    }
+  }
+}
+
+.chapter div.figure div.mediaobject > img,
+.appendix div.figure div.mediaobject > img {
+  #content>#image>.style("figure", chapter);
+}
+
+.example > .title > span > span.cnx-gentext-example.cnx-gentext-t {
+  #content>#example>#title>.style('indented');
 }

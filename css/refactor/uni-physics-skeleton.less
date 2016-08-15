@@ -2,6 +2,40 @@
 // This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 // See LICENSE.txt for details.
 
+.section > .titlepage {
+  .abstract {
+    .itemizedlist {
+      .listitem {
+        #part>#chapter>#learning-objectives>#listitem>.style();
+        p {
+          display: inline-block;
+          vertical-align: text-top;
+        }
+        &::before {
+          #part>#chapter>#learning-objectives>#before>.style();
+        }
+      }
+    }
+  }
+}
+
+div.example {
+  > div.body {
+    > div.mediaobject {
+      #content>#media-object>.style(any; example);
+      > img {
+        #content>#image>.style(any; example);
+      }
+    }
+    > div.orderedlist > ol.orderedlist > li.listitem > div.mediaobject {
+      #content>#media-object>.style('list-item'; example);
+      > img {
+        #content>#image>.style('list-item'; example);
+      }
+    }
+  }
+}
+
 .note {
   &.equation-callout {
     @context: equation-callout;
@@ -15,12 +49,22 @@
   }
 }
 
+.cnx-svg {
+  svg {
+    max-width: 6.5in;
+  }
+}
+
 .cnx-eoc {
   &.review-challenge,
   &.review-additional-problems {
     & > div.section > div.title {
       display: none;
     }
+  }
+
+  &.key-equations div.table {
+    #content>#table>.style('key-equations'; eoc);
   }
 }
 
@@ -48,6 +92,11 @@ div.colophon.end-of-book-solutions .chapter-area {
   > div.review-problems {
     &::before {
       #part>#book-end>#end-of-book-solutions>#title>.style(review-problems);
+    }
+  }
+  > div.review-additional-problems {
+    &::before {
+      #part>#book-end>#end-of-book-solutions>#title>.style(additional-problems);
     }
   }
   > div.review-challenge {

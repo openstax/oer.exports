@@ -143,6 +143,10 @@
     #end-of-book-solutions {
       #title {
         .style() { color: @secondary-color; }
+        .style('try-it') { page-break-after: avoid; }
+        .style('section-exercises') { page-break-after: avoid; }
+        .style('review-exercises') { page-break-after: avoid; }
+        .style('practice-test') { page-break-after: avoid; }
       }
     }
     #end-of-book-references {
@@ -167,6 +171,14 @@
   }
 }
 #content {
+  #image {
+    .style(any; chapter) {
+      margin-bottom: 1em;
+    }
+    .style("figure", chapter) {
+      margin: auto;
+    }
+  }
   #table {
     #header {
       .style(any; any) {
@@ -180,7 +192,7 @@
     #caption {
       .style(any; any) {
         color: @primary-color;
-        .font-scale(-1);
+        font-size: 10px;
       }
     }
     #data {
@@ -194,12 +206,51 @@
     #title {
       .style(any) {
         color: @dark-blue;
+        .font-scale(0);
+      }
+      .style('indented') {
+        display: inline-table;
+        width: 80%;
+        padding-left: 5px;
+        color: @secondary-color;
+        font-weight: normal;
+        font-family: @font-family-serif;
       }
     }
   }
   #exercise {
     .style(any; any; example; multiple-solution) {
       counter-reset: exercise multiple-solution-example-solutions;
+    }
+    .style(any; any; practice-test) {
+      width: 29%;
+      min-width: initial;
+      display: inline-block;
+      vertical-align: text-top;
+      margin-bottom: 1.5em;
+      margin-top: 0;
+      padding-right: 16.5px;
+    }
+    .style(any; any; review-exercises) {
+      width: 29%;
+      min-width: initial;
+      display: inline-block;
+      vertical-align: text-top;
+      margin-bottom: 1.5em;
+      margin-top: 0;
+      padding-right: 16.5px;
+    }
+    .style(any; any; practice-perfect) {
+      width: 31%;
+      min-width: initial;
+    }
+    .style(any; any; everyday) {
+      width: 48%;
+      min-width: initial;
+    }
+    .style(any; any; writing) {
+      width: 48%;
+      min-width: initial;
     }
   }
   #solution {
@@ -315,6 +366,9 @@
       .style(non-feature) {
         color: @primary-color;
       }
+      .style(note-image) {
+        padding: 10px;
+      }
       .style(@kind; @part; feature-links-to-literacy) {
         .accented-feature-body();
       }
@@ -377,6 +431,9 @@
       color: @secondary-color;
       .eoc-subsection-title();
     }
+    .style('target-figure'; any; any) {
+      color: @tertiary-color;
+    }
   }
   #list {
     .style('unordered'; introduction; chapter-outline) {
@@ -403,4 +460,3 @@
     }
   }
 }
-

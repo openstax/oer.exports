@@ -2490,6 +2490,7 @@ div.book div > div.section > div.section > div.section div.titlepage > div > div
   margin: auto;
   margin: 0;
   border: none !important;
+  page-break-inside: auto;
 }
 .cnx-eoc.key-equations > div.section > div.body table caption {
   display: none;
@@ -2695,7 +2696,6 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.title {
   display: inline;
   word-spacing: normal;
   text-align: left;
-  vertical-align: text-top;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.title::after {
   content: ". ";
@@ -2706,7 +2706,6 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.title::after
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body {
   margin-right: .65em;
   word-spacing: normal;
-  vertical-align: middle;
   display: inline;
 }
 div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div,
@@ -2971,9 +2970,18 @@ subfigure {
   page-break-inside: avoid;
 }
 .section.section-exercises .exercise > .title {
-  content: counter(exercise) ".";
-  float: left;
+  display: inline;
   padding-right: .5em;
+  content: counter(exercise) ".";
+}
+.section.section-exercises .exercise > .body {
+  display: inline;
+}
+.section.section-exercises .exercise > .body .problem {
+  display: inline;
+}
+.section.section-exercises .exercise > .body .problem p {
+  display: inline;
 }
 .section.section-exercises .exercise .problem .figure {
   font-size: xx-small;
@@ -4016,6 +4024,40 @@ div.book div.chapter div.table:not(.labeled).unnumbered > table > caption:not(.l
 div.book div.appendix div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before {
   display: none !important;
 }
+/* -------------------------
+ * Figures
+ * -------------------------
+ */
+div.book div.chapter .figure.unnumbered,
+div.book div.chapter .figure:not(.labeled).unnumbered {
+  counter-increment: none !important;
+}
+div.book div.chapter div.figure:not(.labeled).unnumbered > .caption:not(.labeled)::before,
+div.book div.appendix div.figure:not(.labeled).unnumbered > .caption:not(.labeled)::before {
+  display: none !important;
+}
+.section > .titlepage .abstract .itemizedlist .listitem {
+  display: list-item;
+}
+.section > .titlepage .abstract .itemizedlist .listitem p {
+  display: inline-block;
+  vertical-align: text-top;
+}
+.section > .titlepage .abstract .itemizedlist .listitem::before {
+  display: none;
+}
+div.example > div.body > div.mediaobject {
+  text-align: center;
+}
+div.example > div.body > div.mediaobject > img {
+  display: inline-block;
+}
+div.example > div.body > div.orderedlist > ol.orderedlist > li.listitem > div.mediaobject {
+  text-align: center;
+}
+div.example > div.body > div.orderedlist > ol.orderedlist > li.listitem > div.mediaobject > img {
+  display: inline-block;
+}
 .note.equation-callout {
   padding-left: 1em;
   padding-right: 1em;
@@ -4051,9 +4093,17 @@ div.book div.appendix div.table:not(.labeled).unnumbered > table > caption:not(.
 .note.check-understanding .figure img {
   max-width: 6.25in;
 }
+.cnx-svg svg {
+  max-width: 6.5in;
+}
 .cnx-eoc.review-challenge > div.section > div.title,
 .cnx-eoc.review-additional-problems > div.section > div.title {
   display: none;
+}
+.cnx-eoc.key-equations div.table {
+  page-break-inside: avoid;
+  margin: auto;
+  page-break-inside: auto;
 }
 div.table div.caption {
   font-weight: normal;
@@ -4096,6 +4146,18 @@ div.colophon.end-of-book-solutions .chapter-area > div.review-problems::before {
   color: #528CBE;
   text-transform: uppercase;
   content: "Problems";
+}
+div.colophon.end-of-book-solutions .chapter-area > div.review-additional-problems::before {
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  display: block;
+  margin-bottom: 7.5px;
+  margin-top: 7.5px;
+  color: #528CBE;
+  text-transform: uppercase;
+  content: "Additional Problems";
 }
 div.colophon.end-of-book-solutions .chapter-area > div.review-challenge::before {
   color: black;
