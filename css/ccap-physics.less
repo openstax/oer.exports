@@ -33,6 +33,8 @@
 @light-green: #F1F6E6;
 @chapter-outline: "Chapter Outline";
 
+
+
 // Hide the end-of-chapter solutions
 .chapter > .cnx-eoc.cnx-solutions { display: none; }
 
@@ -69,7 +71,11 @@ h2 {
     font-weight: normal;
     margin-bottom: 0em;
   }
-
+  .toc-preface.preface,
+  .toc-appendix.appendix {
+    page-break-after: avoid;
+    page-break-before: avoid;
+  }
   a { color: @blue; }
 
   //strip out 'Chapter' and '.' from toc-chapter
@@ -303,11 +309,20 @@ p + .example {
   > .title {
     margin-bottom: 1em;
   }
+  .section {
+    page-break-after: auto;
+    page-break-before: auto;
+  }
   .section .title {
     padding-top: 0;
     a { color: @blue; }
     page-break-after: avoid;
+    //page-break-before: avoid;
+  }
+  .title + .empty {
     page-break-before: avoid;
+    page-break-after: avoid;
+    display: hidden;
   }
   &.problems-exercises {
     .x-column-count(2);
