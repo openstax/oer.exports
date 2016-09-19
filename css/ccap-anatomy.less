@@ -55,6 +55,11 @@
 /******************************************************
  * Book Table of Contents
   ******************************************************/
+.book > .toc .toc-preface.preface,
+.book > .toc .toc-appendix.appendix {
+  page-break-after: avoid;
+  page-break-before: avoid;
+}
 .book > .toc {
   > .title { border-bottom-color: @orange; }
   a { color: @teal; }
@@ -243,7 +248,7 @@ div.part > div.titlepage { display:none; }
 
   &.solutions  { display: none !important; }
 
-  .empty {
+  .title + .empty {
     display: hidden; //hide element but count it   *didn't use visibility property which would cause element to still take up space on page
     page-break-before: avoid;
     page-break-after: avoid;
