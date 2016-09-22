@@ -28,6 +28,8 @@
 <!-- It is '1' by default. -->
 <xsl:param name="html.cleanup" select="1"/>
 
+<!-- every term is included in the index, even if it occurs multiple times in a section -->
+<xsl:param name="index.links.to.section" select="0"/>
 
 <xsl:param name="generate.toc">
 appendix  toc,title
