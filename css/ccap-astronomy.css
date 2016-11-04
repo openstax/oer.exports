@@ -4889,6 +4889,18 @@ div.book div.preface > div.section > div.section {
 div.book div.preface > p + .section {
   margin-top: 18px;
 }
+div.book div.preface .figure > .caption::before {
+  color: #D7562C;
+  font-weight: bold;
+  text-align: left;
+  margin-right: .5em;
+  font-size: 10px;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  color: black;
+  font-size: 9.23076923px;
+  content: "Figure " counter(chapter, decimal) "." counter(figure) " " string(cnx-figure-title);
+  content: "Figure 1" "." counter(figure) " " string(cnx-figure-title);
+}
 .chapter > .introduction {
   margin-top: -0.8in;
   margin-top: -0.925in;
@@ -5727,12 +5739,6 @@ div.book div.index div.title h2 {
 }
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "Chapter " counter(chapter, decimal) "\0020\0020\0020" content();
-}
-div.book div.preface {
-  counter-increment: chapter 1;
-}
-div.book div.chapter {
-  counter-increment: chapter 0;
 }
 .chapter > .introduction > .figure.splash {
   width: 8.75in;
