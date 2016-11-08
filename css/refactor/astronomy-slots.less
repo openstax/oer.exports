@@ -758,7 +758,12 @@
       .number() {
         color: black;
         .font-scale(-1);
-        content: string(cnx-figure-title);
+        content: "Figure " counter(chapter, decimal) "." counter(figure) " " string(cnx-figure-title);
+      }
+      .number('preface'; any) {
+        .number();
+        // Override numbering for preface figures
+        content: "Figure " counter(figure) " " string(cnx-figure-title);
       }
     }
     #body {

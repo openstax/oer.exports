@@ -3606,7 +3606,7 @@ subfigure {
   font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: black;
   font-size: 9.23076923px;
-  content: string(cnx-figure-title);
+  content: "Figure " counter(chapter, decimal) "." counter(figure) " " string(cnx-figure-title);
 }
 .figure > .caption {
   display: inline;
@@ -3632,7 +3632,7 @@ subfigure {
   font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   color: black;
   font-size: 9.23076923px;
-  content: string(cnx-figure-title);
+  content: "Figure " counter(chapter, decimal) "." counter(figure) " " string(cnx-figure-title);
 }
 .figure img {
   margin: 0;
@@ -4800,6 +4800,13 @@ div.colophon.end-of-book-solutions .chapter-area div.solution > div.body div.fig
   margin-bottom: 1.5em;
   margin-top: 0;
 }
+.section.section-exercises .exercise.material-set-2 {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  margin-top: 0;
+  width: 48%;
+  min-width: initial;
+}
 /******************************************************
  * Element numbering bugfix.
  *
@@ -4888,6 +4895,18 @@ div.book div.preface > div.section > div.section {
 }
 div.book div.preface > p + .section {
   margin-top: 18px;
+}
+div.book div.preface .figure > .caption::before {
+  color: #D7562C;
+  font-weight: bold;
+  text-align: left;
+  margin-right: .5em;
+  font-size: 10px;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  color: black;
+  font-size: 9.23076923px;
+  content: "Figure " counter(chapter, decimal) "." counter(figure) " " string(cnx-figure-title);
+  content: "Figure " counter(figure) " " string(cnx-figure-title);
 }
 .chapter > .introduction {
   margin-top: -0.8in;
@@ -5523,7 +5542,7 @@ div.book div > div.section > div.section.learning-objectives .listitem::marker {
 div.book div > div.section > div.section.learning-objectives .listitem p {
   margin-bottom: 0;
 }
-.figure > .title {
+.figure > .title span.cnx-gentext-t {
   string-set: cnx-figure-title content();
 }
 div.book > div.appendix > div.section > div.titlepage {
