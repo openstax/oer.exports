@@ -1116,25 +1116,29 @@ g {
  @part: any;
 
 
-.example div[class="note"] {
+.example div.note {
   #content>#note>.style(non-feature; any; example);
   > .title { #content>#note>#title>.style(non-feature; any; example); }
   > .body {
     #content>#note>#body>.style(non-feature; any; example);
   }
 }
-div[class="note"] {
-  #content>#note>.style(non-feature);
-  > .title { #content>#note>#title>.style(non-feature); }
-  > .body {
-    #content>#note>#body>.style(non-feature);
+.preface,
+.chapter,
+.appendix {
+  div.note {
+    #content>#note>.style(non-feature);
+    > .title { #content>#note>#title>.style(non-feature); }
+    > .body {
+      #content>#note>#body>.style(non-feature);
+    }
   }
 }
 .note {
   > .body {
     #content>#note>#body>.style(non-feature);
 
-    p { padding: 7px 10px; }
+    p { #content>#paragraph>.style(any; any; note); }
   }
   &.links-to-literacy {
     @context: feature-links-to-literacy;
