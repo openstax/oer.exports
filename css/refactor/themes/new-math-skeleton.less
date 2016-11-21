@@ -1123,18 +1123,22 @@ g {
     #content>#note>#body>.style(non-feature; any; example);
   }
 }
-div[class="note"] {
-  #content>#note>.style(non-feature);
-  > .title { #content>#note>#title>.style(non-feature); }
-  > .body {
-    #content>#note>#body>.style(non-feature);
+.preface,
+.chapter,
+.appendix {
+  div[class="note"] {
+    #content>#note>.style(non-feature);
+    > .title { #content>#note>#title>.style(non-feature); }
+    > .body {
+      #content>#note>#body>.style(non-feature);
+    }
   }
 }
 .note {
   > .body {
     #content>#note>#body>.style(non-feature);
 
-    p { padding: 7px 10px; }
+    p { #content>#paragraph>.style(any; any; note); }
   }
   &.links-to-literacy {
     @context: feature-links-to-literacy;
