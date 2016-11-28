@@ -45,6 +45,7 @@ class Test_collectiondbk2pdf(unittest.TestCase):
                              "-p", PRINCE_PATH,
                              "-d", join(INPUT_DIR, COLLECTION),
                              "-s", STYLE,
+                             "--sax_threads=1",
                              join(OUTPUT_DIR, "test_results.pdf")]
         start_time = time.time()
         collectiondbk2pdf.main(cls.setup_command[1:])

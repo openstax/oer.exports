@@ -213,8 +213,11 @@ def main(argv=None):
     parser.add_argument('-p', dest='pdfgen', help='Path to a PDF generation script', nargs='?', type=argparse.FileType('r'))
     parser.add_argument('-t', dest='temp_dir', help='Path to store temporary files to (default is a temp dir that will be removed)', nargs='?')
     parser.add_argument('-r', dest='reduce_quality', help='Reduce image quality', action='store_true')
+    parser.add_argument('--sax_threads', type=int, default = 1)
+
     parser.add_argument('output_pdf', help='Path to write the PDF file', nargs='?', type=argparse.FileType('w'), default=sys.stdout)
     args = parser.parse_args(argv)
+    module2dbk.SAX_TOTAL_THREADS = args.sax_threads
 
     if not os.path.isdir(args.collection_dir) or not os.path.isfile(os.path.join(args.collection_dir, 'collection.xml')):
       print >> sys.stderr, "collection_dir Must point to a directory containing a collection.xml file"
