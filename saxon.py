@@ -25,16 +25,6 @@ class Saxon:
         if not os.path.isfile(math2svg_path):
              raise IOError("File: %s not found" % (math2svg_path,))
 
-        self.compile_cmd = "javac -cp %s SaxonTransformWrapper.java" % (
-            os.path.basename(saxon_path),)
-        self.process = subprocess.Popen(self.compile_cmd.split(),
-                                        stdin=subprocess.PIPE,
-                                        stdout=subprocess.PIPE,
-                                        stderr=subprocess.PIPE,
-                                        close_fds=True,
-                                        cwd=os.path.dirname(saxon_path))
-        self.process.wait()
-
         saxon_class_path = os.path.join(os.path.dirname(
             saxon_path), "SaxonTransformWrapper.class")
         if not os.path.isfile(saxon_class_path):
