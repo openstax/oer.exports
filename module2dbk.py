@@ -252,6 +252,7 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
       makeTransform('cnxml-clean-math.xsl'),
       makeTransform('cnxml-clean-math-simplify.xsl'),   # Convert "simple" MathML to cnxml
       makeTransform('cnxml2dbk.xsl'),   # Convert to docbook
+      expand_exercises,  # Fetch exercises and convert contained latex math
       mathml2svg,
       makeTransform('dbk-clean.xsl'),
       imageResize, # Resizing is done before svg2png because svg2png uses a reduced color depth
