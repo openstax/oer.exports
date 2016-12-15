@@ -53,6 +53,8 @@ This will set up the virtual environment in your terminal (all packages are not 
     easy_install install numpy wand     # for unittests
     pip install python-memcached        # for svg caching
     pip install hashlib                 # for svg caching
+    pip install jinja2==2.6             # for exercise template insertion
+    pip install demjson==1.6            # for exercise template insertion
 
 Once you run these steps, every time you open a terminal you will need to run `source bin/activate`.
 
