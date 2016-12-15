@@ -21,6 +21,9 @@ import util
 from saxon import Saxon
 import memcache
 import hashlib
+
+from cnxepub.formatters import exercise_callback_factory
+
 sax = None
 mc = None
 parser = etree.XMLParser(recover=True)
@@ -36,6 +39,9 @@ DOCBOOK_SVG_IMAGE_XPATH = etree.XPath('//db:imagedata[svg:svg]',
 DOCBOOK_SVG_XPATH = etree.XPath('svg:svg', namespaces=util.NAMESPACES)
 DOCBOOK_IMAGE_XPATH = etree.XPath('//db:imagedata[@fileref]',
                                   namespaces=util.NAMESPACES)
+
+DEFAULT_EXERCISES_HOST = 'exercises.openstax.org'
+DEFAULT_MATHMLCLOUD_URL = 'http://mathmlcloud.cnx.org:1337/equation/'
 
 # -----------------------------
 # Transform Structure:
@@ -89,6 +95,23 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
     # params are XPaths so strings need to be quoted
     params = {'cnx.module.id': "'%s'" % moduleId, 'cnx.svg.chunk': 'false'}
     params.update(collParams)
+
+    def expand_exercises(xml, files, **params):
+        """Finds magic hrefs, and expands them by fetching from exercises server"""
+        exercise_host = DEFAULT_EXERCISES_HOST
+        mml_url = DEFAULT_MATHMLCLOUD_URL
+        exercise_token = None
+        exercise_url = 'https://%s/api/exercises?q=tag:{itemCode}' % (exercise_host)
+        exercise_match = '#ost/api/ex/'
+        to_replace, replace_exercise = exercise_callback_factory(exercise_match,
+                                                                 exercise_url,
+                                                                 exercise_token,
+                                                                 mml_url)
+
+        for exercise in to_replace(xml):
+            replace_exercise(exercise)
+
+        return xml, {}, [] # xml, newFiles, log messages
 
     def mathml2svg(xml, files, **params):
         try:
