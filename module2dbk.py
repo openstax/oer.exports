@@ -15,6 +15,11 @@ except:
 from StringIO import StringIO
 import subprocess
 
+import urllib
+import urllib2
+
+import demjson as json
+import jinja2
 from lxml import etree
 import util
 
@@ -22,7 +27,6 @@ from saxon import Saxon
 import memcache
 import hashlib
 
-from cnxepub.formatters import exercise_callback_factory
 
 sax = None
 mc = None
@@ -62,27 +66,108 @@ def extractLog(entries):
     """ Takes in an etree.xsl.error_log and returns a list of dicts (JSON) """
     log = []
     for entry in entries:
-    # Entries are of the form:
-    # {'level':'ERROR','id':'id1234','msg':'Descriptive message'}
+        # Entries are of the form:
+        # {'level':'ERROR','id':'id1234','msg':'Descriptive message'}
         text = entry.message
         if text:
             print >> sys.stderr, text.encode('utf-8')
-        #try:
-        #    dict = json.loads(text)
-        #    errors.append(dict)
-        #except ValueError:
+        # try:
+        #     dict = json.loads(text)
+        #     errors.append(dict)
+        # except ValueError:
         log.append({
-          u'level':u'CRITICAL',
-          u'id'   :u'(none)',
-          u'msg'  :unicode(text) })
+          u'level': u'CRITICAL',
+          u'id': u'(none)',
+          u'msg': unicode(text)})
+
 
 def makeTransform(file):
     xsl = util.makeXsl(file)
+
     def t(xml, files, **params):
         xml = xsl(xml, **params)
         errors = extractLog(xsl.error_log)
         return xml, {}, errors
     return t
+
+
+def _replace_tex_math(node, mml_url, retry=0):
+    """call mml-api service to replace TeX math in body of node with mathml"""
+
+    data = urllib.urlencode({'math': node.text,
+                             'mathType': 'TeX',
+                             'mml': 'true'})
+    req = urllib2.Request(mml_url, data)
+    resp = urllib2.urlopen(req)
+    retry += 1
+    if str(resp.code)[0] in ('2', '3'):
+        eq = json.decode(resp.read())
+        if 'components' in eq and len(eq['components']) > 0:
+            for component in eq['components']:
+                if component['format'] == 'mml':
+                    mml = etree.fromstring(component['source'])
+            if node.tag.endswith('span'):
+                mml.set('display', 'inline')
+            elif node.tag.endswith('div'):
+                mml.set('display', 'block')
+            mml.tail = node.tail
+            return mml
+        else:
+            print >> sys.stderr, ('LOG: WARNING: Retrying TeX conversion:  %s'
+                                  % (json.dumps(eq, indent=4)))
+            if retry < 2:
+                return _replace_tex_math(node, mml_url, retry)
+
+    else:
+        return None
+
+
+def exercise_callback_factory(match, url_template, token=None, mml_url=None):
+    """Create a callback function to replace an exercise by fetching from
+    a server."""
+
+    def _replace_exercises(elem):
+        item_code = elem.get('url')[len(match):]
+        url = url_template % (item_code)
+        if token:
+            headers = {'Authorization': 'Bearer %s' % (token)}
+            req = urllib2.Request(url, headers=headers)
+        else:
+            req = urllib2.Request(url)
+        resp = urllib2.urlopen(req)
+        if str(resp.code)[0] in ('2', '3'):
+            # grab the json exercise, run it through Jinja2 template,
+            # replace element w/ it
+            exercise = json.decode(resp.read())
+            if exercise['total_count'] == 0:
+                print >> sys.stderr, ('WARNING: MISSING EXERCISE: %s' % url)
+                nodes = []
+            else:
+                html = EXERCISE_TEMPLATE.render(data=exercise)
+                try:
+                    nodes = etree.fromstring('<div>%s</div>' % (html))
+                except etree.XMLSyntaxError:  # Probably HTML
+                    nodes = etree.HTML(html)[0]  # body node
+
+                if mml_url:
+                    for node in nodes.xpath('//*[@data-math]'):
+                        mathml = _replace_tex_math(node, mml_url)
+                        if mathml is not None:
+                            mparent = node.getparent()
+                            mparent.replace(node, mathml)
+
+            parent = elem.getparent()
+            if etree.QName(parent.tag).localname == 'p':
+                elem = parent
+                parent = elem.getparent()
+
+            parent.remove(elem)  # Special case - assumes single wrapper elem
+            for child in nodes:
+                parent.append(child)
+
+    xpath = '//db:link[contains(@url, "%s")]' % (match)
+    return (xpath, _replace_exercises)
+
 
 # Main method. Doing all steps for the Google Docs to CNXML transformation
 def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2svg=True, reduce_quality=False):
@@ -101,13 +186,14 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
         exercise_host = DEFAULT_EXERCISES_HOST
         mml_url = DEFAULT_MATHMLCLOUD_URL
         exercise_token = None
-        exercise_url = 'https://%s/api/exercises?q=tag:{itemCode}' % (exercise_host)
+        exercise_url = 'https://%s/api/exercises?q=tag:' % (exercise_host) + '%s'
         exercise_match = '#ost/api/ex/'
-        to_replace, replace_exercise = exercise_callback_factory(exercise_match,
+        xpath, replace_exercise = exercise_callback_factory(exercise_match,
                                                                  exercise_url,
                                                                  exercise_token,
                                                                  mml_url)
 
+        to_replace = etree.XPath(xpath, namespaces=util.NAMESPACES)
         for exercise in to_replace(xml):
             replace_exercise(exercise)
 
@@ -258,7 +344,7 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
       imageResize, # Resizing is done before svg2png because svg2png uses a reduced color depth
       svg2pngTransform,
       makeTransform('dbk-svg2png.xsl'), # Clean up the image attributes
-  #    dbk2xhtml,
+      # dbk2xhtml,
     ]
 
     newFiles = {}
@@ -287,5 +373,23 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
     #with open(os.path.join(temp_dir,'%s.dbk' % moduleId), 'w') as f:
     #  f.write(newFiles['index.standalone.dbk'])
 
-
     return etree.tostring(xml), newFiles
+
+EXERCISE_TEMPLATE = jinja2.Template("""\
+{% if data['items'].0.questions %}
+    {% for question in data['items'].0.questions %}
+        <div>{{ question.stem_html }}</div>
+        {% if 'multiple-choice' in question.formats %}
+            {% if question.answers %}
+            <ol data-number-style="lower-alpha">
+                {% for answer in question.answers %}
+                    <li{% if 'correctness' in answer
+                        %} data-correctness={{ answer.correctness }}{%
+                    endif %}>{{ answer.content_html }}</li>
+                {% endfor %}
+            </ol>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+""",  trim_blocks=True, lstrip_blocks=True)
