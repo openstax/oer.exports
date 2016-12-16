@@ -99,8 +99,12 @@ def _replace_tex_math(node, mml_url, retry=0):
                                  'mathType': 'TeX',
                                  'mml': 'true'})
         req = urllib2.Request(mml_url, data)
-        resp = urllib2.urlopen(req)
-        retry += 1
+        try:
+            retry += 1
+            resp = urllib2.urlopen(req)
+        except urllib2.HTTPError:
+            return None
+
         if str(resp.code)[0] in ('2', '3'):
             eq = json.decode(resp.read())
             if 'components' in eq and len(eq['components']) > 0:
