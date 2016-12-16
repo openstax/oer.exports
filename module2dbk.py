@@ -94,32 +94,32 @@ def makeTransform(file):
 def _replace_tex_math(node, mml_url, retry=0):
     """call mml-api service to replace TeX math in body of node with mathml"""
 
-    data = urllib.urlencode({'math': node.text.encode('utf-8'),
-                             'mathType': 'TeX',
-                             'mml': 'true'})
-    req = urllib2.Request(mml_url, data)
-    resp = urllib2.urlopen(req)
-    retry += 1
-    if str(resp.code)[0] in ('2', '3'):
-        eq = json.decode(resp.read())
-        if 'components' in eq and len(eq['components']) > 0:
-            for component in eq['components']:
-                if component['format'] == 'mml':
-                    mml = etree.fromstring(component['source'])
-            if node.tag.endswith('span'):
-                mml.set('display', 'inline')
-            elif node.tag.endswith('div'):
-                mml.set('display', 'block')
-            mml.tail = node.tail
-            return mml
-        else:
-            print >> sys.stderr, ('LOG: WARNING: Retrying TeX conversion:  %s'
-                                  % (json.dumps(eq, indent=4)))
-            if retry < 2:
-                return _replace_tex_math(node, mml_url, retry)
+    if node.text is not None:
+        data = urllib.urlencode({'math': node.text.encode('utf-8'),
+                                 'mathType': 'TeX',
+                                 'mml': 'true'})
+        req = urllib2.Request(mml_url, data)
+        resp = urllib2.urlopen(req)
+        retry += 1
+        if str(resp.code)[0] in ('2', '3'):
+            eq = json.decode(resp.read())
+            if 'components' in eq and len(eq['components']) > 0:
+                for component in eq['components']:
+                    if component['format'] == 'mml':
+                        mml = etree.fromstring(component['source'])
+                if node.tag.endswith('span'):
+                    mml.set('display', 'inline')
+                elif node.tag.endswith('div'):
+                    mml.set('display', 'block')
+                mml.tail = node.tail
+                return mml
+            else:
+                print >> sys.stderr, ('LOG: WARNING: Retry TeX conversion: %s'
+                                      % (json.dumps(eq, indent=4)))
+                if retry < 2:
+                    return _replace_tex_math(node, mml_url, retry)
 
-    else:
-        return None
+    return None
 
 
 def exercise_callback_factory(match, url_template, token=None, mml_url=None):
