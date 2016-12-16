@@ -94,7 +94,7 @@ def makeTransform(file):
 def _replace_tex_math(node, mml_url, retry=0):
     """call mml-api service to replace TeX math in body of node with mathml"""
 
-    data = urllib.urlencode({'math': node.text,
+    data = urllib.urlencode({'math': node.text.encode('utf-8'),
                              'mathType': 'TeX',
                              'mml': 'true'})
     req = urllib2.Request(mml_url, data)
@@ -374,6 +374,7 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
     #  f.write(newFiles['index.standalone.dbk'])
 
     return etree.tostring(xml), newFiles
+
 
 EXERCISE_TEMPLATE = jinja2.Template("""\
 {% if data['items'].0.questions %}
