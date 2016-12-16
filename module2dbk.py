@@ -378,10 +378,10 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
 EXERCISE_TEMPLATE = jinja2.Template("""\
 {% if data['items'].0.questions %}
     {% for question in data['items'].0.questions %}
-        <div>{{ question.stem_html }}</div>
+        <div xmlns="http://www.w3.org/1999/xhtml">{{ question.stem_html }}</div>
         {% if 'multiple-choice' in question.formats %}
             {% if question.answers %}
-            <ol data-number-style="lower-alpha">
+            <ol data-number-style="lower-alpha" xmlns="http://www.w3.org/1999/xhtml">
                 {% for answer in question.answers %}
                     <li{% if 'correctness' in answer
                         %} data-correctness={{ answer.correctness }}{%
@@ -392,4 +392,4 @@ EXERCISE_TEMPLATE = jinja2.Template("""\
         {% endif %}
     {% endfor %}
 {% endif %}
-""",  trim_blocks=True, lstrip_blocks=True)
+""",  trim_blocks=True)
