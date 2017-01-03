@@ -4,7 +4,7 @@ Initialize RhaptosPrint Product
 Author: Ed Woodward and J. Cameron Cooper
 Copyright (C) 2009 Rice University. All Rights Reserved.
 
-This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+
 See LICENSE.txt for details.
 """
 

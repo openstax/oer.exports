@@ -2,7 +2,6 @@
 
 # Copyright (c) 2013 Rice University
 #
-# This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 # See LICENSE.txt for details.
 
 CNX_OR_RHAPTOS=$1
@@ -113,14 +112,14 @@ XMLVALIDATE="xmllint"
 
 # Skip validation by just replacing all entities with &amp;
 ($XMLVALIDATE --nonet --noout $CNXML 2>&1) > $WORKING_DIR/__err.txt
-if [ -s $WORKING_DIR/__err.txt ]; then 
+if [ -s $WORKING_DIR/__err.txt ]; then
 
   # Try again, but load the DTD this time (and replace the cnxml file)
   echo "Failed without DTD. Trying with DTD" 1>&2
   cat $WORKING_DIR/__err.txt
   CNXML_NEW=$CNXML.new.xml
   ($XMLVALIDATE --loaddtd --noent --dropdtd --output $CNXML_NEW $CNXML 2>&1) > $WORKING_DIR/__err.txt
-  if [ -s $WORKING_DIR/__err.txt ]; then 
+  if [ -s $WORKING_DIR/__err.txt ]; then
     echo "LOG: ERROR: Invalid cnxml doc" 1>&2
     cat $WORKING_DIR/__err.txt 1>&2
       exit 1
@@ -130,7 +129,7 @@ fi
 #rm $WORKING_DIR/__err.txt
 
 
-# Use the auto-upgraded cnxml file, otherwise index.cnxml is at the current version 
+# Use the auto-upgraded cnxml file, otherwise index.cnxml is at the current version
 if [ -s $CNXML_UPGRADED ]; then
   cp $CNXML_UPGRADED $CNXML1
 else

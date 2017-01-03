@@ -2,7 +2,6 @@
 
 # Copyright (c) 2013 Rice University
 #
-# This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 # See LICENSE.txt for details.
 
 # 1st arg is the path to the collection
@@ -65,10 +64,10 @@ do
 
         echo "LOG: --------- Starting on Module $MODULE ------------"
         $XSLTPROC --xinclude -o $DOCBOOK2 $DOCBOOK_CLEANUP_XSL $DOCBOOK
-        
+
         $XSLTPROC -o $UNALIGNED $DOCBOOK2FO_XSL $DOCBOOK2  2> $COL_PATH/$MODULE/_err.log
         $XSLTPROC -o $COL_PATH/$MODULE/$FO $ALIGN_XSL $UNALIGNED 2> /dev/null
-        
+
         # Change to the collection dir so the relative paths to images work
         cd $COL_PATH/$MODULE
         $FOP $FO $PDF > _fop.log 2> _fop.err.log
