@@ -211,4 +211,4 @@ class Progress(object):
     # Discard the top-most message since it will never change
     if len(msg) > 1:
       msg = msg[1:]
-    print >> sys.stderr, "STATUS: %d%% %s" % (percent * 100, ': '.join(msg))
+    print >> sys.stderr, "STATUS: %3.2f%% %s" % (percent * 100, ': '.join(msg))
