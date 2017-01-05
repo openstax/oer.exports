@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" xmlns:db="http://docbook.org/ns/docbook" xmlns:d="http://docbook.org/ns/docbook" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:ext="http://cnx.org/ns/docbook+" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" xmlns:db="http://docbook.org/ns/docbook" xmlns:d="http://docbook.org/ns/docbook" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:ext="http://cnx.org/ns/docbook+" version="1.0">
 
 <xsl:import href="debug.xsl"/>
 <xsl:import href="../docbook-xsl/xhtml-1_1/docbook.xsl"/>
@@ -79,6 +79,13 @@ procedure before
     <xsl:apply-templates select="node()"/>
   </span>
   <xsl:if test="following-sibling::d:glossterm">, </xsl:if>
+</xsl:template>
+
+<!-- pass through xhtml -->
+<xsl:template match="xhtml:*|xhtml:*/@*">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
 </xsl:template>
 
 </xsl:stylesheet>
