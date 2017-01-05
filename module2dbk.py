@@ -198,9 +198,9 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
         exercise_url = 'https://%s/api/exercises?q=tag:' % (exercise_host) + '%s'
         exercise_match = '#ost/api/ex/'
         xpath, replace_exercise = exercise_callback_factory(exercise_match,
-                                                                 exercise_url,
-                                                                 exercise_token,
-                                                                 mml_url)
+                                                            exercise_url,
+                                                            exercise_token,
+                                                            mml_url)
 
         to_replace = etree.XPath(xpath, namespaces=util.NAMESPACES)
         for exercise in to_replace(xml):
@@ -238,10 +238,10 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
                     unprocessed[mathml_key] = mathml
 
             if len(unprocessed) > 0:
-                mathml_str_list = [ etree.tostring(mathml) for mathml in unprocessed.values() ]
+                mathml_str_list = [etree.tostring(mathml) for mathml in unprocessed.values()]
                 mathml_tree_str = "<root>" + ''.join(mathml_str_list) + "</root>"
                 mathml_svg_tree_str = sax.convert(mathml_tree_str)
-                mathml_svg_tree = etree.parse(StringIO(mathml_svg_tree_str),parser)
+                mathml_svg_tree = etree.parse(StringIO(mathml_svg_tree_str), parser)
                 root = mathml_svg_tree.getroot()
                 mathml_svg_list = root.getchildren()
                 for  mathml_key, expected_mathml in unprocessed.items():
