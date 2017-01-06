@@ -1,5 +1,5 @@
 """
-Copyright (c) 2013 Rice University
+Copyright (c) 2013 - 2017 Rice University
 
 This software is subject to the provisions of the
 GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
@@ -93,6 +93,7 @@ def makeTransform(file):
 
 def _replace_tex_math(node, mml_url, retry=0):
     """call mml-api service to replace TeX math in body of node with mathml"""
+
     math = node.attrib['data-math'] or node.text
     if math is None:
         return None
@@ -147,7 +148,12 @@ def exercise_callback_factory(match, url_template, token=None, mml_url=None):
             exercise = json.decode(resp.read())
             if exercise['total_count'] == 0:
                 print >> sys.stderr, ('WARNING: MISSING EXERCISE: %s' % url)
-                nodes = []
+                XHTML = '{%s}' % util.NAMESPACES['xhtml']
+                missing = etree.Element(XHTML + 'div',
+                                        {'class': 'missing-exercise'},
+                                        nsmap=util.NAMESPACES)
+                missing.text = 'MISSING EXERCISE: tag:{}'.format(item_code)
+                nodes = [missing]
             else:
                 html = EXERCISE_TEMPLATE.render(data=exercise)
                 try:
