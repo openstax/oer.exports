@@ -1,0 +1,257 @@
+// Copyright (c) 2014 Rice University
+// This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
+// See LICENSE.txt for details.
+
+// .section > .titlepage {
+//   .abstract {
+//     .itemizedlist {
+//       .listitem {
+//         #part>#chapter>#learning-objectives>#listitem>.style();
+//         p {
+//           display: inline-block;
+//           vertical-align: text-top;
+//         }
+//         &::before {
+//           #part>#chapter>#learning-objectives>#before>.style();
+//         }
+//       }
+//     }
+//   }
+// }
+  .note.learning-objectives {
+    #part>#chapter>#section-objectives> .style();
+    .title {
+      #part>#chapter>#section-objectives> #title>.style();
+    }
+    .itemizedlist {
+      .listitem {
+        #part>#chapter>#section-objectives>#listitem>.style();
+        p {
+          display: inline-block;
+          vertical-align: text-top;
+        }
+        &::before {
+          #part>#chapter>#section-objectives>#before>.style();
+        }
+      }
+    }
+    .body {
+      #part>#chapter>#section-objectives>#body>.style()
+    }
+  }
+div.example {
+  > div.body {
+    > div.mediaobject {
+      #content>#media-object>.style(any; example);
+      > img {
+        #content>#image>.style(any; example);
+      }
+    }
+    > div.orderedlist > ol.orderedlist > li.listitem > div.mediaobject {
+      #content>#media-object>.style('list-item'; example);
+      > img {
+        #content>#image>.style('list-item'; example);
+      }
+    }
+  }
+}
+div.table.key-terms {
+  padding-bottom: 1em;
+  > table {
+    margin: initial;
+    width: 55%;
+
+    > caption {
+      caption-side: top;
+      color: @medium-blue;
+      font-size: 20px;
+      padding-bottom: 0.5em;
+    }
+    td {
+      padding-left: 0;
+    }
+  }
+}
+.os-practice-concepts, .os-practice-problems, .cnx-eoc .os-teacher {
+  #content>#note>.style(non-feature);
+  .titlepage h3, .titlepage h4 {
+    font-weight: 100 !important;
+    font-size: 20px !important;
+    padding-bottom: 0.5em;
+  }
+
+  .exercise {
+    .title {
+      font-weight: bold;
+    }
+  }
+ .note.os-teacher {
+    margin: 0;
+  }
+}
+.performance {
+  .x-column-count(1);
+}
+.note {
+  img {
+    max-width: 100%;
+  }
+  .problem > .note:not(.os-teacher) {
+    padding: 0;
+   .title {
+      border-bottom: none;
+     color: black;
+    }
+  }
+  &.equation-callout {
+    @context: equation-callout;
+    #content>#note>.style(equation-callout);
+      > .title {
+        #content>#note>#title>.style(@kind; @part; @context);
+    }
+  }
+
+  &.os-teacher {
+    .feature-style ("Teacher Support");
+  }
+    &.tips-for-success {
+    .feature-style ("Tips for Success");
+  }
+  &.worked-example {
+      .feature-style ("Worked Example");
+  }
+  &.boundless-physics {
+    .feature-style ("Boundless Physics");
+  }
+
+  &.watch-physics {
+    .feature-style ("Watch Physics");
+  }
+    &.work-in-physics  {
+      .feature-style ("Work in  Physics");
+  }
+  &.virtual-physics {
+    .feature-style ("Virtual Physics");
+  }
+  &.snap-lab {
+    .feature-style ("Snap Lab");
+  }
+  &.links-to-physics {
+    .feature-style ("Links to Physics");
+  }
+  &.fun-in-physics {
+    .feature-style ("Fun in Physics");
+  }
+  &.ost-misconception {
+    .feature-style ("Misconception Alert");
+  }
+
+  &.ost-teacher-demonstration {
+        &::before {
+           content: "Teacher Demonstration";
+           font-size: 16px;
+      }
+      background: @light-blue;
+  }
+  .body {
+    #content>#note>#body>.style();
+    padding-top: 0;
+  }
+}
+
+.cnx-svg {
+  svg {
+    max-width: 6.5in;
+  }
+}
+
+.cnx-eoc {
+&.concept {
+  &::before {
+    content: "Chapter Review";
+    font-size: 24px;
+    font-weight: bold;
+    text-transform:  uppercase;
+    color: @medium-blue;
+    padding-bottom: 1em;
+  }
+}
+&.multiple-choice {
+  &::before {
+    content: "Test Prep";
+    font-size: 24px;
+    font-weight: bold;
+    text-transform:  uppercase;
+     color: @medium-blue;
+     padding-bottom: 1em;
+  }
+}
+  &.key-equations div.table {
+    #content>#table>.style('key-equations'; eoc);
+  }
+}
+
+div.table {
+  div.caption {
+    #content>#table>#caption>.style()
+  }
+}
+
+.chapter .table {
+  #utils>#pb>.inside(auto);
+}
+
+// // Check your understanding solutions
+// div.colophon.end-of-book-solutions .chapter-area {
+//   > div.check-understanding {
+//     &::before {
+//       #part>#book-end>#end-of-book-solutions>#title>.style(check-understanding);
+//     }
+//     div.solution > div.title a.solution::before {
+//       content: target-counter(attr(href), chapter) "." target-counter(attr(href), check-understanding);
+//     }
+//   }
+//   > div.review-conceptual-questions {
+//     &::before {
+//       #part>#book-end>#end-of-book-solutions>#title>.style(review-conceptual-questions);
+//     }
+//   }
+//   > div.review-problems {
+//     &::before {
+//       #part>#book-end>#end-of-book-solutions>#title>.style(review-problems);
+//     }
+//   }
+//   > div.review-additional-problems {
+//     &::before {
+//       #part>#book-end>#end-of-book-solutions>#title>.style(additional-problems);
+//     }
+//   }
+//   > div.review-challenge {
+//     &::before {
+//       #part>#book-end>#end-of-book-solutions>#title>.style(review-challenge);
+//     }
+//   }
+// }
+
+
+// Numbering
+div.book div.chapter .check-understanding:not(.labeled) {
+  counter-increment: check-understanding;
+}
+div.book div.chapter .check-understanding > .title:not(.labeled)::before {
+  content: "" counter(chapter, decimal) "." counter(check-understanding) " "
+}
+
+// EOC Review
+div.book > div.part > div.chapter,
+div.book > div.chapter {
+  .cnx-eoc > .title {
+    #part>#chapter-end>#title>.style('concept'; chapter);
+    > span {
+      #part>#chapter-end>#title>.style('chapter-review'; chapter; title);
+    }
+  }
+  .cnx-eoc .section > .title {
+    #part>#chapter-end>#title>.style('chapter-review'; chapter; section; title);
+  }
+}
