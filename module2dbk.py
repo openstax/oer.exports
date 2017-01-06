@@ -168,7 +168,7 @@ def exercise_callback_factory(match, url_template, token=None, mml_url=None):
                             mparent = node.getparent()
                             mparent.replace(node, mathml)
                         else:
-                            mathtext = node.text or ''
+                            mathtext = node.get('data-math') or node.text or ''
                             print >> sys.stderr, ('WARNING: BAD TEX CONVERSION: "%s" URL: %s'
                                                   % (mathtext.encode('utf-8'), url))
 
