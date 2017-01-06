@@ -81,7 +81,10 @@ procedure before
   <xsl:if test="following-sibling::d:glossterm">, </xsl:if>
 </xsl:template>
 
-<!-- pass through xhtml -->
+<!-- delete missing exercises -->
+<xsl:template match="ext:exercise[.//*[@class='missing-exercise']]"/>
+
+<!-- pass through other xhtml -->
 <xsl:template match="xhtml:*|xhtml:*/@*">
   <xsl:copy>
     <xsl:apply-templates select="@*|node()"/>
