@@ -24,7 +24,7 @@ also:
     apt-get install openjdk-7-jdk                  # for saxon
     apt-get install docbook-xsl-ns
     apt-get install xsltproc                       # for generating epub
-    apt-get install libopencv-dev                  # for unittests 
+    apt-get install libopencv-dev                  # for unittests
     apt-get install python-opencv                  # for unittests
     apt-get install python-dev                     # for unittest dependency builds
     apt-get install memcached                      # for svg caching
@@ -91,7 +91,7 @@ This should create a file named SaxonTransformWrapper.class in the eor.exports/l
 
 ## Install python scripts and run unittests
 
-Run the command ``python setup.py install`` to install the scripts collectiondbk2pdf and content2epub.  To run unittests use the command ``python setup.py test`` or ``python -m unittest tests.test_collectiondbk2pdf``.  There is a bug in the OpenCV library which causes the ``libdc1394 error: Failed to initialize libdc1394`` to be thrown.  Type ``sudo ln /dev/null /dev/raw1394`` to remove the driver causing the issue. 
+Run the command ``python setup.py install`` to install the scripts collectiondbk2pdf and content2epub.  To run unittests use the command ``python setup.py test`` or ``python -m unittest tests.test_collectiondbk2pdf``.  There is a bug in the OpenCV library which causes the ``libdc1394 error: Failed to initialize libdc1394`` to be thrown.  Type ``sudo ln /dev/null /dev/raw1394`` to remove the driver causing the issue.
 
 # Generate Books
 
@@ -176,7 +176,3 @@ That's it! If you want to generate diffs of all the books, you can drop the `:ca
 To generate a CSS coverage LCOV file, you can either set `coverage: true` inside `./config.yml` or run `grunt shell:coverage:{BOOK_NAME}:{OPTIONAL_BRANCH_NAME}`.
 
 To generate an HTML report, you can run `genhtml` directly (`brew install lcov` on OSX) on the LCOV file or run `grunt shell:coverage-report:{BOOK_NAME}:{OPTIONAL_BRANCH_NAME}`
-
-# License:
-
-This software is subject to the provisions of the GNU Affero General Public License Version 3.0 (AGPL). See license.txt for details. Copyright (c) 2012 Rice University
