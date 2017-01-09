@@ -2,7 +2,7 @@
 
 # Copyright (c) 2013 Rice University
 #
-# See LICENSE.txt for details.
+# 
 
 COL_PATH=$1
 # The filename matches a file in $ROOT/xsl/

@@ -2,7 +2,7 @@
 
 # Copyright (c) 2013 Rice University
 #
-# See LICENSE.txt for details.
+# 
 
 # See the docs/link-checker.txt for info on how to use this alpha-level script
 

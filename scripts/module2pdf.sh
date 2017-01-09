@@ -2,7 +2,7 @@
 
 # Copyright (c) 2013 Rice University
 #
-# See LICENSE.txt for details.
+# 
 
 # 1st arg is the path to the collection
 # 2nd arg (optional) is the module name

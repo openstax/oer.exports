@@ -1,7 +1,7 @@
 """
 Copyright (c) 2013 Rice University
 
-See LICENSE.txt for details.
+
 """
 
 # python collectiondbk2pdf.py -v -s ccap-physics -d ./test-ccap result.pdf

@@ -5,7 +5,7 @@ Author: Ed Woodward and J. Cameron Cooper
 Copyright (C) 2009 Rice University. All Rights Reserved.
 
 
-See LICENSE.txt for details.
+
 """
 
 import sys

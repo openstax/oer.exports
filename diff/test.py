@@ -2,7 +2,7 @@
 Copyright (c) 2013 Rice University
 
 
-See LICENSE.txt for details.
+
 """
 
 import os

@@ -2,7 +2,7 @@
 
 # Copyright (c) 2013 Rice University
 #
-# See LICENSE.txt for details.
+# 
 
 
 CNX_OR_RHAPTOS=$1 # either "Connexions" or something else (we do something special for Connexions)

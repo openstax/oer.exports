@@ -2,7 +2,7 @@
 
 # Copyright (c) 2013 Rice University
 #
-# See LICENSE.txt for details.
+# 
 
 # 1st arg is either "Connexions" or any other string indicating if this is a cnx site or a rhaptos site
 # 2nd arg is the path to the collection
