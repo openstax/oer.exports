@@ -400,11 +400,11 @@ EXERCISE_TEMPLATE = jinja2.Template("""\
         {% if 'multiple-choice' in question.formats %}
             {% if question.answers %}
             <div class="orderedlist" xmlns="http://www.w3.org/1999/xhtml">
-              <ol class="orderedlist">
+              <ol class="orderedlist" type="a">
                 {% for answer in question.answers %}
                   <li{% if 'correctness' in answer
                       %} data-correctness={{ answer.correctness }} {%
-                  endif %} class="listitem" type="a"><p>{{ answer.content_html }}</p></li>
+                  endif %} class="listitem"><p>{{ answer.content_html }}</p></li>
                 {% endfor %}
               </ol>
             </div>
