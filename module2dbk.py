@@ -152,7 +152,7 @@ def exercise_callback_factory(match, url_template, token=None, mml_url=None):
                 missing = etree.Element(XHTML + 'div',
                                         {'class': 'missing-exercise'},
                                         nsmap=util.NAMESPACES)
-                missing.text = 'MISSING EXERCISE: tag:{}'.format(item_code)
+                missing.text = 'MISSING EXERCISE: tag:%s' % (item_code)
                 nodes = [missing]
             else:
                 html = EXERCISE_TEMPLATE.render(data=exercise)
@@ -173,11 +173,12 @@ def exercise_callback_factory(match, url_template, token=None, mml_url=None):
                                                   % (mathtext.encode('utf-8'), url))
 
             parent = elem.getparent()
-            if etree.QName(parent.tag).localname == 'p':
+            if etree.QName(parent.tag).localname == 'para':
                 elem = parent
                 parent = elem.getparent()
 
             parent.remove(elem)  # Special case - assumes single wrapper elem
+            parent.set('data-retrieved-from', item_code)
             for child in nodes:
                 parent.append(child)
 
@@ -398,13 +399,15 @@ EXERCISE_TEMPLATE = jinja2.Template("""\
         <div xmlns="http://www.w3.org/1999/xhtml">{{ question.stem_html }}</div>
         {% if 'multiple-choice' in question.formats %}
             {% if question.answers %}
-            <ol data-number-style="lower-alpha" xmlns="http://www.w3.org/1999/xhtml">
+            <div class="orderedlist" xmlns="http://www.w3.org/1999/xhtml">
+              <ol class="orderedlist">
                 {% for answer in question.answers %}
-                    <li{% if 'correctness' in answer
-                        %} data-correctness={{ answer.correctness }}{%
-                    endif %}>{{ answer.content_html }}</li>
+                  <li{% if 'correctness' in answer
+                      %} data-correctness={{ answer.correctness }} {%
+                  endif %} class="listitem" type="a"><p>{{ answer.content_html }}</p></li>
                 {% endfor %}
-            </ol>
+              </ol>
+            </div>
             {% endif %}
         {% endif %}
     {% endfor %}
