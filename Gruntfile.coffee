@@ -239,6 +239,7 @@ module.exports = (grunt) ->
     'sociology'
     'anatomy'
     'biology'
+    'ap-biology'
     'precalculus'
     'statistics'
     'economics'
