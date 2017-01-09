@@ -236,6 +236,7 @@ module.exports = (grunt) ->
     'university-physics'
     'physics'
     'ap-physics'
+    'hs-physics'
     'sociology'
     'anatomy'
     'biology'
@@ -250,6 +251,7 @@ module.exports = (grunt) ->
     'basic-math'
     'developmental-math'
     'microbiology'
+
   ]
   compileBooks = []
   for bookName in allBooks
