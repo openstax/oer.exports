@@ -152,7 +152,7 @@ def exercise_callback_factory(match, url_template, token=None, mml_url=None):
                 missing = etree.Element(XHTML + 'div',
                                         {'class': 'missing-exercise'},
                                         nsmap=util.NAMESPACES)
-                missing.text = 'MISSING EXERCISE: tag:{}'.format(item_code)
+                missing.text = 'MISSING EXERCISE: tag:%s' % (item_code)
                 nodes = [missing]
             else:
                 html = EXERCISE_TEMPLATE.render(data=exercise)
