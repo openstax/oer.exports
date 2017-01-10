@@ -5,6 +5,7 @@
   xmlns:c="http://cnx.rice.edu/cnxml"
   xmlns:db="http://docbook.org/ns/docbook"
   xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
   xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/"
   xmlns:ext="http://cnx.org/ns/docbook+"
   xmlns:exsl="http://exslt.org/common"
@@ -756,5 +757,12 @@
 	</xsl:if>
 </xsl:template>
 -->
+
+<!-- pass through xhtml -->
+<xsl:template match="xhtml:*|xhtml:*/@*">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
 
 </xsl:stylesheet>

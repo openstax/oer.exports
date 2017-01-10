@@ -141,7 +141,11 @@ def exercise_callback_factory(match, url_template, token=None, mml_url=None):
             req = urllib2.Request(url, headers=headers)
         else:
             req = urllib2.Request(url)
-        resp = urllib2.urlopen(req)
+        try:
+            resp = urllib2.urlopen(req)
+        except urllib2.HTTPError:
+            print >> sys.stderr, ('WARNING: ERROR RETRIEVING EXERCISE: %s' % url)
+            return None
         if str(resp.code)[0] in ('2', '3'):
             # grab the json exercise, run it through Jinja2 template,
             # replace element w/ it
@@ -158,8 +162,9 @@ def exercise_callback_factory(match, url_template, token=None, mml_url=None):
                 html = EXERCISE_TEMPLATE.render(data=exercise)
                 try:
                     nodes = etree.fromstring('<div>%s</div>' % (html))
-                except etree.XMLSyntaxError:  # Probably HTML
-                    nodes = etree.HTML(html)[0]  # body node
+                except etree.XMLSyntaxError:  # Probably HTML - convert
+                    body = etree.HTML(html)[0]
+                    nodes = etree.fromstring(etree.tostring(body))
 
                 if mml_url:
                     for node in nodes.xpath('//*[@data-math]'):
@@ -182,7 +187,7 @@ def exercise_callback_factory(match, url_template, token=None, mml_url=None):
             for child in nodes:
                 parent.append(child)
 
-    xpath = '//db:link[contains(@url, "%s")]' % (match)
+    xpath = '//c:link[contains(@url, "%s")]' % (match)
     return (xpath, _replace_exercises)
 
 
@@ -353,9 +358,9 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
       # then remove mml:munder with only 1 child.
       # See m21903
       makeTransform('cnxml-clean-math.xsl'),
+      expand_exercises,  # Fetch exercises and convert contained latex math
       makeTransform('cnxml-clean-math-simplify.xsl'),   # Convert "simple" MathML to cnxml
       makeTransform('cnxml2dbk.xsl'),   # Convert to docbook
-      expand_exercises,  # Fetch exercises and convert contained latex math
       mathml2svg,
       makeTransform('dbk-clean.xsl'),
       imageResize, # Resizing is done before svg2png because svg2png uses a reduced color depth
@@ -370,6 +375,9 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
 
     for transform in PIPELINE:
         xml, newFiles2, errors = transform(xml, origAndNewFiles, **params)
+        if transform == expand_exercises:
+            with open ('debug-%s.xml' % (moduleId,),'w') as myout:
+                myout.write(etree.tostring(xml))
         newFiles.update(newFiles2)
         origAndNewFiles.update(newFiles2)
 
