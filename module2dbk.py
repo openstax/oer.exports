@@ -375,9 +375,6 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
 
     for transform in PIPELINE:
         xml, newFiles2, errors = transform(xml, origAndNewFiles, **params)
-        if transform == expand_exercises:
-            with open ('debug-%s.xml' % (moduleId,),'w') as myout:
-                myout.write(etree.tostring(xml))
         newFiles.update(newFiles2)
         origAndNewFiles.update(newFiles2)
 
