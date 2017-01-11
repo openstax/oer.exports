@@ -122,7 +122,7 @@ def _replace_tex_math(node, mml_url, retry=0):
             return mml
         else:
             print >> sys.stderr, ('LOG: WARNING: Retry TeX conversion: %s'
-                                  % (json.dumps(eq, indent=4)))
+                                  % (json.encode(eq, compactly=False)))
             if retry < 2:
                 return _replace_tex_math(node, mml_url, retry)
 
