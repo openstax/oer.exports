@@ -302,7 +302,11 @@ div.book div.chapter .check-understanding:not(.labeled) {
 div.book div.chapter .check-understanding > .title:not(.labeled)::before {
   content: "" counter(chapter, decimal) "." counter(check-understanding) " "
 }
-
+// .exercise:not(.unnumbered) {
+//   .problem {
+//     background: green;
+//   }
+// }
 div.section div.exercise {
   .problem div {
     margin-bottom: 0.5em;
@@ -310,6 +314,18 @@ div.section div.exercise {
   }
 }
 
+div.book div.chapter > div.section div.exercise:not(.labeled) {
+    counter-increment: none !important;
+ }
+ div.book div.chapter > div.section .os-practice-concepts div.exercise:not(.labeled) {
+    counter-increment: concepts !important;
+  .problem {
+    &::before {
+      content: "Exercise " counter(concepts) "";
+      font-weight: bold;
+    }
+  }
+ }
 // EOC Review
 div.book > div.part > div.chapter,
 div.book > div.chapter {
