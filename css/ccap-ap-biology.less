@@ -19,6 +19,99 @@
   page-break-before: avoid;
 }
 
+.exercise {
+  margin: 0.5em 0;
+  font-size: 9.5pt;
+  font-family: @font-family-bio;
+
+  p {
+    font-size: 9.5pt;
+    font-family: @font-family-bio;
+  }
+}
+
+.exercise .problem {
+  li {
+    margin-bottom: 0.5em;
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  .table table tr:first-child th:first-child {
+    color: black !important;
+    background-color: @cream !important;
+    font-size: small;
+    border-style: none !important;
+    border-top: @table-border !important;
+    border-bottom: @table-border !important;
+    text-align: center !important;
+  }
+
+  table {
+    page-break-inside: auto;
+    // If a table spans more than 1 page then put caption on all following pages
+    prince-caption-page: all;
+    border: 0 !important;
+    border-bottom: @table-border !important;
+    border-collapse: collapse;
+    margin: 1.5em auto;
+
+    caption {
+      padding-top: .5em;
+      padding-bottom: 1em;
+      font-weight: bold;
+      color: @green;
+      caption-side: bottom;
+    }
+
+    td {
+      border-bottom: @table-border;
+      padding: 0.25em;
+      border-right: @table-border;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    tr { page-break-inside: avoid;}
+
+    th {
+      color: black;
+      background-color: @cream;
+      font-size: small;
+      border-style: none !important;
+      border-top: @table-border !important;
+      border-bottom: @table-border !important;
+      text-align: center !important;
+      font-weight: bold;
+      padding-top: 4px;
+      padding-bottom: 4px;
+      padding-left: 1em;
+      padding-right: 1em;
+      border-color: black !important;
+    }
+
+    //handle lists inside tables
+    .itemizedlist {
+      margin: 0; //reset
+      list-style-type: none; //no bullets for lists inside tables
+      > .listitem > p { font-family: @font-family !important; } //overrides bio p font use font-family from base
+    }
+  }
+
+  div.orderedlist {
+    margin: 0;
+  }
+
+  ol.orderedlist {
+    margin: 0.5em 0 0.5em 4em;
+
+    li p { margin-left: 0; }
+  }
+}
 
 //AP bio specific
 .visual-connection, .ap-everyday, .ap-science-practices {
