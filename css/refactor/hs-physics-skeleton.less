@@ -262,72 +262,29 @@ div.table {
   #utils>#pb>.inside(auto);
 }
 
-// // Check your understanding solutions
-// div.colophon.end-of-book-solutions .chapter-area {
-//   > div.check-understanding {
-//     &::before {
-//       #part>#book-end>#end-of-book-solutions>#title>.style(check-understanding);
-//     }
-//     div.solution > div.title a.solution::before {
-//       content: target-counter(attr(href), chapter) "." target-counter(attr(href), check-understanding);
-//     }
-//   }
-//   > div.review-conceptual-questions {
-//     &::before {
-//       #part>#book-end>#end-of-book-solutions>#title>.style(review-conceptual-questions);
-//     }
-//   }
-//   > div.review-problems {
-//     &::before {
-//       #part>#book-end>#end-of-book-solutions>#title>.style(review-problems);
-//     }
-//   }
-//   > div.review-additional-problems {
-//     &::before {
-//       #part>#book-end>#end-of-book-solutions>#title>.style(additional-problems);
-//     }
-//   }
-//   > div.review-challenge {
-//     &::before {
-//       #part>#book-end>#end-of-book-solutions>#title>.style(review-challenge);
-//     }
-//   }
-// }
-
-
 // Numbering
-div.book div.chapter .check-understanding:not(.labeled) {
-  counter-increment: check-understanding;
+div.book div.chapter {
+counter-reset: section figure subfigure table equation example exercise footnote toc-section check-understanding;
 }
-div.book div.chapter .check-understanding > .title:not(.labeled)::before {
-  content: "" counter(chapter, decimal) "." counter(check-understanding) " "
-}
-// .exercise:not(.unnumbered) {
-//   .problem {
-//     background: green;
-//   }
-// }
+div.book div.chapter > div.section div.exercise:not(.labeled) {
+    counter-increment: none !important;
+ }
+ div.book div.chapter > div.section .os-practice-concepts div.exercise:not(.labeled) {
+    counter-increment: check-understanding !important;
+  .problem {
+    &::before {
+      content: "Exercise " counter(check-understanding) "";
+      font-weight: bold;
+    }
+  }
+ }
 div.section div.exercise {
   .problem div {
     margin-bottom: 0.5em;
     margin-top: 0.5em;
   }
 }
-div.book div.chapter {
-  counter-reset: concepts;
-}
-div.book div.chapter > div.section div.exercise:not(.labeled) {
-    counter-increment: none !important;
- }
- div.book div.chapter > div.section .os-practice-concepts div.exercise:not(.labeled) {
-    counter-increment: concepts !important;
-  .problem {
-    &::before {
-      content: "Exercise " counter(concepts) "";
-      font-weight: bold;
-    }
-  }
- }
+
 // EOC Review
 div.book > div.part > div.chapter,
 div.book > div.chapter {

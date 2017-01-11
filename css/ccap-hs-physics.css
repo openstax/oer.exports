@@ -4540,28 +4540,22 @@ div.table div.caption {
 .chapter .table {
   page-break-inside: auto;
 }
-div.book div.chapter .check-understanding:not(.labeled) {
-  counter-increment: check-understanding;
-}
-div.book div.chapter .check-understanding > .title:not(.labeled)::before {
-  content: "" counter(chapter, decimal) "." counter(check-understanding) " ";
-}
-div.section div.exercise .problem div {
-  margin-bottom: 0.5em;
-  margin-top: 0.5em;
-}
 div.book div.chapter {
-  counter-reset: concepts;
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section check-understanding;
 }
 div.book div.chapter > div.section div.exercise:not(.labeled) {
   counter-increment: none !important;
 }
 div.book div.chapter > div.section .os-practice-concepts div.exercise:not(.labeled) {
-  counter-increment: concepts !important;
+  counter-increment: check-understanding !important;
 }
 div.book div.chapter > div.section .os-practice-concepts div.exercise:not(.labeled) .problem::before {
-  content: "Exercise " counter(concepts) "";
+  content: "Exercise " counter(check-understanding) "";
   font-weight: bold;
+}
+div.section div.exercise .problem div {
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
 }
 div.book > div.part > div.chapter .cnx-eoc > .title,
 div.book > div.chapter .cnx-eoc > .title {
