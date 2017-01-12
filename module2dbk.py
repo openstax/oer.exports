@@ -117,7 +117,11 @@ def _replace_tex_math(node, mml_url, retry=0):
 
         if str(resp.code)[0] in ('2', '3'):
             eq = json.decode(resp.read())
-            mc.set(math_key, json.encode(eq))
+            try:
+                mc.set(math_key, json.encode(eq))
+            except json.JSONEncodeError:
+                print >> sys.stderr, ('WARNING: ERROR STORING MATH: "%s"'
+                                      % (math.encode('utf-8')))
 
     if 'components' in eq and len(eq['components']) > 0:
         for component in eq['components']:
@@ -164,7 +168,12 @@ def exercise_callback_factory(match, url_template, token=None, mml_url=None):
                 # grab the json exercise, run it through Jinja2 template,
                 # replace element w/ it
                 exercise = json.decode(resp.read())
-                mc.set(item_code + (token or ''), json.encode(exercise))
+                try:
+                    mc.set(item_code + (token or ''), json.encode(exercise))
+                except json.JSONEncodeError:
+                    print >> sys.stderr, ('WARNING: ERROR STORING EXERCISE: "%s"'
+                                          % (item_code))
+
 
         if exercise['total_count'] == 0:
             print >> sys.stderr, ('WARNING: MISSING EXERCISE: %s' % url)
