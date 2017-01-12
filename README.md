@@ -27,7 +27,7 @@ also:
     apt-get install libopencv-dev                  # for unittests
     apt-get install python-opencv                  # for unittests
     apt-get install python-dev                     # for unittest dependency builds
-    apt-get install memcached                      # for svg caching
+    apt-get install memcached                      # for exercise, equation, and svg caching
 # For Osx
 
 Install http://mxcl.github.com/homebrew/

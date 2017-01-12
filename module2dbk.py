@@ -98,33 +98,42 @@ def _replace_tex_math(node, mml_url, retry=0):
     if math is None:
         return None
 
-    data = urllib.urlencode({'math': math.encode('utf-8'),
-                             'mathType': 'TeX',
-                             'mml': 'true'})
-    req = urllib2.Request(mml_url, data)
-    try:
-        retry += 1
-        resp = urllib2.urlopen(req)
-    except urllib2.HTTPError:
-        return None
+    mc = memcache.Client(['127.0.0.1:11211'], debug=0)
 
-    if str(resp.code)[0] in ('2', '3'):
-        eq = json.decode(resp.read())
-        if 'components' in eq and len(eq['components']) > 0:
-            for component in eq['components']:
-                if component['format'] == 'mml':
-                    mml = etree.fromstring(component['source'])
-            if node.tag.endswith('span'):
-                mml.set('display', 'inline')
-            elif node.tag.endswith('div'):
-                mml.set('display', 'block')
-            mml.tail = node.tail
-            return mml
-        else:
-            print >> sys.stderr, ('LOG: WARNING: Retry TeX conversion: %s'
-                                  % (json.encode(eq, compactly=False)))
-            if retry < 2:
-                return _replace_tex_math(node, mml_url, retry)
+    math_key = hashlib.md5(math.encode('utf-8')).hexdigest()
+
+    eq = json.decode(mc.get(math_key) or '{}')
+
+    if not eq:
+        data = urllib.urlencode({'math': math.encode('utf-8'),
+                                 'mathType': 'TeX',
+                                 'mml': 'true'})
+        req = urllib2.Request(mml_url, data)
+        try:
+            retry += 1
+            resp = urllib2.urlopen(req)
+        except urllib2.HTTPError:
+            return None
+
+        if str(resp.code)[0] in ('2', '3'):
+            eq = json.decode(resp.read())
+            mc.set(math_key, json.encode(eq))
+
+    if 'components' in eq and len(eq['components']) > 0:
+        for component in eq['components']:
+            if component['format'] == 'mml':
+                mml = etree.fromstring(component['source'])
+        if node.tag.endswith('span'):
+            mml.set('display', 'inline')
+        elif node.tag.endswith('div'):
+            mml.set('display', 'block')
+        mml.tail = node.tail
+        return mml
+    else:
+        print >> sys.stderr, ('LOG: WARNING: Retry TeX conversion: %s'
+                              % (json.encode(eq, compactly=False)))
+        if retry < 2:
+            return _replace_tex_math(node, mml_url, retry)
 
     return None
 
@@ -136,46 +145,53 @@ def exercise_callback_factory(match, url_template, token=None, mml_url=None):
     def _replace_exercises(elem):
         item_code = elem.get('url')[len(match):]
         url = url_template % (item_code)
-        if token:
-            headers = {'Authorization': 'Bearer %s' % (token)}
-            req = urllib2.Request(url, headers=headers)
-        else:
-            req = urllib2.Request(url)
-        try:
-            resp = urllib2.urlopen(req)
-        except urllib2.HTTPError:
-            print >> sys.stderr, ('WARNING: ERROR RETRIEVING EXERCISE: %s' % url)
-            return None
-        if str(resp.code)[0] in ('2', '3'):
-            # grab the json exercise, run it through Jinja2 template,
-            # replace element w/ it
-            exercise = json.decode(resp.read())
-            if exercise['total_count'] == 0:
-                print >> sys.stderr, ('WARNING: MISSING EXERCISE: %s' % url)
-                XHTML = '{%s}' % util.NAMESPACES['xhtml']
-                missing = etree.Element(XHTML + 'div',
-                                        {'class': 'missing-exercise'},
-                                        nsmap=util.NAMESPACES)
-                missing.text = 'MISSING EXERCISE: tag:%s' % (item_code)
-                nodes = [missing]
-            else:
-                html = EXERCISE_TEMPLATE.render(data=exercise)
-                try:
-                    nodes = etree.fromstring('<div>%s</div>' % (html))
-                except etree.XMLSyntaxError:  # Probably HTML - convert
-                    body = etree.HTML(html)[0]
-                    nodes = etree.fromstring(etree.tostring(body))
+        mc = memcache.Client(['127.0.0.1:11211'], debug=0)
 
-                if mml_url:
-                    for node in nodes.xpath('//*[@data-math]'):
-                        mathml = _replace_tex_math(node, mml_url)
-                        if mathml is not None:
-                            mparent = node.getparent()
-                            mparent.replace(node, mathml)
-                        else:
-                            mathtext = node.get('data-math') or node.text or ''
-                            print >> sys.stderr, ('WARNING: BAD TEX CONVERSION: "%s" URL: %s'
-                                                  % (mathtext.encode('utf-8'), url))
+        exercise = json.decode(mc.get(item_code + (token or '')) or '{}')
+
+        if not exercise:
+            if token:
+                headers = {'Authorization': 'Bearer %s' % (token)}
+                req = urllib2.Request(url, headers=headers)
+            else:
+                req = urllib2.Request(url)
+            try:
+                resp = urllib2.urlopen(req)
+            except urllib2.HTTPError:
+                print >> sys.stderr, ('WARNING: ERROR RETRIEVING EXERCISE: %s' % url)
+                return None
+            if str(resp.code)[0] in ('2', '3'):
+                # grab the json exercise, run it through Jinja2 template,
+                # replace element w/ it
+                exercise = json.decode(resp.read())
+                mc.set(item_code + (token or ''), json.encode(exercise))
+
+        if exercise['total_count'] == 0:
+            print >> sys.stderr, ('WARNING: MISSING EXERCISE: %s' % url)
+            XHTML = '{%s}' % util.NAMESPACES['xhtml']
+            missing = etree.Element(XHTML + 'div',
+                                    {'class': 'missing-exercise'},
+                                    nsmap=util.NAMESPACES)
+            missing.text = 'MISSING EXERCISE: tag:%s' % (item_code)
+            nodes = [missing]
+        else:
+            html = EXERCISE_TEMPLATE.render(data=exercise)
+            try:
+                nodes = etree.fromstring('<div>%s</div>' % (html))
+            except etree.XMLSyntaxError:  # Probably HTML - convert
+                body = etree.HTML(html)[0]
+                nodes = etree.fromstring(etree.tostring(body))
+
+            if mml_url:
+                for node in nodes.xpath('//*[@data-math]'):
+                    mathml = _replace_tex_math(node, mml_url)
+                    if mathml is not None:
+                        mparent = node.getparent()
+                        mparent.replace(node, mathml)
+                    else:
+                        mathtext = node.get('data-math') or node.text or ''
+                        print >> sys.stderr, ('WARNING: BAD TEX CONVERSION: "%s" URL: %s'
+                                              % (mathtext.encode('utf-8'), url))
 
             parent = elem.getparent()
             if etree.QName(parent.tag).localname == 'para':
