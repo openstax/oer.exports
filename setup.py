@@ -7,6 +7,8 @@ install_requires = (
     'numpy',
     'wand',
     'python-memcached',
+    'jinja2==2.6',
+    'demjson==1.6'
 )
 
 setup(
