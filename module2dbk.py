@@ -193,15 +193,15 @@ def exercise_callback_factory(match, url_template, token=None, mml_url=None):
                         print >> sys.stderr, ('WARNING: BAD TEX CONVERSION: "%s" URL: %s'
                                               % (mathtext.encode('utf-8'), url))
 
+        parent = elem.getparent()
+        if etree.QName(parent.tag).localname == 'para':
+            elem = parent
             parent = elem.getparent()
-            if etree.QName(parent.tag).localname == 'para':
-                elem = parent
-                parent = elem.getparent()
 
-            parent.remove(elem)  # Special case - assumes single wrapper elem
-            parent.set('data-retrieved-from', item_code)
-            for child in nodes:
-                parent.append(child)
+        parent.remove(elem)  # Special case - assumes single wrapper elem
+        parent.set('data-retrieved-from', item_code)
+        for child in nodes:
+            parent.append(child)
 
     xpath = '//c:link[contains(@url, "%s")]' % (match)
     return (xpath, _replace_exercises)
