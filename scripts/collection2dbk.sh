@@ -2,8 +2,7 @@
 
 # Copyright (c) 2013 Rice University
 #
-# This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
-# See LICENSE.txt for details.
+# 
 
 
 CNX_OR_RHAPTOS=$1 # either "Connexions" or something else (we do something special for Connexions)
@@ -55,7 +54,7 @@ MODULE2DOCBOOK=$ROOT/scripts/module2dbk.sh
 
 echo "LOG: INFO: ------------ Starting on $WORKING_DIR --------------"
 
-# Pull out the custom params (mostly math-related) stored inside the collxml 
+# Pull out the custom params (mostly math-related) stored inside the collxml
 $XSLTPROC -o $PARAMS $COLLXML_PARAMS $COLLXML
 EXIT_STATUS=$EXIT_STATUS || $?
 
