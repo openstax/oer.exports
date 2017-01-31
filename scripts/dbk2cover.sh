@@ -2,8 +2,7 @@
 
 # Copyright (c) 2013 Rice University
 #
-# This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
-# See LICENSE.txt for details.
+# 
 
 CNX_OR_RHAPTOS=$1
 
@@ -45,7 +44,7 @@ if [ "$COVER_FILES." == "." ]; then
   echo "LOG: DEBUG: Creating cover page"
   $XSLTPROC -o $COVER_SVG $DBK2SVG_COVER_XSL $DBK_FILE
   EXIT_STATUS=$EXIT_STATUS || $?
-  
+
   if [ -s $COVER_SVG ]; then
     echo "LOG: DEBUG: Converting SVG Cover Page to PNG"
     ($INKSCAPE $COVER_SVG --export-png=$COVER_PNG 2>&1) > $WORKING_DIR/__err.txt

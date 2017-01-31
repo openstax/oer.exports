@@ -1,8 +1,8 @@
 """
 Copyright (c) 2013 Rice University
 
-This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
-See LICENSE.txt for details.
+
+
 """
 
 import os
@@ -211,4 +211,4 @@ class Progress(object):
     # Discard the top-most message since it will never change
     if len(msg) > 1:
       msg = msg[1:]
-    print >> sys.stderr, "STATUS: %d%% %s" % (percent * 100, ': '.join(msg))
+    print >> sys.stderr, "STATUS: %3.2f%% %s" % (percent * 100, ': '.join(msg))

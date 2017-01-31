@@ -1,5 +1,5 @@
 /*******************************************************
-*  Copyright (c) 2013 Rice University
+* Copyright (c) 2013 Rice University
 *  
 *  
 *******************************************************/
@@ -1665,25 +1665,25 @@ div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t 
 div.book div.index div.title h2 {
   string-set: cnx-header "Index";
 }
-.note {
-  padding-bottom: 1em !important;
+html {
+  prince-background-image-resolution: 150dpi;
 }
 .chapter > .cnx-eoc.cnx-solutions {
   display: none;
 }
 /******************************************************
  * Book Table of Contents
-  ******************************************************/
+ ******************************************************/
+.book > .toc > .title {
+  border-bottom-color: #cc6633;
+}
+.book > .toc a {
+  color: #336633;
+}
 .book > .toc .toc-preface.preface,
 .book > .toc .toc-appendix.appendix {
   page-break-after: avoid;
   page-break-before: avoid;
-}
-.book > .toc > .title {
-  border-bottom-color: #cc9900;
-}
-.book > .toc a {
-  color: #339999;
 }
 /*******************************************************
  * Unit Page
@@ -1694,394 +1694,480 @@ div.part > div.titlepage {
 /******************************************************
  * CHAPTER INTRODUCTION
  ******************************************************/
-.chapter > .introduction {
-  /******************************************************
-  * Manual Chapter Objectives -
-  * special note ".chapter-objectives" contains
-  * list within para
-  ******************************************************/
-}
 .chapter > .introduction > .title {
   content: "Introduction";
-  font-size: x-large;
 }
 .chapter > .introduction > .toc {
-  display: none;
+  border: 2pt solid #336633;
 }
-.chapter > .introduction .chapter-objectives {
-  border: 1px solid #339999;
-  margin-top: 0em;
-  margin-bottom: 1em;
-  padding: 0em;
-}
-.chapter > .introduction .chapter-objectives > .title {
-  padding: .5em 0em;
-  background-color: #339999;
-  color: white;
-  text-align: center;
-  font-weight: bold;
-  font-size: large;
-}
-.chapter > .introduction .chapter-objectives p {
-  margin: 1em 0em .75em 1em;
-}
-.chapter > .introduction .chapter-objectives .itemizedlist > .listitem > p {
-  margin: 0em 2em;
+.chapter > .introduction > .toc > .title {
+  content: "Chapter Outline";
+  background-color: #336633;
+  min-width: 5.40in;
 }
 /******************************************************
  * Preface
- ******************************************************/
+******************************************************/
 .preface > .titlepage h1.title {
-  background-color: #339999;
+  background-color: #336633;
+  string-set: cnx-header content();
+}
+/******************************************************
+ * Section Level Learning Objectives
+ ******************************************************/
+.section > .titlepage .abstract {
+  border: 2pt solid #336633;
 }
 /******************************************************
  * Features args(title color, bkgrnd color, path to svg)
  ******************************************************/
-/****** Features ******/
-.anatomy.aging {
+.art-connection {
   page-break-inside: avoid;
   background-color: #ffffcc;
+  display: table;
 }
-.anatomy.aging p:nth-of-type(2) {
+.art-connection * p {
+  font-family: inherit;
+}
+.art-connection p:nth-of-type(1) {
   page-break-before: avoid;
 }
-.anatomy.aging::before {
-  padding-top: 0.53in;
+.art-connection::before {
+  background-image: url("ccap-biology/CNX_Bio_Art.svg");
   background-repeat: no-repeat;
   background-position: top left;
-  background-position: top outside;
   page-break-inside: avoid;
   page-break-after: avoid;
-  background-color: white;
   content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
+  display: table-caption;
+  caption-side: top;
 }
-.anatomy.aging::before {
-  background-image: url("ccap-anatomy/aging.svg");
-}
-.anatomy.aging > .title {
+.art-connection > .title {
   display: none;
 }
-.anatomy.aging .body .title {
+.art-connection > .body > .title {
   text-align: left !important;
   font-size: large;
   margin: .25em 0;
   color: black;
   font-weight: bold;
   page-break-after: avoid;
+  page-break-before: avoid !important;
 }
-.anatomy.aging .figure img {
-  max-width: 5.75in !important;
+.art-connection .figure img {
+  max-width: 5.25in !important;
 }
-.anatomy.aging .figure > .title {
+.art-connection .figure > .title {
   font-size: x-small;
-  color: #cc9900;
+  color: #cc6633;
 }
-.anatomy.career {
+.art-connection::before {
+  background-position: bottom left;
+}
+.art-connection::before {
+  width: 352px;
+  height: 46px;
+}
+.career {
   page-break-inside: avoid;
   background-color: #ffffcc;
+  display: table;
 }
-.anatomy.career p:nth-of-type(2) {
+.career * p {
+  font-family: inherit;
+}
+.career p:nth-of-type(1) {
   page-break-before: avoid;
 }
-.anatomy.career::before {
-  padding-top: 0.51in;
+.career::before {
+  background-image: url("ccap-biology/CNX_BioMaj_Career.svg");
   background-repeat: no-repeat;
   background-position: top left;
-  background-position: top outside;
   page-break-inside: avoid;
   page-break-after: avoid;
-  background-color: white;
   content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
+  display: table-caption;
+  caption-side: top;
 }
-.anatomy.career::before {
-  background-image: url("ccap-anatomy/career.svg");
-}
-.anatomy.career > .title {
+.career > .title {
   display: none;
 }
-.anatomy.career .body .title {
+.career > .body > .title {
   text-align: left !important;
   font-size: large;
   margin: .25em 0;
   color: black;
   font-weight: bold;
   page-break-after: avoid;
+  page-break-before: avoid !important;
 }
-.anatomy.career .figure img {
-  max-width: 5.75in !important;
+.career .figure img {
+  max-width: 5.25in !important;
 }
-.anatomy.career .figure > .title {
+.career .figure > .title {
   font-size: x-small;
-  color: #cc9900;
+  color: #cc6633;
 }
-.anatomy.diseases {
-  page-break-inside: avoid;
+.career::before {
+  background-position: bottom left;
+}
+.career::before {
+  width: 352px;
+  height: 46px;
+}
+.career.non-majors {
   background-color: #ffffcc;
+  display: table;
 }
-.anatomy.diseases p:nth-of-type(2) {
+.career.non-majors * p {
+  font-family: inherit;
+}
+.career.non-majors p:nth-of-type(1) {
   page-break-before: avoid;
 }
-.anatomy.diseases::before {
-  padding-top: 0.59in;
+.career.non-majors::before {
+  background-image: url("ccap-biology/CNX_BioNonMaj_Career.svg");
   background-repeat: no-repeat;
   background-position: top left;
-  background-position: top outside;
   page-break-inside: avoid;
   page-break-after: avoid;
-  background-color: white;
   content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
+  display: table-caption;
+  caption-side: top;
 }
-.anatomy.diseases::before {
-  background-image: url("ccap-anatomy/diseases.svg");
-}
-.anatomy.diseases > .title {
+.career.non-majors > .title {
   display: none;
 }
-.anatomy.diseases .body .title {
+.career.non-majors > .body > .title {
   text-align: left !important;
   font-size: large;
   margin: .25em 0;
   color: black;
   font-weight: bold;
   page-break-after: avoid;
+  page-break-before: avoid !important;
 }
-.anatomy.diseases .figure img {
-  max-width: 5.75in !important;
+.career.non-majors .figure img {
+  max-width: 5.25in !important;
 }
-.anatomy.diseases .figure > .title {
+.career.non-majors .figure > .title {
   font-size: x-small;
-  color: #cc9900;
+  color: #cc6633;
 }
-.anatomy.disorders {
+.career.non-majors::before {
+  background-position: bottom left;
+}
+.career.non-majors::before {
+  width: 351px;
+}
+.everyday {
   page-break-inside: avoid;
   background-color: #ffffcc;
+  display: table;
 }
-.anatomy.disorders p:nth-of-type(2) {
+.everyday * p {
+  font-family: inherit;
+}
+.everyday p:nth-of-type(1) {
   page-break-before: avoid;
 }
-.anatomy.disorders::before {
-  padding-top: 0.59in;
+.everyday::before {
+  background-image: url("ccap-biology/CNX_BioMaj_Everyday.svg");
   background-repeat: no-repeat;
   background-position: top left;
-  background-position: top outside;
   page-break-inside: avoid;
   page-break-after: avoid;
-  background-color: white;
   content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
+  display: table-caption;
+  caption-side: top;
 }
-.anatomy.disorders::before {
-  background-image: url("ccap-anatomy/disorders.svg");
-}
-.anatomy.disorders > .title {
+.everyday > .title {
   display: none;
 }
-.anatomy.disorders .body .title {
+.everyday > .body > .title {
   text-align: left !important;
   font-size: large;
   margin: .25em 0;
   color: black;
   font-weight: bold;
   page-break-after: avoid;
+  page-break-before: avoid !important;
 }
-.anatomy.disorders .figure img {
-  max-width: 5.75in !important;
+.everyday .figure img {
+  max-width: 5.25in !important;
 }
-.anatomy.disorders .figure > .title {
+.everyday .figure > .title {
   font-size: x-small;
-  color: #cc9900;
+  color: #cc6633;
 }
-.anatomy.everyday {
-  page-break-inside: avoid;
+.everyday::before {
+  background-position: bottom left;
+}
+.everyday::before {
+  width: 352px;
+  height: 37px;
+}
+.everyday.non-majors {
   background-color: #ffffcc;
+  display: table;
 }
-.anatomy.everyday p:nth-of-type(2) {
+.everyday.non-majors * p {
+  font-family: inherit;
+}
+.everyday.non-majors p:nth-of-type(1) {
   page-break-before: avoid;
 }
-.anatomy.everyday::before {
-  padding-top: 0.44in;
+.everyday.non-majors::before {
+  background-image: url("ccap-biology/CNX_BioNonMaj_Everyday.svg");
   background-repeat: no-repeat;
   background-position: top left;
-  background-position: top outside;
   page-break-inside: avoid;
   page-break-after: avoid;
-  background-color: white;
   content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
+  display: table-caption;
+  caption-side: top;
 }
-.anatomy.everyday::before {
-  background-image: url("ccap-anatomy/everyday.svg");
-}
-.anatomy.everyday > .title {
+.everyday.non-majors > .title {
   display: none;
 }
-.anatomy.everyday .body .title {
+.everyday.non-majors > .body > .title {
   text-align: left !important;
   font-size: large;
   margin: .25em 0;
   color: black;
   font-weight: bold;
   page-break-after: avoid;
+  page-break-before: avoid !important;
 }
-.anatomy.everyday .figure img {
-  max-width: 5.75in !important;
+.everyday.non-majors .figure img {
+  max-width: 5.25in !important;
 }
-.anatomy.everyday .figure > .title {
+.everyday.non-majors .figure > .title {
   font-size: x-small;
-  color: #cc9900;
+  color: #cc6633;
 }
-.anatomy.homeostatic {
+.everyday.non-majors::before {
+  background-position: bottom left;
+}
+.everyday.non-majors::before {
+  width: 351px;
+}
+.evolution {
   page-break-inside: avoid;
   background-color: #ffffcc;
+  display: table;
 }
-.anatomy.homeostatic p:nth-of-type(2) {
+.evolution * p {
+  font-family: inherit;
+}
+.evolution p:nth-of-type(1) {
   page-break-before: avoid;
 }
-.anatomy.homeostatic::before {
-  padding-top: 0.57in;
+.evolution::before {
+  background-image: url("ccap-biology/CNX_BioMaj_Evolution.svg");
   background-repeat: no-repeat;
   background-position: top left;
-  background-position: top outside;
   page-break-inside: avoid;
   page-break-after: avoid;
-  background-color: white;
   content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
+  display: table-caption;
+  caption-side: top;
 }
-.anatomy.homeostatic::before {
-  background-image: url("ccap-anatomy/homeostatic.svg");
-}
-.anatomy.homeostatic > .title {
+.evolution > .title {
   display: none;
 }
-.anatomy.homeostatic .body .title {
+.evolution > .body > .title {
   text-align: left !important;
   font-size: large;
   margin: .25em 0;
   color: black;
   font-weight: bold;
   page-break-after: avoid;
+  page-break-before: avoid !important;
 }
-.anatomy.homeostatic .figure img {
-  max-width: 5.75in !important;
+.evolution .figure img {
+  max-width: 5.25in !important;
 }
-.anatomy.homeostatic .figure > .title {
+.evolution .figure > .title {
   font-size: x-small;
-  color: #cc9900;
+  color: #cc6633;
 }
-.anatomy.interactive {
-  page-break-inside: avoid;
+.evolution::before {
+  background-position: bottom left;
+}
+.evolution::before {
+  width: 351px;
+  height: 49px;
+}
+.evolution.non-majors {
   background-color: #ffffcc;
+  display: table;
 }
-.anatomy.interactive p:nth-of-type(2) {
+.evolution.non-majors * p {
+  font-family: inherit;
+}
+.evolution.non-majors p:nth-of-type(1) {
   page-break-before: avoid;
 }
-.anatomy.interactive::before {
-  padding-top: 0.43in;
+.evolution.non-majors::before {
+  background-image: url("ccap-biology/CNX_BioNonMaj_Evolution.svg");
   background-repeat: no-repeat;
   background-position: top left;
-  background-position: top outside;
   page-break-inside: avoid;
   page-break-after: avoid;
-  background-color: white;
   content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
+  display: table-caption;
+  caption-side: top;
 }
-.anatomy.interactive::before {
-  background-image: url("ccap-anatomy/interactive.svg");
-}
-.anatomy.interactive > .title {
+.evolution.non-majors > .title {
   display: none;
 }
-.anatomy.interactive .body .title {
+.evolution.non-majors > .body > .title {
   text-align: left !important;
   font-size: large;
   margin: .25em 0;
   color: black;
   font-weight: bold;
   page-break-after: avoid;
+  page-break-before: avoid !important;
 }
-.anatomy.interactive .figure img {
-  max-width: 5.75in !important;
+.evolution.non-majors .figure img {
+  max-width: 5.25in !important;
 }
-.anatomy.interactive .figure > .title {
+.evolution.non-majors .figure > .title {
   font-size: x-small;
-  color: #cc9900;
+  color: #cc6633;
 }
-.anatomy.interactive img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+.evolution.non-majors::before {
+  background-position: bottom left;
 }
-.anatomy.interactive .link {
-  color: #cc9900 !important;
-  font-weight: bold;
+.evolution.non-majors::before {
+  height: 45px;
 }
-.anatomy.interactive.um {
+.scientific {
+  page-break-inside: avoid;
   background-color: #ffffcc;
-  page-break-inside: auto !important;
+  display: table;
 }
-.anatomy.interactive.um p:nth-of-type(2) {
+.scientific * p {
+  font-family: inherit;
+}
+.scientific p:nth-of-type(1) {
   page-break-before: avoid;
 }
-.anatomy.interactive.um::before {
-  padding-top: 0.5in;
+.scientific::before {
+  background-image: url("ccap-biology/CNX_BioMaj_Scientific.svg");
   background-repeat: no-repeat;
   background-position: top left;
-  background-position: top outside;
   page-break-inside: avoid;
   page-break-after: avoid;
-  background-color: white;
   content: "";
-  display: block;
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.05in;
+  display: table-caption;
+  caption-side: top;
 }
-.anatomy.interactive.um::before {
-  background-image: url("ccap-anatomy/interactive_UM.svg");
-}
-.anatomy.interactive.um > .title {
+.scientific > .title {
   display: none;
 }
-.anatomy.interactive.um .body .title {
+.scientific > .body > .title {
   text-align: left !important;
   font-size: large;
   margin: .25em 0;
   color: black;
   font-weight: bold;
   page-break-after: avoid;
+  page-break-before: avoid !important;
 }
-.anatomy.interactive.um .figure img {
-  max-width: 5.75in !important;
+.scientific .figure img {
+  max-width: 5.25in !important;
 }
-.anatomy.interactive.um .figure > .title {
+.scientific .figure > .title {
   font-size: x-small;
-  color: #cc9900;
+  color: #cc6633;
+}
+.scientific::before {
+  background-position: bottom left;
+}
+.scientific::before {
+  width: 432px;
+  height: 45px;
+}
+.scientific.non-majors {
+  background-color: #ffffcc;
+  display: table;
+}
+.scientific.non-majors * p {
+  font-family: inherit;
+}
+.scientific.non-majors p:nth-of-type(1) {
+  page-break-before: avoid;
+}
+.scientific.non-majors::before {
+  background-image: url("ccap-biology/CNX_BioNonMaj_Scientific.svg");
+  background-repeat: no-repeat;
+  background-position: top left;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  content: "";
+  display: table-caption;
+  caption-side: top;
+}
+.scientific.non-majors > .title {
+  display: none;
+}
+.scientific.non-majors > .body > .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+  page-break-after: avoid;
+  page-break-before: avoid !important;
+}
+.scientific.non-majors .figure img {
+  max-width: 5.25in !important;
+}
+.scientific.non-majors .figure > .title {
+  font-size: x-small;
+  color: #cc6633;
+}
+.scientific.non-majors::before {
+  background-position: bottom left;
+}
+/******************************************************
+ * Special Feature
+ ******************************************************/
+.interactive {
+  page-break-inside: avoid;
+}
+.interactive::before {
+  background-image: url("ccap-biology/CNX_BioMaj_Link.svg");
+  padding-top: .75in;
+  padding-bottom: .50in;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-after: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  margin-left: -0.2in;
+}
+.interactive.non-majors::before {
+  background-image: url("ccap-biology/CNX_BioNonMaj_Concept.svg");
+}
+.interactive img {
+  width: 1.25in;
+  height: 1.25in;
+  display: inherit;
+  margin-top: -1.25in;
+  margin-left: 2.25in;
+}
+.interactive * p {
+  margin-left: -0.15in;
+  margin-top: 1em;
+}
+.interactive .title {
+  display: none;
 }
 /******************************************************
 
@@ -2097,16 +2183,19 @@ div.part > div.titlepage {
   column-width: auto !important;
   column-fill: balance !important;
   page-break-inside: auto;
-  column-break-inside: auto;
-  margin-bottom: 1em;
+  text-align: left;
 }
 .cnx-eoc > .title {
   text-transform: uppercase !important;
   text-align: left;
-  color: #339999 !important;
+  color: #336633 !important;
   font-size: large !important;
   font-weight: bold !important;
   page-break-after: avoid;
+}
+.cnx-eoc > .title span {
+  padding: 0;
+  font-size: 18px;
 }
 .cnx-eoc.summary {
   -webkit-column-count: 1;
@@ -2117,21 +2206,20 @@ div.part > div.titlepage {
   column-gap: 24px;
 }
 .cnx-eoc.summary > .title {
-  content: "Chapter Review";
-  margin: 0em;
-}
-.cnx-eoc.summary > .section {
-  margin-bottom: 1em;
+  content: "Chapter Summary";
 }
 .cnx-eoc.summary > .section .title > a {
   color: black;
   page-break-after: avoid;
 }
-.cnx-eoc.summary p:nth-of-type(1) {
-  margin-top: 1em;
+.cnx-eoc.summary > .section .title {
+  padding: 0 0 12.667px 0;
 }
-.cnx-eoc.summary .exercise {
-  margin-top: 0em;
+.cnx-eoc.summary p {
+  margin: 0 0 6.333px 0;
+}
+.cnx-eoc.summary p:last-of-type {
+  margin-bottom: 12.667px;
 }
 .cnx-eoc .problem .orderedlist {
   margin-left: 4em;
@@ -2139,46 +2227,42 @@ div.part > div.titlepage {
 .cnx-eoc.solutions {
   display: none !important;
 }
-.cnx-eoc .title + .empty {
+.cnx-eoc .title + .empty,
+.cnx-eoc .title + .empty + .empty {
   display: hidden;
   page-break-before: avoid;
   page-break-after: avoid;
 }
-.cnx-eoc .section .title {
-  padding-top: 0em;
-}
-.multiple-choice {
-  margin-bottom: 2.5em;
+.art-exercise > .title {
+  content: "Art Connection Questions";
+  column-span: all;
+  margin-top: 1em;
 }
 .multiple-choice > .title {
-  content: "Review Questions";
-  column-span: all !important;
-  margin-top: 0em;
-}
-.free-response {
-  page-break-inside: avoid;
+  content: "Review Questions" !important;
+  column-span: all;
+  margin-top: 1em;
 }
 .free-response > .title {
   content: "Critical Thinking Questions";
-  column-span: all !important;
-  margin-top: 0em;
-  page-break-after: avoid;
+  column-span: all;
+  margin-top: 1em;
 }
-.interactive-exercise > div.title {
-  content: "Interactive Link Questions";
-  column-span: all !important;
-  margin-top: 0em;
+.ap-test-prep > .title {
+  content: "Test Prep for AP\AE  Courses";
+}
+.critical-thinking > .title,
+.review > .title {
+  column-span: all;
+  margin-top: 1em;
 }
 .multiple-choice > .section > .title,
 .free-response > .section > .title,
-.interactive-exercise > .section > .title {
+.art-exercise > .section > .title,
+.ap-test-prep > .section > .title,
+.critical-thinking > .section > .title,
+.review > .section > .title {
   display: none;
-}
-.multiple-choice .exercise,
-.free-response .exercise,
-.interactive-exercise .exercise {
-  margin-top: 0em;
-  margin-bottom: 0.5em;
 }
 /******************************************************
  * Generic Elements
@@ -2186,21 +2270,6 @@ div.part > div.titlepage {
 body {
   font-size: 9.5pt;
   text-align: justify !important;
-}
-div.book > div.part > .chapter .figure {
-  margin-bottom: 0.5em;
-}
-div.book > div.part > .chapter > .section.module > .section {
-  margin-bottom: 0.5em;
-}
-div.book > div.part > .chapter > .section.module > .section p + .note {
-  margin-top: 1.5em;
-}
-div.book > div.part > .chapter > .section.module > .section > .section {
-  margin-bottom: 0.5em;
-}
-div.book > div.part > .chapter > .section.module > .section > .section .note.interactive:last-child {
-  margin-bottom: 1em;
 }
 img {
   max-height: 9.5in;
@@ -2213,14 +2282,12 @@ img {
   /* x-large; */
   font-weight: bold;
   text-align: left !important;
-  color: #339999;
-  margin-top: 0px;
-  padding-top: 0px;
+  color: #336633;
 }
 .chapter h1.title .cnx-gentext-n {
   font-weight: bold;
   padding-right: 0em;
-  color: #339999;
+  color: #336633;
 }
 .chapter h1.title .cnx-gentext-t::before {
   content: "| ";
@@ -2228,55 +2295,40 @@ img {
 }
 a {
   font-weight: bold;
-  color: #cc9900;
+  color: #cc6633;
 }
 h1,
 h2,
 h3,
-h4,
-h5,
-h6 {
-  margin: 0em 0em 0.5em;
+h4 {
+  margin: 0em 0em .5em 0;
   text-align: left !important;
 }
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: #339999;
-  font-weight: bold;
-}
 h2 {
-  font-size: 17pt;
+  color: #336633;
+  font-size: x-large !important;
 }
 h2 .cnx-gentext-n {
-  color: #339999;
+  color: #336633;
 }
 h2 .cnx-gentext-t::before {
   color: black;
   content: "| ";
 }
 h2::before {
-  color: #339999;
+  color: #336633;
 }
 h3 {
-  font-size: 13pt;
+  color: #336633;
+  font-size: large !important;
+  font-weight: bold;
 }
 h4 {
-  font-size: 10pt;
-}
-h5 {
-  font-size: 10pt;
-  font-style: italic;
-}
-h6 {
-  font-size: 10pt;
-  font-weight: normal;
+  color: #336633;
   font-style: italic;
 }
 blockquote {
-  color: #ccc;
+  color: #cccccc;
   font-size: 150%;
 }
 blockquote::before,
@@ -2297,34 +2349,32 @@ p {
   page-break-before: always;
   display: inline;
 }
-.glossary .titlepage .title {
+.glossary .title {
   /* Change "Glossary" to "Key Terms" */
   content: "Key Terms";
-  color: #339999;
+  color: #336633;
   font-size: large !important;
   padding: 0em !important;
   display: block !important;
   text-transform: uppercase;
-  margin-top: 0em;
 }
-.glossary dl {
-  margin-bottom: 1em;
+.glossary .titlepage div div .title {
+  margin-top: 0em;
 }
 .glossary dt::after {
   content: " " !important;
 }
+.glossary dl {
+  padding-bottom: 0;
+  margin: 0;
+}
 .section > .title {
   page-break-after: avoid;
 }
-img,
-figure,
-subfigure {
-  margin: 1em;
-}
 .colophon > h1.title {
   color: white;
-  background-color: #339999;
-  margin: .5em 0;
+  background-color: #336633;
+  margin: 0 0 .5em 0;
 }
 /******************************************************
  * Tables TODO: simplify/regroup code block //latest
@@ -2333,16 +2383,22 @@ subfigure {
   page-break-inside: auto;
   prince-caption-page: all;
 }
+.table.no-title table {
+  border-top: 1pt solid #336633 !important;
+}
+.table.column-header .colsep-on {
+  background: #ffffcc;
+}
 .table caption {
   padding-top: .5em;
   padding-bottom: 1em;
   font-weight: bold;
-  color: #cc9900;
+  color: #336633;
   caption-side: bottom;
 }
 .table td.header {
   background-color: #ffffcc;
-  border-bottom: 1pt solid #339999;
+  border-bottom: 1pt solid #336633;
 }
 .table tr {
   page-break-inside: avoid;
@@ -2352,13 +2408,13 @@ subfigure {
   background-color: #ffffcc;
   font-size: small;
   border-style: none !important;
-  border-top: 1pt solid #339999 !important;
-  border-bottom: 1pt solid #339999 !important;
+  border-top: 1pt solid #336633 !important;
+  border-bottom: 1pt solid #336633 !important;
   text-align: center !important;
 }
 .table tr:first-child > th:first-child {
   padding: .25em !important;
-  color: #339999 !important;
+  color: #336633 !important;
   font-size: medium;
   margin-left: -1em;
   text-align: center !important;
@@ -2367,7 +2423,7 @@ subfigure {
 }
 .table table {
   border: 0 !important;
-  border-bottom: 1pt solid #339999 !important;
+  border-bottom: 1pt solid #336633 !important;
 }
 .table .itemizedlist {
   margin: 0;
@@ -2385,14 +2441,12 @@ subfigure {
 }
 .figure > .title {
   display: inline;
-  color: #cc9900;
+  color: #cc6633;
   font-weight: bold;
   text-align: center;
-  margin-right: .5em;
 }
 .figure img {
-  margin: 1em 0;
-  max-width: 6in !important;
+  max-width: 5.5in !important;
 }
 .figure > .caption {
   display: inline;
@@ -2400,7 +2454,7 @@ subfigure {
 }
 .target-figure {
   font-weight: bold;
-  color: #cc9900;
+  color: #cc6633;
 }
 .cnx-figure-horizontal .informalfigure .caption {
   text-align: center;
@@ -2413,69 +2467,70 @@ subfigure {
  * Equations
  ******************************************************/
 div.book > div.preface > div.section div.equation > *:last-child::after,
-div.book > div.part > div.preface > div.section div.equation > *:last-child::after,
-div.book > div.chapter > div.section div.equation > *:last-child::after,
-div.book > div.part > div.chapter > div.section div.equation > *:last-child::after,
-div.book > div.appendix > div.section div.equation > *:last-child::after,
-div.book > div.part > div.appendix > div.section div.equation > *:last-child::after {
+div.book div.chapter > div.section div.equation > *:last-child::after,
+div.book > div.appendix > div.section div.equation > *:last-child::after {
   content: "";
+}
+.appendix h1.title {
+  color: #336633;
+  padding-left: 0;
+}
+.appendix h1.title .cnx-gentext-autogenerated:first-child {
+  display: inline;
+}
+.appendix h1.title .cnx-gentext-appendix.cnx-gentext-n {
+  padding-right: 0;
+  color: #336633;
+}
+.appendix h1.title .cnx-gentext-appendix.cnx-gentext-n:after {
+  color: black;
+  content: " | ";
 }
 /******************************************************
  * End of Book Solutions
  ******************************************************/
-div.end-of-book-solutions div.solution:nth-child(even) {
-  display: none;
-}
-div.end-of-book-solutions div.solution,
+div.end-of-book-solutions .art-exercise,
 div.end-of-book-solutions .multiple-choice,
 div.end-of-book-solutions .free-response,
-div.end-of-book-solutions .interactive-exercise {
+div.end-of-book-solutions .ap-test-prep,
+div.end-of-book-solutions .review,
+div.end-of-book-solutions .critical-thinking {
   display: inline;
   clear: none;
 }
-div.end-of-book-solutions div.solution > div.title,
-div.end-of-book-solutions .multiple-choice > div.title,
-div.end-of-book-solutions .free-response > div.title,
-div.end-of-book-solutions .interactive-exercise > div.title {
+div.end-of-book-solutions div.solution {
   display: inline;
 }
-div.end-of-book-solutions div.solution > div.title a.solution,
-div.end-of-book-solutions .multiple-choice > div.title a.solution,
-div.end-of-book-solutions .free-response > div.title a.solution,
-div.end-of-book-solutions .interactive-exercise > div.title a.solution {
+div.end-of-book-solutions div.solution:nth-child(even) {
+  display: none;
+}
+div.end-of-book-solutions div.solution > div.title {
+  display: inline;
+}
+div.end-of-book-solutions div.solution > div.title a.solution {
   color: black;
   font-weight: bold;
 }
-div.end-of-book-solutions div.solution > div.body,
-div.end-of-book-solutions .multiple-choice > div.body,
-div.end-of-book-solutions .free-response > div.body,
-div.end-of-book-solutions .interactive-exercise > div.body {
+div.end-of-book-solutions div.solution > div.body {
   margin-right: .65em;
   display: inline;
 }
-div.end-of-book-solutions div.solution > div.body *,
-div.end-of-book-solutions .multiple-choice > div.body *,
-div.end-of-book-solutions .free-response > div.body *,
-div.end-of-book-solutions .interactive-exercise > div.body * {
+div.end-of-book-solutions div.solution > div.body * {
   display: inline;
 }
-div.end-of-book-solutions div.solution > div.body > a.target-figure,
-div.end-of-book-solutions .multiple-choice > div.body > a.target-figure,
-div.end-of-book-solutions .free-response > div.body > a.target-figure,
-div.end-of-book-solutions .interactive-exercise > div.body > a.target-figure {
+div.end-of-book-solutions div.solution > div.body > a.target-figure {
   margin: 0em .25em;
 }
 /******************************************************
  * Index
  ******************************************************/
 .index {
-  string-set: cnx-header "Index";
   text-align: left !important;
   column-width: auto !important;
 }
 .index .title h2 {
   padding: 0;
-  color: #339999;
+  color: #336633;
   text-transform: uppercase;
   font-size: x-large;
 }
@@ -2483,9 +2538,7 @@ div.end-of-book-solutions .interactive-exercise > div.body > a.target-figure {
   color: inherit;
   font-weight: bold;
   font-size: medium;
-  padding-top: 0em;
-  margin-bottom: 0em;
-  line-height: 32px;
+  padding-top: .5em;
 }
 .index .index-term {
   font-size: small;
@@ -2511,18 +2564,15 @@ div.end-of-book-solutions {
 div.end-of-book-solutions > .title {
   string-set: cnx-header "Answer Key";
   content: "Answer Key";
-  color: #339999;
+  color: #336633;
   margin-left: -0.5em;
   text-transform: uppercase;
   font-size: x-large;
   font-weight: bold;
   background-color: transparent;
-  margin-top: 0em;
-  padding-top: 0em;
 }
 div.end-of-book-solutions .chapter-area {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  margin-bottom: 8.5px;
 }
 div.end-of-book-solutions .chapter-area a.solution {
   color: black;
@@ -2531,42 +2581,293 @@ div.end-of-book-solutions .chapter-area a.chapter * {
   color: black;
   font-size: medium;
 }
-/* Squash references if they show up at the end of a chapter.
-   They are special-cased and show up at the end of the book */
-.cnx-eoc.references {
-  display: none;
-}
 div.end-of-book-references {
-  string-set: cnx-header "References";
-}
-div.end-of-book-references > .title {
-  font-size: x-large;
-  font-weight: bold;
-  background-color: transparent;
-  color: #339999;
-  margin-left: -0.5em;
-  margin-top: 0em;
-  padding-top: 0em;
-}
-div.end-of-book-references > .chapter-area > .title {
   display: none;
 }
-div.end-of-book-references > .chapter-area > .body > .section-area > .title {
-  font-size: 12pt;
-  font-weight: bold;
-  margin: .5em 0em;
-}
-div.end-of-book-references > .chapter-area > .body > .section-area > .title:before {
-  content: target-counter(attr(data-href), chapter) "." target-counter(attr(data-href), section) " ";
-}
-div.end-of-book-references > .chapter-area > .body > .section-area > .title sup {
-  display: none;
-}
-div.end-of-book-references > .chapter-area > .body > .section-area > .body > p {
-  margin: .5em 0em;
-}
-div.end-of-book-references > .chapter-area > .body > .section-area > .body > p > a.link {
-  color: #339999;
+.footnote {
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-size: 10px;
   font-weight: normal;
-  text-decoration: underline;
+}
+.abstract,
+.end-of-book-solutions {
+  display: none;
+}
+.learning-objectives {
+  border: 2pt solid #336633;
+  margin: 1em 0em;
+  padding: .50em;
+  page-break-inside: avoid;
+  page-break-before: avoid;
+}
+.exercise {
+  margin: 0.5em 0;
+  font-size: 9.5pt;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+.exercise p {
+  font-size: 9.5pt;
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+.exercise img {
+  display: block;
+  margin: 1em auto;
+  max-width: 6in;
+  max-height: 5.5in;
+}
+.exercise .problem li {
+  margin-bottom: 0.5em;
+}
+.exercise .problem li p {
+  margin-bottom: 0;
+}
+.exercise .problem .table table tr:first-child th:first-child {
+  color: black !important;
+  background-color: #ffffcc !important;
+  font-size: small;
+  border-style: none !important;
+  border-top: 1pt solid #336633 !important;
+  border-bottom: 1pt solid #336633 !important;
+  text-align: center !important;
+}
+.exercise .problem table {
+  page-break-inside: auto;
+  prince-caption-page: all;
+  border: 0 !important;
+  border-bottom: 1pt solid #336633 !important;
+  border-collapse: collapse;
+  margin: 1.5em auto;
+}
+.exercise .problem table caption {
+  padding-top: .5em;
+  padding-bottom: 1em;
+  font-weight: bold;
+  color: #336633;
+  caption-side: bottom;
+}
+.exercise .problem table td {
+  border-bottom: 1pt solid #336633;
+  padding: 0.25em;
+  border-right: 1pt solid #336633;
+}
+.exercise .problem table td:last-child {
+  border-right: none;
+}
+.exercise .problem table tr {
+  page-break-inside: avoid;
+}
+.exercise .problem table th {
+  color: black;
+  background-color: #ffffcc;
+  font-size: small;
+  border-style: none !important;
+  border-top: 1pt solid #336633 !important;
+  border-bottom: 1pt solid #336633 !important;
+  text-align: center !important;
+  font-weight: bold;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 1em;
+  padding-right: 1em;
+  border-color: black !important;
+}
+.exercise .problem table .itemizedlist {
+  margin: 0;
+  list-style-type: none;
+}
+.exercise .problem table .itemizedlist > .listitem > p {
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1 !important;
+}
+.exercise .problem div.orderedlist {
+  margin: 0;
+}
+.exercise .problem ol.orderedlist {
+  margin: 0.5em 0 0.5em 4em;
+}
+.exercise .problem ol.orderedlist li p {
+  margin-left: 0;
+}
+.visual-connection .title,
+.ap-everyday .title,
+.ap-science-practices .title {
+  font-size: 18px;
+  font-weight: bold;
+}
+.visual-connection .exercise,
+.ap-everyday .exercise,
+.ap-science-practices .exercise {
+  margin: 0;
+}
+.visual-connection .exercise .title,
+.ap-everyday .exercise .title,
+.ap-science-practices .exercise .title {
+  font-size: 15px;
+}
+.visual-connection {
+  page-break-inside: avoid;
+  background-color: #ffffcc;
+  display: table;
+}
+.visual-connection * p {
+  font-family: inherit;
+}
+.visual-connection p:nth-of-type(1) {
+  page-break-before: avoid;
+}
+.visual-connection::before {
+  background-image: url("ccap-biology/Visual_Connection_feature.png");
+  background-repeat: no-repeat;
+  background-position: top left;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  content: "";
+  display: table-caption;
+  caption-side: top;
+}
+.visual-connection > .title {
+  display: none;
+}
+.visual-connection > .body > .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+  page-break-after: avoid;
+  page-break-before: avoid !important;
+}
+.visual-connection .figure img {
+  max-width: 5.25in !important;
+}
+.visual-connection .figure > .title {
+  font-size: x-small;
+  color: #cc6633;
+}
+.visual-connection::before {
+  background-position: bottom left;
+}
+.visual-connection::before {
+  width: 600px;
+  height: 71px;
+}
+.ap-everyday {
+  page-break-inside: avoid;
+  background-color: #ffffcc;
+  display: table;
+}
+.ap-everyday * p {
+  font-family: inherit;
+}
+.ap-everyday p:nth-of-type(1) {
+  page-break-before: avoid;
+}
+.ap-everyday::before {
+  background-image: url("ccap-biology/Everyday_AP_feature.png");
+  background-repeat: no-repeat;
+  background-position: top left;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  content: "";
+  display: table-caption;
+  caption-side: top;
+}
+.ap-everyday > .title {
+  display: none;
+}
+.ap-everyday > .body > .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+  page-break-after: avoid;
+  page-break-before: avoid !important;
+}
+.ap-everyday .figure img {
+  max-width: 5.25in !important;
+}
+.ap-everyday .figure > .title {
+  font-size: x-small;
+  color: #cc6633;
+}
+.ap-everyday::before {
+  background-position: bottom left;
+}
+.ap-everyday::before {
+  width: 825px;
+  height: 57px;
+}
+.ap-science-practices {
+  page-break-inside: avoid;
+  background-color: #ffffcc;
+  display: table;
+}
+.ap-science-practices .note {
+  margin: 0;
+  margin-bottom: 10px;
+  padding: 0;
+}
+.ap-science-practices .note > div.title {
+  padding-bottom: 5px;
+}
+.ap-science-practices .note .exercise .title {
+  margin: 0 0 0 0;
+  padding: 0;
+}
+.ap-science-practices * p {
+  font-family: inherit;
+}
+.ap-science-practices p:nth-of-type(1) {
+  page-break-before: avoid;
+}
+.ap-science-practices::before {
+  background-image: url("ccap-biology/AP_Scientific_Practices_feature.png");
+  background-repeat: no-repeat;
+  background-position: top left;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  content: "";
+  display: table-caption;
+  caption-side: top;
+}
+.ap-science-practices > .title {
+  display: none;
+}
+.ap-science-practices > .body > .title {
+  text-align: left !important;
+  font-size: large;
+  margin: .25em 0;
+  color: black;
+  font-weight: bold;
+  page-break-after: avoid;
+  page-break-before: avoid !important;
+}
+.ap-science-practices .figure img {
+  max-width: 5.25in !important;
+}
+.ap-science-practices .figure > .title {
+  font-size: x-small;
+  color: #cc6633;
+}
+.ap-science-practices::before {
+  background-position: bottom left;
+}
+.ap-science-practices::before {
+  width: 825px;
+  height: 60px;
+}
+.ap-test-prep > .title {
+  column-span: all;
+  margin-top: 1em;
+}
+.os-teacher {
+  display: none;
+}
+.cnx-eoc {
+  -webkit-column-count: 1;
+  -moz-column-count: 1;
+  column-count: 1;
+  columns: 1;
+  column-fill: auto;
+  column-gap: 24px;
 }

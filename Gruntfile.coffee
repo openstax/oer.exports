@@ -56,7 +56,7 @@ module.exports = (grunt) ->
             'mkdir <%= config.testingDir %>'
             'virtualenv .'
             'source ./bin/activate'
-            'pip install lxml argparse pillow'
+            'pip install lxml argparse pillow jinja2==2.6 demjson==1.6'
             # Send stderr to /dev/null because grunt falls over with too many log lines
             "echo 'Building book (it should take a long time. If it is quick then it probably failed)...'"
             "python ./collectiondbk2pdf.py -v
@@ -236,9 +236,11 @@ module.exports = (grunt) ->
     'university-physics'
     'physics'
     'ap-physics'
+    'hs-physics'
     'sociology'
     'anatomy'
     'biology'
+    'ap-biology'
     'precalculus'
     'statistics'
     'economics'
@@ -249,6 +251,7 @@ module.exports = (grunt) ->
     'basic-math'
     'developmental-math'
     'microbiology'
+
   ]
   compileBooks = []
   for bookName in allBooks
