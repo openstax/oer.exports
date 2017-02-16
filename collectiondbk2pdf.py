@@ -34,6 +34,8 @@ BASE_PATH = os.path.dirname(path)
 DOCBOOK2XHTML_XSL = util.makeXsl('dbk2xhtml.xsl')
 DOCBOOK_CLEANUP_XSL = util.makeXsl('dbk-clean-whole.xsl')
 DEDUPSVG_XSL = util.makeXsl('xhtml-dedup-svg.xsl')
+DEDUPREFS_XSL = util.makeXsl('dedup-references.xsl')
+
 
 MODULES_XPATH = etree.XPath('//col:module/@document', namespaces=util.NAMESPACES)
 IMAGES_XPATH = etree.XPath('//c:*/@src[not(starts-with(.,"http:"))]', namespaces=util.NAMESPACES)
@@ -160,7 +162,7 @@ def convert(p, dbk1, files, print_style, temp_dir, output_pdf, pdfgen, verbose=F
   if verbose:
     open(os.path.join(temp_dir, 'temp-collection1.dbk'),'w').write(etree.tostring(dbk1,pretty_print=False))
 
-  p.start(2, 'Cleaning up Docbook')
+  p.start(3, 'Cleaning up Docbook')
   # Step 1 (Cleaning up Docbook)
   dbk2 = transform(DOCBOOK_CLEANUP_XSL, dbk1)
   if verbose:
@@ -174,7 +176,10 @@ def convert(p, dbk1, files, print_style, temp_dir, output_pdf, pdfgen, verbose=F
   p.tick('Dedup SVGs')
   xhtml_deduped = transform(DEDUPSVG_XSL, xhtml)
 
-  open(xhtml_file,'w').write(etree.tostring(xhtml_deduped))
+  p.tick('Cleaning up references')
+  xhtml_dedupeder = transform(DEDUPREFS_XSL, xhtml_deduped)
+
+  open(xhtml_file,'w').write(etree.tostring(xhtml_dedupeder))
 
   p.tick('Converting HTML to PDF')
   #import pdb; pdb.set_trace()
