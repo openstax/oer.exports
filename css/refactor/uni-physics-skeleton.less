@@ -19,6 +19,12 @@
   }
 }
 
+[class=section]  + .empty,
+[class=section]  + .empty  + .empty {
+    page-break-before: auto;
+    page-break-after: auto;
+}
+
 div.example {
   > div.body {
     > div.mediaobject {
@@ -56,6 +62,9 @@ div.example {
 }
 
 .cnx-eoc {
+  .exercise {
+    #part>#chapter-end>#exercise>.style();
+  }
   &.review-challenge,
   &.review-additional-problems {
     & > div.section > div.title {
@@ -108,6 +117,13 @@ div.colophon.end-of-book-solutions .chapter-area {
       #part>#book-end>#end-of-book-solutions>#title>.style(review-challenge);
     }
   }
+
+  // Force one solution to new line
+  .solution#m19143-fs-id1172101751897 {
+    .inlinemediaobject:last-child {
+      display: block;
+    }
+  }
 }
 
 
@@ -122,10 +138,36 @@ div.book div.chapter .check-understanding > .title:not(.labeled)::before {
 // EOC Review
 div.book > div.part > div.chapter,
 div.book > div.chapter {
-  .cnx-eoc > .title {
-    #part>#chapter-end>#title>.style('chapter-review'; chapter);
-    > span {
-      #part>#chapter-end>#title>.style('chapter-review'; chapter; title);
+  .cnx-eoc {
+   > .title {
+      #part>#chapter-end>#title>.style('chapter-review'; chapter);
+      > span {
+        #part>#chapter-end>#title>.style('chapter-review'; chapter; title);
+      }
+    }
+    &.review-conceptual-questions {
+      #part>#chapter-end>.style('review-conceptual-questions');
+      > .title {
+        #part>#chapter-end>#title >.style('review-conceptual-questions');
+      }
+    }
+    &.review-problems {
+      #part>#chapter-end>.style('review-problems');
+      > .title {
+        #part>#chapter-end>#title >.style('review-problems');
+      }
+    }
+    &.review-additional-problems {
+      #part>#chapter-end>.style('review-additional-problems');
+      > .title {
+        #part>#chapter-end>#title >.style('review-additional-problems');
+      }
+    }
+    &.review-challenge {
+      #part>#chapter-end>.style('review-challenge');
+      > .title {
+        #part>#chapter-end>#title >.style('review-challenge');
+      }
     }
   }
   .cnx-eoc .section > .title {
