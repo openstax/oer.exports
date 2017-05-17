@@ -9,6 +9,7 @@
   xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/"
   xmlns:ext="http://cnx.org/ns/docbook+"
   xmlns:exsl="http://exslt.org/common"
+  xmlns:cmlnle="http://katalysteducation.org/cmlnle/1.0"
   version="1.0">
 
 <!-- This file: Converts a module's cnxml (and mdml) into Docbook elements
@@ -673,7 +674,14 @@
 <xsl:template name="cnx.indexterm">
   <xsl:param name="id"/>
   <xsl:variable name="node">
-    <xsl:apply-templates select="node()"/>
+    <xsl:choose>
+      <xsl:when test="@cmlnle:reference">
+        <xsl:value-of select="@cmlnle:reference"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates select="node()"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:variable>
     <db:indexterm zone="{$id}">
       <db:primary>
