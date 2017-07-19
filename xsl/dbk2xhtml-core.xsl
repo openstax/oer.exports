@@ -12,6 +12,7 @@
   xmlns:date="http://exslt.org/dates-and-times"
   xmlns:func="http://exslt.org/functions"
   xmlns:str="http://exslt.org/strings"
+  xmlns:cmlnle="http://katalysteducation.org/cmlnle/1.0"
   version="1.0">
 
 <!-- This file converts dbk files to html (maybe chunked) which is used in EPUB and PDF generation.
@@ -81,7 +82,7 @@
     </xsl:choose>
   </xsl:if>
   <!-- if a link contains text let CSS know to use the label instead of attempting to autogenerate it -->
-  <xsl:if test="text()">
+  <xsl:if test="text() or @xreftemplate">
     <xsl:text> labeled</xsl:text>
   </xsl:if>
 </xsl:template>
@@ -391,7 +392,7 @@
 
         <xsl:if test="string-length($class) &gt; 0 and $context//*[contains(@class,$class)]//ext:solution">
           <xsl:message>LOG: INFO: Found some end-of-chapter solutions: class=[<xsl:value-of select="$class"/>]</xsl:message>
-          
+
           <div class="{$class}"><xsl:apply-templates select="$context//*[contains(@class,$class)]//ext:solution"/></div>
         </xsl:if>
       </xsl:for-each>
@@ -1243,8 +1244,10 @@ Combination of formal.object and formal.object.heading -->
    </xsl:if>
 </xsl:template>
 
+<!-- <xsl:apply-imports/> doesn't allow for forwarding parameters, which we need
+     to set xrefstyle -->
 <!-- Docbook generates "???" when it cannot generate text for a db:xref. Instead, we print the name of the closest enclosing element. -->
-<xsl:template match="*" mode="xref-to">
+<!-- <xsl:template match="*" mode="xref-to">
     <xsl:variable name="orig">
         <xsl:apply-imports/>
     </xsl:variable>
@@ -1266,7 +1269,7 @@ Combination of formal.object and formal.object.heading -->
             <xsl:value-of select="$orig"/>
         </xsl:otherwise>
     </xsl:choose>
-</xsl:template>
+</xsl:template> -->
 <xsl:template match="db:xref" mode="xref-to">
     <xsl:text>link</xsl:text>
 </xsl:template>
