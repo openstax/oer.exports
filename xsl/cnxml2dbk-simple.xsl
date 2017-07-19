@@ -7,6 +7,7 @@
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/"
   xmlns:ext="http://cnx.org/ns/docbook+"
+  xmlns:cmlnle="http://katalysteducation.org/cmlnle/1.0"
   version="1.0">
 
 <!--
@@ -267,6 +268,13 @@
                 <xsl:otherwise>
                     <db:xref linkend="{$href}">
                         <xsl:apply-templates select="@*"/>
+                        <xsl:if test="@cmlnle:template">
+                            <xsl:attribute name="xreftemplate" select="@cmlnle:template" />
+                            <xsl:attribute name="xrefstyle">
+                                <xsl:text>template:</xsl:text>
+                                <xsl:value-of select="@cmlnle:template" />
+                            </xsl:attribute>
+                        </xsl:if>
                     </db:xref>
                 </xsl:otherwise>
             </xsl:choose>
