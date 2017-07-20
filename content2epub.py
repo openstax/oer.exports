@@ -139,7 +139,8 @@ def main():
     f.close()
 
   # Now, run the epub script
-  nothing = convert(etree.parse(StringIO(dbk)), temp_dir, args.css_file, epubXsl, args.output)
+  # nothing = convert(etree.parse(StringIO(dbk)), temp_dir, args.css_file, epubXsl, args.output)
+  nothing = convert(dbk, temp_dir, args.css_file, epubXsl, args.output)
 
 if __name__ == '__main__':
     sys.exit(main())
