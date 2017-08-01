@@ -9,6 +9,7 @@
   xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/"
   xmlns:ext="http://cnx.org/ns/docbook+"
   xmlns:exsl="http://exslt.org/common"
+  xmlns:cmlnle="http://katalysteducation.org/cmlnle/1.0"
   version="1.0">
 
 <!-- This file: Converts a module's cnxml (and mdml) into Docbook elements
@@ -20,6 +21,9 @@
 <xsl:import href="cnxml2dbk-simple.xsl"/>
 <xsl:import href="mdml2dbk.xsl"/>
 <xsl:output indent="no" method="xml"/>
+
+<!-- Space-separated list of URNs of namespaces we don't want to strip. -->
+<xsl:variable name="preserve_namespaces" select="'http://katalysteducation.org/cmlnle/1.0'" />
 
 <xsl:template mode="copy" match="@*|node()">
     <xsl:copy>
@@ -46,7 +50,15 @@
 </xsl:template>
 <!-- Bug. can't replace @id with xsl:attribute if other attributes have already converted using xsl:copy -->
 <xsl:template match="@*">
-	<xsl:attribute name="{local-name(.)}"><xsl:value-of select="."/></xsl:attribute>
+    <!-- Don't strip namespace prefix for selected namespaces -->
+	<xsl:choose>
+		<xsl:when test="contains($preserve_namespaces, namespace-uri(.))">
+			<xsl:attribute name="{local-name(.)}" namespace="{namespace-uri(.)}"><xsl:value-of select="."/></xsl:attribute>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:attribute name="{local-name(.)}"><xsl:value-of select="."/></xsl:attribute>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 <xsl:template match="@src|@format|@alt"/>
