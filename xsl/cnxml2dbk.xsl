@@ -22,9 +22,6 @@
 <xsl:import href="mdml2dbk.xsl"/>
 <xsl:output indent="no" method="xml"/>
 
-<!-- Space-separated list of URNs of namespaces we don't want to strip. -->
-<xsl:variable name="preserve_namespaces" select="'http://katalysteducation.org/cmlnle/1.0'" />
-
 <xsl:template mode="copy" match="@*|node()">
     <xsl:copy>
         <xsl:apply-templates mode="copy" select="@*|node()"/>
@@ -50,15 +47,11 @@
 </xsl:template>
 <!-- Bug. can't replace @id with xsl:attribute if other attributes have already converted using xsl:copy -->
 <xsl:template match="@*">
-    <!-- Don't strip namespace prefix for selected namespaces -->
-	<xsl:choose>
-		<xsl:when test="contains($preserve_namespaces, namespace-uri(.))">
-			<xsl:attribute name="{local-name(.)}" namespace="{namespace-uri(.)}"><xsl:value-of select="."/></xsl:attribute>
-		</xsl:when>
-		<xsl:otherwise>
-			<xsl:attribute name="{local-name(.)}"><xsl:value-of select="."/></xsl:attribute>
-		</xsl:otherwise>
-	</xsl:choose>
+	<xsl:attribute name="{local-name(.)}"><xsl:value-of select="."/></xsl:attribute>
+</xsl:template>
+
+<xsl:template match="@cmlnle:*">
+  <xsl:copy/>
 </xsl:template>
 
 <xsl:template match="@src|@format|@alt"/>
