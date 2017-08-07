@@ -1,0 +1,59 @@
+@import 'l10n.less';
+
+#l10n {
+  .page-title(@part;    @counter; @title) {}
+  .page-title(preface;  @counter; @title) { string-set: cnx-header @DEBUG_START @Preface  " " @counter " | " @title @DEBUG_END; }
+  .page-title(chapter;  @counter; @title) { string-set: cnx-header @DEBUG_START @Chapter  " " @counter " | " @title @DEBUG_END; }
+  .page-title(appendix; @counter; @title) { string-set: cnx-header @DEBUG_START @Appendix " " @counter " | " @title @DEBUG_END; }
+
+  .x-content-counter(@part;    @before; @after) {}
+  .x-content-counter(preface;  @before; @after) { content: @DEBUG_START @before @after @DEBUG_END; }
+  .x-content-counter(chapter;  @before; @after) { content: @DEBUG_START @before counter(chapter, decimal) "." @after @DEBUG_END; }
+  .x-content-counter(appendix; @before; @after) { content: @DEBUG_START @before counter(appendix, upper-latin) @after @DEBUG_END; }
+
+  .label(@part;     equation;     @counter;         ) { .x-content-counter(@part; "("; @counter ")"); }
+  .label(@part;     example;      @counter;         ) { .x-content-counter(@part; "Przykład "; @counter " "); }
+  .label(@part;     exercise;     @counter;         ) { .x-content-counter(@part; "Ćwiczenie "; @counter " "); }
+  .label(@part;     figure;       @counter;         ) { .x-content-counter(@part; "Rysunek "; @counter " "); }
+  .label(@part;     problem;      @counter; end-part) { content: @DEBUG_START @counter "." @DEBUG_END; }
+  .label(@part;     section;      @counter;         ) { .x-content-counter(@part; ""; @counter " "); }
+  .label(@part;     section;      @counter; end-part) { .x-content-counter(@part; ""; @counter " "); }
+  .label(default;   solution;     @counter;         ) { content: @DEBUG_START @counter @DEBUG_END; }
+  .label(@part;     solution;     @counter; @context) { content: @counter; }
+  .label(@part;     subfigure;    @counter;         ) { content: @DEBUG_START "(" @counter ") " @DEBUG_END; }
+  .label(@part;     table;        @counter;         ) { .x-content-counter(@part; "Tabela "; @counter " "); }
+  .label(@part;     toc-section;  @counter;         ) { .x-content-counter(@part; ""; @counter " "); }
+
+  .x-xref-label(@nom; @gen; @dat; @acc; @inst; @loc; @voc; @counter) {
+    content: @DEBUG_START @nom " " @counter @DEBUG_END;
+    &.case-genitive     { content: @DEBUG_START @gen  " " @counter @DEBUG_END; }
+    &.case-dative       { content: @DEBUG_START @dat  " " @counter @DEBUG_END; }
+    &.case-accusative   { content: @DEBUG_START @acc  " " @counter @DEBUG_END; }
+    &.case-instrumental { content: @DEBUG_START @inst " " @counter @DEBUG_END; }
+    &.case-locative     { content: @DEBUG_START @loc  " " @counter @DEBUG_END; }
+    &.case-vocative     { content: @DEBUG_START @voc  " " @counter @DEBUG_END; }
+  }
+
+  .x-content-target-counter(@part;    @nom; @gen; @dat; @acc; @inst; @loc; @voc; @counter) {}
+  .x-content-target-counter(preface;  @nom; @gen; @dat; @acc; @inst; @loc; @voc; @counter) {
+    .x-xref-label(@nom; @gen; @dat; @acc; @inst; @loc; @voc; @counter);
+  }
+  .x-content-target-counter(chapter;  @nom; @gen; @dat; @acc; @inst; @loc; @voc; @counter) {
+    .x-xref-label(@nom; @gen; @dat; @acc; @inst; @loc; @voc; target-counter(attr(href), chapter) "." @counter);
+  }
+  .x-content-target-counter(appendix; @nom; @gen; @dat; @acc; @inst; @loc; @voc; @counter) {
+    .x-xref-label(@nom; @gen; @dat; @acc; @inst; @loc; @voc; target-counter(attr(href), appendix, upper-latin) "" @counter);
+  }
+
+  .xref-label(@part;  table;      @counter) { .x-content-target-counter(@part; "Tabela";    "Tabeli";    "Tabeli";      "Tabelę";    "Tabelą";     "Tabeli";      "Tabelo";      @counter); }
+  .xref-label(@part;  example;    @counter) { .x-content-target-counter(@part; "Przykład";  "Przykładu"; "Przykładowi"; "Przykład";  "Przykładem"; "Przykładzie"; "Przykładzie"; @counter); }
+  .xref-label(@part;  exercise;   @counter) { .x-content-target-counter(@part; "Ćwiczenie"; "Ćwiczenia"; "Ćwiczeniu";   "Ćwiczenie"; "Ćwiczeniem"; "Ćwiczeniu";   "Ćwiczenie";   @counter); }
+  .xref-label(@part;  equation;   @counter) { .x-content-target-counter(@part; "Równanie";  "Równania";  "Równaniu";    "Równanie";  "Równaniem";  "Równaniu";    "Równanie";    @counter); }
+  .xref-label(@part;  section;    @counter) { }
+  .xref-label(@part;  figure;     @counter) { .x-content-target-counter(@part; "Rysunek";   "Rysunku";   "Rysunkowi";   "Rysunek";   "Rysunkiem";  "Rysunku";     "Rysunku";     @counter); }
+  .xref-label(@part;  subfigure;  @counter; @subcounter) {
+    .xref-label(@part; figure; @counter @subcounter);
+  }
+  .xref-label(toc;    chapter;    @counter) { content: @DEBUG_START "Rozdział " @counter @DEBUG_END; }
+  .xref-label(toc;    appendix;   @counter) { content: @DEBUG_START "Dodatek " @counter @DEBUG_END ": "; }
+}
