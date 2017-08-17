@@ -110,7 +110,6 @@ def _replace_tex_math(node, mml_url, retry=0):
                                  'mml': 'true'})
         req = urllib2.Request(mml_url, data)
         try:
-            retry += 1
             resp = urllib2.urlopen(req)
         except urllib2.HTTPError:
             return None
@@ -136,6 +135,7 @@ def _replace_tex_math(node, mml_url, retry=0):
     else:
         print >> sys.stderr, ('LOG: WARNING: Retry TeX conversion: %s'
                               % (json.encode(eq, compactly=False)))
+        retry += 1
         if retry < 2:
             return _replace_tex_math(node, mml_url, retry)
 
