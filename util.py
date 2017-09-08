@@ -56,7 +56,9 @@ NAMESPACES = {
   'mml':'http://www.w3.org/1998/Math/MathML',
   'db' :'http://docbook.org/ns/docbook',
   'xi' :'http://www.w3.org/2001/XInclude',
-  'col':'http://cnx.rice.edu/collxml'}
+  'col':'http://cnx.rice.edu/collxml',
+  'cmlnle': 'http://katalysteducation.org/cmlnle/1.0',
+}
 
 
 # For SVG Cover image
