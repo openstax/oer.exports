@@ -50,6 +50,10 @@
 	<xsl:attribute name="{local-name(.)}"><xsl:value-of select="."/></xsl:attribute>
 </xsl:template>
 
+<xsl:template match="@cmlnle:*">
+  <xsl:copy/>
+</xsl:template>
+
 <xsl:template match="@src|@format|@alt"/>
 <!-- Pass @type through so exercises, examples, etc are re-numberred based on type -->
 <xsl:template match="*/@type">
