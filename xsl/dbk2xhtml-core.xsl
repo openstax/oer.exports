@@ -12,6 +12,7 @@
   xmlns:date="http://exslt.org/dates-and-times"
   xmlns:func="http://exslt.org/functions"
   xmlns:str="http://exslt.org/strings"
+  xmlns:cmlnle="http://katalysteducation.org/cmlnle/1.0"
   version="1.0">
 
 <!-- This file converts dbk files to html (maybe chunked) which is used in EPUB and PDF generation.
@@ -83,6 +84,11 @@
   <!-- if a link contains text let CSS know to use the label instead of attempting to autogenerate it -->
   <xsl:if test="text()">
     <xsl:text> labeled</xsl:text>
+  </xsl:if>
+
+  <xsl:if test="@cmlnle:case">
+    <xsl:text> case-</xsl:text>
+    <xsl:value-of select="@cmlnle:case"/>
   </xsl:if>
 </xsl:template>
 
