@@ -1,0 +1,144 @@
+@import url('../ccap-tables.less');
+@import url('utils.less');
+@import url('page-slots.less');
+@import url('ccap-base-slots.less');
+@import url('content-slots.less');
+@import url('themes/new-math-slots.less');
+@import url('business-slots.less');
+
+@base-font-size: 12px;
+@font-family-serif: 'Dosis', sans-serif, @stix-fonts;
+@font-family: 'Noto Sans', sans-serif, @stix-fonts;
+
+@book-title: astronomy;
+
+@page-width: 6.5in;
+
+/* The QR code variable is needed for psychology skeleton but we are not using it since it's going away */
+
+// Finished printed size of the QR code is dependent on: 1-distance between qr code and scanning device
+// 2-size of dots in the code(amount of data inputed into the code, the smaller the dots become)
+// For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
+@qr: 1.25in;
+
+// Images in astronomy are 200DPI
+html {
+  prince-image-resolution: 150dpi;
+  prince-background-image-resolution: 150dpi;
+}
+
+@table-border: 1px solid #F4F4F4;
+
+// Chemistry static strings
+@cnx-string-how-sciences-interconnect: "How Sciences Interconnect";
+@cnx-string-chemistry-in-everyday-life: "Chemistry in Everyday Life";
+@cnx-string-portrait-of-a-chemist: "Portrait of a Chemist";
+@cnx-string-link-to-learning: "Link to Learning"; // Used in psychology also - unchanged
+
+// Chemistry End of chapter/book strings
+@cnx-string-key-equations: "Key Equations";
+@cnx-string-exercises: "Exercises";
+
+// Static strings needed from Psychology
+// @cnx-string-everyday-connection: "everyday connection";
+// @cnx-string-dig-deeper: "dig deeper";
+// @cnx-string-what-do-you-think: "what do you think?";
+// @cnx-string-connect-the-concepts: "connect the concepts";
+
+// End of chapter/book strings
+@cnx-string-summary: "Summary";
+@cnx-string-review-questions: "Review Questions";
+@cnx-string-critical-thinking-questions: "Critical Thinking";
+@cnx-string-personal-application-questions: "Personal Application Questions";
+
+
+//Astronomy
+@cnx-string-astronomy-basics: "Astronomy Basics ";
+@cnx-string-making-connections: "Making Connections";
+@cnx-string-seeing-for-yourself: "Seeing for Yourself";
+@cnx-string-voyagers-in-astronomy: "Voyagers in Astronomy";
+
+
+
+#content {
+  // Enable page breaking inside tables.
+  #table {
+    .style(...) {
+      #utils>#pb>.inside(auto);
+    }
+  }
+  //  - Non-figure images are centered.
+  .x-center-image() {
+    display: block;
+    margin: auto;
+
+
+  }
+  #image {
+    .style(any; chapter) {
+      .x-center-image();
+    }
+    .style(any; book-end; solutions) {
+      .x-center-image();
+    }
+  }
+}
+
+@import url('../ccap-numbering.less');
+@import url('../ccap-precalculus-numbering.less');
+@import url('page-skeleton.less');
+@import url('ccap-base-skeleton.less');
+@import url('content-skeleton.less');
+@import url('themes/new-math-skeleton.less');
+@import url('business-skeleton.less');
+// Ad-hoc numbering changes. Removes numbering for various pieces of content
+// which use a .unnumbered class.
+@import url('unnumbered-content.less');
+@import url('folio.less');
+
+div.book div.chapter > div.titlepage > div > div h1.title {
+  span.cnx-gentext-t {
+    string-set: cnx-header "@{cnx-string-chapter} " counter(chapter, decimal)  "\0020\0020\0020" content();
+  }
+}
+
+
+.chapter > .introduction > .figure.splash {
+  width: 8.75in;
+  margin-left: -.125in;
+
+  &::before {
+    width: 8.75in;
+  }
+
+  div.mediaobject {
+    width: 8.75in;
+
+    img {
+      width: 8.75in;
+    }
+  }
+}
+
+#part {
+  #introduction {
+    .style() {
+      margin-top: -0.925in;
+    }
+  }
+  #chapter {
+    #title {
+      .style() {
+        margin-top: -0.125in;
+      }
+      .icon() {
+        left: -0.125in;
+      }
+    }
+  }
+}
+
+.figure {
+  float: column-top;
+  background: blue;
+}

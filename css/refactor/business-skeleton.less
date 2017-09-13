@@ -1,0 +1,1368 @@
+//variables
+@import url('includes/theme-colors.less');
+
+@primary-color: @scooter-blue;
+@secondary-color: @flirt-red;
+@tertiary-color: @jagger-violet;
+@quaternary-color: @sea-buckthorn-orange;
+@quinary-color: @flamingo-orange;
+@accent-color: #F4F4F4;
+@accent-color-tinted: #F9F9F9;
+@link-color: #34BDD8;
+@footnote-color: #6D6F71;
+
+.folio-chapter-header() {
+  background-color: transparent;
+  color: white;
+  font-weight: bold;
+}
+
+.line-height() {
+  line-height: 1.6em;
+}
+
+.x-feature-astronomy(@title, @title-background-color, @background-color, @icon, @text-color: #4F5151, @icon-width: 19px, @icon-height: 22px, @icon-top: 12px, @icon-right: 15px) {
+  display: table;
+  position: relative;
+  background-color: @background-color;
+  text-align: left;
+  color: @text-color;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  padding: 0;
+  box-sizing: border-box;
+
+  &::before {
+    display: table-caption;
+    content: @title;
+    font-weight: 600;
+    font-style: normal;
+    background-color: @title-background-color;
+    color: #fff;
+    line-height: 48px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    .font-scale(1);
+    font-family: @font-family-serif;
+    padding: 0 15px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    #utils>#pb>.after(avoid);
+  }
+
+  > div.title {
+    .font-scale(1);
+    color: @tertiary-color;
+    font-weight: 600;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  > div.body {
+    padding: 15px;
+    border: 0;
+
+    &::before {
+      display: block;
+      content: '';
+      background: url("ccap-astronomy/@{icon}.svg") no-repeat 0;
+      width: @icon-width;
+      height: @icon-height;
+      position: absolute;
+      top: @icon-top;
+      right: @icon-right;
+    }
+
+    p {
+      padding: 0;
+    }
+
+    p:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+
+
+///may not need this
+div.itemizedlist, div.orderedlist {
+  ul, ol {
+    li {
+      #content>#list>.item(any; any);
+    }
+  }
+}
+
+
+div.book div.preface {
+  > div.section {
+    //#content>#section>.style(any; preface);
+    .scale-padding(2, margin-bottom);
+    p + .section {
+      margin-top: 18px;
+    }
+    > div.section {
+      //#content>#section>.style(any; preface; section);
+      .scale-padding(2, margin-bottom);
+    }
+  }
+  > p + .section {
+      margin-top: 18px;
+  }
+
+  .figure > .caption::before {
+    //#content>#figure>#title>.number('preface'; any);
+        color: black;
+        .font-scale(-1);
+        content: "Figure " counter(chapter, decimal) "." counter(figure) " " string(cnx-figure-title);
+        // Override numbering for preface figures
+        content: "Figure " counter(figure) " " string(cnx-figure-title);
+  }
+}
+
+.chapter {
+  > .introduction {
+    //#part>#introduction>.style();
+    margin-top: -0.80in;
+  }
+}
+
+div.book > div.chapter > div.titlepage {
+  //#part>#chapter>#titlepage>.style();
+          height: 100%;
+        margin-top: 0;
+
+  div div > h1.title {
+    //#part>#chapter>#title>.style();
+            padding: 0;
+        padding-top: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 8.5in;
+        height: 3.5in;
+        color: @tertiary-color;
+        .font-scale(2);
+    &::before {
+      //#part>#chapter>#title>.number();
+              font-family: @font-family;
+        top: auto;
+        left: 0;
+        bottom: 52px;
+        background-color: white;
+        border-radius: 50%;
+        min-width: 0;
+        min-height: 0;
+        width: 45px;
+        height: 45px;
+        padding-top: 0;
+        border: none;
+        display: block;
+        line-height: 45px;
+        color: @secondary-color;
+    }
+    &::after {
+      //#part>#chapter>#title>.icon();
+              content: '';
+        display: block;
+        background: url(ccap-astronomy/ch-intro-telescope.svg) 0 0 no-repeat;
+        width: 210px;
+        height: 50px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        transform: translate3d(-1in, 0, 0);
+    }
+      span.cnx-gentext-t {
+    //#part>#chapter>#title>.text();
+            position: absolute;
+        bottom: -10px;
+        left: 80px;
+        width: 60%;
+        height: 70px;
+        white-space: normal;
+    &::before {
+      #part>#chapter>#title>.divider();
+    }
+  }
+  }
+}
+.chapter > .introduction > .figure.splash {
+  position: relative;
+
+  &::before {
+    background: transparent url('ccap-astronomy/folio-bg.png') 0 0 repeat-x;
+    background-size: 100% 122px;
+    height: 122px;
+    width: 8.5in;
+    display: block;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -1in;
+    right: -1in;
+  }
+
+  div.mediaobject {
+    border-left: none;
+    height: 4.3in;
+    position: relative;
+
+    &::before {
+      display: none;
+    }
+
+    &::after {
+      width: 100%;
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0px;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background-color: @quinary-color;
+      border-top: 4px solid rgba(60 ,39, 71, .5);
+    }
+
+    img {
+      width: 8.5in;
+      height: 3.58in;
+    }
+  }
+}
+
+.chapter > .introduction > .toc {
+    .cnx-gentext-n {
+     // #content>#list>.number('unordered'; introduction; chapter-outline);
+     color: @summer-sky;
+    }
+
+    // overide hyperlink medium blue color
+    .toc-section .cnx-gentext-t {
+      color: @tertiary-color;
+    }
+}
+.chapter .note {
+  &.link-to-learning {
+    //#content>#note>.style('link-to-learning-new'; any);
+          .x-feature-astronomy(@cnx-string-link-to-learning, @secondary-color, #e6eaef, link-to-learning);
+      div.mediaobject {
+        display: none;
+      }
+  }
+}
+.example > div.body > div.note {
+  //#content>#note>.style(any; any; example);
+        padding-left: 0;
+      padding-right: 0;
+      margin: 0;
+  div.title {
+    //#content>#note>#title>.style(any; any; example);
+            padding: 0;
+        margin-bottom: 18px;
+        font-style: italic;
+  }
+  div.body {
+   // #content>#note>#body>.style(any; any; example);
+  }
+}
+
+.cnx-eoc {
+
+
+
+}
+div.abstract {
+  display: none;
+}
+div.book div > div.section > div.section.learning-objectives {
+  > div.titlepage > div > div > h3 {
+    //#part>#chapter>#learning-objectives>#titlepage>.style();
+              font-family: @font-family-serif;
+          .font-scale(2);
+          color: @secondary-color;
+          margin-bottom: 1em;
+  }
+  .itemizedlist > ul {
+    //#part>#chapter>#learning-objectives>#list>.style();
+              color: @tertiary-color;
+          margin-bottom: 18px;
+  }
+  .listitem {
+   // #part>#chapter>#learning-objectives>#list>#listitem>.style();
+               background: none;
+            margin-left: 20px;
+            padding-left: 0;
+
+
+    &::marker {
+      //#part>#chapter>#learning-objectives>#list>#listitem>.marker();
+                  width: 4.5px;
+            content: url("ccap-astronomy/learning-objectives.svg");
+    }
+
+    p { margin-bottom: 0; }
+  }
+}
+
+.figure > .title span.cnx-gentext-t {
+  string-set: cnx-figure-title content();
+}
+
+div.book > div.appendix > div.section > div.titlepage {
+  //#content>#section>#title>.style(any; appendix);
+  margin-top: 1em;
+  .scale-padding(1, margin-bottom);
+
+  &::before {
+    //#content>#section>#title>.number(any; appendix);
+    display: none;
+  }
+  span.cnx-gentext-t {
+    //#content>#section>#title>.text(any; appendix);
+            .font-scale(1);
+        font-family: @font-family;
+        color: @secondary-color;
+        text-transform: capitalize;
+  }
+  span.cnx-gentext-autogenerated:first-of-type {
+   // #content>#section>#title>.label(any; appendix);
+   display: none;
+  }
+}
+
+div.appendix {
+  div.itemizedlist,
+  div.orderedlist {
+    ul,
+    ol {
+      margin: 0 0 0 30px;
+      .line-height();
+    }
+  }
+  div.itemizedlist ul .listitem::marker {
+    //#content>#list>.marker(any; appendix);
+          content: url("./ccap-astronomy/learning-objectives-default.svg");
+      width: 4.5px;
+      padding-left: 0px;
+  }
+}
+
+///FIXME will have to hide altogether
+div.colophon.end-of-book-solutions {
+  div.chapter-area div.solution div.body img {display:block; margin: 0 auto;}
+  div.orderedlist > ol.orderedlist {
+    #content>#list>.style('answer-key'; book-end; solution);
+    > li.listitem {
+      #content>#list>.item('answer-key'; book-end; solution);
+      p {
+        #content>#list>.itemtext('answer-key'; book-end; solution);
+      }
+    }
+  }
+}
+
+.preface, .chapter .introduction, .appendix {
+  > p {
+    .line-height();
+  }
+}
+
+//FIXME
+div.table table {
+  thead tr:last-of-type th:first-child {
+    #content>#table>#header>#title>.style('first'; any);
+  }
+  thead tr:last-of-type th:last-child {
+    #content>#table>#header>#title>.style('last'; any);
+  }
+}
+
+.book > .toc .toc-chapter .cnx-gentext-chapter.cnx-gentext-t {
+  //#content>#link>.text('chapter'; any; toc);
+        float: left;
+      max-width: 90%;
+}
+
+.book > .toc > ul > li.toc-appendix > a.target-appendix::before {
+ // #part>#toc>#chapter>.number('appendix'; any; toc);
+         display: inline-block;
+        color: @secondary-color;
+        border: 1px solid @quaternary-color;
+        .font-scale(0);
+        padding: 0;
+        margin-right: 10px;
+        margin-left: 10px;
+        font-weight: 700;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        line-height: 20px;
+  content: target-counter(attr(href), appendix, upper-latin) " ";
+}
+
+div.book > div.appendix > div.section div.equation:not(.labeled).unnumbered {
+  counter-increment: none !important;
+}
+
+div.book div.appendix > div.section div.equation.unnumbered > *:last-child::after,
+div.book div.appendix > div.section div.equation.unnumbered > *:last-child::before {
+  display: none !important;
+}
+
+.chapter,
+.appendix,
+.cnx-eoc .exercise div.body div.problem {
+  .figure.small {
+    //#content>#figure>.style('small'; any);
+    width: initial;
+  }
+}
+
+// Overwrite from new-math-skeleton
+.glossary {
+  dl {
+    dt, dd {
+      margin-top: 0px;
+    }
+  }
+}
+
+////////////////
+///mathhhh
+
+// Copyright (c) 2013 Rice University
+//
+//
+@kind: default;
+@part: chapter;
+@context: default;
+
+@import url('includes/table-skeleton.less');
+@import url('includes/sub-sup-scripts.less');
+
+html, body {
+  font-size: @base-font-size;
+}
+
+h2, h3, h4 {
+  margin: initial;
+  sup a {
+    display:none;
+  }
+}
+
+/* -------------------------
+ * Preface
+ * -------------------------
+ */
+div.book div.preface {
+  > .titlepage {
+    #part>#preface>#titlepage>.style();
+    h1.title {
+      //#part>#preface>#titlepage>.title();
+      padding-bottom: 0;
+    }
+  }
+
+  > div.section {
+    div.titlepage > div > div > h2 {
+     // #content>#section>#title>.style(any; preface);
+             color: @tertiary-color;
+        .font-scale(2);
+        font-weight: bold;
+        font-family: @font-family-serif;
+        padding-bottom: 0;
+    }
+
+    // > div.section {
+    //   > div.titlepage > div > div > h3 {
+    //     #content>#section>#title>.style(any; preface; section);
+    //   }
+    // }
+  }
+}
+
+.chapter > .introduction > .figure.splash {
+  //#content>#figure>.style('splash'; chapter);
+  transform: translate3d(-1in, 0, 0);
+
+  div.body {
+   // #content>#figure>#body>.style('splash'; chapter);
+   padding-bottom: 5px;
+  }
+
+  div.caption {
+    width: 6.5in;
+  }
+  div.mediaobject {
+    border-left: 1.814in solid @accent-color;
+    height: 2.523in;
+
+    img {
+      width: 6.685in;
+      height: 2.523in;
+      display: inline;
+    }
+    &::before {
+      background: rgba(30, 126, 145, 0.5);
+      width: 6.685in;
+      height: 2.523in;
+      position: absolute;
+      left: 0.815in;
+      content: " ";
+    }
+
+  }
+}
+/* -------------------------
+ * Book Table of Contents
+ * -------------------------
+ */
+.book > .toc {
+  #part>#toc>.style();
+
+  > .title {
+   // #part>#toc>#title>.style();
+   &::before {
+          display: none;
+        }
+        text-transform: uppercase;
+        .scale-padding(2, margin-bottom);
+        color: @tertiary-color;
+        display: inline-block;
+        font-family: @font-family-serif;
+        background: url("ccap-astronomy/TOC.svg") no-repeat left;
+        background-size: contain;
+        margin-bottom: 10px;
+        //Note: EOC sections have side paddings of 2.3 rather than 2.66, maybe change others for consistency?
+        padding: .3em 2.66em;
+
+    &::before {
+      content: url("math-toc-icon.png");
+      padding-right: 15px;
+      margin-left: 10px;
+    }
+  }
+
+  .toc-preface.preface, .toc-appendix.appendix {
+    //FIXME
+    #utils>#pb>.before(avoid);
+    #utils>#pb>.after(avoid);
+  }
+
+  a {
+    //#part>#toc>#link>.style();
+            color: @dark-blue;
+        text-align: left;
+
+    &::after {
+      //#part>#toc>#link>.number();
+              content: target-counter(attr(href), page);
+        padding-left: 15px;
+    }
+  }
+}
+
+.book > .toc .toc-chapter {
+  //#content>#list>.item('chapter'; any; toc);
+  margin-bottom: 20px;
+
+  .cnx-gentext-chapter { display: none; }
+  .cnx-gentext-chapter.cnx-gentext-t {
+    display: inline;
+  }
+}
+.book > .toc .toc-preface {
+  //#content>#list>.item('preface'; any; toc);
+  margin-bottom: 20px;
+  a.target-preface {
+   // #content>#link>.style('preface'; any; toc);
+         color: @primary-color;
+      .scale-padding(1, margin-bottom);
+      margin-left: 48px;
+      font-size: 16px;
+  }
+}
+
+.book > .toc .toc-chapter::before {
+  // TODO: suggestions for refactoring this slot?
+  //#part>#toc>#chapter>.number();
+          display: inline-block;
+        color: @secondary-color;
+        border: 1px solid @quaternary-color;
+        .font-scale(0);
+        padding: 0;
+        margin-right: 10px;
+        margin-left: 10px;
+        font-weight: 700;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        line-height: 20px;
+}
+.book > .toc .toc-chapter a.target-chapter {
+ // #content>#link>.style('chapter'; any; toc);
+       color: @primary-color;
+      .scale-padding(1, margin-bottom);
+      font-size: 16px;
+      width: 90%;
+}
+.book > .toc .toc-chapter > .target-chapter::before {
+  display: none;
+}
+.book > .toc .toc-appendix > a.target-appendix {
+  //#content>#link>.style('appendix'; any; toc);
+        color: @primary-color;
+      .scale-padding(1, margin-bottom);
+      margin-left: .20em;
+      font-size: 16px;
+}
+.book > .toc > ul > li.toc-appendix > a.target-appendix::before {
+  content: target-counter(attr(href), appendix, upper-latin) " ";
+}
+.book > .toc .toc-index > a.target-index {
+  //#content>#link>.style('index'; any; toc);
+       color: @primary-color;
+      .scale-padding(1, margin-bottom);
+      margin-left: 48px;
+      font-size: 16px;
+}
+
+.book > .toc .toc-chapter > ul {
+  //#content>#list>.style('chapter'; any; toc);
+        border-left: 4px solid @accent-color;
+      margin-left: 48px;
+      .scale-padding(-1, padding-left);
+}
+.book > .toc .toc-chapter > ul li a span.cnx-gentext-n {
+  font-weight: 700;
+}
+.book > .toc ul,
+.book > .toc li { margin-left: 0; }
+.book > .toc > ul > ul > li {
+  margin: 0;
+  padding: 1em 1em 1em 0em;
+}
+.book > .toc > ul > li.toc-chapter:nth-child(2n+1) {
+  //#content>#list>.item('2n+1', 'chapter'; any; toc);
+        background-color: @accent-color-tinted;
+      padding-top: 1em;
+      padding-bottom: 1em;
+}
+
+
+/* -------------------------
+ * Unit Page
+ * -------------------------
+ */
+div.part > div.titlepage { display: none; }
+
+
+
+/* -------------------------
+ * Chapter Introduction
+ * -------------------------
+ */
+.chapter > .introduction {
+  >.title {
+    &::before {
+      //#part>#introduction>#title>.style('intro-icon'; any);
+              background: url("ccap-astronomy/CH_intro.svg") no-repeat left;
+        background-size: 23px 27px;
+        height: 38px;
+        top: 12px;
+        padding-right: 13px;
+    }
+    //#part>#introduction>#title>.style();
+            color: @tertiary-color;
+        margin-bottom: 1em;
+        content: initial;
+  }
+// in new-math theme
+  // > .toc a {
+  //   #part>#introduction>#chapter-outline>#entry>#title>.style();
+  // }
+
+  // overide hyperlink medium blue color must be back and normal weight
+  > .toc .toc-section .cnx-gentext-t {
+    color: @black;
+    font-weight: normal;
+  }
+
+  // Take away default colon display after number
+  > .toc .toc-section .cnx-gentext-n:after {
+    content: "";
+  }
+
+
+  /******************************************************************
+   * Styling for Chapter Outline Box
+   ******************************************************************/
+  > .toc {
+   // only in new-math theme
+   /// #part>#introduction>#chapter-outline>.style();
+
+    > ul {
+     // #content>#list>.style('unordered'; introduction; chapter-outline);
+     border-left: 4px solid @accent-color;
+    }
+
+    > .title {
+      //#part>#introduction>#chapter-outline>#title>.style();
+                .scale-padding(1, margin-bottom);
+          .font-scale(2);
+    }
+  }
+}
+
+
+div.book > div.chapter > div.titlepage {
+  height: 2.523in;
+  z-index: 1;
+  position: relative;
+  margin-top: -2.523in;
+
+  div {
+    height: inherit;
+    div {
+      height: inherit;
+
+      > h1.title {
+        padding: 0 1in 20px 100px;
+        padding-top: 4.523in;
+        white-space: nowrap;
+        span.cnx-gentext-autogenerated,
+        span.cnx-gentext-n { display: none; }
+        span.cnx-gentext-t {
+          &::before {
+            display: none;
+          }
+        }
+
+        &::before {
+          content: counter(chapter);
+          position: absolute;
+          top: 4.483in;
+          left: 0.05in;
+          bottom: 24px;
+          border: 1px solid white;
+          padding-top: 2.880px;
+          min-width: 1.5em;
+          min-height: 1.5em;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+div.book > div.chapter > div.titlepage > div > div h1.title {
+}
+
+/********************************************************************
+ * Styling for Appendix
+ ********************************************************************/
+div.book > div.appendix > div.titlepage > div > div h1.title {
+ // #part>#book-end>#appendix>#title>.style();
+           .font-scale(2);
+          font-weight: bold;
+          color: @tertiary-color;
+          font-family: @font-family-serif;
+          padding: 0;
+          margin: 0;
+          position: relative;
+          margin-bottom: 15px;
+
+  span.cnx-gentext-autogenerated:first-of-type {
+    //#part>#book-end>#appendix>#title>.label();
+              border: 2px solid @quaternary-color;
+          color: @secondary-color !important;
+          padding: 4px 7px;
+          .font-scale(1);
+          margin-right: 10px;
+          vertical-align: middle;
+          position: relative;
+          top: -2px;
+  }
+
+  span.cnx-gentext-n {
+    //#part>#book-end>#appendix>#title>.number();
+          border: 2px solid @quaternary-color;
+          color: @secondary-color !important;
+          padding: 4px 7px;
+          .font-scale(1);
+          margin-right: 10px;
+          vertical-align: middle;
+          position: relative;
+          top: -2px;
+  }
+  span.cnx-gentext-t {
+    #part>#book-end>#appendix>#title>.text();
+    &::before {
+     // #part>#book-end>#appendix>#title>.divider();
+     display: none;
+    }
+  }
+}
+
+
+
+div.book > div.appendix .table {
+  //FIXME
+  #utils>#pb>.inside(auto);
+}
+
+
+
+//appendix sub section title
+div.book > div.appendix > div.section  > div.section > div.titlepage h3 {
+  ///#content>#section>#title>.style(any; appendix; section);
+        .scale-padding(0, margin-bottom);
+        color: black;
+}
+
+/********************************************************************
+ * Styling for Module Titles
+ ********************************************************************/
+div.book div.chapter > div.section > div.titlepage h2 {
+  //#part>#module>#title>.style();
+          font-family: @font-family-serif;
+        text-transform: uppercase;
+        color: @tertiary-color;
+        .font-scale(2);
+        font-weight: 600;
+        margin-bottom: 1em;
+
+  &::before {
+    //#part>#module>#title>.number();
+            border: 2px solid @quaternary-color;
+        padding: 3px 4px;
+        .font-scale(-1);
+        margin-right: 10px;
+        vertical-align: middle;
+  }
+  span.cnx-gentext-n { display: none; }
+
+  span.cnx-gentext-t {
+    //#part>#module>#title>.text();
+    top: 3px;
+
+  }
+}
+
+/********************************************************************
+ * Styling for Module Section/Subsection Titles
+ ********************************************************************/
+div.book div > div.section > div.section {
+  #content>#section>.style(any; any);
+  div.titlepage > div > div > h3 {
+    //#content>#section>#title>.style(any; any);
+            margin-top: 1em;
+        color: @secondary-color;
+  }
+
+//FIXME not used
+  // > div.section { // Sub-sections
+  //   #content>#section>.style(any; any; section);
+  //   div.titlepage > div > div > h4 { #content>#section>#title>.style(any; any; section); }
+  // }
+}
+
+
+
+
+/********************************************************************
+ * End of chapter customizations
+ ********************************************************************/
+
+// eoc solution number links color
+.cnx-eoc > .solution > a.number { color: @medium-blue; }
+
+.cnx-eoc {
+//key terms
+.glossary {
+  #part>#glossary>.style(chapter);
+  .titlepage h2 {
+   // #part>#glossary>#title>.style(chapter);
+           color: @tertiary-color;
+        display: inline-block !important;
+        font-family: @font-family-serif;
+        background: url("ccap-astronomy/Key Terms.svg") no-repeat left;
+        background-size: contain;
+        margin-bottom: 10px;
+        padding: .3em 2.3em !important;
+        font-size: 18px !important;
+  }
+  dl {
+    #part>#glossary>.style(chapter);
+    dt {
+      //#part>#glossary>.term(chapter);
+            line-height: 1.5em;
+      .font-scale(0);
+      &::after {
+        #part>#glossary>.divider(chapter);
+
+      }
+    }
+    dd {
+     // #part>#glossary>.definition(chapter);
+           margin-left: 0px;
+      line-height: 1.5em;
+      .font-scale(0);
+    }
+  }
+}
+
+  &.summary {
+    //#part>#chapter-end>#summary>.style();
+    > .title {
+     // #part>#chapter-end>#summary>#title>.style();
+               line-height: 1.75em;
+          .font-scale(2) !important; // !important overrides a * selector...
+          font-family: @font-family-serif;
+          color: @tertiary-color;
+          content: "Summary";
+          background: url("ccap-astronomy/Summary.svg") no-repeat left;
+          background-size: contain;
+          padding-left: 2.3em !important;
+      span { // override a * selector...
+        padding-left: 0;
+        .font-scale(2);
+      }
+    }
+    > .section > .title {
+      //#part>#chapter-end>#summary>#subtitle>.style(any; chapter-end; section);
+                display: block;
+          padding-top: 0;
+    }
+    > .section .title > a {
+     // #part>#chapter-end>#summary>#title>.link();
+               font-family: @font-family;
+          .font-scale(0);
+          color: @link-color;
+       }
+    p:nth-of-type(1) { margin-top: 1em; }
+  }
+//FIXME - do we need those?
+  &.key-equations {
+    #part>#chapter-end>#key-equations>.style();
+    > div.title { #part>#chapter-end>#key-equations>#title>.style(); }
+    > div.section > div.body {
+      div.table { counter-increment: none; }
+      table { #content>#table>.style(any; chapter; chapter-end; key-equations); }
+    }
+  }
+//FIXME do we need those?
+  &.key-concepts {
+    #part>#chapter-end>#key-concepts>.style();
+    > div.title { #part>#chapter-end>#key-concepts>#title>.style(); }
+    // There doesn't seem to be a way to handle subsection titles in namespace yet.
+    // Targeting the link tag 'a' with layout change (margin, padding) doesn't work
+    // and isn't a good practice.  It's a bit like putting margin and padding on h1, h2, etc.
+    // Better to just let the container do the layout instead of the element.
+    > .section > .title { #part>#chapter-end>#key-concepts>#title>.subtitle(); }
+
+    > .section > .title > a { #part>#chapter-end>#key-concepts>#title>.link(); }
+  }
+
+
+
+
+
+  &.cnx-solutions {
+    display: none;
+//     //#content>#solution>.style(@kind; chapter);
+//     > .section .title > a { #content>#solution>#title>.link(); }
+//     p:nth-of-type(1) { margin-top: 1em; }
+//   }
+
+//   .problem ol {
+//     #content>#list>.style(any; any; problem; exercise);
+//   }
+//   .problem::before {
+//     #content>#problem>.number(@kind; chapter-end);
+//   }
+
+//   .empty {
+//     display: hidden; // hide, but count, empty elements.
+//     #content>#section>.style("empty"; chapter-end);
+//   }
+
+//   .exercise div.body div.problem .figure { #content>#figure>.style(any; chapter-end; exercise); }
+ }
+}
+
+
+
+
+
+// /* ---------------------------------------------------
+//  * End of Book Solutions
+//  * ---------------------------------------------------
+//  */
+// div.colophon.end-of-book-solutions {
+//   prince-text-replace: "Answer:" ""; //strip out "Answer:" eob solutions for print_pdf
+//   #part>#book-end>#end-of-book-solutions>.style();
+
+//   > .title {
+//     #part>#book-end>#end-of-book-solutions>#title>.style();
+//   }
+
+//   // Some miscellaneous stuff we will have to decide on
+//   div.chapter-area:first-of-type h2.title {
+//     margin-top: 0;
+//     padding-top: 0;
+//   }
+
+//   .chapter-area {
+//     #part>#book-end>#end-of-book-solutions>#chapter-area>.style();
+
+//     > div {
+//       #part>#book-end>#end-of-book-solutions>#chapter-area>.style('subsection');
+//     }
+
+//     a.solution {
+//       color: black;
+//     }
+
+//     > h2.title a.chapter,
+//     > h2.title a.chapter span {
+//       #part>#book-end>#end-of-book-solutions>#title>.style('chapter-area');
+//     }
+//     > h2.title a.chapter {
+//       // Now that this is display: block it honors page break
+//       // rules from .chapter {}. Reset it.
+//       #utils>#pb>.before(avoid);
+//       #utils>#pb>.after(avoid);
+//     }
+//     > h2.title a.chapter span { display: inline; } // reset display: block for spans
+
+//     > div.review-exercises::before {
+//       #part>#book-end>#end-of-book-solutions>#title>.style('review-exercises');
+//     }
+//     > div.practice-test::before {
+//       #part>#book-end>#end-of-book-solutions>#title>.style('practice-test');
+//     }
+//     > div.try {
+//       &::before { #part>#book-end>#end-of-book-solutions>#title>.style('try-it'); }
+//       div.solution > div.title a.solution::before {
+//         content: target-counter(attr(href), chapter) "." target-counter(attr(href), try);
+//       }
+//     }
+//     > div.section-exercises::before {
+//       #part>#book-end>#end-of-book-solutions>#title>.style('section-exercises');
+//     }
+
+
+//     div.solution {
+//       #content>#solution>.style(@kind; book-end);
+
+//       div.itemizedlist ul, div.orderedlist ul, div.itemizedlist ol, div.orderedlist ol {
+//         #content>#list>.style(any; book-end; solution);
+//       }
+
+//       > div.title {
+//         #content>#solution>#title>.style(@kind; book-end);
+//       }
+
+//       > div.body {
+//         div, p { display: inline; }
+//         div.mediaobject {
+//           display: block;
+//           #content>#image>.style(any; book-end; solution);
+//         }
+//         #content>#solution>#body>.style(@kind; book-end);
+//         > a.target-figure {
+//           #content>#link>.style('target-figure'; any);
+//         }
+//         .cnx-svg {
+//           direction: ltr;
+//           vertical-align: middle !important;
+//           display: inline-block;
+//         }
+//       }
+//       div.table table caption { #content>#table>#caption>.style(any; book-end; solution); }
+//     }
+//   }
+// }
+
+
+.index {
+
+
+  > .title {
+   // #part>#book-end>#index>#title>.style();
+             .font-scale(2);
+          font-family: @font-family-serif;
+          color: @tertiary-color;
+          margin-bottom: 22px;
+  }
+
+  // This is required to override ccap base without targetting both .title and .title h2.
+  // The goal here is to make > .title h2 go away.
+  > .title h2 {
+    padding: 0;
+    font-size: inherit;
+  }
+
+  h3.letter {
+    //#part>#book-end>#index>.letter();
+            .font-scale(1);
+        font-family: @font-family;
+        color: @secondary-color;
+  }
+  h3.letter:first-of-type {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .index-term {
+   // #part>#book-end>#index>.term();
+           .font-scale(0);
+        line-height: 1.5em;
+  }
+
+  a {
+    //#part>#book-end>#index>.link();
+    font-weight: normal;
+  }
+}
+@page {
+   .footnotes() {
+    border-top: none;
+    padding-top: 1.333em;
+    background-image: linear-gradient(180deg, @quaternary-color, @quaternary-color);
+    background-position: left top;
+    background-size: 65px 1px;
+    background-repeat: no-repeat;
+  }
+  .folio-typography() {
+    font-family: @font-family-serif;
+    color: @tertiary-color;
+    font-size: 10px;
+  }
+  .top-left(left) { .folio-typography(); }
+  .top-left(right) { .folio-typography(); }
+  .top-left(chapter) {
+    .folio-typography();
+   }
+  .top-right(left) { .folio-typography(); }
+  .top-right(right) { .folio-typography(); }
+  .top-right(chapter) {
+    .folio-typography();
+  }
+  .top-left-corner(chapter) {
+    .folio-chapter-header();
+    .folio-chapter-header-reset();
+  }
+  .top-right-corner(chapter) {
+    .folio-chapter-header();
+    .folio-chapter-header-reset();
+  }
+  .top-left(chapter) {
+    .folio-chapter-header();
+  }
+  .top-center(chapter) {
+    .folio-chapter-header();
+  }
+  .top-right(chapter) {
+    .folio-chapter-header();
+  }
+  .bottom-left(left) {
+    .folio-typography();
+  }
+}
+
+blockquote {
+      .style(...) {
+      color: inherit;
+      font-size: inherit;
+      .line-height();
+
+      &::before, &::after {
+        display: none;
+      }
+    }
+}
+.footnote {
+
+  //#content>#footnote>.style();
+      .font-scale(-1);
+      color: @footnote-color;
+      line-height: 1.5em;
+      span {
+        line-height: 1.5em;
+        .font-scale(-1);
+        color: @footnote-color;
+      }
+      sup {
+        color: @footnote-color;
+        .font-scale(-2);
+      }
+  // Footnotes in table headings (which may have white text) need to reset their colors.
+  &::footnote-marker,
+  > * {
+    //#content>#footnote>.descendants-style();
+          line-height: 1.5em;
+      .font-scale(-1);
+      color: @footnote-color;
+  }
+
+  &::footnote-call {
+   // #content>#footnote>.call-style();
+         content: counter(footnote);
+      color: @footnote-color !important;
+      margin-right: 1.33em !important;
+  }
+
+  &::footnote-marker {
+    #content>#footnote>.marker-style();
+  }
+}
+
+/* ---------------------------------------------------
+ * Figures/Subfigures
+ * ---------------------------------------------------
+ */
+
+// Updated points width for PreCalculus assets @150 dpi
+@figure-width-medium: 351pt;  // Width of 3/4 size art
+@figure-width-small:  234pt;  // Width of 1/2 size art
+
+.figure {
+  //#content>#figure>.style();
+width: 100%;
+  // size the surrounding container to the size of the image container to allow the
+  // left justified alignment of the Figure numbering and associated caption
+  // default width is (hero) full size @ 625px. Specifying no class or width defwidth: 100%;aults
+  // to full size.
+
+  // 3/4 size art
+  &.medium {
+    //width: @figure-width-medium;
+  }
+
+  // 1/2 size art
+  &.small {
+    //width: @figure-width-small;
+  }
+
+  > .body {
+    //#content>#figure>#body>.style(any; any);
+  }
+
+  > .title {
+   // #content>#figure>#title>.number(); // "Figure x.x..."
+           color: black;
+        .font-scale(-1);
+        content: "Figure " counter(chapter, decimal) "." counter(figure) " " string(cnx-figure-title);
+  }
+
+}
+
+/********************************************************************
+ * Glossary
+ ********************************************************************/
+.glossary {
+  #content>#glossary>.style();
+
+  .title {
+    #content>#glossary>#title>.style();
+  }
+
+  // Remove ":"
+  dl dt::after { #content>#glossary>.divider(); }
+
+  // Remove terms indentation
+  dl { #content>#glossary>.dl(); }
+}
+
+
+
+/* -------------------------
+ * Example Elements Styling and Numbering
+ * -------------------------
+ */
+.chapter .example {
+  //#content>#example>.style(any);
+        border-top: 0;
+      border-bottom: 0;
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+      .x-feature-astronomy("Example " counter(chapter, decimal) "." counter(example) " ", @primary-color, #ebe9e9, none);
+}
+.example > .title {
+ // #content>#example>#title>.style(any);
+ display: none;
+
+  span::before {
+    background-color: @primary-color;
+    color: @fuego-green;
+    display: inline-block;
+    height: 2em;
+    line-height: 2em;
+    padding: 0 1em;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+/********************************************************************
+ * SVG Color cascading.
+ ********************************************************************/
+
+// !important is used to override inline styles.
+
+g {
+  text { fill: currentColor !important; }
+  line { stroke: currentColor !important; }
+}
+
+
+//end of precalculus
+
+// Copyright (c) 2013 Rice University
+//
+//
+
+/******************************************************
+ * Mathematics Features
+ *
+ * Features from Pre-Calculus
+ *   How To
+ * Features from Calculus
+ *   Theorem
+ *   Student Project
+ *   Checkpoint
+ *   Media-2 (Alternative Media style)
+ *   Definition
+ *   Problem Solving
+ * Features from Basic Mathematics
+ *****************************************************/
+
+ @kind: any;
+ @part: any;
+
+
+
+
+
+
+
+
+
+
+
+
+
