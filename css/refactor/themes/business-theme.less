@@ -21,6 +21,9 @@
 @footnote-color: #6D6F71;
 
 
+//strings
+
+
 //mixins
 .folio-chapter-header() {
   background-color: transparent;
@@ -31,8 +34,26 @@
 .line-height() {
   line-height: 1.6em;
 }
+    // color: @tertiary-color;
+    // display: inline-block !important;
+    // font-family: @font-family-serif;
+    // background: url("ccap-astronomy/Key Terms.svg") no-repeat left;
+    // background-size: contain;
+    // margin-bottom: 10px;
+    // padding: .3em 2.3em !important;
+    // font-size: 18px !important;
+.moduleTitles (@color) {
+    color: @color;
+    display: inline-block !important;
+    font-family: @font-family-serif;
+    background: url("ccap-astronomy/Key Terms.svg") no-repeat left; //todo: create icons + variables
+    background-size: contain;
+    margin-bottom: 10px;
+    padding: .3em 2.3em !important;
+    .font-scale(2) !important;
+}
 
-.x-feature-astronomy(@title, @title-background-color, @background-color, @icon, @text-color: #4F5151, @icon-width: 19px, @icon-height: 22px, @icon-top: 12px, @icon-right: 15px) {
+.notes(@title, @title-background-color, @background-color, @icon, @text-color: #4F5151, @icon-width: 19px, @icon-height: 22px, @icon-top: 12px, @icon-right: 15px) {
   display: table;
   position: relative;
   background-color: @background-color;
@@ -87,6 +108,17 @@
     }
     p:first-child {
       margin-top: 0;
+    }
+  }
+}
+//EOC exercises custom numbering
+.eocCustomCounters (@identifier, @counterName) {
+  .exercise {
+    counter-increment: @counterName !important;
+    div.body > div.problem {
+    &::before {
+      content: " " @identifier " " counter(@counterName)  "" !important;
+     }
     }
   }
 }
@@ -672,7 +704,7 @@ div.book > div.chapter {
   border-bottom: 0;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
-  .x-feature-astronomy("Example " counter(chapter, decimal) "." counter(example) " ", @primary-color, #ebe9e9, none);
+  .notes("Example " counter(chapter, decimal) "." counter(example) " ", @primary-color, #ebe9e9, none);
 
   > .title {
    // #content>#example>#title>.style(any);
@@ -693,11 +725,31 @@ div.book > div.chapter {
  * ------------------------
  */
 .chapter .note {
+  div.title {
+    margin-top: 15px;
+  }
   &.link-to-learning {
     //#content>#note>.style('link-to-learning-new'; any);
-    .x-feature-astronomy(@cnx-string-link-to-learning, @secondary-color, #e6eaef, link-to-learning);
+    .notes(@cnx-string-link-to-learning, @secondary-color, #e6eaef, link-to-learning);
       div.mediaobject {
       display: none;
+    }
+  }
+  &.concepts-practice {
+    .notes(@cnx-string-concepts-to-practice, @secondary-color, #e6eaef, link-to-learning);
+  }
+  &.continuing-application {
+    .notes(@cnx-string-continuing-application, @secondary-color, #e6eaef, link-to-learning);
+  }
+  &.think-through {
+    .notes(@cnx-string-think-through, @secondary-color, #e6eaef, link-to-learning);
+  }
+  &.your-turn {
+    .notes(@cnx-string-your-turn, @secondary-color, #e6eaef, link-to-learning);
+  }
+  .exercise {
+    > .title, .solution::before {
+      .font-scale(1);
     }
   }
 }
@@ -713,14 +765,7 @@ div.book > div.chapter {
   display: inline;
   .titlepage h2 {
     // #part>#glossary>#title>.style(chapter);
-    color: @tertiary-color;
-    display: inline-block !important;
-    font-family: @font-family-serif;
-    background: url("ccap-astronomy/Key Terms.svg") no-repeat left;
-    background-size: contain;
-    margin-bottom: 10px;
-    padding: .3em 2.3em !important;
-    font-size: 18px !important;
+    .moduleTitles (@tertiary-color);
   }
   dl {
     //#part>#glossary>.style(chapter);
@@ -743,8 +788,12 @@ div.book > div.chapter {
 }
 
 .cnx-eoc {
+  margin-bottom: 2em;
+  > .title {
+    .moduleTitles(@tertiary-color);
+  }
   //summary
-    &.summary {
+    &.section-summary {
     //#part>#chapter-end>#summary>.style();
     > .title {
       // #part>#chapter-end>#summary>#title>.style();
@@ -773,6 +822,72 @@ div.book > div.chapter {
       color: @link-color;
     }
     p:nth-of-type(1) { margin-top: 1em; }
+  }
+
+
+  //custom numbering for Accouting
+  &.multiple-choice-1 {
+    .eocCustomCounters ("MC-1", mc1);
+  }
+  &.multiple-choice-2 {
+    .eocCustomCounters ("MC-2", mc2);
+  }
+  &.multiple-choice-3 {
+    .eocCustomCounters ("MC-3", mc3);
+  }
+  &.questions-1 {
+    .eocCustomCounters ("Q-1", q1);
+  }
+  &.questions-2 {
+    .eocCustomCounters ("Q-2", q2);
+  }
+  &.questions-3 {
+    .eocCustomCounters ("Q-3", q3);
+  }
+  &.exercise-set-a1 {
+    .eocCustomCounters ("EA-1", ea3);
+  }
+  &.exercise-set-a2 {
+    .eocCustomCounters ("EA-2", ea2);
+  }
+  &.exercise-set-a3 {
+    .eocCustomCounters ("EA-3", ea3);
+  }
+  &.exercise-set-b1 {
+    .eocCustomCounters ("EB-1", eb1);
+  }
+  &.exercise-set-b2 {
+    .eocCustomCounters ("EB-2", eb2);
+  }
+  &.exercise-set-b3 {
+    .eocCustomCounters ("EB-3", eb3);
+  }
+  &.problems-set-a1 {
+    .eocCustomCounters ("PA-1", pa1);
+  }
+  &.problems-set-a2 {
+    .eocCustomCounters ("PA-2", pa2);
+  }
+  &.problems-set-a3 {
+    .eocCustomCounters ("PA-3", pa3);
+  }
+  &.problems-set-b1 {
+    .eocCustomCounters ("PB-1", pb1);
+  }
+  &.problems-set-b2 {
+    .eocCustomCounters ("PB-2", pb2);
+  }
+  &.problems-set-b3 {
+    .eocCustomCounters ("PB-3", pb3);
+  }
+  &.thought-provoker-1 {
+    .eocCustomCounters ("TP-1", tp1);
+  }
+  &.thought-provoker-2 {
+    .eocCustomCounters ("TP-2", tp2);
+  }
+  &.thought-provoker-3 {
+    .eocCustomCounters ("TP-3", tp3);
   }
 
   //EOC solutions
