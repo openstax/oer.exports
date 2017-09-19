@@ -182,6 +182,16 @@ To generate an HTML report, you can run `genhtml` directly (`brew install lcov` 
 
 # Overview
 
+## Content Workflow
+
+1. vendors (WiseWire, 6RedMarbles) hire Subject Matter Experts (SMEs) to write a textbook as a series of Word docs with markup like `[H1] Kinematics in 9 Dimensions`
+1. these vendors subcontract to people to convert the Word Docs into CNXML files which are stored on a Staging Server
+1. PDFs are generated on the Staging Server for Quality Assurance
+1. As chapters are completed, Content Managers (CMs) migrate the CNXML files from the Staging Server and onto Production
+    - Among the many things that happen in this step, one is to rewrite the links because module id's on Staging and Production are different
+1. Developers download a Complete Zip either from a staging server or production so they can generate PDFs locally
+
+
 ## Tools
 
 The PDF generation system uses the following additional tools:
