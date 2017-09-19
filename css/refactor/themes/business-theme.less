@@ -3,25 +3,139 @@
 
  Book parts have been reorganized following the book structure (from top to bottom) for greater clarity.
 
- I have kept the slot commented out in case it's needed to find a particular style.
+ I kept the slot commented out in case they are needed to find a particular style.
  ********************************************************************/
+@import url('../../ccap-tables.less');
+@import url('../utils.less');
+@import url('../page-slots.less');
+@import url('../ccap-base-slots.less');
+@import url('../content-slots.less');
+@import url('new-math-slots.less');
+//@import url('business-slots.less');
 
+@base-font-size: 12px;
+@font-family-serif: 'Dosis', sans-serif, @stix-fonts;
+@font-family: 'Noto Sans', sans-serif, @stix-fonts;
+
+@book-title: accounting;
+
+@page-width: 6.5in;
+
+/* The QR code variable is needed for psychology skeleton but we are not using it since it's going away */
+
+// Finished printed size of the QR code is dependent on: 1-distance between qr code and scanning device
+// 2-size of dots in the code(amount of data inputed into the code, the smaller the dots become)
+// For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
+@qr: 1.25in;
+
+// Images in astronomy are 200DPI
+html {
+  prince-image-resolution: 150dpi;
+  prince-background-image-resolution: 150dpi;
+}
+
+@table-border: 1px solid #F4F4F4;
 
 //variables
 @import url('../includes/theme-colors.less');
 
-@primary-color: #344456;
-@secondary-color: #24739e;
-@tertiary-color: #0dc0dc;
-@quaternary-color: #d34d32;
-@quinary-color: #f37541;
+@primary-color: #d34d32;
+@secondary-color: #344456;
+@tertiary-color: #24739e;
+@quaternary-color: #f37541 ;
+@quinary-color: #0dc0dc;
 @accent-color: #F4F4F4;
 @accent-color-tinted: #F9F9F9;
 @link-color: #34BDD8;
 @footnote-color: #6D6F71;
 
+@cnx-string-link-to-learning: "Link to Learning";
+@cnx-string-exercises: "Exercises";
 
-//strings
+// End of chapter/book strings
+@cnx-string-summary: "Summary";
+@cnx-string-review-questions: "Review Questions";
+
+//global theme stuff
+#content {
+  // Enable page breaking inside tables.
+  #table {
+    .style(...) {
+      #utils>#pb>.inside(auto);
+    }
+  }
+  //  - Non-figure images are centered.
+  .x-center-image() {
+    display: block;
+    margin: auto;
+
+
+  }
+  #image {
+    .style(any; chapter) {
+      .x-center-image();
+    }
+    .style(any; book-end; solutions) {
+      .x-center-image();
+    }
+  }
+}
+div.book div.chapter > div.titlepage > div > div h1.title {
+  span.cnx-gentext-t {
+    string-set: cnx-header "@{cnx-string-chapter} " counter(chapter, decimal)  "\0020\0020\0020" content();
+  }
+}
+
+.chapter > .introduction > .figure.splash {
+  width: 8.75in;
+  margin-left: -.125in;
+
+  &::before {
+    width: 8.75in;
+  }
+
+  div.mediaobject {
+    width: 8.75in;
+
+    img {
+      width: 8.75in;
+    }
+  }
+}
+
+#part {
+  #introduction {
+    .style() {
+      margin-top: -0.925in;
+    }
+  }
+  #chapter {
+    #title {
+      .style() {
+        margin-top: -0.125in;
+      }
+      .icon() {
+        left: -0.125in;
+      }
+    }
+  }
+}
+
+.figure {
+  float: column-top;
+}
+
+@import url('../../ccap-numbering.less');
+@import url('../../ccap-precalculus-numbering.less');
+@import url('../page-skeleton.less');
+@import url('../ccap-base-skeleton.less');
+@import url('../content-skeleton.less');
+@import url('new-math-skeleton.less');
+// Ad-hoc numbering changes. Removes numbering for various pieces of content
+// which use a .unnumbered class.
+@import url('../unnumbered-content.less');
+@import url('../folio.less');
+
 
 
 //mixins
@@ -463,11 +577,6 @@ div.book {
   }
 }
 
-/* -------------------------
- * Unit Page
- * ------------------------
- */
-div.part > div.titlepage { display: none; }
 
 /* -------------------------
  * Chapter title (over the splash page)
@@ -725,6 +834,7 @@ div.book > div.chapter {
  * ------------------------
  */
 .chapter .note {
+  width: 100%;
   div.title {
     margin-top: 15px;
   }
@@ -734,18 +844,6 @@ div.book > div.chapter {
       div.mediaobject {
       display: none;
     }
-  }
-  &.concepts-practice {
-    .notes(@cnx-string-concepts-to-practice, @secondary-color, #e6eaef, link-to-learning);
-  }
-  &.continuing-application {
-    .notes(@cnx-string-continuing-application, @secondary-color, #e6eaef, link-to-learning);
-  }
-  &.think-through {
-    .notes(@cnx-string-think-through, @secondary-color, #e6eaef, link-to-learning);
-  }
-  &.your-turn {
-    .notes(@cnx-string-your-turn, @secondary-color, #e6eaef, link-to-learning);
   }
   .exercise {
     > .title, .solution::before {
@@ -825,70 +923,6 @@ div.book > div.chapter {
   }
 
 
-  //custom numbering for Accouting
-  &.multiple-choice-1 {
-    .eocCustomCounters ("MC-1", mc1);
-  }
-  &.multiple-choice-2 {
-    .eocCustomCounters ("MC-2", mc2);
-  }
-  &.multiple-choice-3 {
-    .eocCustomCounters ("MC-3", mc3);
-  }
-  &.questions-1 {
-    .eocCustomCounters ("Q-1", q1);
-  }
-  &.questions-2 {
-    .eocCustomCounters ("Q-2", q2);
-  }
-  &.questions-3 {
-    .eocCustomCounters ("Q-3", q3);
-  }
-  &.exercise-set-a1 {
-    .eocCustomCounters ("EA-1", ea3);
-  }
-  &.exercise-set-a2 {
-    .eocCustomCounters ("EA-2", ea2);
-  }
-  &.exercise-set-a3 {
-    .eocCustomCounters ("EA-3", ea3);
-  }
-  &.exercise-set-b1 {
-    .eocCustomCounters ("EB-1", eb1);
-  }
-  &.exercise-set-b2 {
-    .eocCustomCounters ("EB-2", eb2);
-  }
-  &.exercise-set-b3 {
-    .eocCustomCounters ("EB-3", eb3);
-  }
-  &.problems-set-a1 {
-    .eocCustomCounters ("PA-1", pa1);
-  }
-  &.problems-set-a2 {
-    .eocCustomCounters ("PA-2", pa2);
-  }
-  &.problems-set-a3 {
-    .eocCustomCounters ("PA-3", pa3);
-  }
-  &.problems-set-b1 {
-    .eocCustomCounters ("PB-1", pb1);
-  }
-  &.problems-set-b2 {
-    .eocCustomCounters ("PB-2", pb2);
-  }
-  &.problems-set-b3 {
-    .eocCustomCounters ("PB-3", pb3);
-  }
-  &.thought-provoker-1 {
-    .eocCustomCounters ("TP-1", tp1);
-  }
-  &.thought-provoker-2 {
-    .eocCustomCounters ("TP-2", tp2);
-  }
-  &.thought-provoker-3 {
-    .eocCustomCounters ("TP-3", tp3);
-  }
 
   //EOC solutions
   &.cnx-solutions {
@@ -929,7 +963,7 @@ div.book > div.appendix {
     position: relative;
     margin-bottom: 15px;
     span.cnx-gentext-autogenerated:first-of-type {
-        display: none;
+      display: none;
     }
     span.cnx-gentext-n {
       //#part>#book-end>#appendix>#title>.label();
@@ -954,7 +988,7 @@ div.book > div.appendix {
     //FIXME
     #utils>#pb>.inside(auto);
   }
-  > div.section  > div.section > div.titlepage h3 {
+  > div.section                                                                              > div.section > div.titlepage h3 {
     ///#content>#section>#title>.style(any; appendix; section);
     .scale-padding(0, margin-bottom);
     color: black;
