@@ -178,3 +178,81 @@ That's it! If you want to generate diffs of all the books, you can drop the `:ca
 To generate a CSS coverage LCOV file, you can either set `coverage: true` inside `./config.yml` or run `grunt shell:coverage:{BOOK_NAME}:{OPTIONAL_BRANCH_NAME}`.
 
 To generate an HTML report, you can run `genhtml` directly (`brew install lcov` on OSX) on the LCOV file or run `grunt shell:coverage-report:{BOOK_NAME}:{OPTIONAL_BRANCH_NAME}`
+
+
+# Overview
+
+## Tools
+
+The PDF generation system uses the following additional tools:
+- [Docbook](http://www.sagehill.net/docbookxsl/index.html) for generating the Table of Contents, Index, footnotes, and other bookish pieces
+- [PrinceXML](http://www.princexml.com/doc/) to convert HTML+CSS into a PDF
+- [XSLT](https://en.wikipedia.org/wiki/XSLT) and [specification](https://www.w3.org/TR/xslt) to convert [CNXML](https://legacy.cnx.org/eip-help/tags) to Docbook and eventually to XHTML
+- [LESSCSS](http://lesscss.org/) to write the PrinceXML-specific CSS
+- [nodejs](https://nodejs.org) to run scripts to generate CSS files and other utilities
+
+
+## Terminology
+
+- **complete zip**:
+- **collection** :
+- **module** :
+- **cnxml**:
+- **collxml**:
+- **MathML**:
+- **SVG**:
+- **PNG**:
+- **pipeline**:
+- **ccap**: Legacy name used for the initial set of books generated using this method
+
+
+## Styling
+
+**TODO:** (describe how the CSS files are organized)
+
+
+## Transformations
+
+The PDF-generation process begins with a [Complete Zip](https://github.com/openstax/book-tools/blob/master/terms.md) and results in a PDF document. Here are the steps:
+
+1. Download a complete zip and extract it to a directory (ie `col123_complete`)
+1. Run https://github.com/Connexions/oer.exports/blob/master/collectiondbk2pdf.py (see file for command line arguments)
+  - optionally, there is a debug flag that will output some of the intermediary Docbook (`.dbk`) files
+1. The previous step will do the following:
+  1. convert the `.cnxml` files to `.dbk` files
+  1. convert the MathML in  the `.cnxml` files into `.svg` and `.png` files using http://pmml2svg.sf.net stored at [./xslt2/](./xslt2/)
+  1. convert the `.collxml` file to a big `.dbk` file using [XInclude](https://www.w3.org/TR/xinclude/)
+  1. convert the big `.dbk` file to an `.xhtml` file
+  1. convert the `.xhtml` file plus the CSS file in [./css/](./css/) into a PDF using PrinceXML
+
+
+
+Here are the steps in more detail:
+
+Call [./collectiondbk2pdf.py](./collectiondbk2pdf.py) which runs:
+
+1. [./collection2dbk.py](./collection2dbk.py) which runs:
+  1. [./xsl/collxml2dbk.xsl](./xsl/collxml2dbk.xsl) converts the "Table of Contents" file into a Docbook file with a bunch of XInclude links
+  1. For every [Module in the Book](https://github.com/openstax/book-tools/blob/master/terms.md#page), call [./module2dbk.py](./module2dbk.py) which runs:
+    1. [./xsl/cnxml-clean.xsl](./xsl/cnxml-clean.xsl) normalizes some attributes and elements
+    1. [./xsl/cnxml-clean-math.xsl](./xsl/cnxml-clean-math.xsl) normalizes the MathML so the pmml2svg conversion does not crash
+    1. [./xsl/cnxml-clean-math.xsl](./xsl/cnxml-clean-math.xsl) runs again to remove now-empty elements
+    1. [./xsl/cnxml-clean-math-simplify.xsl](./xsl/cnxml-clean-math-simplify.xsl) SVG inside PDF files significantly increases the size of the PDF. If the Math is "simple" (numbers, letters, sub/superscript) then just convert it to HTML
+    1. [./xsl/cnxml2dbk.xsl](./xsl/cnxml2dbk.xsl) converts CNXML elements to Docbook+ elements
+        - the `+` is because Exercises have no direct representation in Docbook
+    1. Convert [MathML to SVG](./module2dbk.py) by calling a service
+    1. [./xsl/dbk-clean.xsl](./xsl/dbk-clean.xsl) adjust Math SVG baseline so formulas line up vertically with the surrounding text
+    1. Downsample [Images](./module2dbk.py) to reduce the file size of the resulting PDF
+    1. Convert [SVG to PNG](./module2dbk.py)
+    1. [./xsl/dbk-svg2png.xsl](./xsl/dbk-svg2png.xsl) cleans up the image attributes now that the MathML has the additional SVG and PNG formats available in the content
+
+  1. [./xsl/dbk2epub-normalize-paths.xsl](./xsl/dbk2epub-normalize-paths.xsl) Adjusts the `<img src=` attribute to point to the image file since the `.dbk` will be XIncluded into a giant `.dbk` file.
+    - It also creates a list of book authors, publishers, copyright holders, and sets the version on modules that do not have a version in the CNXML file
+  1. [./xsl/dbk-clean-whole.xsl](./xsl/dbk-clean-whole.xsl) unwraps the now XIncluded modules, generates a Chapter-level Glossary, converts external links to really be external
+  1. [./xsl/dbk-clean-whole-remove-duplicate-glossentry.xsl](./xsl/dbk-clean-whole-remove-duplicate-glossentry.xsl) removes duplicate glossary entries (added in the previous step) and adds an Attribution section at the end of the book
+
+1. [./xsl/dbk-clean-whole.xsl](./xsl/dbk-clean-whole.xsl) runs again, not sure why
+1. [./xsl/dbk2xhtml.xsl](./xsl/dbk2xhtml.xsl) configures Docbook by setting parameters, overrides some Docbook-to-HTML conversions, and performs the Docbook conversion
+1. [./xsl/xhtml-dedup-svg.xsl](./xsl/xhtml-dedup-svg.xsl) Removes duplicate SVG elements (BUG?)
+1. [./xsl/dedup-references.xsl](./xsl/dedup-references.xsl) Removes references inside a Citation
+1. Convert HTML+CSS to PDF using PrinceXML
