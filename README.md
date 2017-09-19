@@ -185,11 +185,11 @@ To generate an HTML report, you can run `genhtml` directly (`brew install lcov` 
 ## Content Workflow
 
 1. vendors (WiseWire, 6RedMarbles) hire Subject Matter Experts (SMEs) to write a textbook as a series of Word docs with markup like `[H1] Kinematics in 9 Dimensions`
-1. these vendors subcontract to people to convert the Word Docs into CNXML files which are stored on a Staging Server
+1. these vendors subcontract to people to convert the Word Docs into CNXML files which are stored on a **Legacy** Staging Server
 1. PDFs are generated on the Staging Server for Quality Assurance
 1. As chapters are completed, Content Managers (CMs) migrate the CNXML files from the Staging Server and onto Production
     - Among the many things that happen in this step, one is to rewrite the links because module id's on Staging and Production are different
-1. Developers download a Complete Zip either from a staging server or production so they can generate PDFs locally
+1. Developers download a Complete Zip either from the **Webview** Staging Server or production so they can generate PDFs locally
 
 
 ## Tools
@@ -204,16 +204,21 @@ The PDF generation system uses the following additional tools:
 
 ## Terminology
 
-- **complete zip**:
-- **collection** :
-- **module** :
-- **cnxml**:
-- **collxml**:
-- **MathML**:
+- **complete zip**: A Zip file containing all the Textbook Content needed to create a PDF (or other file formats)
+- **collection**: A legacy name for a Book
+- **module**: A legacy name for a Page in a book (something smaller than a Chapter, but larger than a Paragraph)
+- **cnxml**: The XML format used for marking up a Page in a Book
+- **collxml**: The XML format used for marking up the Table of Contents for a Book
+- **MathML**: An XML format used for marking up Math content
 - **SVG**:
 - **PNG**:
-- **pipeline**:
+- **XHTML**: Similar to HTML but it is easily machine-parseable
+- **pipeline**: A series of transformations that convert a set of CNXML files into an XHTML file
 - **ccap**: Legacy name used for the initial set of books generated using this method
+- **legacy**: An old user interface for editing textbook content. It is slow but used by Content Managers and subcontractors
+- **webview**: What a user sees when they visit https://cnx.org
+- **archive**: The read-only server for https://cnx.org
+- **environment**: A set of servers that talk to each other. Used for QA, development, or content-entry
 
 
 ## Styling
