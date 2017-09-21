@@ -247,24 +247,24 @@ Here are the steps in more detail:
 Call [./collectiondbk2pdf.py](./collectiondbk2pdf.py) which runs:
 
 1. [./collection2dbk.py](./collection2dbk.py) which runs:
-  1. [./xsl/collxml2dbk.xsl](./xsl/collxml2dbk.xsl) converts the "Table of Contents" file into a Docbook file with a bunch of XInclude links
-  1. For every [Module in the Book](https://github.com/openstax/book-tools/blob/master/terms.md#page), call [./module2dbk.py](./module2dbk.py) which runs:
-    1. [./xsl/cnxml-clean.xsl](./xsl/cnxml-clean.xsl) normalizes some attributes and elements
-    1. [./xsl/cnxml-clean-math.xsl](./xsl/cnxml-clean-math.xsl) normalizes the MathML so the pmml2svg conversion does not crash
-    1. [./xsl/cnxml-clean-math.xsl](./xsl/cnxml-clean-math.xsl) runs again to remove now-empty elements
-    1. [./xsl/cnxml-clean-math-simplify.xsl](./xsl/cnxml-clean-math-simplify.xsl) SVG inside PDF files significantly increases the size of the PDF. If the Math is "simple" (numbers, letters, sub/superscript) then just convert it to HTML
-    1. [./xsl/cnxml2dbk.xsl](./xsl/cnxml2dbk.xsl) converts CNXML elements to Docbook+ elements
-        - the `+` is because Exercises have no direct representation in Docbook
-    1. Convert [MathML to SVG](./module2dbk.py) by calling a service
-    1. [./xsl/dbk-clean.xsl](./xsl/dbk-clean.xsl) adjust Math SVG baseline so formulas line up vertically with the surrounding text
-    1. Downsample [Images](./module2dbk.py) to reduce the file size of the resulting PDF
-    1. Convert [SVG to PNG](./module2dbk.py)
-    1. [./xsl/dbk-svg2png.xsl](./xsl/dbk-svg2png.xsl) cleans up the image attributes now that the MathML has the additional SVG and PNG formats available in the content
+    1. [./xsl/collxml2dbk.xsl](./xsl/collxml2dbk.xsl) converts the "Table of Contents" file into a Docbook file with a bunch of XInclude links
+    1. For every [Module in the Book](https://github.com/openstax/book-tools/blob/master/terms.md#page), call [./module2dbk.py](./module2dbk.py) which runs:
+        1. [./xsl/cnxml-clean.xsl](./xsl/cnxml-clean.xsl) normalizes some attributes and elements
+        1. [./xsl/cnxml-clean-math.xsl](./xsl/cnxml-clean-math.xsl) normalizes the MathML so the pmml2svg conversion does not crash
+        1. [./xsl/cnxml-clean-math.xsl](./xsl/cnxml-clean-math.xsl) runs again to remove now-empty elements
+        1. [./xsl/cnxml-clean-math-simplify.xsl](./xsl/cnxml-clean-math-simplify.xsl) SVG inside PDF files significantly increases the size of the PDF. If the Math is "simple" (numbers, letters, sub/superscript) then just convert it to HTML
+        1. [./xsl/cnxml2dbk.xsl](./xsl/cnxml2dbk.xsl) converts CNXML elements to Docbook+ elements
+            - the `+` is because Exercises have no direct representation in Docbook
+        1. Convert [MathML to SVG](./module2dbk.py) by calling a service
+        1. [./xsl/dbk-clean.xsl](./xsl/dbk-clean.xsl) adjust Math SVG baseline so formulas line up vertically with the surrounding text
+        1. Downsample [Images](./module2dbk.py) to reduce the file size of the resulting PDF
+        1. Convert [SVG to PNG](./module2dbk.py)
+        1. [./xsl/dbk-svg2png.xsl](./xsl/dbk-svg2png.xsl) cleans up the image attributes now that the MathML has the additional SVG and PNG formats available in the content
 
-  1. [./xsl/dbk2epub-normalize-paths.xsl](./xsl/dbk2epub-normalize-paths.xsl) Adjusts the `<img src=` attribute to point to the image file since the `.dbk` will be XIncluded into a giant `.dbk` file.
-    - It also creates a list of book authors, publishers, copyright holders, and sets the version on modules that do not have a version in the CNXML file
-  1. [./xsl/dbk-clean-whole.xsl](./xsl/dbk-clean-whole.xsl) unwraps the now XIncluded modules, generates a Chapter-level Glossary, converts external links to really be external
-  1. [./xsl/dbk-clean-whole-remove-duplicate-glossentry.xsl](./xsl/dbk-clean-whole-remove-duplicate-glossentry.xsl) removes duplicate glossary entries (added in the previous step) and adds an Attribution section at the end of the book
+    1. [./xsl/dbk2epub-normalize-paths.xsl](./xsl/dbk2epub-normalize-paths.xsl) Adjusts the `<img src=` attribute to point to the image file since the `.dbk` will be XIncluded into a giant `.dbk` file.
+        - It also creates a list of book authors, publishers, copyright holders, and sets the version on modules that do not have a version in the CNXML file
+    1. [./xsl/dbk-clean-whole.xsl](./xsl/dbk-clean-whole.xsl) unwraps the now XIncluded modules, generates a Chapter-level Glossary, converts external links to really be external
+    1. [./xsl/dbk-clean-whole-remove-duplicate-glossentry.xsl](./xsl/dbk-clean-whole-remove-duplicate-glossentry.xsl) removes duplicate glossary entries (added in the previous step) and adds an Attribution section at the end of the book
 
 1. [./xsl/dbk-clean-whole.xsl](./xsl/dbk-clean-whole.xsl) runs again, not sure why
 1. [./xsl/dbk2xhtml.xsl](./xsl/dbk2xhtml.xsl) configures Docbook by setting parameters, overrides some Docbook-to-HTML conversions, and performs the Docbook conversion
