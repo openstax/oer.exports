@@ -6,13 +6,13 @@
  I kept the slot commented out in case they are needed to find a particular style.
  ********************************************************************/
 
-@import url('../../ccap-tables.less');
+//@import url('../../ccap-tables.less');
 @import url('../utils.less');
 @import url('../page-slots.less');
 @import url('../ccap-base-slots.less');
 @import url('../content-slots.less');
-@import url('new-math-slots.less');
-
+//@import url('new-math-slots.less');
+@import url('../includes/business-mixins.less');
 @base-font-size: 12px;
 @font-family-serif: 'Dosis', sans-serif, @stix-fonts;
 @font-family: 'Noto Sans', sans-serif, @stix-fonts;
@@ -55,71 +55,16 @@ html {
 // End of chapter/book strings
 @cnx-string-summary: "Summary";
 @cnx-string-review-questions: "Review Questions";
+@cnx-string-chapter: "Chapter";
+@cnx-string-introduction: "Introduction";
+@cnx-string-chapter-outline: "Chapter Outline";
+@cnx-string-learning-objectives: "Learning Objectives";
 
 //global theme stuff
-#content {
-  // Enable page breaking inside tables.
-  #table {
-    .style(...) {
-      #utils>#pb>.inside(auto);
-    }
-  }
-  //  - Non-figure images are centered.
-  .x-center-image() {
-    display: block;
-    margin: auto;
-
-
-  }
-  #image {
-    .style(any; chapter) {
-      .x-center-image();
-    }
-    .style(any; book-end; solutions) {
-      .x-center-image();
-    }
-  }
-}
-div.book div.chapter > div.titlepage > div > div h1.title {
-  span.cnx-gentext-t {
-    string-set: cnx-header "@{cnx-string-chapter} " counter(chapter, decimal)  "\0020\0020\0020" content();
-  }
+img {
+  .x-center-image();
 }
 
-.chapter > .introduction > .figure.splash {
-  width: @full-bleed-width;
-  margin-left: -.125in;
-
-  &::before {
-    width: @full-bleed-width;
-  }
-
-  div.mediaobject {
-    width: @full-bleed-width;
-
-    img {
-      width: @full-bleed-width;
-    }
-  }
-}
-
-#part {
-  #introduction {
-    .style() {
-      margin-top: -0.925in;
-    }
-  }
-  #chapter {
-    #title {
-      .style() {
-        margin-top: -0.125in;
-      }
-      .icon() {
-        left: -0.125in;
-      }
-    }
-  }
-}
 
 .figure {
   float: column-top;
@@ -130,7 +75,7 @@ div.book div.chapter > div.titlepage > div > div h1.title {
 @import url('../page-skeleton.less');
 @import url('../ccap-base-skeleton.less');
 @import url('../content-skeleton.less');
-@import url('new-math-skeleton.less');
+//@import url('new-math-skeleton.less');
 // Ad-hoc numbering changes. Removes numbering for various pieces of content
 // which use a .unnumbered class.
 @import url('../unnumbered-content.less');
@@ -138,104 +83,282 @@ div.book div.chapter > div.titlepage > div > div h1.title {
 
 
 
-//mixins
-.folio-chapter-header() {
-  background-color: transparent;
-  color: white;
-  font-weight: bold;
-}
 
-.line-height() {
-  line-height: 1.6em;
-}
-    // color: @tertiary-color;
-    // display: inline-block !important;
-    // font-family: @font-family-serif;
-    // background: url("ccap-astronomy/Key Terms.svg") no-repeat left;
-    // background-size: contain;
-    // margin-bottom: 10px;
-    // padding: .3em 2.3em !important;
-    // font-size: 18px !important;
-.moduleTitles (@color) {
-    color: @color;
-    display: inline-block !important;
-    font-family: @font-family-serif;
-    background: url("ccap-astronomy/Key Terms.svg") no-repeat left; //todo: create icons + variables
-    background-size: contain;
-    margin-bottom: 10px;
-    padding: .3em 2.3em !important;
-    .font-scale(2) !important;
-}
 
-.notes(@title, @title-background-color, @background-color, @icon, @text-color: #4F5151, @icon-width: 19px, @icon-height: 22px, @icon-top: 12px, @icon-right: 15px) {
-  display: table;
-  position: relative;
-  background-color: @background-color;
-  text-align: left;
-  color: @text-color;
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
+/******************************************************************************
+ * Tables
+ ******************************************************************************/
+
+div.table {
+  // First, reset div.table so it just goes away. Apply styling to the actual
+  // table element.
+  margin: 0 auto;
   padding: 0;
-  box-sizing: border-box;
+  border: none;
+  #utils>#pb>.inside(auto);
+  table {
+    //#content>#table>.style(any; any);
+    #utils>#pb>.inside(auto);
+    margin-bottom: 22px;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    // If a table spans more than 1 page then put caption on all following pages
+    prince-caption-page: all;
+    border: none;
+    caption {
+      //#content>#table>#caption>.style(any; any);
+      &::before {
+        //#content>#table>#caption>.number(any; any);
+        font-family: @font-family;
+        border: none;
+        padding-top: .5em;
+        padding-left: 0px;
+        padding-bottom: 1em;
+        caption-side: bottom;
+        font-size: 8px;
+        line-height: 17px;
+        font-weight: 700;
+      }
+    }
+    .cnx-figure-horizontal .informalfigure .caption {
+      text-align: center; //center subfigure caption
+      * {
+        font-weight: normal; //override strong tag
+        font-family: @font-family-serif;
+      }
+    }
 
-  &::before {
-    display: table-caption;
-    content: @title;
-    font-weight: 600;
-    font-style: normal;
-    background-color: @title-background-color;
-    color: #fff;
-    line-height: 48px;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    .font-scale(1);
-    font-family: @font-family-serif;
-    padding: 0 15px;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    #utils>#pb>.after(avoid);
+    thead {
+      //#content>#table>#head>.style(any; any);
+      border-top: none;
+      font-family: @font-family;
+      .footnote::footnote-call {
+        //TODO
+        //#content>#table>#header>.footnote(any; any);
+      }
+    }
+    tbody {
+      //#content>#table>#body>.style(any; any);
+      border: 1px solid rgba(0,0,0,0.1);
+      border-top: none;
+      // TODO
+      color: @dark-blue;
+    }
+    table tbody[valign=top]>tr>td {
+      vertical-align: top;
+
+    }
+
+    tr {
+      //#content>#table>#row>.style(any; any);
+      #utils>#pb>.inside(avoid);
+    }
+    th {
+      ///#content>#table>#header>.style(any; any);
+      // #TODO
+      border-color: fade(#1e7e91, 20%) !important;
+      border-bottom: none;
+      padding: 5px 10px;
+      font-size: 9pt;
+      vertical-align: initial;
+    }
+    th:not(:only-child) {
+      //TODO verify which it is in new math
+      //#content>#table>#header>.style(any; any);
+    }
+
+    td {
+      //#content>#table>#data>.style(any; any);
+      //TODO border-color
+      border-color: rgba(0,0,0,0,1);
+      font-family: @font-family;
+      font-size: 9pt;
+      padding: 5px 10px;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      border-right: 1px solid rgba(0,0,0,0.1);
+      border-left: none;
+    }
+    // Add styling for table entries that should render as table headers
+    td.header {
+      //#content>#table>#data>.style('header'; any);
+      color: #fff;
+      font-size: 9pt;
+      font-weight: bold;
+      text-align: center;
+      vertical-align: initial;
+      background-color: @primary-color;
+    }
+    thead > tr:first-child {
+      //#content>#table>#header>#title>.style(any; any);
+      border-left: 0;
+      border-right: 0;
+        .footnote::footnote-call {
+        // #content>#table>#header>#title>.footnote(any; any);
+      }
+    }
   }
 
-  > div.title {
-    .font-scale(1);
-    color: @tertiary-color;
-    font-weight: 600;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-  > div.body {
-    padding: 15px;
-    border: 0;
-    &::before {
-      display: block;
-      content: '';
-      background: url("ccap-astronomy/@{icon}.svg") no-repeat 0;
-      width: @icon-width;
-      height: @icon-height;
-      position: absolute;
-      top: @icon-top;
-      right: @icon-right;
-    }
-    p {
-      padding: 0;
-    }
-    p:first-child {
-      margin-top: 0;
-    }
-  }
-}
-//EOC exercises custom numbering
-.eocCustomCounters (@identifier, @counterName) {
-  .exercise {
-    counter-increment: @counterName !important;
-    div.body > div.problem {
-    &::before {
-      content: " " @identifier " " counter(@counterName)  "" !important;
+  //handle lists inside tables
+  ul.itemizedlist, ol.orderedlist {
+   // #content>#list>.style(any; any; table);
+    > .listitem > p {
+      //#content>#paragraph>.style(any; any; list; table);
      }
+  }
+
+  // Special colored table...
+  &.color {
+    th {
+      //#content>#table>#header>.style(colored; any);
+      text-align: center;
+    }
+    tr {
+      //#content>#table>#row>.style(colored; any);
+       height: 1em !important;
+    }
+    tr td:first-child {
+      //TODO variable
+      background-color: @light-orange;
+      width: 2.5in;
+      font-weight: bold;
     }
   }
+
+  //no borders, left aligned, no color change
+  &.unstyled table {
+    //#content>#table>.style(unstyled; any);
+    border: none;
+    margin: 0;
+    caption {
+      //#content>#table>#caption>.style(unstyled; any);
+    }
+    tr {
+      //#content>#table>#row>.style(unstyled; any);
+      display: none;
+    }
+    td {
+      //#content>#table>#data>.style(unstyled; any);
+      text-align: left;
+      border-left: none;
+      border-right: none;
+    }
+    tbody {
+      //TODO
+      //#content>#table>#body>.style(unstyled; any);
+    }
+  }
+  &:not(.unstyled) table {
+    thead + tbody > tr:first-child > td {
+           //TODO
+      // #content>#table>#data>.style('with-header'; any; 'first', row);
+    }
+    tbody > tr:first-child > td {
+           //TODO
+      // #content>#table>#data>.style(any; any; 'first', row);
+    }
+  }
+
+  //nested tables with header rows within
+  &.multiple-headers {
+    table {
+      //TODO
+      //#content>#table>.style(multiple-headers; any);
+      tbody {
+        //#content>#table>#body>.style(multiple-headers; any);
+        border: none;
+      }
+      tr {
+              //TODO
+      //#content>#table>#row>.style(multiple-headers; any);
+      }
+      td {
+              //TODO
+      //#content>#table>#data>.style(multiple-headers; any);
+      }
+      tr table {
+       thead tr .tablecell {
+               //TODO
+      // #content>#table>#header>.style(multiple-header; table);
+        }
+        tbody {
+               //TODO
+      // #content>#table>#body>.style(multiple-headers; table);
+        }
+        tr {
+               //TODO
+      // #content>#table>#row>.style(multiple-headers; table);
+        }
+        thead tr:only-child, thead tr:only-child .tablecell {
+          border-top: 0px !important;
+        }
+        td {
+                //TODO
+      //#content>#table>#data>.style(multiple-headers; table);
+        }
+      }
+    }
+  }
+  //left column displays as a table head.
+  &.column-header tbody td:first-child {
+    //#content>#table>#data>.style('header'; any);
+    color: #fff;
+    font-size: 9pt;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: initial;
+    //TODO
+    background-color: @primary-color;
 }
+  & table {
+    thead tr:first-of-type th {
+      //#content>#table>#header>#title>.text(any; any);
+      //TODO
+      background-color: @primary-color;
+      font-weight: bold;
+    }
+    thead tr:first-of-type th:first-of-type {
+      //#content>#table>#header>#title>.style('first'; any);
+      border-top-left-radius: 2.88px;
+    }
+    thead tr:first-of-type th:last-of-type {
+      //#content>#table>#header>#title>.style('last'; any);
+      border-top-right-radius: 2.88px;
+    }
+    tbody tr:last-child td:first-child {
+      //#content>#table>#data>.style('first'; any);
+      border-bottom-left-radius: 2.88px;
+    }
+    tbody tr:last-child td:last-child {
+      //#content>#table>#data>.style('last'; any);
+       border-bottom-right-radius: 2.88px;
+    }
+  }
+  &:not(.unstyled) table tbody tr td:first-child {
+    //#content>#table>#data>.style('first-column'; any);
+    //TODO
+    border-left: 1px solid rgba(0,0,0,0.1);
+  }
+  &:not(.unstyled) table tbody tr td:last-child {
+    //#content>#table>#data>.style('last-column'; any);
+    border-right: 1px solid rgba(0,0,0,0.1);
+  }
+  &.unnumbered table {
+    thead tr:first-child {
+     // #content>#table>#header>.style(any; unnumbered);
+    }
+    thead tr:first-of-type th {
+     // #content>#table>#header>#title>.text(any; unnumbered);
+    }
+    caption {
+      //#content>#table>#caption>.style(any; unnumbered);
+    }//
+  }
+}
+
+
+
+
+
 
 /* -------------------------
  * Page Configs
@@ -394,15 +517,23 @@ span.colored-text {
  * Book TOC
  * ------------------------
  */
-.book > .toc {
+.book > .toc, .book > .part > .toc  {
   //#part>#toc>.style();
   counter-reset: toc-chapter-counter 0;
-
+  a {
+    //#part>#toc>#link>.style();
+    //TODO variable
+    color: @dark-blue;
+    text-align: left;
+    &::after {
+      //#part>#toc>#link>.number();
+      content: target-counter(attr(href), page);
+      padding-left: 15px;
+    }
+  }
   > .title {
    // #part>#toc>#title>.style();
-   &::before {
-      display: none;
-    }
+    text-align: left;
     text-transform: uppercase;
     .scale-padding(2, margin-bottom);
     color: @tertiary-color;
@@ -415,6 +546,14 @@ span.colored-text {
     padding: .3em 2.66em;
     padding-right: 15px;
     margin-left: 10px;
+    border-bottom: : 0;;
+
+    &::before {
+      //display: none;
+      content: url("math-toc-icon.png");
+      padding-right: 15px;
+      margin-left: 10px;
+    }
   }
 
   .toc-preface.preface, .toc-appendix.appendix {
@@ -423,22 +562,13 @@ span.colored-text {
     #utils>#pb>.after(avoid);
   }
 
-  a {
-    //#part>#toc>#link>.style();
-    color: @dark-blue;
-    text-align: left;
 
-  &::after {
-    //#part>#toc>#link>.number();
-    content: target-counter(attr(href), page);
-   padding-left: 15px;
-  }
- }
-
-  .toc-preface {
+  .toc-preface, .toc-appendix, .toc-index {
     //#content>#list>.item('preface'; any; toc);
     margin-bottom: 20px;
-    a.target-preface {
+    .secondary-header-toc();
+    margin-left: 46px;
+    a.target-preface, a.target-appendix, a.target-index {
       // #content>#link>.style('preface'; any; toc);
       color: @primary-color;
       .scale-padding(1, margin-bottom);
@@ -446,9 +576,49 @@ span.colored-text {
       font-size: 16px;
     }
   }
+  > .toc-section.appendix {
+    .target-section {
+      margin-left: 0;
+    }
+  }
   .toc-chapter {
     //#content>#list>.item('chapter'; any; toc);
+    counter-increment: toc-chapter-counter;
     margin-bottom: 20px;
+    &::before {
+      // TODO: suggestions for refactoring this slot?
+      //#part>#toc>#chapter>.number();
+      display: inline-block;
+      content: counter(toc-chapter-counter, decimal);
+      color: @secondary-color;
+      border: 1px solid @quaternary-color;
+      .font-scale(0);
+      padding: 0;
+      margin-right: 10px;
+      margin-left: 10px;
+      font-weight: 700;
+      width: 20px;
+      height: 20px;
+      text-align: center;
+      line-height: 20px;
+      float: left;
+    }
+    &:nth-child(2n+1) {
+    //#content>#list>.item('2n+1', 'chapter'; any; toc);
+      background-color: @light-green-10;
+      padding: 11px 0;
+    }
+    a.target-chapter {
+      // #content>#link>.style('chapter'; any; toc);
+      //TODO
+      color: @primary-color;
+      .scale-padding(1, margin-bottom);
+      font-size: 16px;
+      width: 90%;
+      .secondary-header-toc();
+      margin-bottom: .5em;
+      display: inline-block;
+    }
     .cnx-gentext-chapter {
       display: none;
     }
@@ -477,63 +647,43 @@ span.colored-text {
     .cnx-gentext-chapter.cnx-gentext-t {
       display: inline;
     }
-    &::before {
-      // TODO: suggestions for refactoring this slot?
-      //#part>#toc>#chapter>.number();
-      display: inline-block;
-      color: @secondary-color;
-      border: 1px solid @quaternary-color;
-      .font-scale(0);
-      padding: 0;
-      margin-right: 10px;
-      margin-left: 10px;
-      font-weight: 700;
-      width: 20px;
-      height: 20px;
-      text-align: center;
-      line-height: 20px;
-    }
-    a.target-chapter {
-      // #content>#link>.style('chapter'; any; toc);
-      color: @primary-color;
-      .scale-padding(1, margin-bottom);
-      font-size: 16px;
-      width: 90%;
-    }
+
+
     > .target-chapter::before {
       display: none;
     }
   }
 
-  .toc-appendix {
-    > a.target-appendix {
-      //#content>#link>.style('appendix'; any; toc);
-      color: @primary-color;
-      .scale-padding(1, margin-bottom);
-      margin-left: .20em;
-      font-size: 16px;
-    }
-  }
+  // .toc-appendix {
+  //   > a.target-appendix {
+  //     //#content>#link>.style('appendix'; any; toc);
+  //     color: @primary-color;
+  //     .scale-padding(1, margin-bottom);
+  //     margin-left: .20em;
+  //     font-size: 16px;
+  //   }
+  // }
   > ul > li.toc-appendix > a.target-appendix::before {
     content: target-counter(attr(href), appendix, upper-latin) " ";
   }
 
-  .toc-index > a.target-index {
-    //#content>#link>.style('index'; any; toc);
-    color: @primary-color;
-    .scale-padding(1, margin-bottom);
-    margin-left: 48px;
-    font-size: 16px;
-  }
-  .preface, .appendix {
-    page-break-before: auto;
-    page-break-after: auto;
-  }
+  // .toc-index > a.target-index {
+  //   //#content>#link>.style('index'; any; toc);
+  //   color: @primary-color;
+  //   .scale-padding(1, margin-bottom);
+  //   margin-left: 48px;
+  //   font-size: 16px;
+  // }
+
 }
 
+//UGLY overrides from base
+.book > .toc > .title {
+  border-bottom-width: 0;
+  border-bottom-style: none;
+}
 
-/* -------------------------
- * Preface
+/* Preface
  * ------------------------
  */
 div.book {
@@ -590,77 +740,215 @@ div.chapter {
     margin-top: 0;
     z-index: 1;
     position: relative;
-    div {
-      height: inherit;
-      div {
-        height: inherit;
-        > h1.title {
-          //#part>#chapter>#title>.style();
-          padding: 0;
+    z-index: 1;
+
+    div div > h1.title {
+      // string-set: cnx-header "@{cnx-string-chapter} " counter(chapter, decimal)  "\0020\0020\0020" content();
+      //#part>#chapter>#title>.style();
+      .font-scale(1);
+      padding: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 8.5in;
+      height: 3.5in;
+      //TODO
+      color: @tertiary-color;
+      white-space: nowrap;
+      font-weight: bold;
+      font-family: @font-family-serif;
+
+      &::before {
+        //#part>#chapter>#title>.number();
+        content: counter(chapter);
+        font-family: @font-family;
+        top: auto;
+        left: 0;
+        bottom: 72px;
+        background-color: white;
+        border-radius: 50%;
+        min-width: 0;
+        min-height: 0;
+        width: 45px;
+        height: 45px;
+        padding-top: 0;
+        border: none;
+        display: block;
+        line-height: 45px;
+        color: @secondary-color;
+        position: absolute;
+        border: 1px solid white;
+        text-align: center;
+      }
+      &::after {
+        //#part>#chapter>#title>.icon();
+        content: '';
+        display: block;
+        //background: url(ccap-astronomy/ch-intro-telescope.svg) 0 0 no-repeat;
+        width: 210px;
+        height: 50px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        transform: translate3d(-1in, 0, 0);
+      }
+
+      //       span.cnx-gentext-autogenerated,
+      // span.cnx-gentext-n {
+      //   display: none;
+      // }
+      // span.cnx-gentext-t {
+      //   &::before {
+      //     display: none;
+      //   }
+      // }
+
+      span.cnx-gentext-t {
+        //#part>#chapter>#title>.text();
+        position: absolute;
+        bottom: -0;
+        left: 80px;
+        width: 60%;
+        height: 70px;
+        white-space: normal;
+        &::before {
+          #part>#chapter>#title>.divider();
+        }
+      }
+    }
+    div, div div {height: inherit;}
+  }
+}
+
+
+/* -------------------------
+ * Chapter intro: splash, toc (chapter outline)
+ * -------------------------
+ */
+
+div.chapter {
+  //chapter introduction
+  > .introduction {
+    //#part>#introduction>.style();
+    margin-top: -0.80in;
+    >.title {
+      //#part>#introduction>#title>.style();
+      color: @tertiary-color;
+      margin-bottom: 1em;
+      content: initial;
+      &::before {
+        //#part>#introduction>#title>.style('intro-icon'; any);
+        background: url("../../ccap-astronomy/CH_intro.svg") no-repeat left;
+        background-size: 23px 27px;
+        height: 38px;
+        top: 12px;
+        padding-right: 13px;
+      }
+    }
+  }
+}
+div.chapter {
+  //chapter introduction
+  > .introduction {
+    // chapter splash
+    > .figure.splash {
+      width: @full-bleed-width;
+      margin-left: -.125in;
+      position: relative;
+      &::before {
+        background: transparent url('ccap-astronomy/folio-bg.png') 0 0 repeat-x;
+        background-size: 100% 122px;
+        height: 122px;
+        width: @full-bleed-width;
+        display: block;
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -1in;
+        right: -1in;
+      }
+      div.caption {
+        width: 6.5in;
+      }
+      div.mediaobject {
+        width: @full-bleed-width;
+        border-left: none;
+        height: 4.3in;
+        position: relative;
+        transform: translate3d(-1in, 0, 0);
+
+        &::before {
+          display: none;
+        }
+
+        &::after {
+          width: 100%;
+          content: '';
+          display: block;
           position: absolute;
-          top: 0;
+          bottom: 0px;
           left: 0;
           right: 0;
-          width: 8.5in;
-          height: 3.5in;
-          color: @tertiary-color;
-          white-space: nowrap;
-          .font-scale(2);
-          span.cnx-gentext-autogenerated,
-          span.cnx-gentext-n {
-            display: none;
-          }
-          span.cnx-gentext-t {
-            &::before {
-              display: none;
-            }
-          }
-          &::before {
-            //#part>#chapter>#title>.number();
-            font-family: @font-family;
-            top: auto;
-            left: 0;
-            bottom: 42px;
-            background-color: white;
-            border-radius: 50%;
-            min-width: 0;
-            min-height: 0;
-            width: 45px;
-            height: 45px;
-            padding-top: 0;
-            border: none;
-            display: block;
-            line-height: 45px;
-            color: @secondary-color;
-            content: counter(chapter);
-            position: absolute;
-            border: 1px solid white;
-            text-align: center;
-          }
+          height: 70px;
+          //TODO
+          background-color: @quinary-color;
+          border-top: 4px solid rgba(60 ,39, 71, .5);
+        }
+
+        img {
+          width: @full-bleed-width;
+          height: 3.58in;
+        }
+      }
+    }
+    .chapter-objectives {
+      display: none;
+    }
+  }
+}
+div.chapter {
+  //chapter introduction
+  > .introduction {
+    //chapter toc
+    > .toc {
+      width: 100%;
+      > ul {
+        // #content>#list>.style('unordered'; introduction; chapter-outline);
+        .side-border();
+        margin: 0;
+        padding-left: .75em;
+        //TODO
+        border-left: 4px solid @accent-color;
+      }
+      > .title {
+        //#part>#introduction>#chapter  -outline>#title>.style();
+        #utils>#pb>.after(avoid);
+        #utils>#pb>.before(avoid);
+        content: @cnx-string-chapter-outline;
+        //TODO
+        color: @secondary-color;
+        text-align: left;
+        font-family: @font-family-serif;
+        padding: 0em;
+        .scale-padding(1, margin-bottom);
+        .font-scale(2);
+      }
+      .toc-section {
+        .cnx-gentext-t {
+          color: @black;
+          font-weight: normal;
+        }
+        .cnx-gentext-n {
+          // #content>#list>.number('unordered'; introduction; chapter-outline);
+          color: @summer-sky;
           &::after {
-            //#part>#chapter>#title>.icon();
-            content: '';
-            display: block;
-            //background: url(ccap-astronomy/ch-intro-telescope.svg) 0 0 no-repeat;
-            width: 210px;
-            height: 50px;
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            transform: translate3d(-1in, 0, 0);
+            content: "";
           }
-          span.cnx-gentext-t {
-            //#part>#chapter>#title>.text();
-            position: absolute;
-            bottom: -20px;
-            left: 80px;
-            width: 60%;
-            height: 70px;
-            white-space: normal;
-            &::before {
-              #part>#chapter>#title>.divider();
-            }
-          }
+         }
+        // overide hyperlink medium blue color
+        .cnx-gentext-t {
+         color: @tertiary-color;
         }
       }
     }
@@ -670,9 +958,24 @@ div.chapter {
  * Module/page level Learning objectives
  ********************************************************************/
  div.book div.chapter .section.learning-objectives {
+  .titlepage {
+    //TODO
+    color: @secondary-color;
+    .font-scale(2);
+  }
   .section {
-    max-width: 33%;
+    margin-left: 0;
+    + .section {
+      margin-left: 2em;
+    }
+    max-width: 30%;
     display: inline-block;
+
+    .titlepage {
+      .font-scale(1);
+      //TODO
+      color: @primary-color;
+    }
   }
  }
 /********************************************************************
@@ -716,112 +1019,6 @@ div.chapter > div.section {
     }
   }
  }
-
-
-
-/* -------------------------
- * Chapter intro: splash, toc (chapter outline)
- * -------------------------
- */
-
-div.chapter {
-  //chapter introduction
-  > .introduction {
-    //#part>#introduction>.style();
-    margin-top: -0.80in;
-    >.title {
-      //#part>#introduction>#title>.style();
-      color: @tertiary-color;
-      margin-bottom: 1em;
-      content: initial;
-      &::before {
-        //#part>#introduction>#title>.style('intro-icon'; any);
-        background: url("../../ccap-astronomy/CH_intro.svg") no-repeat left;
-        background-size: 23px 27px;
-        height: 38px;
-        top: 12px;
-        padding-right: 13px;
-      }
-    }
-
-    // chapter splash
-    > .figure.splash {
-      position: relative;
-      &::before {
-        background: transparent url('ccap-astronomy/folio-bg.png') 0 0 repeat-x;
-        background-size: 100% 122px;
-        height: 122px;
-        width: 8.5in;
-        display: block;
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -1in;
-        right: -1in;
-      }
-      div.caption {
-        width: 6.5in;
-      }
-      div.mediaobject {
-        border-left: none;
-        height: 4.3in;
-        position: relative;
-
-        &::before {
-          display: none;
-        }
-
-        &::after {
-          width: 100%;
-          content: '';
-          display: block;
-          position: absolute;
-          bottom: 0px;
-          left: 0;
-          right: 0;
-          height: 70px;
-          background-color: @quinary-color;
-          border-top: 4px solid rgba(60 ,39, 71, .5);
-        }
-
-        img {
-          width: 8.5in;
-          height: 3.58in;
-        }
-      }
-    }
-
-    //chapter toc
-    > .toc {
-      > ul {
-        // #content>#list>.style('unordered'; introduction; chapter-outline);
-        border-left: 4px solid @accent-color;
-      }
-      > .title {
-        //#part>#introduction>#chapter-outline>#title>.style();
-        .scale-padding(1, margin-bottom);
-        .font-scale(2);
-      }
-      .toc-section {
-        .cnx-gentext-t {
-          color: @black;
-          font-weight: normal;
-        }
-        .cnx-gentext-n {
-          // #content>#list>.number('unordered'; introduction; chapter-outline);
-          color: @summer-sky;
-          &::after {
-            content: "";
-          }
-         }
-        // overide hyperlink medium blue color
-        .cnx-gentext-t {
-         color: @tertiary-color;
-        }
-      }
-    }
-  }
-}
 
 /* -------------------------
  * Example Elements Styling and Numbering
