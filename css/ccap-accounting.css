@@ -10,18 +10,6 @@
 
  I kept the slot commented out in case they are needed to find a particular style.
  ********************************************************************/
-/* The QR code variable is needed for psychology skeleton but we are not using it since it's going away */
-html {
-  prince-image-resolution: 150dpi;
-  prince-background-image-resolution: 150dpi;
-}
-img {
-  display: block;
-  margin: auto;
-}
-.figure {
-  float: column-top;
-}
 div.book {
   /* --------------------------------------
    *  Define how counters are incremented
@@ -1911,6 +1899,32 @@ div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t 
 div.book div.index div.title h2 {
   string-set: cnx-header "Index";
 }
+sub {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  bottom: -0.25em;
+}
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  top: -0.5em;
+}
+.titlepage sup {
+  vertical-align: super;
+  line-height: inherit;
+  font-size: smaller;
+  position: static;
+  top: auto;
+}
+/* The QR code variable is needed for psychology skeleton but we are not using it since it's going away */
+html {
+  prince-image-resolution: 150dpi;
+  prince-background-image-resolution: 150dpi;
+}
 /******************************************************************************
  * Tables
  ******************************************************************************/
@@ -1928,7 +1942,19 @@ div.table table {
   prince-caption-page: all;
   border: none;
 }
+div.table table caption {
+  color: #58595B;
+  font-size: 9.23076923px;
+  display: inline !important;
+  text-align: center;
+  font-size: 10px;
+  display: table-caption;
+  text-align: left;
+  page-break-before: avoid;
+  font-family: 'Dosis', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
 div.table table caption::before {
+  content: "" "Table " counter(chapter, decimal) "." counter(table) " " "";
   font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   border: none;
   padding-top: .5em;
@@ -1938,6 +1964,7 @@ div.table table caption::before {
   font-size: 8px;
   line-height: 17px;
   font-weight: 700;
+  color: #221E1F;
 }
 div.table table .cnx-figure-horizontal .informalfigure .caption {
   text-align: center;
@@ -2068,6 +2095,9 @@ div.table:not(.unstyled) table tbody tr td:last-child {
  * Global Styles
  * ------------------------
  */
+a:link {
+  color: #34BDD8;
+}
 div.abstract {
   display: none;
 }
@@ -2075,13 +2105,38 @@ div.abstract {
  * Figures/Subfigures
  * ---------------------------------------------------
  */
+img {
+  display: block;
+  margin: auto;
+}
 .figure {
+  display: block;
+  margin: auto;
   width: 100%;
+  float: column-top;
 }
 .figure > .title {
-  color: black;
+  font-family: 'Noto Sans', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  border: none;
+  padding-top: .5em;
+  padding-left: 0px;
+  padding-bottom: 1em;
+  caption-side: bottom;
+  font-size: 8px;
+  line-height: 17px;
+  font-weight: 700;
+  color: #221E1F;
+}
+.figure .caption {
+  color: #58595B;
   font-size: 9.23076923px;
-  content: "Figure " counter(chapter, decimal) "." counter(figure) " " string(cnx-figure-title);
+  display: inline !important;
+  text-align: center;
+  font-size: 10px;
+  display: table-caption;
+  text-align: left;
+  page-break-before: avoid;
+  font-family: 'Dosis', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 span.colored-text {
   color: #CC0000;
@@ -2115,6 +2170,55 @@ span.colored-text {
   color: black;
   font-weight: normal;
   margin-right: 0.5em;
+}
+/* ---------------------------------------------------
+ * Citations
+ * ---------------------------------------------------
+ */
+.chapter a.link.cite {
+  content: target-counter(attr(href), references);
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  top: -0.5em;
+  font-weight: 100;
+}
+div.end-of-book-references {
+  margin-left: 0;
+  text-indent: 0em;
+  text-align: left;
+  display: inline;
+}
+div.end-of-book-references > .chapter-area {
+  counter-reset: references;
+  margin-bottom: 1em;
+}
+div.end-of-book-references > .chapter-area > .body > .section-area .note.reference {
+  margin: 0 0 .5em 0;
+  padding: 0px;
+  counter-increment: references;
+}
+div.end-of-book-references > .chapter-area > .body > .section-area .note.reference > .body::before {
+  content: counter(references) ".";
+  padding-right: .5em;
+}
+.chapter,
+.appendix,
+.colophon,
+.preface {
+  page-break-before: auto;
+  page-break-after: auto;
+}
+.book > .chapter,
+.book > .appendix,
+.book > .colophon,
+.book > .preface .book > .part > .chapter,
+.book > .part > .appendix,
+.book > .part > .colophon,
+.book > .part > .preface {
+  page-break-before: right;
+  page-break-after: left;
 }
 /* -------------------------
  * Book TOC
@@ -2156,13 +2260,6 @@ span.colored-text {
   padding-right: 15px;
   margin-left: 10px;
 }
-.book > .toc .toc-preface.preface,
-.book > .part > .toc .toc-preface.preface,
-.book > .toc .toc-appendix.appendix,
-.book > .part > .toc .toc-appendix.appendix {
-  page-break-before: avoid;
-  page-break-after: avoid;
-}
 .book > .toc .toc-preface,
 .book > .part > .toc .toc-preface,
 .book > .toc .toc-appendix,
@@ -2171,7 +2268,6 @@ span.colored-text {
 .book > .part > .toc .toc-index {
   margin-bottom: 20px;
   font-size: 15.6px;
-  margin-left: 46px;
 }
 .book > .toc .toc-preface a.target-preface,
 .book > .part > .toc .toc-preface a.target-preface,
@@ -2196,9 +2292,31 @@ span.colored-text {
   margin-left: 48px;
   font-size: 16px;
 }
+.book > .toc > .toc-section.appendix,
+.book > .part > .toc > .toc-section.appendix {
+  counter-increment: toc-appendix-counter;
+}
 .book > .toc > .toc-section.appendix .target-section,
 .book > .part > .toc > .toc-section.appendix .target-section {
   margin-left: 0;
+}
+.book > .toc > .toc-section.appendix a.target-appendix::before,
+.book > .part > .toc > .toc-section.appendix a.target-appendix::before {
+  content: target-counter(attr(href), toc-appendix-counter, upper-latin) " ";
+  display: inline-block;
+  content: counter(toc-chapter-counter, decimal);
+  color: #344456;
+  border: 1px solid #f37541;
+  font-size: 12px;
+  padding: 0;
+  margin-right: 10px;
+  margin-left: 10px;
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  float: left;
 }
 .book > .toc .toc-chapter,
 .book > .part > .toc .toc-chapter {
@@ -2273,10 +2391,6 @@ span.colored-text {
 .book > .toc .toc-chapter > .target-chapter::before,
 .book > .part > .toc .toc-chapter > .target-chapter::before {
   display: none;
-}
-.book > .toc > ul > li.toc-appendix > a.target-appendix::before,
-.book > .part > .toc > ul > li.toc-appendix > a.target-appendix::before {
-  content: target-counter(attr(href), appendix, upper-latin) " ";
 }
 .book > .toc > .title {
   border-bottom-width: 0;
