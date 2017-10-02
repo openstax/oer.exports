@@ -1,0 +1,159 @@
+
+.folio-chapter-header() {
+  background-color: transparent;
+  color: white;
+  font-weight: bold;
+}
+
+.line-height() {
+  line-height: 1.6em;
+}
+    // color: @tertiary-color;
+    // display: inline-block !important;
+    // font-family: @font-family-serif;
+    // background: url("ccap-astronomy/Key Terms.svg") no-repeat left;
+    // background-size: contain;
+    // margin-bottom: 10px;
+    // padding: .3em 2.3em !important;
+    // font-size: 18px !important;
+.moduleTitles (@color) {
+    color: @color;
+    display: inline-block !important;
+    font-family: @font-family-serif;
+    background: url("ccap-astronomy/Key Terms.svg") no-repeat left; //todo: create icons + variables
+    background-size: contain;
+    margin-bottom: 10px;
+    padding: .3em 2.3em !important;
+    .font-scale(2) !important;
+}
+
+.notes(@title, @title-background-color, @background-color, @icon, @text-color: #4F5151, @icon-width: 19px, @icon-height: 22px, @icon-top: 12px, @icon-right: 15px) {
+  display: table;
+  position: relative;
+  background-color: @background-color;
+  text-align: left;
+  color: @text-color;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  padding: 0;
+  box-sizing: border-box;
+
+  &::before {
+    display: table-caption;
+    content: @title;
+    font-weight: 600;
+    font-style: normal;
+    background-color: @title-background-color;
+    color: #fff;
+    line-height: 48px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    .font-scale(1);
+    font-family: @font-family-serif;
+    padding: 0 15px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    #utils>#pb>.after(avoid);
+  }
+
+  > div.title {
+    .font-scale(1);
+    color: @tertiary-color;
+    font-weight: 600;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  > div.body {
+    padding: 15px;
+    border: 0;
+    &::before {
+      display: block;
+      content: '';
+      background: url("ccap-astronomy/@{icon}.svg") no-repeat 0;
+      width: @icon-width;
+      height: @icon-height;
+      position: absolute;
+      top: @icon-top;
+      right: @icon-right;
+    }
+    p {
+      padding: 0;
+    }
+    p:first-child {
+      margin-top: 0;
+    }
+  }
+}
+//EOC exercises custom numbering
+.eocCustomCounters (@identifier, @counterName) {
+  .exercise {
+    counter-increment: @counterName !important;
+    div.body > div.problem {
+    &::before {
+      content: " " @identifier " " counter(@counterName)  "" !important;
+     }
+    }
+  }
+}
+
+.side-border() {
+  border-left: 2px solid rgba(red(@light-green),
+                              green(@light-green),
+                              blue(@light-green),
+                              .3);
+}
+.material-set-2() {
+  width: 48%;
+  min-width: initial;
+}
+.material-set-2-numbered() {
+  width: 48%;
+}
+.material-set-3() {
+  width: 31%;
+  min-width: initial;
+}
+.material-set-4() {
+  width: 29%;
+  min-width: initial;
+}
+.x-list-indent() {
+  margin: 0 0 0 40px;
+  padding: 0;
+}
+.x-inline-blocks() {
+  box-sizing: border-box;
+  display: inline-block;
+  .scale-padding(2, padding-right);
+}
+.folio-chapter-header() {
+  background-color: @dark-blue;
+  color: @light-blue;
+}
+.folio-chapter-header-reset() {
+  content: " "; // Page area must have content
+                // to receive layout.
+}
+.primary-header() {
+}
+.secondary-header-toc() {
+  .font-scale(1);
+}
+.eo-title-style() {
+  .font-scale(2) !important;
+  font-family: @font-family-serif;
+}
+.x-center-image() {
+  display: block;
+  margin: auto;
+}
+.x-solutions-subheading-style() {
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: @font-family;
+  display: block;
+  margin-bottom: 7.5px;
+  #utils>#pb>.after(avoid);
+}
