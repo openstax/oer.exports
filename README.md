@@ -66,7 +66,7 @@ Finally, you will need to install http://princexml.com (remember the path to whe
 
 The `docbook-xsl` has files that point to http://docbook.sourceforge.net . Loading these is slow and sometimes times out.
 
-You can download the zip file from http://sourceforge.net/projects/docbook/files/docbook-xsl-ns/ (1.72 works) and replace the `docbook-xsl` directory with its contents.
+You can download the zip file from https://sourceforge.net/projects/docbook/files/docbook-xsl-ns/1.79.0/  and replace the `docbook-xsl` directory with its contents.
 
 ## Install Fonts
 
