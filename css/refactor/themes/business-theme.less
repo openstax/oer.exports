@@ -19,7 +19,7 @@
 // Ad-hoc numbering changes. Removes numbering for various pieces of content
 // which use a .unnumbered class.
 @import url('../utils.less');
-
+@import url('business-color-map.less');
 @import url('../ccap-base-slots.less');
 @import url('../content-slots.less');
 
@@ -33,6 +33,7 @@
 @import url('../folio.less');
 @import url('../includes/sub-sup-scripts.less');
 @import url('../includes/theme-colors.less');
+
 @page-width: 6.5in;
 @full-bleed-width: 8.75in;
 /* The QR code variable is needed for psychology skeleton but we are not using it since it's going away */
@@ -48,20 +49,10 @@ html {
   prince-background-image-resolution: 150dpi;
 }
 
-@table-border: 1px solid #F4F4F4;
+
 
 //variables
 
-
-@primary-color: #d34d32;
-@secondary-color: #344456;
-@tertiary-color: #24739e;
-@quaternary-color: #f37541 ;
-@quinary-color: #0dc0dc;
-@accent-color: #F4F4F4;
-@accent-color-tinted: #F9F9F9;
-@link-color: #34BDD8;
-@footnote-color: #6D6F71;
 
 @base-font-size: 12px;
 @font-family-serif: 'Dosis', sans-serif, @stix-fonts;
@@ -142,10 +133,9 @@ div.table {
     }
     tbody {
       //#content>#table>#body>.style(any; any);
-      border: 1px solid rgba(0,0,0,0.1);
+      border: @table-body-border;
       border-top: none;
-      // TODO
-      color: @dark-blue;
+      color: @table-head-color;
     }
     table tbody[valign=top]>tr>td {
       vertical-align: top;
@@ -158,8 +148,7 @@ div.table {
     }
     th {
       ///#content>#table>#header>.style(any; any);
-      // #TODO
-      border-color: fade(#1e7e91, 20%) !important;
+      border-color: @th-border-color;
       border-bottom: none;
       padding: 5px 10px;
       font-size: 9pt;
@@ -172,8 +161,7 @@ div.table {
 
     td {
       //#content>#table>#data>.style(any; any);
-      //TODO border-color
-      border-color: rgba(0,0,0,0,1);
+      border-color: @td-border-color;
       font-family: @font-family;
       font-size: 9pt;
       padding: 5px 10px;
@@ -194,12 +182,12 @@ div.table {
     // Add styling for table entries that should render as table headers
     td.header {
       //#content>#table>#data>.style('header'; any);
-      color: #fff;
+      color: @table-heaader-color;
       font-size: 9pt;
       font-weight: bold;
       text-align: center;
       vertical-align: initial;
-      background-color: @primary-color;
+      background-color: @table-header-bg-color;
     }
     thead > tr:first-child {
       //#content>#table>#header>#title>.style(any; any);
@@ -230,8 +218,7 @@ div.table {
        height: 1em !important;
     }
     tr td:first-child {
-      //TODO variable
-      background-color: @light-orange;
+      background-color: @colored-table-bg-color;
       width: 2.5in;
       font-weight: bold;
     }
@@ -314,19 +301,17 @@ div.table {
   //left column displays as a table head.
   &.column-header tbody td:first-child {
     //#content>#table>#data>.style('header'; any);
-    color: #fff;
+    color: @col-header-bg-color;
     font-size: 9pt;
     font-weight: bold;
     text-align: center;
     vertical-align: initial;
-    //TODO
-    background-color: @primary-color;
+    background-color: @col-header-bg-color;
 }
   & table {
     thead tr:first-of-type th {
       //#content>#table>#header>#title>.text(any; any);
-      //TODO
-      background-color: @primary-color;
+      background-color: @th-bg-color;
       font-weight: bold;
     }
     thead tr:first-of-type th:first-of-type {
@@ -381,14 +366,14 @@ div.table {
    .footnotes() {
     border-top: none;
     padding-top: 1.333em;
-    background-image: linear-gradient(180deg, @quaternary-color, @quaternary-color);
+    background-image: @footnote-bg-color;
     background-position: left top;
     background-size: 65px 1px;
     background-repeat: no-repeat;
   }
   .folio-typography() {
     font-family: @font-family-serif;
-    color: @tertiary-color;
+    color: @folio-color;
     font-size: 10px;
   }
   .top-left(left) { .folio-typography(); }
@@ -505,7 +490,7 @@ img {
 
 //captions
 span.colored-text {
-  color: #CC0000;
+  color: @colored-text-color;
 }
 .footnote {
   //#content>#footnote>.style();
@@ -605,7 +590,7 @@ div.end-of-book-references {
   a {
     //#part>#toc>#link>.style();
     //TODO variable
-    color: @dark-blue;
+    color: @toc-links-color;
     text-align: left;
     &::after {
       //#part>#toc>#link>.number();
@@ -618,10 +603,10 @@ div.end-of-book-references {
     text-align: left;
     text-transform: uppercase;
     .scale-padding(2, margin-bottom);
-    color: @tertiary-color;
+    color: @toc-title-color;
     display: inline-block;
     font-family: @font-family-serif;
-    background: url("ccap-astronomy/TOC.svg") no-repeat left;
+    background: @toc-title-background;
     background-size: contain;
     margin-bottom: 10px;
     //Note: EOC sections have side paddings of 2.3 rather than 2.66, maybe change others for consistency?
@@ -632,7 +617,7 @@ div.end-of-book-references {
 
     &::before {
       //display: none;
-      content: url("math-toc-icon.png");
+      content: @toc-title-icon;
       padding-right: 15px;
       margin-left: 10px;
     }
@@ -645,7 +630,7 @@ div.end-of-book-references {
     //margin-left: 46px;
     a.target-preface, a.target-appendix, a.target-index {
       // #content>#link>.style('preface'; any; toc);
-      color: @primary-color;
+      color: @toc-chapter-link-color;
       .scale-padding(1, margin-bottom);
 
       font-size: 16px;
@@ -666,13 +651,12 @@ div.end-of-book-references {
     }
     &:nth-child(2n+1) {
     //#content>#list>.item('2n+1', 'chapter'; any; toc);
-      background-color: @light-green-10;
+      background-color: @toc-odd-bg-color;
       padding: 11px 0;
     }
     a.target-chapter {
       // #content>#link>.style('chapter'; any; toc);
-      //TODO
-      color: @primary-color;
+      color: @toc-chapter-link-color;
       .scale-padding(1, margin-bottom);
       font-size: 16px;
       width: 90%;
@@ -685,7 +669,7 @@ div.end-of-book-references {
     }
     > ul {
       //#content>#list>.style('chapter'; any; toc);
-      border-left: 4px solid @accent-color;
+      border-left: 4px solid @toc-side-border-color;
       margin-left: 48px;
       .scale-padding(-1, padding-left);
       li {
@@ -696,7 +680,7 @@ div.end-of-book-references {
       }
       > li.toc-chapter:nth-child(2n+1) {
         //#content>#list>.item('2n+1', 'chapter'; any; toc);
-        background-color: @accent-color-tinted;
+        background-color: @toc-odd-bg-color;
         padding-top: 1em;
         padding-bottom: 1em;
       }
@@ -834,7 +818,7 @@ div.chapter {
       width: 8.5in;
       height: 3.5in;
       //TODO
-      color: @tertiary-color;
+      color: @chapter-title-color;
       white-space: nowrap;
       font-weight: bold;
       font-family: @font-family-serif;
@@ -846,7 +830,7 @@ div.chapter {
         top: auto;
         left: 0;
         bottom: 62px;
-        background-color: white;
+        background-color: @chapter-number-bg-color;
         border-radius: 50%;
         min-width: 0;
         min-height: 0;
@@ -856,9 +840,9 @@ div.chapter {
         border: none;
         display: block;
         line-height: 45px;
-        color: @secondary-color;
+        color: @chapter-number-color;
         position: absolute;
-        border: 1px solid white;
+        border: 1px solid @chapter-number-border-color;
         text-align: center;
       }
       &::after {
@@ -914,12 +898,12 @@ div.chapter {
     margin-top: -0.80in;
     >.title {
       //#part>#introduction>#title>.style();
-      color: @tertiary-color;
+      color: @chapter-title-color;
       margin-bottom: 1em;
       content: initial;
       &::before {
         //#part>#introduction>#title>.style('intro-icon'; any);
-        background: url("../../ccap-astronomy/CH_intro.svg") no-repeat left;
+        background: @intro-icon;
         background-size: 23px 27px;
         height: 38px;
         top: 12px;
@@ -936,7 +920,7 @@ div.chapter {
       margin-left: 0;
       position: relative;
       &::before {
-        background: transparent url('ccap-astronomy/folio-bg.png') 0 0 repeat-x;
+        background: @intro-folio-bg;
         background-size: 100% 122px;
         height: 122px;
         width: @full-bleed-width;
@@ -970,9 +954,8 @@ div.chapter {
           left: 0;
           right: 0;
           height: 70px;
-          //TODO
-          background-color: @quinary-color;
-          border-top: 4px solid rgba(60 ,39, 71, .5);
+          background-color: @splash-bottom-bar-color;
+          border-top: @splash-bottom-bar-border-top;
         }
 
         img {
@@ -997,16 +980,15 @@ div.chapter {
         .side-border();
         margin: 0;
         padding-left: .75em;
-        //TODO
-        border-left: 4px solid @accent-color;
+
+        //border-left: 4px solid @accent-color;
       }
       > .title {
         //#part>#introduction>#chapter  -outline>#title>.style();
         page-break-before: avoid;
         page-break-before: avoid;
         content: @cnx-string-chapter-outline;
-        //TODO
-        color: @secondary-color;
+        color: @chapter-outline-title-color;
         text-align: left;
         font-family: @font-family-serif;
         padding: 0em;
@@ -1015,14 +997,12 @@ div.chapter {
       }
       .toc-section {
         .cnx-gentext-t {
-          //TODO
-          color: @black;
+          color: @chapter-outline-sections-color;
           font-weight: normal;
         }
         .cnx-gentext-n {
           // #content>#list>.number('unordered'; introduction; chapter-outline);
-          //TODO
-          color: @summer-sky;
+          color: @chapter-outline-number-color;
           &::after {
             content: "";
           }
@@ -1030,7 +1010,7 @@ div.chapter {
         // overide hyperlink medium blue color
         .cnx-gentext-t {
           //TODO
-         color: @tertiary-color;
+         color: @chapter-outline-link-color;
         }
       }
     }
@@ -1042,7 +1022,7 @@ div.chapter {
  div.book div.chapter .section.learning-objectives {
   .titlepage {
     //TODO
-    color: @secondary-color;
+    color: @LO-title-color;
     .font-scale(2);
   }
   .section {
@@ -1056,7 +1036,7 @@ div.chapter {
     .titlepage {
       .font-scale(1);
       //TODO
-      color: @primary-color;
+      color: @LO-section-titles-color;
     }
   }
  }
@@ -1069,14 +1049,14 @@ div.chapter > div.section {
     //#part>#module>#title>.style();
     font-family: @font-family-serif;
     text-transform: uppercase;
-    color: @tertiary-color;  //maybe we should move this at the book level in the headers section
+    color: @module-title-color;
     .font-scale(2);
     font-weight: 600;
     margin-bottom: 1em;
 
     &::before {
       //#part>#module>#title>.number();
-      border: 2px solid @quaternary-color;
+      border: @module-number-border;
       padding: 3px 4px;
       .font-scale(-1);
       margin-right: 10px;
@@ -1097,7 +1077,7 @@ div.chapter > div.section {
     div.titlepage > div > div > h3 {
     //#content>#section>#title>.style(any; any);
       margin-top: 1em;
-      color: @secondary-color;
+      color: @subsection-title-color;
     }
   }
  }
@@ -1197,9 +1177,9 @@ div.chapter > div.section {
       line-height: 1.75em;
       .font-scale(2) !important; // !important overrides a * selector...
       font-family: @font-family-serif;
-      color: @tertiary-color;
+      color: @eoc-summary-title-color;
       content: "Summary";
-      background: url("ccap-astronomy/Summary.svg") no-repeat left;
+      background: @eoc-summary-icon;
       background-size: contain;
       padding-left: 2.3em !important;
       span { // override a * selector...
@@ -1255,7 +1235,7 @@ div.appendix {
     // #part>#book-end>#appendix>#title>.style();
     .font-scale(2);
     font-weight: bold;
-    color: @tertiary-color;
+    color: @appendix-title-color;
     font-family: @font-family-serif;
     padding: 0;
     margin: 0;
@@ -1266,8 +1246,8 @@ div.appendix {
     }
     span.cnx-gentext-n {
       //#part>#book-end>#appendix>#title>.label();
-      border: 2px solid @quaternary-color;
-      color: @secondary-color !important;
+      border: @appendix-number-border;
+      color: @appendix-number-color;
       padding: 4px 7px;
       .font-scale(1);
       margin-right: 10px;
@@ -1393,7 +1373,7 @@ div.colophon.end-of-book-solutions {
     // #part>#book-end>#index>#title>.style();
     .font-scale(2);
     font-family: @font-family-serif;
-    color: @secondary-color;
+    color: @index-title-color;
     margin-bottom: 22px;
   }
 
@@ -1408,7 +1388,7 @@ div.colophon.end-of-book-solutions {
     //#part>#book-end>#index>.letter();
     .font-scale(1);
     font-family: @font-family;
-    color: @secondary-color;
+    color: @index-letter-color;
   }
   h3.letter:first-of-type {
     margin-top: 0;
