@@ -184,12 +184,12 @@ To generate an HTML report, you can run `genhtml` directly (`brew install lcov` 
 
 ## Content Workflow
 
-1. vendors (WiseWire, 6RedMarbles) hire Subject Matter Experts (SMEs) to write a textbook as a series of Word docs with markup like `[H1] Kinematics in 9 Dimensions`
+1. vendors (WiseWire, 6RedMarbles) hire Subject Matter Experts (SMEs) to write a textbook as a series of Word documents with markup like `[H1] Kinematics in 9 Dimensions`
 1. these vendors subcontract to people to convert the Word Docs into CNXML files which are stored on a **Legacy** Staging Server
 1. PDFs are generated on the Staging Server for Quality Assurance
-1. As chapters are completed, Content Managers (CMs) migrate the CNXML files from the Staging Server and onto Production
+1. When content production is complete and the book is ready to be published, Content Managers (CMs) migrate the CNXML files from the Staging Server and onto Production
     - Among the many things that happen in this step, one is to rewrite the links because module id's on Staging and Production are different
-1. Developers download a Complete Zip either from the **Webview** Staging Server or production so they can generate PDFs locally
+1. Developers download a Complete Zip from the Legacy Staging Server or Legacy production so they can generate PDFs locally. Example: http://legacy-textbook-dev.cnx.org/content/col10128/1.12/content_info#cnx_downloads_header . The legacy links are common because CM's work with those URLs and they tend to provide these links.
 
 
 ## Tools
@@ -204,7 +204,7 @@ The PDF generation system uses the following additional tools:
 
 ## Terminology
 
-- **complete zip**: A Zip file containing all the Textbook Content needed to create a PDF (or other file formats)
+- **complete zip**: A Zip file containing all the Textbook Content needed to create a PDF (or other file formats). For details on how this file is used see [complete zip data](#completezipdata)
 - **collection**: A legacy name for a Book
 - **module**: A legacy name for a Page in a book (something smaller than a Chapter, but larger than a Paragraph)
 - **cnxml**: The XML format used for marking up a Page in a Book
@@ -229,6 +229,8 @@ The PDF generation system uses the following additional tools:
 ## Transformations
 
 The PDF-generation process begins with a [Complete Zip](https://github.com/openstax/book-tools/blob/master/terms.md) and results in a PDF document. Here are the steps:
+
+Follow the instructions in https://github.com/Connexions/ost-the-dark-side/blob/master/29.-Generating-PDFs-Locally.md
 
 1. Download a complete zip and extract it to a directory (ie `col123_complete`)
 1. Run https://github.com/Connexions/oer.exports/blob/master/collectiondbk2pdf.py (see file for command line arguments)
@@ -271,3 +273,12 @@ Call [./collectiondbk2pdf.py](./collectiondbk2pdf.py) which runs:
 1. [./xsl/xhtml-dedup-svg.xsl](./xsl/xhtml-dedup-svg.xsl) Removes duplicate SVG elements (BUG?)
 1. [./xsl/dedup-references.xsl](./xsl/dedup-references.xsl) Removes references inside a Citation
 1. Convert HTML+CSS to PDF using PrinceXML
+
+
+# Complete Zip Data
+
+The Zip file contains the following interesting files which are frequently tweaked for testing:
+
+- `collection.xml` This is the Table of Contents of the book. It links to individual pages in a book and specifies the chapters/appendixes in the book. It can be edited to make a much smaller book for development/testing
+
+- `index_auto_generated.cnxml` These files contain the book content. To test styling changes locally content can be edited by changing these files. The XML format still needs to follow the format described in https://legacy.cnx.org/eip-help/tags
