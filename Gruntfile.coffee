@@ -232,6 +232,8 @@ module.exports = (grunt) ->
   allBooks = [
     'entrepreneurship'
     'accounting'
+    'business-ethics'
+    'srm-business'
     'astronomy'
     'astronomy-print'
     'american-government'
