@@ -54,3 +54,9 @@ else
   echo "ERROR. Not in a virtualenv"
   exit 1
 fi
+
+
+if [[ ! -f ./lib/SaxonTransformWrapper.class ]]; then
+  >&2 echo "==> Compiling XSLT2 Java classes"
+  $(cd ./lib/ && javac -cp saxon9he.jar SaxonTransformWrapper.java)
+fi
