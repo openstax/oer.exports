@@ -1,0 +1,56 @@
+#!/bin/bash
+set -e
+
+cd "$(dirname "$0")/.."
+
+./script/bootstrap || exit 1
+
+>&2 echo "==> Installing JavaScript Packages"
+if [[ $(which yarn) ]]; then
+  yarn install || exit 1
+else
+  >&2 echo "WARNING: Installing JS packages using npm instead of yarn."
+  npm install || exit 1
+fi
+
+
+# Only activate the virtualenv if not already in one
+if [[ -z "${VIRTUAL_ENV}" ]]
+then
+
+  # This is mostly for travis
+  if [[ -z "$(which virtualenv)" ]]
+  then
+    >&2 echo "==> Installing Python virtualenv (pip install virtualenv)"
+    pip install virtualenv
+  fi
+
+  >&2 echo "==> Setting up a python virtualenv"
+  virtualenv ./venv/
+  source ./venv/bin/activate
+else
+  >&2 echo "==> Skipping virtualenv because already in one"
+fi
+
+pip install -U pip
+
+if [[ -n "${VIRTUAL_ENV}" ]]
+then
+
+  if [[ -f ./requirements.txt ]]; then
+    >&2 echo "==> Installing python packages"
+    pip install -r ./requirements.txt
+  else
+    if [[ -f ./setup.py ]]; then
+      >&2 echo "==> Installing python packages from setup.py"
+      python setup.py install
+    else
+      >&2 echo "==> Skipping install of python packages"
+    fi
+  fi
+
+
+else
+  echo "ERROR. Not in a virtualenv"
+  exit 1
+fi
