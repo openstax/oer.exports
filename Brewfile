@@ -1,4 +1,5 @@
 brew "docbook-xsl"
 brew "imagemagick"
 brew "librsvg"
+brew "pyenv-virtualenv"
 brew "yarn"
