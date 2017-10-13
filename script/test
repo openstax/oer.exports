@@ -5,17 +5,13 @@ cd "$(dirname "$0")/.."
 
 >&2 echo "==> Checking that we can fetch docbook-xsl from the XML catalog"
 if [[ $(which brew) ]]; then
-  # TODO: Use `brew config | grep HOMEBREW_PREFIX` instead of hardcoding here (/usr/local)
-  declare -x XML_CATALOG_FILES=/usr/local/etc/xml/catalog
-  xsltproc_bin="xsltproc --catalogs"
-else
-  xsltproc_bin="xsltproc"
+  declare -x XML_CATALOG_FILES=$(brew --prefix)/etc/xml/catalog
 fi
-${xsltproc_bin} --nonet ./docbook-xsl/xhtml-1_1/docbook.xsl ./test-ccap/m-anatomy/index_auto_generated.cnxml
+xsltproc --catalogs --nonet ./docbook-xsl/xhtml-1_1/docbook.xsl ./test-ccap/m-anatomy/index_auto_generated.cnxml 2> /dev/null > /dev/null || exit 1
 
 
 >&2 echo "==> Building a test book 'PDF'"
-./script/build-pdf -d ./test-ccap/ -s ccap-physics -p ./script/_no-op-prince
+./script/build-pdf -d ./test-ccap/ -s ccap-physics -p ./script/_no-op-prince 2> /dev/null || exit 1
 
 >&2 echo "==> Compiling CSS files"
 ./script/build-css > /dev/null || exit 1

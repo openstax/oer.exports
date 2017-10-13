@@ -10,6 +10,13 @@ else
   # Only activate the virtualenv if not already in one
   [[ -z "${VIRTUAL_ENV}" ]] && source ./venv/bin/activate
 
-  python collectiondbk2pdf.py $1 $2 $3 $4 $5 $6 $7 $8 $9
-  exit $?
+  # The XML Catalogs on OSX are not in the default directory because they are installed via homebrew
+  if [[ $(which brew) ]]; then
+    XML_CATALOG_FILES=$(brew --prefix)/etc/xml/catalog python collectiondbk2pdf.py $1 $2 $3 $4 $5 $6 $7 $8 $9
+    exit $?
+  else
+    python collectiondbk2pdf.py $1 $2 $3 $4 $5 $6 $7 $8 $9
+    exit $?
+  fi
+
 fi
