@@ -8,17 +8,25 @@ green_color="\033[0;32m"
 yellow_color="\033[1;33m"
 no_color='\033[0m'
 
->&2 printf "${yellow_color}==> Checking that we can fetch docbook-xsl from the XML catalog${no_color}\n"
+say() {
+  echo -e "$1"
+}
+
+progress() {
+  say "${yellow_color}==> $1${no_color}"
+}
+
+progress 'Checking that we can fetch docbook-xsl from the XML catalog'
 if [[ $(which brew) ]]; then
   declare -x XML_CATALOG_FILES=$(brew --prefix)/etc/xml/catalog
 fi
 xsltproc --catalogs --nonet ./docbook-xsl/xhtml-1_1/docbook.xsl ./test-ccap/m-anatomy/index_auto_generated.cnxml 2> /dev/null > /dev/null || exit 1
 
 
->&2 printf "${yellow_color}==> Building a test book 'PDF'${no_color}\n"
+progress 'Building a test book "PDF"'
 ./script/build-pdf -d ./test-ccap/ -s ccap-physics -p ./script/_no-op-prince || exit 1
 
->&2 printf "${yellow_color}==> Compiling CSS files${no_color}\n"
+progress 'Compiling CSS files'
 ./script/build-css > /dev/null || exit 1
 
->&2 printf "🎉 ${green_color}PASSED:${no_color} It seems all the tests passed 🎈\n"
+say "🎉 ${green_color}PASSED:${no_color} It seems all the tests passed 🎈"
