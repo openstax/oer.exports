@@ -5,32 +5,25 @@ div.table {
   padding: 0;
   border: none;
   #utils>#pb>.inside(auto);
+  //basic styles for tables
   table {
     //#content>#table>.style(any; any);
-    border: 1px solid lime;
     #utils>#pb>.inside(auto);
     margin-bottom: 22px;
     padding-top: 1em;
     padding-bottom: 1em;
     // If a table spans more than 1 page then put caption on all following pages
     prince-caption-page: all;
-    // border: none;
-    caption {
-      //#content>#table>#caption>.style(any; any);
-       .caption-style();
-       &::before {
-        content: "" "Table " counter(chapter, decimal) "." counter(table) " " "";
-        .caption-number-style();
-      }
-    }
-    .cnx-figure-horizontal .informalfigure .caption {
-      text-align: center; //center subfigure caption
-      * {
-        font-weight: normal; //override strong tag
-        font-family: @font-family-serif;
-      }
+
+    //rounded corners
+    div.table table thead tr:first-of-type th:last-of-type,
+    div.table table thead tr:first-of-type th:last-of-type,
+    div.table table tbody tr:last-child td:first-child,
+    div.table table tbody tr:last-child td:last-child {
+       border-radius: @border-radius;
     }
 
+    //table head
     thead {
       //#content>#table>#head>.style(any; any);
       border-top: none;
@@ -39,35 +32,51 @@ div.table {
         //TODO
         //#content>#table>#header>.footnote(any; any);
       }
-    }
-    tbody {
-      //#content>#table>#body>.style(any; any);
-      border: @table-body-border;
-      border-top: none;
-      color: @table-head-color;
-    }
-    table tbody[valign=top]>tr>td {
-      vertical-align: top;
-
-    }
-
-    tr {
-      //#content>#table>#row>.style(any; any);
-      #utils>#pb>.inside(avoid);
-    }
-    th {
-      ///#content>#table>#header>.style(any; any);
-      border-color: @th-border-color;
-      border-bottom: none;
-      padding: 5px 10px;
-      font-size: 9pt;
-      vertical-align: initial;
-    }
-    th:not(:only-child) {
+      // th {
+      //   ///#content>#table>#header>.style(any; any);
+      //   border-color: @th-border-color;
+      //   border-bottom: none;
+      //   padding: 5px 10px;
+      //   font-size: 9pt;
+      //   vertical-align: initial;
+      //   font-weight: 100;
+      // }
+      th:not(:only-child) {
       //TODO verify which it is in new math
       //#content>#table>#header>.style(any; any);
+      }
+     > tr:first-child {
+      //#content>#table>#header>#title>.style(any; any);
+      border-left: 0;
+      border-right: 0;
+        .footnote::footnote-call {
+        // #content>#table>#header>#title>.footnote(any; any);
+      }
     }
+    tr:first-of-type th {
+      //#content>#table>#header>#title>.text(any; any);
+      .table-header-style();
+    }
+    tr:not(first-child) {
+      .table-2d-header-style();
+    }
+  }
 
+  //tbody generic styles
+  tbody {
+    //#content>#table>#body>.style(any; any);
+    border: @table-body-border;
+    //border-top: none;
+    color: @table-head-color;
+    &[valign=top]>tr>td {
+      vertical-align: top;
+    }
+    tr {
+      page-break-inside: avoid;
+    }
+  }
+
+    //TDs
     td {
       //#content>#table>#data>.style(any; any);
       border-color: @td-border-color;
@@ -87,36 +96,43 @@ div.table {
       &.text-align-justify {
         text-align: justify ;
       }
+      //style TD to display like headers
+      &.header {
+        //#content>#table>#data>.style('header'; any);
+        .table-header-style();
+        font-size: 9pt;
+        text-align: center;
+        vertical-align: initial;
+      }
     }
-    // Add styling for table entries that should render as table headers
-    td.header {
-      //#content>#table>#data>.style('header'; any);
-      color: @table-heaader-color;
-      font-size: 9pt;
-      font-weight: bold;
-      text-align: center;
-      vertical-align: initial;
-      background-color: @table-header-bg-color;
-    }
-    thead > tr:first-child {
-      //#content>#table>#header>#title>.style(any; any);
-      border-left: 0;
-      border-right: 0;
-        .footnote::footnote-call {
-        // #content>#table>#header>#title>.footnote(any; any);
+    //caption
+    caption {
+      //#content>#table>#caption>.style(any; any);
+       .caption-style();
+       &::before {
+        content: "" "Table " counter(chapter, decimal) "." counter(table) " " "";
+        .caption-number-style();
       }
     }
   }
 
-  //handle lists inside tables
-  ul.itemizedlist, ol.orderedlist {
-   // #content>#list>.style(any; any; table);
-    > .listitem > p {
-      //#content>#paragraph>.style(any; any; list; table);
-     }
+
+  //make sure to skip unstyled
+    &:not(.unstyled) table tbody tr td:first-child {
+    //#content>#table>#data>.style('first-column'; any);
+    //TODO
+    border-left: 1px solid rgba(0,0,0,0.1);
+  }
+  &:not(.unstyled) table tbody tr td:last-child {
+    //#content>#table>#data>.style('last-column'; any);
+    border-right: 1px solid rgba(0,0,0,0.1);
   }
 
-  // Special colored table...
+
+
+  //special tables
+  // colored tables
+    // Special colored table...
   &.color {
     th {
       //#content>#table>#header>.style(colored; any);
@@ -133,7 +149,8 @@ div.table {
     }
   }
 
-  //no borders, left aligned, no color change
+  //unstyled tables
+    //no borders, left aligned, no color change
   &.unstyled table {
     //#content>#table>.style(unstyled; any);
     border: none;
@@ -156,58 +173,10 @@ div.table {
       //#content>#table>#body>.style(unstyled; any);
     }
   }
-  &:not(.unstyled) table {
-    thead + tbody > tr:first-child > td {
-           //TODO
-      // #content>#table>#data>.style('with-header'; any; 'first', row);
-    }
-    tbody > tr:first-child > td {
-           //TODO
-      // #content>#table>#data>.style(any; any; 'first', row);
-    }
-  }
 
-  //nested tables with header rows within
-  &.multiple-headers {
-    table {
-      //TODO
-      //#content>#table>.style(multiple-headers; any);
-      tbody {
-        //#content>#table>#body>.style(multiple-headers; any);
-        border: none;
-      }
-      tr {
-              //TODO
-      //#content>#table>#row>.style(multiple-headers; any);
-      }
-      td {
-              //TODO
-      //#content>#table>#data>.style(multiple-headers; any);
-      }
-      tr table {
-       thead tr .tablecell {
-               //TODO
-      // #content>#table>#header>.style(multiple-header; table);
-        }
-        tbody {
-               //TODO
-      // #content>#table>#body>.style(multiple-headers; table);
-        }
-        tr {
-               //TODO
-      // #content>#table>#row>.style(multiple-headers; table);
-        }
-        thead tr:only-child, thead tr:only-child .tablecell {
-          border-top: 0px !important;
-        }
-        td {
-                //TODO
-      //#content>#table>#data>.style(multiple-headers; table);
-        }
-      }
-    }
-  }
-  //left column displays as a table head.
+
+  // side TD styled like a header
+    //left column displays as a table head.
   &.column-header tbody td:first-child {
     //#content>#table>#data>.style('header'; any);
     color: @col-header-bg-color;
@@ -216,40 +185,10 @@ div.table {
     text-align: center;
     vertical-align: initial;
     background-color: @col-header-bg-color;
-}
-  & table {
-    thead tr:first-of-type th {
-      //#content>#table>#header>#title>.text(any; any);
-      background-color: @th-bg-color;
-      font-weight: bold;
-    }
-    thead tr:first-of-type th:first-of-type {
-      //#content>#table>#header>#title>.style('first'; any);
-      border-top-left-radius: 2.88px;
-    }
-    thead tr:first-of-type th:last-of-type {
-      //#content>#table>#header>#title>.style('last'; any);
-      border-top-right-radius: 2.88px;
-    }
-    tbody tr:last-child td:first-child {
-      //#content>#table>#data>.style('first'; any);
-      border-bottom-left-radius: 2.88px;
-    }
-    tbody tr:last-child td:last-child {
-      //#content>#table>#data>.style('last'; any);
-       border-bottom-right-radius: 2.88px;
-    }
   }
-  &:not(.unstyled) table tbody tr td:first-child {
-    //#content>#table>#data>.style('first-column'; any);
-    //TODO
-    border-left: 1px solid rgba(0,0,0,0.1);
-  }
-  &:not(.unstyled) table tbody tr td:last-child {
-    //#content>#table>#data>.style('last-column'; any);
-    border-right: 1px solid rgba(0,0,0,0.1);
-  }
-  &.unnumbered table {
+
+  //unnumbered
+    &.unnumbered table {
     thead tr:first-child {
      // #content>#table>#header>.style(any; unnumbered);
     }
@@ -259,5 +198,13 @@ div.table {
     caption {
       //#content>#table>#caption>.style(any; unnumbered);
     }//
+  }
+
+  //lists in tables
+  ul.itemizedlist, ol.orderedlist {
+   // #content>#list>.style(any; any; table);
+    > .listitem > p {
+      //#content>#paragraph>.style(any; any; list; table);
+    }
   }
 }
