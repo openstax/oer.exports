@@ -2036,6 +2036,64 @@ div.table.column-header tbody td:first-child {
   vertical-align: initial;
   background-color: #344456;
 }
+@page {
+  margin: 0.8in 1in;
+  font-size: xx-small;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  @footnotes {
+    border-top: solid black thin;
+    padding-top: 1em;
+  }
+}
+@page :left {
+  @top-left {
+    content: counter(page);
+  }
+  @top-right {
+    content: string(cnx-header);
+  }
+  @bottom-left {
+    color: grey;
+    font-weight: thin;
+    content: "This OpenStax book is available for free at " string(cnx-collection-url);
+    prince-text-replace: ":9680" "\2019";
+  }
+}
+@page :right {
+  @top-left {
+    content: string(cnx-header);
+  }
+  @top-right {
+    content: counter(page);
+  }
+}
+@page table-of-contents {
+  @top-left-corner {
+    content: none;
+  }
+  @top-left {
+    content: none;
+  }
+  @top-right-corner {
+    content: none;
+  }
+  @top-right {
+    content: none;
+  }
+}
+@page preface:blank {
+  @top-left {
+    content: none;
+  }
+}
+div.book > div.preface {
+  counter-reset: page 1;
+}
+@page preface:right {
+  @top-right {
+    content: counter(page);
+  }
+}
 /* The QR code variable is needed for psychology skeleton but we are not using it since it's going away */
 html {
   prince-image-resolution: 150dpi;
@@ -2048,13 +2106,6 @@ html {
 .bold.centered-text strong {
   font-weight: 100;
 }
-/******************************************************************************
- * Tables
- ******************************************************************************/
-/* -------------------------
- * Page Configs
- * ------------------------
- */
 @page landscape {
   prince-rotate-body: landscape;
   prince-shrink-to-fit: auto;
