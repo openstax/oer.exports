@@ -11,7 +11,14 @@
 //@import url('new-math-slots.less');
 
 
-
+//current order:
+@primary-color:       #24739e;
+@secondary-color:     #344456;
+@tertiary-color:      #d34d32;
+@quaternary-color:    #f37541 ;
+@quinary-color:       #0dc0dc;
+@accent-color:        #F4F4F4;
+@accent-color-tinted: #F9F9F9;
 //@import url('../../ccap-numbering.less');
 //@import url('../../ccap-precalculus-numbering.less');
 //@import url('../page-skeleton.less');
@@ -51,7 +58,9 @@ html {
   prince-background-image-resolution: 150dpi;
 }
 
-
+body {
+  color: @default-text;
+}
 
 //variables
 
@@ -116,6 +125,10 @@ blockquote {
       display: none;
     }
   }
+}
+
+p {
+  .line-height();
 }
 //remove chapter outline
 div.abstract {
@@ -298,10 +311,10 @@ div.end-of-book-references {
     border-bottom: : 0;;
 
     &::before {
-      display: none;
-      content: @toc-title-icon;
-      padding-right: 15px;
-      margin-left: 10px;
+      // display: none;
+      // content: @toc-title-icon;
+      // padding-right: 15px;
+      // margin-left: 10px;
     }
   }
 
@@ -439,7 +452,7 @@ div.book {
     > div.section {
       div.titlepage > div > div > h2 {
         // #content>#section>#title>.style(any; preface);
-        color: @tertiary-color;
+        color: @preface-h2-color;
         .font-scale(2);
         font-weight: bold;
         font-family: @font-family-serif;
@@ -585,7 +598,7 @@ div.chapter {
       content: initial;
       &::before {
         //#part>#introduction>#title>.style('intro-icon'; any);
-        background: @intro-icon;
+        //background: @intro-icon;
         background-size: 23px 27px;
         height: 38px;
         top: 12px;
@@ -774,14 +787,14 @@ div.chapter > div.section {
   border-bottom: 0;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
-  .notes("Example " counter(chapter, decimal) "." counter(example) " ", @primary-color, #ebe9e9, none);
+  .notes("Example " counter(chapter, decimal) "." counter(example) " ", @notes-title-color, #ebe9e9, none);
 
   > .title {
    // #content>#example>#title>.style(any);
     display: none;
     span::before {
-      background-color: @primary-color;
-      color: @fuego-green;
+      background-color: @example-bg-color;
+      color: @example-title-color;
       display: inline-block;
       height: 2em;
       line-height: 2em;
@@ -824,7 +837,7 @@ div.chapter > div.section {
   display: inline;
   .titlepage h2 {
     // #part>#glossary>#title>.style(chapter);
-    .moduleTitles (@tertiary-color);
+    .moduleTitles (@glossary-title-color);
   }
   dl {
     //#part>#glossary>.style(chapter);
@@ -849,7 +862,7 @@ div.chapter > div.section {
 .cnx-eoc {
   margin-bottom: 2em;
   > .title {
-    .moduleTitles(@tertiary-color);
+    .moduleTitles(@eoc-titles-color);
   }
   //summary
     &.section-summary {
