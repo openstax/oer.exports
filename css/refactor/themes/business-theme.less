@@ -9,15 +9,13 @@
 //@import url('../../ccap-tables.less');
 //@import url('../page-slots.less');
 //@import url('new-math-slots.less');
-
-
 //current order:
-@primary-color:       #24739e;
-@secondary-color:     #344456;
-@tertiary-color:      #d34d32;
-@quaternary-color:    #f37541 ;
-@quinary-color:       #0dc0dc;
-@accent-color:        #F4F4F4;
+@primary-color: #24739e;
+@secondary-color: #344456;
+@tertiary-color: #d34d32;
+@quaternary-color: #f37541;
+@quinary-color: #0dc0dc;
+@accent-color: #F4F4F4;
 @accent-color-tinted: #F9F9F9;
 //@import url('../../ccap-numbering.less');
 //@import url('../../ccap-precalculus-numbering.less');
@@ -47,6 +45,7 @@
 @import url('../page-skeleton.less');
 @page-width: 6.5in;
 @full-bleed-width: 8.75in;
+
 /* The QR code variable is needed for psychology skeleton but we are not using it since it's going away */
 
 // Finished printed size of the QR code is dependent on: 1-distance between qr code and scanning device
@@ -65,11 +64,13 @@ body {
 }
 
 //variables
-
-
 @base-font-size: 12px;
-@font-family-serif: 'Dosis', sans-serif, @stix-fonts;
-@font-family: 'Noto Sans', sans-serif, @stix-fonts;
+@font-family-serif: 'Dosis',
+sans-serif,
+@stix-fonts;
+@font-family: 'Noto Sans',
+sans-serif,
+@stix-fonts;
 
 //Strings
 @cnx-string-link-to-learning: "Link to Learning";
@@ -87,7 +88,6 @@ body {
 
 
 //global theme stuff
-
 .bold.centered-text {
   text-align: center;
   display: inline-block;
@@ -100,10 +100,11 @@ body {
 
 
 
-@page  landscape {
+@page landscape {
   prince-rotate-body: landscape;
   prince-shrink-to-fit: auto;
 }
+
 .landscape {
   page: landscape;
   img {
@@ -111,19 +112,24 @@ body {
     width: 9.4in;
   }
 }
+
+
 /* -------------------------
  * Global Styles
  * ------------------------
  */
- a:link {
+
+a:link {
   color: @link-color;
- }
+}
+
 blockquote {
   .style(...) {
     color: inherit;
     font-size: inherit;
     .line-height();
-    &::before, &::after {
+    &::before,
+    &::after {
       display: none;
     }
   }
@@ -132,18 +138,21 @@ blockquote {
 p {
   .line-height();
 }
+
 //remove chapter outline
 div.abstract {
   display: none;
 }
+
+
 /* ---------------------------------------------------
  * Figures/Subfigures
  * ---------------------------------------------------
  */
 
 // Updated points width for PreCalculus assets @150 dpi
-@figure-width-medium: 351pt;  // Width of 3/4 size art
-@figure-width-small:  234pt;  // Width of 1/2 size art
+@figure-width-medium: 351pt; // Width of 3/4 size art
+@figure-width-small: 234pt; // Width of 1/2 size art
 img {
   .x-center-image();
 }
@@ -152,32 +161,27 @@ img {
   //#content>#figure>.style();
   .x-center-image();
   width: 100%;
-  float: column-top;
-  // size the surrounding container to the size of the image container to allow the
+  float: column-top; // size the surrounding container to the size of the image container to allow the
   // left justified alignment of the Figure numbering and associated caption
   // default width is (hero) full size @ 625px. Specifying no class or width defwidth: 100%;aults
   // to full size.
-
   // 3/4 size art
   &.medium {
     //width: @figure-width-medium;
-  }
-
-  // 1/2 size art
+  } // 1/2 size art
   &.small {
     //width: @figure-width-small;
   }
 
-  > .body {
+  >.body {
     //#content>#figure>#body>.style(any; any);
   }
 
-  > .title {
-   // #content>#figure>#title>.number(); // "Figure x.x..."
+  >.title {
+    // #content>#figure>#title>.number(); // "Figure x.x..."
     // color: black;
     // .font-scale(-1);
-    .caption-number-style();
-    // content: "Figure " counter(chapter, decimal) "." counter(figure) " " string(cnx-figure-title);
+    .caption-number-style(); // content: "Figure " counter(chapter, decimal) "." counter(figure) " " string(cnx-figure-title);
   }
   .caption {
     .caption-style();
@@ -189,11 +193,12 @@ img {
 span.colored-text {
   color: @colored-text-color;
 }
+
 .footnote {
   //#content>#footnote>.style();
   .font-scale(-1);
-    color: @footnote-color;
-    line-height: 1.5em;
+  color: @footnote-color;
+  line-height: 1.5em;
   span {
     line-height: 1.5em;
     .font-scale(-1);
@@ -202,17 +207,16 @@ span.colored-text {
   sup {
     color: @footnote-color;
     .font-scale(-2);
-  }
-  // Footnotes in table headings (which may have white text) need to reset their colors.
+  } // Footnotes in table headings (which may have white text) need to reset their colors.
   &::footnote-marker,
-  > * {
+  >* {
     //#content>#footnote>.descendants-style();
-          line-height: 1.5em;
-      .font-scale(-1);
-      color: @footnote-color;
+    line-height: 1.5em;
+    .font-scale(-1);
+    color: @footnote-color;
   }
   &::footnote-call {
-   // #content>#footnote>.call-style();
+    // #content>#footnote>.call-style();
     content: counter(footnote);
     color: @footnote-color !important;
     margin-right: 1.33em !important;
@@ -224,64 +228,69 @@ span.colored-text {
 }
 
 
+
 /* ---------------------------------------------------
  * Citations
  * ---------------------------------------------------
  */
+
 .chapter a.link.cite::before {
   content: target-counter(attr(href), references);
   .scripts(sup);
   font-weight: 100;
 }
+
 div.end-of-book-references {
   // #part>#book-end>#end-of-book-references>.style();
   margin-left: 0;
   text-indent: 0em;
   text-align: left;
   display: inline;
-  > .chapter-area {
+  >.chapter-area {
     // #part>#book-end>#end-of-book-references>#chapter-area>.style();
     counter-reset: references;
     margin-bottom: 1em;
-    > .body > .section-area .note.reference {
+    >.body>.section-area .note.reference {
       // #part>#book-end>#end-of-book-references>#chapter-area>#note>.style(any; any);
       margin: 0 0 .5em 0;
       padding: 0px;
       counter-increment: references;
-      > .body::before {
+      >.body::before {
         // #part>#book-end>#end-of-book-references>#reference>.number();
         content: counter(references) ".";
         padding-right: .5em;
       }
     }
   }
-}
-
-
- //global ugly overrides
-.chapter, .appendix, .colophon, .preface {
+} //global ugly overrides
+.chapter,
+.appendix,
+.colophon,
+.preface {
   #utils>#pb>.before(auto);
   #utils>#pb>.after(auto);
 }
-.book > .chapter,
-.book > .appendix,
-.book > .colophon,
-.book > .preface,
-.book > .part > .chapter,
-.book > .part > .appendix,
-.book > .part > .colophon,
-.book > .part > .preface {
+
+.book>.chapter,
+.book>.appendix,
+.book>.colophon,
+.book>.preface,
+.book>.part>.chapter,
+.book>.part>.appendix,
+.book>.part>.colophon,
+.book>.part>.preface {
   page-break-before: right !important;
   page-break-after: left !important;
 }
+
 
 /* -------------------------
  * Book TOC
  * ------------------------
  */
 
-.book > .toc,
-.book > .part > .toc {
+.book>.toc,
+.book>.part>.toc {
   //#part>#toc>.style();
   counter-reset: toc-chapter-counter 0;
   a {
@@ -295,22 +304,23 @@ div.end-of-book-references {
       padding-left: 15px;
     }
   }
-  > .title {
-   // #part>#toc>#title>.style();
+  >.title {
+    // #part>#toc>#title>.style();
     text-align: left;
     text-transform: uppercase;
-    .scale-padding(2, margin-bottom);
+    .scale-padding(2,
+    margin-bottom);
     color: @toc-title-color;
     display: inline-block;
     font-family: @font-family-serif;
     background: @toc-title-background;
     background-size: contain;
-    margin-bottom: 10px;
-    //Note: EOC sections have side paddings of 2.3 rather than 2.66, maybe change others for consistency?
+    margin-bottom: 10px; //Note: EOC sections have side paddings of 2.3 rather than 2.66, maybe change others for consistency?
     padding: .3em 2.66em;
     padding-right: 15px;
     margin-left: 10px;
-    border-bottom: : 0;;
+    border-bottom: : 0;
+    ;
 
     &::before {
       // display: none;
@@ -320,19 +330,24 @@ div.end-of-book-references {
     }
   }
 
-  .toc-preface, .toc-appendix, .toc-index {
+  .toc-preface,
+  .toc-appendix,
+  .toc-index {
     //#content>#list>.item('preface'; any; toc);
     margin-bottom: 20px;
-    .secondary-header-toc();
-    //margin-left: 46px;
-    a.target-preface, a.target-appendix, a.target-index {
+    .secondary-header-toc(); //margin-left: 46px;
+    a.target-preface,
+    a.target-appendix,
+    a.target-index {
       // #content>#link>.style('preface'; any; toc);
       color: @toc-chapter-link-color;
-      .scale-padding(1, margin-bottom);
+      .scale-padding(1,
+      margin-bottom);
 
       font-size: 16px;
     }
-    a.target-preface, a.target-index {
+    a.target-preface,
+    a.target-index {
       margin-left: 48px;
     }
   }
@@ -347,14 +362,15 @@ div.end-of-book-references {
       content: counter(toc-chapter-counter, decimal);
     }
     &:nth-child(2n+1) {
-    //#content>#list>.item('2n+1', 'chapter'; any; toc);
+      //#content>#list>.item('2n+1', 'chapter'; any; toc);
       background-color: @toc-odd-bg-color;
       padding: 11px 0;
     }
     a.target-chapter {
       // #content>#link>.style('chapter'; any; toc);
       color: @toc-chapter-link-color;
-      .scale-padding(1, margin-bottom);
+      .scale-padding(1,
+      margin-bottom);
       font-size: 16px;
       width: 90%;
       .secondary-header-toc();
@@ -364,24 +380,25 @@ div.end-of-book-references {
     .cnx-gentext-chapter {
       display: none;
     }
-    > ul {
+    >ul {
       //#content>#list>.style('chapter'; any; toc);
       border-left: 4px solid @toc-side-border-color;
       margin-left: 48px;
-      .scale-padding(-1, padding-left);
+      .scale-padding(-1,
+      padding-left);
       li {
         margin-left: 0;
       }
       li a span.cnx-gentext-n {
         font-weight: 700;
       }
-      > li.toc-chapter:nth-child(2n+1) {
+      >li.toc-chapter:nth-child(2n+1) {
         //#content>#list>.item('2n+1', 'chapter'; any; toc);
         background-color: @toc-odd-bg-color;
         padding-top: 1em;
         padding-bottom: 1em;
       }
-      > ul > li {
+      >ul>li {
         margin: 0;
         padding: 1em 1em 1em 0em;
       }
@@ -391,14 +408,13 @@ div.end-of-book-references {
     }
 
 
-    > .target-chapter::before {
+    >.target-chapter::before {
       display: none;
     }
   }
 
-    .toc-appendix {
-    counter-increment: toc-appendix-counter;
-    //#content>#link>.style('appendix'; any; toc);
+  .toc-appendix {
+    counter-increment: toc-appendix-counter; //#content>#link>.style('appendix'; any; toc);
     &::before {
       //#part>#toc>#chapter>.number('appendix'; any; toc);
       content: counter(toc-appendix-counter, upper-latin);
@@ -407,12 +423,11 @@ div.end-of-book-references {
     .target-section {
       margin-left: 0;
     }
-    .cnx-gentext-autogenerated, .cnx-gentext-n {
+    .cnx-gentext-autogenerated,
+    .cnx-gentext-n {
       display: none;
     }
-  }
-
-  // .toc-appendix {
+  } // .toc-appendix {
   //   > a.target-appendix {
   //     //#content>#link>.style('appendix'; any; toc);
   //     color: @primary-color;
@@ -424,7 +439,6 @@ div.end-of-book-references {
   // > ul > li.toc-appendix > a.target-appendix::before {
   //   content: target-counter(attr(href), appendix, upper-latin) " ";
   // }
-
   // .toc-index > a.target-index {
   //   //#content>#link>.style('index'; any; toc);
   //   color: @primary-color;
@@ -432,18 +446,19 @@ div.end-of-book-references {
   //   margin-left: 48px;
   //   font-size: 16px;
   // }
-
 }
 
 //UGLY overrides from base
-.book > .toc > .title {
+.book>.toc>.title {
   border-bottom-width: 0;
   border-bottom-style: none;
 }
 
+
 /* Preface
  * ------------------------
  */
+
 div.book {
   div.preface {
     //#part>#preface>#titlepage>.style();
@@ -451,42 +466,44 @@ div.book {
       //#part>#preface>#titlepage>.title();
       padding-bottom: 0;
     }
-    > div.section {
-      div.titlepage > div > div > h2 {
+    >div.section {
+      div.titlepage>div>div>h2 {
         // #content>#section>#title>.style(any; preface);
         color: @preface-h2-color;
         .font-scale(2);
         font-weight: bold;
         font-family: @font-family-serif;
         padding-bottom: 0;
-        .cnx-gentext-autogenerated, .cnx-gentext-n {
+        .cnx-gentext-autogenerated,
+        .cnx-gentext-n {
           display: none;
         }
-      }
-      //#content>#section>.style(any; preface);
-      .scale-padding(2, margin-bottom);
-      p + .section {
+      } //#content>#section>.style(any; preface);
+      .scale-padding(2,
+      margin-bottom);
+      p+.section {
         margin-top: 18px;
       }
-      > div.section {
+      >div.section {
         //#content>#section>.style(any; preface; section);
-        .scale-padding(2, margin-bottom);
+        .scale-padding(2,
+        margin-bottom);
       }
     }
-    > p + .section {
+    >p+.section {
       margin-top: 18px;
     }
 
-    .figure > .caption::before {
+    .figure>.caption::before {
       //#content>#figure>#title>.number('preface'; any);
       color: black;
       .font-scale(-1);
-      content: "Figure " counter(chapter, decimal) "." counter(figure) " " string(cnx-figure-title);
-      // Override numbering for preface figures
+      content: "Figure " counter(chapter, decimal) "." counter(figure) " " string(cnx-figure-title); // Override numbering for preface figures
       content: "Figure " counter(figure) " " string(cnx-figure-title);
     }
   }
 }
+
 
 
 /* -------------------------
@@ -495,15 +512,15 @@ div.book {
  */
 
 div.chapter {
-  > div.titlepage {
-  //#part>#chapter>#titlepage>.style();
+  >div.titlepage {
+    //#part>#chapter>#titlepage>.style();
     height: 100%;
     margin-top: 0;
     z-index: 1;
     position: relative;
     z-index: 1;
 
-    div div > h1.title {
+    div div>h1.title {
       // string-set: cnx-header "@{cnx-string-chapter} " counter(chapter, decimal)  "\0020\0020\0020" content();
       //#part>#chapter>#title>.style();
       .font-scale(1);
@@ -513,8 +530,7 @@ div.chapter {
       left: 0;
       right: 0;
       width: 8.5in;
-      height: 3.5in;
-      //TODO
+      height: 3.5in; //TODO
       color: @chapter-title-color;
       white-space: nowrap;
       font-weight: bold;
@@ -545,8 +561,7 @@ div.chapter {
       &::after {
         //#part>#chapter>#title>.icon();
         content: '';
-        display: block;
-        //background: url(ccap-astronomy/ch-intro-telescope.svg) 0 0 no-repeat;
+        display: block; //background: url(ccap-astronomy/ch-intro-telescope.svg) 0 0 no-repeat;
         width: 210px;
         height: 50px;
         position: absolute;
@@ -555,7 +570,7 @@ div.chapter {
         transform: translate3d(-1in, 0, 0);
       }
 
-            span.cnx-gentext-autogenerated,
+      span.cnx-gentext-autogenerated,
       span.cnx-gentext-n {
         display: none;
       }
@@ -578,9 +593,13 @@ div.chapter {
         }
       }
     }
-    div, div div {height: inherit;}
+    div,
+    div div {
+      height: inherit;
+    }
   }
 }
+
 
 
 /* -------------------------
@@ -590,7 +609,7 @@ div.chapter {
 
 div.chapter {
   //chapter introduction
-  > .introduction {
+  >.introduction {
     //#part>#introduction>.style();
     margin-top: -0.80in;
     >.title {
@@ -609,10 +628,11 @@ div.chapter {
     }
   }
 }
+
 div.chapter {
-  > .introduction {
+  >.introduction {
     // chapter splash
-    > .figure.splash {
+    >.figure.splash {
       width: @full-bleed-width;
       margin-left: 0;
       position: relative;
@@ -666,21 +686,20 @@ div.chapter {
     }
   }
 }
+
 div.chapter {
   //chapter introduction
-  > .introduction {
+  >.introduction {
     //chapter toc
-    > .toc {
+    >.toc {
       width: 100%;
-      > ul {
+      >ul {
         // #content>#list>.style('unordered'; introduction; chapter-outline);
         .side-border();
         margin: 0;
-        padding-left: .75em;
-
-        //border-left: 4px solid @accent-color;
+        padding-left: .75em; //border-left: 4px solid @accent-color;
       }
-      > .title {
+      >.title {
         //#part>#introduction>#chapter  -outline>#title>.style();
         page-break-before: avoid;
         page-break-before: avoid;
@@ -689,7 +708,8 @@ div.chapter {
         text-align: left;
         font-family: @font-family-serif;
         padding: 0em;
-        .scale-padding(1, margin-bottom);
+        .scale-padding(1,
+        margin-bottom);
         .font-scale(2);
       }
       .toc-section {
@@ -703,20 +723,22 @@ div.chapter {
           &::after {
             content: "";
           }
-         }
-        // overide hyperlink medium blue color
+        } // overide hyperlink medium blue color
         .cnx-gentext-t {
           //TODO
-         color: @chapter-outline-link-color;
+          color: @chapter-outline-link-color;
         }
       }
     }
   }
 }
+
+
 /********************************************************************
  * Module/page level Learning objectives
  ********************************************************************/
- div.book div.chapter .section.learning-objectives {
+
+div.book div.chapter .section.learning-objectives {
   .titlepage {
     //TODO
     color: @LO-title-color;
@@ -724,25 +746,27 @@ div.chapter {
   }
   .section {
     margin-left: 0;
-    + .section {
+    +.section {
       margin-left: 2em;
     }
     max-width: 30%;
     display: inline-block;
 
     .titlepage {
-      .font-scale(1);
-      //TODO
+      .font-scale(1); //TODO
       color: @LO-section-titles-color;
     }
   }
- }
+}
+
+
 /********************************************************************
  * Styling for Module (Page) Titles (h2)
  ********************************************************************/
-div.chapter > div.section {
-  > div.titlepage h2,
-  > div.titlepage h3 {
+
+div.chapter>div.section {
+  >div.titlepage h2,
+  >div.titlepage h3 {
     //#part>#module>#title>.style();
     font-family: @font-family-serif;
     text-transform: uppercase;
@@ -760,39 +784,45 @@ div.chapter > div.section {
       vertical-align: middle;
     }
 
-    span.cnx-gentext-n { display: none; }
+    span.cnx-gentext-n {
+      display: none;
+    }
 
     span.cnx-gentext-t {
       //#part>#module>#title>.text();
       top: 3px;
     }
-  }
-
-  //subsections (h3)
-  > div.section {
-  //#content>#section>.style(any; any);
-    div.titlepage > div > div > h3 {
-    //#content>#section>#title>.style(any; any);
+  } //subsections (h3)
+  >div.section {
+    //#content>#section>.style(any; any);
+    div.titlepage>div>div>h3 {
+      //#content>#section>#title>.style(any; any);
       margin-top: 1em;
       color: @subsection-title-color;
     }
   }
- }
+}
+
 
 /* -------------------------
  * Example Elements Styling and Numbering
  * -------------------------
  */
+
 .chapter .example {
   //#content>#example>.style(any);
   border-top: 0;
   border-bottom: 0;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
-  .notes("Example " counter(chapter, decimal) "." counter(example) " ", @notes-title-color, #ebe9e9, none);
+  .notes("Example " counter(chapter,
+  decimal) "." counter(example) " ",
+  @notes-title-color,
+  #ebe9e9,
+  none);
 
-  > .title {
-   // #content>#example>#title>.style(any);
+  >.title {
+    // #content>#example>#title>.style(any);
     display: none;
     span::before {
       background-color: @example-bg-color;
@@ -805,10 +835,12 @@ div.chapter > div.section {
   }
 }
 
+
 /* -------------------------
  * Notes
  * ------------------------
  */
+
 .chapter .note {
   width: 100%;
   div.title {
@@ -816,23 +848,28 @@ div.chapter > div.section {
   }
   &.link-to-learning {
     //#content>#note>.style('link-to-learning-new'; any);
-    .notes(@cnx-string-link-to-learning, @quinary-color, #e6eaef, link-to-learning);
-      div.mediaobject {
+    .notes(@cnx-string-link-to-learning,
+    @quinary-color,
+    #e6eaef,
+    link-to-learning);
+    div.mediaobject {
       display: none;
     }
   }
   .exercise {
-    > .title, .solution::before {
+    >.title,
+    .solution::before {
       .font-scale(1);
     }
   }
 }
 
+
 /********************************************************************
  * End of chapter customizations
  ********************************************************************/
 
- //key terms
+//key terms
 .chapter .glossary {
   //#part>#glossary>.style(chapter);
   #utils>#pb>.before(always);
@@ -853,7 +890,7 @@ div.chapter > div.section {
       }
     }
     dd {
-     // #part>#glossary>.definition(chapter);
+      // #part>#glossary>.definition(chapter);
       margin-left: 0px;
       line-height: 1.5em;
       .font-scale(0);
@@ -863,13 +900,12 @@ div.chapter > div.section {
 
 .cnx-eoc {
   margin-bottom: 2em;
-  > .title {
+  >.title {
     .moduleTitles(@eoc-titles-color);
-  }
-  //summary
-    &.section-summary {
+  } //summary
+  &.section-summary {
     //#part>#chapter-end>#summary>.style();
-    > .title {
+    >.title {
       // #part>#chapter-end>#summary>#title>.style();
       line-height: 1.75em;
       .font-scale(2) !important; // !important overrides a * selector...
@@ -879,56 +915,54 @@ div.chapter > div.section {
       background: @eoc-summary-icon;
       background-size: contain;
       padding-left: 2.3em !important;
-      span { // override a * selector...
-      padding-left: 0;
-      .font-scale(2);
+      span {
+        // override a * selector...
+        padding-left: 0;
+        .font-scale(2);
       }
     }
-    > .section > .title {
+    >.section>.title {
       //#part>#chapter-end>#summary>#subtitle>.style(any; chapter-end; section);
       display: block;
       padding-top: 0;
     }
-    > .section .title > a {
+    >.section .title>a {
       // #part>#chapter-end>#summary>#title>.link();
       font-family: @font-family;
       .font-scale(0);
       color: @link-color;
     }
-    p:nth-of-type(1) { margin-top: 1em; }
-  }
-
-
-
-  //EOC solutions
+    p:nth-of-type(1) {
+      margin-top: 1em;
+    }
+  } //EOC solutions
   &.cnx-solutions {
     display: none; //slots & skeleton below to be converted if necessary
     //     //#content>#solution>.style(@kind; chapter);
     //     > .section .title > a { #content>#solution>#title>.link(); }
     //     p:nth-of-type(1) { margin-top: 1em; }
     //   }
-
     //   .problem ol {
     //     #content>#list>.style(any; any; problem; exercise);
     //   }
     //   .problem::before {
     //     #content>#problem>.number(@kind; chapter-end);
     //   }
-
     //   .empty {
     //     display: hidden; // hide, but count, empty elements.
     //     #content>#section>.style("empty"; chapter-end);
     //   }
-
     //   .exercise div.body div.problem .figure { #content>#figure>.style(any; chapter-end; exercise); }
   }
 }
 
+
 /********************************************************************
  * Styling for Appendix
  ********************************************************************/
+
 div.appendix {
-  > div.titlepage > div > div h1.title {
+  >div.titlepage>div>div h1.title {
     // #part>#book-end>#appendix>#title>.style();
     .font-scale(2);
     font-weight: bold;
@@ -955,8 +989,8 @@ div.appendix {
     span.cnx-gentext-t {
       //#part>#book-end>#appendix>#title>.text();
       &::before {
-       // #part>#book-end>#appendix>#title>.divider();
-       display: none;
+        // #part>#book-end>#appendix>#title>.divider();
+        display: none;
       }
     }
   }
@@ -964,119 +998,110 @@ div.appendix {
     //FIXME
     #utils>#pb>.inside(auto);
   }
-  > div.section                                                                              > div.section > div.titlepage h3 {
+  >div.section>div.section>div.titlepage h3 {
     ///#content>#section>#title>.style(any; appendix; section);
-    .scale-padding(0, margin-bottom);
+    .scale-padding(0,
+    margin-bottom);
     color: black;
   }
 }
 
+
 /********************************************************************
  * Answer Key (EOB)
  ********************************************************************/
+
 div.colophon.end-of-book-solutions {
   display: none !important; //slots & skeleton below to be converted if necessary
-//   prince-text-replace: "Answer:" ""; //strip out "Answer:" eob solutions for print_pdf
-//   #part>#book-end>#end-of-book-solutions>.style();
+  //   prince-text-replace: "Answer:" ""; //strip out "Answer:" eob solutions for print_pdf
+  //   #part>#book-end>#end-of-book-solutions>.style();
+  //   > .title {
+  //     #part>#book-end>#end-of-book-solutions>#title>.style();
+  //   }
+  //   // Some miscellaneous stuff we will have to decide on
+  //   div.chapter-area:first-of-type h2.title {
+  //     margin-top: 0;
+  //     padding-top: 0;
+  //   }
+  //   .chapter-area {
+  //     #part>#book-end>#end-of-book-solutions>#chapter-area>.style();
+  //     > div {
+  //       #part>#book-end>#end-of-book-solutions>#chapter-area>.style('subsection');
+  //     }
+  //     a.solution {
+  //       color: black;
+  //     }
+  //     > h2.title a.chapter,
+  //     > h2.title a.chapter span {
+  //       #part>#book-end>#end-of-book-solutions>#title>.style('chapter-area');
+  //     }
+  //     > h2.title a.chapter {
+  //       // Now that this is display: block it honors page break
+  //       // rules from .chapter {}. Reset it.
+  //       #utils>#pb>.before(avoid);
+  //       #utils>#pb>.after(avoid);
+  //     }
+  //     > h2.title a.chapter span { display: inline; } // reset display: block for spans
+  //     > div.review-exercises::before {
+  //       #part>#book-end>#end-of-book-solutions>#title>.style('review-exercises');
+  //     }
+  //     > div.practice-test::before {
+  //       #part>#book-end>#end-of-book-solutions>#title>.style('practice-test');
+  //     }
+  //     > div.try {
+  //       &::before { #part>#book-end>#end-of-book-solutions>#title>.style('try-it'); }
+  //       div.solution > div.title a.solution::before {
+  //         content: target-counter(attr(href), chapter) "." target-counter(attr(href), try);
+  //       }
+  //     }
+  //     > div.section-exercises::before {
+  //       #part>#book-end>#end-of-book-solutions>#title>.style('section-exercises');
+  //     }
+  //     div.solution {
+  //       #content>#solution>.style(@kind; book-end);
+  //       div.itemizedlist ul, div.orderedlist ul, div.itemizedlist ol, div.orderedlist ol {
+  //         #content>#list>.style(any; book-end; solution);
+  //       }
+  //       > div.title {
+  //         #content>#solution>#title>.style(@kind; book-end);
+  //       }
+  //       > div.body {
+  //         div, p { display: inline; }
+  //         div.mediaobject {
+  //           display: block;
+  //           #content>#image>.style(any; book-end; solution);
+  //         }
+  //         #content>#solution>#body>.style(@kind; book-end);
+  //         > a.target-figure {
+  //           #content>#link>.style('target-figure'; any);
+  //         }
+  //         .cnx-svg {
+  //           direction: ltr;
+  //           vertical-align: middle !important;
+  //           display: inline-block;
+  //         }
+  //       }
+  //       div.table table caption { #content>#table>#caption>.style(any; book-end; solution); }
+  //     }
+  //   }
+}
 
-//   > .title {
-//     #part>#book-end>#end-of-book-solutions>#title>.style();
-//   }
-
-//   // Some miscellaneous stuff we will have to decide on
-//   div.chapter-area:first-of-type h2.title {
-//     margin-top: 0;
-//     padding-top: 0;
-//   }
-
-//   .chapter-area {
-//     #part>#book-end>#end-of-book-solutions>#chapter-area>.style();
-
-//     > div {
-//       #part>#book-end>#end-of-book-solutions>#chapter-area>.style('subsection');
-//     }
-
-//     a.solution {
-//       color: black;
-//     }
-
-//     > h2.title a.chapter,
-//     > h2.title a.chapter span {
-//       #part>#book-end>#end-of-book-solutions>#title>.style('chapter-area');
-//     }
-//     > h2.title a.chapter {
-//       // Now that this is display: block it honors page break
-//       // rules from .chapter {}. Reset it.
-//       #utils>#pb>.before(avoid);
-//       #utils>#pb>.after(avoid);
-//     }
-//     > h2.title a.chapter span { display: inline; } // reset display: block for spans
-
-//     > div.review-exercises::before {
-//       #part>#book-end>#end-of-book-solutions>#title>.style('review-exercises');
-//     }
-//     > div.practice-test::before {
-//       #part>#book-end>#end-of-book-solutions>#title>.style('practice-test');
-//     }
-//     > div.try {
-//       &::before { #part>#book-end>#end-of-book-solutions>#title>.style('try-it'); }
-//       div.solution > div.title a.solution::before {
-//         content: target-counter(attr(href), chapter) "." target-counter(attr(href), try);
-//       }
-//     }
-//     > div.section-exercises::before {
-//       #part>#book-end>#end-of-book-solutions>#title>.style('section-exercises');
-//     }
-
-
-//     div.solution {
-//       #content>#solution>.style(@kind; book-end);
-
-//       div.itemizedlist ul, div.orderedlist ul, div.itemizedlist ol, div.orderedlist ol {
-//         #content>#list>.style(any; book-end; solution);
-//       }
-
-//       > div.title {
-//         #content>#solution>#title>.style(@kind; book-end);
-//       }
-
-//       > div.body {
-//         div, p { display: inline; }
-//         div.mediaobject {
-//           display: block;
-//           #content>#image>.style(any; book-end; solution);
-//         }
-//         #content>#solution>#body>.style(@kind; book-end);
-//         > a.target-figure {
-//           #content>#link>.style('target-figure'; any);
-//         }
-//         .cnx-svg {
-//           direction: ltr;
-//           vertical-align: middle !important;
-//           display: inline-block;
-//         }
-//       }
-//       div.table table caption { #content>#table>#caption>.style(any; book-end; solution); }
-//     }
-//   }
- }
 
 /* ---------------------------------------------------
  * EOB Index
  * ---------------------------------------------------
  */
- .index {
-  > .title {
+
+.index {
+  >.title {
     // #part>#book-end>#index>#title>.style();
     .font-scale(2);
     font-family: @font-family-serif;
     color: @index-title-color;
     margin-bottom: 22px;
-  }
-
-  // This is required to override ccap base without targetting both .title and .title h2.
+  } // This is required to override ccap base without targetting both .title and .title h2.
   // The goal here is to make > .title h2 go away.
-  > .title h2 {
+  >.title h2 {
     padding: 0;
     font-size: inherit;
   }
@@ -1093,7 +1118,7 @@ div.colophon.end-of-book-solutions {
   }
 
   .index-term {
-   // #part>#book-end>#index>.term();
+    // #part>#book-end>#index>.term();
     .font-scale(0);
     line-height: 1.5em;
   }
@@ -1103,9 +1128,3 @@ div.colophon.end-of-book-solutions {
     font-weight: normal;
   }
 }
-
-
-
-
-
-
