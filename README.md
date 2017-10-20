@@ -36,6 +36,11 @@ Install http://mxcl.github.com/homebrew/
     ./script/setup
     ./script/test
 
+    # If you run into problems, try:
+    DEBUG=true ./script/setup
+    DEBUG=true ./script/test
+
+
 ## Install PrinceXML
 
 Finally, you will need to install http://princexml.com (remember the path to where it gets installed, or use "which prince").
@@ -61,9 +66,12 @@ Run the command ``python setup.py install`` to install the scripts collectiondbk
 
 Ok, let's make sure you can create a PDF and EPUB!
 
-To generate a PDF:
+To generate a PDF... Let us assume that the ${book_name} is 'biology'. It needs to match one of the `./css/ccap-*.css` files.
 
-    ./script/build-pdf -p ${path-to-wkhtml2pdf-or-princexml} -d ./test-ccap -s ccap-physics ./result.pdf
+1. Find a complete zip
+1. unzip it into `./data/${book_name}/`
+1. run `./script/build-pdf ${book_name} -p ${path-to-princexml-binary}`
+
 
 # Building, Diffing, and Coverage
 

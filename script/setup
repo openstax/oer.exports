@@ -3,60 +3,53 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-./script/bootstrap || exit 1
+source ./script/bootstrap || exit 1
 
->&2 echo "==> Installing JavaScript Packages"
-if [[ $(which yarn) ]]; then
-  yarn install || exit 1
-else
-  >&2 echo "WARNING: Installing JS packages using npm instead of yarn."
-  npm install || exit 1
-fi
+# JavaScript stuff
+do_progress_quiet "Installing JavaScript Packages" \
+  yarn --prefer-offline
 
+# Python stuff
+if [[ -f "./requirements.txt" || -f "./setup.py" ]]; then
+  # Only activate the virtualenv if not already in one
+  if [[ -z "${VIRTUAL_ENV}" ]]; then
 
-# Only activate the virtualenv if not already in one
-if [[ -z "${VIRTUAL_ENV}" ]]
-then
-
-  # This is mostly for travis
-  if [[ -z "$(which virtualenv)" ]]
-  then
-    >&2 echo "==> Installing Python virtualenv (pip install virtualenv)"
-    pip install virtualenv
-  fi
-
-  >&2 echo "==> Setting up a python virtualenv"
-  virtualenv ./venv/
-  source ./venv/bin/activate
-else
-  >&2 echo "==> Skipping virtualenv because already in one"
-fi
-
-pip install -U pip
-
-if [[ -n "${VIRTUAL_ENV}" ]]
-then
-
-  if [[ -f ./requirements.txt ]]; then
-    >&2 echo "==> Installing python packages"
-    pip install -r ./requirements.txt
-  else
-    if [[ -f ./setup.py ]]; then
-      >&2 echo "==> Installing python packages from setup.py"
-      python setup.py install
-    else
-      >&2 echo "==> Skipping install of python packages"
+    # This is mostly for travis
+    if [[ -z "$(which virtualenv)" ]]; then
+      do_progress_quiet "Installing Python virtualenv (pip install virtualenv)" \
+        pip install virtualenv
     fi
+
+    do_progress_quiet "Setting up a python virtualenv" \
+      virtualenv ./venv/
+    do_progress_quiet "Activating virtualenv" \
+      source ./venv/bin/activate
+  else
+    >&2 echo "Skipping virtualenv because already in one"
   fi
 
+  do_progress_quiet "Upgrading python pip" \
+    pip install -U pip
 
-else
-  echo "ERROR. Not in a virtualenv"
-  exit 1
+  if [[ -n "${VIRTUAL_ENV}" ]]; then
+    if [[ -f ./requirements.txt ]]; then
+      do_progress_quiet "Installing python packages" \
+        pip install -r ./requirements.txt
+    else
+      if [[ -f ./setup.py ]]; then
+        do_progress_quiet "Installing python packages from setup.py" \
+          python setup.py install
+      fi
+    fi
+  else
+    echo "ERROR. Not in a virtualenv"
+    exit 1
+  fi
 fi
-
 
 if [[ ! -f ./lib/SaxonTransformWrapper.class ]]; then
-  >&2 echo "==> Compiling XSLT2 Java classes"
+  progress "Compiling XSLT2 Java classes"
   $(cd ./lib/ && javac -cp saxon9he.jar SaxonTransformWrapper.java)
 fi
+
+_say "${c_green}Successfully set up${c_none}"
