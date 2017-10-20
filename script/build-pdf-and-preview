@@ -1,0 +1,63 @@
+#!/bin/bash
+
+set -e
+cd "$(dirname "$0")/.."
+
+source ./script/bootstrap || exit 1
+
+if [[ ! $1 || ! -d "./data/$1/" ]]; then
+  if [[ -d "./data/" && $(ls ./data/) ]]; then
+    echo "A valid book name (directory in ./data/) needs to be specified. Valid options are:"
+    echo $(ls ./data/)
+    exit 1
+  else
+    echo "No source files in ./data/ exist. Please unzip a complete zip and name it something that matches one of the ccap-* names (without the ccap- prefix)"
+    exit 1
+  fi
+else
+
+  source_dir="./data/$1/"
+  template_name="ccap-$1"
+  pdf_name="./out/$1.pdf"
+  temp_dir="./out/$1-temp/"
+
+  # Check that the CSS file exists:
+  if [[ ! -f "./css/${template_name}.css" ]]; then
+    echo "ERROR: ./css/${template_name}.css does not exist. The name provided is invalid."
+    exit 1
+  fi
+
+  [[ -d "./out/" ]] || mkdir -p "./out/"
+  [[ -d "${temp_dir}" ]] || mkdir -p "${temp_dir}"
+
+  # Remove the PDF file if it already exists
+  [[ -f "${pdf_name}" ]] || rm "${pdf_name}"
+
+  >&2 echo "==> Compiling CSS file"
+  ./script/build-css $1
+
+  >&2 echo "==> Building PDF from content in ${source_dir}"
+  ./script/build-pdf -d "${source_dir}" -s "${template_name}" -t "${temp_dir}" $2 $3 $4 $5 $6 "${pdf_name}"
+  exit_code=$?
+  if [[ ${exit_code} != 0 ]]; then
+    echo "ERROR: PDF Generation failed"
+    exit ${exit_code}
+  else
+
+    >&2 echo "==> Adding CSS reference into XHTML file for debugging"
+    sed -ir "s|</head>|<link rel=\"stylesheet\" type=\"text/css\" href=\"../../css/ccap-$1.css\" /></head>|" "${temp_dir}/collection.xhtml" || exit 1
+
+    echo "Yay! PDF Generation seems successful. Opening PDF"
+    echo "You can also view the XHTML file used to generate the PDF at ${temp_dir}/collection.xhtml"
+    if [[ $(which open) ]]; then
+      open "${pdf_name}"
+    fi
+
+    if [[ $(which say) ]]; then
+      # there is a say bash function so we need to use the bin version
+      $(which say) "Put down your cocktail. $1 PDF is done."
+    fi
+
+  fi
+
+fi
