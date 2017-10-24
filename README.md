@@ -83,13 +83,13 @@ To test that the TTF/OTF (note Type-1) fonts were installed, run the following a
 
 ## Compile Saxon
 
-In the eor.exports/lib directory type the following command.
+In the oer.exports/lib directory type the following command.
 
 ```
 javac -cp saxon9he.jar SaxonTransformWrapper.java
 ```
 
-This should create a file named SaxonTransformWrapper.class in the eor.exports/lib directory.
+This should create a file named SaxonTransformWrapper.class in the oer.exports/lib directory.
 
 ## Install python scripts and run unittests
 
