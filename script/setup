@@ -11,25 +11,6 @@ do_progress_quiet "Installing JavaScript Packages" \
 
 # Python stuff
 if [[ -f "./requirements.txt" || -f "./setup.py" ]]; then
-  # Only activate the virtualenv if not already in one
-  if [[ -z "${VIRTUAL_ENV}" ]]; then
-
-    # This is mostly for travis
-    if [[ -z "$(which virtualenv)" ]]; then
-      do_progress_quiet "Installing Python virtualenv (pip install virtualenv)" \
-        pip install virtualenv
-    fi
-
-    do_progress_quiet "Setting up a python virtualenv" \
-      virtualenv ./venv/
-    do_progress_quiet "Activating virtualenv" \
-      source ./venv/bin/activate
-  else
-    >&2 echo "Skipping virtualenv because already in one"
-  fi
-
-  do_progress_quiet "Upgrading python pip" \
-    pip install -U pip
 
   if [[ -n "${VIRTUAL_ENV}" ]]; then
     if [[ -f "./requirements.txt" ]]; then
