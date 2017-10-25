@@ -75,8 +75,10 @@ fi
 if [[ ! "${CI}" = "true" && -f "./setup.py" && ! $(which virtualenv) ]]; then
   if [[ -z "$(which virtualenv)" ]]; then
     if [[ -f "Brewfile" ]] && [[ "$(uname -s)" = "Darwin" ]]; then
-      do_progress_quiet "Relinking homebrew python (just-in-case)" \
-        brew unlink python && brew link python
+      do_progress_quiet "Unlinking homebrew python (just-in-case)" \
+        brew unlink python
+      do_progress_quiet "Relinking homebrew python" \
+        brew link python
     fi
 
     do_progress_quiet "Installing Python virtualenv" \
