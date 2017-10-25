@@ -118,16 +118,11 @@ fi
 # Note: Skip rbenv for Travis because it already has ruby
 if [[ ! "${CI}" = "true" ]] && [[ -f ".ruby-version" ]]; then
   if [[ -n $(which rbenv) ]]; then
-
+    progress "Setting correct ruby version (see ./.ruby-version)"
     rbenv_version="$(rbenv version-name 2>/dev/null)"
     if [[ -z "${rbenv_version}" ]]; then
-      progress "Installing Ruby…"
-      rbenv install --skip-existing || {
-        echo "WARNING: 'rbenv install' errored. I am assuming you know what you are doing (and have sass installed locally) so continuing"
-        exit 0
-      }
-    else
-      echo "Using rbenv ruby: ${rbenv_version}"
+      do_progress_quiet "Installing Ruby" \
+        rbenv install --skip-existing
     fi
   else
     >&2 echo "WARNING: Skipping rbenv. Using local ruby"
@@ -148,13 +143,5 @@ if [[ ! "${CI}" = "true" ]] && [[ -f ".ruby-version" ]]; then
 
     [[ -n $(which rbenv) ]] && rbenv rehash
 
-  }
-fi
-
-if [[ -f "Gemfile" ]]; then
-  progress "Installing gem dependencies…"
-  which bundle
-  bundle check --path vendor/gems >/dev/null 2>&1  || {
-    bundle install --path vendor/gems --quiet --without production
   }
 fi

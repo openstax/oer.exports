@@ -28,14 +28,15 @@ if [[ -f "./requirements.txt" || -f "./setup.py" ]]; then
   fi
 fi
 
-# Setup stuff that is custom to this repo
-
-if [[ ! -f ./lib/SaxonTransformWrapper.class ]]; then
-  progress "Compiling XSLT2 Java classes"
-  $(cd ./lib/ && javac -cp saxon9he.jar SaxonTransformWrapper.java)
+# Ruby stuff
+if [[ -f "./Gemfile" ]]; then
+  bundle check --path ./vendor/gems >/dev/null 2>&1  || {
+    do_progress_quiet "Installing ruby gems" \
+      bundle install --path ./vendor/gems --quiet --without production
+  }
 fi
 
-[[ $(which xmllint) ]] || die "ERROR: xmllint is not installed. Please install it first"
 
+# Setup stuff that is custom to this repo
 
 _say "${c_green}Successfully set up${c_none}"
