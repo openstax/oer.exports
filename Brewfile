@@ -6,3 +6,5 @@ brew "libxslt"
 brew "memcached"
 brew "python"
 brew "yarn"
+# Required by Python Image library
+brew "openjpeg"

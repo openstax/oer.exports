@@ -68,14 +68,17 @@ if [[ -f "Brewfile" ]] && [[ "$(uname -s)" = "Darwin" ]]; then
   brew bundle check >/dev/null 2>&1  || {
     do_progress "Installing Homebrew dependencies…" \
       brew bundle
-    # Relink python if necessary
-    brew unlink python && brew link python
   }
 fi
 
 
 if [[ ! "${CI}" = "true" && -f "./setup.py" && ! $(which virtualenv) ]]; then
   if [[ -z "$(which virtualenv)" ]]; then
+    if [[ -f "Brewfile" ]] && [[ "$(uname -s)" = "Darwin" ]]; then
+      do_progress_quiet "Relinking homebrew python (just-in-case)" \
+        brew unlink python && brew link python
+    fi
+
     do_progress_quiet "Installing Python virtualenv" \
       pip install virtualenv
   fi
