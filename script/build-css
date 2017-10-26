@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+cd "$(dirname "$0")/.."
+
+if [[ $1 ]]; then
+  # Just compile 1 CSS file
+  $(npm bin)/grunt "shell:compile:$1"
+else
+  # Compile all CSS files
+  $(npm bin)/grunt compile
+fi

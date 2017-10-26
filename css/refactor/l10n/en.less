@@ -1,0 +1,62 @@
+@import 'l10n.less';
+
+@Appendix:  "Appendix";
+@Chapter:   "Chapter";
+@Equation:  "Equation ";
+@Example:   "Example ";
+@Exercise:  "Exercise ";
+@Figure:    "Figure ";
+@Note:      "Note ";
+@Preface:   "Preface";
+@Section:   "Section ";
+@Table:     "Table ";
+
+#l10n {
+  .page-title(@part;    @counter; @title) {}
+  .page-title(preface;  @counter; @title) { string-set: cnx-header @DEBUG_START @Preface  " " @counter " | " @title @DEBUG_END; }
+  .page-title(chapter;  @counter; @title) { string-set: cnx-header @DEBUG_START @Chapter  " " @counter " | " @title @DEBUG_END; }
+  .page-title(appendix; @counter; @title) { string-set: cnx-header @DEBUG_START @Appendix " " @counter " | " @title @DEBUG_END; }
+
+  // Internal mixins that are used to prefix the label on a piece of content.
+  // Some Examples:
+  //
+  // - Note in a chapter is labeled `Note 2.7`
+  // - Figure in an Appendix is labeled `Figure B4`
+  // `.x-content-counter(@part;    @before; @after) {}`
+  .x-content-counter(@part;    @before; @after) {}
+  .x-content-counter(preface;  @before; @after) { content: @DEBUG_START @before @after @DEBUG_END; }
+  .x-content-counter(chapter;  @before; @after) { content: @DEBUG_START @before counter(chapter, decimal) "." @after @DEBUG_END; }
+  .x-content-counter(appendix; @before; @after) { content: @DEBUG_START @before counter(appendix, upper-latin) @after @DEBUG_END; }
+
+  .label(@part;     equation;     @counter;         ) { .x-content-counter(@part; "("; @counter ")"); }
+  .label(@part;     example;      @counter;         ) { .x-content-counter(@part; @Example; @counter " "); }
+  .label(@part;     exercise;     @counter;         ) { .x-content-counter(@part; @Exercise; @counter " "); }
+  .label(@part;     figure;       @counter;         ) { .x-content-counter(@part; @Figure; @counter " "); }
+  .label(@part;     problem;      @counter; end-part) { content: @DEBUG_START @counter "." @DEBUG_END; }
+  .label(@part;     section;      @counter;         ) { .x-content-counter(@part; ""; @counter " "); }
+  .label(@part;     section;      @counter; end-part) { .x-content-counter(@part; ""; @counter " "); }
+  // TODO: This should probably ONLY be for end-part solutions.
+  .label(default;   solution;     @counter;         ) { content: @DEBUG_START @counter @DEBUG_END; }
+  .label(@part;     solution;     @counter; @context) { content: @counter; }
+  .label(@part;     subfigure;    @counter;         ) { content: @DEBUG_START "(" @counter ") " @DEBUG_END; }
+  .label(@part;     table;        @counter;         ) { .x-content-counter(@part; @Table; @counter " "); }
+  .label(@part;     toc-section;  @counter;         ) { .x-content-counter(@part; ""; @counter " "); }
+
+  // Links to other pieces of content require looking up the target-counter instead of just the counter.
+  .x-content-target-counter(@part;    @before; @after) {}
+  .x-content-target-counter(preface;  @before; @after) { content: @DEBUG_START @before "" "" @after @DEBUG_END; }
+  .x-content-target-counter(chapter;  @before; @after) { content: @DEBUG_START @before target-counter(attr(href), chapter) "." @after @DEBUG_END; }
+  .x-content-target-counter(appendix; @before; @after) { content: @DEBUG_START @before target-counter(attr(href), appendix, upper-latin) "" @after @DEBUG_END; }
+
+  .xref-label(@part;  equation;   @counter) { .x-content-target-counter(@part; "Equation "; @counter); }
+  .xref-label(@part;  example;    @counter) { .x-content-target-counter(@part; @Example;  @counter); }
+  .xref-label(@part;  exercise;   @counter) { .x-content-target-counter(@part; @Exercise; @counter); }
+  .xref-label(@part;  figure;     @counter) { .x-content-target-counter(@part; @Figure;   @counter); }
+  .xref-label(@part;  section;    @counter) { }
+  .xref-label(@part;  subfigure;  @counter; @subcounter) {
+    .xref-label(@part; figure; @counter @subcounter);
+  }
+  .xref-label(@part;  table;      @counter) { .x-content-target-counter(@part; @Table;    @counter); }
+  .xref-label(toc;    appendix;   @counter) { content: @DEBUG_START "Appendix " @counter @DEBUG_END ": "; }
+  .xref-label(toc;    chapter;    @counter) { content: @DEBUG_START "Chapter " @counter @DEBUG_END; }
+}

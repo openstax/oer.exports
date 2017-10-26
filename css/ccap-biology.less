@@ -1,13 +1,14 @@
 /*******************************************************
 * Copyright (c) 2013 Rice University
-*  
-*  
+*
+*
 *******************************************************/
 
 /* Styles used when generating a PDF from xhtml+css
  ***************************************************/
 
 // Import general page headers/footers, bookmark calculation, etc
+@import url('refactor/l10n/en.less');
 @import url('ccap-tables-deprecated.less');
 @import url('ccap-numbering.less');
 
@@ -307,13 +308,16 @@ div.part > div.titlepage { display:none; }
 
   .problem .orderedlist { margin-left: 4em;}
 
-  &.solutions  { display: none !important; }
+  &.solutions { display: none !important; }
 
   .title + .empty,
   .title + .empty + .empty {
-    display: hidden; //hide element but count it   *didn't use visibility property which would cause element to still take up space on page
+    visibility: hidden; //hide element but count it *didn't use visibility property which would cause element to still take up space on page
     page-break-before: avoid;
     page-break-after: avoid;
+  }
+  .exercise {
+    page-break-inside: auto;
   }
 }
 
@@ -359,6 +363,7 @@ img { max-height:9.5in; }
   text-align: left !important;
   color: @green;
 
+
   .cnx-gentext-n {
     font-weight: bold;
     padding-right: 0em;
@@ -379,6 +384,7 @@ a { font-weight: bold; color: @tuscany; }
 h1, h2, h3, h4 {
   margin: 0em 0em .5em 0;
   text-align: left !important; //overides text alignment set in
+  page-break-inside: avoid;
 }
 
 h2 {
