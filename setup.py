@@ -4,7 +4,7 @@ install_requires = (
     'lxml',
     'argparse',
     'pillow',
-    'numpy',
+#    'numpy',
     'wand',
     'python-memcached',
     'jinja2==2.6',

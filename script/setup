@@ -1,0 +1,42 @@
+#!/bin/bash
+set -e
+
+cd "$(dirname "$0")/.."
+
+source ./script/bootstrap || exit 1
+
+# JavaScript stuff
+do_progress_quiet "Installing JavaScript Packages" \
+  yarn --prefer-offline
+
+# Python stuff
+if [[ -f "./requirements.txt" || -f "./setup.py" ]]; then
+
+  if [[ -n "${VIRTUAL_ENV}" ]]; then
+    if [[ -f "./requirements.txt" ]]; then
+      do_progress_quiet "Installing python packages" \
+        pip install -r "./requirements.txt"
+    else
+      if [[ -f "./setup.py" ]]; then
+        do_progress_quiet "Installing python packages from setup.py" \
+          python setup.py install
+      fi
+    fi
+  else
+    echo "ERROR. Not in a virtualenv"
+    exit 1
+  fi
+fi
+
+# Ruby stuff
+if [[ -f "./Gemfile" ]]; then
+  bundle check --path ./vendor/gems >/dev/null 2>&1  || {
+    do_progress_quiet "Installing ruby gems" \
+      bundle install --path ./vendor/gems --quiet --without production
+  }
+fi
+
+
+# Setup stuff that is custom to this repo
+
+_say "${c_green}Successfully set up${c_none}"
