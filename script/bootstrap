@@ -65,6 +65,8 @@ do_progress_quiet() {
 # Install homebrew packages if running on macOS
 if [[ -f "Brewfile" ]] && [[ "$(uname -s)" = "Darwin" ]]; then
   [[ $(which brew) ]] || die "Homebrew is not installed. See https://brew.sh"
+  [[ $(xcode-select --print-path) == "/Library/Developer/CommandLineTools" ]] || _say "${c_red}WARNING:${c_none} You may need to uninstall XCode and just install the command line tools"
+
   brew bundle check >/dev/null 2>&1  || {
     do_progress "Installing Homebrew dependencies…" \
       brew bundle
