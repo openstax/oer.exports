@@ -78,7 +78,6 @@ To generate a PDF... Let us assume that the ${book_name} is 'biology'. It needs 
 Testing and build tools use `grunt`. It can do several things:
 
 - compile all the LESS files to CSS files
-- generate CSS coverage reports
 - generate HTML+CSS diffs to see how books have changed
 
 First, you will need to create a `./config.yml` file. You can start by copying `./config.example.yml`. This file allows provides paths to all the downloaded books (unzipped comeplete ZIP files) as well as configuring some optimizations when running the tasks.
@@ -131,9 +130,9 @@ That's it! If you want to generate diffs of all the books, you can drop the `:ca
 
 ## Generate CSS Coverage Reports
 
-To generate a CSS coverage LCOV file, you can either set `coverage: true` inside `./config.yml` or run `./script/grunt shell:coverage:{BOOK_NAME}:{OPTIONAL_BRANCH_NAME}`.
+To generate a CSS coverage file (`.lcov`) and an interactive HTML report, run `./script/build-coverage ${BOOK_NAME}` after generating a PDF using `./script/build-pdf ${BOOK_NAME}`.
 
-To generate an HTML report, you can run `genhtml` directly (`brew install lcov` on OSX) on the LCOV file or run `./script/grunt shell:coverage-report:{BOOK_NAME}:{OPTIONAL_BRANCH_NAME}`
+This will create or update (if a report already exists) a report in `./coverage/`.
 
 
 # Overview
