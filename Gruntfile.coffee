@@ -35,7 +35,7 @@ module.exports = (grunt) ->
 
       'compile':
         command: (bookName) ->
-          return "./node_modules/.bin/lessc css/ccap-#{bookName}.less > css/ccap-#{bookName}.css"
+          return "./node_modules/.bin/lessc --source-map css/ccap-#{bookName}.less css/ccap-#{bookName}.css"
 
       # 1. Generate a PDF and more importantly, the huge HTML file
       'pdf':
