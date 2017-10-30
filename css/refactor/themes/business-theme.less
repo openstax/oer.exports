@@ -247,6 +247,12 @@ span.colored-text {
 
 div.end-of-book-references {
   // #part>#book-end>#end-of-book-references>.style();
+  h1.title {
+    span {
+    color: @primary-color;
+    font-family: @font-family-titles;
+  }
+}
   margin-left: 0;
   text-indent: 0em;
   text-align: left;
@@ -476,6 +482,8 @@ div.book {
     h1.title {
       //#part>#preface>#titlepage>.title();
       padding-bottom: 0;
+      font-family: @font-family-titles;
+      color: @primary-color;
     }
     >div.section {
       div.titlepage>div>div>h2 {
@@ -537,7 +545,7 @@ div.chapter {
       .font-scale(1);
       padding: 0;
       position: absolute;
-      top: 80px;
+      top: -30px;
       left: 0;
       right: 0;
       width: 8.5in;
@@ -647,6 +655,7 @@ div.chapter {
       width: @full-bleed-width;
       margin-left: 0;
       position: relative;
+      top: -1in;
       &::before {
         background: @intro-folio-bg;
         background-size: 100% 122px;
@@ -980,10 +989,10 @@ div.chapter>div.section {
 div.appendix {
   >div.titlepage>div>div h1.title {
     // #part>#book-end>#appendix>#title>.style();
+    font-family: @font-family-titles;
     .font-scale(2);
     font-weight: bold;
     color: @appendix-title-color;
-    font-family: @font-family;
     padding: 0;
     margin: 0;
     position: relative;
@@ -1142,5 +1151,49 @@ div.colophon.end-of-book-solutions {
   a {
     //#part>#book-end>#index>.link();
     font-weight: normal;
+  }
+}
+/* ---------------------------------------------------
+ * Attributions
+ * ---------------------------------------------------
+ */
+div.colophon#book-attribution {
+  h1.title {
+    span {
+      color: @primary-color;
+      font-family: @font-family-titles;
+    }
+  }
+}
+/* ---------------------------------------------------
+ * About Connexion
+ * ---------------------------------------------------
+ */
+div.colophon {
+  h1.title {
+    span {
+      color: @primary-color;
+      font-family: @font-family-titles;
+    }
+  }
+}
+
+/* ---------------------------------------------------
+ * Correct Chapter LO numbering for Unit/Part books
+ * ---------------------------------------------------
+ */
+ .part > .chapter .toc {
+  counter-reset: chapter-outline-lo-item;
+  li.toc-section {
+    counter-increment: chapter-outline-lo-item;
+    a.target-section {
+      &::before {
+        content: counter(chapter-outline-lo-item) ".";
+        color: @primary-color;
+      }
+      span.cnx-gentext-section.cnx-gentext-n {
+        display: none;
+      }
+    }
   }
 }

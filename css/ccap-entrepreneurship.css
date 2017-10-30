@@ -2247,6 +2247,10 @@ div.end-of-book-references {
   text-align: left;
   display: inline;
 }
+div.end-of-book-references h1.title span {
+  color: #24739e;
+  font-family: 'Oswald';
+}
 div.end-of-book-references > .chapter-area {
   counter-reset: references;
   margin-bottom: 1em;
@@ -2454,6 +2458,8 @@ div.end-of-book-references > .chapter-area > .body > .section-area .note.referen
  */
 div.book div.preface h1.title {
   padding-bottom: 0;
+  font-family: 'Oswald';
+  color: #24739e;
 }
 div.book div.preface > div.section {
   margin-bottom: 18px;
@@ -2498,7 +2504,7 @@ div.chapter > div.titlepage div div > h1.title {
   font-size: 15.6px;
   padding: 0;
   position: absolute;
-  top: 80px;
+  top: -30px;
   left: 0;
   right: 0;
   width: 8.5in;
@@ -2578,6 +2584,7 @@ div.chapter > .introduction > .figure.splash {
   width: 8.75in;
   margin-left: 0;
   position: relative;
+  top: -1in;
 }
 div.chapter > .introduction > .figure.splash::before {
   background: transparent url('ccap-astronomy/folio-bg.png') 0 0 repeat-x;
@@ -2931,10 +2938,10 @@ div.chapter > div.section > div.section div.titlepage > div > div > h3 {
  * Styling for Appendix
  ********************************************************************/
 div.appendix > div.titlepage > div > div h1.title {
+  font-family: 'Oswald';
   font-size: 18px;
   font-weight: bold;
   color: #24739e;
-  font-family: 'Noto Sans', sans-serif;
   padding: 0;
   margin: 0;
   position: relative;
@@ -2998,6 +3005,39 @@ div.colophon.end-of-book-solutions {
 }
 .index a {
   font-weight: normal;
+}
+/* ---------------------------------------------------
+ * Attributions
+ * ---------------------------------------------------
+ */
+div.colophon#book-attribution h1.title span {
+  color: #24739e;
+  font-family: 'Oswald';
+}
+/* ---------------------------------------------------
+ * About Connexion
+ * ---------------------------------------------------
+ */
+div.colophon h1.title span {
+  color: #24739e;
+  font-family: 'Oswald';
+}
+/* ---------------------------------------------------
+ * Correct Chapter LO numbering for Unit/Part books
+ * ---------------------------------------------------
+ */
+.part > .chapter .toc {
+  counter-reset: chapter-outline-lo-item;
+}
+.part > .chapter .toc li.toc-section {
+  counter-increment: chapter-outline-lo-item;
+}
+.part > .chapter .toc li.toc-section a.target-section::before {
+  content: counter(chapter-outline-lo-item) ".";
+  color: #24739e;
+}
+.part > .chapter .toc li.toc-section a.target-section span.cnx-gentext-section.cnx-gentext-n {
+  display: none;
 }
 /* -------------------------
  * Units
