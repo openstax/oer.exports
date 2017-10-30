@@ -1177,3 +1177,23 @@ div.colophon {
     }
   }
 }
+
+/* ---------------------------------------------------
+ * Correct Chapter LO numbering for Unit/Part books
+ * ---------------------------------------------------
+ */
+ .part > .chapter .toc {
+  counter-reset: chapter-outline-lo-item;
+  li.toc-section {
+    counter-increment: chapter-outline-lo-item;
+    a.target-section {
+      &::before {
+        content: counter(chapter-outline-lo-item) ".";
+        color: @primary-color;
+      }
+      span.cnx-gentext-section.cnx-gentext-n {
+        display: none;
+      }
+    }
+  }
+}
