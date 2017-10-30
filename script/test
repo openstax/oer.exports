@@ -16,4 +16,10 @@ do_progress_quiet 'Building a test book "PDF"' \
 do_progress_quiet 'Compiling all CSS files' \
   ./script/build-css
 
+prince_version="11.3"
+progress "Checking that prince version matches the server"
+if [[ $(prince --version | grep "Prince") != "Prince ${prince_version}" ]]; then
+  die "Prince version mismatches. Expected ${prince_version} but got $(prince --version | grep "Prince")"
+fi
+
 _say "${c_green}PASSED:${c_none} It seems all the tests passed 🎉"
