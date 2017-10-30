@@ -8,3 +8,5 @@ brew "python"
 brew "yarn"
 # Required by Python Image library
 brew "openjpeg"
+
+cask "prince"
