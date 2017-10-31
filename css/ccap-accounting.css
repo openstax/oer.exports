@@ -3022,6 +3022,23 @@ div.colophon h1.title span {
   color: #24739e;
   font-family: 'Oswald';
 }
+/* ---------------------------------------------------
+ * Correct Chapter LO numbering for Unit/Part books
+ * ---------------------------------------------------
+ */
+.part > .chapter .toc {
+  counter-reset: chapter-outline-lo-item;
+}
+.part > .chapter .toc li.toc-section {
+  counter-increment: chapter-outline-lo-item;
+}
+.part > .chapter .toc li.toc-section a.target-section::before {
+  content: counter(chapter-outline-lo-item) ".";
+  color: #24739e;
+}
+.part > .chapter .toc li.toc-section a.target-section span.cnx-gentext-section.cnx-gentext-n {
+  display: none;
+}
 /* -------------------------
  * Accounting Strings
  * ------------------------
@@ -3153,17 +3170,10 @@ div.colophon h1.title span {
 }
 .chapter .note.ifrs-connection::before {
   display: table-caption;
-<<<<<<< HEAD
   content: "IFRS Connection";
   font-weight: 600;
   font-style: normal;
   background-color: #24739e;
-=======
-  content: "IFRS Connections";
-  font-weight: 600;
-  font-style: normal;
-  background-color: #344456;
->>>>>>> 32e89316f19a32a52a9b446fe29b71659cbc0df0
   color: #fff;
   line-height: 48px;
   border-top-left-radius: 0;

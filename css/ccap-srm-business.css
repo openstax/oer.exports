@@ -3022,22 +3022,22 @@ div.colophon h1.title span {
   color: #24739e;
   font-family: 'Oswald';
 }
-/* -------------------------
- * Entrepreneurship Notes
- * ------------------------
+/* ---------------------------------------------------
+ * Correct Chapter LO numbering for Unit/Part books
+ * ---------------------------------------------------
  */
-/* -------------------------
- * Image Tables 
- * ------------------------
- */
-div.book > div.chapter .table {
-  max-width: 6in;
-  margin: auto;
+.part > .chapter .toc {
+  counter-reset: chapter-outline-lo-item;
 }
-div.mediaobject > img,
-span.inlinemediaobject > img {
-  max-width: 6in;
-  width: 100%;
+.part > .chapter .toc li.toc-section {
+  counter-increment: chapter-outline-lo-item;
+}
+.part > .chapter .toc li.toc-section a.target-section::before {
+  content: counter(chapter-outline-lo-item) ".";
+  color: #24739e;
+}
+.part > .chapter .toc li.toc-section a.target-section span.cnx-gentext-section.cnx-gentext-n {
+  display: none;
 }
 /* -------------------------
  * Units
@@ -3049,6 +3049,7 @@ span.inlinemediaobject > img {
 
   }
 }
+
 */
 /* -------------------------
  * Intro to Business Notes
@@ -3057,7 +3058,7 @@ span.inlinemediaobject > img {
 .chapter .note.catching-spirit {
   display: table;
   position: relative;
-  background-color: #e6eaef;
+  background-color: #F2F2F2;
   text-align: left;
   color: #000;
   border-bottom-left-radius: 3px;
@@ -3067,10 +3068,10 @@ span.inlinemediaobject > img {
 }
 .chapter .note.catching-spirit::before {
   display: table-caption;
-  content: "Catching the Entreprenurial Spirit";
+  content: "Catching the Entrepreneurial Spirit";
   font-weight: 600;
   font-style: normal;
-  background-color: #24739e;
+  background-color: #0dc0dc;
   color: #fff;
   line-height: 48px;
   border-top-left-radius: 3px;
@@ -3112,7 +3113,7 @@ span.inlinemediaobject > img {
 .chapter .note.managing-change {
   display: table;
   position: relative;
-  background-color: #e6eaef;
+  background-color: #D6D9DD;
   text-align: left;
   color: #000;
   border-bottom-left-radius: 3px;
@@ -3125,7 +3126,7 @@ span.inlinemediaobject > img {
   content: "Managing Change";
   font-weight: 600;
   font-style: normal;
-  background-color: #24739e;
+  background-color: #344456;
   color: #fff;
   line-height: 48px;
   border-top-left-radius: 3px;
@@ -3180,7 +3181,7 @@ span.inlinemediaobject > img {
   content: "Expanding Around The Globe?";
   font-weight: 600;
   font-style: normal;
-  background-color: #24739e;
+  background-color: #0dc0dc;
   color: #fff;
   line-height: 48px;
   border-top-left-radius: 3px;
@@ -3235,7 +3236,7 @@ span.inlinemediaobject > img {
   content: "Customer Satisfaction";
   font-weight: 600;
   font-style: normal;
-  background-color: #24739e;
+  background-color: #0dc0dc;
   color: #fff;
   line-height: 48px;
   border-top-left-radius: 3px;
@@ -3290,7 +3291,7 @@ span.inlinemediaobject > img {
   content: "Ethics In Practice";
   font-weight: 600;
   font-style: normal;
-  background-color: #24739e;
+  background-color: #0dc0dc;
   color: #fff;
   line-height: 48px;
   border-top-left-radius: 3px;
@@ -3328,4 +3329,75 @@ span.inlinemediaobject > img {
 }
 .chapter .note.ethics-in-practice > div.body p:first-child {
   margin-top: 0;
+}
+.chapter .note.concept-check {
+  display: table;
+  position: relative;
+  background-color: #e6eaef;
+  text-align: left;
+  color: #000;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  padding: 0;
+  box-sizing: border-box;
+}
+.chapter .note.concept-check::before {
+  display: table-caption;
+  content: "Concept Check";
+  font-weight: 600;
+  font-style: normal;
+  background-color: #24739e;
+  color: #fff;
+  line-height: 48px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  font-size: 15.6px;
+  font-family: 'Dosis', sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  padding: 0 15px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  page-break-after: avoid;
+}
+.chapter .note.concept-check > div.title {
+  font-size: 15.6px;
+  color: #344456;
+  font-weight: 600;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.chapter .note.concept-check > div.body {
+  padding: 15px;
+  border: 0;
+}
+.chapter .note.concept-check > div.body::before {
+  display: block;
+  content: '';
+  background: url("ccap-astronomy/link-to-learning.svg") no-repeat 0;
+  width: 19px;
+  height: 22px;
+  position: absolute;
+  top: 12px;
+  right: 15px;
+}
+.chapter .note.concept-check > div.body p {
+  padding: 0;
+}
+.chapter .note.concept-check > div.body p:first-child {
+  margin-top: 0;
+}
+.chapter .note > div.body.body {
+  padding: 5px 15px 15px;
+}
+/* -------------------------
+ * Image Tables 
+ * ------------------------
+ */
+div.book > div.chapter .table {
+  max-width: 6in;
+  margin: auto;
+}
+div.mediaobject > img,
+span.inlinemediaobject > img {
+  max-width: 6in;
+  width: 100%;
 }
