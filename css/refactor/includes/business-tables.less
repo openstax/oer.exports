@@ -16,20 +16,19 @@ div.table {
     .line-height();
     // If a table spans more than 1 page then put caption on all following pages
     prince-caption-page: all;
-
     //rounded corners
-    div.table table thead tr:first-of-type th:last-of-type,
-    div.table table thead tr:first-of-type th:last-of-type,
     div.table table tbody tr:last-child td:first-child,
-    div.table table tbody tr:last-child td:last-child {
-       border-radius: @border-radius;
+    div.table table tbody tr:last-child td:last-child,
+    div.table table thead tr:first-of-type th:last-of-type,
+    div.table table thead tr:first-of-type th:last-of-type {
+      border-radius: @border-radius;
     }
-
     //table head
     thead {
       //#content>#table>#head>.style(any; any);
       border-top: none;
       font-family: @font-family;
+
       .footnote::footnote-call {
         //TODO
         //#content>#table>#header>.footnote(any; any);
@@ -44,40 +43,44 @@ div.table {
       //   font-weight: 100;
       // }
       th:not(:only-child) {
-      //TODO verify which it is in new math
-      //#content>#table>#header>.style(any; any);
+        //TODO verify which it is in new math
+        //#content>#table>#header>.style(any; any);
       }
-     > tr:first-child {
-      //#content>#table>#header>#title>.style(any; any);
-      border-left: 0;
-      border-right: 0;
+
+      > tr:first-child {
+        //#content>#table>#header>#title>.style(any; any);
+        border-left: 0;
+        border-right: 0;
+
         .footnote::footnote-call {
-        // #content>#table>#header>#title>.footnote(any; any);
+          // #content>#table>#header>#title>.footnote(any; any);
+        }
+      }
+
+      tr:first-of-type th {
+        //#content>#table>#header>#title>.text(any; any);
+        .table-header-style();
+      }
+
+      tr:not(first-child) {
+        .table-2d-header-style();
       }
     }
-    tr:first-of-type th {
-      //#content>#table>#header>#title>.text(any; any);
-      .table-header-style();
-    }
-    tr:not(first-child) {
-      .table-2d-header-style();
-    }
-  }
+    //tbody generic styles
+    tbody {
+      //#content>#table>#body>.style(any; any);
+      border: @table-body-border;
+      //border-top: none;
+      color: @table-head-color;
 
-  //tbody generic styles
-  tbody {
-    //#content>#table>#body>.style(any; any);
-    border: @table-body-border;
-    //border-top: none;
-    color: @table-head-color;
-    &[valign=top]>tr>td {
-      vertical-align: top;
-    }
-    tr {
-      page-break-inside: avoid;
-    }
-  }
+      &[valign=top] > tr > td {
+        vertical-align: top;
+      }
 
+      tr {
+        page-break-inside: avoid;
+      }
+    }
     //TDs
     td {
       //#content>#table>#data>.style(any; any);
@@ -93,11 +96,13 @@ div.table {
       &.text-align-right {
         text-align: right;
       }
+
       &.text-align-center {
         text-align: center;
       }
+
       &.text-align-justify {
-        text-align: justify ;
+        text-align: justify;
       }
       //style TD to display like headers
       &.header {
@@ -111,75 +116,75 @@ div.table {
     //caption
     caption {
       //#content>#table>#caption>.style(any; any);
-       .caption-style();
-       &::before {
+      .caption-style();
+
+      &::before {
         content: "" "Table " counter(chapter, decimal) "." counter(table) " " "";
         .caption-number-style();
       }
     }
   }
-
-
   //make sure to skip unstyled
-    &:not(.unstyled) table tbody tr td:first-child {
+  &:not(.unstyled) table tbody tr td:first-child {
     //#content>#table>#data>.style('first-column'; any);
     //TODO
     border-left: 1px solid rgba(0,0,0,0.1);
   }
+
   &:not(.unstyled) table tbody tr td:last-child {
     //#content>#table>#data>.style('last-column'; any);
     border-right: 1px solid rgba(0,0,0,0.1);
   }
-
-
-
   //special tables
   // colored tables
-    // Special colored table...
+  // Special colored table...
   &.color {
     th {
       //#content>#table>#header>.style(colored; any);
       text-align: center;
     }
+
     tr {
       //#content>#table>#row>.style(colored; any);
-       height: 1em !important;
+      height: 1em !important;
     }
+
     tr td:first-child {
       background-color: @colored-table-bg-color;
       width: 2.5in;
       font-weight: bold;
     }
   }
-
   //unstyled tables
-    //no borders, left aligned, no color change
+  //no borders, left aligned, no color change
   &.unstyled table {
     //#content>#table>.style(unstyled; any);
     border: none;
     margin: 0;
+
     caption {
       //#content>#table>#caption>.style(unstyled; any);
     }
+
     tr {
       //#content>#table>#row>.style(unstyled; any);
       display: none;
     }
+
     td {
       //#content>#table>#data>.style(unstyled; any);
       text-align: left;
       border-left: none;
       border-right: none;
     }
+
     tbody {
       //TODO
       //#content>#table>#body>.style(unstyled; any);
     }
   }
-
-
   // side TD styled like a header
-    //left column displays as a table head.
+  //left column displays as a table head.
   &.column-header tbody td:first-child {
     //#content>#table>#data>.style('header'; any);
     color: @col-header-color;
@@ -189,7 +194,6 @@ div.table {
     vertical-align: initial;
     background-color: @col-header-bg-color;
   }
-
   //text-heavy
   &.text-heavy {
     table {
@@ -199,7 +203,7 @@ div.table {
         text-align: left;
       }
 
-      thead>tr:first-child {
+      thead > tr:first-child {
         height: 40px;
         vertical-align: top;
         color: @text-heavy-color;
@@ -210,29 +214,31 @@ div.table {
         border: none;
       }
 
-      tbody>tr>td.tablecell {
+      tbody > tr > td.tablecell {
         padding: 10px;
         border: none;
       }
     }
-  } 
-
+  }
   //unnumbered
-    &.unnumbered table {
+  &.unnumbered table {
     thead tr:first-child {
-     // #content>#table>#header>.style(any; unnumbered);
+      // #content>#table>#header>.style(any; unnumbered);
     }
+
     thead tr:first-of-type th {
-     // #content>#table>#header>#title>.text(any; unnumbered);
+      // #content>#table>#header>#title>.text(any; unnumbered);
     }
+
     caption {
       //#content>#table>#caption>.style(any; unnumbered);
-    }//
+    }
+    //
   }
-
   //lists in tables
-  ul.itemizedlist, ol.orderedlist {
-   // #content>#list>.style(any; any; table);
+  ol.orderedlist,
+  ul.itemizedlist {
+    // #content>#list>.style(any; any; table);
     > .listitem > p {
       //#content>#paragraph>.style(any; any; list; table);
     }
