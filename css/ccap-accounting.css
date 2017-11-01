@@ -1916,10 +1916,10 @@ div.table table {
   line-height: 1.6em;
   prince-caption-page: all;
 }
-div.table table div.table table thead tr:first-of-type th:last-of-type,
-div.table table div.table table thead tr:first-of-type th:last-of-type,
 div.table table div.table table tbody tr:last-child td:first-child,
-div.table table div.table table tbody tr:last-child td:last-child {
+div.table table div.table table tbody tr:last-child td:last-child,
+div.table table div.table table thead tr:first-of-type th:last-of-type,
+div.table table div.table table thead tr:first-of-type th:last-of-type {
   border-radius: 0;
 }
 div.table table thead {
@@ -1966,7 +1966,7 @@ div.table table td.text-align-center {
   text-align: center;
 }
 div.table table td.text-align-justify {
-  text-align: justify ;
+  text-align: justify;
 }
 div.table table td.header {
   background-color: #0dc0dc;
@@ -2866,6 +2866,9 @@ div.chapter > div.section > div.section div.titlepage > div > div > h3 {
 .chapter .note .exercise .solution::before {
   font-size: 15.6px;
 }
+.chapter .note a.xref {
+  prince-text-replace: "Section" "";
+}
 /********************************************************************
  * End of chapter customizations
  ********************************************************************/
@@ -3460,47 +3463,26 @@ div.part > div.titlepage {
  * Accounting EOC
  * ------------------------
  */
-.cnx-eoc.multiple-choice .exercise {
-  counter-increment: mc1 !important;
-}
 .cnx-eoc.multiple-choice .exercise div.body > div.problem::before {
-  content: " " "MC" " " counter(mc1) "" !important;
-}
-.cnx-eoc.questions .exercise {
-  counter-increment: q1 !important;
+  content: "" "MC" "" counter(chapter, decimal) " " counter(exercise) "" !important;
 }
 .cnx-eoc.questions .exercise div.body > div.problem::before {
-  content: " " "Q" " " counter(q1) "" !important;
-}
-.cnx-eoc.exercise-set-a .exercise {
-  counter-increment: ea1 !important;
+  content: "" "Q" "" counter(chapter, decimal) " " counter(exercise) "" !important;
 }
 .cnx-eoc.exercise-set-a .exercise div.body > div.problem::before {
-  content: " " "EA" " " counter(ea1) "" !important;
-}
-.cnx-eoc.exercise-set-b .exercise {
-  counter-increment: eb1 !important;
+  content: "" "EA" "" counter(chapter, decimal) " " counter(exercise) "" !important;
 }
 .cnx-eoc.exercise-set-b .exercise div.body > div.problem::before {
-  content: " " "EB" " " counter(eb1) "" !important;
-}
-.cnx-eoc.problems-set-a .exercise {
-  counter-increment: pa1 !important;
+  content: "" "EB" "" counter(chapter, decimal) " " counter(exercise) "" !important;
 }
 .cnx-eoc.problems-set-a .exercise div.body > div.problem::before {
-  content: " " "PA" " " counter(pa1) "" !important;
-}
-.cnx-eoc.problems-set-b .exercise {
-  counter-increment: pb1 !important;
+  content: "" "PA" "" counter(chapter, decimal) " " counter(exercise) "" !important;
 }
 .cnx-eoc.problems-set-b .exercise div.body > div.problem::before {
-  content: " " "PB" " " counter(pb1) "" !important;
-}
-.cnx-eoc.thought-provoker .exercise {
-  counter-increment: tp1 !important;
+  content: "" "PB" "" counter(chapter, decimal) " " counter(exercise) "" !important;
 }
 .cnx-eoc.thought-provoker .exercise div.body > div.problem::before {
-  content: " " "TP" " " counter(tp1) "" !important;
+  content: "" "TP" "" counter(chapter, decimal) " " counter(exercise) "" !important;
 }
 /* ---------------------------
 * Accounting Specific Syles
