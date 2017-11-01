@@ -45,6 +45,8 @@
 @page-width: 6.5in;
 @full-bleed-width: 8.75in;
 
+@blank: ""; // For Prince Replace 
+
 /* The QR code variable is needed for psychology skeleton but we are not using it since it's going away */
 
 // Finished printed size of the QR code is dependent on: 1-distance between qr code and scanning device
@@ -871,6 +873,12 @@ div.chapter>div.section {
     >.title,
     .solution::before {
       .font-scale(1);
+    }
+  }
+
+  a {
+    &.xref {
+      prince-text-replace: "Section" @blank; //Remove "Section" text from links in notes.
     }
   }
 }
