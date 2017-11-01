@@ -361,8 +361,8 @@ div.end-of-book-references {
     //#content>#list>.item('chapter'; any; toc);
     counter-increment: toc-chapter-counter;
     .scale-padding(2, margin-bottom);
-    .scale-padding(3, padding-bottom);
-    .scale-padding(3, padding-top);
+    .scale-padding(1, padding-bottom);
+    .scale-padding(1, padding-top);
     &::before {
       // TODO: suggestions for refactoring this slot?
       //#part>#toc>#chapter>.number();
@@ -382,10 +382,9 @@ div.end-of-book-references {
     }
     >ul {
       //#content>#list>.style('chapter'; any; toc);
-      position: relative;
       border-left: 4px solid @toc-side-border-color;
-      margin-left: 48px;
-      margin-top: 1em;
+      .scale-padding(9, margin-left);
+      .scale-padding(1, margin-top);
 
       li {
         margin-left: 0;
@@ -400,7 +399,10 @@ div.end-of-book-references {
       }
       >ul>li {
         margin: 0;
-        padding: 1em 1em 1em 0em;
+        .scale-padding(1, padding-top);
+        .scale-padding(1, padding-right);
+        .scale-padding(1, padding-bottom);
+        padding-bottom: 0;
       }
     }
     .cnx-gentext-chapter.cnx-gentext-t {
@@ -414,9 +416,8 @@ div.end-of-book-references {
   }
 
   .toc-appendix {
-    // .scale-padding(1, margin-left);
-    .scale-padding(2, padding-top);
-    .scale-padding(2, padding-bottom);
+
+    .scale-padding(1, padding-bottom);
     counter-increment: toc-appendix-counter; //#content>#link>.style('appendix'; any; toc);
     &::before {
       //#part>#toc>#chapter>.number('appendix'; any; toc);
@@ -529,7 +530,7 @@ div.chapter {
     div div>h1.title {
       // string-set: cnx-header "@{cnx-string-chapter} " counter(chapter, decimal)  "\0020\0020\0020" content();
       //#part>#chapter>#title>.style();
-      .font-scale(1);
+      .font-scale(3);
       padding: 0;
       position: absolute;
       top: -30px;
@@ -546,6 +547,7 @@ div.chapter {
         //#part>#chapter>#title>.number();
         content: counter(chapter);
         font-family: @font-family;
+        .font-scale(2);
         top: auto;
         left: 0;
         bottom: 62px;
