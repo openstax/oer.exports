@@ -95,10 +95,6 @@ sans-serif,;
   }
 }
 
-
-
-
-
 @page landscape {
   prince-rotate-body: landscape;
   prince-shrink-to-fit: auto;
@@ -231,7 +227,7 @@ span.colored-text {
  * ---------------------------------------------------
  */
 .cnx-title h1 {
-    font-family: @font-family-titles;
+  font-family: @font-family-titles;
 }
 
 /* ---------------------------------------------------
@@ -249,10 +245,10 @@ div.end-of-book-references {
   // #part>#book-end>#end-of-book-references>.style();
   h1.title {
     span {
-    color: @primary-color;
-    font-family: @font-family-titles;
+      color: @primary-color;
+      font-family: @font-family-titles;
+    }
   }
-}
   margin-left: 0;
   text-indent: 0em;
   text-align: left;
@@ -319,17 +315,15 @@ div.end-of-book-references {
     // #part>#toc>#title>.style();
     text-align: left;
     text-transform: uppercase;
-    .scale-padding(2,
-    margin-bottom);
     color: @toc-title-color;
     display: inline-block;
     font-family: @font-family;
     background: @toc-title-background;
     background-size: contain;
-    margin-bottom: 10px; //Note: EOC sections have side paddings of 2.3 rather than 2.66, maybe change others for consistency?
-    padding: .3em 2.66em;
-    padding-right: 15px;
-    margin-left: 10px;
+    .scale-padding(1, padding-right);
+    .scale-padding(6, padding-left);
+    .scale-padding(4, margin-left);
+    .scale-padding(1, margin-bottom);
     border-bottom: : 0;
     ;
 
@@ -341,35 +335,31 @@ div.end-of-book-references {
     }
   }
 
-  .toc-preface,
-  .toc-appendix {
-    margin-left: 10px
+  a.target-appendix {
+    // #content>#link>.style('preface'; any; toc);
+    .toc-titles-styles();
   }
-  .toc-index {
+  .toc-index, .toc-preface {
     //#content>#list>.item('preface'; any; toc);
-    margin-bottom: 20px;
-    .secondary-header-toc(); //margin-left: 46px;
+    //.secondary-header-toc(); //margin-left: 46px;
     a.target-preface {
-      font-family: @font-family-titles;
+      .toc-titles-styles();
     }
-    a.target-appendix,
     a.target-index {
       // #content>#link>.style('preface'; any; toc);
-      color: @toc-chapter-link-color;
-      .scale-padding(1,
-      margin-bottom);
-
-      font-size: 16px;
+      .toc-titles-styles();
     }
     a.target-preface,
     a.target-index {
-      margin-left: 48px;
+      .scale-padding(9, margin-left);
     }
   }
   .toc-chapter {
     //#content>#list>.item('chapter'; any; toc);
     counter-increment: toc-chapter-counter;
-    margin-bottom: 20px;
+    .scale-padding(2, margin-bottom);
+    .scale-padding(3, padding-bottom);
+    .scale-padding(3, padding-top);
     &::before {
       // TODO: suggestions for refactoring this slot?
       //#part>#toc>#chapter>.number();
@@ -379,28 +369,21 @@ div.end-of-book-references {
     &:nth-child(2n+1) {
       //#content>#list>.item('2n+1', 'chapter'; any; toc);
       background-color: @toc-odd-bg-color;
-      padding: 11px 0;
     }
     a.target-chapter {
       // #content>#link>.style('chapter'; any; toc);
-      color: @toc-chapter-link-color;
-      .scale-padding(1,
-      margin-bottom);
-      font-size: 16px;
-      width: 90%;
-      .secondary-header-toc();
-      margin-bottom: .5em;
-      display: inline-block;
+      .toc-titles-styles();
     }
     .cnx-gentext-chapter {
       display: none;
     }
     >ul {
       //#content>#list>.style('chapter'; any; toc);
+      position: relative;
       border-left: 4px solid @toc-side-border-color;
       margin-left: 48px;
-      .scale-padding(-1,
-      padding-left);
+      margin-top: 1em;
+
       li {
         margin-left: 0;
       }
@@ -410,8 +393,7 @@ div.end-of-book-references {
       >li.toc-chapter:nth-child(2n+1) {
         //#content>#list>.item('2n+1', 'chapter'; any; toc);
         background-color: @toc-odd-bg-color;
-        padding-top: 1em;
-        padding-bottom: 1em;
+
       }
       >ul>li {
         margin: 0;
@@ -429,7 +411,9 @@ div.end-of-book-references {
   }
 
   .toc-appendix {
-    margin-left: 33px;
+    // .scale-padding(1, margin-left);
+    .scale-padding(2, padding-top);
+    .scale-padding(2, padding-bottom);
     counter-increment: toc-appendix-counter; //#content>#link>.style('appendix'; any; toc);
     &::before {
       //#part>#toc>#chapter>.number('appendix'; any; toc);
