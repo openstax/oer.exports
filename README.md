@@ -29,21 +29,27 @@ also:
     apt-get install python-dev                     # for unittest dependency builds
     apt-get install memcached                      # for exercise, equation, and svg caching
 
-## For Osx
-
-Install http://mxcl.github.com/homebrew/
-
     ./script/setup
     ./script/test
+
+### Install PrinceXML
+
+Additionally, linux users will need to install http://princexml.com (for OSX this is already installed via `brew`).
+
+
+## For Osx
+
+Install [Homebrew](https://brew.sh).
+
+Then run:
+
+    ./script/setup
+    ./script/test   # To verify things are setup properly
 
     # If you run into problems, try:
     DEBUG=true ./script/setup
     DEBUG=true ./script/test
 
-
-## Install PrinceXML
-
-Finally, you will need to install http://princexml.com (remember the path to where it gets installed, or use "which prince").
 
 ## Install Fonts
 
