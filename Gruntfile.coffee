@@ -26,6 +26,13 @@ module.exports = (grunt) ->
     pkg: pkg
     config: config
 
+    less: dist: # FIX : Using accounting as a test file... although I see the compile command is a bit more complex below?
+        files: 'css/ccap-accounting.css': ['css/ccap-accounting.less']
+        options: compress: true
+    watch: less: # FIX : This is now working.  Any changes to any LESS files is triggering the 'less' task to run.
+      files: [ 'css/**/*.less' ]
+      tasks: [ 'less' ]
+
     shell:
       options:
         timeout: 0
@@ -35,7 +42,7 @@ module.exports = (grunt) ->
 
       'compile':
         command: (bookName) ->
-          return "./node_modules/.bin/lessc css/ccap-#{bookName}.less > css/ccap-#{bookName}.css"
+          return "./node_modules/.bin/lessc -source-map css/ccap-#{bookName}.less css/ccap-#{bookName}.css"
 
       # 1. Generate a PDF and more importantly, the huge HTML file
       'pdf':
@@ -197,6 +204,8 @@ module.exports = (grunt) ->
               #{bakedXhtmlFile} 2>&1 | wc -l
             "
 
+
+
   grunt.registerTask 'diff-book', 'Perform a regression', (bookName) ->
     branchName = 'new'
     grunt.log.writeln('Use --verbose to see the output because these take a while.')
@@ -224,12 +233,20 @@ module.exports = (grunt) ->
   for name of pkg.devDependencies when name.substring(0, 6) is 'grunt-'
     if grunt.file.exists("./node_modules/#{name}")
       grunt.loadNpmTasks(name)
+  
+  grunt.registerTask('default', ['less', 'watch']); # FIX : I added this to allow 'grunt watch' to run.
+
+  # grunt.loadNpmTasks 'grunt-contrib-watch'
 
   # Tasks
   # =====
 
   # Used for lessc compiling
   allBooks = [
+    'entrepreneurship'
+    'accounting'
+    'business-ethics'
+    'srm-business'
     'astronomy'
     'astronomy-print'
     'american-government'
@@ -251,7 +268,6 @@ module.exports = (grunt) ->
     'basic-math'
     'developmental-math'
     'microbiology'
-
   ]
   compileBooks = []
   for bookName in allBooks
