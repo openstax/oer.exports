@@ -18,6 +18,23 @@ The workflow is:
   - add files and commit (git commit -m "issue #1111")
   - push to PR
 
+Consider starting the commit message with an applicable emoji:
+🎨 :art: when improving the format/structure of the code
+🐎 :racehorse: when improving performance
+🚱 :non-potable_water: when plugging memory leaks
+📝 :memo: when writing docs
+🐧 :penguin: when fixing something on Linux
+🍎 :apple: when fixing something on macOS
+🏁 :checkered_flag: when fixing something on Windows
+🐛 :bug: when fixing a bug
+🔥 :fire: when removing code or files
+💚 :green_heart: when fixing the CI build
+✅ :white_check_mark: when adding tests
+🔒 :lock: when dealing with security
+⬆️ :arrow_up: when upgrading dependencies
+⬇️ :arrow_down: when downgrading dependencies
+👕 :shirt: when removing linter warnings
+
 ## 3. commenting on the issue when addressed in the PR
 When the fix for an issue has been pushed to github and is ready for review, go to the issue and reference the PR in the comments. For example you may have something like "Addressed in PR #1111". This is also a good time to mention anything that the tester should be aware of or anything we may need to keep track of later on.
 
