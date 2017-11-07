@@ -78,6 +78,7 @@ sans-serif,;
 @cnx-string-exercises: "Exercises";
 
 // End of chapter/book strings
+@cnx-string-key-terms: "Key Terms";
 @cnx-string-summary: "Summary";
 @cnx-string-review-questions: "Review Questions";
 @cnx-string-chapter: "Chapter";
@@ -899,6 +900,9 @@ div.chapter>div.section {
   .titlepage h2 {
     // #part>#glossary>#title>.style(chapter);
     .moduleTitles (@glossary-title-color);
+    .cnx-gentext-glossary.cnx-gentext-t {
+      content: @cnx-string-key-terms;
+    }
   }
   dl {
     //#part>#glossary>.style(chapter);
@@ -937,10 +941,11 @@ div.chapter>div.section {
       .font-scale(2) !important; // !important overrides a * selector...
       font-family: @font-family;
       color: @eoc-summary-title-color;
-      content: "Summary";
+      content: @cnx-string-summary;
       background: @eoc-summary-icon;
       background-size: contain;
       padding-left: 2.3em !important;
+      font-weight: bold;
       span {
         // override a * selector...
         padding-left: 0;
@@ -1218,13 +1223,4 @@ div.colophon {
 .appendix.module a.xref,
 .cnx-eoc a.xref {
   prince-text-replace: "Section" " ";
-}
-
-div.toc li.toc-part {
-  counter-increment: toc-part-num;
-  a.target-part {
-    &::before {
-      content: "Unit " counter(toc-part-num) ": ";
-    }
-  }
 }
