@@ -45,6 +45,15 @@ Install http://mxcl.github.com/homebrew/
 
 Finally, you will need to install http://princexml.com (remember the path to where it gets installed, or use "which prince").
 
+Additionally, to avoid possible reference error with Prince after installed
+
+    # If you run into reference error or Permission denied error with Prince, try:
+    open ~/.bash_profile
+    # If the bash_profile doesn't exist, create one.
+     touch ~/.bash_profile
+     Add this line in bash_profile:  PATH=${PATH}:~/Downloads/prince-10r7-macosx/lib/prince/bin/  or something similar. ( Wherever the download package folder is )
+
+
 ## Install Fonts
 
 These are the fonts used in generating the PDF and EPUB files.
