@@ -26,12 +26,10 @@ module.exports = (grunt) ->
     pkg: pkg
     config: config
 
-    less: dist: # FIX : Using accounting as a test file... although I see the compile command is a bit more complex below?
-        files: 'css/ccap-accounting.css': ['css/ccap-accounting.less']
-        options: compress: true
-    watch: less: # FIX : This is now working.  Any changes to any LESS files is triggering the 'less' task to run.
-      files: [ 'css/**/*.less' ]
-      tasks: [ 'less' ]
+    watch:
+      less: # Any changes to any LESS files triggers the 'compile' task to run.
+        files: [ 'css/**/*.less' ]
+        tasks: [ 'compile' ]
 
     shell:
       options:
@@ -233,7 +231,7 @@ module.exports = (grunt) ->
   for name of pkg.devDependencies when name.substring(0, 6) is 'grunt-'
     if grunt.file.exists("./node_modules/#{name}")
       grunt.loadNpmTasks(name)
-  
+
   grunt.registerTask('default', ['less', 'watch']); # FIX : I added this to allow 'grunt watch' to run.
 
   # grunt.loadNpmTasks 'grunt-contrib-watch'
@@ -243,10 +241,6 @@ module.exports = (grunt) ->
 
   # Used for lessc compiling
   allBooks = [
-    'entrepreneurship'
-    'accounting'
-    'business-ethics'
-    'srm-business'
     'astronomy'
     'astronomy-print'
     'american-government'
