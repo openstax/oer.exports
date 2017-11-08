@@ -10,13 +10,7 @@
 //@import url('../page-slots.less');
 //@import url('new-math-slots.less');
 //current order:
-@primary-color: #24739e;
-@secondary-color: #344456;
-@tertiary-color: #d34d32;
-@quaternary-color: #f37541;
-@quinary-color: #0dc0dc;
-@accent-color: #F4F4F4;
-@accent-color-tinted: #F9F9F9;
+
 //@import url('../../ccap-numbering.less');
 //@import url('../../ccap-precalculus-numbering.less');
 //@import url('../page-skeleton.less');
@@ -116,10 +110,18 @@ sans-serif,;
  * Global Styles
  * ------------------------
  */
-
-a:link {
-  color: @link-color;
+.preface:not(.toc-preface) a:link,
+.chapter .section a:link,
+.appendix:not(.toc-appendix) a:link,
+ {
+  .link-style(@body-link-color);
 }
+.index a:link,
+.colophon a:link {
+  .link-no-border-style(@body-link-color);
+}
+
+
 
 blockquote {
   .style(...) {
@@ -861,6 +863,9 @@ div.chapter>div.section {
 
 .chapter .note {
   width: 100%;
+  a:link {
+    .link-style (@note-link-color);
+  }
   div.title {
     margin-top: 15px;
   }
@@ -934,6 +939,14 @@ div.chapter>div.section {
       padding-left: 0px;
     }
   } //summary
+  .section {
+    .title a:link {
+      .font-scale(1);
+      .link-no-border-style (@eoc-subtitles-color);
+      //overriding .link-style
+      border-bottom: none;
+    }
+  }
   &.section-summary {
     //#part>#chapter-end>#summary>.style();
     >.title {
@@ -962,7 +975,7 @@ div.chapter>div.section {
       // #part>#chapter-end>#summary>#title>.link();
       font-family: @font-family;
       .font-scale(0);
-      color: @link-color;
+      .link-no-border-style(@body-link-color);
     }
     p:nth-of-type(1) {
       margin-top: 1em;
@@ -1199,6 +1212,7 @@ div.colophon {
   li.toc-section {
     counter-increment: chapter-outline-lo-item;
     a.target-section {
+
       &::before {
         content: counter(chapter-outline-lo-item) ".";
         color: @primary-color;
@@ -1210,15 +1224,18 @@ div.colophon {
   }
 }
 
-.chapter .section.module .target-section,
-.appendix.module .target-section,
-.cnx-eoc .target-section {
+.chapter .section.module a:link.target-section,
+.appendix.module a:link.target-section,
+.chapter .cnx-eoc a:link.target-section {
   background-image: url(ccap-astronomy/LO.svg);
   background-repeat: no-repeat;
   background-position: left;
   background-size: 25px auto;
   padding-left: 25px;
+  //override global link styles
+  border-bottom: 0;
 }
+
 
 .chapter .section.module a.xref,
 .appendix.module a.xref,
