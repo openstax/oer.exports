@@ -2143,8 +2143,18 @@ body {
  * Global Styles
  * ------------------------
  */
-a:link {
+.preface:not(.toc-preface) a:link,
+.chapter .section a:link,
+.appendix:not(.toc-appendix) a:link {
   color: #027eb5;
+  text-decoration: none;
+  border-bottom: #027eb5 solid 0.02em;
+  padding-bottom: 0.1em;
+}
+.index a:link,
+.colophon a:link {
+  color: #027eb5;
+  text-decoration: none;
 }
 p {
   line-height: 1.6em;
@@ -2807,6 +2817,12 @@ div.chapter > div.section > div.section div.titlepage > div > div > h3 {
 .chapter .note {
   width: 100%;
 }
+.chapter .note a:link {
+  color: #0062a0;
+  text-decoration: none;
+  border-bottom: #0062a0 solid 0.02em;
+  padding-bottom: 0.1em;
+}
 .chapter .note div.title {
   margin-top: 15px;
 }
@@ -2925,6 +2941,12 @@ div.chapter > div.section > div.section div.titlepage > div > div > h3 {
   font-size: 18px;
   padding-left: 0px;
 }
+.cnx-eoc .section .title a:link {
+  font-size: 15.6px;
+  color: #344456;
+  text-decoration: none;
+  border-bottom: none;
+}
 .cnx-eoc.section-summary > .title {
   line-height: 1.75em;
   font-size: 18px !important;
@@ -2948,6 +2970,7 @@ div.chapter > div.section > div.section div.titlepage > div > div > h3 {
   font-family: 'Noto Sans', sans-serif;
   font-size: 12px;
   color: #027eb5;
+  text-decoration: none;
 }
 .cnx-eoc.section-summary p:nth-of-type(1) {
   margin-top: 1em;
@@ -3063,14 +3086,15 @@ div.colophon h1.title span {
 .part > .chapter .toc li.toc-section a.target-section span.cnx-gentext-section.cnx-gentext-n {
   display: none;
 }
-.chapter .section.module .target-section,
-.appendix.module .target-section,
-.cnx-eoc .target-section {
+.chapter .section.module a:link.target-section,
+.appendix.module a:link.target-section,
+.chapter .cnx-eoc a:link.target-section {
   background-image: url(ccap-astronomy/LO.svg);
   background-repeat: no-repeat;
   background-position: left;
   background-size: 25px auto;
   padding-left: 25px;
+  border-bottom: 0;
 }
 .chapter .section.module a.xref,
 .appendix.module a.xref,
