@@ -2373,8 +2373,8 @@ div.end-of-book-references > .chapter-area > .body > .section-area .note.referen
   float: left;
   content: counter(toc-chapter-counter, decimal);
 }
-.book > .toc .toc-chapter:nth-child(2n+1),
-.book > .part > .toc .toc-chapter:nth-child(2n+1) {
+.book > .toc .toc-chapter:nth-child(2n),
+.book > .part > .toc .toc-chapter:nth-child(2n) {
   background-color: #F9F9F9;
 }
 .book > .toc .toc-chapter a.target-chapter,
@@ -3070,6 +3070,23 @@ div.colophon h1.title span {
 .appendix.module a.xref,
 .cnx-eoc a.xref {
   prince-text-replace: "Section" " ";
+}
+div.toc li.toc-part {
+  counter-increment: toc-part-num;
+}
+div.toc li.toc-part a.target-part {
+  font-size: 12px;
+  font-weight: bold;
+  color: #344456;
+  font-family: 'Oswald';
+  text-transform: uppercase;
+  margin: 2em 0 0 3.3em;
+  padding-left: 2.7em;
+  display: block;
+  background: url(business/img/unit.svg) no-repeat left;
+}
+div.toc li.toc-part a.target-part::before {
+  content: "Unit " counter(toc-part-num) ": ";
 }
 /* -------------------------
  * Accounting Strings
