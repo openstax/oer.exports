@@ -141,12 +141,14 @@ if [[ ! ${BOOTSTRAP_ALREADY_RAN} ]]; then
       _say "WARNING: Skipping rbenv. Using local ruby"
     fi
 
-    gem list -i bundler >/dev/null 2>&1  || {
-      do_progress_quiet "Installing Ruby Bundler gem"
+    if [[ "$(gem list --installed bundler)" == 'false' ]]; then
+      do_progress_quiet "Installing Ruby Bundler gem" \
         gem install bundler
 
-      [[ -n $(which rbenv) ]] && rbenv rehash
-    }
+      if [[ -n $(which rbenv) ]]; then
+        rbenv rehash || die "rbenv rehash failed. could be because another process was rehashing"
+      fi
+    fi
   fi
 
   # Trust that subshells will maintain the python/node/ruby version
