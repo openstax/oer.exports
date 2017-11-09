@@ -97,8 +97,16 @@ You should run this step before pushing changes to github; fortunately it's easy
 
 **NOTE:** if you are adding a new book, you will need to add it to `./Gruntfile.coffee`.
 
-    # Generate all the CSS files
-    ./script/build-css
+```sh
+# Generate all the CSS files
+./script/build-css
+```
+
+To automatically rebuild the CSS files when you edit a `.less` file, run:
+
+```sh
+./script/build-css-watch
+```
 
 ## Generate a PDF
 
