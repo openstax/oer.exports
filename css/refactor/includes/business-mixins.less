@@ -35,7 +35,7 @@
     .font-scale(2) !important;
 }
 
-.notes(@title, @title-background-color, @background-color, @icon, @notes-body-text-color: @black, @icon-width: 180px, @icon-height: 86px, @icon-top: -2.33px, @icon-right: 15px, @border-bottom-left-radius: 3px, @border-bottom-right-radius: 3px,     @border-top-left-radius: 3px, @border-top-right-radius: 3px) {
+.notes(@title, @title-background-color, @background-color, @icon, @notes-body-text-color: @black, @icon-width: 19px, @icon-height: 22px, @icon-top: 28px, @icon-right: 15px, @border-bottom-left-radius: 3px, @border-bottom-right-radius: 3px,     @border-top-left-radius: 3px, @border-top-right-radius: 3px) {
   display: table;
   position: relative;
   background-color: @background-color;
@@ -80,7 +80,7 @@
     &::before {
       display: block;
       content: '';
-      background: url("ccap-business/@{icon}.svg") no-repeat 0;
+      background: url("ccap-astronomy/@{icon}.svg") no-repeat 0;
       width: @icon-width;
       height: @icon-height;
       position: absolute;
@@ -93,6 +93,56 @@
     p:first-child {
       margin-top: 0;
     }
+  }
+}
+
+
+.note-border-top (@note-border-color, @border-radius: 3px) {
+  box-sizing: border-box;
+  position: relative;
+  border-left: solid 1px #eaeaea;
+  border-right: solid 1px #eaeaea;
+  border-bottom: solid 1px #eaeaea;
+  //override base generic styles for notes
+  padding: 0;
+  margin: 0;
+  top: 10px;
+  //override generic note corners
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  width: 100%;
+
+  .title {
+    border-top: 5px solid @note-border-color;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    border-bottom: solid 1px #eaeaea;;
+    .font-scale(1);
+    font-family: @font-family-titles;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    #utils>#pb>.after(avoid);
+    .scale-padding(2, padding);
+    position: relative;
+    top: -5px;
+    left: -1px;
+    width: 6.125in;
+    font-weight: bold;
+  }
+  .body {
+    .scale-padding(2, padding);
+    border: 0;
+    .font-scale(0);
+    color: @secondary-color;
+    p {
+      padding: 0;
+    }
+    p:first-child {
+      margin-top: 0;
+    }
+  }
+  a:link {
+    .link-style(@body-link-color);
   }
 }
 //EOC exercises custom numbering
@@ -148,9 +198,16 @@
   .font-scale(1);
   font-weight: bold;
 }
-.eo-title-style() {
-  .font-scale(2) !important;
-  font-family: @font-family-serif;
+
+
+.eob-title-style() {
+  .font-scale(2) ;
+  font-family: @font-family-titles;
+  .scale-padding(1, margin-bottom);
+  padding-left: 0;
+  color: @eob-title-color;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 .x-center-image() {
   display: block;
