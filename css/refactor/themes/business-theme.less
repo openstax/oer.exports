@@ -324,6 +324,7 @@ span.colored-text {
         //#content>#list>.item('preface'; any; toc);
         //.secondary-header-toc(); //margin-left: 46px;
         margin-left: 0px;
+        margin-bottom: 18px;
         a.target-preface {
             .toc-titles-styles();
         }
@@ -1272,3 +1273,33 @@ div.toc li.toc-part {
         }
     }
   }
+
+div.section.learning-outcomes {
+  counter-reset: learning-outcome;
+  div.titlepage {
+    font-family: @font-family-titles;
+    .font-scale(1);
+    color: @LO-title-color;
+    margin-bottom: 1em;
+    font-weight: bold;
+  }
+  div.orderedlist ol {
+    list-style-type: none;
+    .scale-padding(1, padding-left);
+    .scale-padding(2, margin-left);
+    li.listitem {
+      counter-increment: learning-outcome;
+      &::before {
+        content: counter(learning-outcome) ". ";
+        font-weight: bold;
+        position: absolute;
+        left: 20px;
+        display: inline-block;
+        line-height: 1.6em;
+      }
+      > p:first-child > span.bold:first-child {
+        display: none;
+      }
+    }
+  }
+}

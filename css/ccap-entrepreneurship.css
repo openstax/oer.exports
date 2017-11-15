@@ -2307,6 +2307,7 @@ span.colored-text {
 .book > .toc .toc-preface,
 .book > .part > .toc .toc-preface {
   margin-left: 0px;
+  margin-bottom: 18px;
 }
 .book > .toc .toc-index a.target-preface,
 .book > .part > .toc .toc-index a.target-preface,
@@ -3133,6 +3134,35 @@ div.toc li.toc-part a.target-part {
 }
 div.toc li.toc-part a.target-part::before {
   content: "Unit " counter(toc-part-num) ": ";
+}
+div.section.learning-outcomes {
+  counter-reset: learning-outcome;
+}
+div.section.learning-outcomes div.titlepage {
+  font-family: 'Roboto Condensed';
+  font-size: 15.6px;
+  color: #344456;
+  margin-bottom: 1em;
+  font-weight: bold;
+}
+div.section.learning-outcomes div.orderedlist ol {
+  list-style-type: none;
+  padding-left: 15.6px;
+  margin-left: 18px;
+}
+div.section.learning-outcomes div.orderedlist ol li.listitem {
+  counter-increment: learning-outcome;
+}
+div.section.learning-outcomes div.orderedlist ol li.listitem::before {
+  content: counter(learning-outcome) ". ";
+  font-weight: bold;
+  position: absolute;
+  left: 20px;
+  display: inline-block;
+  line-height: 1.6em;
+}
+div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > span.bold:first-child {
+  display: none;
 }
 /* -------------------------
  * Units
