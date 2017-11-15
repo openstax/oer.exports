@@ -45,7 +45,7 @@
   border-bottom-right-radius: @border-bottom-right-radius;
   padding: 0;
   box-sizing: border-box;
-
+  box-decoration-break: slice;
   &::before {
     display: table-caption;
     content: @title;
@@ -97,22 +97,10 @@
 }
 
 
-.note-border-top (@note-border-color, @border-radius: 3px) {
-  box-sizing: border-box;
-  position: relative;
-  border-left: solid 1px #eaeaea;
-  border-right: solid 1px #eaeaea;
-  border-bottom: solid 1px #eaeaea;
-  //override base generic styles for notes
-  padding: 0;
-  margin: 0;
-  top: 10px;
-  //override generic note corners
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
-  width: 100%;
-
-  .title {
+.note-border-top (@note-title, @note-border-color, @border-radius: 3px) {
+  &:before {
+    content: @note-title;
+    display: block;
     border-top: 5px solid @note-border-color;
     border-top-right-radius: 3px;
     border-top-left-radius: 3px;
@@ -128,6 +116,28 @@
     left: -1px;
     width: 6.125in;
     font-weight: bold;
+  }
+  box-decoration-break: slice;
+  box-sizing: border-box;
+  position: relative;
+  border-left: solid 1px #eaeaea;
+  border-right: solid 1px #eaeaea;
+  border-bottom: solid 1px #eaeaea;
+  //override base generic styles for notes
+  padding: 0;
+  margin: 0;
+  top: 10px;
+  //override generic note corners
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  width: 100%;
+
+  .title {
+    .font-scale(1);
+    color: @notes-subtitle-color;
+    font-weight: 600;
+    padding-left: 15px;
+    padding-right: 15px;
   }
   .body {
     .scale-padding(2, padding);
