@@ -243,46 +243,7 @@ span.colored-text {
 }
 
 
-/* ---------------------------------------------------
- * Citations
- * ---------------------------------------------------
- */
-
-.chapter a.link.cite::before {
-    content: target-counter(attr(href), references);
-    .scripts(sup);
-    font-weight: 100;
-}
-
-div.end-of-book-references {
-    // #part>#book-end>#end-of-book-references>.style();
-    h1.title {
-        span {
-            color: @primary-color;
-            font-family: @font-family-titles;
-        }
-    }
-    margin-left: 0;
-    text-indent: 0em;
-    text-align: left;
-    display: inline;
-    >.chapter-area {
-        // #part>#book-end>#end-of-book-references>#chapter-area>.style();
-        counter-reset: references;
-        margin-bottom: 1em;
-        >.body>.section-area .note.reference {
-            // #part>#book-end>#end-of-book-references>#chapter-area>#note>.style(any; any);
-            margin: 0 0 .5em 0;
-            padding: 0px;
-            counter-increment: references;
-            >.body::before {
-                // #part>#book-end>#end-of-book-references>#reference>.number();
-                content: counter(references) ".";
-                padding-right: .5em;
-            }
-        }
-    }
-} //global ugly overrides
+ //global ugly overrides
 .chapter,
 .appendix,
 .colophon,
@@ -1170,17 +1131,62 @@ div.colophon.end-of-book-solutions {
 
 
 /* ---------------------------------------------------
- * EOB Index
+ * EOB
+ * ---------------------------------------------------
+ */
+ .colophon {
+   >.title {
+     .eob-title-style();
+   }
+ }
+ /* ---------------------------------------------------
+ * Citations
  * ---------------------------------------------------
  */
 
+.chapter a.link.cite::before {
+    content: target-counter(attr(href), references);
+    .scripts(sup);
+    font-weight: 100;
+}
+
+div.end-of-book-references {
+    // #part>#book-end>#end-of-book-references>.style();
+    margin-left: 0;
+    text-indent: 0em;
+    text-align: left;
+    display: inline;
+    >.chapter-area {
+        // #part>#book-end>#end-of-book-references>#chapter-area>.style();
+        counter-reset: references;
+        margin-bottom: 1em;
+        .title {
+          color: @eob-title-color;
+          font-weight: bold;
+        }
+        >.body>.section-area .note.reference {
+            // #part>#book-end>#end-of-book-references>#chapter-area>#note>.style(any; any);
+            margin: 0 0 .5em 0;
+            padding: 0px;
+            counter-increment: references;
+            >.body::before {
+                // #part>#book-end>#end-of-book-references>#reference>.number();
+                content: counter(references) ".";
+                padding-right: .5em;
+            }
+        }
+    }
+}
+
 .index {
+    page-break-before: right;
+    page-break-after: left;
+    page-break-inside: auto;
+    column-count: 3;
+    column-gap: 24px;
+    column-width: auto;
     >.title {
-        // #part>#book-end>#index>#title>.style();
-        .font-scale(2);
-        font-family: @font-family;
-        color: @index-title-color;
-        margin-bottom: 22px;
+      .eob-title-style();
     } // This is required to override ccap base without targetting both .title and .title h2.
     // The goal here is to make > .title h2 go away.
     >.title h2 {
@@ -1208,36 +1214,6 @@ div.colophon.end-of-book-solutions {
     a {
         //#part>#book-end>#index>.link();
         font-weight: normal;
-    }
-}
-
-
-/* ---------------------------------------------------
- * Attributions
- * ---------------------------------------------------
- */
-
-div.colophon#book-attribution {
-    h1.title {
-        span {
-            color: @primary-color;
-            font-family: @font-family-titles;
-        }
-    }
-}
-
-
-/* ---------------------------------------------------
- * About Connexion
- * ---------------------------------------------------
- */
-
-div.colophon {
-    h1.title {
-        span {
-            color: @primary-color;
-            font-family: @font-family-titles;
-        }
     }
 }
 
