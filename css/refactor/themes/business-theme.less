@@ -643,12 +643,15 @@ div.chapter {
 
 div.chapter {
     >.introduction {
+        position: relative;
         // chapter splash
+        > .title {
+          .moduleTitles (@intro-title-color, @intro-icon);
+        }
         >.figure.splash {
             width: @full-bleed-width;
             margin-left: 0;
-            position: relative;
-            top: -1in;
+            margin-top: -1in;
             &::before {
                 background: @intro-folio-bg;
                 background-size: 100% 122px;
@@ -657,7 +660,7 @@ div.chapter {
                 display: block;
                 content: '';
                 position: absolute;
-                top: 0;
+                top: -4.6in;
                 left: -1in;
                 right: -1in;
             }
@@ -708,9 +711,10 @@ div.chapter {
         >.toc {
             width: 100%;
             >ul {
-                // #content>#list>.style('unordered'; introduction; chapter-outline);
-                margin: 0;
-                padding-left: 2.1em; //border-left: 4px solid @accent-color;
+              border-left: 2px solid rgba(196, 206, 187, 0.3);
+              margin: 0;
+              padding-left: .75em;
+              border-left: 4px solid #F4F4F4;
             }
             >.title {
                 //#part>#introduction>#chapter  -outline>#title>.style();
@@ -725,12 +729,12 @@ div.chapter {
                 margin-bottom);
                 .font-scale(2);
             }
-            li::marker {
-                content: url(ccap-astronomy/LO.svg);
-                width: 20px;
-                height: 16px;
-                padding-right: 2px;
-            }
+            // li::marker {
+            //     content: url(ccap-astronomy/LO.svg);
+            //     width: 20px;
+            //     height: 16px;
+            //     padding-right: 2px;
+            // }
             .toc-section {
                 .cnx-gentext-t {
                     color: @chapter-outline-sections-color;
