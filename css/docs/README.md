@@ -3,4 +3,4 @@ This diagram reflects the current prototype structure for LESS/CSS compiliation 
 
 ### How to Edit:
 It's being edited in draw.io , and can be freely edited there. It's pretty user friendly and doesn't require any istallation. 
-Simply go to www.draw.io and open this file in it.  You can save it locally and then push any changes as needed.
+Simply go to www.draw.io and open LESS_CSS Hierarchy Prototype.xml file in it.  You can save it locally and then push any changes as needed.
