@@ -18,6 +18,30 @@ The workflow is:
   - add files and commit (git commit -m "issue #1111")
   - push to PR
 
+### Commit Messages
+
+Some other suggestions (from [atom's CONTRIBUTING.md](https://github.com/atom/atom/blob/master/CONTRIBUTING.md#git-commit-messages))
+
+- Use the present tense ("Add feature" not "Added feature")
+- Use the imperative mood ("Move cursor to..." not "Moves cursor to...")
+- Limit the first line to 72 characters or less
+- Consider starting the commit message with an applicable emoji:
+    - :art: `:art:` when improving the format/structure of the code
+    - :racehorse: `:racehorse:` when improving performance
+    - :non-potable_water: `:non-potable_water:` when plugging memory leaks
+    - :memo: `:memo:` when writing docs
+    - :penguin: `:penguin:` when fixing something on Linux
+    - :apple: `:apple:` when fixing something on macOS
+    - :checkered_flag: `:checkered_flag:` when fixing something on Windows
+    - :bug: `:bug:` when fixing a bug
+    - :fire: `:fire:` when removing code or files
+    - :green_heart: `:green_heart:` when fixing the CI build
+    - :white_check_mark: `:white_check_mark:` when adding tests
+    - :lock: `:lock:` when dealing with security
+    - :arrow_up: `:arrow_up:` when upgrading dependencies
+    - :arrow_down: `:arrow_down:` when downgrading dependencies
+    - :shirt: `:shirt:` when removing linter warnings
+
 ## 3. commenting on the issue when addressed in the PR
 When the fix for an issue has been pushed to github and is ready for review, go to the issue and reference the PR in the comments. For example you may have something like "Addressed in PR #1111". This is also a good time to mention anything that the tester should be aware of or anything we may need to keep track of later on.
 

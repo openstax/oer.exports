@@ -29,21 +29,27 @@ also:
     apt-get install python-dev                     # for unittest dependency builds
     apt-get install memcached                      # for exercise, equation, and svg caching
 
-## For Osx
-
-Install http://mxcl.github.com/homebrew/
-
     ./script/setup
     ./script/test
+
+### Install PrinceXML
+
+Additionally, linux users will need to install http://princexml.com (for OSX this is already installed via `brew`).
+
+
+## For Osx
+
+Install [Homebrew](https://brew.sh).
+
+Then run:
+
+    ./script/setup
+    ./script/test   # To verify things are setup properly
 
     # If you run into problems, try:
     DEBUG=true ./script/setup
     DEBUG=true ./script/test
 
-
-## Install PrinceXML
-
-Finally, you will need to install http://princexml.com (remember the path to where it gets installed, or use "which prince").
 
 ## Install Fonts
 
@@ -91,8 +97,16 @@ You should run this step before pushing changes to github; fortunately it's easy
 
 **NOTE:** if you are adding a new book, you will need to add it to `./Gruntfile.coffee`.
 
-    # Generate all the CSS files
-    ./script/build-css
+```sh
+# Generate all the CSS files
+./script/build-css
+```
+
+To automatically rebuild the CSS files when you edit a `.less` file, run:
+
+```sh
+./script/build-css-watch
+```
 
 ## Generate a PDF
 

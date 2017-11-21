@@ -26,6 +26,11 @@ module.exports = (grunt) ->
     pkg: pkg
     config: config
 
+    watch:
+      less: # Any changes to any LESS files triggers the 'compile' task to run.
+        files: [ 'css/**/*.less' ]
+        tasks: [ 'compile' ]
+
     shell:
       options:
         timeout: 0
@@ -197,6 +202,8 @@ module.exports = (grunt) ->
               #{bakedXhtmlFile} 2>&1 | wc -l
             "
 
+
+
   grunt.registerTask 'diff-book', 'Perform a regression', (bookName) ->
     branchName = 'new'
     grunt.log.writeln('Use --verbose to see the output because these take a while.')
@@ -224,6 +231,10 @@ module.exports = (grunt) ->
   for name of pkg.devDependencies when name.substring(0, 6) is 'grunt-'
     if grunt.file.exists("./node_modules/#{name}")
       grunt.loadNpmTasks(name)
+
+  grunt.registerTask('default', ['less', 'watch']); # FIX : I added this to allow 'grunt watch' to run.
+
+  # grunt.loadNpmTasks 'grunt-contrib-watch'
 
   # Tasks
   # =====
