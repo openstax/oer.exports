@@ -2,15 +2,8 @@
 // 
 // 
 
-
-// For debugging, mark start and end brackets
 @S: ""; //" ["; // "S"tart and "E"nd marking text for debugging
 @E: ""; //"] ";
-// Strings that are used (note some have spaces at the end)
-@text-preface: "Preface";
-@text-chapter: "Chapter";
-@text-appendix: "Appendix";
-
 
 div.book {
   /* --------------------------------------
@@ -33,13 +26,13 @@ div.book {
    * ie: "Figure 4.3" in chapters but "Figure A3" in an appendix
    * -------------------------------------
    */
-  > div.preface { .x-prefixed(preface; @text-preface; ""; "");
+  > div.preface { .x-prefixed(preface; ""; "");
     //Also, disable numbering on Preface sections
     > div.section > div.titlepage h2::before { display: none !important; }
   }
 
-  div.chapter { .x-prefixed(chapter; @text-chapter;  counter(chapter, decimal); target-counter(attr(href), chapter); "." ); }
-  > div.appendix { .x-prefixed(appendix; @text-appendix; counter(appendix, upper-latin); target-counter(attr(href), appendix, upper-latin) ); }
+  div.chapter { .x-prefixed(chapter; counter(chapter, decimal); target-counter(attr(href), chapter); "." ); }
+  > div.appendix { .x-prefixed(appendix; counter(appendix, upper-latin); target-counter(attr(href), appendix, upper-latin) ); }
 
 
 
@@ -60,7 +53,7 @@ div.book {
  *  @part-separator is the little dot in "Table 4.3"
  * -------------------------------------
  */
-.x-prefixed(@part; @part-label; @part-counter; @part-target; @part-separator: "") {
+.x-prefixed(@part; @part-counter; @part-target; @part-separator: "") {
 
   //This convoluted path is used to suck up (via the "content()") the title of the chapter into the page header
   > div.titlepage > div > div h1.title span.cnx-gentext-t {
