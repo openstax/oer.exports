@@ -40,7 +40,7 @@ module.exports = (grunt) ->
 
       'compile':
         command: (bookName) ->
-          return "./node_modules/.bin/lessc -source-map css/ccap-#{bookName}.less css/ccap-#{bookName}.css"
+          return "./node_modules/.bin/lessc --source-map css/ccap-#{bookName}.less css/ccap-#{bookName}.css"
 
       # 1. Generate a PDF and more importantly, the huge HTML file
       'pdf':
@@ -94,34 +94,6 @@ module.exports = (grunt) ->
             --output=#{pdfFile}
             #{htmlFile}
             2> /dev/null
-          "
-
-      # 2. Generate HTML Coverage Report (optional)
-      # 2a. Generate LCOV file
-      'coverage':
-        command: (bookName, branchName='new') ->
-          lessFile = "./css/ccap-#{bookName}.less"
-          tempDir = "#{config.testingDir}/tempdir-#{bookName}-#{branchName}"
-          lcovFile = "#{config.testingDir}/#{bookName}-#{branchName}.lcov"
-
-          # Shortcut if skipping flag is set
-          return '' if skipIfExists('coverage', lcovFile)
-
-          # Make sure the files exist
-          failIfNotExists("Less file does not exist: #{lessFile}", lessFile)
-          failIfNotExists("XHTML file missing. generate with `grunt shell:pdf:#{bookName}`: #{tempDir}/collection.xhtml", "#{tempDir}/collection.xhtml")
-
-          return "node ./node_modules/.bin/css-coverage -d -v
-            -s #{lessFile}
-            -h #{tempDir}/collection.xhtml
-            -l #{lcovFile}"
-      # 2b. Generate HTML Report from LCOV file
-      'coverage-report':
-        command: (bookName, branchName='new') ->
-          failIfNotExists("LCOV file missing. generate with `grunt shell:coverage:#{bookName}`", "#{config.testingDir}/#{bookName}-#{branchName}.lcov")
-
-          return "genhtml <%= config.testingDir %>/#{bookName}-#{branchName}.lcov
-            --output-directory <%= config.testingDir %>/#{bookName}-#{branchName}-coverage
           "
 
       # 3. Generate HTML For Later Diffing
@@ -211,8 +183,6 @@ module.exports = (grunt) ->
     # grunt.task.run("shell:preview:#{bookName}:#{branchName}")
     grunt.task.run("shell:bake:#{bookName}:#{branchName}")
     grunt.task.run("shell:create-diff:#{bookName}:#{branchName}")
-    if config.coverage
-      grunt.task.run("shell:coverage:#{bookName}:#{branchName}")
 
 
   grunt.registerTask 'prepare-book', 'Generate the master versions of books to compare against', (bookName) ->
@@ -220,8 +190,6 @@ module.exports = (grunt) ->
     grunt.task.run("shell:pdf:#{bookName}:master")
     # grunt.task.run("shell:preview:#{bookName}:master")
     grunt.task.run("shell:bake:#{bookName}:master")
-    if config.coverage
-      grunt.task.run("shell:coverage:#{bookName}:master")
 
 
   # Dependencies
