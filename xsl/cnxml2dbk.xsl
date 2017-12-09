@@ -10,6 +10,7 @@
   xmlns:ext="http://cnx.org/ns/docbook+"
   xmlns:exsl="http://exslt.org/common"
   xmlns:cmlnle="http://katalysteducation.org/cmlnle/1.0"
+  xmlns:cxlxt="http://katalysteducation.org/cxlxt/1.0"
   version="1.0">
 
 <!-- This file: Converts a module's cnxml (and mdml) into Docbook elements
@@ -687,7 +688,17 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
-    <db:indexterm zone="{$id}">
+  <xsl:variable name="type">
+    <xsl:choose>
+      <xsl:when test="@cxlxt:index">
+        <xsl:value-of select="@cxlxt:index"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text>default</xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+    <db:indexterm zone="{$id}" type="{$type}">
       <db:primary>
         <xsl:apply-templates mode="cnx.strip-id" select="exsl:node-set($node)"/>
       </db:primary>
