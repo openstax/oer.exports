@@ -29,6 +29,12 @@
 			</xsl:attribute>
 		</xsl:if>
 
+		<xsl:if test="/col:collection/col:parameters/col:param[@name='indices']">
+			<xsl:attribute name="ext:indices">
+				<xsl:value-of select="/col:collection/col:parameters/col:param[@name='indices']/@value"/>
+			</xsl:attribute>
+		</xsl:if>
+
 		<xsl:apply-templates select="@*|node()"/>
 	</db:book>
 </xsl:template>
