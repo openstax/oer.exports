@@ -1848,7 +1848,30 @@ Example:
 <!-- CNX: end -->
 </xsl:template>
 
+<!-- Include colophons in the TOC -->
+<xsl:template name="division.toc">
+  <xsl:param name="toc-context" select="."/>
+  <xsl:param name="toc.title.p" select="true()"/>
 
+  <xsl:choose>
+    <xsl:when test="/db:book/@ext:toc-include-colophons">
+      <!-- Same as docbook's autotoc.xsl + d:colophon -->
+      <xsl:call-template name="make.toc">
+        <xsl:with-param name="toc-context" select="$toc-context"/>
+        <xsl:with-param name="toc.title.p" select="$toc.title.p"/>
+        <xsl:with-param name="nodes" select="d:colophon|d:part|d:reference|d:preface|d:chapter|d:appendix|d:article|d:topic|d:bibliography|d:glossary|d:index|d:refentry|d:bridgehead[$bridgehead.in.toc != 0]"/>
+      </xsl:call-template>
+    </xsl:when>
+    <xsl:otherwise>
+      <!-- Same as docbooks autotoc.xsl -->
+      <xsl:call-template name="make.toc">
+        <xsl:with-param name="toc-context" select="$toc-context"/>
+        <xsl:with-param name="toc.title.p" select="$toc.title.p"/>
+        <xsl:with-param name="nodes" select="d:part|d:reference|d:preface|d:chapter|d:appendix|d:article|d:topic|d:bibliography|d:glossary|d:index|d:refentry|d:bridgehead[$bridgehead.in.toc != 0]"/>
+      </xsl:call-template>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
 
 <!-- Generate a custom TOC (both for the book and chapters) -->
 <!-- From docbook-xsl/xhtml/autotoc.xsl -->
@@ -1904,6 +1927,21 @@ Example:
         </xsl:apply-templates>
       </ul>
     </xsl:if>
+  </li>
+</xsl:template>
+
+<!-- TOC entry for colophons. -->
+<!-- Create only entry line, with same classes as target part,
+     and without listing content. -->
+<xsl:template match="db:colophon" mode="toc">
+  <xsl:variable name="class">
+    <xsl:value-of select="./@class"/>
+  </xsl:variable>
+
+  <li class="{$class}">
+    <xsl:apply-templates select="." mode="toc.line">
+      <xsl:width-param name="toc-context" select="."/>
+    </xsl:apply-templates>
   </li>
 </xsl:template>
 
