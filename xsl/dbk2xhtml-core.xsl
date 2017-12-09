@@ -864,6 +864,14 @@ Combination of formal.object and formal.object.heading -->
   <xsl:value-of select="local-name()"/>
 </xsl:template>
 
+<!-- Add "target-index-@type" to TOC entries for typed indexes -->
+<xsl:template match="db:index[@type]" mode="toc.line.class">
+  <xsl:text>target-</xsl:text>
+  <xsl:value-of select="local-name()"/>
+  <xsl:text> target-index-</xsl:text>
+  <xsl:value-of select="@type"/>
+</xsl:template>
+
 <!-- Output the PNG with the baseline info -->
 <xsl:template name="cnx.baseline-shift">
     <xsl:attribute name="style">
@@ -1970,6 +1978,16 @@ Example:
     <li class="abstract">
       <xsl:apply-templates select="d:sectioninfo/d:abstract/node()"/>
     </li>
+  </xsl:if>
+</xsl:template>
+
+<!-- For typed indexes add type as class -->
+<xsl:template match="db:index" mode="class.value">
+  <xsl:param name="class"/>
+
+  <xsl:value-of select="$class"/>
+  <xsl:if test="@type">
+    <xsl:text> index-</xsl:text><xsl:value-of select="@type"/>
   </xsl:if>
 </xsl:template>
 
