@@ -829,7 +829,11 @@ Combination of formal.object and formal.object.heading -->
     <xsl:apply-templates select="." mode="label.markup"/>
   </xsl:variable>
 
-      <a href="#{$id}" class="target-{local-name()}">
+  <xsl:variable name="class">
+    <xsl:apply-templates select="." mode="toc.line.class"/>
+  </xsl:variable>
+
+      <a href="#{$id}" class="{$class}">
 
 <!-- CNX: Add the word "Chapter" or Appendix in front of the number. TODO: Dump this junk -->
         <xsl:if test="self::db:appendix or self::db:chapter">
@@ -853,6 +857,11 @@ Combination of formal.object and formal.object.heading -->
           <xsl:apply-templates select="." mode="title.markup"/>
         </span>
       </a>
+</xsl:template>
+
+<xsl:template match="*" mode="toc.line.class">
+  <xsl:text>target-</xsl:text>
+  <xsl:value-of select="local-name()"/>
 </xsl:template>
 
 <!-- Output the PNG with the baseline info -->
