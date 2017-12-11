@@ -20,11 +20,8 @@
 @import url('business-color-map.less');
 @import url('../ccap-base-slots.less');
 @import url('../content-slots.less');
-
 @import url('../ccap-base-skeleton.less');
 @import url('../content-skeleton.less');
-
-
 @import url('../includes/business-mixins.less');
 @import url('../includes/numbering.less');
 @import url('../unnumbered-content.less');
@@ -52,25 +49,20 @@ html {
     prince-image-resolution: 150dpi;
     prince-background-image-resolution: 150dpi;
 }
-
 body {
     color: @default-text;
 }
-
 //variables
 @base-font-size: 12px;
 @font-family-serif: 'Dosis',
 sans-serif,
 @stix-fonts;
-@font-family: 'Noto Sans',
-sans-serif,
-;
+@font-family: 'Noto Sans', sans-serif;
 @font-family-titles: 'Roboto Condensed';
-
+@book-width: 6in;
 //Strings
 @cnx-string-link-to-learning: "Link to Learning";
 @cnx-string-exercises: "Exercises";
-
 // End of chapter/book strings
 @cnx-string-key-terms: "Key Terms";
 @cnx-string-summary: "Summary";
@@ -80,9 +72,6 @@ sans-serif,
 @cnx-string-chapter-outline: "Chapter Outline";
 @cnx-string-learning-objectives: "Learning Objectives";
 
-
-
-
 //global theme stuff
 .bold.centered-text {
     text-align: center;
@@ -91,12 +80,10 @@ sans-serif,
         font-weight: 100;
     }
 }
-
 @page landscape {
     prince-rotate-body: landscape;
     prince-shrink-to-fit: auto;
 }
-
 .landscape {
     page: landscape;
     img {
@@ -104,28 +91,19 @@ sans-serif,
         width: 9.4in;
     }
 }
-
-
-
-
 /* -------------------------
  * Global Styles
  * ------------------------
  */
 .preface:not(.toc-preface) a:link,
 .chapter .section a:link,
-.appendix:not(.toc-appendix) a:link,
-{
+.appendix:not(.toc-appendix) a:link {
     .link-style(@body-link-color);
 }
-
 .index a:link,
 .colophon a:link {
     .link-no-border-style(@body-link-color);
 }
-
-
-
 blockquote {
     .style(...) {
         color: inherit;
@@ -137,17 +115,13 @@ blockquote {
         }
     }
 }
-
 p {
     .line-height();
 }
-
 //remove chapter outline
 div.abstract {
     display: none;
 }
-
-
 /* ---------------------------------------------------
  * Folio
  * ---------------------------------------------------
@@ -159,8 +133,6 @@ div.book div.chapter>div.titlepage>div>div h1.title {
         decimal) " " content();
     }
 }
-
-
 /* ---------------------------------------------------
  * Figures/Subfigures
  * ---------------------------------------------------
@@ -171,7 +143,6 @@ div.book div.chapter>div.titlepage>div>div h1.title {
 img {
     .x-center-image();
 }
-
 .figure {
     //#content>#figure>.style();
     .x-center-image();
@@ -187,13 +158,11 @@ img {
     &.small {
         //width: @figure-width-small;
     }
-
     >.body {
         //#content>#figure>#body>.style(any; any);
         .scale-padding(0,
         padding-bottom);
     }
-
     >.title {
         // #content>#figure>#title>.number(); // "Figure x.x..."
         // color: black;
@@ -206,12 +175,10 @@ img {
         margin-left: .5em;
     }
 }
-
 //captions
 span.colored-text {
     color: @colored-text-color;
 }
-
 .footnote {
     //#content>#footnote>.style();
     .font-scale(-1);
@@ -244,9 +211,6 @@ span.colored-text {
         //#content>#footnote>.marker-style();
     }
 }
-
-
-
 /* ---------------------------------------------------
  * cnx-title
  * ---------------------------------------------------
@@ -261,7 +225,6 @@ span.colored-text {
     #utils>#pb>.before(auto);
     #utils>#pb>.after(auto);
 }
-
 .book>.chapter,
 .book>.appendix,
 .book>.colophon,
@@ -273,10 +236,6 @@ span.colored-text {
     page-break-before: right !important;
     page-break-after: left !important;
 }
-
-
-
-
 /* -------------------------
  * Book TOC
  * ------------------------
@@ -316,7 +275,6 @@ span.colored-text {
         padding-top: 8px;
         background-size: 28px;
         ;
-
         &::before {
             // display: none;
             // content: @toc-title-icon;
@@ -324,7 +282,6 @@ span.colored-text {
             // margin-left: 10px;
         }
     }
-
     a.target-appendix {
         // #content>#link>.style('preface'; any; toc);
         .toc-titles-styles();
@@ -336,7 +293,6 @@ span.colored-text {
         .scale-padding(2, padding-bottom);
         a.target-preface {
             .toc-titles-styles();
-
         }
         a.target-index {
             // #content>#link>.style('preface'; any; toc);
@@ -383,7 +339,6 @@ span.colored-text {
             margin-left);
             .scale-padding(1,
             margin-top);
-
             li {
                 margin-left: 0;
             }
@@ -408,15 +363,11 @@ span.colored-text {
         .cnx-gentext-chapter.cnx-gentext-t {
             display: inline;
         }
-
-
         >.target-chapter::before {
             display: none;
         }
     }
-
     .toc-appendix {
-
         .scale-padding(1,
         padding-bottom);
         counter-increment: toc-appendix-counter; //#content>#link>.style('appendix'; any; toc);
@@ -452,15 +403,11 @@ span.colored-text {
     //   font-size: 16px;
     // }
 }
-
 //UGLY overrides from base
 .book>.toc>.title {
     border-bottom-width: 0;
     border-bottom-style: none;
 }
-
-
-
 /* ------------------------
  * Preface
  * -----------------------
@@ -504,8 +451,6 @@ div.book {
         // }
     }
 }
-
-
 /* -------------------------
  * Chapter title (over the splash page)
  * ------------------------
@@ -518,7 +463,6 @@ div.chapter {
         z-index: 1;
         position: relative;
         z-index: 1;
-
         div div>h1.title {
             // string-set: cnx-header "@{cnx-string-chapter} " counter(chapter, decimal)  "\0020\0020\0020" content();
             //#part>#chapter>#title>.style();
@@ -571,7 +515,6 @@ div.chapter {
                 background: url(ccap-business/business-books-intro-graphic.svg) 0 0 no-repeat;
                 z-index: 2;
             }
-
             span.cnx-gentext-autogenerated,
             span.cnx-gentext-n {
                 display: none;
@@ -581,7 +524,6 @@ div.chapter {
                     display: none;
                 }
             }
-
             span.cnx-gentext-t {
                 //#part>#chapter>#title>.text();
                 position: absolute;
@@ -601,8 +543,6 @@ div.chapter {
         }
     }
 }
-
-
 /* -------------------------
  * Chapter intro: splash, toc (chapter outline)
  * -------------------------
@@ -628,7 +568,6 @@ div.chapter {
         }
     }
 }
-
 div.chapter {
     >.introduction {
         position: relative; // chapter splash
@@ -663,11 +602,9 @@ div.chapter {
                 height: 4.3in;
                 position: relative;
                 transform: translate3d(-1in, 0, 0);
-
                 &::before {
                     display: none;
                 }
-
                 &::after {
                     width: 100%;
                     content: '';
@@ -680,7 +617,6 @@ div.chapter {
                     background-color: @splash-bottom-bar-color;
                     border-top: @splash-bottom-bar-border-top;
                 }
-
                 img {
                     width: @full-bleed-width;
                     height: 3.58in;
@@ -692,7 +628,6 @@ div.chapter {
         }
     }
 }
-
 div.chapter {
     //chapter introduction
     >.introduction {
@@ -743,8 +678,6 @@ div.chapter {
         }
     }
 }
-
-
 /* -------------------------
  * Module/page level Learning objectives
  * ------------------------
@@ -769,8 +702,6 @@ div.book div.chapter .section.learning-objectives {
         }
     }
 }
-
-
 /* -------------------------
  * Styling for Module (Page) Titles (h2)
  * ------------------------
@@ -784,7 +715,6 @@ div.chapter>div.section {
         .font-scale(2);
         font-weight: 600;
         margin-bottom: 1em;
-
         &::before {
             //#part>#module>#title>.number();
             border: @module-number-border;
@@ -793,11 +723,9 @@ div.chapter>div.section {
             margin-right: 10px;
             vertical-align: middle;
         }
-
         span.cnx-gentext-n {
             display: none;
         }
-
         span.cnx-gentext-t {
             //#part>#module>#title>.text();
             top: 3px;
@@ -812,8 +740,6 @@ div.chapter>div.section {
         }
     }
 }
-
-
 /* -------------------------
  * Example Elements Styling and Numbering
  * -------------------------
@@ -829,7 +755,6 @@ div.chapter>div.section {
     @notes-title-color,
     #ebe9e9,
     none);
-
     >.title {
         // #content>#example>#title>.style(any);
         display: none;
@@ -843,8 +768,6 @@ div.chapter>div.section {
         }
     }
 }
-
-
 /* -------------------------
  * Notes
  * ------------------------
@@ -880,8 +803,6 @@ div.chapter>div.section {
         }
     }
 }
-
-
 /* -------------------------
  * End of chapter customizations
  * ------------------------
@@ -918,7 +839,6 @@ div.chapter>div.section {
         }
     }
 }
-
 .cnx-eoc {
     margin-bottom: 2em;
     >.title {
@@ -1014,8 +934,6 @@ div.chapter>div.section {
         }
     }
 }
-
-
 /* -------------------------
  * Styling for Appendix
  * ------------------------
@@ -1069,8 +987,6 @@ div.appendix {
         color: black;
     }
 }
-
-
 /* -------------------------
  * Answer Key (EOB)
  * ------------------------
@@ -1149,10 +1065,6 @@ div.colophon.end-of-book-solutions {
     //     }
     //   }
 }
-
-
-
-
 /* ---------------------------------------------------
  * EOB
  * ---------------------------------------------------
@@ -1162,8 +1074,6 @@ div.colophon.end-of-book-solutions {
         .eob-title-style();
     }
 }
-
-
 /* ---------------------------------------------------
  * Citations
  * ---------------------------------------------------
@@ -1173,7 +1083,6 @@ div.colophon.end-of-book-solutions {
     .scripts(sup);
     font-weight: 100;
 }
-
 div.end-of-book-references {
     // #part>#book-end>#end-of-book-references>.style();
     margin-left: 0;
@@ -1201,7 +1110,6 @@ div.end-of-book-references {
                 display: inline
             }
         }
-
         >.body>.section-area .note.reference {
             // #part>#book-end>#end-of-book-references>#chapter-area>#note>.style(any; any);
             margin: 0 0 .5em 0;
@@ -1215,7 +1123,6 @@ div.end-of-book-references {
         }
     }
 }
-
 .index {
     page-break-before: right;
     page-break-after: left;
@@ -1231,7 +1138,6 @@ div.end-of-book-references {
         padding: 0;
         font-size: inherit;
     }
-
     h3.letter {
         //#part>#book-end>#index>.letter();
         .font-scale(1);
@@ -1242,26 +1148,21 @@ div.end-of-book-references {
         margin-top: 0;
         padding-top: 0;
     }
-
     .index-term {
         // #part>#book-end>#index>.term();
         .font-scale(0);
         line-height: 1.5em;
     }
-
     a {
         //#part>#book-end>#index>.link();
         font-weight: normal;
     }
 }
-
-
-
 /* ---------------------------------------------------
  * Correct Chapter LO numbering for Unit/Part books
  * ---------------------------------------------------
  */
-//not sure this is needed anymore
+//not sure this is needed anymore- do not delete
 // .part>.chapter .toc {
 //     counter-reset: chapter-outline-lo-item;
 //     li.toc-section {
@@ -1278,12 +1179,10 @@ div.end-of-book-references {
 //         }
 //     }
 // }
-
-//hide chapter unit splash page
 .part>.titlepage {
+    //hide chapter unit splash page
     display: none;
 }
-
 .chapter .section.module a:link.target-section,
 .appendix.module a:link.target-section,
 .chapter .cnx-eoc a:link.target-section {
@@ -1294,14 +1193,11 @@ div.end-of-book-references {
     padding-left: 25px; //override global link styles
     border-bottom: 0;
 }
-
-
 .chapter .section.module a.xref,
 .appendix.module a.xref,
 .cnx-eoc a.xref {
     prince-text-replace: "Section" " ";
 }
-
 div.toc li.toc-part {
     counter-increment: toc-part-num;
     a.target-part {
@@ -1319,7 +1215,6 @@ div.toc li.toc-part {
         }
     }
 }
-
 div.section.learning-outcomes {
     counter-reset: learning-outcome;
     div.titlepage {
