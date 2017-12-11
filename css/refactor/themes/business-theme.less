@@ -32,19 +32,11 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
 @import url('../page-slots.less');
 @import url('../page-skeleton.less');
+
 @page-width: 6.5in;
 @full-bleed-width: 8.75in;
-
 @blank: ""; // For prince-text-replace in removing text.
 
-/* The QR code variable is needed for psychology skeleton but we are not using it since it's going away */
-
-// Finished printed size of the QR code is dependent on: 1-distance between qr code and scanning device
-// 2-size of dots in the code(amount of data inputed into the code, the smaller the dots become)
-// For most smartphones the relationship between scan distance and minimum QR code size is approximately 10:1 so a 2.5cm (1 inch)
-@qr: 1.25in;
-
-// Images in astronomy are 200DPI
 html {
     prince-image-resolution: 150dpi;
     prince-background-image-resolution: 150dpi;
@@ -701,7 +693,6 @@ div.book div.chapter .section.learning-objectives {
         }
         max-width: 30%;
         display: inline-block;
-
         .titlepage {
             .font-scale(1); //TODO
             color: @LO-section-titles-color;
@@ -737,7 +728,8 @@ div.chapter>div.section {
             //#part>#module>#title>.text();
             top: 3px;
         }
-    } //subsections (h3)
+    }
+    //subsections (h3)
     >div.section {
         //#content>#section>.style(any; any);
         div.titlepage>div>div>h3 {
