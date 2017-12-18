@@ -91,6 +91,15 @@ def makeTransform(file):
     return t
 
 
+def compare_trees(e1, e2):
+    if e1.tag != e2.tag: return False
+    if e1.text != e2.text: return False
+    if e1.tail != e2.tail: return False
+    if e1.attrib != e2.attrib: return False
+    if len(e1) != len(e2): return False
+    return all(compare_trees(c1, c2) for c1, c2 in zip(e1, e2))
+
+
 def _replace_tex_math(node, mml_url, retry=0):
     """call mml-api service to replace TeX math in body of node with mathml"""
 
@@ -285,7 +294,7 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
                 for  mathml_key, expected_mathml in unprocessed.items():
                     svg = mathml_svg_list.pop(0)
                     returned_mathml = mathml_svg_list.pop(0)
-                    if etree.tostring(returned_mathml) == etree.tostring(expected_mathml):
+                    if compare_trees(returned_mathml, expected_mathml):
                         svg_str = etree.tostring(svg)
                         mc.set(mathml_key, svg_str)
                         svgs[mathml_key] = svg_str
