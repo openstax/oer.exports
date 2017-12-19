@@ -1,0 +1,58 @@
+#!/bin/bash
+cd "$(dirname "$0")/.."
+source ./script/bootstrap || exit 1
+
+book_name=${1}
+uuid=${2}
+
+if [[ ! ${book_name} ]]; then
+  die "No book specified. specify a book name as the 1st argument when running this script"
+fi
+
+if [[ ! ${uuid} ]]; then
+  die "No book UUID specified. specify a book UUID as the 2nd argument when running this script"
+fi
+
+data_dir='./data/'
+temp_dir=${data_dir}/zips/
+
+[[ -d ${temp_dir} ]] || try mkdir -p "${temp_dir}"
+
+zip_file=${temp_dir}/${uuid}.zip
+json_download_file=${temp_dir}/${uuid}.download.json
+json_book_file=${temp_dir}/${uuid}.book.json
+uuid_dir=${temp_dir}/${uuid}
+book_dir=${data_dir}/${book_name}
+
+
+do_progress "Find the latest version of ${book_name}"
+try curl --progress-bar --location http://archive.cnx.org/extras/${uuid} > ${json_download_file}
+try curl --progress-bar --location http://archive.cnx.org/contents/${uuid} > ${json_book_file}
+
+# do_progress "Find the version number"
+version_number=$(cat ${json_book_file} | jq --raw-output '.version')
+do_progress "Version number is ${version_number}"
+
+if [ "${version_number}" = "" ]; then
+  die "There was a problem downloading the JSON file. This is a bug that should be reported to ops"
+fi
+
+# do_progress "Find the URL for the latest version of the ZIP"
+zip_url=$(cat ${json_download_file} | jq --raw-output '.downloads | map(select(.format == "Offline ZIP")) | .[0].path')
+zip_url="http://cnx.org${zip_url}"
+
+
+do_progress "Follow redirects and download the zip file at ${zip_url}"
+try curl --progress-bar --location ${zip_url} > ${zip_file}
+
+do_progress "Clear the dir before unzipping (so it does not prompt)"
+try rm -rf ${uuid_dir}
+
+do_progress "Unzip the file"
+try unzip -o ${zip_file} -d ${uuid_dir} > /dev/null
+
+do_progress "Move the dir to ${book_dir}"
+[[ -d ${book_dir} ]] && try rm -rf "${book_dir}"
+try mkdir -p "${book_dir}"
+
+try mv "${uuid_dir}"/col*_complete/* "${book_dir}"

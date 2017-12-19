@@ -35,20 +35,29 @@ else
     ./script/build-css $1
 
   do_progress_quiet "Building PDF from ${source_dir} (~5min. use DEBUG=true for progress)" \
-    ./script/_build-pdf -d "${source_dir}" -s "${template_name}" -t "${temp_dir}" $2 $3 "${pdf_name}"
+    ./script/_build-pdf -d "${source_dir}" -s "${template_name}" -t "${temp_dir}" $3 "${pdf_name}"
+
+  if [[ $2 ]]; then
+    xhtml_filename="$2"
+    _say "Saving XHTML file to ${temp_dir}/${xhtml_filename}"
+    try mv ${temp_dir}/collection.xhtml ${temp_dir}/${xhtml_filename}
+  else
+    xhtml_filename="collection.xhtml"
+  fi
+  xhtml_path="${temp_dir}/${xhtml_filename}"
 
   progress "Adding CSS reference into XHTML file for debugging"
-  sed -ir "s|</head>|<link rel=\"stylesheet\" type=\"text/css\" href=\"../../css/ccap-$1.css\" /></head>|" "${temp_dir}/collection.xhtml"
+  try sed -ir "s|</head>|<link rel=\"stylesheet\" type=\"text/css\" href=\"../../css/ccap-$1.css\" /></head>|" "${xhtml_path}"
 
-  _say "${c_green}Finished building PDF.${c_none} Opening now"
-  _say "You can also view the XHTML file used to generate the PDF at ${temp_dir}/collection.xhtml"
-  if [[ $(which open) ]]; then
-    open "${pdf_name}"
-  fi
-
-  if [[ $(which say) ]]; then
-    # there is a say bash function so we need to use the bin version
-    $(which say) "Put down your cocktail. $1 PDF is done."
-  fi
+  # _say "${c_green}Finished building PDF.${c_none} Opening now"
+  # _say "You can also view the XHTML file used to generate the PDF at ${xhtml_path}"
+  # if [[ $(which open) ]]; then
+  #   open "${pdf_name}"
+  # fi
+  #
+  # if [[ $(which say) ]]; then
+  #   # there is a say bash function so we need to use the bin version
+  #   $(which say) "Put down your cocktail. $1 PDF is done."
+  # fi
 
 fi

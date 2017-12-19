@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+cd "$(dirname "$0")/.."
+
+source ./script/bootstrap || exit 1
+
+book_name=${1}
+
+if [[ ! ${book_name} || ! -d "./data/${book_name}/" ]]; then
+  if [[ -d "./data/" && $(ls ./data/) ]]; then
+    echo "A valid book name (directory in ./data/) needs to be specified. Valid options are:"
+    echo $(ls ./data/)
+    exit 1
+  else
+    die "No source files in ./data/ exist. Please unzip a complete zip and name it something that matches one of the ccap-* names (without the ccap- prefix)"
+  fi
+else
+
+  try ./script/build-pdf ${book_name} "collection.prepared.xhtml"
+fi

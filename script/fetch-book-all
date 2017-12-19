@@ -1,0 +1,10 @@
+#!/bin/bash
+cd "$(dirname "$0")/.."
+source ./script/bootstrap || exit 1
+
+for config in "${BOOK_CONFIGS[@]}"; do
+  read -r uuid collection_id style_name _ <<< "${config}"
+
+  do_progress_quiet "Fetching ${style_name}" \
+    ./script/fetch-book "${style_name}" "${uuid}"
+done

@@ -7,7 +7,8 @@ brew "libxslt"
 brew "memcached"
 brew "python"
 brew "yarn"
-# Required by Python Image library
-brew "openjpeg"
+
+brew "openjpeg" # Required by Python Image library
+brew "jq" # Required by ./script/fetch-book
 
 cask "prince"
