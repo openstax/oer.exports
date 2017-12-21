@@ -19,6 +19,6 @@ for config in "${BOOK_CONFIGS[@]}"; do
   elif [[ ${odd_even} == "odd" && $((count%2)) == 0 ]]; then
     continue
   fi
-  do_progress_quiet "Building ${style_name} [size:$(stat -f%z out/${style_name}-temp/collection.prepared.xhtml)]" \
+  do_progress_quiet "Building ${style_name}" \
     "$(npm bin)/css-plus" --diffmodeclassnames --timeout 0 --html "./out/${style_name}-temp/collection.prepared.xhtml" --css "./css/ccap-${style_name}.css" --output "./out/${style_name}-temp/collection.prepared.out.xhtml"
 done

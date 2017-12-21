@@ -209,6 +209,11 @@ module.exports = (grunt) ->
 
   # Used for lessc compiling
   allBooks = [
+    'entrepreneurship'
+    'accounting'
+    'business-ethics'
+    'intro-business'
+    'principles-management'
     'astronomy'
     'astronomy-print'
     'american-government'
