@@ -111,32 +111,32 @@ To automatically rebuild the CSS files when you edit a `.less` file, run:
 
 To generate a PDF of a book run `./script/grunt shell:pdf:{BOOK_NAME}` where `{BOOK_NAME}` is configured in `./config.yml`. This will also create a directory in `./testing/` which contains the generated HTML file for development.
 
-## Generate HTML+CSS Diff
+## Diff the Books
 
 You can compare your CSS/XSLT changes against a book generated using the `master` branch by doing a couple of steps.
-First, you will need to switch to the master branch and `prepare` a baked HTML file of the book.
+First, you will need to switch to the master branch and **prepare** a "cooked" XHTML file of the book.
 
-**NOTE:** you will only need to `prepare` a book whenever the `master` branch updates!
+**NOTE:** you will only need to prepare a book whenever the `master` branch updates!
 
-Then, you can switch back to the development branch and generate a `diff`.
+Then, you can switch back to the development branch and compare it to what was prepared earlier.
 
 Below is an example (assuming the book is named `calculus` and the development branch is named `dev-branch`):
 
-    # Switch to master
-    git checkout master
+```sh
+# Switch to master
+git checkout master
 
-    # Make sure an entry for calculus is in config.yml
-    cat ./config.yml | grep calculus
+# Download the content for the calculus book (see ./books.txt)
+./script/fetch-book calculus
 
-    # "prepare" the baked file for diffing later
-    ./script/grunt prepare:calculus
+# "prepare" the PDF and XHTML files for diffing later
+./script/diff-book-prepare calculus
 
-    git checkout dev-branch
+git checkout dev-branch
 
-    # Generate the diff'd HTML file
-    ./script/grunt diff:calculus
-
-    # View the changes by going to ./testing/calculus-diff.xhtml
+# Generate the PDF and XHTML files and see if there are any differences
+./script/diff-book calculus
+```
 
 That's it! If you want to generate diffs of all the books, you can drop the `:calculus` from `./script/grunt prepare` and `./script/grunt diff`.
 
