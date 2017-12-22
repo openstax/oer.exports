@@ -46,6 +46,7 @@ else
   pdf_file_before="./out/${book_name}.prepared.pdf"
   pdf_file_after="./out/${book_name}.pdf" # created in ./script/build-pdf
 
+  xhtml_file_before="./out/${book_name}-temp/collection.prepared.xhtml" # created in ./script/diff-book-prepare
   xhtml_file_after="./out/${book_name}-temp/collection.xhtml" # created in ./script/build-pdf
   xhtml_and_css_file_after="./out/${book_name}-temp/collection.out.xhtml"
 
@@ -73,19 +74,44 @@ else
 
   check_file_exists "${xhtml_file_after}" "Report this as a bug"
 
-  do_progress_quiet "Building XHTML with CSS 'baked in'" \
-    "$(npm bin)/css-plus" --diffmodeclassnames --nostrict --timeout 0 --html "${xhtml_file_after}" --css "${css_path}" --output "${xhtml_and_css_file_after}"
+  [[ -d "./out/${book_name}-temp/after-pages/" ]] && try rm -rf "./out/${book_name}-temp/after-pages/"
+  [[ -d "./out/${book_name}-temp/_after-pages/" ]] && try rm -rf "./out/${book_name}-temp/_after-pages/"
 
-  check_file_exists "${xhtml_and_css_file_after}" "Report this as a bug"
+  # create the directory for the PDF images if it does not exist
+  [[ -d "./out/${book_name}-temp/_after-pages/" ]] || try mkdir -p "./out/${book_name}-temp/_after-pages/"
 
-  # pretty-print the XHTML files so it is easier to diff
-  try xmllint --pretty 2 --output "${xhtml_file_pretty_after}"          "${xhtml_file_after}"
-  try xmllint --pretty 2 --output "${xhtml_and_css_file_pretty_after}"  "${xhtml_and_css_file_after}"
+  do_progress_quiet "Generating images for each page in the PDF" \
+    convert "${pdf_file_after}" "./out/${book_name}-temp/_after-pages/page-%04d.png"
 
-  # Diff the files and report when an error occurs
-  diff_files "PDF"        "${pdf_file_before}" "${pdf_file_after}"
-  diff_files "XHTML"      "${xhtml_and_css_file_pretty_before}" "${xhtml_and_css_file_pretty_after}"
-  diff_files "XHTML+CSS"  "${xhtml_file_pretty_before}" "${xhtml_file_pretty_after}"
+  # do_progress_quiet "Building XHTML with CSS 'baked in'" \
+  #   "$(npm bin)/css-plus" --diffmodeclassnames --nostrict --timeout 0 --html "${xhtml_file_after}" --css "${css_path}" --output "${xhtml_and_css_file_after}"
+  #
+  # check_file_exists "${xhtml_and_css_file_after}" "Report this as a bug"
+  #
+  # # pretty-print the XHTML files so it is easier to diff
+  # try xmllint --pretty 2 --output "${xhtml_file_pretty_after}"          "${xhtml_file_after}"
+  # try xmllint --pretty 2 --output "${xhtml_and_css_file_pretty_after}"  "${xhtml_and_css_file_after}"
+  #
+  # # Diff the files and report when an error occurs
+  # diff_files "PDF"        "${pdf_file_before}" "${pdf_file_after}"
+  # diff_files "XHTML"      "${xhtml_and_css_file_pretty_before}" "${xhtml_and_css_file_pretty_after}"
+  # diff_files "XHTML+CSS"  "${xhtml_file_pretty_before}" "${xhtml_file_pretty_after}"
+
+  do_progress "Checking if all the images match"
+  # Check that the images exist
+  [[ -f "./out/${book_name}-temp/_prepared-pages/page-0000.png" ]] || die "Problem looping over the prepared pages. Try running ./script/diff-book-prepare ${book_name}"
+  for image_file in $(cd "./out/${book_name}-temp/_prepared-pages" && ls *.png); do
+    # Skip the 1st page because it contains a timestamp
+    if [[ ${image_file} == 'page-0000.png' ]]; then
+      continue
+    fi
+    # Compare the 2 images (from https://www.imagemagick.org/Usage/compare/#statistics)
+    compare -metric AE "./out/${book_name}-temp/_prepared-pages/${image_file}" "./out/${book_name}-temp/_after-pages/${image_file}" null: 2> /dev/null
+    exit_status=$?
+    if [[ ${exit_status} != 0 ]]; then
+      die "First mismatched screen occurred at './out/${book_name}-temp/_prepared-pages/${image_file}'"
+    fi
+  done
 
   if [[ ${has_differences} == 0 ]]; then
     _say "${c_green}Yay! There were no differences between the PDFs, the XHTML, and the XHTML+CSS${c_none}"
