@@ -20,13 +20,6 @@ div.table {
     .line-height();
     // If a table spans more than 1 page then put caption on all following pages
     prince-caption-page: all;
-    //rounded corners
-    div.table table tbody tr:last-child td:first-child,
-    div.table table tbody tr:last-child td:last-child,
-    div.table table thead tr:first-of-type th:last-of-type,
-    div.table table thead tr:first-of-type th:last-of-type {
-      border-radius: @border-radius;
-    }
     //table head
     thead {
       //#content>#table>#head>.style(any; any);
@@ -62,6 +55,14 @@ div.table {
       tr:first-of-type th {
         //#content>#table>#header>#title>.text(any; any);
         .table-header-style();
+
+        //rounded corners
+        &:first-child {
+          border-radius: 5px 0px 0px 0px;
+        }
+        &:last-child {
+          border-radius: 0px 5px 0px 0px;
+        }
       }
       tr:not(first-child) {
         .table-2d-header-style();
