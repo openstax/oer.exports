@@ -49,10 +49,16 @@ do_progress "Clear the dir before unzipping (so it does not prompt)"
 try rm -rf ${uuid_dir}
 
 do_progress "Unzip the file"
-try unzip -o ${zip_file} -d ${uuid_dir} > /dev/null
+
+try
+  unzip -o ${zip_file} -d ${uuid_dir} > /dev/null
 
 do_progress "Move the dir to ${book_dir}"
 [[ -d ${book_dir} ]] && try rm -rf "${book_dir}"
 try mkdir -p "${book_dir}"
 
-try mv "${uuid_dir}"/col*_complete/* "${book_dir}"
+if mv "${uuid_dir}"/col*_complete/* "${book_dir}"; then
+  echo "Success!"
+else
+  die "There was an error downloading the .zip file for ${book_name} from ${zip_url}, it may be missing from server. Please report this to book tools team."
+fi
