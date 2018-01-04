@@ -52,7 +52,7 @@
         <db:colophon class="end-of-book-solutions"><db:title>Solutions</db:title><ext:end-of-book-solutions-placeholder/></db:colophon>
         <db:colophon class="end-of-book-references"><db:title>References</db:title><ext:end-of-book-references-placeholder/></db:colophon>
         <db:index/>
-        <db:colophon>
+        <db:colophon class="end-of-book-attributions">
             <xsl:attribute name="xml:id">
                 <xsl:value-of select="$attribution.section.id"/>
             </xsl:attribute>
@@ -254,7 +254,7 @@
             </xsl:for-each>
         </db:colophon>
         <xsl:if test="$cnx.site-type = 'Connexions'">
-            <db:colophon>
+            <db:colophon class="end-of-book-about-connexions">
                 <db:title>About Connexions</db:title>
                 <db:para>
                     Since 1999, Connexions has been pioneering a global system where anyone can create course materials and make them fully accessible and easily reusable free of charge. We are a Web-based authoring, teaching and learning environment open to anyone interested in education, including students, teachers, professors and lifelong learners. We connect ideas and facilitate educational communities. Connexions's modular, interactive courses are in use worldwide by universities, community colleges, K-12 schools, distance learners, and lifelong learners. Connexions materials are in many languages, including English, Spanish, Chinese, Japanese, Italian, Vietnamese, French, Portuguese, and Thai. 
