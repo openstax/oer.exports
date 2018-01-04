@@ -12,13 +12,6 @@
 @tables: science;
 .tables(@tables);
 
-@cnx-string-chapter: "Chapter";
-@cnx-string-introduction: "Introduction";
-@cnx-string-chapter-outline: "Chapter Outline";
-@cnx-string-learning-objectives: "Learning Objectives";
-@cnx-string-key-equations: "Key Equations";
-@cnx-string-key-concepts: "Key Concepts";
-
 .x-header-spacing() {
   padding-bottom: 0;
   margin-bottom: 6.6px;
@@ -99,7 +92,7 @@
   #introduction {
     #title {
       .style(...) {
-        content: @cnx-string-introduction;
+        #l10n>.content-string(introduction; page-title);
         color: @dark-blue;
         border-bottom-color: @orange;
         border-bottom-width: 1px;
@@ -137,7 +130,7 @@
         .style(...) {
           #utils>#pb>.after(avoid);
           #utils>#pb>.before(avoid);
-          content: @cnx-string-chapter-outline;
+          #l10n>.content-string(chapter-outline; page-title);
           width: 100%;
           color: @light-red;
           text-align: left;
@@ -193,7 +186,7 @@
         padding-top: .35em;
       }
       .number() {
-        content: @cnx-string-chapter " " content();
+        #l10n>.content-string(chapter; page-title; content());
         font-size: 18pt;
         font-weight: 700;
         color: @red;
@@ -300,7 +293,7 @@
       }
       #title {
         .style(...) {
-          content: @cnx-string-key-equations;
+          #l10n>.content-string(key-equations; page-title);
         }
       }
     }
@@ -311,7 +304,7 @@
       }
       #title {
         .style(...){
-          content: @cnx-string-summary;
+          #l10n>.content-string(summary; page-title);
           padding-bottom: 0;
           margin-bottom: 1em;
           .x-header-spacing();
@@ -330,7 +323,7 @@
       }
       #title {
         .style(...) {
-          content: @cnx-string-exercises;
+          #l10n>.content-string(exercises; page-title);
           column-span: all;
           color: @dark-blue;
           font-size: 13pt;
@@ -366,7 +359,7 @@
       }
       #title {
         .style(...) {
-          content: @cnx-string-review-questions;
+          #l10n>.content-string(review-questions; page-title);
           column-span: all !important; // added override to resolve bug on staging where titles
           margin-bottom: 1em;
           -webkit-column-span: all; /* Chrome, Safari, Opera */
@@ -412,8 +405,8 @@
       .style('critical-thinking') { display: inline; }
       #title {
         .style() {
-          content: "Answer Key";
-          string-set: cnx-header "Answer Key";
+          #l10n>.content-string(answer-key; page-title);
+          #l10n>.named-string(cnx-header; answer-key; page-title);
           margin-left: 0; // reset precalc margin.
           margin-top: 0;
           padding-top: 0;
@@ -1117,7 +1110,7 @@
     .number('step-list'; any) {
       font-style: italic;
       font-weight: bold;
-      content: "Step " counter(steplist) '. ';
+      #l10n>.content-string(step; step-list-item; steplist);
       padding-right: 1em;
       display: inline-block !important; // !important used to override numbering base.
     }
@@ -1234,7 +1227,7 @@
     #title {
       .style() {}
       .style(any; any; exercise; example) {
-        content: "Solution";
+        #l10n>.content-string(solution; solution-title);
         font-family: @font-family;
         font-size: 10pt;
         color: @dark-blue;
@@ -1291,7 +1284,7 @@
       }
       #title {
         .style(...) {
-          content: "Key Terms";
+          #l10n>.content-string(key-terms; page-title);
           margin-left: 0;
          font-weight: bold;
          padding: 0em !important;

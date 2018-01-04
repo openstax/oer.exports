@@ -1,10 +1,8 @@
-@import 'l10n.less';
-
 #l10n {
   .page-title(@part;    @counter; @title) {}
-  .page-title(preface;  @counter; @title) { string-set: cnx-header @DEBUG_START @Preface  " " @counter " | " @title @DEBUG_END; }
-  .page-title(chapter;  @counter; @title) { string-set: cnx-header @DEBUG_START @Chapter  " " @counter " | " @title @DEBUG_END; }
-  .page-title(appendix; @counter; @title) { string-set: cnx-header @DEBUG_START @Appendix " " @counter " | " @title @DEBUG_END; }
+  .page-title(preface;  @counter; @title) { string-set: cnx-header @DEBUG_START "Słowo wstępne " @counter " | " @title @DEBUG_END; }
+  .page-title(chapter;  @counter; @title) { string-set: cnx-header @DEBUG_START "Rozdział " @counter " | " @title @DEBUG_END; }
+  .page-title(appendix; @counter; @title) { string-set: cnx-header @DEBUG_START "Dodatek " @counter " | " @title @DEBUG_END; }
 
   .x-content-counter(@part;    @before; @after) {}
   .x-content-counter(preface;  @before; @after) { content: @DEBUG_START @before @after @DEBUG_END; }
@@ -56,4 +54,55 @@
   }
   .xref-label(toc;    chapter;    @counter) { content: @DEBUG_START "Rozdział " @counter @DEBUG_END; }
   .xref-label(toc;    appendix;   @counter) { content: @DEBUG_START "Dodatek " @counter @DEBUG_END ": "; }
+
+  .content-string(check-understanding;          eob-solutions) { content: "Sprawdź, czy rozumiesz"; }
+  .content-string(review-conceptual-questions;  eob-solutions) { content: "Pytania"; }
+  .content-string(review-problems;              eob-solutions) { content: "Zadania"; }
+  .content-string(additional-problems;          eob-solutions) { content: "Zadania dodatkowe"; }
+  .content-string(review-challenge;             eob-solutions) { content: "Zadania trudniejsze"; }
+  .content-string(introduction;                 page-title)     { content: "Wstęp"; }
+  .content-string(chapter-outline;              page-title)     { content: "Treść rozdziału"; }
+  .content-string(learning-objectives;          page-title)     { content: "Cel dydaktyczny"; }
+  .content-string(key-terms;                    page-title)     { content: "Kluczowe pojęcia"; }
+  .content-string(key-equations;                page-title)     { content: "Najważniejsze wzory"; }
+  .content-string(answer-key;                   page-title)     { content: "Rozwiązania zadań"; }
+  .content-string(appendix;                     page-title)     { content: "Dodatek"; }
+  .content-string(chapter;                      page-title; @title) {
+    content: "Rozdział " @title;
+  }
+  .content-string(chapter-review;               page-title; @counter) {
+    content: "Podsumowanie rozdziału " counter(@counter, decimal);
+  }
+  .content-string(step;                         step-list-item; @counter) { content: "Krok " counter(@counter, decimal) ". "; }
+  .content-string(example; problem-title; @example; @chapter; @title) {
+    content: "Przykład " counter(@chapter, decimal) "." counter(@example) " " @title;
+  }
+  .content-string(number-chapter; figure; @figure; @chapter) {
+    content: "Rysunek " counter(@chapter, decimal) "." counter(@figure) " ";
+  }
+  .content-string(number-appendix; figure; @figure; @appendix) {
+    content: "Rysunek " counter(@appendix, upper-alpha) counter(@figure);
+  }
+  .content-string(solution;     solution-title) { content: "Rozwiązanie"; }
+  .content-string(open-quote;   blockquote)     { content: "\201E"; }
+  .content-string(close-quote;  blockquote)     { content: "\201D"; }
+  .content-string(page-title;     index)        { content: "Skorowidz rzeczowy"; }
+  .content-string(page-title;     name-index)   { content: "Skorowidz nazwisk"; }
+  .content-string(page-title;     foreign-index){ content: "Skorowidz terminów obcojęzycznych"; }
+  .content-string(book-url;     page-footer; @url) {
+    content: "Ten podręcznik OpenStax jest dostępny za darmo pod " @url;
+  }
+
+  .named-string(@key; answer-key; page-title) { string-set: @key "Rozwiązania zadań"; }
+  .named-string(@key; page-title; table-of-contents)  { string-set: @key "Spis rzeczy"; }
+  .named-string(@key; page-title; name-index) { string-set: @key "Skorowidz nazwisk"; }
+  .named-string(@key; page-title; index)      { string-set: @key "Skorowidz rzeczowy"; }
+  .named-string(@key; page-title; foreign-index) { string-set: @key "Skorowidz terminów obcojęzycznych"; }
+  .named-string(@key; page-title; preface) { string-set: @key "Przedmowa"; }
+  .named-string(@key; page-title; chapter; @counter; @title) {
+    string-set: @key "Rozdział " counter(@counter, decimal) " | " @title;
+  }
+  .named-string(@key; page-title; appendix; @counter) {
+    string-set: @key "Dodatek " counter(@counter, upper-latin);
+  }
 }
