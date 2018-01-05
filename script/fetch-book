@@ -57,8 +57,8 @@ do_progress "Move the dir to ${book_dir}"
 [[ -d ${book_dir} ]] && try rm -rf "${book_dir}"
 try mkdir -p "${book_dir}"
 
-if mv "${uuid_dir}"/col*_complete/* "${book_dir}"; then
-  echo "Success!"
-else
-  die "There was an error downloading the .zip file for ${book_name} from ${zip_url}, it may be missing from server. Please report this to book tools team."
-fi
+move_command() {
+  mv "${uuid_dir}"/col*_complete/* "${book_dir}" && echo "Success!"
+}
+
+move_command || die "There was an error downloading the .zip file for ${book_name} from ${zip_url}, it may be missing from server. Please report this to book tools team."
