@@ -1,0 +1,132 @@
+/* -------------------------
+ * End of chapter customizations
+ * ------------------------
+ */
+//key terms
+.chapter .glossary {
+    //#part>#glossary>.style(chapter);
+    #utils>#pb>.before(always);
+    display: inline;
+    .titlepage h2 {
+        // #part>#glossary>#title>.style(chapter);
+        .moduleTitles(@glossary-title-color,
+        @key-terms-icon);
+        .cnx-gentext-glossary.cnx-gentext-t {
+            content: @cnx-string-key-terms;
+        }
+    }
+    dl {
+        //#part>#glossary>.style(chapter);
+        display: inline;
+        dt {
+            //#part>#glossary>.term(chapter);
+            line-height: 1.5em;
+            .font-scale(0);
+            &::after {
+                //#part>#glossary>.divider(chapter);
+            }
+        }
+        dd {
+            // #part>#glossary>.definition(chapter);
+            margin-left: 0px;
+            line-height: 1.5em;
+            .font-scale(0);
+        }
+    }
+}
+
+.cnx-eoc {
+    margin-bottom: 2em;
+    >.title {
+        .moduleTitles(@eoc-titles-color);
+        span {
+            .font-scale(2);
+            padding-left: 0px;
+            font-family: @font-family-titles;
+        }
+    } //summary
+    .section {
+        .title a:link {
+            .font-scale(0);
+            .link-no-border-style (@eoc-subtitles-color); //overriding .link-style
+            border-bottom: none;
+        }
+    }
+    &.key-terms {
+        >.title {
+            .moduleTitles(@eoc-titles-color,
+            @key-terms-icon);
+        }
+    }
+    &.section-summary,
+    &.summary {
+        //#part>#chapter-end>#summary>.style();
+        >.title {
+            // #part>#chapter-end>#summary>#title>.style();
+            .moduleTitles(@eoc-titles-color,
+            @eoc-summary-icon);
+            span {
+                // override a * selector...
+                padding-left: 0;
+                .font-scale(2);
+            }
+        }
+        >.section>.title {
+            //#part>#chapter-end>#summary>#subtitle>.style(any; chapter-end; section);
+            display: block;
+            padding-top: 0;
+        }
+        >.section .title>a {
+            // #part>#chapter-end>#summary>#title>.link();
+            font-family: @font-family;
+            .font-scale(0);
+            .link-no-border-style(@eoc-subtitles-color);
+        }
+        p:nth-of-type(1) {
+            margin-top: 1em;
+        }
+    } //EOC solutions
+    &.references {
+        >.title {
+            .moduleTitles(@eoc-titles-color,
+            @eoc-references-icon);
+        }
+    }
+    &.figure-credits {
+        >.title {
+            .moduleTitles(@eoc-titles-color,
+            @eoc-figure-credit-icon);
+        }
+    }
+    &.cnx-solutions {
+        display: none; //slots & skeleton below to be converted if necessary
+        //     //#content>#solution>.style(@kind; chapter);
+        //     > .section .title > a { #content>#solution>#title>.link(); }
+        //     p:nth-of-type(1) { margin-top: 1em; }
+        //   }
+        //   .problem ol {
+        //     #content>#list>.style(any; any; problem; exercise);
+        //   }
+        //   .problem::before {
+        //     #content>#problem>.number(@kind; chapter-end);
+        //   }
+        //   .empty {
+        //     display: hidden; // hide, but count, empty elements.
+        //     #content>#section>.style("empty"; chapter-end);
+        //   }
+        //   .exercise div.body div.problem .figure { #content>#figure>.style(any; chapter-end; exercise); }
+    }
+    &.key-terms {
+        .listitem {
+            list-style: none;
+        }
+    }
+    &.suggested-resources>div.section>div.body {
+        p,
+        table>tr>td {
+            // border: 1px solid lime;
+            text-indent: -1em;
+            padding-left: 10px;
+        }
+    }
+}

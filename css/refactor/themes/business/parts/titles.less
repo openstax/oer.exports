@@ -1,0 +1,70 @@
+/* ---------------------------------------------------
+ * cnx-title
+ * ---------------------------------------------------
+ */
+.cnx-title h1 {
+    font-family: @font-family-titles;
+} //global ugly overrides
+.chapter,
+.appendix,
+.colophon,
+.preface {
+    #utils>#pb>.before(auto);
+    #utils>#pb>.after(auto);
+}
+.book>.chapter,
+.book>.appendix,
+.book>.colophon,
+.book>.preface,
+.book>.part>.chapter,
+.book>.part>.appendix,
+.book>.part>.colophon,
+.book>.part>.preface {
+    page-break-before: right !important;
+    page-break-after: left !important;
+}
+
+
+
+/* -------------------------
+ * Styling for Module (Page) Titles
+ * ------------------------
+ */
+div.chapter>div.section {
+    >div.titlepage h2,
+    >div.titlepage h3 {
+        //#part>#module>#title>.style();
+        font-family: @font-family;
+        color: @module-title-color;
+        .font-scale(2);
+        font-weight: 600;
+        margin-bottom: 1em;
+        &::before {
+            //#part>#module>#title>.number();
+            border: @module-number-border;
+            padding: 3px 4px;
+            .font-scale(-1);
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        span.cnx-gentext-n {
+            display: none;
+        }
+        span.cnx-gentext-t {
+            //#part>#module>#title>.text();
+            top: 3px;
+        }
+    }
+    div.titlepage h4 {
+      font-size: @base-font-size;
+    }
+    //subsections (h3)
+    >div.section {
+        //#content>#section>.style(any; any);
+        div.titlepage>div>div>h3 {
+            //#content>#section>#title>.style(any; any);
+            margin-top: 1em;
+            color: @subsection-title-color;
+        }
+    }
+}

@@ -1,0 +1,50 @@
+
+/* ---------------------------------------------------
+ * Citations
+ * ---------------------------------------------------
+ */
+.chapter a.link.cite::before {
+    content: target-counter(attr(href), references);
+    .scripts(sup);
+    font-weight: 100;
+}
+div.end-of-book-references {
+    // #part>#book-end>#end-of-book-references>.style();
+    margin-left: 0;
+    text-indent: 0em;
+    text-align: left;
+    display: inline;
+    >.chapter-area {
+        // #part>#book-end>#end-of-book-references>#chapter-area>.style();
+        counter-reset: references;
+        margin-bottom: 1em;
+        >.title {
+            display: none;
+        }
+        >.body>.section-area {
+            .scale-padding(0,
+            margin-bottom);
+            .title {
+                sup {
+                    display: none;
+                }
+                color: @eob-title-color;
+                font-weight: bold;
+            }
+            p {
+                display: inline
+            }
+        }
+        >.body>.section-area .note.reference {
+            // #part>#book-end>#end-of-book-references>#chapter-area>#note>.style(any; any);
+            margin: 0 0 .5em 0;
+            padding: 0px;
+            counter-increment: references;
+            >.body::before {
+                // #part>#book-end>#end-of-book-references>#reference>.number();
+                content: counter(references) ".";
+                padding-right: .5em;
+            }
+        }
+    }
+}
