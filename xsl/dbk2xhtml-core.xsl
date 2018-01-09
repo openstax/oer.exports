@@ -829,7 +829,11 @@ Combination of formal.object and formal.object.heading -->
     <xsl:apply-templates select="." mode="label.markup"/>
   </xsl:variable>
 
-      <a href="#{$id}" class="target-{local-name()}">
+  <xsl:variable name="class">
+    <xsl:apply-templates select="." mode="toc.line.class"/>
+  </xsl:variable>
+
+      <a href="#{$id}" class="{$class}">
 
 <!-- CNX: Add the word "Chapter" or Appendix in front of the number. TODO: Dump this junk -->
         <xsl:if test="self::db:appendix or self::db:chapter">
@@ -853,6 +857,19 @@ Combination of formal.object and formal.object.heading -->
           <xsl:apply-templates select="." mode="title.markup"/>
         </span>
       </a>
+</xsl:template>
+
+<xsl:template match="*" mode="toc.line.class">
+  <xsl:text>target-</xsl:text>
+  <xsl:value-of select="local-name()"/>
+</xsl:template>
+
+<!-- Add "target-index-@type" to TOC entries for typed indexes -->
+<xsl:template match="db:index[@type]" mode="toc.line.class">
+  <xsl:text>target-</xsl:text>
+  <xsl:value-of select="local-name()"/>
+  <xsl:text> target-index-</xsl:text>
+  <xsl:value-of select="@type"/>
 </xsl:template>
 
 <!-- Output the PNG with the baseline info -->
@@ -1848,7 +1865,30 @@ Example:
 <!-- CNX: end -->
 </xsl:template>
 
+<!-- Include colophons in the TOC -->
+<xsl:template name="division.toc">
+  <xsl:param name="toc-context" select="."/>
+  <xsl:param name="toc.title.p" select="true()"/>
 
+  <xsl:choose>
+    <xsl:when test="/db:book/@ext:toc-include-colophons">
+      <!-- Same as docbook's autotoc.xsl + d:colophon -->
+      <xsl:call-template name="make.toc">
+        <xsl:with-param name="toc-context" select="$toc-context"/>
+        <xsl:with-param name="toc.title.p" select="$toc.title.p"/>
+        <xsl:with-param name="nodes" select="d:colophon|d:part|d:reference|d:preface|d:chapter|d:appendix|d:article|d:topic|d:bibliography|d:glossary|d:index|d:refentry|d:bridgehead[$bridgehead.in.toc != 0]"/>
+      </xsl:call-template>
+    </xsl:when>
+    <xsl:otherwise>
+      <!-- Same as docbooks autotoc.xsl -->
+      <xsl:call-template name="make.toc">
+        <xsl:with-param name="toc-context" select="$toc-context"/>
+        <xsl:with-param name="toc.title.p" select="$toc.title.p"/>
+        <xsl:with-param name="nodes" select="d:part|d:reference|d:preface|d:chapter|d:appendix|d:article|d:topic|d:bibliography|d:glossary|d:index|d:refentry|d:bridgehead[$bridgehead.in.toc != 0]"/>
+      </xsl:call-template>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
 
 <!-- Generate a custom TOC (both for the book and chapters) -->
 <!-- From docbook-xsl/xhtml/autotoc.xsl -->
@@ -1907,6 +1947,21 @@ Example:
   </li>
 </xsl:template>
 
+<!-- TOC entry for colophons. -->
+<!-- Create only entry line, with same classes as target part,
+     and without listing content. -->
+<xsl:template match="db:colophon" mode="toc">
+  <xsl:variable name="class">
+    <xsl:value-of select="./@class"/>
+  </xsl:variable>
+
+  <li class="{$class}">
+    <xsl:apply-templates select="." mode="toc.line">
+      <xsl:width-param name="toc-context" select="."/>
+    </xsl:apply-templates>
+  </li>
+</xsl:template>
+
 <xsl:template match="db:section[key('cnx.eoc-key', @class)]" mode="toc" />
 
 <xsl:template match="*" mode="toc.line">
@@ -1923,6 +1978,16 @@ Example:
     <li class="abstract">
       <xsl:apply-templates select="d:sectioninfo/d:abstract/node()"/>
     </li>
+  </xsl:if>
+</xsl:template>
+
+<!-- For typed indexes add type as class -->
+<xsl:template match="db:index" mode="class.value">
+  <xsl:param name="class"/>
+
+  <xsl:value-of select="$class"/>
+  <xsl:if test="@type">
+    <xsl:text> index-</xsl:text><xsl:value-of select="@type"/>
   </xsl:if>
 </xsl:template>
 

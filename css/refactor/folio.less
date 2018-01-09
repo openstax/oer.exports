@@ -1,9 +1,3 @@
-@cnx-string-preface: "Preface";
-@cnx-string-chapter: "Chapter";
-@cnx-string-appendix: "Appendix";
-@cnx-string-introduction: "Introduction";
-@cnx-string-index: "Index";
-
 /* -------------------------
  * Table of Contents
  * -------------------------
@@ -21,7 +15,7 @@ div.book div.preface {
 
   > .titlepage {
     h1.title {
-      string-set: cnx-header @cnx-string-preface;
+      #l10n>.named-string(cnx-header; page-title; preface);
     }
   }
 }
@@ -32,7 +26,7 @@ div.book div.preface {
  */
 div.book div.chapter > div.titlepage > div > div h1.title {
   span.cnx-gentext-t {
-    string-set: cnx-header "@{cnx-string-chapter} " counter(chapter, decimal)  " | " content();
+    #l10n>.named-string(cnx-header; page-title; chapter; chapter; content());
   }
 }
 
@@ -42,7 +36,7 @@ div.book div.chapter > div.titlepage > div > div h1.title {
  */
 div.book > div.appendix > div.titlepage > div > div h1.title {
   span.cnx-gentext-t {
-    string-set: cnx-header "@{cnx-string-appendix} " counter(appendix, upper-latin);
+    #l10n>.named-string(cnx-header; page-title; appendix; appendix);
   }
 }
 
@@ -51,5 +45,5 @@ div.book > div.appendix > div.titlepage > div > div h1.title {
  * -------------------------
  */
  div.book div.index div.title h2 {
-   string-set: cnx-header @cnx-string-index;
+  #l10n>.named-string(cnx-header; page-title; index);
  }

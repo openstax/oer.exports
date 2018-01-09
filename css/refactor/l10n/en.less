@@ -1,5 +1,3 @@
-@import 'l10n.less';
-
 @Appendix:  "Appendix";
 @Chapter:   "Chapter";
 @Equation:  "Equation ";
@@ -59,4 +57,67 @@
   .xref-label(@part;  table;      @counter) { .x-content-target-counter(@part; @Table;    @counter); }
   .xref-label(toc;    appendix;   @counter) { content: @DEBUG_START "Appendix " @counter @DEBUG_END ": "; }
   .xref-label(toc;    chapter;    @counter) { content: @DEBUG_START "Chapter " @counter @DEBUG_END; }
+
+  .content-string(check-understanding;          eob-solutions)  { content: "Check Your Understanding"; }
+  .content-string(review-conceptual-questions;  eob-solutions)  { content: "Conceptual Questions"; }
+  .content-string(review-problems;              eob-solutions)  { content: "Problems"; }
+  .content-string(additional-problems;          eob-solutions)  { content: "Additional Problems"; }
+  .content-string(review-challenge;             eob-solutions)  { content: "Challenge Problems"; }
+  .content-string(checkpoint;                   eob-solutions)  { content: "Checkpoint"; }
+  .content-string(quick-check;                  eob-solutions)  { content: "Quick Check"; }
+  .content-string(introduction;                 page-title)     { content: "Introduction"; }
+  .content-string(chapter-outline;              page-title)     { content: "Chapter Outline"; }
+  .content-string(learning-objectives;          page-title)     { content: "Learning Objectives"; }
+  .content-string(key-terms;                    page-title)     { content: "Key Terms"; }
+  .content-string(key-equations;                page-title)     { content: "Key Equations"; }
+  .content-string(key-concepts;                 page-title)     { content: "Key Concepts"; }
+  .content-string(summary;                      page-title)     { content: "Summary"; }
+  .content-string(exercises;                    page-title)     { content: "Exercises"; }
+  .content-string(review-exercises;             page-title)     { content: "Review Exercises"; }
+  .content-string(review-questions;             page-title)     { content: "Review Questions"; }
+  .content-string(section-exercises;            page-title)     { content: "Section Exercises"; }
+  .content-string(practice-test;                page-title)     { content: "Practice Test"; }
+  .content-string(answer-key;                   page-title)     { content: "Answer Key"; }
+  .content-string(try-it;                       page-title)     { content: "Try It"; }
+  .content-string(appendix;                     page-title)     { content: "Appendix "; }
+  .content-string(chapter;                      page-title; @title) {
+    content: "Chapter " @title;
+  }
+  .content-string(chapter-review;               page-title; @counter) {
+    content: "Chapter " counter(@counter, decimal) " Review";
+  }
+  .content-string(chapter-review-exercises;     page-title; @counter) {
+    content: "Chapter " counter(@counter, decimal) " Review Exercises";
+  }
+  .content-string(chapter-practice-test;        page-title; @counter) {
+    content: "Chapter " counter(@counter, decimal) " Practice Test";
+  }
+  .content-string(definition;                   note-title)     { content: "Definition: "; }
+  .content-string(step;                         step-list-item; @counter) { content: "Step " counter(@counter, decimal) ". "; }
+  .content-string(example; problem-title; @example; @chapter; @title) {
+    content: "Example " counter(@chapter, decimal) "." counter(@example) " " @title;
+  }
+  .content-string(number-chapter; figure; @figure; @chapter) {
+    content: "Figure " counter(@chapter, decimal) "." counter(@figure) " ";
+  }
+  .content-string(number-appendix; figure; @figure; @appendix) {
+    content: "Figure " counter(@appendix, upper-alpha) counter(@figure);
+  }
+  .content-string(solution;     solution-title) { content: "Solution"; }
+  .content-string(open-quote;   blockquote)     { content: "\201C"; }
+  .content-string(close-quote;  blockquote)     { content: "\201D"; }
+  .content-string(book-url;     page-footer; @url) {
+    content: "This OpenStax book is available for free at " @url;
+  }
+
+  .named-string(@key; answer-key; page-title) { string-set: @key "Answer Key"; }
+  .named-string(@key; references; page-title) { string-set: @key "References"; }
+  .named-string(@key; page-title; index) { string-set: @key "Index"; }
+  .named-string(@key; page-title; preface) { string-set: @key "Preface"; }
+  .named-string(@key; page-title; chapter; @counter; @title) {
+    string-set: @key "Chapter " counter(@counter, decimal) " | " @title;
+  }
+  .named-string(@key; page-title; appendix; @counter) {
+    string-set: @key "Appendix " counter(@counter, upper-latin);
+  }
 }

@@ -12,13 +12,6 @@
 
 .tables(@tables);
 
-@cnx-string-chapter: "Chapter";
-@cnx-string-introduction: "Introduction";
-@cnx-string-chapter-outline: "Chapter Outline";
-@cnx-string-learning-objectives: "Learning Objectives";
-@cnx-string-key-equations: "Key Equations";
-@cnx-string-key-concepts: "Key Concepts";
-
 .side-border() {
   border-left: 2px solid rgba(red(@light-green),
                               green(@light-green),
@@ -134,7 +127,7 @@
   #introduction {
     #title {
       .style(...) {
-        content: @cnx-string-introduction;
+        #l10n>.content-string(introduction; page-title);
         .font-scale(2);
         font-family: @font-family-serif;
       }
@@ -158,7 +151,7 @@
         .style(...) {
           #utils>#pb>.after(avoid);
           #utils>#pb>.before(avoid);
-          content: @cnx-string-chapter-outline;
+          #l10n>.content-string(chapter-outline; page-title);
           color: @secondary-color;
           .font-scale(1);
           text-align: left;
@@ -256,7 +249,7 @@
       }
       #title {
         .style(...) {
-          content: @cnx-string-learning-objectives;
+          #l10n>.content-string(learning-objectives; page-title);
           display: inline-block;
           width: 100%;
           padding-top: .1em;
@@ -305,7 +298,7 @@
     #title {
       .style(chapter) {
         /* Change "Glossary" to "Key Terms" */
-        content: "Key Terms";
+        #l10n>.content-string(key-terms; page-title);
         color: @medium-blue;
         font-size: large;
         padding: 0em;
@@ -341,7 +334,7 @@
       }
       #title {
         .style(...) {
-          content: "Chapter " counter(chapter, decimal) " Review";
+          #l10n>.content-string(chapter-review; page-title; chapter);
         }
         .link(...) {
           color: @medium-blue;
@@ -358,7 +351,7 @@
       }
       #title {
         .style(...) {
-          content: @cnx-string-key-equations;
+          #l10n>.content-string(key-equations; page-title);
         }
       }
     }
@@ -369,7 +362,7 @@
       }
       #title {
         .style(...) {
-          content: @cnx-string-key-concepts;
+          #l10n>.content-string(key-concepts; page-title);
           column-span: all;  // staging bug-fix.
           margin-bottom: 0;
         }
@@ -389,7 +382,7 @@
       }
       #title {
         .style(...) {
-          content: "Review Exercises";
+          #l10n>.content-string(review-exercises; page-title);
           column-span: all;
           margin-top: 0;
         }
@@ -401,7 +394,7 @@
       }
       #title {
         .style(...) {
-          content: "Practice Test";
+          #l10n>.content-string(practice-test; page-title);
           column-span: all;
           #utils>#pb>.before(always);
         }
@@ -435,8 +428,8 @@
 
       #title {
         .style() {
-          content: "Answer Key";
-          string-set: cnx-header "Answer Key";
+          #l10n>.content-string(answer-key; page-title);
+          #l10n>.named-string(cnx-header; answer-key; page-title);
           color: @medium-blue;
           margin-left: 0;
           text-transform: uppercase;
@@ -449,19 +442,19 @@
         }
         .style('review-exercises') {
           .x-solutions-subheading-style();
-          content: "Review Exercises";
+          #l10n>.content-string(review-exercises; page-title);
         }
         .style('practice-test') {
           .x-solutions-subheading-style();
-          content: "Practice Test";
+          #l10n>.content-string(practice-test; page-title);
         }
         .style('try-it') {
           .x-solutions-subheading-style();
-          content: "Try It";
+          #l10n>.content-string(try-it; page-title);
         }
         .style('section-exercises') {
           .x-solutions-subheading-style();
-          content: "Section Exercises";
+          #l10n>.content-string(section-exercises; page-title);
         }
       }
       #chapter-area {
@@ -495,7 +488,7 @@
 
       #title {
         .style(...) { //colophon titles are passed as h1's by default by docbook override properties here
-          string-set: cnx-header "References";
+          #l10n>.named-string(cnx-header; references; page-title);
           font-size: x-large;
           font-weight: bold;
           background-color: transparent;
@@ -766,7 +759,7 @@
       }
       .style(@kind; @part; definition) {
         margin-top: 0em;
-        content: @cnx-string-definition;
+        #l10n>.content-string(definition; note-title);
         display: block;
       }
       .style(@kind; @part; problem-solving) {
@@ -1005,7 +998,7 @@
     }
     .item(any; stepwise) {
       &:before {
-        content: "Step " counter(item, decimal) '. ';
+        #l10n>.content-string(step; step-list-item; item);
         counter-increment: item;
         position: absolute;
         margin-left: -40px;
@@ -1127,7 +1120,7 @@
       }
       .style('first'; any; 'first', exercise; example) {
         display: block;
-        content: "Example " counter(chapter, decimal) "." counter(example) " " content();
+        #l10n>.content-string(example; problem-title; example; chapter; content());
         .font-scale(1);
       }
     }
@@ -1169,7 +1162,7 @@
     #title {
       .style(...) {}
       .style(any; any; exercise; example) {
-        content: "Solution";
+        #l10n>.content-string(solution; solution-title);
         font-family: @font-family;
         font-size: 10pt;
         color: @dark-blue;
@@ -1224,8 +1217,8 @@
         color: black;
       }
 
-      &::before { content: "\201C" /* open-quote */; }
-      &::after { content: "\201D" /* close-quote; */; }
+      &::before { #l10n>.content-string(open-quote; blockquote); }
+      &::after  { #l10n>.content-string(close-quote;blockquote); }
     }
   }
   #glossary {
@@ -1235,7 +1228,7 @@
       display: inline;
 
       &::before {
-        content: "" "Chapter " counter(chapter, decimal) " Review";
+        #l10n>.content-string(chapter-review; page-title; chapter);
         color: @medium-blue;
         font-size: x-large;
         font-weight: bold;
@@ -1250,7 +1243,7 @@
     #title {
       .style(...) {
         /* Change "Glossary" to "Key Terms" */
-        content: "Key Terms";
+        #l10n>.content-string(key-terms; page-title);
         color: @medium-blue;
 
         // We might as well fix it this way now and just document the problems.  This
@@ -1362,22 +1355,17 @@
 
 @soft-orange:   #F1DDB6;
 
-
-@cnx-string-definition: "Definition: ";
-
-
-
 #part {
   #book-end {
     #end-of-book-solutions {
       #title {
         .style('checkpoint') {
           .x-solutions-subheading-style();
-          content: "Checkpoint";
+          #l10n>.content-string(checkpoint; eob-solutions);
         }
         .style('quick-check') {
           .x-solutions-subheading-style();
-          content: "Quick Check";
+          #l10n>.content-string(quick-check; eob-solutions);
         }
       }
     }
@@ -1435,7 +1423,7 @@
         .figure-caption();
       }
       .number() {
-        content: "Figure " counter(chapter, decimal) "." counter(figure) " ";
+        #l10n>.content-string(number-chapter; figure; figure; chapter);
         display: inline;
         //.font-scale(-1);
       }
@@ -1443,7 +1431,7 @@
        font-family: @font-family;
       }
       .number(any; appendix) {
-        content: "Figure " counter(appendix, upper-alpha) counter(figure);
+        #l10n>.content-string(number-appendix; figure; figure; appendix);
       }
     }
   }
