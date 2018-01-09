@@ -1737,14 +1737,14 @@ div.book .footnote > * {
   font-weight: normal;
 }
 div.book .footnote::footnote-call {
-  content: "[" counter(footnote) "]";
+  content: "[" counter(footnote, upper-roman) "]";
   font-size: 83%;
   vertical-align: super;
   line-height: none;
   margin-before: 0.5em;
 }
 div.book .footnote::footnote-marker {
-  content: counter(footnote);
+  content: counter(footnote, upper-roman);
   color: #6D6F71 !important;
   margin-right: 1.33em !important;
   color: black;
@@ -2036,12 +2036,6 @@ div.table table {
   line-height: 1.6em;
   prince-caption-page: all;
 }
-div.table table div.table table tbody tr:last-child td:first-child,
-div.table table div.table table tbody tr:last-child td:last-child,
-div.table table div.table table thead tr:first-of-type th:last-of-type,
-div.table table div.table table thead tr:first-of-type th:last-of-type {
-  border-radius: 0;
-}
 div.table table thead {
   border-top: none;
   font-family: 'Noto Sans', sans-serif;
@@ -2054,6 +2048,12 @@ div.table table thead tr:first-of-type th {
   background-color: #0dc0dc;
   color: #344456;
   font-weight: bold;
+}
+div.table table thead tr:first-of-type th:first-child {
+  border-radius: 5px 0px 0px 0px;
+}
+div.table table thead tr:first-of-type th:last-child {
+  border-radius: 0px 5px 0px 0px;
 }
 div.table table thead tr:not(first-child) {
   background-color: #24739e;
@@ -2114,7 +2114,6 @@ div.table table caption {
   font-family: 'Roboto Condensed';
   caption-side: bottom;
   color: #000;
-  font-weight: bold;
 }
 div.table table caption::before {
   content: "" "Table " counter(chapter, decimal) "." counter(table) " " "";
@@ -2305,12 +2304,12 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
 img {
   display: block;
   margin: auto;
-  max-width: 6in;
+  max-width: 6.5in;
 }
 .figure {
   display: block;
   margin: auto;
-  max-width: 6in;
+  max-width: 6.5in;
   width: 100%;
   float: column-top;
 }
@@ -2871,8 +2870,8 @@ div.chapter > div.section > div.section div.titlepage > div > div > h3 {
   background-color: #ebe9e9;
   text-align: left;
   color: #000;
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
   padding: 0;
   box-sizing: border-box;
 }
@@ -2883,11 +2882,13 @@ div.chapter > div.section > div.section div.titlepage > div > div > h3 {
   background-color: #24739e;
   color: #fff;
   line-height: 48px;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   font-size: 11.7px;
   font-family: 'Roboto Condensed';
   padding: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
   page-break-after: avoid;
@@ -2902,7 +2903,7 @@ div.chapter > div.section > div.section div.titlepage > div > div > h3 {
 .chapter .example > div.body {
   border: 0;
   padding: 5px 13px 15px;
-  font-size: 1.275em;
+  font-size: 9pt;
   color: #344456;
 }
 .chapter .example > div.body::before {
@@ -2954,8 +2955,8 @@ div.chapter > div.section > div.section div.titlepage > div > div > h3 {
   background-color: #e6eaef;
   text-align: left;
   color: #000;
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
   padding: 0;
   box-sizing: border-box;
 }
@@ -2966,11 +2967,13 @@ div.chapter > div.section > div.section div.titlepage > div > div > h3 {
   background-color: #0dc0dc;
   color: #fff;
   line-height: 48px;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   font-size: 11.7px;
   font-family: 'Roboto Condensed';
   padding: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
   page-break-after: avoid;
@@ -2985,7 +2988,7 @@ div.chapter > div.section > div.section div.titlepage > div > div > h3 {
 .chapter .note.link-to-learning > div.body {
   border: 0;
   padding: 5px 13px 15px;
-  font-size: 1.275em;
+  font-size: 9pt;
   color: #344456;
 }
 .chapter .note.link-to-learning > div.body::before {
@@ -3143,6 +3146,21 @@ div.chapter > div.section > div.section div.titlepage > div > div > h3 {
 .cnx-eoc.suggested-resources > div.section > div.body table > tr > td {
   text-indent: -1em;
   padding-left: 10px;
+}
+div.multiple-choice div.title span.cnx-gentext-section,
+.section-summary div.title span.cnx-gentext-section,
+.key-terms div.title span.cnx-gentext-section,
+.questions div.title span.cnx-gentext-section,
+.exercise-set-a div.title span.cnx-gentext-section,
+.exercise-set-b div.title span.cnx-gentext-section,
+.problem-set-a div.title span.cnx-gentext-section,
+.problem-set-b div.title span.cnx-gentext-section,
+.assessment-questions div.title span.cnx-gentext-section,
+.summary div.title span.cnx-gentext-section,
+.review-questions div.title span.cnx-gentext-section,
+.discussion-questions div.title span.cnx-gentext-section,
+.case-questions div.title span.cnx-gentext-section {
+  display: none;
 }
 /* -------------------------
  * Styling for Appendix
@@ -3392,6 +3410,8 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
   font-size: 11.7px;
   font-family: 'Roboto Condensed';
   padding: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
   page-break-after: avoid;
@@ -3406,7 +3426,7 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
 .chapter .note.link-to-learning > div.body {
   border: 0;
   padding: 5px 13px 15px;
-  font-size: 1.275em;
+  font-size: 9pt;
   color: #344456;
 }
 .chapter .note.link-to-learning > div.body::before {
@@ -3451,6 +3471,8 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
   font-size: 11.7px;
   font-family: 'Roboto Condensed';
   padding: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
   page-break-after: avoid;
@@ -3465,7 +3487,7 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
 .chapter .note.your-turn > div.body {
   border: 0;
   padding: 5px 13px 15px;
-  font-size: 1.275em;
+  font-size: 9pt;
   color: #344456;
 }
 .chapter .note.your-turn > div.body::before {
@@ -3507,6 +3529,8 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
   font-size: 11.7px;
   font-family: 'Roboto Condensed';
   padding: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
   page-break-after: avoid;
@@ -3521,7 +3545,7 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
 .chapter .note.ifrs-connection > div.body {
   border: 0;
   padding: 5px 13px 15px;
-  font-size: 1.275em;
+  font-size: 9pt;
   color: #344456;
 }
 .chapter .note.ifrs-connection > div.body::before {
@@ -3553,7 +3577,7 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
 }
 .chapter .note.concepts-practice::before {
   display: table-caption;
-  content: "Concepts To Practice";
+  content: "Concepts In Practice";
   font-style: normal;
   background-color: #24739e;
   color: #fff;
@@ -3563,6 +3587,8 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
   font-size: 11.7px;
   font-family: 'Roboto Condensed';
   padding: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
   page-break-after: avoid;
@@ -3577,15 +3603,15 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
 .chapter .note.concepts-practice > div.body {
   border: 0;
   padding: 5px 13px 15px;
-  font-size: 1.275em;
+  font-size: 9pt;
   color: #344456;
 }
 .chapter .note.concepts-practice > div.body::before {
   display: block;
   content: '';
   background: url("ccap-business/concepts-practice.svg") no-repeat 0;
-  width: 168px;
-  height: 96px;
+  width: 149px;
+  height: 80px;
   position: absolute;
   top: -9px;
   right: 15px;
@@ -3619,6 +3645,8 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
   font-size: 11.7px;
   font-family: 'Roboto Condensed';
   padding: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
   page-break-after: avoid;
@@ -3633,15 +3661,15 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
 .chapter .note.continuing-application > div.body {
   border: 0;
   padding: 5px 13px 15px;
-  font-size: 1.275em;
+  font-size: 9pt;
   color: #344456;
 }
 .chapter .note.continuing-application > div.body::before {
   display: block;
   content: '';
   background: url("ccap-business/continuing-application.svg") no-repeat 0;
-  width: 168px;
-  height: 95px;
+  width: 147px;
+  height: 80px;
   position: absolute;
   top: -9px;
   right: 15px;
@@ -3675,6 +3703,8 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
   font-size: 11.7px;
   font-family: 'Roboto Condensed';
   padding: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
   page-break-after: avoid;
@@ -3689,15 +3719,15 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
 .chapter .note.think-through > div.body {
   border: 0;
   padding: 5px 13px 15px;
-  font-size: 1.275em;
+  font-size: 9pt;
   color: #344456;
 }
 .chapter .note.think-through > div.body::before {
   display: block;
   content: '';
   background: url("ccap-business/think-through.svg") no-repeat 0;
-  width: 168px;
-  height: 100px;
+  width: 154px;
+  height: 80px;
   position: absolute;
   top: -9px;
   right: 15px;
@@ -3731,6 +3761,8 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
   font-size: 11.7px;
   font-family: 'Roboto Condensed';
   padding: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
   page-break-after: avoid;
@@ -3745,15 +3777,15 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
 .chapter .note.ethical-considerations > div.body {
   border: 0;
   padding: 5px 13px 15px;
-  font-size: 1.275em;
+  font-size: 9pt;
   color: #344456;
 }
 .chapter .note.ethical-considerations > div.body::before {
   display: block;
   content: '';
   background: url("ccap-business/ethical-considerations.svg") no-repeat 0;
-  width: 180px;
-  height: 88px;
+  width: 149px;
+  height: 75px;
   position: absolute;
   top: -5px;
   right: 0px;
@@ -3818,5 +3850,15 @@ div.chapter > .introduction > .toc li::marker {
   width: 20px;
   height: 16px;
   padding-right: 2px;
+}
+/* -------------------------
+ * Accounting Table Overrides
+ * ------------------------
+ */
+div.table table thead tr:first-of-type th:first-child {
+  border-radius: 0;
+}
+div.table table thead tr:first-of-type th:last-child {
+  border-radius: 0;
 }
 /*# sourceMappingURL=ccap-accounting.css.map */
