@@ -23,6 +23,18 @@
 		<xsl:value-of select="col:metadata/md:content-id/text()"/>
 	</xsl:variable>
 	<db:book ext:url="{col:metadata/md:content-url/text()}" ext:id="{col:metadata/md:content-id/text()}" ext:repository="{col:metadata/md:repository/text()}" ext:site-type="{$cnx.site-type}">
+		<xsl:if test="/col:collection/col:parameters/col:param[@name='toc-include-colophons']">
+			<xsl:attribute name="ext:toc-include-colophons">
+				<xsl:value-of select="/col:collection/col:parameters/col:param[@name='toc-include-colophons']/@value"/>
+			</xsl:attribute>
+		</xsl:if>
+
+		<xsl:if test="/col:collection/col:parameters/col:param[@name='indices']">
+			<xsl:attribute name="ext:indices">
+				<xsl:value-of select="/col:collection/col:parameters/col:param[@name='indices']/@value"/>
+			</xsl:attribute>
+		</xsl:if>
+
 		<xsl:apply-templates select="@*|node()"/>
 	</db:book>
 </xsl:template>

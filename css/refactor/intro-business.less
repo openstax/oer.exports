@@ -1,0 +1,103 @@
+@import url('themes/business-theme.less');
+// @book-title: srm-business;
+@book-title: Introduction to Business;
+@cnx-string-summary: "Summary of Learning Outcomes";
+//Intro to Business features
+@cnx-string-catching-spirit: "Catching the Entrepreneurial Spirit";
+@cnx-string-managing-change: "Managing Change";
+@cnx-string-expanding-around-globe: "Expanding Around The Globe?";
+@cnx-string-customer-satisfaction: "Customer Satisfaction";
+@cnx-string-ethics-in-practice: "Ethics In Practice";
+@cnx-string-concept-check: "Concept Check";
+@cnx-string-exploring-business : "Exploring Business Careers";
+@FIGURE_NAME: "Exhibit ";
+
+/* -------------------------
+ * Intro to Business Notes
+ * ------------------------
+ */
+.chapter .note {
+  &.catching-spirit {
+    .notes(@cnx-string-catching-spirit, @primary-color, @feature-style-3-body-color, catching-spirit,
+           @icon-width: 150px, @icon-height: 96px, @icon-top: -12px);
+  }
+  &.managing-change {
+    .notes(@cnx-string-managing-change, @primary-color, @feature-style-3-body-color, managing-change,
+           @icon-width: 193px, @icon-height: 93px);
+  }
+  &.expanding-around-globe {
+    .notes(@cnx-string-expanding-around-globe, @primary-color, @feature-style-3-body-color, expanding-around-globe);
+  }
+  &.customer-satisfaction {
+    .notes(@cnx-string-customer-satisfaction, @primary-color, @feature-style-3-body-color, customer-satisfaction,
+           @icon-top: -4px);
+  }
+  &.ethics-in-practice {
+    .notes(@cnx-string-ethics-in-practice, @primary-color, @feature-style-3-body-color, ethics-in-practice,
+           @icon-height: 96px);
+  }
+  &.concept-check {
+    .notes(@cnx-string-concept-check, @secondary-color, @feature-style-2-body-color, exercises,
+           @icon-width: 50px, @icon-height: 50px, @icon-top: 15px, @icon-right: 0);
+  }
+  &.link-to-learning {
+    .notes(@cnx-string-link-to-learning, @quinary-color, @feature-style-1-body-color, link-to-learning,
+           @icon-width: 20px, @icon-height: 20px, @icon-top: 30px);
+  }
+  &.exploring-business-careers {
+    .note-border-top(@cnx-string-exploring-business,@tertiary-color);
+  }
+}
+
+/* -------------------------
+ * Image Tables
+ * ------------------------
+ */
+
+div.book>div.chapter {
+  .table {
+    max-width: @book-width;
+    margin: auto;
+  }
+}
+div.mediaobject>img,
+span.inlinemediaobject>img {
+  max-width: @book-width;
+  width: 100%;
+}
+
+/* -------------------------
+ * Exhibits
+ * ------------------------
+ */
+ div.book {
+   .foo-figure-counter(@prefixFn) {
+     div.figure > div.title > span.cnx-gentext-t:not(.labeled)::before {
+       content: "" @FIGURE_NAME @prefixFn counter(figure) " ";
+     }
+   }
+   div.preface  {
+    .foo-figure-counter("");
+      div.figure > div.title {
+        display: inline;
+   }
+ }
+   div.chapter  { .foo-figure-counter(counter(chapter, decimal) "."); }
+   div.appendix { .foo-figure-counter(counter(appendix, upper-alpha)); }
+ }
+// Hide Chapter Outline for SRM Business titles
+div.chapter > div.introduction > div.toc {
+  display: none;
+}
+
+/* -------------------------
+ * EOC specific to SRM books
+ * ------------------------
+ */
+.cnx-eoc {
+  > .section {
+    > .title {
+      display: none;
+    }
+  }
+}

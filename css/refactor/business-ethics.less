@@ -1,0 +1,74 @@
+@import url('themes/business-theme.less');
+
+/* -------------------------
+ * Business Ethics References
+ * ------------------------
+ */
+@eoc-case-study-icon: url("ccap-business/casestudy.svg");
+@eoc-suggested-resources-icon: url("ccap-business/suggestedresources.svg");
+
+/* -------------------------
+ * Business Ethics Strings
+ * ------------------------
+ */
+@book-title: business-ethics;
+@cnx-string-real-world: "Cases from the Real World";
+@cnx-string-what-would: "What Would You Do?";
+@cnx-string-ethics-across: "Ethics Across Time and Cultures";
+@cnx-string-think-through: "Think It Through";
+
+/* -------------------------
+ * Business Ethics Notes
+ * ------------------------
+ */
+.chapter .note {
+  &.real-world {
+    .notes(@cnx-string-real-world, @primary-color, @feature-style-3-body-color, real-world,
+           @icon-height: 95px);
+  }
+  &.what-would {
+    .notes(@cnx-string-what-would, @primary-color, @feature-style-3-body-color, what-would,
+           @icon-width: 150px, @icon-height: 98px, @icon-top: -12px);
+  }
+   &.ethics-across {
+    .notes(@cnx-string-ethics-across, @primary-color, @feature-style-3-body-color, ethics-across,
+           @icon-height: 98px);
+  }
+  &.think-through {
+    .notes(@cnx-string-think-through, @primary-color, @feature-style-3-body-color, think-through);
+  }
+  &.link-to-learning {
+    .notes(@cnx-string-link-to-learning, @quinary-color, @feature-style-1-body-color, link-to-learning,
+           @icon-width: 20px, @icon-height: 20px, @icon-top: 30px);
+  }
+}
+.cnx-eoc {
+  &.suggested-resources {
+    > .title {
+      .moduleTitles(@eoc-titles-color,
+        @eoc-suggested-resources-icon);
+    }
+  }
+  &.case-study {
+    > .title {
+      .moduleTitles(@eoc-titles-color, @eoc-case-study-icon);
+    }
+  }
+}
+/* Hide the EOB references */
+div.colophon.end-of-book-references {
+  display: none;
+}
+/* Format list titles */
+div.orderedlist > div.title > span {
+  font-weight: bold;
+  text-align: center;
+  padding: 5px;
+  display: block;
+}
+/* Add rounded corners to tables ** todo-AH: Not working in pdf. */
+div.table > table {
+  overflow: hidden; /* Needed for border radius for tables to appear. */
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
