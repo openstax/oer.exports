@@ -1,0 +1,307 @@
+.folio-typography() {
+  font-family: @font-family-serif;
+  color: @folio-color;
+  font-size: 10px;
+}
+.folio-chapter-header() {
+  background-color: transparent;
+  color: @folio-chapter-header-color;
+  font-weight: bold;
+}
+.line-height() {
+  line-height: 1.6em;
+}
+.moduleTitles (@color, @svg-icon: @eoc-assessment-icon) {
+    color: @color;
+    display: inline-block !important;
+    font-family: @font-family-serif;
+    background: @svg-icon no-repeat left; //todo: create icons + variables
+    background-size: contain;
+    margin-bottom: 10px;
+    padding: .3em 2.3em !important;
+    .font-scale(2) !important;
+    background-size: contain;
+}
+.moduleTitlesNoIcon (@font-size, @color) {
+    color: @color;
+    font-family: @font-family-titles;
+    .font-scale(@font-size) !important;
+    margin-left: 0;
+    padding-left: 0;
+}
+.notes(@title, @title-background-color, @background-color, @icon, @notes-body-text-color: @black, @icon-width: 168px, @icon-height: 100px, @icon-top: -9px, @icon-right: 15px, @border-bottom-left-radius: 0, @border-bottom-right-radius: 0, @border-top-left-radius: 5px, @border-top-right-radius: 5px) { //@icon-* attribute values are defaults for content based feature icons.
+    display: table;
+    position: relative;
+    background-color: @background-color;
+    text-align: left;
+    color: @notes-body-text-color;
+    border-bottom-left-radius: @border-bottom-left-radius;
+    border-bottom-right-radius: @border-bottom-right-radius;
+    padding: 0;
+    box-sizing: border-box;
+    &::before {
+        display: table-caption;
+        content: @title; // font-weight: 600;
+        font-style: normal;
+        background-color: @title-background-color;
+        color: #fff;
+        line-height: 48px;
+        border-top-left-radius: @border-top-left-radius;
+        border-top-right-radius: @border-top-right-radius;
+        .font-scale(1);
+        font-family: @font-family-titles;
+        padding: 18px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        #utils>#pb>.after(avoid);
+    }
+    >div.title {
+        .font-scale(1);
+        color: @notes-subtitle-color;
+        font-weight: 600;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    >div.body {
+        border: 0;
+        padding: 5px 13px 15px;
+        font-size: 9pt;
+        color: @secondary-color;
+        &::before {
+            display: block;
+            content: '';
+            background: url("ccap-business/@{icon}.svg") no-repeat 0;
+            width: @icon-width;
+            height: @icon-height;
+            position: absolute;
+            top: @icon-top;
+            right: @icon-right;
+        }
+        p {
+            padding: 0;
+        }
+        p:first-child {
+            margin-top: 0;
+        }
+    }
+}
+.note-border-top (@note-title, @note-border-color, @border-radius: 3px, @border-top: 5px) {
+  &::before {
+    content: @note-title;
+    display: block;
+    border-top: @border-top solid @note-border-color;
+    border-top-right-radius: @border-radius;
+    border-top-left-radius: @border-radius;
+    border-bottom: solid 1px @notes-border-color;
+    .font-scale(1);
+    font-family: @font-family-titles;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    #utils>#pb>.after(avoid);
+    .scale-padding(2, padding);
+    position: relative;
+    top: -5px;
+    left: -1px;
+    width: @note-border-top-width;
+    font-weight: bold;
+  }
+  box-decoration-break: slice;
+  box-sizing: border-box;
+  position: relative;
+  border-left: solid 1px @notes-border-color;
+  border-right: solid 1px @notes-border-color;
+  border-bottom: solid 1px @notes-border-color;
+  //override base generic styles for notes
+  padding: 0;
+  margin: 0;
+  top: 10px;
+  //override generic note corners
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  width: 100%;
+  .title {
+    .font-scale(1);
+    color: @notes-subtitle-color;
+    font-weight: 600;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .body {
+    .scale-padding(2, padding);
+    border: 0;
+    .font-scale(0);
+    color: @secondary-color;
+    p {
+      padding: 0;
+    }
+    p:first-child {
+      margin-top: 0;
+    }
+  }
+  a:link {
+    .link-style(@body-link-color);
+  }
+}
+//EOC exercises custom numbering
+.eocCustomCounters (@identifier) {
+  .exercise {
+   //counter-increment: @counterName !important;
+    div.body > div.problem::before {
+      content: "" @identifier "" counter(chapter, decimal) "-" counter(exercise) "" !important;
+     }
+    }
+  }
+.side-border() {
+  border-left: 2px solid rgba(red(@light-green), green(@light-green), blue(@light-green), .3);
+}
+.material-set-2() {
+  width: 48%;
+  min-width: initial;
+}
+.material-set-2-numbered() {
+  width: 48%;
+}
+.material-set-3() {
+  width: 31%;
+  min-width: initial;
+}
+.material-set-4() {
+  width: 29%;
+  min-width: initial;
+}
+.x-list-indent() {
+  margin: 0 0 0 40px;
+  padding: 0;
+}
+.x-inline-blocks() {
+  box-sizing: border-box;
+  display: inline-block;
+  .scale-padding(2, padding-right);
+}
+.folio-chapter-header() {
+  background-color: @dark-blue;
+  color: @light-blue;
+}
+.folio-chapter-header-reset() {
+  content: " "; /*Page area must have content to receive layout.*/
+}
+.primary-header() {
+}
+.secondary-header-toc() {
+  .font-scale(1);
+  font-weight: bold;
+}
+.eob-title-style() {
+  .font-scale(2) ;
+  font-family: @font-family-titles;
+  .scale-padding(1, margin-bottom);
+  padding-left: 0;
+  color: @eob-title-color;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.x-center-image() {
+  display: block;
+  margin: auto;
+  max-width: 6.5in;
+}
+.x-solutions-subheading-style() {
+  color: @solutions-subheading-color;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: @font-family;
+  display: block;
+  margin-bottom: 7.5px;
+  #utils>#pb>.after(avoid);
+}
+.figure-caption() {
+  display: table-caption;
+  text-align: left;
+  #utils>#pb>.before(avoid);
+}
+.caption-style () {
+  color: @caption-color;
+  .font-scale(-1);
+  text-align: center;
+  font-size: 10px;
+  display: table-caption;
+  text-align: left;
+  page-break-before: avoid;
+  font-family: @font-family-serif;
+  color: rgba(0, 0, 0, .6);
+  font-family: @font-family-titles;
+  // font-weight: bold;
+  caption-side: bottom;
+}
+.caption-number-style() {
+    //#content>#table>#caption>.number(any; any);
+    font-family: @font-family;
+    border: none;
+    padding-top: .5em;
+    padding-left: 0px;
+    padding-bottom: 1em;
+    caption-side: bottom;
+    font-size: 8px;
+    line-height: 17px;
+    font-weight: 700;
+    color: @caption-number-color;
+}
+.link-style (@link-color) {
+  color: @link-color;
+  text-decoration: none;
+  border-bottom: @link-color solid 0.02em;
+  padding-bottom: 0.1em;
+}
+.link-no-border-style (@link-color) {
+  color: @link-color;
+  text-decoration: none;
+}
+.toc-titles-styles() {
+  .font-scale(1);
+  font-weight: bold;
+  color: @toc-chapter-link-color;
+  font-family: @font-family;
+}
+.toc-unit-styles() {
+  .font-scale(2);
+  background-size: 15px;
+  font-weight: bold;
+  color: @toc-chapter-link-color;
+  font-family: @font-family-titles;
+}
+.toc-square-number-styles() {
+  display: inline-block;
+  color: @toc-number-color;
+  border: 1px solid @toc-number-border-color;
+  .font-scale(0);
+  padding: 0;
+  margin-top: -2px;
+  .scale-padding(1, margin-left);
+  .scale-padding(1, margin-right);
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  float: left;
+}
+.table-header-style() {
+  background-color: @first-th-bg-color;
+  color: @first-th-color;
+  font-weight: bold;
+}
+
+.table-2d-header-style() {
+  background-color: @2d-th-bg-color;
+  color: @2d-th-color;
+}
+.footnotes() {
+  border-top: none;
+  padding-top: 1.333em;
+  background-image: @footnote-bg-color;
+  background-position: left top;
+  background-size: 65px 1px;
+  background-repeat: no-repeat;
+}
