@@ -1036,6 +1036,7 @@ div.book div.chapter div.figure > div.body > div.figure > div.title > span.cnx-g
 }
 div.book div.chapter div.table:not(.labeled) > table > caption:not(.labeled)::before {
   content: "" "Table " counter(chapter, decimal) "." counter(table) " " "";
+  font-size: 9.23076923px;
 }
 div.book div.chapter div.table > table > caption > span.cnx-gentext-t,
 div.book div.chapter div.table > table > caption > span.cnx-gentext-n {
@@ -1959,6 +1960,25 @@ div.book > div.preface {
     content: counter(page);
   }
 }
+/* ==========================================================
+/* Quick reference for using .font-scale();                 */
+/* ==========================================================
+
+See typography.less for details on calulation.
+
+The below are values to retrieve commonly used font sizes using .font-scale() mixin.
+
+
+@base-font: 12px; |   Size in px      |   Size in pt (for PDF)
+  .font-scale(-1) :   9.23076923px;   |   7pt
+  .font-scale(0)  :   12px;           |   9pt
+  .font-scale(1)  :   15.6px;         |   11.75pt
+  .font-scale(2)  :   18px;           |   13.5pt
+  .font-scale(3)  :   20.28px;        |   15.pt
+
+
+
+=========================================================== */
 /* -------------------------
  * Current Order:
  * ------------------------
@@ -2670,10 +2690,8 @@ div.table table td img {
   position: inherit;
 }
 div.table table caption {
-  color: #58595B;
   font-size: 9.23076923px;
   text-align: center;
-  font-size: 10px;
   display: table-caption;
   text-align: left;
   page-break-before: avoid;
@@ -2681,7 +2699,6 @@ div.table table caption {
   color: rgba(0, 0, 0, 0.6);
   font-family: 'Roboto Condensed';
   caption-side: bottom;
-  color: #000;
 }
 div.table table caption::before {
   content: "" "Table " counter(chapter, decimal) "." counter(table) " " "";
@@ -2694,7 +2711,7 @@ div.table table caption::before {
   font-size: 8px;
   line-height: 17px;
   font-weight: 700;
-  color: #221E1F;
+  color: #000;
 }
 div.table:not(.unstyled) table tbody tr td:first-child {
   border-left: 1px solid 1px solid rgba(0, 0, 0, 0.1);
@@ -2780,13 +2797,11 @@ img {
   font-size: 8px;
   line-height: 17px;
   font-weight: 700;
-  color: #221E1F;
+  color: #000;
 }
 .figure .caption {
-  color: #58595B;
   font-size: 9.23076923px;
   text-align: center;
-  font-size: 10px;
   display: table-caption;
   text-align: left;
   page-break-before: avoid;
