@@ -3,76 +3,54 @@
  * ------------------------
  */
 div.colophon.end-of-book-solutions {
-    display: none !important; //slots & skeleton below to be converted if necessary
-    //   prince-text-replace: "Answer:" ""; //strip out "Answer:" eob solutions for print_pdf
+      prince-text-replace: "Answer:" ""; //strip out "Answer:" eob solutions for print_pdf
     //   #part>#book-end>#end-of-book-solutions>.style();
-    //   > .title {
-    //     #part>#book-end>#end-of-book-solutions>#title>.style();
-    //   }
+    .x-column-count(1);
+      > .title {
+        //#part>#book-end>#end-of-book-solutions>#title>.style();
+        #l10n>.content-string(answer-key; page-title);
+        #l10n>.named-string(cnx-header; answer-key; page-title);
+        color: @medium-blue;
+        margin-left: 0;
+        background-color: transparent; //overwrite from .colophon title
+        .eob-title-style();
+      }
     //   // Some miscellaneous stuff we will have to decide on
-    //   div.chapter-area:first-of-type h2.title {
-    //     margin-top: 0;
-    //     padding-top: 0;
-    //   }
-    //   .chapter-area {
-    //     #part>#book-end>#end-of-book-solutions>#chapter-area>.style();
-    //     > div {
-    //       #part>#book-end>#end-of-book-solutions>#chapter-area>.style('subsection');
-    //     }
-    //     a.solution {
-    //       color: black;
-    //     }
-    //     > h2.title a.chapter,
-    //     > h2.title a.chapter span {
-    //       #part>#book-end>#end-of-book-solutions>#title>.style('chapter-area');
-    //     }
-    //     > h2.title a.chapter {
-    //       // Now that this is display: block it honors page break
-    //       // rules from .chapter {}. Reset it.
-    //       #utils>#pb>.before(avoid);
-    //       #utils>#pb>.after(avoid);
-    //     }
-    //     > h2.title a.chapter span { display: inline; } // reset display: block for spans
-    //     > div.review-exercises::before {
-    //       #part>#book-end>#end-of-book-solutions>#title>.style('review-exercises');
-    //     }
-    //     > div.practice-test::before {
-    //       #part>#book-end>#end-of-book-solutions>#title>.style('practice-test');
-    //     }
-    //     > div.try {
-    //       &::before { #part>#book-end>#end-of-book-solutions>#title>.style('try-it'); }
-    //       div.solution > div.title a.solution::before {
-    //         content: target-counter(attr(href), chapter) "." target-counter(attr(href), try);
-    //       }
-    //     }
-    //     > div.section-exercises::before {
-    //       #part>#book-end>#end-of-book-solutions>#title>.style('section-exercises');
-    //     }
-    //     div.solution {
-    //       #content>#solution>.style(@kind; book-end);
-    //       div.itemizedlist ul, div.orderedlist ul, div.itemizedlist ol, div.orderedlist ol {
-    //         #content>#list>.style(any; book-end; solution);
-    //       }
-    //       > div.title {
-    //         #content>#solution>#title>.style(@kind; book-end);
-    //       }
-    //       > div.body {
-    //         div, p { display: inline; }
-    //         div.mediaobject {
-    //           display: block;
-    //           #content>#image>.style(any; book-end; solution);
-    //         }
-    //         #content>#solution>#body>.style(@kind; book-end);
-    //         > a.target-figure {
-    //           #content>#link>.style('target-figure'; any);
-    //         }
-    //         .cnx-svg {
-    //           direction: ltr;
-    //           vertical-align: middle !important;
-    //           display: inline-block;
-    //         }
-    //       }
-    //       div.table table caption { #content>#table>#caption>.style(any; book-end; solution); }
-    //     }
-    //   }
+      div.chapter-area:first-of-type h2.title {
+        margin-top: 0;
+        padding-top: 0;
+      }
+      .chapter-area {
+          //#part>#book-end>#end-of-book-solutions>#chapter-area>.style();
+          //font-family: @font-family-serif;
+          > div {
+           // #part>#book-end>#end-of-book-solutions>#chapter-area>.style('subsection');
+           //.scale-padding(0, margin-bottom);
+          }
+          a.solution {
+            color: @solution-link-color;
+            font-weight: bold;
+
+          }
+          > h2.title a.chapter {
+            // Now that this is display: block it honors page break
+            // rules from .chapter {}. Reset it.
+            .solutions-subheading-style();
+            #utils>#pb>.before(avoid);
+            #utils>#pb>.after(avoid);
+          }
+          > h2.title a.chapter span { display: inline; } // reset display: block for spans
+          .solution {
+                .title {
+                    display: inline;
+                    //.scale-padding(1, margin-right);
+                    &::after {
+                        content: ". "
+                    }
+                }
+                .body {
+                    display: inline;
+                }
+            }
+      }
 }
