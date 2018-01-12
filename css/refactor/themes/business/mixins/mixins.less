@@ -14,7 +14,7 @@
 .moduleTitles (@color, @svg-icon: @eoc-assessment-icon) {
     color: @color;
     display: inline-block !important;
-    font-family: @font-family-serif;
+    font-family: @font-family-titles;
     background: @svg-icon no-repeat left; //todo: create icons + variables
     background-size: contain;
     margin-bottom: 10px;
@@ -29,7 +29,16 @@
     margin-left: 0;
     padding-left: 0;
 }
-.notes(@title, @title-background-color, @background-color, @icon, @notes-body-text-color: @black, @icon-width: 168px, @icon-height: 100px, @icon-top: -9px, @icon-right: 15px, @border-bottom-left-radius: 0, @border-bottom-right-radius: 0, @border-top-left-radius: 5px, @border-top-right-radius: 5px) { //@icon-* attribute values are defaults for content based feature icons.
+
+.hideEocSectionTitle() {
+  div.title {
+    padding: 0;
+    span.cnx-gentext-section {
+      display: none;
+    }
+  }
+}
+.notes(@title, @title-background-color, @background-color, @icon, @notes-body-text-color: @notes-body-text-color, @icon-width: 168px, @icon-height: 100px, @icon-top: -9px, @icon-right: 15px, @border-bottom-left-radius: 0, @border-bottom-right-radius: 0, @border-top-left-radius: 5px, @border-top-right-radius: 5px) { //@icon-* attribute values are defaults for content based feature icons.
     display: table;
     position: relative;
     background-color: @background-color;
@@ -50,7 +59,7 @@
         border-top-right-radius: @border-top-right-radius;
         .font-scale(1);
         font-family: @font-family-titles;
-        padding: 18px;
+        padding: 15px;
         padding-top: 10px;
         padding-bottom: 10px;
         letter-spacing: 3px;
@@ -61,14 +70,14 @@
         .font-scale(1);
         color: @notes-subtitle-color;
         font-weight: 600;
-        padding-left: 15px;
+        padding-left: 13px;
         padding-right: 15px;
     }
     >div.body {
         border: 0;
         padding: 5px 13px 15px;
         font-size: 9pt;
-        color: @secondary-color;
+        color: @notes-body-text-color;
         &::before {
             display: block;
             content: '';
@@ -207,13 +216,15 @@
   margin: auto;
   max-width: 6.5in;
 }
-.x-solutions-subheading-style() {
+.solutions-subheading-style() {
   color: @solutions-subheading-color;
-  font-size: 16px;
+  //font-size: 16px;
+  .font-scale(1);
   font-weight: 700;
   font-family: @font-family;
   display: block;
-  margin-bottom: 7.5px;
+  // margin-bottom: 7.5px;
+  .scale-padding(-2, margin-bottom);
   #utils>#pb>.after(avoid);
 }
 .figure-caption() {
