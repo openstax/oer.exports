@@ -3,7 +3,8 @@ cd "$(dirname "$0")/.."
 source ./script/bootstrap || exit 1
 
 book_name=${1}
-uuid=${2}
+# Determine the uuid by looking it up in ./books.txt
+uuid=$(style_name_to_uuid ${book_name})
 
 if [[ ! ${book_name} ]]; then
   die "No book specified. specify a book name as the 1st argument when running this script"
@@ -49,16 +50,10 @@ do_progress "Clear the dir before unzipping (so it does not prompt)"
 try rm -rf ${uuid_dir}
 
 do_progress "Unzip the file"
-
-try
-  unzip -o ${zip_file} -d ${uuid_dir} > /dev/null
+try unzip -o ${zip_file} -d ${uuid_dir} > /dev/null
 
 do_progress "Move the dir to ${book_dir}"
 [[ -d ${book_dir} ]] && try rm -rf "${book_dir}"
 try mkdir -p "${book_dir}"
 
-move_command() {
-  mv "${uuid_dir}"/col*_complete/* "${book_dir}" && echo "Success!"
-}
-
-move_command || die "There was an error downloading the .zip file for ${book_name} from ${zip_url}, it may be missing from server. Please report this to book tools team."
+try mv "${uuid_dir}"/col*_complete/* "${book_dir}"
