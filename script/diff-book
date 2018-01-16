@@ -53,13 +53,9 @@ else
   xhtml_file_pretty_before="./out/${book_name}-temp/collection.prepared.pretty.xhtml"
   xhtml_file_pretty_after="./out/${book_name}-temp/collection.pretty.xhtml"
 
-  xhtml_and_css_file_pretty_before="./out/${book_name}-temp/collection.prepared.out.pretty.xhtml"
-  xhtml_and_css_file_pretty_after="./out/${book_name}-temp/collection.out.pretty.xhtml"
-
   # Check that all the prepared files exist
   check_file_exists "${pdf_file_before}" "Try running ./script/diff-book-prepare ${book_name} first"
   check_file_exists "${xhtml_file_pretty_before}" "Try running ./script/diff-book-prepare ${book_name} first"
-  check_file_exists "${xhtml_and_css_file_pretty_before}" "Try running ./script/diff-book-prepare ${book_name} first"
 
   if [[ ! ${SKIP_PDF} ]]; then
     do_progress_quiet "Building PDF (and XHTML)" \
