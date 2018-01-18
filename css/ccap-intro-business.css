@@ -2124,7 +2124,7 @@ The below are values to retrieve commonly used font sizes using .font-scale() mi
   background: url("ccap-business/TOC.svg") no-repeat left;
   padding-right: 15.6px;
   padding-left: 34.2732px;
-  margin-left: 57.921708px;
+  margin-left: 9.23076923px;
   margin-bottom: 15.6px;
   padding-bottom: 9px;
   padding-top: 8px;
@@ -2194,6 +2194,8 @@ The below are values to retrieve commonly used font sizes using .font-scale() mi
   text-align: center;
   line-height: 20px;
   float: left;
+  margin-left: -12.1px;
+  margin-right: 40px;
   content: counter(toc-chapter-counter, decimal);
 }
 .book > .toc .toc-chapter:nth-child(2n),
@@ -3476,6 +3478,31 @@ div.section.learning-outcomes div.orderedlist ol li.listitem::before {
 }
 div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > span.bold:first-child {
   display: none;
+}
+/* ---------------------------------------------------
+ * Remove folio on chapter splash
+ * ---------------------------------------------------
+ */
+.chapter {
+  page: chapter;
+  prince-page-group: start;
+}
+@page chapter:nth(1) {
+  @top-left-corner {
+    content: none;
+  }
+  @top-right-corner {
+    content: none;
+  }
+  @top-left {
+    content: none;
+  }
+  @top-center {
+    content: none;
+  }
+  @top-right {
+    content: none;
+  }
 }
 /* -------------------------
  * Intro to Business Notes
