@@ -1622,14 +1622,14 @@ div.book .footnote > * {
   font-weight: normal;
 }
 div.book .footnote::footnote-call {
-  content: "[" counter(footnote, upper-roman) "]";
+  content: "[" counter(footnote) "]";
   font-size: 83%;
   vertical-align: super;
   line-height: none;
   margin-before: 0.5em;
 }
 div.book .footnote::footnote-marker {
-  content: counter(footnote, upper-roman);
+  content: counter(footnote);
   color: #6D6F71 !important;
   margin-right: 1.33em !important;
   color: black;
@@ -3853,5 +3853,12 @@ div.table > table {
   /* Needed for border radius for tables to appear. */
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+}
+/* Override to use roman-numerals for footnote counters */
+div.book .footnote::footnote-call {
+  content: "[" counter(footnote, lower-roman) "]";
+}
+div.book .footnote::footnote-marker {
+  content: counter(footnote, lower-roman);
 }
 /*# sourceMappingURL=ccap-business-ethics.css.map */
