@@ -1,5 +1,5 @@
 #!/bin/bash
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/.." || exit 111
 source ./script/bootstrap || exit 111
 
 odd_even="${1}"
@@ -11,7 +11,7 @@ fi
 
 count=0
 for config in "${BOOK_CONFIGS[@]}"; do
-  read -r uuid collection_id style_name _ <<< "${config}"
+  read -r uuid _ style_name _ <<< "${config}"
 
   count=$((count+1))
   if [[ ${odd_even} == "even" && $((count%2)) != 0 ]]; then

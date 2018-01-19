@@ -1,6 +1,6 @@
 #!/bin/bash
-cd "$(dirname "$0")/.."
-source ./script/bootstrap || exit 1
+cd "$(dirname "$0")/.." || exit 111
+source ./script/bootstrap || exit 111
 
 book_name=${1}
 
@@ -9,7 +9,7 @@ has_differences=0
 
 
 check_file_exists() {
-  [[ -f ${1} ]] || die "Expected file missing: "${1}" ${2}"
+  [[ -f ${1} ]] || die "Expected file missing: '${1}' ${2}"
 }
 
 diff_files() {
@@ -18,8 +18,8 @@ diff_files() {
   local after_file=${3}
 
   # Check that the files exist
-  check_file_exists ${before_file} "Try running ./script/diff-book-prepare {book_name}"
-  check_file_exists ${after_file} "This is a bug that should be reported"
+  check_file_exists "${before_file}" "Try running ./script/diff-book-prepare {book_name}"
+  check_file_exists "${after_file}" "This is a bug that should be reported"
 
   diff "${before_file}" "${after_file}" > /dev/null
   local exit_status=$?
@@ -34,24 +34,21 @@ diff_files() {
 if [[ ! ${book_name} || ! -d "./data/${book_name}/" ]]; then
   if [[ -d "./data/" && $(ls ./data/) ]]; then
     echo "A valid book name (directory in ./data/) needs to be specified. Valid options are:"
-    echo $(ls ./data/)
+    ls ./data
     exit 1
   else
     die "No source files in ./data/ exist. Please unzip a complete zip and name it something that matches one of the ccap-* names (without the ccap- prefix) OR use './script/fetch-book {book_name}' to do it for you"
   fi
 else
-  # Diff the PDF and the XHTML
-  css_path="./css/ccap-${book_name}.css"
+  # Diff the PDF by comparing images of each page of the PDF
 
   pdf_file_before="./out/${book_name}.prepared.pdf"
   pdf_file_after="./out/${book_name}.pdf" # created in ./script/build-pdf
 
   xhtml_file_before="./out/${book_name}-temp/collection.prepared.xhtml" # created in ./script/diff-book-prepare
   xhtml_file_after="./out/${book_name}-temp/collection.xhtml" # created in ./script/build-pdf
-  xhtml_and_css_file_after="./out/${book_name}-temp/collection.out.xhtml"
 
   xhtml_file_pretty_before="./out/${book_name}-temp/collection.prepared.pretty.xhtml"
-  xhtml_file_pretty_after="./out/${book_name}-temp/collection.pretty.xhtml"
 
   # Check that all the prepared files exist
   check_file_exists "${pdf_file_before}" "Try running ./script/diff-book-prepare ${book_name} first"
@@ -59,7 +56,7 @@ else
 
   if [[ ! ${SKIP_PDF} ]]; then
     do_progress_quiet "Building PDF (and XHTML)" \
-      ./script/build-pdf ${book_name}
+      ./script/build-pdf "${book_name}"
   else
     # Copy the collection.prepared.xhtml file if a file does not exist
     if [[ ! -f ${xhtml_file_after} ]]; then
@@ -96,7 +93,7 @@ else
   do_progress "Checking if all the images match"
   # Check that the images exist
   [[ -f "./out/${book_name}-temp/_prepared-pages/page-0000.png" ]] || die "Problem looping over the prepared pages. Try running ./script/diff-book-prepare ${book_name}"
-  for image_file in $(cd "./out/${book_name}-temp/_prepared-pages" && ls *.png); do
+  for image_file in $(cd "./out/${book_name}-temp/_prepared-pages" && ls ./*.png); do
     # Skip the 1st page because it contains a timestamp
     if [[ ${image_file} == 'page-0000.png' ]]; then
       continue

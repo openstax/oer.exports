@@ -1,11 +1,10 @@
 #!/bin/bash
-
-cd "$(dirname "$0")/.."
-
-source ./script/bootstrap || exit 1
+cd "$(dirname "$0")/.." || exit 111
+source ./script/bootstrap || exit 111
 
 if [[ $(which brew) ]]; then
-  declare -x XML_CATALOG_FILES=$(brew --prefix)/etc/xml/catalog
+  XML_CATALOG_FILES=$(brew --prefix)/etc/xml/catalog
+  export XML_CATALOG_FILES
 fi
 do_progress_quiet 'Checking that we can fetch docbook-xsl from the XML catalog' \
   xsltproc --catalogs --nonet --noout ./docbook-xsl/xhtml-1_1/docbook.xsl ./test-ccap/m-anatomy/index_auto_generated.cnxml
@@ -21,5 +20,9 @@ progress "Checking that prince version matches the server"
 if [[ $(prince --version | grep "Prince") != "Prince ${prince_version}" ]]; then
   die "Prince version mismatches. Expected ${prince_version} but got $(prince --version | grep "Prince")"
 fi
+
+# *Note:* shellcheck is already installed on Travis
+do_progress_quiet 'Linting shell scripts' \
+  shellcheck ./books.txt ./script/*
 
 _say "${c_green}PASSED:${c_none} It seems all the tests passed 🎉"

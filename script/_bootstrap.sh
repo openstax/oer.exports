@@ -8,9 +8,9 @@ style_name_to_uuid() {
   style_name_arg="${1}"
 
   for config in "${BOOK_CONFIGS[@]}"; do
-    read -r uuid collection_id style_name _ <<< "${config}"
+    read -r uuid _ style_name _ <<< "${config}"
 
-    if [[ ${style_name} == ${style_name_arg} ]]; then
+    if [[ "${style_name}" == "${style_name_arg}" ]]; then
       echo "${uuid}"
     fi
   done
