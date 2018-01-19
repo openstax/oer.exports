@@ -74,3 +74,15 @@ div.table > table {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
+
+/* Override to use roman-numerals for footnote counters */
+div.book {
+  .footnote {
+    &::footnote-call {
+      content: "[" counter(footnote, lower-roman) "]";
+    }
+    &::footnote-marker {
+      content: counter(footnote, lower-roman);
+    }
+  }
+}
