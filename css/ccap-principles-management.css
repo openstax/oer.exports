@@ -2095,6 +2095,24 @@ The below are values to retrieve commonly used font sizes using .font-scale() mi
  * Attributions
  * ------------------------
  */
+.toc-chapter::before {
+  display: inline-block;
+  color: #24739e;
+  border: 1px solid #0dc0dc;
+  font-size: 12px;
+  padding: 0;
+  margin-top: -2px;
+  margin-left: 15.6px;
+  margin-right: 15.6px;
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  float: left;
+  margin-left: -12.1px;
+  content: counter(toc-chapter-counter, decimal);
+}
 /* -------------------------
  * Book TOC
  * ------------------------
@@ -2124,7 +2142,7 @@ The below are values to retrieve commonly used font sizes using .font-scale() mi
   background: url("ccap-business/TOC.svg") no-repeat left;
   padding-right: 15.6px;
   padding-left: 34.2732px;
-  margin-left: 57.921708px;
+  margin-left: 9.23076923px;
   margin-bottom: 15.6px;
   padding-bottom: 9px;
   padding-top: 8px;
@@ -2177,24 +2195,6 @@ The below are values to retrieve commonly used font sizes using .font-scale() mi
   margin-bottom: 18px;
   padding-bottom: 15.6px;
   padding-top: 15.6px;
-}
-.book > .toc .toc-chapter::before,
-.book > .part > .toc .toc-chapter::before {
-  display: inline-block;
-  color: #24739e;
-  border: 1px solid #0dc0dc;
-  font-size: 12px;
-  padding: 0;
-  margin-top: -2px;
-  margin-left: 15.6px;
-  margin-right: 15.6px;
-  font-weight: 700;
-  width: 20px;
-  height: 20px;
-  text-align: center;
-  line-height: 20px;
-  float: left;
-  content: counter(toc-chapter-counter, decimal);
 }
 .book > .toc .toc-chapter:nth-child(2n),
 .book > .part > .toc .toc-chapter:nth-child(2n) {
@@ -3476,6 +3476,31 @@ div.section.learning-outcomes div.orderedlist ol li.listitem::before {
 }
 div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > span.bold:first-child {
   display: none;
+}
+/* ---------------------------------------------------
+ * Remove folio on chapter splash
+ * ---------------------------------------------------
+ */
+.chapter {
+  page: chapter;
+  prince-page-group: start;
+}
+@page chapter:nth(1) {
+  @top-left-corner {
+    content: none;
+  }
+  @top-right-corner {
+    content: none;
+  }
+  @top-left {
+    content: none;
+  }
+  @top-center {
+    content: none;
+  }
+  @top-right {
+    content: none;
+  }
 }
 /* -------------------------
  * Principles of Management Strings
