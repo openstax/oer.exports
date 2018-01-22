@@ -2613,6 +2613,15 @@ sup {
   position: static;
   top: auto;
 }
+div.book div.chapter {
+  counter-reset: EOCexercise;
+}
+div.book div.chapter > div.cnx-eoc div.exercise:not(.labeled) {
+  counter-increment: EOCexercise;
+}
+div.book div.chapter > div.cnx-eoc > div.section > div.body > div.exercise:not(.labeled) > div.body > div.problem::before {
+  content: "" counter(EOCexercise) "." "";
+}
 .abstract,
 .end-of-book-solutions {
   display: none;
