@@ -95,7 +95,7 @@ else
   [[ -f "./out/${book_name}-temp/_prepared-pages/page-0000.png" ]] || die "Problem looping over the prepared pages. Try running ./script/diff-book-prepare ${book_name}"
   for image_file in $(cd "./out/${book_name}-temp/_prepared-pages" && ls ./*.png); do
     # Skip the 1st page because it contains a timestamp
-    if [[ ${image_file} == 'page-0000.png' ]]; then
+    if [[ $(basename "${image_file}") == 'page-0000.png' ]]; then
       continue
     fi
     # Compare the 2 images (from https://www.imagemagick.org/Usage/compare/#statistics)
