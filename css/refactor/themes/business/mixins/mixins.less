@@ -1,3 +1,5 @@
+@import url('notes.less');
+
 .folio-typography() {
   font-family: @font-family-serif;
   color: @folio-color;
@@ -38,125 +40,7 @@
     }
   }
 }
-.notes(@title, @title-background-color, @background-color, @icon, @notes-body-text-color: @notes-body-text-color, @icon-width: 168px, @icon-height: 100px, @icon-top: -9px, @icon-right: 15px, @border-bottom-left-radius: 0, @border-bottom-right-radius: 0, @border-top-left-radius: 5px, @border-top-right-radius: 5px) { //@icon-* attribute values are defaults for content based feature icons.
-    display: table;
-    position: relative;
-    background-color: @background-color;
-    text-align: left;
-    color: @notes-body-text-color;
-    border-bottom-left-radius: @border-bottom-left-radius;
-    border-bottom-right-radius: @border-bottom-right-radius;
-    padding: 0;
-    box-sizing: border-box;
-    &::before {
-        display: table-caption;
-        content: @title; // font-weight: 600;
-        font-style: normal;
-        background-color: @title-background-color;
-        color: #fff;
-        line-height: 48px;
-        border-top-left-radius: @border-top-left-radius;
-        border-top-right-radius: @border-top-right-radius;
-        .font-scale(1);
-        font-family: @font-family-titles;
-        padding: 16px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        #utils>#pb>.after(avoid);
-    }
-    >div.title {
-        .font-scale(1);
-        color: @notes-subtitle-color;
-        font-weight: 600;
-        .scale-padding(1, padding-left);
-        .scale-padding(1, padding-right);
-    }
-    >div.body {
-        border: 0;
-        //padding: 5px 13px 15px;
-        //.scale-padding(-1, padding-top);
-        .scale-padding(1, margin-bottom);
-        .scale-padding(1, margin-left);
-        .scale-padding(1, margin-right);
-        font-size: 9pt;
-        color: @notes-body-text-color;
-        &::before {
-            display: block;
-            content: '';
-            background: url("ccap-business/@{icon}.svg") no-repeat 0;
-            width: @icon-width;
-            height: @icon-height;
-            position: absolute;
-            top: @icon-top;
-            right: @icon-right;
-        }
-        p {
-            padding: 0;
-        }
-        p:first-child {
-            margin-top: 0;
-        }
-    }
-}
-.note-border-top (@note-title, @note-border-color, @border-radius: 3px, @border-top: 5px) {
-  &::before {
-    content: @note-title;
-    display: block;
-    border-top: @border-top solid @note-border-color;
-    border-top-right-radius: @border-radius;
-    border-top-left-radius: @border-radius;
-    border-bottom: solid 1px @notes-border-color;
-    .font-scale(1);
-    font-family: @font-family-titles;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    #utils>#pb>.after(avoid);
-    .scale-padding(2, padding);
-    position: relative;
-    top: -5px;
-    left: -1px;
-    width: @note-border-top-width;
-    font-weight: bold;
-  }
-  box-decoration-break: slice;
-  box-sizing: border-box;
-  position: relative;
-  border-left: solid 1px @notes-border-color;
-  border-right: solid 1px @notes-border-color;
-  border-bottom: solid 1px @notes-border-color;
-  //override base generic styles for notes
-  padding: 0;
-  margin: 0;
-  top: 10px;
-  //override generic note corners
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
-  width: 100%;
-  .title {
-    .font-scale(1);
-    color: @notes-subtitle-color;
-    font-weight: 600;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .body {
-    .scale-padding(2, padding);
-    border: 0;
-    .font-scale(0);
-    color: @secondary-color;
-    p {
-      padding: 0;
-    }
-    p:first-child {
-      margin-top: 0;
-    }
-  }
-  a:link {
-    .link-style(@body-link-color);
-  }
-}
+
 //EOC exercises custom numbering
 .eocCustomCounters (@identifier) {
   .exercise {

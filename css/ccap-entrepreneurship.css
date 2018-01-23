@@ -1969,14 +1969,29 @@ See typography.less for details on calulation.
 The below are values to retrieve commonly used font sizes using .font-scale() mixin.
 
 
-@base-font: 12px; |   Size in px      |   Size in pt (for PDF)
-  .font-scale(-1) :   9.23076923px;   |   7pt
-  .font-scale(0)  :   12px;           |   9pt
-  .font-scale(1)  :   15.6px;         |   11.75pt
-  .font-scale(2)  :   18px;           |   13.5pt
-  .font-scale(3)  :   20.28px;        |   15.25pt
+For fonts @base-font: 12px:
+ |   Scale Factor    |   Size in px          |   Size in pt (for PDF)   |
+ .font-scale(-1)     :   9.23076923px;       ->    7pt
+ .font-scale(0)      :   12px;               ->    9pt
+ .font-scale(1)      :   15.6px;             ->    11.75pt
+ .font-scale(2)      :   18px;               ->    13.5pt
+ .font-scale(3)      :   20.28px;            ->    15.25pt
 
 
+For padding:
+ |   Scale Factor                |   Size in px      |
+ .scale-padding(-6, padding);   ->     4.20px
+ .scale-padding(-5, padding);   ->     5.33px
+ .scale-padding(-4, padding);   ->     5.46px
+ .scale-padding(-3, padding);   ->     7.10px
+ .scale-padding(-2, padding);   ->     8px
+ .scale-padding(-1, padding);   ->     9.23px
+ .scale-padding(-0, padding);   ->     12px
+ .scale-padding(1, padding);    ->     15.6px
+ .scale-padding(2, padding);    ->     18px
+ .scale-padding(3, padding);    ->     20.28px
+ .scale-padding(4, padding);    ->     26.36px
+ .scale-padding(5, padding);    ->     27px
 
 =========================================================== */
 /* -------------------------
@@ -2667,8 +2682,11 @@ div.table table tbody tr {
 div.table table td {
   border-color: rgba(0, 0, 0, 0);
   font-family: 'Noto Sans', sans-serif;
-  font-size: 9pt;
-  padding: 5px 10px;
+  font-size: 12px;
+  padding-top: 5.46199363px;
+  padding-bottom: 5.46199363px;
+  padding-right: 9.23076923px;
+  padding-left: 9.23076923px;
   border-top: 1px solid 1px solid rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid 1px solid rgba(0, 0, 0, 0.1);
   border-right: 1px solid 1px solid rgba(0, 0, 0, 0.1);
@@ -2688,6 +2706,7 @@ div.table table td.header {
   color: #344456;
   font-weight: bold;
   font-size: 9pt;
+  font-size: 12px;
   text-align: center;
   vertical-align: initial;
 }
@@ -2751,7 +2770,7 @@ div.table.unstyled table td {
 }
 div.table.column-header tbody td:first-child {
   color: #fff;
-  font-size: 9pt;
+  font-size: 12px;
   font-weight: bold;
   text-align: center;
   vertical-align: initial;
@@ -2772,7 +2791,7 @@ div.table.text-heavy table tbody {
   border: none;
 }
 div.table.text-heavy table tbody > tr > td.tablecell {
-  padding: 10px;
+  padding: 9.23076923px;
   border: none;
 }
 /* -------------------------
@@ -2783,7 +2802,10 @@ div.note div.table table thead tr:first-of-type th {
   white-space: nowrap;
 }
 div.note div.table table thead tr:first-of-type th:not(:last-child) {
-  padding: 4px 4px 4px 10px;
+  padding-top: 4.20153356px;
+  padding-right: 4.20153356px;
+  padding-bottom: 4.20153356px;
+  padding-left: 9.23076923px;
   text-align: left;
 }
 div.note div.table table thead tr:first-of-type th:last-child {
@@ -2866,9 +2888,10 @@ img {
   border-top-right-radius: 5px;
   font-size: 15.6px;
   font-family: 'Roboto Condensed';
-  padding: 16px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 15.6px;
+  padding-right: 15.6px;
   letter-spacing: 3px;
   text-transform: uppercase;
   page-break-after: avoid;
@@ -2882,9 +2905,9 @@ img {
 }
 .chapter .example > div.body {
   border: 0;
-  margin-bottom: 15.6px;
-  margin-left: 15.6px;
-  margin-right: 15.6px;
+  padding-bottom: 15.6px;
+  padding-left: 15.6px;
+  padding-right: 15.6px;
   font-size: 9pt;
   color: #000;
 }
@@ -2953,9 +2976,10 @@ img {
   border-top-right-radius: 5px;
   font-size: 15.6px;
   font-family: 'Roboto Condensed';
-  padding: 16px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 15.6px;
+  padding-right: 15.6px;
   letter-spacing: 3px;
   text-transform: uppercase;
   page-break-after: avoid;
@@ -2969,9 +2993,9 @@ img {
 }
 .chapter .note.link-to-learning > div.body {
   border: 0;
-  margin-bottom: 15.6px;
-  margin-left: 15.6px;
-  margin-right: 15.6px;
+  padding-bottom: 15.6px;
+  padding-left: 15.6px;
+  padding-right: 15.6px;
   font-size: 9pt;
   color: #000;
 }
@@ -3587,9 +3611,10 @@ div.toc li.toc-part a.target-part::before {
   border-top-right-radius: 5px;
   font-size: 15.6px;
   font-family: 'Roboto Condensed';
-  padding: 16px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 15.6px;
+  padding-right: 15.6px;
   letter-spacing: 3px;
   text-transform: uppercase;
   page-break-after: avoid;
@@ -3603,9 +3628,9 @@ div.toc li.toc-part a.target-part::before {
 }
 .chapter .note.link-to-learning > div.body {
   border: 0;
-  margin-bottom: 15.6px;
-  margin-left: 15.6px;
-  margin-right: 15.6px;
+  padding-bottom: 15.6px;
+  padding-left: 15.6px;
+  padding-right: 15.6px;
   font-size: 9pt;
   color: #000;
 }
@@ -3647,9 +3672,10 @@ div.toc li.toc-part a.target-part::before {
   border-top-right-radius: 5px;
   font-size: 15.6px;
   font-family: 'Roboto Condensed';
-  padding: 16px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 15.6px;
+  padding-right: 15.6px;
   letter-spacing: 3px;
   text-transform: uppercase;
   page-break-after: avoid;
@@ -3663,9 +3689,9 @@ div.toc li.toc-part a.target-part::before {
 }
 .chapter .note.entrepreneur-in-action > div.body {
   border: 0;
-  margin-bottom: 15.6px;
-  margin-left: 15.6px;
-  margin-right: 15.6px;
+  padding-bottom: 15.6px;
+  padding-left: 15.6px;
+  padding-right: 15.6px;
   font-size: 9pt;
   color: #000;
 }
@@ -3707,9 +3733,10 @@ div.toc li.toc-part a.target-part::before {
   border-top-right-radius: 5px;
   font-size: 15.6px;
   font-family: 'Roboto Condensed';
-  padding: 16px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 15.6px;
+  padding-right: 15.6px;
   letter-spacing: 3px;
   text-transform: uppercase;
   page-break-after: avoid;
@@ -3723,9 +3750,9 @@ div.toc li.toc-part a.target-part::before {
 }
 .chapter .note.think-through > div.body {
   border: 0;
-  margin-bottom: 15.6px;
-  margin-left: 15.6px;
-  margin-right: 15.6px;
+  padding-bottom: 15.6px;
+  padding-left: 15.6px;
+  padding-right: 15.6px;
   font-size: 9pt;
   color: #000;
 }
@@ -3767,9 +3794,10 @@ div.toc li.toc-part a.target-part::before {
   border-top-right-radius: 5px;
   font-size: 15.6px;
   font-family: 'Roboto Condensed';
-  padding: 16px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 15.6px;
+  padding-right: 15.6px;
   letter-spacing: 3px;
   text-transform: uppercase;
   page-break-after: avoid;
@@ -3783,9 +3811,9 @@ div.toc li.toc-part a.target-part::before {
 }
 .chapter .note.are-you-ready > div.body {
   border: 0;
-  margin-bottom: 15.6px;
-  margin-left: 15.6px;
-  margin-right: 15.6px;
+  padding-bottom: 15.6px;
+  padding-left: 15.6px;
+  padding-right: 15.6px;
   font-size: 9pt;
   color: #000;
 }
@@ -3827,9 +3855,10 @@ div.toc li.toc-part a.target-part::before {
   border-top-right-radius: 5px;
   font-size: 15.6px;
   font-family: 'Roboto Condensed';
-  padding: 16px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 15.6px;
+  padding-right: 15.6px;
   letter-spacing: 3px;
   text-transform: uppercase;
   page-break-after: avoid;
@@ -3843,9 +3872,9 @@ div.toc li.toc-part a.target-part::before {
 }
 .chapter .note.work-it-out > div.body {
   border: 0;
-  margin-bottom: 15.6px;
-  margin-left: 15.6px;
-  margin-right: 15.6px;
+  padding-bottom: 15.6px;
+  padding-left: 15.6px;
+  padding-right: 15.6px;
   font-size: 9pt;
   color: #000;
 }
@@ -3887,9 +3916,10 @@ div.toc li.toc-part a.target-part::before {
   border-top-right-radius: 5px;
   font-size: 15.6px;
   font-family: 'Roboto Condensed';
-  padding: 16px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 15.6px;
+  padding-right: 15.6px;
   letter-spacing: 3px;
   text-transform: uppercase;
   page-break-after: avoid;
@@ -3903,9 +3933,9 @@ div.toc li.toc-part a.target-part::before {
 }
 .chapter .note.what-can-do > div.body {
   border: 0;
-  margin-bottom: 15.6px;
-  margin-left: 15.6px;
-  margin-right: 15.6px;
+  padding-bottom: 15.6px;
+  padding-left: 15.6px;
+  padding-right: 15.6px;
   font-size: 9pt;
   color: #000;
 }
@@ -3947,9 +3977,10 @@ div.toc li.toc-part a.target-part::before {
   border-top-right-radius: 5px;
   font-size: 15.6px;
   font-family: 'Roboto Condensed';
-  padding: 16px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 15.6px;
+  padding-right: 15.6px;
   letter-spacing: 3px;
   text-transform: uppercase;
   page-break-after: avoid;
@@ -3963,9 +3994,9 @@ div.toc li.toc-part a.target-part::before {
 }
 .chapter .note.link-to-learning > div.body {
   border: 0;
-  margin-bottom: 15.6px;
-  margin-left: 15.6px;
-  margin-right: 15.6px;
+  padding-bottom: 15.6px;
+  padding-left: 15.6px;
+  padding-right: 15.6px;
   font-size: 9pt;
   color: #000;
 }
