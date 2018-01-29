@@ -2,27 +2,37 @@
  * Business Table Styles
  * ------------------------
  */
+.chapter .table {
+  //override content-skeleton, can be removed if we remove content-skeleton
+  page-break-inside: auto;
+}
 div.table {
   // First, reset div.table so it just goes away. Apply styling to the actual
   // table element.
   margin: 0 auto;
   padding: 0;
   border: none;
-  #utils>#pb>.inside(auto);
+  //#utils>#pb>.inside(auto);
   //basic styles for tables
-  page-break-inside: auto !important; //Override rule from content-skeleton.less to allow page break for business books
+//  page-break-inside: auto !important; //Override rule from content-skeleton.less to allow page break for business books
   table {
     //#content>#table>.style(any; any);
     #utils>#pb>.inside(auto);
-    margin-bottom: 22px;
-    padding-top: 1em;
-    padding-bottom: 1em;
-    border-collapse: collapse;
+    //margin-bottom: 22px;
+    //padding-top: 1em;
+    //padding-bottom: 1em;
+    .scale-padding(3, margin-bottom);
+    .scale-padding(1, padding-top);
+    .scale-padding(1, padding-bottom);
+    width: 100%;
+    border-collapse: separate;
     .line-height();
     // If a table spans more than 1 page then put caption on all following pages
     prince-caption-page: all;
 
     //table head
+    //
+    ////todo fix border top when no header
     thead {
       //#content>#table>#head>.style(any; any);
       border-top: none;
@@ -32,20 +42,23 @@ div.table {
         //TODO
         //#content>#table>#header>.footnote(any; any);
       }
-      // th {
-      //   ///#content>#table>#header>.style(any; any);
-      //   border-color: @th-border-color;
-      //   border-bottom: none;
-      //   padding: 5px 10px;
-      //   .font-scale(0);
-      //   vertical-align: initial;
-      //   font-weight: 100;
-      // }
+      th {
+        //#content>#table>#header>.style(any; any);
+        border-bottom: none;
+        .scale-padding(-5, padding-top);
+        .scale-padding(-5, padding-bottom);
+        .scale-padding(-1, padding-left);
+        .scale-padding(-1, padding-right);
+        //padding: 5px 10px;
+        .font-scale(0);
+        vertical-align: initial;
+        font-weight: 100;
+      }
       th:not(:only-child) {
         //TODO verify which it is in new math
         //#content>#table>#header>.style(any; any);
       }
-      > tr:first-child {
+      > tr {
         //#content>#table>#header>#title>.style(any; any);
         border-left: 0;
         border-right: 0;
@@ -68,12 +81,14 @@ div.table {
       }
       tr:not(first-child) {
         .table-2d-header-style();
+        border: 0;
       }
     }
     //tbody generic styles
     tbody {
       //#content>#table>#body>.style(any; any);
       border: @table-body-border-color;
+
       //border-top: none;
       color: @table-head-color;
       &[valign=top] > tr > td {
@@ -82,7 +97,11 @@ div.table {
       tr {
         page-break-inside: avoid;
       }
-    }
+
+      tr:last-child td {
+        border-bottom: @table-body-border-color;
+      }
+      }
     //TDs
     td {
       //#content>#table>#data>.style(any; any);
@@ -94,9 +113,9 @@ div.table {
       .scale-padding(-4, padding-bottom);
       .scale-padding(-1, padding-right);
       .scale-padding(-1, padding-left);
-      border-top: 1px solid @table-body-border-color;
-      border-bottom: 1px solid @table-body-border-color;
-      border-right: 1px solid @table-body-border-color;
+      //border-top: @table-body-border-color;
+      border-top: @table-body-border-color;
+      border-right: @table-body-border-color;
       border-left: none;
       &.text-align-right {
         text-align: right;
@@ -135,7 +154,7 @@ div.table {
   &:not(.unstyled) table tbody tr td:first-child {
     //#content>#table>#data>.style('first-column'; any);
     //TODO
-    border-left: 1px solid @table-body-border-color;
+    border-left: @table-body-border-color;
   }
 
   &:not(.unstyled) table tbody tr td:last-child {

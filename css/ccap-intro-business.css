@@ -2678,19 +2678,21 @@ div.chapter > div.section > div.section div.titlepage > div > div > h3 {
  * Business Table Styles
  * ------------------------
  */
+.chapter .table {
+  page-break-inside: auto;
+}
 div.table {
   margin: 0 auto;
   padding: 0;
   border: none;
-  page-break-inside: auto;
-  page-break-inside: auto !important;
 }
 div.table table {
   page-break-inside: auto;
-  margin-bottom: 22px;
-  padding-top: 1em;
-  padding-bottom: 1em;
-  border-collapse: collapse;
+  margin-bottom: 20.28px;
+  padding-top: 15.6px;
+  padding-bottom: 15.6px;
+  width: 100%;
+  border-collapse: separate;
   line-height: 1.6em;
   prince-caption-page: all;
 }
@@ -2698,7 +2700,17 @@ div.table table thead {
   border-top: none;
   font-family: 'Noto Sans', sans-serif;
 }
-div.table table thead > tr:first-child {
+div.table table thead th {
+  border-bottom: none;
+  padding-top: 5.33333333px;
+  padding-bottom: 5.33333333px;
+  padding-left: 9.23076923px;
+  padding-right: 9.23076923px;
+  font-size: 12px;
+  vertical-align: initial;
+  font-weight: 100;
+}
+div.table table thead > tr {
   border-left: 0;
   border-right: 0;
 }
@@ -2717,6 +2729,7 @@ div.table table thead tr:first-of-type th:last-child {
 div.table table thead tr:not(first-child) {
   background-color: #24739e;
   color: #fff;
+  border: 0;
 }
 div.table table tbody {
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -2728,6 +2741,9 @@ div.table table tbody[valign=top] > tr > td {
 div.table table tbody tr {
   page-break-inside: avoid;
 }
+div.table table tbody tr:last-child td {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
 div.table table td {
   border-color: rgba(0, 0, 0, 0);
   font-family: 'Noto Sans', sans-serif;
@@ -2736,9 +2752,8 @@ div.table table td {
   padding-bottom: 5.46199363px;
   padding-right: 9.23076923px;
   padding-left: 9.23076923px;
-  border-top: 1px solid 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid 1px solid rgba(0, 0, 0, 0.1);
-  border-right: 1px solid 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
   border-left: none;
 }
 div.table table td.text-align-right {
@@ -2789,7 +2804,7 @@ div.table table caption::before {
   color: #000;
 }
 div.table:not(.unstyled) table tbody tr td:first-child {
-  border-left: 1px solid 1px solid rgba(0, 0, 0, 0.1);
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
 div.table:not(.unstyled) table tbody tr td:last-child {
   border-right: 1px solid rgba(0, 0, 0, 0.1);
@@ -3134,12 +3149,10 @@ img {
   display: inline;
 }
 .chapter .glossary dl dt {
-  line-height: 1.5em;
   font-size: 12px;
 }
 .chapter .glossary dl dd {
   margin-left: 0;
-  line-height: 1.5em;
   font-size: 12px;
 }
 .cnx-eoc {
