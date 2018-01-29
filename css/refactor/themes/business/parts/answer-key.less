@@ -21,6 +21,7 @@ div.colophon.end-of-book-solutions {
         padding-top: 0;
       }
       .chapter-area {
+        .scale-padding(-2, margin-bottom);
           //#part>#book-end>#end-of-book-solutions>#chapter-area>.style();
           //font-family: @font-family-serif;
           > div {
@@ -32,9 +33,11 @@ div.colophon.end-of-book-solutions {
             font-weight: bold;
 
           }
+          > h2.title {
+            .scale-padding(-2, margin-bottom);
+          }
           > h2.title a.chapter {
-            // Now that this is display: block it honors page break
-            // rules from .chapter {}. Reset it.
+            // display: block; Enabling this will cause page breaks before and after this element for an unexplainable reason.
             .solutions-subheading-style();
             #utils>#pb>.before(avoid);
             #utils>#pb>.after(avoid);
