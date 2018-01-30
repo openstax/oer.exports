@@ -18,8 +18,8 @@ div.end-of-book-references {
   > .chapter-area {
     // #part>#book-end>#end-of-book-references>#chapter-area>.style();
     counter-reset: references;
-    margin-bottom: 1em;
-
+    //margin-bottom: 1em; //12px computed value
+    .scale-padding(0, margin-bottom);
     > .title {
       display: none;
     }
@@ -42,14 +42,17 @@ div.end-of-book-references {
 
     > .body > .section-area .note.reference {
       // #part>#book-end>#end-of-book-references>#chapter-area>#note>.style(any; any);
-      margin: 0 0 0.5em;
+      // margin: 0 0 0.5em; // 6px computed value
+      .scale-padding(-3, margin-bottom);
+      border: 2px solid lime;
       padding: 0;
       counter-increment: references;
 
       > .body::before {
         // #part>#book-end>#end-of-book-references>#reference>.number();
         content: counter(references) ".";
-        padding-right: 0.5em;
+        // padding-right: 0.5em; // 6px computed value
+        .scale-padding(-4, padding-right);
       }
     }
   }
