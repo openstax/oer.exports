@@ -3,57 +3,68 @@
  * ------------------------
  */
 div.colophon.end-of-book-solutions {
-      prince-text-replace: "Answer:" ""; //strip out "Answer:" eob solutions for print_pdf
-    //   #part>#book-end>#end-of-book-solutions>.style();
-    .x-column-count(1);
-      > .title {
-        //#part>#book-end>#end-of-book-solutions>#title>.style();
-        #l10n>.content-string(answer-key; page-title);
-        #l10n>.named-string(cnx-header; answer-key; page-title);
-        color: @medium-blue;
-        margin-left: 0;
-        background-color: transparent; //overwrite from .colophon title
-        .eob-title-style();
-      }
-    //   // Some miscellaneous stuff we will have to decide on
-      div.chapter-area:first-of-type h2.title {
-        margin-top: 0;
-        padding-top: 0;
-      }
-      .chapter-area {
-        .scale-padding(-2, margin-bottom);
-          //#part>#book-end>#end-of-book-solutions>#chapter-area>.style();
-          //font-family: @font-family-serif;
-          > div {
-           // #part>#book-end>#end-of-book-solutions>#chapter-area>.style('subsection');
-           //.scale-padding(0, margin-bottom);
-          }
-          a.solution {
-            color: @solution-link-color;
-            font-weight: bold;
+  prince-text-replace: "Answer:" ""; //strip out "Answer:" eob solutions for print_pdf
+  //   #part>#book-end>#end-of-book-solutions>.style();
+  .x-column-count(1);
 
-          }
-          > h2.title {
-            .scale-padding(-2, margin-bottom);
-          }
-          > h2.title a.chapter {
-            // display: block; Enabling this will cause page breaks before and after this element for an unexplainable reason.
-            .solutions-subheading-style();
-            #utils>#pb>.before(avoid);
-            #utils>#pb>.after(avoid);
-          }
-          > h2.title a.chapter span { display: inline; } // reset display: block for spans
-          .solution {
-                .title {
-                    display: inline;
-                    //.scale-padding(1, margin-right);
-                    &::after {
-                        content: ". "
-                    }
-                }
-                .body {
-                    display: inline;
-                }
-            }
+  > .title {
+    //#part>#book-end>#end-of-book-solutions>#title>.style();
+    #l10n>.content-string(answer-key; page-title);
+    #l10n>.named-string(cnx-header; answer-key; page-title);
+    //  color: @medium-blue;
+    //margin-left: 0;
+    //  background-color: transparent; //overwrite from .colophon title
+    //  .eob-title-style();
+  }
+  //   // Some miscellaneous stuff we will have to decide on
+  div.chapter-area:first-of-type h2.title {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .chapter-area {
+    .scale-padding(-2, margin-bottom);
+    //#part>#book-end>#end-of-book-solutions>#chapter-area>.style();
+    //font-family: @font-family-serif;
+    > div {
+      // #part>#book-end>#end-of-book-solutions>#chapter-area>.style('subsection');
+      //.scale-padding(0, margin-bottom);
+    }
+
+    a.solution {
+      color: @solution-link-color;
+      font-weight: bold;
+    }
+
+    > h2.title {
+      .scale-padding(-2, margin-bottom);
+    }
+
+    > h2.title a.chapter {
+      // display: block; Enabling this will cause page breaks before and after this element for an unexplainable reason.
+      //.solutions-subheading-style();
+      .titles-h2-style();
+      #utils>#pb>.before(avoid);
+      #utils>#pb>.after(avoid);
+    }
+
+    > h2.title a.chapter span {
+      display: inline;
+    }
+    // reset display: block for spans
+
+    .solution {
+      .title {
+        display: inline;
+        //.scale-padding(1, margin-right);
+        &::after {
+          content: ". ";
+        }
       }
+
+      .body {
+        display: inline;
+      }
+    }
+  }
 }
