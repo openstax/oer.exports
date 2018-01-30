@@ -69,9 +69,9 @@ h1, h2, h3, h4 {
 //used for nested sections in preface, appendix or anywhere outside a chapter, used for module titles in chapters
 //
 //basic styles for h2
-.titles-h2-style(@title-color: @module-title-color) {
+.titles-h2-style(@title-color: @h2-title-color, @font: @font-family-titles) {
   //#part>#module>#title>.style();
-  font-family: @font-family-titles;
+  font-family: @font;
   color: @title-color;
   .font-scale(2);
   bookmark-level: 2;
@@ -85,7 +85,7 @@ h1, h2, h3, h4 {
 }
 
 
-.titles-h2-style-numbered(@title-color: @module-title-color; @number-border: @module-number-border) {
+.titles-h2-style-numbered(@title-color: @h2-title-color; @number-border: @module-number-border) {
   .titles-h2-style();
   &::before {
     //#part>#module>#title>.number();
@@ -109,7 +109,7 @@ h1, h2, h3, h4 {
   }
 }
 
-.titles-h2-style-icon(@title-color: @module-title-color; @svg-icon: @eoc-assessment-icon) {
+.titles-h2-style-icon(@title-color: @h2-title-color; @svg-icon: @eoc-assessment-icon) {
   .titles-h2-style();
   display: inline-block !important;
   background: @svg-icon no-repeat left; //todo: create icons + variables
@@ -125,12 +125,13 @@ h1, h2, h3, h4 {
 
 //h3 styles
 //used for for 1 levels of nesting titles (section nested in section) anywhere in the Contents
-.titles-h3-style () {
+.titles-h3-style (@font: @font-family, @title-color: @h3-title-color) {
   //#content>#section>#title>.style(any; any);
+  font-family: @font;
   // margin-top: 1em;
   .font-scale(1);
   .scale-padding(0, margin-top);
-  color: @subsection-title-color;
+  color: @title-color;
   font-weight: normal;
   bookmark-level: none;
   page-break-after: avoid;
@@ -139,8 +140,20 @@ h1, h2, h3, h4 {
 //h4 styles
 //used for 2 levels of nesting titles (section nested in sections nested in section) anywhere in the Contents
 
-.titles-h4-style() {
-  font-size: @base-font-size;
+.titles-h4-style(@font: @font-family, @title-color: @h4-title-color) {
+  font-family: @font;
+  .font-scale(0);
+  color: @title-color;
+}
+
+//h5 styles
+//used for 3 levels of nesting titles (section nested in sections nested in section, nested in section) anywhere in the Contents
+
+.titles-h5-style(@font: @font-family, @title-color: @h5-title-color) {
+  font-family: @font;
+  .font-scale(-1);
+  color: @title-color;
+  text-transform: uppercase;
 }
 
 //use this to hide the EOC section titles
@@ -156,8 +169,8 @@ h1, h2, h3, h4 {
 //Specific needs titles
 //toc titles
 .toc-titles-styles() {
-  //.font-scale(1); the proper way to do it, value: 11.7pts
-  font-size: 16px; //value: 12pts, because that's what was in astronomy
+  .font-scale(1);
+  //font-size: 16px; //value: 12pts, because that's what was in astronomy, switched to scale (15.6px;)
   font-weight: bold;
   color: @toc-chapter-link-color;
   font-family: @font-family;
