@@ -78,6 +78,16 @@
             //#content>#list>.item('2n+1', 'chapter'; any; toc);
             background-color: @toc-odd-bg-color;
         }
+        & when (@has-units = true){
+          margin-left: -36.4px;
+        }
+        & when (@has-units = false) {
+          margin-left: -12.1px;
+        }
+        &::before {
+          .toc-square-number-styles();
+          content: counter(toc-chapter-counter, decimal);    
+        }
         a.target-chapter {
             // #content>#link>.style('chapter'; any; toc);
             .toc-titles-styles();
