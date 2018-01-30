@@ -1975,8 +1975,16 @@ For fonts @base-font: 12px:
  .font-scale(3)      :   20.28px;            ->    15.25pt
 
 
+The below are values to retrieve commonly used padding & margin spacing using .padding-scale() mixin.
+
+//NOTE:  Negative size values are impossible to retrieve with .padding-scale(). Refer to scale below when setting a negative padding or margin to get accurate calculation.
+
 For padding:
  |   Scale Factor                |   Size in px      |
+ .scale-padding(-12, padding);  ->     1.58px
+ .scale-padding(-11, padding);  ->     1.91px
+ .scale-padding(-10, padding);  ->     2.37px
+ .scale-padding(-9, padding);   ->     2.49px
  .scale-padding(-8, padding);   ->     3.23px
  .scale-padding(-7, padding);   ->     3.56px
  .scale-padding(-6, padding);   ->     4.20px
@@ -1991,6 +1999,8 @@ For padding:
  .scale-padding(3, padding);    ->     20.28px
  .scale-padding(4, padding);    ->     26.36px
  .scale-padding(5, padding);    ->     27px
+ .scale-padding(6, padding);    ->     34.27px
+ .scale-padding(7, padding);    ->     40.5px
 
 =========================================================== */
 /* -------------------------
@@ -2137,24 +2147,6 @@ h4 {
   page-break-before: right !important;
   page-break-after: left !important;
 }
-.toc-chapter::before {
-  display: inline-block;
-  color: #24739e;
-  border: 1px solid #0dc0dc;
-  font-size: 12px;
-  padding: 0;
-  margin-top: -2px;
-  margin-left: 15.6px;
-  margin-right: 15.6px;
-  font-weight: 700;
-  width: 20px;
-  height: 20px;
-  text-align: center;
-  line-height: 20px;
-  float: left;
-  margin-left: -12.1px;
-  content: counter(toc-chapter-counter, decimal);
-}
 /* -------------------------
  * Book TOC
  * ------------------------
@@ -2183,7 +2175,7 @@ h4 {
   font-family: 'Noto Sans', sans-serif;
   background: url("ccap-business/TOC.svg") no-repeat left;
   padding-right: 15.6px;
-  padding-left: 34.2732px;
+  padding-left: 44.55516px;
   margin-left: 9.23076923px;
   margin-bottom: 15.6px;
   padding-bottom: 9px;
@@ -2237,10 +2229,29 @@ h4 {
   margin-bottom: 18px;
   padding-bottom: 15.6px;
   padding-top: 15.6px;
+  margin-left: -15px;
 }
 .book > .toc .toc-chapter:nth-child(2n),
 .book > .part > .toc .toc-chapter:nth-child(2n) {
   background-color: #F9F9F9;
+}
+.book > .toc .toc-chapter::before,
+.book > .part > .toc .toc-chapter::before {
+  display: inline-block;
+  color: #24739e;
+  border: 1px solid #0dc0dc;
+  font-size: 12px;
+  padding: 0;
+  margin-top: -2px;
+  margin-left: 15.6px;
+  margin-right: 15.6px;
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  float: left;
+  content: counter(toc-chapter-counter, decimal);
 }
 .book > .toc .toc-chapter a.target-chapter,
 .book > .part > .toc .toc-chapter a.target-chapter {
@@ -2295,6 +2306,7 @@ h4 {
 .book > .part > .toc .toc-appendix {
   padding-bottom: 15.6px;
   counter-increment: toc-appendix-counter;
+  margin-left: -15px;
 }
 .book > .toc .toc-appendix::before,
 .book > .part > .toc .toc-appendix::before {
@@ -2551,7 +2563,7 @@ div.chapter > .introduction > .toc {
 div.chapter > .introduction > .toc > ul {
   border-left: 2px solid rgba(196, 206, 187, 0.3);
   margin: 0;
-  padding-left: 0.75em;
+  padding-left: 9.23076923px;
   border-left: 4px solid #F4F4F4;
 }
 div.chapter > .introduction > .toc > .title {
@@ -2687,7 +2699,7 @@ div.table table thead tr:first-of-type th {
   background-color: #0dc0dc;
   color: #344456;
   font-weight: bold;
-  font-size: 9pt;
+  font-size: 12px;
 }
 div.table table thead tr:first-of-type th:first-child {
   border-top-left-radius: 5px;
@@ -2738,7 +2750,6 @@ div.table table td.header {
   background-color: #0dc0dc;
   color: #344456;
   font-weight: bold;
-  font-size: 9pt;
   font-size: 12px;
   text-align: center;
   vertical-align: initial;
@@ -2762,9 +2773,9 @@ div.table table caption::before {
   content: "" "Table " counter(chapter, decimal) "." counter(table) " " "";
   font-family: 'Noto Sans', sans-serif;
   border: none;
-  padding-top: .5em;
+  padding-top: 4.20153356px;
   padding-left: 0px;
-  padding-bottom: 1em;
+  padding-bottom: 9.23076923px;
   margin-right: 5.33333333px;
   caption-side: bottom;
   font-size: 9.23076923px;
@@ -2870,9 +2881,9 @@ img {
 .preface .figure > .title {
   font-family: 'Noto Sans', sans-serif;
   border: none;
-  padding-top: .5em;
+  padding-top: 4.20153356px;
   padding-left: 0px;
-  padding-bottom: 1em;
+  padding-bottom: 9.23076923px;
   margin-right: 5.33333333px;
   caption-side: bottom;
   font-size: 9.23076923px;
@@ -2988,7 +2999,7 @@ img {
   color: #0064A0;
   text-decoration: none;
   border-bottom: #0064A0 solid 0.02em;
-  padding-bottom: 0.1em;
+  padding-bottom: 1.13159514px;
 }
 .chapter .note div.title {
   margin-top: 15.6px;
@@ -3304,7 +3315,7 @@ div.appendix > div.titlepage > div > div h1.title {
   padding: 0;
   margin: 0;
   position: relative;
-  margin-bottom: 15px;
+  margin-bottom: 15.6px;
 }
 div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-autogenerated:first-of-type,
 div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-autogenerated:first-of-type {
@@ -3540,7 +3551,7 @@ body {
   color: #027eb5;
   text-decoration: none;
   border-bottom: #027eb5 solid 0.02em;
-  padding-bottom: 0.1em;
+  padding-bottom: 1.13159514px;
 }
 .index a:link,
 .colophon a:link {
