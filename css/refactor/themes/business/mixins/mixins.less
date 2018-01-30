@@ -44,7 +44,11 @@
   min-width: initial;
 }
 .x-list-indent() {
-  margin: 0 0 0 40px;
+  // margin: 0 0 0 40px;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  .scale-padding(7, margin-left); //40.5px
   padding: 0;
 }
 .x-inline-blocks() {
@@ -93,9 +97,11 @@
     //#content>#table>#caption>.number(any; any);
     font-family: @font-family;
     border: none;
-    padding-top: .5em;
+    // padding-top: .5em; //4.615px computed value
+    .scale-padding(-6, padding-top);
     padding-left: 0px;
-    padding-bottom: 1em;
+    // padding-bottom: 1em; //9.231px computed value
+    .scale-padding(-1, padding-bottom);
     .scale-padding(-5, margin-right);
     caption-side: bottom;
     .font-scale(-1);
@@ -103,11 +109,12 @@
     font-weight: 700;
     color: @caption-number-color;
 }
-.link-style (@link-color) {
+.link-style (@link-color) { //tester
   color: @link-color;
   text-decoration: none;
   border-bottom: @link-color solid 0.02em;
-  padding-bottom: 0.1em;
+  //padding-bottom: 0.1em; //1.2px computed value
+  .scale-padding(-14, padding-bottom);
 }
 .link-no-border-style (@link-color) {
   color: @link-color;
@@ -154,7 +161,8 @@
   background-color: @first-th-bg-color;
   color: @first-th-color;
   font-weight: bold;
-  font-size: 9pt;
+  // font-size: 9pt;
+  .font-scale(0);
 }
 
 .table-2d-header-style() {
@@ -163,7 +171,8 @@
 }
 .footnotes() {
   border-top: none;
-  padding-top: 1.333em;
+  // padding-top: 1.333em; //1.59 computed value
+  .scale-padding(-12, padding-top);
   background-image: @footnote-bg-color;
   background-position: left top;
   background-size: 65px 1px;
