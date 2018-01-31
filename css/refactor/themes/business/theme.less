@@ -172,7 +172,8 @@ span.colored-text {
     background-repeat: no-repeat;
     background-position: left;
     background-size: 25px auto;
-    padding-left: 25px; //override global link styles
+    //padding-left: 25px; //override global link styles
+    .scale-padding(4, padding-left);
     border-bottom: 0;
 }
 .chapter .section.module a.xref,
@@ -183,13 +184,19 @@ span.colored-text {
 div.toc li.toc-part {
     counter-increment: toc-part-num;
     a.target-part {
-        font-size: 12px;
+        // font-size: 12px;
+        .font-scale(0);
         font-weight: bold;
         color: @secondary-color;
         font-family: @font-family-titles;
         text-transform: uppercase;
-        margin: 2em 0 0 3.3em;
-        padding-left: 2.7em;
+        // margin: 2em 0 0 3.3em; //24px 0 0 39.6px computed value
+        .scale-padding(4, margin-top);
+        margin-top: 0;
+        margin-bottom: 0;
+        .scale-padding(7, margin-left);
+        //padding-left: 2.7em; //32.4px computed value
+        .scale-padding(7, padding-left);
         display: block;
         &::before {
             content: "Unit " counter(toc-part-num) ": ";
@@ -202,7 +209,8 @@ div.section.learning-outcomes {
         font-family: @font-family-titles;
         .font-scale(1);
         color: @LO-title-color;
-        margin-bottom: 1em;
+        //margin-bottom: 1em; 12px computed value
+        .scale-padding(0, margin-bottom);
         font-weight: bold;
     }
     div.orderedlist ol {
