@@ -1,5 +1,20 @@
 @import url('notes.less');
 @import url('titles.less');
+
+/* ------------------------
+ * Conditionals
+ * -----------------------
+ */
+ .learning-outcomes {
+   .titlepage>div>div {
+     h3 {
+       & when (@has-learning-outcomes = true) {
+         .titles-h3-style ()
+       }
+     }
+   }
+ }
+
 .folio-typography() {
   font-family: @font-family-serif;
   color: @folio-color;
@@ -13,9 +28,6 @@
 .line-height() {
   line-height: 1.6em;
 }
-
-
-
 //EOC exercises custom numbering
 .eocCustomCounters (@identifier) {
   .exercise {
