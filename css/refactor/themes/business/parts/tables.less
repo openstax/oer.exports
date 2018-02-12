@@ -6,6 +6,7 @@
   //override content-skeleton, can be removed if we remove content-skeleton
   page-break-inside: auto;
 }
+
 div.table {
   // First, reset div.table so it just goes away. Apply styling to the actual
   // table element.
@@ -14,7 +15,7 @@ div.table {
   border: none;
   //#utils>#pb>.inside(auto);
   //basic styles for tables
-//  page-break-inside: auto !important; //Override rule from content-skeleton.less to allow page break for business books
+  //  page-break-inside: auto !important; //Override rule from content-skeleton.less to allow page break for business books
   table {
     //#content>#table>.style(any; any);
     #utils>#pb>.inside(auto);
@@ -29,7 +30,6 @@ div.table {
     .line-height();
     // If a table spans more than 1 page then put caption on all following pages
     prince-caption-page: all;
-
     //table head
     //
     ////todo fix border top when no header
@@ -37,11 +37,13 @@ div.table {
       //#content>#table>#head>.style(any; any);
       border-top: none;
       font-family: @font-family;
+
       .footnote::footnote-call {
         //do not delete
         //TODO
         //#content>#table>#header>.footnote(any; any);
       }
+
       th {
         //#content>#table>#header>.style(any; any);
         border-bottom: none;
@@ -54,31 +56,36 @@ div.table {
         vertical-align: initial;
         font-weight: 100;
       }
+
       th:not(:only-child) {
         //TODO verify which it is in new math
         //#content>#table>#header>.style(any; any);
       }
+
       > tr {
         //#content>#table>#header>#title>.style(any; any);
         border-left: 0;
         border-right: 0;
+
         .footnote::footnote-call {
           //do not delete
           // #content>#table>#header>#title>.footnote(any; any);
         }
       }
+
       tr:first-of-type th {
         //#content>#table>#header>#title>.text(any; any);
         .table-header-style();
-
         //rounded corners
         &:first-child {
           border-top-left-radius: @border-radius;
         }
+
         &:last-child {
           border-top-right-radius: @border-radius;
         }
       }
+
       tr:not(first-child) {
         .table-2d-header-style();
         border: 0;
@@ -88,12 +95,13 @@ div.table {
     tbody {
       //#content>#table>#body>.style(any; any);
       border: @table-body-border-color;
-
       //border-top: none;
       color: @table-head-color;
+
       &[valign=top] > tr > td {
         vertical-align: top;
       }
+
       tr {
         page-break-inside: avoid;
       }
@@ -101,7 +109,7 @@ div.table {
       tr:last-child td {
         border-bottom: @table-body-border-color;
       }
-      }
+    }
     //TDs
     td {
       //#content>#table>#data>.style(any; any);
@@ -117,12 +125,15 @@ div.table {
       border-top: @table-body-border-color;
       border-right: @table-body-border-color;
       border-left: none;
+
       &.text-align-right {
         text-align: right;
       }
+
       &.text-align-center {
         text-align: center;
       }
+
       &.text-align-justify {
         text-align: justify;
       }
@@ -134,6 +145,7 @@ div.table {
         text-align: center;
         vertical-align: initial;
       }
+
       img {
         height: auto;
         width: 100%;
@@ -144,6 +156,7 @@ div.table {
     caption {
       //#content>#table>#caption>.style(any; any);
       .caption-style();
+
       &::before {
         content: "" "Table " counter(chapter, decimal) "." counter(table) " " "";
         .caption-number-style();
@@ -169,10 +182,12 @@ div.table {
       //#content>#table>#header>.style(colored; any);
       text-align: center;
     }
+
     tr {
       //#content>#table>#row>.style(colored; any);
       height: 1em !important;
     }
+
     tr td:first-child {
       background-color: @colored-table-bg-color;
       width: 2.5in;
@@ -185,6 +200,7 @@ div.table {
     //#content>#table>.style(unstyled; any);
     border: none;
     margin: 0;
+
     caption {
       //#content>#table>#caption>.style(unstyled; any);
     }
@@ -200,6 +216,7 @@ div.table {
       border-left: none;
       border-right: none;
     }
+
     tbody {
       //TODO
       //#content>#table>#body>.style(unstyled; any);
@@ -224,15 +241,18 @@ div.table {
         border-bottom: @text-heavy-border;
         text-align: left;
       }
+
       thead > tr:first-child {
         height: 40px;
         vertical-align: top;
         color: @text-heavy-color;
         font-weight: bold;
       }
+
       tbody {
         border: none;
       }
+
       tbody > tr > td.tablecell {
         // padding: 10px;
         .scale-padding(-1, padding);
@@ -240,18 +260,16 @@ div.table {
       }
     }
   }
-  //top-titled (fake titles)
-  &.top-titled {
-    
-  }
   //unnumbered
   &.unnumbered table {
     thead tr:first-child {
       // #content>#table>#header>.style(any; unnumbered);
     }
+
     thead tr:first-of-type th {
       // #content>#table>#header>#title>.text(any; unnumbered);
     }
+
     caption {
       //#content>#table>#caption>.style(any; unnumbered);
     }
@@ -265,8 +283,54 @@ div.table {
       //#content>#paragraph>.style(any; any; list; table);
     }
   }
-}
+  //top-titled (fake titles)
+  &.top-titled {
+    table {
+      thead {
+        tr {
+          &:first-of-type {
+            th {
+              .table-white-header-style();
+            }
+          }
 
+          &:nth-child(even):not(last-child) {
+            th {
+              .table-header-style();
+              &:first-child {
+                border-top-left-radius: 5px;
+              }
+              &:last-child {
+                border-top-right-radius: 5px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.text-heavy.top-titled {
+    table {
+      thead {
+        tr {
+          &:first-of-type {
+            th {
+              .table-white-header-style();
+              text-align: center;
+            }
+          }
+
+          &:last-child {
+            th {
+              .table-white-header-style();
+            }
+          }
+        }
+      }
+    }
+  }
+}
 /* -------------------------
  * Tables within Notes
  * ------------------------
@@ -275,6 +339,7 @@ div.note {
   div.table table thead tr:first-of-type {
     th {
       white-space: nowrap;
+
       &:not(:last-child) {
         // padding: 4px 4px 4px 10px;
         .scale-padding(-6, padding-top);
@@ -283,6 +348,7 @@ div.note {
         .scale-padding(-1, padding-left);
         text-align: left;
       }
+
       &:last-child {
         text-align: right;
       }
