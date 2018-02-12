@@ -2,46 +2,54 @@
  * End of chapter customizations
  * ------------------------
  */
-//key terms
 
+ /* -------------------------
+  * Key Terms
+  * ------------------------
+  */
 .chapter .glossary {
   //#part>#glossary>.style(chapter);
   #utils>#pb>.before(always);
   display: inline;
-
   .titlepage h2 {
     // #part>#glossary>#title>.style(chapter);
     .titles-h2-style-icon(@svg-icon: @key-terms-icon);
     //.moduleTitles(@glossary-title-color, @key-terms-icon);
-
     .cnx-gentext-glossary.cnx-gentext-t {
       content: @cnx-string-key-terms;
     }
   }
-
   dl {
     //#part>#glossary>.style(chapter);
     display: inline;
-
     dt {
       //#part>#glossary>.term(chapter);
       .font-scale(0);
       .line-height();
-
       &::after {
-        //#part>#glossary>.divider(chapter);
+        content: " "
       }
     }
-
     dd {
       // #part>#glossary>.definition(chapter);
       margin-left: 0;
       .font-scale(0);
       .line-height();
+      margin: 0px;
+      .scale-padding(5, padding-left);
+      text-indent:-27px;
+    }
+    p {
+      margin: 0px;
     }
   }
 }
-
+&.key-terms {
+  .listitem {
+    list-style: none;
+  }
+  .hideEocSectionTitle();
+}
 .cnx-eoc {
   //margin-bottom: 2em; //24px computed value
   .scale-padding(4, margin-bottom);
@@ -55,8 +63,10 @@
       font-family: @font-family-titles;
     }
   }
-  //summary
-
+  /* -------------------------
+   * Summary
+   * ------------------------
+   */
   .section {
     .title a:link {
       .font-scale(0);
@@ -64,7 +74,6 @@
       border-bottom: none;
     }
   }
-
   .exercise {
     .scale-padding(-1, margin-bottom);
     .scale-padding(-1, margin-top);
@@ -74,18 +83,15 @@
       .scale-padding(1, padding-left);
     }
   }
-
   &.key-terms {
     > .title {
       .titles-h2-style-icon(@svg-icon: @eoc-assessment-icon);
       //.moduleTitles(@eoc-titles-color, @key-terms-icon);
     }
-
     .listitem p {
       margin-bottom: 0;
     }
   }
-
   &.section-summary,
   &.summary {
     //#part>#chapter-end>#summary>.style();
@@ -100,12 +106,10 @@
         .font-scale(2);
       }
     }
-
     > .section > .title {
       //#part>#chapter-end>#summary>#subtitle>.style(any; chapter-end; section);
       display: block;
     }
-
     > .section .title > a {
       // #part>#chapter-end>#summary>#title>.link();
       font-family: @font-family;
@@ -113,27 +117,26 @@
       .link-no-border-style(@eoc-subtitles-color);
     }
   }
-  //EOC solutions
-
+  /* -------------------------
+   * EOC Solutions
+   * ------------------------
+   */
   &.references {
     > .title {
       .titles-h2-style-icon(@svg-icon: @eoc-references-icon);
     //.moduleTitles(@eoc-titles-color, @eoc-references-icon);
     }
   }
-
   &.figure-credits {
     > .title {
       .titles-h2-style-icon(@svg-icon: @eoc-figure-credit-icon);
       //.moduleTitles(@eoc-titles-color, @eoc-figure-credit-icon);
     }
-
     .section {
       .font-scale(-1);
     }
     .hideEocSectionTitle();
   }
-
   &.cnx-solutions {
     display: none; //slots & skeleton below to be converted if necessary
     //     //#content>#solution>.style(@kind; chapter);
@@ -152,18 +155,9 @@
     //   }
     //   .exercise div.body div.problem .figure { #content>#figure>.style(any; chapter-end; exercise); }
   }
-
-  &.key-terms {
-    .listitem {
-      list-style: none;
-    }
-    .hideEocSectionTitle();
-  }
-
   &.suggested-resources > div.section > div.body {
     p,
     table > tr > td {
-      // border: 1px solid lime;
       text-indent: -1em;
       // padding-left: 10px;
       .scale-padding(-1, padding-left);
