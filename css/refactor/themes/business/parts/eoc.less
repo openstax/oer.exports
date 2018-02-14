@@ -2,8 +2,7 @@
  * End of chapter customizations
  * ------------------------
  */
-
- /* -------------------------
+/* -------------------------
   * Key Terms
   * ------------------------
   */
@@ -11,14 +10,15 @@
   //#part>#glossary>.style(chapter);
   #utils>#pb>.before(always);
   display: inline;
+
   .titlepage h2 {
     // #part>#glossary>#title>.style(chapter);
     .titles-h2-style-icon(@svg-icon: @key-terms-icon);
-    //.moduleTitles(@glossary-title-color, @key-terms-icon);
     .cnx-gentext-glossary.cnx-gentext-t {
       content: @cnx-string-key-terms;
     }
   }
+
   dl {
     //#part>#glossary>.style(chapter);
     display: inline;
@@ -26,35 +26,37 @@
       //#part>#glossary>.term(chapter);
       .font-scale(0);
       .line-height();
+
       &::after {
-        content: " "
+        content: " ";
       }
     }
     dd {
       // #part>#glossary>.definition(chapter);
-      margin-left: 0;
       .font-scale(0);
       .line-height();
-      margin: 0px;
       .scale-padding(5, padding-left);
-      text-indent:-27px;
+      text-indent: -27px;
+      margin: 0;
     }
+
     p {
-      margin: 0px;
+      margin: 0;
     }
   }
 }
+
 &.key-terms {
   .listitem {
     list-style: none;
   }
   .hideEocSectionTitle();
 }
+
 .cnx-eoc {
   .scale-padding(4, margin-bottom);
   > .title {
-  //  .moduleTitles(@eoc-titles-color);
-  .titles-h2-style-icon();
+    .titles-h2-style-icon();
 
     span {
       .font-scale(2);
@@ -73,6 +75,7 @@
       border-bottom: none;
     }
   }
+
   .exercise {
     .scale-padding(-1, margin-bottom);
     .scale-padding(-1, margin-top);
@@ -82,33 +85,35 @@
       .scale-padding(1, padding-left);
     }
   }
+
   &.key-terms {
     > .title {
       .titles-h2-style-icon(@svg-icon: @eoc-assessment-icon);
-      //.moduleTitles(@eoc-titles-color, @key-terms-icon);
     }
+
     .listitem p {
       margin-bottom: 0;
     }
   }
+
   &.section-summary,
   &.summary {
     //#part>#chapter-end>#summary>.style();
     > .title {
       // #part>#chapter-end>#summary>#title>.style();
       .titles-h2-style-icon(@svg-icon: @eoc-summary-icon);
-    //.moduleTitles(@eoc-titles-color, @eoc-summary-icon);
-
       span {
         // override a * selector...
         padding-left: 0;
         .font-scale(2);
       }
     }
+
     > .section > .title {
       //#part>#chapter-end>#summary>#subtitle>.style(any; chapter-end; section);
       display: block;
     }
+
     > .section .title > a {
       // #part>#chapter-end>#summary>#title>.link();
       font-family: @font-family;
@@ -123,19 +128,19 @@
   &.references {
     > .title {
       .titles-h2-style-icon(@svg-icon: @eoc-references-icon);
-    //.moduleTitles(@eoc-titles-color, @eoc-references-icon);
     }
   }
+
   &.figure-credits {
     > .title {
       .titles-h2-style-icon(@svg-icon: @eoc-figure-credit-icon);
-      //.moduleTitles(@eoc-titles-color, @eoc-figure-credit-icon);
     }
     .section {
       .font-scale(-1);
     }
     .hideEocSectionTitle();
   }
+
   &.cnx-solutions {
     display: none; //slots & skeleton below to be converted if necessary
     //     //#content>#solution>.style(@kind; chapter);
@@ -154,6 +159,7 @@
     //   }
     //   .exercise div.body div.problem .figure { #content>#figure>.style(any; chapter-end; exercise); }
   }
+
   &.suggested-resources > div.section > div.body {
     p,
     table > tr > td {
