@@ -1,4 +1,4 @@
-@import url('themes/business-theme.less');
+@import url('themes/business/theme.less');
 
 /* -------------------------
  * Accounting Overrides
@@ -8,13 +8,15 @@
 @border-radius: 0;
 @accounting-h1-title-default-color: @primary-color;
 @eoc-thought-provoker-icon: url("ccap-business/thoughtprovoker.svg");
+@has-units: false;
+@has-learning-outcomes: false;
 
 /* -------------------------
  * Accounting Strings
  * ------------------------
  */
 @book-title: accounting;
-@cnx-string-concepts-to-practice: "Concepts To Practice";
+@cnx-string-concepts-to-practice: "Concepts In Practice";
 @cnx-string-continuing-application: "Continuing Application At Work";
 @cnx-string-think-through: "Think Through";
 @cnx-string-your-turn: "Your Turn";
@@ -29,61 +31,34 @@
   &.link-to-learning {
     //#content>#note>.style('link-to-learning-new'; any);
     .notes(@cnx-string-link-to-learning, @quinary-color, @feature-style-1-body-color, link-to-learning,
-      @border-bottom-left-radius: 0,
-      @border-bottom-right-radius: 0,
-      @border-top-left-radius: 0,
-      @border-top-right-radius: 0,
-      @icon-width: 20px, @icon-height: 20px, @icon-top: 30px);
+      @border-bottom-left-radius: 0, @border-bottom-right-radius: 0, @border-top-left-radius: 0, @border-top-right-radius: 0);
     &::before {
       color: @secondary-color;
     }
   }
   &.your-turn {
     .notes(@cnx-string-your-turn, @secondary-color, @feature-style-2-body-color, exercises,
-      @border-bottom-left-radius: 0,
-      @border-bottom-right-radius: 0,
-      @border-top-left-radius: 0,
-      @border-top-right-radius: 0,
-      @icon-width: 50px, @icon-height: 50px, @icon-top: 15px, @icon-right: 0);
+      @border-bottom-left-radius: 0, @border-bottom-right-radius: 0, @border-top-left-radius: 0, @border-top-right-radius: 0);
   }
   &.ifrs-connection {
     .notes(@cnx-string-ifrs-connection, @primary-color, @feature-style-3-body-color, ifrs-connection,
-      @border-bottom-left-radius: 0,
-      @border-bottom-right-radius: 0,
-      @border-top-left-radius: 0,
-      @border-top-right-radius: 0,
-      @icon-width: 28px, @icon-height: 30px, @icon-top: 26px, @icon-right: 20px);
+      @border-bottom-left-radius: 0, @border-bottom-right-radius: 0, @border-top-left-radius: 0, @border-top-right-radius: 0);
   }
   &.concepts-practice {
-    .notes(@cnx-string-concepts-to-practice, @primary-color, @feature-style-3-body-color, concepts-practice,
-      @border-bottom-left-radius: 0,
-      @border-bottom-right-radius: 0,
-      @border-top-left-radius: 0,
-      @border-top-right-radius: 0,
-      @icon-height: 96px);
+    .notes(@cnx-string-concepts-to-practice, @primary-color, @feature-style-3-body-color, none,
+      @border-bottom-left-radius: 0, @border-bottom-right-radius: 0, @border-top-left-radius: 0, @border-top-right-radius: 0);
   }
   &.continuing-application {
-    .notes(@cnx-string-continuing-application, @primary-color, @feature-style-3-body-color, continuing-application,
-      @border-bottom-left-radius: 0,
-      @border-bottom-right-radius: 0,
-      @border-top-left-radius: 0,
-      @border-top-right-radius: 0,
-      @icon-height: 95px);
+    .notes(@cnx-string-continuing-application, @primary-color, @feature-style-3-body-color, none,
+      @border-bottom-left-radius: 0, @border-bottom-right-radius: 0, @border-top-left-radius: 0, @border-top-right-radius: 0);
   }
   &.think-through {
-    .notes(@cnx-string-think-through, @primary-color, @feature-style-3-body-color, think-through,
-    @border-bottom-left-radius: 0,
-    @border-bottom-right-radius: 0,
-    @border-top-left-radius: 0,
-    @border-top-right-radius: 0);
+    .notes(@cnx-string-think-through, @primary-color, @feature-style-3-body-color, none,
+    @border-bottom-left-radius: 0, @border-bottom-right-radius: 0, @border-top-left-radius: 0, @border-top-right-radius: 0);
   }
   &.ethical-considerations {
-    .notes(@cnx-string-ethical-considerations, @primary-color, @feature-style-3-body-color, ethical-considerations,
-      @border-bottom-left-radius: 0,
-      @border-bottom-right-radius: 0,
-      @border-top-left-radius: 0,
-      @border-top-right-radius: 0,
-      @icon-width: 180px, @icon-height: 88px, @icon-top: -5px, @icon-right: 0px);
+    .notes(@cnx-string-ethical-considerations, @primary-color, @feature-style-3-body-color, none,
+      @border-bottom-left-radius: 0, @border-bottom-right-radius: 0, @border-top-left-radius: 0, @border-top-right-radius: 0);
   }
 }
 
@@ -101,23 +76,43 @@ div.part>div.titlepage {
  */
 .cnx-eoc {
   //custom numbering for Accounting
-  &.multiple-choice { .eocCustomCounters ("MC"); }
+  &.multiple-choice {
+  .eocCustomCounters ("MC");
+  .hideEocSectionTitle();
+}
 
-  &.questions { .eocCustomCounters ("Q"); }
+  &.questions {
+    .eocCustomCounters ("Q");
+    .hideEocSectionTitle();
+  }
 
-  &.exercise-set-a { .eocCustomCounters ("EA"); }
+  &.exercise-set-a {
+    .eocCustomCounters ("EA");
+    .hideEocSectionTitle();
+   }
 
-  &.exercise-set-b { .eocCustomCounters ("EB"); }
+  &.exercise-set-b {
+    .eocCustomCounters ("EB");
+    .hideEocSectionTitle();
+   }
 
-  &.problem-set-a { .eocCustomCounters ("PA"); }
+  &.problem-set-a {
+    .eocCustomCounters ("PA");
+    .hideEocSectionTitle();
+   }
 
-  &.problem-set-b { .eocCustomCounters ("PB"); }
+  &.problem-set-b {
+    .eocCustomCounters ("PB");
+    .hideEocSectionTitle();
+  }
 
   &.thought-provokers {
     .eocCustomCounters ("TP");
     > .title {
-      .moduleTitles(@eoc-titles-color, @eoc-thought-provoker-icon);
+      .titles-h2-style-icon( @svg-icon: @eoc-thought-provoker-icon);
+      //.moduleTitles(@eoc-titles-color, @eoc-thought-provoker-icon);
     }
+    .hideEocSectionTitle();
   }
 }
 /* Hide the EOB references */
@@ -134,7 +129,8 @@ div.chapter {
         content: url(ccap-astronomy/LO.svg);
         width: 20px;
         height: 16px;
-        padding-right: 2px;
+        // padding-right: 2px;
+        .scale-padding(-11, padding-right);
       }
     }
   }

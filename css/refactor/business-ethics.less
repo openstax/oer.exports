@@ -1,4 +1,12 @@
-@import url('themes/business-theme.less');
+@import url('themes/business/theme.less');
+
+/* -------------------------
+* Business Ethics Overrides
+* ------------------------
+*/
+
+@has-units: false;
+@has-learning-outcomes: false;
 
 /* -------------------------
  * Business Ethics References
@@ -23,36 +31,33 @@
  */
 .chapter .note {
   &.real-world {
-    .notes(@cnx-string-real-world, @primary-color, @feature-style-3-body-color, real-world,
-           @icon-height: 95px);
+    .notes(@cnx-string-real-world, @primary-color, @feature-style-3-body-color, none);
   }
   &.what-would {
-    .notes(@cnx-string-what-would, @primary-color, @feature-style-3-body-color, what-would,
-           @icon-width: 150px, @icon-height: 98px, @icon-top: -12px);
+    .notes(@cnx-string-what-would, @primary-color, @feature-style-3-body-color, none);
   }
    &.ethics-across {
-    .notes(@cnx-string-ethics-across, @primary-color, @feature-style-3-body-color, ethics-across,
-           @icon-height: 98px);
+    .notes(@cnx-string-ethics-across, @primary-color, @feature-style-3-body-color, none);
   }
   &.think-through {
     .notes(@cnx-string-think-through, @primary-color, @feature-style-3-body-color, think-through);
   }
   &.link-to-learning {
-    .notes(@cnx-string-link-to-learning, @quinary-color, @feature-style-1-body-color, link-to-learning,
-           @icon-width: 20px, @icon-height: 20px, @icon-top: 30px);
+    .notes(@cnx-string-link-to-learning, @quinary-color, @feature-style-1-body-color, link-to-learning);
   }
 }
 .cnx-eoc {
   &.suggested-resources {
     > .title {
-      .moduleTitles(@eoc-titles-color,
-        @eoc-suggested-resources-icon);
+      .titles-h2-style-icon( @svg-icon: @eoc-suggested-resources-icon);
     }
+    .hideEocSectionTitle();
   }
   &.case-study {
     > .title {
-      .moduleTitles(@eoc-titles-color, @eoc-case-study-icon);
+      .titles-h2-style-icon( @svg-icon: @eoc-case-study-icon);
     }
+    .hideEocSectionTitle();
   }
 }
 /* Hide the EOB references */
@@ -61,14 +66,20 @@ div.colophon.end-of-book-references {
 }
 /* Format list titles */
 div.orderedlist > div.title > span {
-  font-weight: bold;
-  text-align: center;
-  padding: 5px;
+  // padding: 5px;
+  .scale-padding(-5, padding);
   display: block;
 }
-/* Add rounded corners to tables ** todo-AH: Not working in pdf. */
-div.table > table {
-  overflow: hidden; /* Needed for border radius for tables to appear. */
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+
+
+/* Override to use roman-numerals for footnote counters */
+div.book {
+  .footnote {
+    &::footnote-call {
+      content: "[" counter(footnote, lower-roman) "]";
+    }
+    &::footnote-marker {
+      content: counter(footnote, lower-roman);
+    }
+  }
 }

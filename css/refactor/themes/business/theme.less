@@ -1,0 +1,234 @@
+/********************************************************************
+ * This is a "flattened" version of the slots & skeletons for Astronomy.
+
+ Book parts have been reorganized following the book structure (from top to bottom) for greater clarity.
+
+ I kept the slot commented out in case they are needed to find a particular style.
+ ********************************************************************/
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed'); //older imports (to be reworked eventually)
+@import url('../../l10n/en.less');
+@import url('../../utils.less');
+@import url('../../ccap-base-slots.less');
+@import url('../../content-slots.less');
+@import url('../../ccap-base-skeleton.less');
+@import url('../../content-skeleton.less');
+@import url('../../includes/numbering.less');
+@import url('../../unnumbered-content.less');
+@import url('../../folio.less');
+@import url('../../includes/sub-sup-scripts.less');
+@import url('../../includes/theme-colors.less');
+@import url('../../page-slots.less');
+@import url('../../page-skeleton.less');
+//theme specific non-slots & skeleton includes
+//mixins and variables
+@import url('mixins/variables.less');
+@import url('mixins/color-map.less');
+@import url('mixins/mixins.less');
+//book components
+@import url('parts/toc.less');
+@import url('parts/preface.less');
+@import url('parts/chapter-title.less');
+@import url('parts/splash.less');
+@import url('parts/chapter-intro.less');
+@import url('parts/modules.less');
+@import url('parts/tables.less');
+@import url('parts/figures.less');
+@import url('parts/examples.less');
+@import url('parts/notes.less');
+@import url('parts/footnotes.less');
+@import url('parts/eoc.less');
+@import url('parts/appendices.less');
+@import url('parts/eob.less');
+@import url('parts/answer-key.less');
+@import url('parts/citations.less');
+@import url('parts/index.less');
+
+html {
+  prince-image-resolution: 150dpi;
+  prince-background-image-resolution: 150dpi;
+}
+
+body {
+  color: @default-text;
+  font-size: @base-font-size;
+}
+//global theme stuff
+.bold.centered-text {
+  text-align: center;
+  display: block;
+
+  strong {
+    font-weight: 100;
+  }
+}
+@page landscape {
+  prince-rotate-body: landscape;
+  prince-shrink-to-fit: auto;
+}
+
+.landscape {
+  page: landscape;
+
+  img {
+    height: 5.2in;
+    width: 9.4in;
+  }
+}
+/* -------------------------
+ * Global Styles
+ * ------------------------
+ */
+.appendix:not(.toc-appendix) a:link,
+.chapter .section a:link,
+.preface:not(.toc-preface) a:link {
+  .link-style(@body-link-color);
+}
+
+.colophon a:link,
+.index a:link {
+  .link-no-border-style(@body-link-color);
+}
+
+blockquote {
+  .style(...) {
+    color: inherit;
+    font-size: inherit;
+    .line-height();
+
+    &::after,
+    &::before {
+      display: none;
+    }
+  }
+}
+
+p {
+  .line-height();
+}
+/* ---------------------------------------------------
+ * Folio
+ * ---------------------------------------------------
+ */
+//removes pipe from folio
+
+div.book div.chapter > div.titlepage > div > div h1.title {
+  span.cnx-gentext-t {
+    string-set: cnx-header "@{cnx-string-chapter} " counter(chapter, decimal) " " content();
+  }
+}
+
+.glossterm span {
+  display: none;
+}
+//captions
+span.colored-text {
+  color: @colored-text-color;
+}
+
+.appendix.module a:link.target-section,
+.chapter .cnx-eoc a:link.target-section,
+.chapter .section.module a:link.target-section {
+  background-image: url("ccap-astronomy/LO.svg");
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: 25px auto;
+  //padding-left: 25px; //override global link styles
+  .scale-padding(4, padding-left);
+  border-bottom: 0;
+}
+
+.appendix.module a.xref,
+.chapter .section.module a.xref,
+.cnx-eoc a.xref {
+  prince-text-replace: "Section" " ";
+}
+
+div.toc li.toc-part {
+  counter-increment: toc-part-num;
+
+  a.target-part {
+    .font-scale(0);
+    font-weight: bold;
+    color: @secondary-color;
+    font-family: @font-family-titles;
+    text-transform: uppercase;
+    .scale-padding(4, margin-top);
+    margin-top: 0;
+    margin-bottom: 0;
+    .scale-padding(7, margin-left);
+    .scale-padding(7, padding-left);
+    display: block;
+
+    &::before {
+      content: "Unit " counter(toc-part-num) ": ";
+    }
+  }
+}
+
+div.section.learning-outcomes {
+  counter-reset: learning-outcome;
+
+  div.titlepage {
+    font-family: @font-family-titles;
+    .font-scale(1);
+    color: @LO-title-color;
+    .scale-padding(0, margin-bottom);
+    font-weight: bold;
+  }
+
+  div.orderedlist ol {
+    list-style-type: none;
+    .scale-padding(1, padding-left);
+    .scale-padding(2, margin-left);
+
+    li.listitem {
+      counter-increment: learning-outcome;
+
+      &::before {
+        content: counter(learning-outcome) ". ";
+        font-weight: bold;
+        position: absolute;
+        left: 20px;
+        display: inline-block;
+        line-height: 1.6em;
+      }
+
+      > p:first-child > span.bold:first-child {
+        display: none;
+      }
+    }
+  }
+}
+
+
+
+.listitem p {
+  padding: 0;
+  margin: 0;
+}
+/* ---------------------------------------------------
+ * Remove folio on chapter splash
+ * ---------------------------------------------------
+ */
+.chapter {
+  page: chapter;
+  prince-page-group: start;
+}
+
+@page chapter:nth(1) {
+  @top-left-corner {
+    content: none;
+  }
+  @top-right-corner {
+    content: none;
+  }
+  @top-left {
+    content: none;
+  }
+  @top-center {
+    content: none;
+  }
+  @top-right {
+    content: none;
+  }
+}
