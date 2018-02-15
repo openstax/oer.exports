@@ -19,6 +19,6 @@ for config in "${BOOK_CONFIGS[@]}"; do
   elif [[ ${odd_even} == "odd" && $((count%2)) == 0 ]]; then
     continue
   fi
-  do_progress "Building the prepare files for ${style_name}"
-  try ./script/diff-book-prepare "${style_name}"
+  do_progress_quiet "Building the prepare files for ${style_name}" \
+    try ./script/diff-book-prepare "${style_name}"
 done
