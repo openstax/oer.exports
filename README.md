@@ -129,6 +129,8 @@ git checkout master
 # Download the content for the calculus book (see ./books.txt)
 ./script/fetch-book calculus
 
+./script/fetch-book calculus 1.1 # Download a specific version of calculus
+
 # "prepare" the PDF and XHTML files for diffing later
 ./script/diff-book-prepare calculus
 
