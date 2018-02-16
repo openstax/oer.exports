@@ -3,19 +3,25 @@ cd "$(dirname "$0")/.." || exit 111
 source ./script/bootstrap || exit 111
 
 book_name=${1}
+optional_version_number=${2}
+
 # Determine the uuid by looking it up in ./books.txt
 uuid=$(style_name_to_uuid "${book_name}")
 
-if [[ ! ${book_name} ]]; then
-  die "No book specified. specify a book name as the 1st argument when running this script"
+if [[ ! ${book_name} || ${book_name} == '--help' ]]; then
+  die "No book specified. specify a book name as the 1st argument when running this script. Optionally, you can pass the version number as the 2nd arg"
 fi
 
 if [[ ! ${uuid} ]]; then
-  die "No book UUID specified. specify a book UUID as the 2nd argument when running this script"
+  die "Could not look up the book UUID. Please check books.txt and verify that there is an entry for '${book_name}'"
 fi
 
 data_dir='./data/'
 temp_dir=${data_dir}/zips/
+
+if [[ ${optional_version_number} ]]; then
+  optional_version_number_with_at="@${optional_version_number}"
+fi
 
 [[ -d ${temp_dir} ]] || try mkdir -p "${temp_dir}"
 
@@ -26,9 +32,9 @@ uuid_dir=${temp_dir}/${uuid}
 book_dir=${data_dir}/${book_name}
 
 
-do_progress "Find the latest version of ${book_name}"
-try curl --progress-bar --location "http://archive.cnx.org/extras/${uuid}" > "${json_download_file}"
-try curl --progress-bar --location "http://archive.cnx.org/contents/${uuid}" > "${json_book_file}"
+do_progress "Find the JSON metadata for ${book_name}"
+try curl --progress-bar --location "http://archive.cnx.org/extras/${uuid}${optional_version_number_with_at}" > "${json_download_file}"
+try curl --progress-bar --location "http://archive.cnx.org/contents/${uuid}${optional_version_number_with_at}" > "${json_book_file}"
 
 # do_progress "Find the version number"
 version_number=$(jq --raw-output '.version' < "${json_book_file}")
