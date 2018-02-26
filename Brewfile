@@ -7,12 +7,7 @@ brew "libxslt"
 brew "memcached"
 brew "python"
 brew "yarn"
-brew "shellcheck"
-
-brew "openjpeg" # Required by Python Image library
-brew "jq" # Required by ./script/fetch-book
-
-brew "ghostscript" # Used by the diffing code
-brew "poppler" # Used by the diffing code
+# Required by Python Image library
+brew "openjpeg"
 
 cask "prince"
