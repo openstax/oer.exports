@@ -54,6 +54,16 @@
 }
 
 .cnx-eoc {
+  .empty {
+    page-break-before: auto;
+    page-break-after: auto;
+  }
+  .title + .empty,
+  .title + .empty + .empty {
+    visibility: hidden; //hide element but count it *didn't use visibility property which would cause element to still take up space on page
+    page-break-before: avoid;
+    page-break-after: avoid;
+  }
   &.self-check-questions {
     #part>#chapter-end>#self-check-questions>.style();
     > .title {
