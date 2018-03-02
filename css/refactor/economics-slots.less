@@ -31,13 +31,12 @@
   #preface {
     #titlepage {
       .style(...) {
-        padding-top: 1.5em;
+        padding-bottom: 1em;
       }
       .title(...) {
         #utils>#pb>.after(avoid);
         color: @white;
         background-color: @dark-blue;
-        margin: 0.5em 0;
         margin-bottom: 0;
         padding: 0.1em 0.5em;
         padding-left: .25em;
@@ -129,6 +128,7 @@
         font: normal normal 700 14pt/1em @font-family-sans-serif;
         border-bottom: none;
         text-transform: capitalize;
+        page-break-after: avoid;
         span {
           font-size: 18px;
         }
@@ -358,6 +358,7 @@
     color: black;
     border: none;
     font-weight: bold;
+    .scale-padding(0, padding-top);
   }
 
   // Must apply padding to all elements in body not just blockquote and para, tables
@@ -488,10 +489,12 @@
     #header {
       .style(any; any) {
         background-color: @light-blue;
-        border: none;
+        // border: none;
         border-top: 3px solid @dark-blue !important; // !important is in ccap-base
         border-right: none;
         text-align: center;
+        line-height: normal;
+        border-bottom: 3px solid @dark-blue !important;
       }
       .style(any; end-of-book-solutions) {
         font-family: @font-family-sans-serif;
@@ -610,6 +613,9 @@
     .style(any; chapter-end) {
       margin-bottom: .75em;
     }
+    .style(@kind; @part; section) {
+     font-family: @font-family-sans-serif;
+   }
   }
   #solution {
     .style(@kind, book-end) {
