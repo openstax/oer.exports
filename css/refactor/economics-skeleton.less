@@ -1,5 +1,5 @@
 // Copyright (c) 2013 Rice University
-// 
+//
 @kind: default;
 @part: default;
 
@@ -54,6 +54,16 @@
 }
 
 .cnx-eoc {
+  .empty {
+    page-break-before: auto;
+    page-break-after: auto;
+  }
+  .title + .empty,
+  .title + .empty + .empty {
+    visibility: hidden; //hide element but count it *didn't use visibility property which would cause element to still take up space on page
+    page-break-before: avoid;
+    page-break-after: avoid;
+  }
   &.self-check-questions {
     #part>#chapter-end>#self-check-questions>.style();
     > .title {
@@ -154,7 +164,7 @@ div.table {
   }
   table {
     // Using td instead of tr because of border-collapse policies.
-    tr:first-of-type td { #content>#table>#data>.style('first-row'; any; any); }
+    // tr:first-of-type td { #content>#table>#data>.style('first-row'; any; any); }
   }
 }
 div.book div.chapter .introduction .section h3 {
