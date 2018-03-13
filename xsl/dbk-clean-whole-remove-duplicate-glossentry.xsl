@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <xsl:stylesheet 
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+  xmlns:str="http://exslt.org/strings"
   xmlns:mml="http://www.w3.org/1998/Math/MathML"
   xmlns:c="http://cnx.rice.edu/cnxml"
   xmlns:db="http://docbook.org/ns/docbook"
@@ -9,6 +10,7 @@
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:ext="http://cnx.org/ns/docbook+"
   xmlns:cnxorg="http://cnx.rice.edu/system-info"
+  extension-element-prefixes="str"
   version="1.0">
 
 <!-- This file is run after the book-level glossary is created.
@@ -51,8 +53,21 @@
         <!-- This placeholder is added so solutions can later be populated by dbk2xhtml-core.xsl (with an explanation for each of the elements) -->
         <db:colophon class="end-of-book-solutions"><db:title>Solutions</db:title><ext:end-of-book-solutions-placeholder/></db:colophon>
         <db:colophon class="end-of-book-references"><db:title>References</db:title><ext:end-of-book-references-placeholder/></db:colophon>
-        <db:index/>
-        <db:colophon>
+        <xsl:choose>
+            <xsl:when test="/db:book/@ext:indices">
+                <xsl:for-each select="str:tokenize(/db:book/@ext:indices, ',')">
+                    <db:index>
+                        <xsl:attribute name="type">
+                            <xsl:value-of select="."/>
+                        </xsl:attribute>
+                    </db:index>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <db:index/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <db:colophon class="end-of-book-attributions">
             <xsl:attribute name="xml:id">
                 <xsl:value-of select="$attribution.section.id"/>
             </xsl:attribute>
@@ -254,7 +269,7 @@
             </xsl:for-each>
         </db:colophon>
         <xsl:if test="$cnx.site-type = 'Connexions'">
-            <db:colophon>
+            <db:colophon class="end-of-book-about-connexions">
                 <db:title>About Connexions</db:title>
                 <db:para>
                     Since 1999, Connexions has been pioneering a global system where anyone can create course materials and make them fully accessible and easily reusable free of charge. We are a Web-based authoring, teaching and learning environment open to anyone interested in education, including students, teachers, professors and lifelong learners. We connect ideas and facilitate educational communities. Connexions's modular, interactive courses are in use worldwide by universities, community colleges, K-12 schools, distance learners, and lifelong learners. Connexions materials are in many languages, including English, Spanish, Chinese, Japanese, Italian, Vietnamese, French, Portuguese, and Thai. 

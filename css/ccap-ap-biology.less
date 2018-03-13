@@ -1,5 +1,18 @@
 @import url('refactor/l10n/en.less');
 @import url('ccap-biology.less');
+@import url('refactor/includes/sub-sup-scripts.less');
+
+//EOC exercises fix, this addresses issue #3361 but probably should be moved to the Biology template if that's an issue in there as well.
+//EOC
+div.book div.chapter {
+  counter-reset: section figure subfigure table equation example exercise footnote toc-section EOCexercise;
+}
+div.book div.chapter > div.cnx-eoc div.exercise:not(.labeled) {
+  counter-increment: EOCexercise;
+}
+div.book div.chapter > div.cnx-eoc > div.section > div.body > div.exercise:not(.labeled) > div.body > div.problem::before {
+  content: "" counter(EOCexercise) "." "";
+}
 
 .x-feature (@color, @bg-color, @file, @type: svg ) {
   &::before {
@@ -186,4 +199,21 @@
 
 .cnx-eoc {
   .x-column-count(1);
+  &.review,
+  &.critical-thinking,
+  &.ap-test-prep,
+  &.science-practice {
+    .x-column-count(2);
+    .exercise img {
+      //override !important in .figure in biology
+      max-width: 3in !important;
+    }
+  }
+}
+
+.footnote {
+  font-size: 100%;
+  line-height: 12px;
+  vertical-align: initial;
+  top: initial;
 }

@@ -1,4 +1,10 @@
-@import url('themes/business-theme.less');
+@import url('themes/business/theme.less');
+/* -------------------------
+* Entrepreneurship Overrides
+* ------------------------
+*/
+@has-units: true;
+@has-learning-outcomes: false;
 
 /* -------------------------
  * Entrepreneurship Ethics Strings
@@ -7,11 +13,10 @@
 @book-title: entrepreneurship;
 @cnx-string-link-to-learning: "Link to Learning";
 @cnx-string-entrepreneur-in-action: "Entrepreneur in Action";
-@cnx-string-what-can-do: "What Can You Do";
+@cnx-string-what-can-do: "What Can You Do?";
 @cnx-string-think-through: "Think It Through";
 @cnx-string-are-you-ready: "Are You Ready?";
 @cnx-string-work-it-out: "Work It Out";
-
 /* -------------------------
  * Units
  * ------------------------
@@ -20,57 +25,71 @@ div.toc li.toc-part a.target-part {
   margin-top: 19px;
   background: url("ccap-business/unit.svg") no-repeat left;
   background-size: contain;
-  margin-left: 40px;
+  //hard coded values are used here for alignment. due to the current limitation of the scale-padding mixin, negative values of this size are too large to acheive
+  margin-left: -5px;
   .scale-padding(1, padding-right);
   .scale-padding(6, padding-left);
   .scale-padding(1, margin-bottom);
   .toc-unit-styles();
+
   &::before {
-/*  counter(toc-part-num) initialized in business-theme.less
-*/  content: "Part " counter(toc-part-num) ": ";
+    /*  counter(toc-part-num) initialized in business-theme.less
+*/
+    content: "Part " counter(toc-part-num) ": ";
   }
 }
-.book .toc ul li.toc-appendix::before {
-  margin-left: 37.6px;
-}
 
+.book .toc ul li.toc-appendix::before {
+  margin-left: 37.6px; // Not converting with scale-padding as it looks really delicate
+}
 /* -------------------------
  * Entrepreneurship Notes
  * ------------------------
  */
 .chapter .note {
   &.link-to-learning {
-    .notes(@cnx-string-link-to-learning, @quinary-color, @feature-style-1-body-color, link-to-learning,
-           @icon-width: 20px, @icon-height: 20px, @icon-top: 30px);
+    .notes(@cnx-string-link-to-learning, @quinary-color, @feature-style-1-body-color, link-to-learning);
   }
+
   &.entrepreneur-in-action {
-    .notes(@cnx-string-entrepreneur-in-action, @primary-color, @feature-style-3-body-color, entrepreneur-in-action,
-           @icon-width: 150px, @icon-height: 96px, @icon-top: -12px);
+    .notes(@cnx-string-entrepreneur-in-action, @primary-color, @feature-style-3-body-color, none);
   }
+
   &.think-through {
     .notes(@cnx-string-think-through, @primary-color, @feature-style-3-body-color, think-through);
   }
-    &.are-you-ready {
-    .notes(@cnx-string-are-you-ready, @primary-color, @feature-style-3-body-color, are-you-ready,
-           @icon-height: 96px);
+
+  &.are-you-ready {
+    .notes(@cnx-string-are-you-ready, @primary-color, @feature-style-3-body-color, none);
   }
-    &.work-it-out{
-    .notes(@cnx-string-work-it-out, @primary-color, @feature-style-3-body-color, work-it-out,
-           @icon-height: 93px);
+
+  &.work-it-out {
+    .notes(@cnx-string-work-it-out, @primary-color, @feature-style-3-body-color, none);
   }
-    &.what-can-do{
-    .notes(@cnx-string-what-can-do, @primary-color, @feature-style-3-body-color, what-can-do,
-           @icon-width: 150px, @icon-height: 98px, @icon-top: -12px);
+
+  &.what-can-do {
+    .notes(@cnx-string-what-can-do, @primary-color, @feature-style-3-body-color, none);
   }
-  &.link-to-learning {
-    .notes(@cnx-string-link-to-learning, @quinary-color, @feature-style-1-body-color, link-to-learning,
-           @icon-width: 20px, @icon-height: 20px, @icon-top: 30px);
+}
+
+.cnx-eoc {
+  &.review-questions {
+    .hideEocSectionTitle();
+  }
+
+  &.discussion-questions {
+    .hideEocSectionTitle();
+  }
+
+  &.case-questions {
+    .hideEocSectionTitle();
   }
 }
 /* Hide the EOB references */
 div.colophon.end-of-book-references {
   display: none;
 }
+
 div.cnx-eoc.suggested-resources > .section > .body > p {
   // padding-left: 2em;
   //do not delete
@@ -79,6 +98,7 @@ div.cnx-eoc.suggested-resources > .section > .body > p {
 div.orderedlist > div.title > span {
   font-weight: bold;
   text-align: center;
-  padding: 5px;
+  // padding: 5px;
+  .scale-padding(-5, padding);
   display: block;
 }
