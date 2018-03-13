@@ -1,7 +1,7 @@
 /*******************************************************
 *  Copyright (c) 2013 Rice University
-*  
-*  
+*
+*
 *******************************************************/
 
  /* Styles used when generating a PDF from xhtml+css
@@ -20,6 +20,7 @@
 @import url('refactor/page-skeleton.less');
 @import url('refactor/folio.less');
 
+@import url('refactor/includes/sub-sup-scripts.less');
 // color palette for statistics
 @blue:        #26397F;
 @yellow:      #FFD155;
@@ -188,8 +189,9 @@
     // - Exercises should not affect numbering and solutions should not show up in the content
     &.try {
       .x-pb-inside(auto);
-      .x-pb-after(avoid);
-      .x-pb-before(avoid);
+      //this was used before but seems to be causing more issues than solving. Keeping commented for now just in case.
+      // .x-pb-after(avoid);
+      // .x-pb-before(avoid);
       .x-feature(@gray, try, 0.35in);
 
       /******************************************************
@@ -474,6 +476,11 @@ div.part > div.titlepage { display:none; }
   }
 }
 
+
+.orderedlist {
+  font-family: @font-family-statistics; //overide Liberation Sans inherited from body
+}
+
 /******************************************************
  * End of chapter customizations
  ******************************************************/
@@ -586,6 +593,10 @@ div.part > div.titlepage { display:none; }
         display: inline;
       }
 
+      > .body {
+        .x-pb-before(avoid);
+      }
+
       > .body > .figure {
         font-family: @font-family;
       }
@@ -604,7 +615,18 @@ div.part > div.titlepage { display:none; }
   //ccap-base sets this so override it here
   .references p { text-indent: 0em; }
 
-  .problem .orderedlist { margin-left: 4em;}
+  .problem,
+  .section {
+    .table table {
+      margin: 1.5em auto 0;
+    }
+    .orderedlist {
+      margin-left: 0;
+      .orderedlist > li {
+        margin-left: 4em;
+      }
+    }
+  }
 
   .empty { display: hidden; } //hide element but count it   *didn't use visibility property which would cause element to still take up space on page
 
@@ -663,7 +685,7 @@ img { max-height:9.5in; }
   font-weight: bold;
   text-align: left !important;
   color: @blue;
-  padding: 0 0.5em 1em 0;
+  padding: 0 0.5em 0.1em 0;
   .cnx-gentext-n {
     font-weight: bold;
     padding-right: 0em;
@@ -693,6 +715,7 @@ h1, h2, h3, h4, h5, h6 {
 h2, h3, h4, h5, h6{
   color: @blue;
   font-weight: bold;
+  page-break-inside: avoid;
 }
 
 h1 {
@@ -860,6 +883,7 @@ img, figure, subfigure  { margin: 1em; }
       font-family: @font-family;
       color: @blue;
       font-weight: bold;
+      page-break-after: avoid;
     }
   }
 }
@@ -1190,4 +1214,8 @@ div.end-of-book-references {
 			}
 		}
 	}
+}
+
+.cnx-eoc > .section > .title {
+  .x-pb-after(avoid);
 }

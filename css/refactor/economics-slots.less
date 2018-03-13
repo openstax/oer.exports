@@ -31,13 +31,12 @@
   #preface {
     #titlepage {
       .style(...) {
-        padding-top: 1.5em;
+        padding-bottom: 1em;
       }
       .title(...) {
         #utils>#pb>.after(avoid);
         color: @white;
         background-color: @dark-blue;
-        margin: 0.5em 0;
         margin-bottom: 0;
         padding: 0.1em 0.5em;
         padding-left: .25em;
@@ -129,6 +128,7 @@
         font: normal normal 700 14pt/1em @font-family-sans-serif;
         border-bottom: none;
         text-transform: capitalize;
+        page-break-after: avoid;
         span {
           font-size: 18px;
         }
@@ -448,6 +448,7 @@
       width: 100%;
       border: none;
       margin: 15px 0;
+      border-collapse: collapse;
     }
     .style(any; preface) {
       margin: 0;
@@ -456,7 +457,7 @@
     }
     .style(any; end-of-book-solutions) {
       width: auto;
-      padding: 1em 0;
+      margin: 1em 0;
     }
     #caption {
       .style(any; any) {
@@ -477,6 +478,7 @@
     }
     #body {
       .style(any; any) {
+        border-top: 3px solid @dark-blue !important;
         border-bottom: 1px solid @black;
       }
     }
@@ -490,8 +492,8 @@
         background-color: @light-blue;
         border: none;
         border-top: 3px solid @dark-blue !important; // !important is in ccap-base
-        border-right: none;
         text-align: center;
+        line-height: normal;
       }
       .style(any; end-of-book-solutions) {
         font-family: @font-family-sans-serif;
@@ -506,7 +508,7 @@
         padding: 4px 10px;
       }
       .style('first-row'; any; any) {
-        border-top: 3px solid @dark-blue !important;
+        //border-top: 3px solid @dark-blue !important;
       }
       .style('first-row'; preface; any) {
         border-top: none !important;
@@ -610,6 +612,9 @@
     .style(any; chapter-end) {
       margin-bottom: .75em;
     }
+    .style(@kind; @part; section) {
+     font-family: @font-family-sans-serif;
+   }
   }
   #solution {
     .style(@kind, book-end) {

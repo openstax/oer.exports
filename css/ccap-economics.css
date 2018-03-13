@@ -1177,7 +1177,6 @@ ul {
   page-break-after: avoid;
   color: #FFF;
   background-color: #3767B1;
-  margin: 0.5em 0;
   margin-bottom: 0;
   padding: 0.1em 0.5em;
   padding-left: .25em;
@@ -1736,13 +1735,13 @@ em.glossterm {
   font-size: 12pt;
   font-weight: 700;
   margin-top: 0;
-  page-break-after: avoid;
   -webkit-column-span: all;
   column-span: all;
   color: #3767B1;
   font: normal normal 700 14pt/1em Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   border-bottom: none;
   text-transform: capitalize;
+  page-break-after: avoid;
 }
 .cnx-eoc > .title span {
   font-size: 18px;
@@ -2157,6 +2156,7 @@ div.table table {
   width: 100%;
   border: none;
   margin: 15px 0;
+  border-collapse: collapse;
 }
 div.table table caption {
   border-width: 1px;
@@ -2187,6 +2187,7 @@ div.table table .cnx-figure-horizontal .informalfigure .caption * {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 div.table table tbody {
+  border-top: 3px solid #3767B1 !important;
   border-bottom: 1px solid #000;
 }
 div.table table table tbody[valign=top] > tr > td {
@@ -2206,8 +2207,8 @@ div.table table th {
   background-color: #CFE1F1;
   border: none;
   border-top: 3px solid #3767B1 !important;
-  border-right: none;
   text-align: center;
+  line-height: normal;
 }
 div.table table th:not(:only-child) {
   color: black;
@@ -2219,8 +2220,8 @@ div.table table th:not(:only-child) {
   background-color: #CFE1F1;
   border: none;
   border-top: 3px solid #3767B1 !important;
-  border-right: none;
   text-align: center;
+  line-height: normal;
 }
 div.table table td {
   font: 10pt/14pt Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -2381,13 +2382,13 @@ div[class="note"] > .title {
   font-size: 12pt;
   font-weight: 700;
   margin-top: 0;
-  page-break-after: avoid;
   -webkit-column-span: all;
   column-span: all;
   color: #3767B1;
   font: normal normal 700 14pt/1em Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
   border-bottom: none;
   text-transform: capitalize;
+  page-break-after: avoid;
 }
 .cnx-eoc > .title span {
   font-size: 18px;
@@ -2772,6 +2773,7 @@ subfigure {
   margin-bottom: 1.5em;
   margin-top: 0;
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 .section.section-exercises {
   page-break-before: always;
@@ -2990,7 +2992,7 @@ div.book div.preface div.section div.section {
   page-break-after: avoid;
 }
 div.book div.preface > .titlepage {
-  padding-top: 1.5em;
+  padding-bottom: 1em;
 }
 div.book div.preface > .titlepage h1.title {
   color: #A63C1D;
@@ -3008,7 +3010,6 @@ div.book div.preface > .titlepage h1.title {
   page-break-after: avoid;
   color: #FFF;
   background-color: #3767B1;
-  margin: 0.5em 0;
   margin-bottom: 0;
   padding: 0.1em 0.5em;
   padding-left: .25em;
@@ -3921,6 +3922,16 @@ div.book > div.chapter > div.section div.equation > *:last-child::after {
   margin: .5em 0;
   padding: 0 10px;
 }
+.cnx-eoc .empty {
+  page-break-before: auto;
+  page-break-after: auto;
+}
+.cnx-eoc .title + .empty,
+.cnx-eoc .title + .empty + .empty {
+  visibility: hidden;
+  page-break-before: avoid;
+  page-break-after: avoid;
+}
 .cnx-eoc.self-check-questions {
   -webkit-column-count: 1;
   -moz-column-count: 1;
@@ -3997,7 +4008,7 @@ div.colophon.end-of-book-solutions .table table {
   margin: auto;
   page-break-inside: auto;
   width: auto;
-  padding: 1em 0;
+  margin: 1em 0;
 }
 div.colophon.end-of-book-solutions .table table th {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
@@ -4006,6 +4017,10 @@ div.colophon.end-of-book-solutions .chapter-area div.solution div.body div.figur
   display: inline;
   text-align: center;
   display: none;
+}
+.appendix .note > .title {
+  margin: .5em 0;
+  padding: 0 10px;
 }
 .appendix .note.clearup {
   padding-left: 1em;
@@ -4136,9 +4151,6 @@ div.table .table-caption.caption {
   font-size: 10pt;
   line-height: 13pt;
   padding-left: 5px;
-}
-div.table table tr:first-of-type td {
-  border-top: 3px solid #3767B1 !important;
 }
 div.book div.chapter .introduction .section h3 {
   font-weight: bold;
