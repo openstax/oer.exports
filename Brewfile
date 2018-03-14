@@ -5,7 +5,7 @@ brew "librsvg"
 brew "libxml2"
 brew "libxslt"
 brew "memcached"
-brew "python"
+brew "pyenv"
 brew "yarn"
 # Required by Python Image library
 brew "openjpeg"
