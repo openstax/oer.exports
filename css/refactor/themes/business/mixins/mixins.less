@@ -180,3 +180,28 @@
   background-size: 65px 1px;
   background-repeat: no-repeat;
 }
+
+.handle-eoc-sections(@class, @eoc-icon: false, @section-title: true, @custom-counter: false, @hide-eoc-section: false) {
+  @classname: ~"@{class}";
+  .cnx-eoc {
+    &@{classname} {
+        > .title {
+          & when (isurl(@eoc-icon)) {
+            .titles-h2-style-icon(@svg-icon: @eoc-icon);
+          }
+          .titles-h2-style();
+        }
+        .section .title {
+          & when (@section-title = false) {
+            display: none;
+          }
+        }
+      & when (isstring(@custom-counter)) {
+          .eocCustomCounters(@custom-counter);
+      }
+      & when (@hide-eoc-section= true) {
+        display: none;
+      }
+    }
+  }
+}
