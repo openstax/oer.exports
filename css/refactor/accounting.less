@@ -10,7 +10,6 @@
 @eoc-thought-provoker-icon: url("ccap-business/thoughtprovoker.svg");
 @has-units: false;
 @has-learning-outcomes: false;
-@show-eoc-references-title: false;
 
 /* -------------------------
  * Accounting Strings
@@ -75,47 +74,22 @@ div.part>div.titlepage {
  * Accounting EOC
  * ------------------------
  */
-.cnx-eoc {
-  //custom numbering for Accounting
-//   &.multiple-choice {
-//   .eocCustomCounters ("MC");
-//   .hideEocSectionTitle();
-// }
 
-  &.questions {
-    .eocCustomCounters ("Q");
-    .hideEocSectionTitle();
-  }
+//custom numbering for Accounting
+.handle-eoc-sections(".multiple-choice", @eoc-assessment-icon, @section-title: false, @custom-counter: "MC");
+.handle-eoc-sections(".questions", @section-title: false, @custom-counter:"Q");
 
-  &.exercise-set-a {
-    .eocCustomCounters ("EA");
-    .hideEocSectionTitle();
-   }
+.handle-eoc-sections(".exercise-set-a", @section-title: false, @custom-counter:"EA");
 
-  &.exercise-set-b {
-    .eocCustomCounters ("EB");
-    .hideEocSectionTitle();
-   }
+.handle-eoc-sections(".exercise-set-b", @section-title: false, @custom-counter:"EB");
 
-  &.problem-set-a {
-    .eocCustomCounters ("PA");
-    .hideEocSectionTitle();
-   }
+.handle-eoc-sections(".problem-set-a", @section-title: false, @custom-counter:"PA");
 
-  &.problem-set-b {
-    .eocCustomCounters ("PB");
-    .hideEocSectionTitle();
-  }
+.handle-eoc-sections(".problem-set-b", @section-title: false, @custom-counter:"PB");
 
-  &.thought-provokers {
-    .eocCustomCounters ("TP");
-    > .title {
-      .titles-h2-style-icon( @svg-icon: @eoc-thought-provoker-icon);
-      //.moduleTitles(@eoc-titles-color, @eoc-thought-provoker-icon);
-    }
-    .hideEocSectionTitle();
-  }
-}
+.handle-eoc-sections(".thought-provokers", @eoc-icon: @eoc-thought-provoker-icon, @section-title: false, @custom-counter:"TP");
+
+
 /* Hide the EOB references */
 div.colophon.end-of-book-references {
   display: none;
@@ -136,4 +110,3 @@ div.chapter {
     }
   }
 }
-.handle-eoc-sections(".multiple-choice", @eoc-assessment-icon, @section-title: false, @custom-counter: "MC");
