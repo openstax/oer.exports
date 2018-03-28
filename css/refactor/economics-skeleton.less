@@ -1,5 +1,5 @@
 // Copyright (c) 2013 Rice University
-// 
+//
 @kind: default;
 @part: default;
 
@@ -54,6 +54,16 @@
 }
 
 .cnx-eoc {
+  .empty {
+    page-break-before: auto;
+    page-break-after: auto;
+  }
+  .title + .empty,
+  .title + .empty + .empty {
+    visibility: hidden; //hide element but count it *didn't use visibility property which would cause element to still take up space on page
+    page-break-before: avoid;
+    page-break-after: avoid;
+  }
   &.self-check-questions {
     #part>#chapter-end>#self-check-questions>.style();
     > .title {
@@ -114,6 +124,10 @@ div.colophon.end-of-book-solutions {
 }
 .appendix {
   .note {
+   > .title {
+     margin: .5em 0;
+     padding: 0 10px;
+   }
     &.clearup  {
       #content>#note>.style('clear-it-up'; chapter);
     }

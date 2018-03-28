@@ -84,7 +84,6 @@ To generate a PDF... Let us assume that the ${book_name} is 'biology'. It needs 
 Testing and build tools use `grunt`. It can do several things:
 
 - compile all the LESS files to CSS files
-- generate CSS coverage reports
 - generate HTML+CSS diffs to see how books have changed
 
 First, you will need to create a `./config.yml` file. You can start by copying `./config.example.yml`. This file allows provides paths to all the downloaded books (unzipped comeplete ZIP files) as well as configuring some optimizations when running the tasks.
@@ -97,39 +96,49 @@ You should run this step before pushing changes to github; fortunately it's easy
 
 **NOTE:** if you are adding a new book, you will need to add it to `./Gruntfile.coffee`.
 
-    # Generate all the CSS files
-    ./script/build-css
+```sh
+# Generate all the CSS files
+./script/build-css
+```
+
+To automatically rebuild the CSS files when you edit a `.less` file, run:
+
+```sh
+./script/build-css-watch
+```
 
 ## Generate a PDF
 
 To generate a PDF of a book run `./script/grunt shell:pdf:{BOOK_NAME}` where `{BOOK_NAME}` is configured in `./config.yml`. This will also create a directory in `./testing/` which contains the generated HTML file for development.
 
-## Generate HTML+CSS Diff
+## Diff the Books
 
 You can compare your CSS/XSLT changes against a book generated using the `master` branch by doing a couple of steps.
-First, you will need to switch to the master branch and `prepare` a baked HTML file of the book.
+First, you will need to switch to the master branch and **prepare** a "cooked" XHTML file of the book.
 
-**NOTE:** you will only need to `prepare` a book whenever the `master` branch updates!
+**NOTE:** you will only need to prepare a book whenever the `master` branch updates!
 
-Then, you can switch back to the development branch and generate a `diff`.
+Then, you can switch back to the development branch and compare it to what was prepared earlier.
 
 Below is an example (assuming the book is named `calculus` and the development branch is named `dev-branch`):
 
-    # Switch to master
-    git checkout master
+```sh
+# Switch to master
+git checkout master
 
-    # Make sure an entry for calculus is in config.yml
-    cat ./config.yml | grep calculus
+# Download the content for the calculus book (see ./books.txt)
+./script/fetch-book calculus
 
-    # "prepare" the baked file for diffing later
-    ./script/grunt prepare:calculus
+./script/fetch-book calculus 1.1 # Download a specific version of calculus
 
-    git checkout dev-branch
+# "prepare" the PDF and XHTML files for diffing later
+./script/diff-book-prepare calculus
 
-    # Generate the diff'd HTML file
-    ./script/grunt diff:calculus
+git checkout dev-branch
 
-    # View the changes by going to ./testing/calculus-diff.xhtml
+# Generate the PDF and XHTML files and see if there are any differences
+./script/diff-book calculus
+```
 
 That's it! If you want to generate diffs of all the books, you can drop the `:calculus` from `./script/grunt prepare` and `./script/grunt diff`.
 
@@ -137,9 +146,9 @@ That's it! If you want to generate diffs of all the books, you can drop the `:ca
 
 ## Generate CSS Coverage Reports
 
-To generate a CSS coverage LCOV file, you can either set `coverage: true` inside `./config.yml` or run `./script/grunt shell:coverage:{BOOK_NAME}:{OPTIONAL_BRANCH_NAME}`.
+To generate a CSS coverage file (`.lcov`) and an interactive HTML report, run `./script/build-coverage ${BOOK_NAME}` after generating a PDF using `./script/build-pdf ${BOOK_NAME}`.
 
-To generate an HTML report, you can run `genhtml` directly (`brew install lcov` on OSX) on the LCOV file or run `./script/grunt shell:coverage-report:{BOOK_NAME}:{OPTIONAL_BRANCH_NAME}`
+This will create or update (if a report already exists) a report in `./coverage/`.
 
 
 # Overview

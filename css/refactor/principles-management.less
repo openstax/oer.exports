@@ -1,0 +1,85 @@
+@import url('themes/business/theme.less');
+
+/* -------------------------
+* Principles of Management Overrides
+* ------------------------
+*/
+
+@has-units: false;
+@has-learning-outcomes: true;
+
+/* -------------------------
+ * Principles of Management Strings
+ * ------------------------
+ */
+@book-title: principles-management;
+@cnx-string-summary: "Summary of Learning Outcomes";
+@cnx-string-catching-spirit: "Catching the Entrepreneurial Spirit";
+@cnx-string-ethics-in-practice: "Ethics In Practice";
+@cnx-string-concept-check: "Concept Check";
+@cnx-string-exploring-business : "Exploring Business Careers";
+@FIGURE_NAME: "Exhibit ";
+
+/* -------------------------
+ * Principles of Management Notes
+ * ------------------------
+ */
+.chapter .note {
+  &.catching-spirit {
+    .notes(@cnx-string-catching-spirit, @primary-color, @feature-style-3-body-color, catching-spirit);
+  }
+  &.ethics-in-practice {
+    .notes(@cnx-string-ethics-in-practice, @primary-color, @feature-style-3-body-color, ethics-in-practice);
+  }
+  &.concept-check {
+    .notes(@cnx-string-concept-check, @secondary-color, @feature-style-2-body-color, exercises);
+  }
+  &.link-to-learning {
+    .notes(@cnx-string-link-to-learning, @quinary-color, @feature-style-1-body-color, link-to-learning);
+  }
+  &.exploring-business-careers {
+    .note-border-top(@cnx-string-exploring-business, @tertiary-color);
+  }
+}
+
+/* -------------------------
+ * EOC specific to SRM books
+ * ------------------------
+ */
+.cnx-eoc {
+  > .section {
+    .hideEocSectionTitle();
+  }
+}
+
+/* -------------------------
+ * Exhibits
+ * ------------------------
+ */
+ div.book {
+   .foo-figure-counter(@prefixFn) {
+     div.figure > div.title > span.cnx-gentext-t:not(.labeled)::before {
+       content: "" @FIGURE_NAME @prefixFn counter(figure) " ";
+     }
+   }
+   div.preface  {
+    .foo-figure-counter("");
+      div.figure > div.title {
+      display: inline;
+   }
+ }
+   div.chapter  { .foo-figure-counter(counter(chapter, decimal) "."); }
+   div.appendix { .foo-figure-counter(counter(appendix, upper-alpha)); }
+ }
+/* Hide Chapter Outline for SRM Business titles */
+div.chapter > div.introduction > div.toc {
+  display: none;
+}
+
+/* -------------------------
+ * Answer Key
+ * ------------------------
+ */
+ .end-of-book-solutions {
+   display: none;
+ }

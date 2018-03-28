@@ -1,0 +1,85 @@
+@import url('themes/business/theme.less');
+
+/* -------------------------
+* Business Ethics Overrides
+* ------------------------
+*/
+
+@has-units: false;
+@has-learning-outcomes: false;
+
+/* -------------------------
+ * Business Ethics References
+ * ------------------------
+ */
+@eoc-case-study-icon: url("ccap-business/casestudy.svg");
+@eoc-suggested-resources-icon: url("ccap-business/suggestedresources.svg");
+
+/* -------------------------
+ * Business Ethics Strings
+ * ------------------------
+ */
+@book-title: business-ethics;
+@cnx-string-real-world: "Cases from the Real World";
+@cnx-string-what-would: "What Would You Do?";
+@cnx-string-ethics-across: "Ethics Across Time and Cultures";
+@cnx-string-think-through: "Think It Through";
+
+/* -------------------------
+ * Business Ethics Notes
+ * ------------------------
+ */
+.chapter .note {
+  &.real-world {
+    .notes(@cnx-string-real-world, @primary-color, @feature-style-3-body-color, none);
+  }
+  &.what-would {
+    .notes(@cnx-string-what-would, @primary-color, @feature-style-3-body-color, none);
+  }
+   &.ethics-across {
+    .notes(@cnx-string-ethics-across, @primary-color, @feature-style-3-body-color, none);
+  }
+  &.think-through {
+    .notes(@cnx-string-think-through, @primary-color, @feature-style-3-body-color, think-through);
+  }
+  &.link-to-learning {
+    .notes(@cnx-string-link-to-learning, @quinary-color, @feature-style-1-body-color, link-to-learning);
+  }
+}
+.cnx-eoc {
+  &.suggested-resources {
+    > .title {
+      .titles-h2-style-icon( @svg-icon: @eoc-suggested-resources-icon);
+    }
+    .hideEocSectionTitle();
+  }
+  &.case-study {
+    > .title {
+      .titles-h2-style-icon( @svg-icon: @eoc-case-study-icon);
+    }
+    .hideEocSectionTitle();
+  }
+}
+/* Hide the EOB references */
+div.colophon.end-of-book-references {
+  display: none;
+}
+/* Format list titles */
+div.orderedlist > div.title > span {
+  // padding: 5px;
+  .scale-padding(-5, padding);
+  display: block;
+}
+
+
+/* Override to use roman-numerals for footnote counters */
+div.book {
+  .footnote {
+    &::footnote-call {
+      content: "[" counter(footnote, lower-roman) "]";
+    }
+    &::footnote-marker {
+      content: counter(footnote, lower-roman);
+    }
+  }
+}
