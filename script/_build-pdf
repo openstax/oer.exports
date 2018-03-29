@@ -1,20 +1,22 @@
 #!/bin/bash
-
-set -e
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/.." || exit 111
+source ./script/bootstrap || exit 111
 
 if [[ ! $1 ]]; then
   echo "Try adding --help to get more information"
   exit 1
 else
   # Only activate the virtualenv if not already in one
-  [[ -z "${VIRTUAL_ENV}" ]] && source ./venv/bin/activate
+  # shellcheck disable=SC1091
+  [[ -z "${VIRTUAL_ENV}" ]] || source ./venv/bin/activate || die 'Bug: Not in a virtualenv'
 
   # The XML Catalogs on OSX are not in the default directory because they are installed via homebrew
   if [[ $(which brew) ]]; then
+    # shellcheck disable=SC2068
     XML_CATALOG_FILES=$(brew --prefix)/etc/xml/catalog python collectiondbk2pdf.py $@
     exit $?
   else
+    # shellcheck disable=SC2068
     python collectiondbk2pdf.py $@
     exit $?
   fi

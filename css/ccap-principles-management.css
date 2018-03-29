@@ -3144,6 +3144,9 @@ img {
 .chapter .note svg text {
   fill: #000 !important;
 }
+.chapter .note.delete-me {
+  display: none;
+}
 .footnote {
   font-size: 9.23076923px;
   color: #6D6F71;
@@ -3278,6 +3281,28 @@ img {
   font-size: 12px;
   color: #344456;
   text-decoration: none;
+}
+.cnx-eoc.references {
+  counter-reset: references;
+}
+.cnx-eoc.references > .section > .body > .note {
+  counter-increment: references;
+  margin: 0 0 0 3em;
+  padding: 0;
+}
+.cnx-eoc.references > .section > .body > .note > .title {
+  display: none;
+}
+.cnx-eoc.references > .section > .body > .note > .body {
+  margin: 0;
+  padding: 0;
+}
+.cnx-eoc.references > .section > .body > .note > .body > p::before {
+  content: counter(references) ".";
+  display: inline-block;
+  position: relative;
+  left: -1em;
+  width: 0;
 }
 .cnx-eoc.figure-credits .section {
   font-size: 9.23076923px;

@@ -1,14 +1,11 @@
 #!/bin/bash
-
-set -e
-cd "$(dirname "$0")/.."
-
-source ./script/bootstrap || exit 1
+cd "$(dirname "$0")/.." || exit 111
+source ./script/bootstrap || exit 111
 
 if [[ ! $1 || ! -d "./data/$1/" ]]; then
   if [[ -d "./data/" && $(ls ./data/) ]]; then
     echo "A valid book name (directory in ./data/) needs to be specified. Valid options are:"
-    echo $(ls ./data/)
+    ls ./data/
     exit 1
   else
     die "No source files in ./data/ exist. Please unzip a complete zip and name it something that matches one of the ccap-* names (without the ccap- prefix)"
@@ -26,7 +23,7 @@ else
   [[ -f "${html_file}" ]] || die "ERROR: ${html_file} not found. Run ./script/build-pdf first."
 
   do_progress_quiet "Generate LCOV file (~4min)" \
-    $(npm bin)/css-coverage --css "${css_file}" --html "${html_file}" --lcov "${lcov_file}" --verbose
+    "$(npm bin)/css-coverage" --css "${css_file}" --html "${html_file}" --lcov "${lcov_file}" --verbose
 
   if [[ $(which genhtml) ]]; then
     do_progress_quiet "Generating HTML coverage report (~30sec)" \
@@ -34,6 +31,6 @@ else
     _say "HTML coverage report generated. open ${html_coverage_report}/index.html"
     [[ $(which open) ]] && open "${html_coverage_report}/index.html"
   else
-    _say 'LCOV file generated. but `genhtml` is missing. Try running `brew install lcov` to get an HTML report'
+    _say 'LCOV file generated. but "genhtml" is missing. Try running "brew install lcov" to get an HTML report'
   fi
 fi

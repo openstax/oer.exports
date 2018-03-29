@@ -115,6 +115,30 @@
    * EOC Solutions
    * ------------------------
    */
+  &.references {
+    counter-reset: references;
+    > .section > .body > .note {
+      counter-increment: references;
+      margin: 0 0 0 3em;
+      padding: 0;
+      > .title {
+        display: none;
+      }
+      > .body {
+        margin: 0;
+        padding: 0;
+        > p {
+          &::before {
+            content: counter(references) ".";
+            display: inline-block;
+            position: relative;
+            left: -1em;
+            width: 0;
+          }
+        }
+      }
+    }
+  }
 
   &.figure-credits {
     .section {
