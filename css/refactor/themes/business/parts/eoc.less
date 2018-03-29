@@ -76,7 +76,6 @@
       border-bottom: none;
     }
   }
-
   .exercise {
     .scale-padding(-1, margin-bottom);
     .scale-padding(-1, margin-top);
@@ -86,36 +85,25 @@
       .scale-padding(1, padding-left);
     }
   }
-
   &.key-terms {
-    // > .title {
-    //   .titles-h2-style-icon(@svg-icon: @eoc-assessment-icon);
-    // }
     .listitem p {
       margin-bottom: 0;
     }
   }
-  .handle-eoc-sections(".key-terms", @eoc-assessment-icon);
-
-  .handle-eoc-sections(".section-summary", @eoc-summary-icon);
   &.summary {
     //#part>#chapter-end>#summary>.style();
     > .title {
       // #part>#chapter-end>#summary>#title>.style();
-      // .titles-h2-style-icon(@svg-icon: @eoc-summary-icon);
       span {
         // override a * selector...
         padding-left: 0;
         .font-scale(2);
       }
     }
-    .handle-eoc-sections("summary", @eoc-summary-icon);
-
     > .section > .title {
       //#part>#chapter-end>#summary>#subtitle>.style(any; chapter-end; section);
       display: block;
     }
-
     > .section .title > a {
       // #part>#chapter-end>#summary>#title>.link();
       font-family: @font-family;
@@ -127,19 +115,12 @@
    * EOC Solutions
    * ------------------------
    */
-  .handle-eoc-sections(".references", @eoc-references-icon);
 
   &.figure-credits {
-    // > .title {
-    //   .titles-h2-style-icon(@svg-icon: @eoc-figure-credit-icon);
-    // }
     .section {
       .font-scale(-1);
     }
-    // .hideEocSectionTitle();
   }
-  .handle-eoc-sections(".figure-credits", @eoc-figure-credit-icon);
-
   &.cnx-solutions {
     //slots & skeleton below to be converted if necessary
     //     //#content>#solution>.style(@kind; chapter);
@@ -158,8 +139,6 @@
     //   }
     //   .exercise div.body div.problem .figure { #content>#figure>.style(any; chapter-end; exercise); }
   }
-  .handle-eoc-sections(".cnx-solutions", @hide-eoc-section: true);
-
   &.suggested-resources > div.section > div.body {
     p,
     table > tr > td {
@@ -169,3 +148,9 @@
     }
   }
 }
+.handle-eoc-sections(".key-terms", @eoc-assessment-icon);
+.handle-eoc-sections(".section-summary", @eoc-summary-icon);
+.handle-eoc-sections("summary", @eoc-summary-icon);
+.handle-eoc-sections(".references", @eoc-references-icon);
+.handle-eoc-sections(".figure-credits", @eoc-figure-credit-icon);
+.handle-eoc-sections(".cnx-solutions", @hide-eoc-section: true);
