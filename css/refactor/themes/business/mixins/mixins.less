@@ -181,7 +181,7 @@
   background-repeat: no-repeat;
 }
 
-.handle-eoc-sections(@class, @eoc-icon: false, @section-title: true, @custom-counter: false, @hide-eoc-section: false) {
+.handle-eoc-sections(@class, @eoc-icon: false, @section-title: true, @custom-counter: false, @hide-eoc-section: false, @subtitle: false) {
   @classname: ~"@{class}";  // takes a string value and rms the quotation marks
   .cnx-eoc {
     &@{classname} {
@@ -191,15 +191,20 @@
           }
           .titles-h2-style();
         }
-        .section .title, .cnx-gentext-t {
+        .section .title .cnx-gentext-t {
           & when (@section-title = false) {
             display: none;
+          }
+        }
+        .section .body .section .titlepage {
+          & when (@subtitle = true) {
+            display: block;
           }
         }
       & when (isstring(@custom-counter)) { //true if input is string
           .eocCustomCounters(@custom-counter);
       }
-      & when (@hide-eoc-section= true) {
+      & when (@hide-eoc-section = true) {
         display: none;
       }
     }
