@@ -102,13 +102,16 @@ else
     compare -metric AE "./out/${book_name}-temp/_prepared-pages/${image_file}" "./out/${book_name}-temp/_after-pages/${image_file}" null: 2> /dev/null
     exit_status=$?
     if [[ ${exit_status} != 0 ]]; then
-      die "First mismatched screen occurred at './out/${book_name}-temp/_prepared-pages/${image_file}'"
+      random_array+=( ${image_file} )
     fi
   done
+  echo "Mismatches occured at:"
+  printf '%s\n' "${random_array[@]}"
 
-  if [[ ${has_differences} == 0 ]]; then
-    _say "${c_green}Yay! There were no differences between the PDFs, the XHTML, and the XHTML+CSS${c_none}"
-  fi
+  #TODO: currently appearing when there are differences
+  # if [[ ${has_differences} == 0 ]]; then
+  #   _say "${c_green}Yay! There were no differences between the PDFs, the XHTML, and the XHTML+CSS${c_none}"
+  # fi
 
   exit ${has_differences}
 fi
