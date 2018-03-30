@@ -90,6 +90,29 @@ def makeTransform(file):
         return xml, {}, errors
     return t
 
+# c2p-files/cnxmathmlc2p.xsl does some disable-output-escaping="yes"
+# so its output needs to be re-parsed
+def makeTransformReparseAfter(file):
+    xsl = util.makeXsl(file)
+
+    def t(xml, files, **params):
+        xml = xsl(xml, **params)
+        errors = extractLog(xsl.error_log)
+
+        parser = etree.XMLParser()
+        xml = etree.parse(StringIO(etree.tostring(xml)), parser)
+        return xml, {}, errors
+    return t
+
+
+def compare_trees(e1, e2):
+    if e1.tag != e2.tag: raise ValueError("Tags do not match. Returned '" + e1.tag + "' Expected '" + e2.tag + "'")
+    if e1.text != e2.text: raise ValueError("Text does not match. Returned '" + e1.text + "' Expected '" + e2.text + "'")
+    if e1.tail != e2.tail: raise ValueError("Tails do not match. Returned '" + e1.tail + "' Expected '" + e2.tail + "'")
+    if e1.attrib != e2.attrib: raise ValueError("Attribs do not match. Returned '" + e1.attrib + "' Expected '" + e2.attrib + "'")
+    if len(e1) != len(e2): raise ValueError("Child Lengths do not match. Returned '" + len(e1) + "' Expected '" + len(e2) + "'")
+    return all(compare_trees(c1, c2) for c1, c2 in zip(e1, e2))
+
 
 def _replace_tex_math(node, mml_url, retry=0):
     """call mml-api service to replace TeX math in body of node with mathml"""
@@ -291,7 +314,7 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
                 for  mathml_key, expected_mathml in unprocessed.items():
                     svg = mathml_svg_list.pop(0)
                     returned_mathml = mathml_svg_list.pop(0)
-                    if etree.tostring(returned_mathml) == etree.tostring(expected_mathml):
+                    if compare_trees(returned_mathml, expected_mathml):
                         svg_str = etree.tostring(svg)
                         mc.set(mathml_key, svg_str)
                         svgs[mathml_key] = svg_str
@@ -383,7 +406,7 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
         return xml, newFiles2, [] # xml, newFiles, log messages
 
     PIPELINE = [
-      makeTransform('cnxml-clean.xsl'),
+      makeTransformReparseAfter('cnxml-clean.xsl'),
       makeTransform('cnxml-clean-math.xsl'),
       # Have to run the cleanup twice because we remove empty mml:mo,
       # then remove mml:munder with only 1 child.
