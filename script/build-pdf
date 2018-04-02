@@ -1,9 +1,6 @@
 #!/bin/bash
-
-set -e
-cd "$(dirname "$0")/.."
-
-source ./script/bootstrap || exit 1
+cd "$(dirname "$0")/.." || exit 111
+source ./script/bootstrap || exit 111
 
 if [[ ! $1 || ! -d "./data/$1/" ]]; then
   if [[ -d "./data/" && $(ls ./data/) ]]; then
@@ -49,12 +46,12 @@ else
   progress "Adding CSS reference into XHTML file for debugging"
   try sed -ir "s|</head>|<link rel=\"stylesheet\" type=\"text/css\" href=\"../../css/ccap-$1.css\" /></head>|" "${xhtml_path}"
 
-  # _say "${c_green}Finished building PDF.${c_none} Opening now"
-  # _say "You can also view the XHTML file used to generate the PDF at ${xhtml_path}"
-  # if [[ $(which open) ]]; then
-  #   open "${pdf_name}"
-  # fi
-  #
+  _say "${c_green}Finished building PDF.${c_none} Opening now"
+  _say "You can also view the XHTML file used to generate the PDF at ${xhtml_path}"
+  if [[ $(which open) ]]; then
+    open "${pdf_name}"
+  fi
+
   if [[ $(which say) ]]; then
     # there is a say bash function so we need to use the bin version
     $(which say) "$1 PDF is done!"

@@ -1,7 +1,6 @@
 #!/bin/bash
-
-set -e
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/.." || exit 111
+source ./script/bootstrap || exit 111
 
 # shellcheck disable=SC2068
 "$(npm bin)/grunt" $@
