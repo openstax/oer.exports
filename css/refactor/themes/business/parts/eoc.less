@@ -59,8 +59,6 @@
 .cnx-eoc {
   .scale-padding(4, margin-bottom);
   > .title {
-    .titles-h2-style-icon();
-
     span {
       .font-scale(2);
       padding-left: 0;
@@ -78,7 +76,6 @@
       border-bottom: none;
     }
   }
-
   .exercise {
     .scale-padding(-1, margin-bottom);
     .scale-padding(-1, margin-top);
@@ -88,35 +85,25 @@
       .scale-padding(1, padding-left);
     }
   }
-
   &.key-terms {
-    > .title {
-      .titles-h2-style-icon(@svg-icon: @eoc-assessment-icon);
-    }
-
     .listitem p {
       margin-bottom: 0;
     }
   }
-
-  &.section-summary,
   &.summary {
     //#part>#chapter-end>#summary>.style();
     > .title {
       // #part>#chapter-end>#summary>#title>.style();
-      .titles-h2-style-icon(@svg-icon: @eoc-summary-icon);
       span {
         // override a * selector...
         padding-left: 0;
         .font-scale(2);
       }
     }
-
     > .section > .title {
       //#part>#chapter-end>#summary>#subtitle>.style(any; chapter-end; section);
       display: block;
     }
-
     > .section .title > a {
       // #part>#chapter-end>#summary>#title>.link();
       font-family: @font-family;
@@ -130,9 +117,6 @@
    */
   &.references {
     counter-reset: references;
-    > .title {
-      .titles-h2-style-icon(@svg-icon: @eoc-references-icon);
-    }
     > .section > .body > .note {
       counter-increment: references;
       margin: 0 0 0 3em;
@@ -157,17 +141,12 @@
   }
 
   &.figure-credits {
-    > .title {
-      .titles-h2-style-icon(@svg-icon: @eoc-figure-credit-icon);
-    }
     .section {
       .font-scale(-1);
     }
-    .hideEocSectionTitle();
   }
-
   &.cnx-solutions {
-    display: none; //slots & skeleton below to be converted if necessary
+    //slots & skeleton below to be converted if necessary
     //     //#content>#solution>.style(@kind; chapter);
     //     > .section .title > a { #content>#solution>#title>.link(); }
     //     p:nth-of-type(1) { margin-top: 1em; }
@@ -184,7 +163,6 @@
     //   }
     //   .exercise div.body div.problem .figure { #content>#figure>.style(any; chapter-end; exercise); }
   }
-
   &.suggested-resources > div.section > div.body {
     p,
     table > tr > td {
@@ -194,3 +172,12 @@
     }
   }
 }
+.handle-eoc-sections(".key-terms", @eoc-assessment-icon, @section-title: false);
+.handle-eoc-sections(".assessment-questions", @eoc-assessment-icon);
+.handle-eoc-sections(".section-summary", @eoc-summary-icon);
+.handle-eoc-sections(".summary", @eoc-summary-icon);
+.handle-eoc-sections(".references", @eoc-references-icon, @section-title: false);
+.handle-eoc-sections(".figure-credits", @eoc-figure-credit-icon, @section-title: false);
+.handle-eoc-sections(".cnx-solutions", @hide-eoc-section: true);
+.handle-eoc-sections(".suggested-resources", @eoc-assessment-icon);
+.handle-eoc-sections(".critical-thinking", @eoc-assessment-icon, @section-title: false);
