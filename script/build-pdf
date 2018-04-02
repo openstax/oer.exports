@@ -1,9 +1,6 @@
 #!/bin/bash
-
-set -e
-cd "$(dirname "$0")/.."
-
-source ./script/bootstrap || exit 1
+cd "$(dirname "$0")/.." || exit 111
+source ./script/bootstrap || exit 111
 
 if [[ ! $1 || ! -d "./data/$1/" ]]; then
   if [[ -d "./data/" && $(ls ./data/) ]]; then
