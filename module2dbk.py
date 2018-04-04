@@ -104,6 +104,12 @@ def makeTransformReparseAfter(file):
         return xml, {}, errors
     return t
 
+# legacy/zope runs under python2.4 - all() appeared in 2.5
+def all(iterable):
+    for element in iterable:
+        if not element:
+            return False
+    return True
 
 def compare_trees(e1, e2):
     if e1.tag != e2.tag: raise ValueError("Tags do not match. Returned '" + e1.tag + "' Expected '" + e2.tag + "'")
