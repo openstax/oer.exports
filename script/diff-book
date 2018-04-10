@@ -102,14 +102,15 @@ else
     compare -metric AE "./out/${book_name}-temp/_prepared-pages/${image_file}" "./out/${book_name}-temp/_after-pages/${image_file}" null: 2> /dev/null
     exit_status=$?
     if [[ ${exit_status} != 0 ]]; then
-      found_diffs+=( ${image_file} )
+      found_diffs+=("./out/${book_name}-temp/_prepared-pages/${image_file}")
     fi
   done
-  echo "Mismatches occured at:"
-  printf '%s\n' "${found_diffs[@]}"
 
-  #TODO: currently appearing when there are differences
-  if [[ ${found_diffs} == 0 ]]; then
+  if [[ ${found_diffs[@]} ]]; then
+    echo "Mismatches occured at:"
+    printf '%s\n' "${found_diffs[@]}"
+  fi
+  if [[ ! ${found_diffs[@]} ]]; then
     _say "${c_green}Yay! There were no differences between the PDFs, the XHTML, and the XHTML+CSS${c_none}"
   fi
 
