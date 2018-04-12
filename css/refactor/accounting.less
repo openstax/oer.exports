@@ -18,7 +18,7 @@
 @book-title: accounting;
 @cnx-string-concepts-to-practice: "Concepts In Practice";
 @cnx-string-continuing-application: "Continuing Application At Work";
-@cnx-string-think-through: "Think Through";
+@cnx-string-think-through: "Think It Through";
 @cnx-string-your-turn: "Your Turn";
 @cnx-string-ethical-considerations: "Ethical Considerations ";
 @cnx-string-ifrs-connection: "IFRS Connection";
@@ -30,7 +30,7 @@
 .chapter .note {
   &.link-to-learning {
     //#content>#note>.style('link-to-learning-new'; any);
-    .notes(@cnx-string-link-to-learning, @quinary-color, @feature-style-1-body-color, link-to-learning,
+    .notes(@cnx-string-link-to-learning, @quinary-color, @feature-style-1-body-color, none,
       @border-bottom-left-radius: 0, @border-bottom-right-radius: 0, @border-top-left-radius: 0, @border-top-right-radius: 0);
     &::before {
       color: @secondary-color;
@@ -74,47 +74,23 @@ div.part>div.titlepage {
  * Accounting EOC
  * ------------------------
  */
-.cnx-eoc {
-  //custom numbering for Accounting
-  &.multiple-choice {
-  .eocCustomCounters ("MC");
-  .hideEocSectionTitle();
-}
 
-  &.questions {
-    .eocCustomCounters ("Q");
-    .hideEocSectionTitle();
-  }
+//custom numbering for Accounting
+.handle-eoc-sections(".multiple-choice", @eoc-assessment-icon, @section-title: false, @custom-counter: "MC");
 
-  &.exercise-set-a {
-    .eocCustomCounters ("EA");
-    .hideEocSectionTitle();
-   }
+.handle-eoc-sections(".questions", @eoc-assessment-icon, @section-title: false, @custom-counter:"Q");
 
-  &.exercise-set-b {
-    .eocCustomCounters ("EB");
-    .hideEocSectionTitle();
-   }
+.handle-eoc-sections(".exercise-set-a", @eoc-assessment-icon, @section-title: false, @custom-counter:"EA");
 
-  &.problem-set-a {
-    .eocCustomCounters ("PA");
-    .hideEocSectionTitle();
-   }
+.handle-eoc-sections(".exercise-set-b", @eoc-assessment-icon, @section-title: false, @custom-counter:"EB");
 
-  &.problem-set-b {
-    .eocCustomCounters ("PB");
-    .hideEocSectionTitle();
-  }
+.handle-eoc-sections(".problem-set-a", @eoc-assessment-icon, @section-title: false, @custom-counter:"PA");
 
-  &.thought-provokers {
-    .eocCustomCounters ("TP");
-    > .title {
-      .titles-h2-style-icon( @svg-icon: @eoc-thought-provoker-icon);
-      //.moduleTitles(@eoc-titles-color, @eoc-thought-provoker-icon);
-    }
-    .hideEocSectionTitle();
-  }
-}
+.handle-eoc-sections(".problem-set-b", @eoc-assessment-icon, @section-title: false, @custom-counter:"PB");
+
+.handle-eoc-sections(".thought-provokers", @eoc-icon: @eoc-thought-provoker-icon, @section-title: false, @custom-counter:"TP");
+
+
 /* Hide the EOB references */
 div.colophon.end-of-book-references {
   display: none;

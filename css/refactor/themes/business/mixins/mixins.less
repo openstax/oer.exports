@@ -180,3 +180,33 @@
   background-size: 65px 1px;
   background-repeat: no-repeat;
 }
+
+.handle-eoc-sections(@class, @eoc-icon: false, @section-title: true, @custom-counter: false, @hide-eoc-section: false, @subtitle: false) {
+  @classname: ~"@{class}";  // takes a string value and rms the quotation marks
+  .cnx-eoc {
+    &@{classname} {
+        > .title {
+          & when (isurl(@eoc-icon)) { //true if input is a url
+            .titles-h2-style-icon(@svg-icon: @eoc-icon);
+          }
+          .titles-h2-style();
+        }
+        .section .title .cnx-gentext-t {
+          & when (@section-title = false) {
+            display: none;
+          }
+        }
+        .section .body .section .titlepage {
+          & when (@subtitle = true) {
+            display: block;
+          }
+        }
+      & when (isstring(@custom-counter)) { //true if input is string
+          .eocCustomCounters(@custom-counter);
+      }
+      & when (@hide-eoc-section = true) {
+        display: none;
+      }
+    }
+  }
+}

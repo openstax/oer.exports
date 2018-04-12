@@ -333,21 +333,34 @@ div.table {
  * ------------------------
  */
 div.note {
-  div.table table thead tr:first-of-type {
-    th {
-      white-space: nowrap;
+  div.table {
+    table thead tr:first-of-type {
+      th {
+        white-space: nowrap;
+        &:not(:last-child) {
+          // padding: 4px 4px 4px 10px;
+          .scale-padding(-6, padding-top);
+          .scale-padding(-6, padding-right);
+          .scale-padding(-6, padding-bottom);
+          .scale-padding(-1, padding-left);
+          text-align: left;
+        }
 
-      &:not(:last-child) {
-        // padding: 4px 4px 4px 10px;
-        .scale-padding(-6, padding-top);
-        .scale-padding(-6, padding-right);
-        .scale-padding(-6, padding-bottom);
-        .scale-padding(-1, padding-left);
-        text-align: left;
+        &:last-child {
+          text-align: right;
+        }
       }
-
-      &:last-child {
-        text-align: right;
+    }
+    &.top-titled {
+      table thead {
+        tr:first-of-type th {
+          background-color: transparent;
+          text-align: center;
+        }
+        tr:not(first-child) {
+          background-color: transparent;
+          border: 0;
+        }
       }
     }
   }
