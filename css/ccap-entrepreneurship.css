@@ -2412,6 +2412,9 @@ div.book div.preface > div.section > div.section {
 div.book div.preface > p + .section {
   margin-top: 18px;
 }
+div.book div.preface ul > li {
+  list-style: disc;
+}
 /* -------------------------
  * Chapter title (over the splash page)
  * ------------------------
@@ -2932,6 +2935,14 @@ div.note div.table table thead tr:first-of-type th:not(:last-child) {
 div.note div.table table thead tr:first-of-type th:last-child {
   text-align: right;
 }
+div.note div.table.top-titled table thead tr:first-of-type th {
+  background-color: transparent;
+  text-align: center;
+}
+div.note div.table.top-titled table thead tr:not(first-child) {
+  background-color: transparent;
+  border: 0;
+}
 /* ---------------------------------------------------
  * Figures/Subfigures
  * ---------------------------------------------------
@@ -3131,6 +3142,9 @@ img {
 .chapter .note svg text {
   fill: #000 !important;
 }
+.chapter .note.delete-me {
+  display: none;
+}
 .footnote {
   font-size: 9.23076923px;
   color: #6D6F71;
@@ -3159,6 +3173,9 @@ img {
  * End of chapter customizations
  * ------------------------
  */
+div.book div.chapter > div.cnx-eoc.references {
+  counter-reset: references;
+}
 /* -------------------------
   * Key Terms
   * ------------------------
@@ -3211,6 +3228,9 @@ img {
 .key-terms .listitem {
   list-style: none;
 }
+.key-terms .section .title {
+  padding: 0px;
+}
 .key-terms div.title {
   padding: 0;
 }
@@ -3227,24 +3247,6 @@ img {
    * EOC Solutions
    * ------------------------
    */
-}
-.cnx-eoc > .title {
-  font-family: 'Roboto Condensed';
-  color: #344456;
-  font-size: 18px;
-  bookmark-level: 2;
-  page-break-after: avoid;
-  margin-top: 15.6px;
-  margin-bottom: 12px;
-  margin-left: 0;
-  padding-left: 0;
-  display: inline-block !important;
-  background: url("ccap-business/assessments.svg") no-repeat left;
-  padding-left: 34.2732px !important;
-  padding-right: 34.2732px !important;
-  padding-top: 5.33333333px !important;
-  margin-bottom: 5.33333333px !important;
-  background-size: contain;
 }
 .cnx-eoc > .title span {
   font-size: 18px;
@@ -3265,16 +3267,53 @@ img {
 .cnx-eoc .exercise ul {
   padding-left: 15.6px;
 }
-.cnx-eoc.key-terms > .title {
-  font-family: 'Roboto Condensed';
-  color: #344456;
-  font-size: 18px;
-  bookmark-level: 2;
-  page-break-after: avoid;
-  margin-top: 15.6px;
-  margin-bottom: 12px;
-  margin-left: 0;
+.cnx-eoc.key-terms .listitem p {
+  margin-bottom: 0;
+}
+.cnx-eoc.summary > .title span {
   padding-left: 0;
+  font-size: 18px;
+}
+.cnx-eoc.summary > .section > .title {
+  display: block;
+}
+.cnx-eoc.summary > .section .title > a {
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 12px;
+  color: #344456;
+  text-decoration: none;
+}
+.cnx-eoc.references {
+  counter-reset: references;
+}
+.cnx-eoc.references > .section > .body > .note {
+  counter-increment: references;
+  margin: 0 0 0 3em;
+  padding: 0;
+}
+.cnx-eoc.references > .section > .body > .note > .title {
+  display: none;
+}
+.cnx-eoc.references > .section > .body > .note > .body {
+  margin: 0;
+  padding: 0;
+}
+.cnx-eoc.references > .section > .body > .note > .body > p::before {
+  content: counter(references) ".";
+  display: inline-block;
+  position: relative;
+  left: -1em;
+  width: 0;
+}
+.cnx-eoc.figure-credits .section {
+  font-size: 9.23076923px;
+}
+.cnx-eoc.suggested-resources > div.section > div.body p,
+.cnx-eoc.suggested-resources > div.section > div.body table > tr > td {
+  text-indent: -1em;
+  padding-left: 9.23076923px;
+}
+.cnx-eoc.key-terms > .title {
   display: inline-block !important;
   background: url("ccap-business/assessments.svg") no-repeat left;
   padding-left: 34.2732px !important;
@@ -3282,12 +3321,6 @@ img {
   padding-top: 5.33333333px !important;
   margin-bottom: 5.33333333px !important;
   background-size: contain;
-}
-.cnx-eoc.key-terms .listitem p {
-  margin-bottom: 0;
-}
-.cnx-eoc.section-summary > .title,
-.cnx-eoc.summary > .title {
   font-family: 'Roboto Condensed';
   color: #344456;
   font-size: 18px;
@@ -3297,6 +3330,29 @@ img {
   margin-bottom: 12px;
   margin-left: 0;
   padding-left: 0;
+}
+.cnx-eoc.key-terms .section .title .cnx-gentext-t {
+  display: none;
+}
+.cnx-eoc.assessment-questions > .title {
+  display: inline-block !important;
+  background: url("ccap-business/assessments.svg") no-repeat left;
+  padding-left: 34.2732px !important;
+  padding-right: 34.2732px !important;
+  padding-top: 5.33333333px !important;
+  margin-bottom: 5.33333333px !important;
+  background-size: contain;
+  font-family: 'Roboto Condensed';
+  color: #344456;
+  font-size: 18px;
+  bookmark-level: 2;
+  page-break-after: avoid;
+  margin-top: 15.6px;
+  margin-bottom: 12px;
+  margin-left: 0;
+  padding-left: 0;
+}
+.cnx-eoc.section-summary > .title {
   display: inline-block !important;
   background: url("ccap-business/Summary.svg") no-repeat left;
   padding-left: 34.2732px !important;
@@ -3304,24 +3360,6 @@ img {
   padding-top: 5.33333333px !important;
   margin-bottom: 5.33333333px !important;
   background-size: contain;
-}
-.cnx-eoc.section-summary > .title span,
-.cnx-eoc.summary > .title span {
-  padding-left: 0;
-  font-size: 18px;
-}
-.cnx-eoc.section-summary > .section > .title,
-.cnx-eoc.summary > .section > .title {
-  display: block;
-}
-.cnx-eoc.section-summary > .section .title > a,
-.cnx-eoc.summary > .section .title > a {
-  font-family: 'Noto Sans', sans-serif;
-  font-size: 12px;
-  color: #344456;
-  text-decoration: none;
-}
-.cnx-eoc.references > .title {
   font-family: 'Roboto Condensed';
   color: #344456;
   font-size: 18px;
@@ -3331,6 +3369,26 @@ img {
   margin-bottom: 12px;
   margin-left: 0;
   padding-left: 0;
+}
+.cnx-eoc.summary > .title {
+  display: inline-block !important;
+  background: url("ccap-business/Summary.svg") no-repeat left;
+  padding-left: 34.2732px !important;
+  padding-right: 34.2732px !important;
+  padding-top: 5.33333333px !important;
+  margin-bottom: 5.33333333px !important;
+  background-size: contain;
+  font-family: 'Roboto Condensed';
+  color: #344456;
+  font-size: 18px;
+  bookmark-level: 2;
+  page-break-after: avoid;
+  margin-top: 15.6px;
+  margin-bottom: 12px;
+  margin-left: 0;
+  padding-left: 0;
+}
+.cnx-eoc.references > .title {
   display: inline-block !important;
   background: url("ccap-business/references.svg") no-repeat left;
   padding-left: 34.2732px !important;
@@ -3338,8 +3396,6 @@ img {
   padding-top: 5.33333333px !important;
   margin-bottom: 5.33333333px !important;
   background-size: contain;
-}
-.cnx-eoc.figure-credits > .title {
   font-family: 'Roboto Condensed';
   color: #344456;
   font-size: 18px;
@@ -3349,6 +3405,11 @@ img {
   margin-bottom: 12px;
   margin-left: 0;
   padding-left: 0;
+}
+.cnx-eoc.references .section .title .cnx-gentext-t {
+  display: none;
+}
+.cnx-eoc.figure-credits > .title {
   display: inline-block !important;
   background: url("ccap-business/figurecredit.svg") no-repeat left;
   padding-left: 34.2732px !important;
@@ -3356,23 +3417,71 @@ img {
   padding-top: 5.33333333px !important;
   margin-bottom: 5.33333333px !important;
   background-size: contain;
+  font-family: 'Roboto Condensed';
+  color: #344456;
+  font-size: 18px;
+  bookmark-level: 2;
+  page-break-after: avoid;
+  margin-top: 15.6px;
+  margin-bottom: 12px;
+  margin-left: 0;
+  padding-left: 0;
 }
-.cnx-eoc.figure-credits .section {
-  font-size: 9.23076923px;
-}
-.cnx-eoc.figure-credits div.title {
-  padding: 0;
-}
-.cnx-eoc.figure-credits div.title span.cnx-gentext-section {
+.cnx-eoc.figure-credits .section .title .cnx-gentext-t {
   display: none;
 }
 .cnx-eoc.cnx-solutions {
   display: none;
 }
-.cnx-eoc.suggested-resources > div.section > div.body p,
-.cnx-eoc.suggested-resources > div.section > div.body table > tr > td {
-  text-indent: -1em;
-  padding-left: 9.23076923px;
+.cnx-eoc.cnx-solutions > .title {
+  font-family: 'Roboto Condensed';
+  color: #344456;
+  font-size: 18px;
+  bookmark-level: 2;
+  page-break-after: avoid;
+  margin-top: 15.6px;
+  margin-bottom: 12px;
+  margin-left: 0;
+  padding-left: 0;
+}
+.cnx-eoc.suggested-resources > .title {
+  display: inline-block !important;
+  background: url("ccap-business/assessments.svg") no-repeat left;
+  padding-left: 34.2732px !important;
+  padding-right: 34.2732px !important;
+  padding-top: 5.33333333px !important;
+  margin-bottom: 5.33333333px !important;
+  background-size: contain;
+  font-family: 'Roboto Condensed';
+  color: #344456;
+  font-size: 18px;
+  bookmark-level: 2;
+  page-break-after: avoid;
+  margin-top: 15.6px;
+  margin-bottom: 12px;
+  margin-left: 0;
+  padding-left: 0;
+}
+.cnx-eoc.critical-thinking > .title {
+  display: inline-block !important;
+  background: url("ccap-business/assessments.svg") no-repeat left;
+  padding-left: 34.2732px !important;
+  padding-right: 34.2732px !important;
+  padding-top: 5.33333333px !important;
+  margin-bottom: 5.33333333px !important;
+  background-size: contain;
+  font-family: 'Roboto Condensed';
+  color: #344456;
+  font-size: 18px;
+  bookmark-level: 2;
+  page-break-after: avoid;
+  margin-top: 15.6px;
+  margin-bottom: 12px;
+  margin-left: 0;
+  padding-left: 0;
+}
+.cnx-eoc.critical-thinking .section .title .cnx-gentext-t {
+  display: none;
 }
 /* -------------------------
  * Styling for Appendix
@@ -3656,7 +3765,8 @@ body {
  */
 .appendix:not(.toc-appendix) a:link,
 .chapter .section a:link,
-.preface:not(.toc-preface) a:link {
+.preface:not(.toc-preface) a:link,
+.introduction p a:link {
   color: #027eb5;
   text-decoration: none;
   border-bottom: #027eb5 solid 0.02em;
@@ -3843,7 +3953,7 @@ div.toc li.toc-part a.target-part::before {
   background: blue;
   display: block;
   content: '';
-  background: url("ccap-business/link-to-learning.svg") no-repeat 0;
+  background: url("ccap-business/none.svg") no-repeat 0;
   width: 110px;
   height: 62px;
   position: absolute;
@@ -4035,22 +4145,67 @@ div.toc li.toc-part a.target-part::before {
   bottom: 2px;
   right: 15px;
 }
-.cnx-eoc.review-questions div.title {
-  padding: 0;
+.cnx-eoc.review-questions > .title {
+  display: inline-block !important;
+  background: url("ccap-business/assessments.svg") no-repeat left;
+  padding-left: 34.2732px !important;
+  padding-right: 34.2732px !important;
+  padding-top: 5.33333333px !important;
+  margin-bottom: 5.33333333px !important;
+  background-size: contain;
+  font-family: 'Roboto Condensed';
+  color: #344456;
+  font-size: 18px;
+  bookmark-level: 2;
+  page-break-after: avoid;
+  margin-top: 15.6px;
+  margin-bottom: 12px;
+  margin-left: 0;
+  padding-left: 0;
 }
-.cnx-eoc.review-questions div.title span.cnx-gentext-section {
+.cnx-eoc.review-questions .section .title .cnx-gentext-t {
   display: none;
 }
-.cnx-eoc.discussion-questions div.title {
-  padding: 0;
+.cnx-eoc.discussion-questions > .title {
+  display: inline-block !important;
+  background: url("ccap-business/assessments.svg") no-repeat left;
+  padding-left: 34.2732px !important;
+  padding-right: 34.2732px !important;
+  padding-top: 5.33333333px !important;
+  margin-bottom: 5.33333333px !important;
+  background-size: contain;
+  font-family: 'Roboto Condensed';
+  color: #344456;
+  font-size: 18px;
+  bookmark-level: 2;
+  page-break-after: avoid;
+  margin-top: 15.6px;
+  margin-bottom: 12px;
+  margin-left: 0;
+  padding-left: 0;
 }
-.cnx-eoc.discussion-questions div.title span.cnx-gentext-section {
+.cnx-eoc.discussion-questions .section .title .cnx-gentext-t {
   display: none;
 }
-.cnx-eoc.case-questions div.title {
-  padding: 0;
+.cnx-eoc.case-questions > .title {
+  display: inline-block !important;
+  background: url("ccap-business/assessments.svg") no-repeat left;
+  padding-left: 34.2732px !important;
+  padding-right: 34.2732px !important;
+  padding-top: 5.33333333px !important;
+  margin-bottom: 5.33333333px !important;
+  background-size: contain;
+  font-family: 'Roboto Condensed';
+  color: #344456;
+  font-size: 18px;
+  bookmark-level: 2;
+  page-break-after: avoid;
+  margin-top: 15.6px;
+  margin-bottom: 12px;
+  margin-left: 0;
+  padding-left: 0;
 }
-.cnx-eoc.case-questions div.title span.cnx-gentext-section {
+.cnx-eoc.case-questions .section .title .cnx-gentext-t {
   display: none;
 }
 /* Hide the EOB references */
