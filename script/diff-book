@@ -107,8 +107,12 @@ else
   done
 
   if [[ ${found_diffs[@]} ]]; then
-    echo "Mismatches occured at:"
-    printf '%s\n' "${found_diffs[@]}"
+    _say "Mismatches occured at:"
+    # printf '%s\n' "${found_diffs[@]}"
+    for each in "${found_diffs[@]}"
+    do
+      _say "$each"
+    done
   fi
   if [[ ! ${found_diffs[@]} ]]; then
     _say "${c_green}Yay! There were no differences between the PDFs, the XHTML, and the XHTML+CSS${c_none}"
