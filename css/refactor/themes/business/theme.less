@@ -12,7 +12,6 @@
 @import url('../../content-slots.less');
 @import url('../../ccap-base-skeleton.less');
 @import url('../../content-skeleton.less');
-@import url('../../includes/numbering.less');
 @import url('../../unnumbered-content.less');
 @import url('../../folio.less');
 @import url('../../includes/sub-sup-scripts.less');
@@ -24,6 +23,7 @@
 @import url('mixins/variables.less');
 @import url('mixins/color-map.less');
 @import url('mixins/mixins.less');
+@import url('mixins/numbering.less');
 //book components
 @import url('parts/toc.less');
 @import url('parts/preface.less');
@@ -123,6 +123,9 @@ div.book div.chapter > div.titlepage > div > div h1.title {
 //captions
 span.colored-text {
   color: @colored-text-color;
+  > strong {
+    font-weight: normal; //overide unwanted bold style, CM must use this tag
+  }
 }
 
 .appendix.module a:link.target-section,

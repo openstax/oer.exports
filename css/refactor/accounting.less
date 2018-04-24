@@ -37,7 +37,7 @@
     }
   }
   &.your-turn {
-    .notes(@cnx-string-your-turn, @secondary-color, @feature-style-2-body-color, exercises,
+    .notes(@cnx-string-your-turn, @secondary-color, @feature-style-2-body-color, none,
       @border-bottom-left-radius: 0, @border-bottom-right-radius: 0, @border-top-left-radius: 0, @border-top-right-radius: 0);
   }
   &.ifrs-connection {
@@ -74,11 +74,14 @@ div.part>div.titlepage {
  * Accounting EOC
  * ------------------------
  */
-
+.section-summary > .section > .title {
+  .scale-padding(-2, padding-top);
+  .scale-padding(-6, padding-bottom);
+}
 //custom numbering for Accounting
-.handle-eoc-sections(".multiple-choice", @eoc-assessment-icon, @section-title: false, @custom-counter: "MC");
+.handle-eoc-sections(".multiple-choice", @eoc-assessment-icon, @section-title: false,);
 
-.handle-eoc-sections(".questions", @eoc-assessment-icon, @section-title: false, @custom-counter:"Q");
+.handle-eoc-sections(".questions", @eoc-assessment-icon, @section-title: false,);
 
 .handle-eoc-sections(".exercise-set-a", @eoc-assessment-icon, @section-title: false, @custom-counter:"EA");
 
@@ -90,31 +93,28 @@ div.part>div.titlepage {
 
 .handle-eoc-sections(".thought-provokers", @eoc-icon: @eoc-thought-provoker-icon, @section-title: false, @custom-counter:"TP");
 
-
 /* Hide the EOB references */
 div.colophon.end-of-book-references {
   display: none;
 }
-div.chapter {
-  >.introduction {
-    >.toc {
-       >ul {
-        .scale-padding(2, margin-left)
-       }
-       li::marker {
-        content: url(ccap-astronomy/LO.svg);
-        width: 20px;
-        height: 16px;
-        // padding-right: 2px;
-        .scale-padding(-11, padding-right);
+div.book {
+  div.chapter {
+    >div.cnx-eoc {
+      counter-reset: exercise;
+    }
+    >.introduction {
+      >.toc {
+         >ul {
+          .scale-padding(2, margin-left);
+          border-left: none;
+         }
+         li::marker {
+          content: url(ccap-astronomy/LO.svg);
+          width: 20px;
+          height: 13px;
+          .scale-padding(-11, padding-right);
+        }
       }
     }
-  }
-}
-
-//Appendix
-div.book > div.appendix {
-  a.xref.target-figure:not(.labeled) {
-    content: normal;
   }
 }
