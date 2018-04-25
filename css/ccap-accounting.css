@@ -2943,6 +2943,17 @@ div.note div.table.top-titled table thead tr:not(first-child) {
   background-color: transparent;
   border: 0;
 }
+/* -------------------------
+ * Tables within EOC
+ * ------------------------
+ */
+.cnx-eoc > .section .unstyled table {
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+.cnx-eoc > .section .unstyled table tr {
+  display: table-row;
+}
 /* ---------------------------------------------------
  * Figures/Subfigures
  * ---------------------------------------------------
@@ -3793,6 +3804,9 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
 span.colored-text {
   color: #CC0000;
 }
+span.colored-text > strong {
+  font-weight: normal;
+}
 .appendix.module a:link.target-section,
 .chapter .cnx-eoc a:link.target-section,
 .chapter .section.module a:link.target-section {
@@ -3967,7 +3981,7 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
   background: blue;
   display: block;
   content: '';
-  background: url("ccap-business/exercises.svg") no-repeat 0;
+  background: url("ccap-business/none.svg") no-repeat 0;
   width: 110px;
   height: 62px;
   position: absolute;
@@ -4170,6 +4184,10 @@ div.part > div.titlepage {
  * Accounting EOC
  * ------------------------
  */
+.section-summary > .section > .title {
+  padding-top: 8px;
+  padding-bottom: 4.20153356px;
+}
 .cnx-eoc.multiple-choice > .title {
   display: inline-block !important;
   background: url("ccap-business/assessments.svg") no-repeat left;
@@ -4191,9 +4209,6 @@ div.part > div.titlepage {
 .cnx-eoc.multiple-choice .section .title .cnx-gentext-t {
   display: none;
 }
-.cnx-eoc.multiple-choice .exercise div.body > div.problem::before {
-  content: "" "MC" "" counter(chapter, decimal) "-" counter(exercise) "" !important;
-}
 .cnx-eoc.questions > .title {
   display: inline-block !important;
   background: url("ccap-business/assessments.svg") no-repeat left;
@@ -4214,9 +4229,6 @@ div.part > div.titlepage {
 }
 .cnx-eoc.questions .section .title .cnx-gentext-t {
   display: none;
-}
-.cnx-eoc.questions .exercise div.body > div.problem::before {
-  content: "" "Q" "" counter(chapter, decimal) "-" counter(exercise) "" !important;
 }
 .cnx-eoc.exercise-set-a > .title {
   display: inline-block !important;
@@ -4240,7 +4252,7 @@ div.part > div.titlepage {
   display: none;
 }
 .cnx-eoc.exercise-set-a .exercise div.body > div.problem::before {
-  content: "" "EA" "" counter(chapter, decimal) "-" counter(exercise) "" !important;
+  content: "" "EA" "" counter(exercise) "" !important;
 }
 .cnx-eoc.exercise-set-b > .title {
   display: inline-block !important;
@@ -4264,7 +4276,7 @@ div.part > div.titlepage {
   display: none;
 }
 .cnx-eoc.exercise-set-b .exercise div.body > div.problem::before {
-  content: "" "EB" "" counter(chapter, decimal) "-" counter(exercise) "" !important;
+  content: "" "EB" "" counter(exercise) "" !important;
 }
 .cnx-eoc.problem-set-a > .title {
   display: inline-block !important;
@@ -4288,7 +4300,7 @@ div.part > div.titlepage {
   display: none;
 }
 .cnx-eoc.problem-set-a .exercise div.body > div.problem::before {
-  content: "" "PA" "" counter(chapter, decimal) "-" counter(exercise) "" !important;
+  content: "" "PA" "" counter(exercise) "" !important;
 }
 .cnx-eoc.problem-set-b > .title {
   display: inline-block !important;
@@ -4312,7 +4324,7 @@ div.part > div.titlepage {
   display: none;
 }
 .cnx-eoc.problem-set-b .exercise div.body > div.problem::before {
-  content: "" "PB" "" counter(chapter, decimal) "-" counter(exercise) "" !important;
+  content: "" "PB" "" counter(exercise) "" !important;
 }
 .cnx-eoc.thought-provokers > .title {
   display: inline-block !important;
@@ -4336,19 +4348,23 @@ div.part > div.titlepage {
   display: none;
 }
 .cnx-eoc.thought-provokers .exercise div.body > div.problem::before {
-  content: "" "TP" "" counter(chapter, decimal) "-" counter(exercise) "" !important;
+  content: "" "TP" "" counter(exercise) "" !important;
 }
 /* Hide the EOB references */
 div.colophon.end-of-book-references {
   display: none;
 }
-div.chapter > .introduction > .toc > ul {
-  margin-left: 18px;
+div.book div.chapter > div.cnx-eoc {
+  counter-reset: exercise;
 }
-div.chapter > .introduction > .toc li::marker {
+div.book div.chapter > .introduction > .toc > ul {
+  margin-left: 18px;
+  border-left: none;
+}
+div.book div.chapter > .introduction > .toc li::marker {
   content: url(ccap-astronomy/LO.svg);
   width: 20px;
-  height: 16px;
+  height: 13px;
   padding-right: 1.91239579px;
 }
 /*# sourceMappingURL=ccap-accounting.css.map */
