@@ -39,13 +39,7 @@
   &.your-turn {
     .notes(@cnx-string-your-turn, @secondary-color, @feature-style-2-body-color, none,
       @border-bottom-left-radius: 0, @border-bottom-right-radius: 0, @border-top-left-radius: 0, @border-top-right-radius: 0);
-    //   div.body > div.exercise > div.title > span {
-    //   &::before {
-    //     content: normal !important;
-    //   }
-    // }
   }
-
   &.ifrs-connection {
     .notes(@cnx-string-ifrs-connection, @primary-color, @feature-style-3-body-color, none,
       @border-bottom-left-radius: 0, @border-bottom-right-radius: 0, @border-top-left-radius: 0, @border-top-right-radius: 0);
@@ -68,6 +62,12 @@
   }
 }
 
+div.book div.chapter > div.section div.your-turn  div.exercise:not(.labeled) {
+  .scale-padding(-1, margin-top);
+  > div.title > span:first-child:not(.labeled)::before {
+    content: normal;
+  }
+} //used to override exercise numbering in your-turn note
 /* -------------------------
  * Unit Page
  * ------------------------
@@ -124,6 +124,3 @@ div.book {
     }
   }
 }
-// div.book div.chapter > div.section div.exercise:not(.labeled) > .title > span:first-child:not(.labeled)::before {
-//
-// }
