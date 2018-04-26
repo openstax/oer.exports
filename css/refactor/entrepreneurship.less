@@ -76,23 +76,6 @@ div.toc li.toc-part a.target-part {
 .handle-eoc-sections(".discussion-questions", @eoc-icon: @eoc-assessment-icon, @section-title: false);
 .handle-eoc-sections(".case-questions", @eoc-icon: @eoc-assessment-icon,  @section-title: false);
 
-div.book div.chapter > .cnx-eoc {
-  &.review-questions {
-    .hideEocSectionTitle();
-    counter-reset: exercise eoc-section -1;
-  }
-
-  &.discussion-questions {
-    .hideEocSectionTitle();
-    counter-reset: exercise eoc-section -1;
-  }
-
-  &.case-questions {
-    .hideEocSectionTitle();
-    counter-reset: exercise eoc-section -1;
-  }
-}
-
 /* Hide the EOB references */
 div.colophon.end-of-book-references {
   display: none;
@@ -101,7 +84,7 @@ div.colophon.end-of-book-references {
 div.book {
   div.chapter {
     >div.cnx-eoc {
-      counter-reset: exercise;
+      counter-reset: exercise eoc-section -1;
     }
   }
 }

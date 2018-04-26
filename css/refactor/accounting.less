@@ -41,7 +41,7 @@
       @border-bottom-left-radius: 0, @border-bottom-right-radius: 0, @border-top-left-radius: 0, @border-top-right-radius: 0);
   }
   &.ifrs-connection {
-    .notes(@cnx-string-ifrs-connection, @primary-color, @feature-style-3-body-color, ifrs-connection,
+    .notes(@cnx-string-ifrs-connection, @primary-color, @feature-style-3-body-color, none,
       @border-bottom-left-radius: 0, @border-bottom-right-radius: 0, @border-top-left-radius: 0, @border-top-right-radius: 0);
   }
   &.concepts-practice {
@@ -62,6 +62,12 @@
   }
 }
 
+div.book div.chapter > div.section div.your-turn  div.exercise:not(.labeled) {
+  .scale-padding(-1, margin-top);
+  > div.title > span:first-child:not(.labeled)::before {
+    content: normal;
+  }
+} //used to override exercise numbering in your-turn note
 /* -------------------------
  * Unit Page
  * ------------------------
@@ -100,7 +106,7 @@ div.colophon.end-of-book-references {
 div.book {
   div.chapter {
     >div.cnx-eoc {
-      counter-reset: exercise;
+      counter-reset: exercise eoc-section -1;
     }
     >.introduction {
       >.toc {
