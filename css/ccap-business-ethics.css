@@ -833,6 +833,364 @@ p:nth-of-type(2),
   page-break-inside: avoid;
   margin: auto;
 }
+/* -------------------------
+ * Equations
+ * -------------------------
+ */
+div.book div.chapter > div.section div.equation.unnumbered,
+div.book div.chapter > div.section div.equation:not(.labeled).unnumbered,
+div.book div.chapter > div.section div.example div.exercise div.equation.unnumbered,
+div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled).unnumbered {
+  counter-increment: none !important;
+}
+div.book div.chapter > div.section div.equation.unnumbered > *:last-child::after,
+div.book div.chapter > div.section div.equation.unnumbered > *:last-child::before {
+  display: none !important;
+}
+/* -------------------------
+ * Tables
+ * -------------------------
+ */
+div.book div.chapter .table.unnumbered,
+div.book div.chapter .table:not(labeled).unnumbered {
+  counter-increment: none !important;
+}
+div.book div.chapter div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before,
+div.book div.appendix div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before {
+  display: none !important;
+}
+/* -------------------------
+ * Figures
+ * -------------------------
+ */
+div.book div.chapter .figure.unnumbered,
+div.book div.chapter .figure:not(.labeled).unnumbered {
+  counter-increment: none !important;
+}
+div.book div.chapter div.figure:not(.labeled).unnumbered > .caption:not(.labeled)::before,
+div.book div.appendix div.figure:not(.labeled).unnumbered > .caption:not(.labeled)::before {
+  display: none !important;
+}
+/* -------------------------
+ * Table of Contents
+ * -------------------------
+ */
+div.book > div.toc {
+  page: table-of-contents;
+}
+/* -------------------------
+ * Preface
+ * -------------------------
+ */
+div.book div.preface {
+  page: preface;
+}
+div.book div.preface > .titlepage h1.title {
+  string-set: cnx-header "Preface";
+}
+/* -------------------------
+ * Chapter
+ * -------------------------
+ */
+div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
+  string-set: cnx-header "Chapter " counter(chapter, decimal) " | " content();
+}
+/* -------------------------
+ * Appendix
+ * -------------------------
+ */
+div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t {
+  string-set: cnx-header "Appendix " counter(appendix, upper-latin);
+}
+/* -------------------------
+ * Index
+ * -------------------------
+ */
+div.book div.index div.title h2 {
+  string-set: cnx-header "Index";
+}
+sub {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  bottom: -0.25em;
+}
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  top: -0.5em;
+}
+.titlepage sup {
+  vertical-align: super;
+  line-height: inherit;
+  font-size: smaller;
+  position: static;
+  top: auto;
+}
+@page {
+  margin: 0.8in 1in;
+  font-size: xx-small;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  @footnotes {
+    border-top: solid black thin;
+    padding-top: 1em;
+  }
+}
+@page :left {
+  @top-left {
+    content: counter(page);
+  }
+  @top-right {
+    content: string(cnx-header);
+  }
+  @bottom-left {
+    color: grey;
+    font-weight: thin;
+    content: "This OpenStax book is available for free at " string(cnx-collection-url);
+    prince-text-replace: ":9680" "\2019";
+  }
+}
+@page :right {
+  @top-left {
+    content: string(cnx-header);
+  }
+  @top-right {
+    content: counter(page);
+  }
+}
+@page table-of-contents {
+  @top-left-corner {
+    content: none;
+  }
+  @top-left {
+    content: none;
+  }
+  @top-right-corner {
+    content: none;
+  }
+  @top-right {
+    content: none;
+  }
+}
+@page preface:blank {
+  @top-left {
+    content: none;
+  }
+}
+div.book > div.preface {
+  counter-reset: page 1;
+}
+@page preface:right {
+  @top-right {
+    content: counter(page);
+  }
+}
+/* ==========================================================
+/* Quick reference for using .font-scale();                 */
+/* ==========================================================
+
+See typography.less for details on calulation.
+
+The below are values to retrieve commonly used font sizes using .font-scale() mixin.
+
+
+For fonts @base-font: 12px:
+ |   Scale Factor    |   Size in px          |   Size in pt (for PDF)   |
+ .font-scale(-1);    :   9.23px;             ->    7pt
+ .font-scale(0);     :   12px;               ->    9pt
+ .font-scale(1);     :   15.6px;             ->    11.75pt
+ .font-scale(2);     :   18px;               ->    13.5pt
+ .font-scale(3);     :   20.28px;            ->    15.25pt
+
+
+The below are values to retrieve commonly used padding & margin spacing using .padding-scale() mixin.
+
+//NOTE:  Negative size values are impossible to retrieve with .padding-scale(). Refer to scale below when setting a negative padding or margin to get accurate calculation.
+
+For padding:
+ |   Scale Factor                |   Size in px      |
+ .scale-padding(-14, padding);   :     1.20px
+ .scale-padding(-12, padding);   :     1.58px
+ .scale-padding(-11, padding);   :     1.91px
+ .scale-padding(-10, padding);   :     2.37px
+ .scale-padding(-9, padding);    :     2.49px
+ .scale-padding(-8, padding);    :     3.23px
+ .scale-padding(-7, padding);    :     3.56px
+ .scale-padding(-6, padding);    :     4.20px
+ .scale-padding(-5, padding);    :     5.33px
+ .scale-padding(-4, padding);    :     5.46px
+ .scale-padding(-3, padding);    :     7.10px
+ .scale-padding(-2, padding);    :     8px
+ .scale-padding(-1, padding);    :     9.23px
+ .scale-padding(0, padding);     :     12px
+ .scale-padding(1, padding);     :     15.6px
+ .scale-padding(2, padding);     :     18px
+ .scale-padding(3, padding);     :     20.28px
+ .scale-padding(4, padding);     :     26.36px
+ .scale-padding(5, padding);     :     27px
+ .scale-padding(6, padding);     :     34.27px
+ .scale-padding(7, padding);     :     40.5px
+
+=========================================================== */
+/* -------------------------
+ * Current Order:
+ * ------------------------
+ */
+/* -------------------------
+ * Features
+ * ------------------------
+ */
+/* -------------------------
+ * Generic Colors
+ * ------------------------
+ */
+/* -------------------------
+ * Elements
+ * ------------------------
+ */
+/* -------------------------
+ * Preface Titles
+ * ------------------------
+ */
+/* -------------------------
+ * Tables
+ * ------------------------
+ */
+/* -------------------------
+ * Text Heavy Tables
+ * ------------------------
+ */
+/* -------------------------
+ * TOC
+ * ------------------------
+ */
+/* -------------------------
+ * Intro Page
+ * ------------------------
+ */
+/* -------------------------
+ * Chapter Outline
+ * ------------------------
+ */
+/* -------------------------
+ * Learning objectives
+ * ------------------------
+ */
+/* -------------------------
+ * Page titles (H1)
+ * ------------------------
+ */
+/* -------------------------
+ * Module/page titles (H2)
+ * ------------------------
+ */
+/* -------------------------
+ * Subsection Titles (h3)
+ * ------------------------
+ */
+/* -------------------------
+ * Subsection Titles (h4)
+ * ------------------------
+ */
+/* -------------------------
+ * Subsection Titles (h5)
+ * ------------------------
+ */
+/* -------------------------
+ * Examples
+ * ------------------------
+ */
+/* -------------------------
+ * Notes
+ * ------------------------
+ */
+/* -------------------------
+ * Glossary
+ * ------------------------
+ */
+/* -------------------------
+ * EOC
+ * ------------------------
+ */
+/* -------------------------
+ * EOC Key Terms
+ * ------------------------
+ */
+/* -------------------------
+ * EOC Summary
+ * ------------------------
+ */
+/* -------------------------
+ * Assessments
+ * ------------------------
+ */
+/* -------------------------
+ * References
+ * ------------------------
+ */
+/* -------------------------
+ * Figure Attribution
+ * ------------------------
+ */
+/* -------------------------
+ * EOB Titles
+ * ------------------------
+ */
+/* -------------------------
+ * Solutions
+ * ------------------------
+ */
+/* -------------------------
+ * Captions
+ * ------------------------
+ */
+/* -------------------------
+ * Appendices
+ * ------------------------
+ */
+/* -------------------------
+ * Reference Titles
+ * ------------------------
+ */
+/* -------------------------
+ * Index
+ * ------------------------
+ */
+/* -------------------------
+ * Attributions
+ * ------------------------
+ */
+h1,
+h2,
+h3,
+h4 {
+  margin: initial;
+}
+.chapter,
+.appendix,
+.colophon,
+.preface {
+  page-break-before: auto;
+  page-break-after: auto;
+}
+.book > .chapter,
+.book > .appendix,
+.book > .colophon,
+.book > .preface,
+.book > .part > .chapter,
+.book > .part > .appendix,
+.book > .part > .colophon,
+.book > .part > .preface {
+  page-break-before: right !important;
+  page-break-after: left !important;
+}
+/* ------------------------
+ * Conditionals
+ * -----------------------
+ */
 div.book {
   /* --------------------------------------
      *  Define how counters are incremented
@@ -1083,9 +1441,6 @@ div.book div.chapter > div.cnx-eoc > div.section > .title .cnx-gentext-t:not(.la
 div.book div.chapter > div.cnx-eoc > div.section > .title .cnx-gentext-autogenerated,
 div.book div.chapter > div.cnx-eoc > div.section > .title .cnx-gentext-n {
   display: none;
-}
-div.book div.chapter a.target-figure:not(.labeled) {
-  content: "" "Figure " target-counter(attr(href), chapter) "." target-counter(attr(href), figure) "" "";
 }
 div.book div.chapter a.target-subfigure:not(.labeled) {
   content: "" "Figure " target-counter(attr(href), chapter) "." target-counter(attr(href), figure) target-counter(attr(href), subfigure, lower-latin) "";
@@ -1803,364 +2158,6 @@ div.book > div.preface {
   counter-reset: page 1;
 }
 /* -------------------------
- * Equations
- * -------------------------
- */
-div.book div.chapter > div.section div.equation.unnumbered,
-div.book div.chapter > div.section div.equation:not(.labeled).unnumbered,
-div.book div.chapter > div.section div.example div.exercise div.equation.unnumbered,
-div.book div.chapter > div.section div.example div.exercise div.equation:not(.labeled).unnumbered {
-  counter-increment: none !important;
-}
-div.book div.chapter > div.section div.equation.unnumbered > *:last-child::after,
-div.book div.chapter > div.section div.equation.unnumbered > *:last-child::before {
-  display: none !important;
-}
-/* -------------------------
- * Tables
- * -------------------------
- */
-div.book div.chapter .table.unnumbered,
-div.book div.chapter .table:not(labeled).unnumbered {
-  counter-increment: none !important;
-}
-div.book div.chapter div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before,
-div.book div.appendix div.table:not(.labeled).unnumbered > table > caption:not(.labeled)::before {
-  display: none !important;
-}
-/* -------------------------
- * Figures
- * -------------------------
- */
-div.book div.chapter .figure.unnumbered,
-div.book div.chapter .figure:not(.labeled).unnumbered {
-  counter-increment: none !important;
-}
-div.book div.chapter div.figure:not(.labeled).unnumbered > .caption:not(.labeled)::before,
-div.book div.appendix div.figure:not(.labeled).unnumbered > .caption:not(.labeled)::before {
-  display: none !important;
-}
-/* -------------------------
- * Table of Contents
- * -------------------------
- */
-div.book > div.toc {
-  page: table-of-contents;
-}
-/* -------------------------
- * Preface
- * -------------------------
- */
-div.book div.preface {
-  page: preface;
-}
-div.book div.preface > .titlepage h1.title {
-  string-set: cnx-header "Preface";
-}
-/* -------------------------
- * Chapter
- * -------------------------
- */
-div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
-  string-set: cnx-header "Chapter " counter(chapter, decimal) " | " content();
-}
-/* -------------------------
- * Appendix
- * -------------------------
- */
-div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t {
-  string-set: cnx-header "Appendix " counter(appendix, upper-latin);
-}
-/* -------------------------
- * Index
- * -------------------------
- */
-div.book div.index div.title h2 {
-  string-set: cnx-header "Index";
-}
-sub {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-  bottom: -0.25em;
-}
-sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-  top: -0.5em;
-}
-.titlepage sup {
-  vertical-align: super;
-  line-height: inherit;
-  font-size: smaller;
-  position: static;
-  top: auto;
-}
-@page {
-  margin: 0.8in 1in;
-  font-size: xx-small;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  @footnotes {
-    border-top: solid black thin;
-    padding-top: 1em;
-  }
-}
-@page :left {
-  @top-left {
-    content: counter(page);
-  }
-  @top-right {
-    content: string(cnx-header);
-  }
-  @bottom-left {
-    color: grey;
-    font-weight: thin;
-    content: "This OpenStax book is available for free at " string(cnx-collection-url);
-    prince-text-replace: ":9680" "\2019";
-  }
-}
-@page :right {
-  @top-left {
-    content: string(cnx-header);
-  }
-  @top-right {
-    content: counter(page);
-  }
-}
-@page table-of-contents {
-  @top-left-corner {
-    content: none;
-  }
-  @top-left {
-    content: none;
-  }
-  @top-right-corner {
-    content: none;
-  }
-  @top-right {
-    content: none;
-  }
-}
-@page preface:blank {
-  @top-left {
-    content: none;
-  }
-}
-div.book > div.preface {
-  counter-reset: page 1;
-}
-@page preface:right {
-  @top-right {
-    content: counter(page);
-  }
-}
-/* ==========================================================
-/* Quick reference for using .font-scale();                 */
-/* ==========================================================
-
-See typography.less for details on calulation.
-
-The below are values to retrieve commonly used font sizes using .font-scale() mixin.
-
-
-For fonts @base-font: 12px:
- |   Scale Factor    |   Size in px          |   Size in pt (for PDF)   |
- .font-scale(-1);    :   9.23px;             ->    7pt
- .font-scale(0);     :   12px;               ->    9pt
- .font-scale(1);     :   15.6px;             ->    11.75pt
- .font-scale(2);     :   18px;               ->    13.5pt
- .font-scale(3);     :   20.28px;            ->    15.25pt
-
-
-The below are values to retrieve commonly used padding & margin spacing using .padding-scale() mixin.
-
-//NOTE:  Negative size values are impossible to retrieve with .padding-scale(). Refer to scale below when setting a negative padding or margin to get accurate calculation.
-
-For padding:
- |   Scale Factor                |   Size in px      |
- .scale-padding(-14, padding);   :     1.20px
- .scale-padding(-12, padding);   :     1.58px
- .scale-padding(-11, padding);   :     1.91px
- .scale-padding(-10, padding);   :     2.37px
- .scale-padding(-9, padding);    :     2.49px
- .scale-padding(-8, padding);    :     3.23px
- .scale-padding(-7, padding);    :     3.56px
- .scale-padding(-6, padding);    :     4.20px
- .scale-padding(-5, padding);    :     5.33px
- .scale-padding(-4, padding);    :     5.46px
- .scale-padding(-3, padding);    :     7.10px
- .scale-padding(-2, padding);    :     8px
- .scale-padding(-1, padding);    :     9.23px
- .scale-padding(0, padding);     :     12px
- .scale-padding(1, padding);     :     15.6px
- .scale-padding(2, padding);     :     18px
- .scale-padding(3, padding);     :     20.28px
- .scale-padding(4, padding);     :     26.36px
- .scale-padding(5, padding);     :     27px
- .scale-padding(6, padding);     :     34.27px
- .scale-padding(7, padding);     :     40.5px
-
-=========================================================== */
-/* -------------------------
- * Current Order:
- * ------------------------
- */
-/* -------------------------
- * Features
- * ------------------------
- */
-/* -------------------------
- * Generic Colors
- * ------------------------
- */
-/* -------------------------
- * Elements
- * ------------------------
- */
-/* -------------------------
- * Preface Titles
- * ------------------------
- */
-/* -------------------------
- * Tables
- * ------------------------
- */
-/* -------------------------
- * Text Heavy Tables
- * ------------------------
- */
-/* -------------------------
- * TOC
- * ------------------------
- */
-/* -------------------------
- * Intro Page
- * ------------------------
- */
-/* -------------------------
- * Chapter Outline
- * ------------------------
- */
-/* -------------------------
- * Learning objectives
- * ------------------------
- */
-/* -------------------------
- * Page titles (H1)
- * ------------------------
- */
-/* -------------------------
- * Module/page titles (H2)
- * ------------------------
- */
-/* -------------------------
- * Subsection Titles (h3)
- * ------------------------
- */
-/* -------------------------
- * Subsection Titles (h4)
- * ------------------------
- */
-/* -------------------------
- * Subsection Titles (h5)
- * ------------------------
- */
-/* -------------------------
- * Examples
- * ------------------------
- */
-/* -------------------------
- * Notes
- * ------------------------
- */
-/* -------------------------
- * Glossary
- * ------------------------
- */
-/* -------------------------
- * EOC
- * ------------------------
- */
-/* -------------------------
- * EOC Key Terms
- * ------------------------
- */
-/* -------------------------
- * EOC Summary
- * ------------------------
- */
-/* -------------------------
- * Assessments
- * ------------------------
- */
-/* -------------------------
- * References
- * ------------------------
- */
-/* -------------------------
- * Figure Attribution
- * ------------------------
- */
-/* -------------------------
- * EOB Titles
- * ------------------------
- */
-/* -------------------------
- * Solutions
- * ------------------------
- */
-/* -------------------------
- * Captions
- * ------------------------
- */
-/* -------------------------
- * Appendices
- * ------------------------
- */
-/* -------------------------
- * Reference Titles
- * ------------------------
- */
-/* -------------------------
- * Index
- * ------------------------
- */
-/* -------------------------
- * Attributions
- * ------------------------
- */
-h1,
-h2,
-h3,
-h4 {
-  margin: initial;
-}
-.chapter,
-.appendix,
-.colophon,
-.preface {
-  page-break-before: auto;
-  page-break-after: auto;
-}
-.book > .chapter,
-.book > .appendix,
-.book > .colophon,
-.book > .preface,
-.book > .part > .chapter,
-.book > .part > .appendix,
-.book > .part > .colophon,
-.book > .part > .preface {
-  page-break-before: right !important;
-  page-break-after: left !important;
-}
-/* ------------------------
- * Conditionals
- * -----------------------
- */
-/* -------------------------
  * Book TOC
  * ------------------------
  */
@@ -2714,7 +2711,7 @@ div.table {
 }
 div.table table {
   page-break-inside: auto;
-  margin-bottom: 20.28px;
+  margin-bottom: 8px;
   padding-top: 15.6px;
   padding-bottom: 15.6px;
   width: 100%;
@@ -2942,6 +2939,17 @@ div.note div.table.top-titled table thead tr:first-of-type th {
 div.note div.table.top-titled table thead tr:not(first-child) {
   background-color: transparent;
   border: 0;
+}
+/* -------------------------
+ * Tables within EOC
+ * ------------------------
+ */
+.cnx-eoc > .section .unstyled table {
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+.cnx-eoc > .section .unstyled table tr {
+  display: table-row;
 }
 /* ---------------------------------------------------
  * Figures/Subfigures
@@ -3487,10 +3495,6 @@ div.book div.chapter > div.cnx-eoc.references {
  * Styling for Appendix
  * ------------------------
  */
-div.appendix a.xref.target-figure:not(.labeled),
-div.book > div.appendix a.xref.target-figure:not(.labeled) {
-  content: "" "Figure " target-counter(attr(href), chapter) "." target-counter(attr(href), figure) "" "";
-}
 div.appendix > div.titlepage > div > div h1.title,
 div.book > div.appendix > div.titlepage > div > div h1.title {
   font-family: 'Roboto Condensed';
@@ -3640,6 +3644,9 @@ div.colophon.end-of-book-solutions .chapter-area .solution .title::after {
 }
 div.colophon.end-of-book-solutions .chapter-area .solution .body {
   display: inline;
+}
+div.colophon.end-of-book-solutions .chapter-area .solution .orderedlist > .listitem img {
+  margin-bottom: 27px;
 }
 /* ---------------------------------------------------
  * Citations
@@ -3793,14 +3800,17 @@ div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
 span.colored-text {
   color: #CC0000;
 }
+span.colored-text > strong {
+  font-weight: normal;
+}
 .appendix.module a:link.target-section,
 .chapter .cnx-eoc a:link.target-section,
 .chapter .section.module a:link.target-section {
   background-image: url("ccap-astronomy/LO.svg");
   background-repeat: no-repeat;
   background-position: left;
-  background-size: 25px auto;
-  padding-left: 26.364px;
+  background-size: 15px auto;
+  padding-left: 15.6px;
   border-bottom: 0;
 }
 .appendix.module a.xref,
