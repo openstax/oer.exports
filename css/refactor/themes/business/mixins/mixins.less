@@ -29,7 +29,7 @@
   line-height: 1.6em;
 }
 //EOC exercises custom numbering
-.eocCustomCounters (@identifier) {
+.eocCustomCounters(@identifier) {
   .exercise {
    //counter-increment: @counterName !important;
     div.body > div.problem::before {
@@ -206,6 +206,28 @@
       }
       & when (@hide-eoc-section = true) {
         display: none;
+      }
+    }
+  }
+}
+
+.handle-answer-key(@class, @counter-prefix: false, @assessment-section-title: false) {
+  @classname: ~"@{class}";
+  .end-of-book-solutions > .chapter-area > @{classname} {
+    .scale-padding(0, margin-bottom);
+    & when (isstring(@assessment-section-title)) {
+      &::before {
+        content: @assessment-section-title;
+        .titles-h4-style();
+      }
+    }
+    & when (isstring( @counter-prefix)) {
+      .solution {
+        .scale-padding(-8, margin-top);
+        &::before {
+        content: @counter-prefix;
+        font-weight: bold;
+        }
       }
     }
   }
