@@ -41,7 +41,7 @@
       @border-bottom-left-radius: 0, @border-bottom-right-radius: 0, @border-top-left-radius: 0, @border-top-right-radius: 0);
   }
   &.ifrs-connection {
-    .notes(@cnx-string-ifrs-connection, @primary-color, @feature-style-3-body-color, ifrs-connection,
+    .notes(@cnx-string-ifrs-connection, @primary-color, @feature-style-3-body-color, none,
       @border-bottom-left-radius: 0, @border-bottom-right-radius: 0, @border-top-left-radius: 0, @border-top-right-radius: 0);
   }
   &.concepts-practice {
@@ -62,6 +62,12 @@
   }
 }
 
+div.book div.chapter > div.section div.your-turn  div.exercise:not(.labeled) {
+  .scale-padding(-1, margin-top);
+  > div.title > span:first-child:not(.labeled)::before {
+    content: normal;
+  }
+} //used to override exercise numbering in your-turn note
 /* -------------------------
  * Unit Page
  * ------------------------
@@ -79,17 +85,17 @@ div.part>div.titlepage {
   .scale-padding(-6, padding-bottom);
 }
 //custom numbering for Accounting
-.handle-eoc-sections(".multiple-choice", @eoc-assessment-icon, @section-title: false,);
+.handle-eoc-sections(".multiple-choice", @eoc-assessment-icon, @section-title: false);
 
-.handle-eoc-sections(".questions", @eoc-assessment-icon, @section-title: false,);
+.handle-eoc-sections(".questions", @eoc-assessment-icon, @section-title: true);
 
-.handle-eoc-sections(".exercise-set-a", @eoc-assessment-icon, @section-title: false, @custom-counter:"EA");
+.handle-eoc-sections(".exercise-set-a", @eoc-assessment-icon, @section-title: true, @custom-counter:"EA");
 
-.handle-eoc-sections(".exercise-set-b", @eoc-assessment-icon, @section-title: false, @custom-counter:"EB");
+.handle-eoc-sections(".exercise-set-b", @eoc-assessment-icon, @section-title: true, @custom-counter:"EB");
 
-.handle-eoc-sections(".problem-set-a", @eoc-assessment-icon, @section-title: false, @custom-counter:"PA");
+.handle-eoc-sections(".problem-set-a", @eoc-assessment-icon, @section-title: true, @custom-counter:"PA");
 
-.handle-eoc-sections(".problem-set-b", @eoc-assessment-icon, @section-title: false, @custom-counter:"PB");
+.handle-eoc-sections(".problem-set-b", @eoc-assessment-icon, @section-title: true, @custom-counter:"PB");
 
 .handle-eoc-sections(".thought-provokers", @eoc-icon: @eoc-thought-provoker-icon, @section-title: false, @custom-counter:"TP");
 
@@ -100,21 +106,34 @@ div.colophon.end-of-book-references {
 div.book {
   div.chapter {
     >div.cnx-eoc {
-      counter-reset: exercise;
+      counter-reset: exercise eoc-section -1;
     }
     >.introduction {
       >.toc {
          >ul {
-          .scale-padding(2, margin-left);
+          padding-left: 0px;
           border-left: none;
          }
-         li::marker {
-          content: url(ccap-astronomy/LO.svg);
-          width: 20px;
-          height: 13px;
-          .scale-padding(-11, padding-right);
+         li {
+           > a:link.target-section {
+             background-image: url("ccap-astronomy/LO.svg");
+             background-repeat: no-repeat;
+             background-position: left;
+             background-size: 15px auto;
+             .scale-padding(2, padding-left);
+             border-bottom: 0;
+           }
         }
       }
     }
   }
 }
+
+//answr key
+.handle-answer-key(".multiple-choice", @counter-prefix: false, "Multiple Choice");
+.handle-answer-key(".questions", @counter-prefix: false, "Questions");
+.handle-answer-key(".exercise-set-a", "EA", "Exercise Set A");
+.handle-answer-key(".exercise-set-b", "EB", "Exercise Set B");
+.handle-answer-key(".problem-set-a", "PA", "Problem Set A");
+.handle-answer-key(".problem-set-b", "PB", "Problem Set B");
+.handle-answer-key(".thought-provokers", "TP", "Thought Provokers");
