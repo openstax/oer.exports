@@ -3,7 +3,6 @@
 * Entrepreneurship Overrides
 * ------------------------
 */
-@has-units: true;
 @has-learning-outcomes: false;
 
 /* -------------------------
@@ -25,10 +24,10 @@ div.toc li.toc-part a.target-part {
   margin-top: 19px;
   background: url("ccap-business/unit.svg") no-repeat left;
   background-size: contain;
-  //hard coded values are used here for alignment. due to the current limitation of the scale-padding mixin, negative values of this size are too large to acheive
-  margin-left: -5px;
+  margin-left: (21.6px - 15px) / 2; // (toc-box size - icon size / 2)
   .scale-padding(1, padding-right);
-  .scale-padding(6, padding-left);
+  // calc(.scale-padding(6, padding-left) + 3px);
+  padding-left: 29px;
   .scale-padding(1, margin-bottom);
   .toc-unit-styles();
 
@@ -39,9 +38,6 @@ div.toc li.toc-part a.target-part {
   }
 }
 
-.book .toc ul li.toc-appendix::before {
-  margin-left: 37.6px; // Not converting with scale-padding as it looks really delicate
-}
 /* -------------------------
  * Entrepreneurship Notes
  * ------------------------
@@ -75,6 +71,9 @@ div.toc li.toc-part a.target-part {
 .handle-eoc-sections(".review-questions", @eoc-icon: @eoc-assessment-icon, @section-title: false);
 .handle-eoc-sections(".discussion-questions", @eoc-icon: @eoc-assessment-icon, @section-title: false);
 .handle-eoc-sections(".case-questions", @eoc-icon: @eoc-assessment-icon,  @section-title: false);
+
+.handle-answer-key (".review-questions", @assessment-section-title: "Review Questions");
+.handle-answer-key (".case-questions", @assessment-section-title: "Case Questions");
 
 /* Hide the EOB references */
 div.colophon.end-of-book-references {
