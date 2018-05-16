@@ -120,25 +120,30 @@
    * EOC Solutions
    * ------------------------
    */
-  &.references {
+   &.references {
     counter-reset: references;
     > .section > .body > .note {
       counter-increment: references;
-      margin: 0 0 0 3em;
+      margin: 0 0 0 1em;
       padding: 0;
       > .title {
         display: none;
       }
       > .body {
-        margin: 0;
+        margin: 0 0 0 1em;
         padding: 0;
-        > p {
+
+        > a.link {
+          display: inline-block;
+          position: relative;
+          left: -1em;
+          width: 0;
+
           &::before {
             content: counter(references) ".";
-            display: inline-block;
-            position: relative;
-            left: -1em;
-            width: 0;
+          }
+          > span.token {
+            display: none;
           }
         }
       }
