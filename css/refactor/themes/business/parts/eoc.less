@@ -2,11 +2,7 @@
  * End of chapter customizations
  * ------------------------
  */
- div.book div.chapter > div.cnx-eoc.references {
-   //this specific selector needed to override references numbering in numbering.less
-   //TODO: move to line 123 to be properly nested
-     counter-reset: references;
- }
+
 /* -------------------------
   * Key Terms
   * ------------------------
@@ -61,7 +57,7 @@
   .hideEocSectionTitle();
 }
 
-.cnx-eoc {
+div.cnx-eoc {
   .scale-padding(4, margin-bottom);
   > .title {
     span {
@@ -116,28 +112,35 @@
       .link-no-border-style(@eoc-subtitles-color);
     }
   }
-  /* -------------------------
-   * EOC Solutions
-   * ------------------------
-   */
+
   &.references {
-    counter-reset: references;
+    div.book div.chapter > & {
+      counter-reset: references 0 eoc-section -1;
+    }
     > .section > .body > .note {
       counter-increment: references;
-      margin: 0 0 0 3em;
-      padding: 0;
+      margin: 0;
+      padding: 0 0 0 1.5rem;
       > .title {
         display: none;
       }
       > .body {
         margin: 0;
         padding: 0;
+
+        span {
+          .font-scale(-1);
+        }
+
         > p {
+          .font-scale(-1);
+          margin: 0;
+
           &::before {
             content: counter(references) ".";
             display: inline-block;
             position: relative;
-            left: -1em;
+            left: -0.6rem;
             width: 0;
           }
         }
@@ -150,6 +153,10 @@
       .font-scale(-1);
     }
   }
+  /* -------------------------
+   * EOC Solutions
+   * ------------------------
+   */
   &.cnx-solutions {
     //slots & skeleton below to be converted if necessary
     //     //#content>#solution>.style(@kind; chapter);
