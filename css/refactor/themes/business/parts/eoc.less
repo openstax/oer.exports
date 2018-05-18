@@ -127,23 +127,29 @@ div.cnx-eoc {
       > .body {
         margin: 0;
         padding: 0;
-
-        span {
-          .font-scale(-1);
-        }
-
-        > p {
-          .font-scale(-1);
-          margin: 0;
+        .font-scale(-1);
+        
+        > a.link {
+          font-size: inherit;
 
           &::before {
             content: counter(references) ".";
+            prince-link: attr(href);
             display: inline-block;
             position: relative;
             left: -0.6rem;
             width: 0;
           }
+          
+          > span.token {
+            display: none;
+          }
         }
+
+        span {
+          font-size: inherit;
+        }
+        
       }
     }
   }
