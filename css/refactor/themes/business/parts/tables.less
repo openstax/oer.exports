@@ -147,12 +147,17 @@ div.table {
     caption {
       //#content>#table>#caption>.style(any; any);
       .caption-style();
-
+      color: @default-text;
+      font-weight: bold;
       &::before {
         content: "" "Table " counter(chapter, decimal) "." counter(table) " " "";
         .caption-number-style();
       }
     }
+  }
+  .table-caption.caption {
+    font-weight: normal;
+    color: @caption-color;
   }
   //make sure to skip unstyled
   &:not(.unstyled) table tbody tr td:first-child {
@@ -371,8 +376,8 @@ div.note {
  * ------------------------
  */
 .cnx-eoc {
-  &.key-terms { 
-    table { 
+  &.key-terms {
+    table {
       border-spacing: initial;
     }
   }
