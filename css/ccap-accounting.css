@@ -1442,6 +1442,9 @@ div.book div.chapter > div.cnx-eoc > div.section > .title .cnx-gentext-autogener
 div.book div.chapter > div.cnx-eoc > div.section > .title .cnx-gentext-n {
   display: none;
 }
+div.book div.chapter a.target-subfigure:not(.labeled) {
+  content: "" "Figure " target-counter(attr(href), chapter) "." target-counter(attr(href), figure) target-counter(attr(href), subfigure, lower-latin) "";
+}
 div.book > div.appendix {
   counter-increment: appendix;
 }
@@ -1984,6 +1987,7 @@ div.colophon.end-of-book-solutions div.chapter-area div.solution > div.title a.s
 div.colophon.end-of-book-solutions div.appendix-area div.solution > div.title a.solution::before {
   font-weight: bold;
   content: 'TARGET_EXERCISE';
+  content: target-counter(attr(href), exercise);
 }
 div.cnx-eoc.cnx-solutions div.solution > div.title .epub-only {
   display: none;
@@ -3172,6 +3176,7 @@ img {
 .chapter .glossary dl dt {
   font-size: 12px;
   line-height: 1.6em;
+  margin-left: -6px;
 }
 .chapter .glossary dl dt::after {
   content: " ";
