@@ -2,11 +2,7 @@
  * End of chapter customizations
  * ------------------------
  */
- div.book div.chapter > div.cnx-eoc.references {
-   //this specific selector needed to override references numbering in numbering.less
-   //TODO: move to line 123 to be properly nested
-     counter-reset: references;
- }
+
 /* -------------------------
   * Key Terms
   * ------------------------
@@ -27,10 +23,11 @@
   dl {
     //#part>#glossary>.style(chapter);
     display: inline;
+    margin-left: 0;
     dt {
       //#part>#glossary>.term(chapter);
       .font-scale(0);
-      .line-height();
+      .standard-line-height();
 
       &::after {
         content: " ";
@@ -39,8 +36,7 @@
     dd {
       // #part>#glossary>.definition(chapter);
       .font-scale(0);
-      .line-height();
-      .scale-padding(5, padding-left);
+      .standard-line-height();
       text-indent: -27px;
       margin: 0;
     }
@@ -61,7 +57,7 @@
   .hideEocSectionTitle();
 }
 
-.cnx-eoc {
+div.cnx-eoc {
   .scale-padding(4, margin-bottom);
   > .title {
     span {
@@ -91,6 +87,11 @@
     }
   }
   &.key-terms {
+    ul.itemizedlist {
+      margin-left: 0;
+      padding-left: 0;
+    }
+
     .listitem p {
       margin-bottom: 0;
     }
@@ -116,31 +117,43 @@
       .link-no-border-style(@eoc-subtitles-color);
     }
   }
-  /* -------------------------
-   * EOC Solutions
-   * ------------------------
-   */
+
   &.references {
-    counter-reset: references;
+    div.book div.chapter > & {
+      counter-reset: references 0 eoc-section -1;
+    }
     > .section > .body > .note {
       counter-increment: references;
-      margin: 0 0 0 3em;
-      padding: 0;
+      margin: 0;
+      padding: 0 0 0 1.5rem;
       > .title {
         display: none;
       }
       > .body {
         margin: 0;
         padding: 0;
-        > p {
+        .font-scale(-1);
+        
+        > a.link {
+          font-size: inherit;
+          display: inline-block;
+          position: relative;
+          left: -0.6rem;
+          width: 0;
+
           &::before {
             content: counter(references) ".";
-            display: inline-block;
-            position: relative;
-            left: -1em;
-            width: 0;
+          }
+          
+          > span.token {
+            display: none;
           }
         }
+
+        span {
+          font-size: inherit;
+        }
+        
       }
     }
   }
@@ -150,6 +163,10 @@
       .font-scale(-1);
     }
   }
+  /* -------------------------
+   * EOC Solutions
+   * ------------------------
+   */
   &.cnx-solutions {
     //slots & skeleton below to be converted if necessary
     //     //#content>#solution>.style(@kind; chapter);

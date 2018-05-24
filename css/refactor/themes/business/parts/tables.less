@@ -22,7 +22,7 @@ div.table {
     .scale-padding(1, padding-bottom);
     width: 100%;
     border-collapse: separate;
-    .line-height();
+    .standard-line-height();
     // If a table spans more than 1 page then put caption on all following pages
     prince-caption-page: all;
     //table head
@@ -147,12 +147,17 @@ div.table {
     caption {
       //#content>#table>#caption>.style(any; any);
       .caption-style();
-
+      color: @default-text;
+      font-weight: bold;
       &::before {
         content: "" "Table " counter(chapter, decimal) "." counter(table) " " "";
         .caption-number-style();
       }
     }
+  }
+  .table-caption.caption {
+    font-weight: normal;
+    color: @caption-color;
   }
   //make sure to skip unstyled
   &:not(.unstyled) table tbody tr td:first-child {
@@ -370,11 +375,20 @@ div.note {
  * Tables within EOC
  * ------------------------
  */
- .cnx-eoc > .section
-   &.unstyled table {
-     border-collapse: collapse;
-     .scale-padding(0, margin-top);
-     tr {
-       display: table-row;
-     }
+.cnx-eoc {
+  &.key-terms {
+    table {
+      border-spacing: initial;
+    }
   }
+
+  > .section {
+    .unstyled table {
+      border-collapse: collapse;
+      .scale-padding(0, margin-top);
+      tr {
+        display: table-row;
+      }
+    }
+  }
+}
