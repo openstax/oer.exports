@@ -1,8 +1,8 @@
 # oer.exports
 
-To install and get it running:
-
 **For Windows Users:** If your username contains whitespace, the setup and installation will not work. Create a new user without whitespace in the username in order to succesfully complete installation.
+
+To install and get it running:
 
 # System Dependencies
 
