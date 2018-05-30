@@ -2,12 +2,15 @@
 
 To install and get it running:
 
+**For Windows Users:** If your username contains whitespace, the setup and installation will not work. Create a new user without whitespace in the username in order to succesfully complete installation.
+
 # System Dependencies
 
 Tested with python 2.4 and python 2.7 but it will probably work with all versions in between.
 
 ## For Ubuntu/Debian
 
+    sudo apt-get update
     sudo apt-get install python-virtualenv                   # for the following commands
     sudo apt-get install libxslt1-dev libxml2-dev zlib1g-dev # For lxml to compile
     sudo apt-get install librsvg2-bin                        # To convert SVG and math to PNG
