@@ -149,7 +149,7 @@ div.table {
       .caption-style();
       color: @default-text;
       font-weight: bold;
-      &::before {
+      &::before:not(.unnumbered) {
         content: "" "Table " counter(chapter, decimal) "." counter(table) " " "";
         .caption-number-style();
       }
@@ -213,12 +213,6 @@ div.table {
     tbody {
       //TODO
       //#content>#table>#body>.style(unstyled; any);
-    }
-    caption {
-      //#content>#table>#caption>.style(any; any);
-      &::before {
-        content: none;
-      }
     }
   }
   // side TD styled like a header
