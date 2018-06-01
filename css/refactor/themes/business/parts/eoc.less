@@ -84,6 +84,18 @@ div.cnx-eoc {
     ol,
     ul {
       .scale-padding(1, padding-left);
+      &[type="A"] {
+        list-style-type: none;
+        li {
+          counter-increment: liTypeA;
+          &::before {
+            content: counter(liTypeA, upper-latin) ".";
+            position: relative;
+            width: 0;
+            left: -15.6px;
+          }
+        }
+      }
     }
   }
   &.key-terms {
