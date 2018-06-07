@@ -21,7 +21,7 @@ if attempting to install openjdk-7-jdk gives an error, try the following:
 
     sudo add-apt-repository ppa:openjdk-r/ppa  
     sudo apt-get update   
-    sudo apt-get install openjdk-7-jre
+    sudo apt-get install openjdk-7-jdk
 
 also:
 
