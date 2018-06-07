@@ -3,10 +3,6 @@
  * ------------------------
  */
 
-/* -------------------------
-  * Key Terms
-  * ------------------------
-  */
 .chapter .glossary {
   //#part>#glossary>.style(chapter);
   #utils>#pb>.before(always);
@@ -37,6 +33,7 @@
       // #part>#glossary>.definition(chapter);
       .font-scale(0);
       .standard-line-height();
+      .scale-padding(3, padding-left);
       text-indent: -27px;
       margin: 0;
     }
@@ -66,10 +63,7 @@ div.cnx-eoc {
       font-family: @font-family-titles;
     }
   }
-  /* -------------------------
-   * Summary
-   * ------------------------
-   */
+
   .section {
     .title a:link {
       .font-scale(0);
@@ -84,6 +78,20 @@ div.cnx-eoc {
     ol,
     ul {
       .scale-padding(1, padding-left);
+      &[type="A"] {
+        counter-reset: liTypeA;
+        list-style-type: none;
+        li {
+          counter-increment: liTypeA;
+          &::before {
+            content: counter(liTypeA, upper-latin) ".";
+            position: relative;
+            width: 0;
+            left: -12px;
+            display: inline-block;
+          }
+        }
+      }
     }
   }
   &.key-terms {
@@ -94,6 +102,10 @@ div.cnx-eoc {
 
     .listitem p {
       margin-bottom: 0;
+      .scale-padding(3, padding-left);
+      em.glossterm {
+        margin-left: -20.28px;
+      }
     }
   }
   &.summary {
@@ -133,7 +145,7 @@ div.cnx-eoc {
         margin: 0;
         padding: 0;
         .font-scale(-1);
-        
+
         > a.link {
           font-size: inherit;
           display: inline-block;
@@ -144,7 +156,7 @@ div.cnx-eoc {
           &::before {
             content: counter(references) ".";
           }
-          
+
           > span.token {
             display: none;
           }
@@ -153,7 +165,7 @@ div.cnx-eoc {
         span {
           font-size: inherit;
         }
-        
+
       }
     }
   }
@@ -194,12 +206,12 @@ div.cnx-eoc {
     }
   }
 }
-.handle-eoc-sections(".key-terms", @eoc-assessment-icon, @section-title: false);
+.handle-eoc-sections(".key-terms", @key-terms-icon, @section-title: false);
 .handle-eoc-sections(".assessment-questions", @eoc-assessment-icon);
 .handle-eoc-sections(".section-summary", @eoc-summary-icon);
 .handle-eoc-sections(".summary", @eoc-summary-icon);
 .handle-eoc-sections(".references", @eoc-references-icon, @section-title: false);
 .handle-eoc-sections(".figure-credits", @eoc-figure-credit-icon, @section-title: false);
 .handle-eoc-sections(".cnx-solutions", @hide-eoc-section: true);
-.handle-eoc-sections(".suggested-resources", @eoc-assessment-icon);
+.handle-eoc-sections(".suggested-resources", @eoc-suggested-resources-icon);
 .handle-eoc-sections(".critical-thinking", @eoc-assessment-icon, @section-title: false);
