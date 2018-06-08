@@ -1,5 +1,7 @@
 # oer.exports
 
+**For Windows Users:** If your username contains whitespace, the setup and installation will not work. Create a new user without whitespace in the username in order to succesfully complete installation.
+
 To install and get it running:
 
 # System Dependencies
@@ -8,26 +10,33 @@ Tested with python 2.4 and python 2.7 but it will probably work with all version
 
 ## For Ubuntu/Debian
 
+    sudo apt-get update
     sudo apt-get install python-virtualenv                   # for the following commands
     sudo apt-get install libxslt1-dev libxml2-dev zlib1g-dev # For lxml to compile
     sudo apt-get install librsvg2-bin                        # To convert SVG and math to PNG
     sudo apt-get install otf-stix
+    sudo apt-get install openjdk-7-jdk                       # for saxon
+
+if attempting to install openjdk-7-jdk gives an error, try the following:
+
+    sudo add-apt-repository ppa:openjdk-r/ppa  
+    sudo apt-get update   
+    sudo apt-get install openjdk-7-jdk
 
 also:
 
-    apt-get install imagemagick                    # PNG resizing
-    apt-get install inkscape                       # svg processing
-    apt-get install ruby                           # Hmmm...
-    apt-get install libxml2-utils                  # for xmllint
-    apt-get install zip                            # building the zip
-    apt-get install unzip
-    apt-get install openjdk-7-jdk                  # for saxon
-    apt-get install docbook-xsl-ns
-    apt-get install xsltproc                       # for generating epub
-    apt-get install libopencv-dev                  # for unittests
-    apt-get install python-opencv                  # for unittests
-    apt-get install python-dev                     # for unittest dependency builds
-    apt-get install memcached                      # for exercise, equation, and svg caching
+    sudo apt-get install imagemagick                    # PNG resizing
+    sudo apt-get install inkscape                       # svg processing
+    sudo apt-get install ruby                           # Hmmm...
+    sudo apt-get install libxml2-utils                  # for xmllint
+    sudo apt-get install zip                            # building the zip
+    sudo apt-get install unzip
+    sudo apt-get install docbook-xsl-ns
+    sudo apt-get install xsltproc                       # for generating epub
+    sudo apt-get install libopencv-dev                  # for unittests
+    sudo apt-get install python-opencv                  # for unittests
+    sudo apt-get install python-dev                     # for unittest dependency builds
+    sudo apt-get install memcached                      # for exercise, equation, and svg caching
 
     ./script/setup
     ./script/test
