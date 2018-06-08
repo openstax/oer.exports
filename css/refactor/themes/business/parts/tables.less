@@ -149,7 +149,7 @@ div.table {
       .caption-style();
       color: @default-text;
       font-weight: bold;
-      &::before {
+      &::before:not(.unnumbered) {
         content: "" "Table " counter(chapter, decimal) "." counter(table) " " "";
         .caption-number-style();
       }
@@ -193,22 +193,20 @@ div.table {
   //no borders, left aligned, no color change
   &.unstyled table {
     //#content>#table>.style(unstyled; any);
-    border: none;
     margin: 0;
-
+    border-collapse: collapse;
     caption {
       //#content>#table>#caption>.style(unstyled; any);
     }
 
     tr {
       //#content>#table>#row>.style(unstyled; any);
-      display: none;
+      display: table-row;
     }
 
     td {
       //#content>#table>#data>.style(unstyled; any);
       text-align: left;
-      border-left: none;
       border-right: none;
     }
 

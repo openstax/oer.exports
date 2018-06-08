@@ -5,7 +5,7 @@
 
  I kept the slot commented out in case they are needed to find a particular style.
  ********************************************************************/
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i|Roboto+Condensed:300,300i,400,400i,700,700i');
 @namespace mml "http://www.w3.org/1998/Math/MathML";
 mml|math {
   display: none;
@@ -1119,7 +1119,7 @@ For padding:
  * ------------------------
  */
 /* -------------------------
- * Assessments
+ * EOC Assessments
  * ------------------------
  */
 /* -------------------------
@@ -1128,6 +1128,10 @@ For padding:
  */
 /* -------------------------
  * Figure Attribution
+ * ------------------------
+ */
+/* -------------------------
+ * Suggested Resources
  * ------------------------
  */
 /* -------------------------
@@ -2128,7 +2132,11 @@ div.book > div.preface {
 }
 .book > .part > .toc > ul,
 .book > .toc > ul {
-  margin-left: 12px;
+  margin-left: 0;
+}
+.book > .part > .toc > ul > li,
+.book > .toc > ul > li {
+  padding-left: 12px;
 }
 .book > .part > .toc a.target-appendix,
 .book > .toc a.target-appendix {
@@ -2563,6 +2571,9 @@ div.book div.chapter .section.learning-objectives .titlepage {
   color: #344456;
   font-size: 18px;
 }
+div.book div.chapter .section.learning-objectives .titlepage h3 {
+  font-size: 12px;
+}
 div.book div.chapter .section.learning-objectives .section {
   margin-left: 0;
   max-width: 30%;
@@ -2759,7 +2770,7 @@ div.table table caption {
   color: #242424;
   font-weight: bold;
 }
-div.table table caption::before {
+div.table table caption::before:not(.unnumbered) {
   content: "" "Table " counter(chapter, decimal) "." counter(table) " " "";
   font-family: 'Noto Sans', sans-serif;
   border: none;
@@ -2794,15 +2805,14 @@ div.table.color tr td:first-child {
   font-weight: bold;
 }
 div.table.unstyled table {
-  border: none;
   margin: 0;
+  border-collapse: collapse;
 }
 div.table.unstyled table tr {
-  display: none;
+  display: table-row;
 }
 div.table.unstyled table td {
   text-align: left;
-  border-left: none;
   border-right: none;
 }
 div.table.column-header tbody td:first-child {
@@ -3005,7 +3015,7 @@ img {
   width: 110px;
   height: 62px;
   position: absolute;
-  bottom: 2px;
+  bottom: 0px;
   right: 15px;
 }
 .chapter .example > .title {
@@ -3071,6 +3081,7 @@ img {
   letter-spacing: 3px;
   text-transform: uppercase;
   page-break-after: avoid;
+  color: #344456;
 }
 .chapter .note.link-to-learning > div.body::before {
   background: blue;
@@ -3080,13 +3091,13 @@ img {
   width: 110px;
   height: 62px;
   position: absolute;
-  bottom: 2px;
+  bottom: 0px;
   right: 15px;
 }
 .chapter .note.link-to-learning div.mediaobject {
   display: none;
 }
-.chapter .note .body {
+.chapter .note > .body {
   border: 0;
   padding-bottom: 15.6px;
   padding-left: 15.6px;
@@ -3094,7 +3105,7 @@ img {
   font-size: 12px;
   color: #000;
 }
-.chapter .note .body > div.title {
+.chapter .note > .body > div.title {
   font-family: 'Noto Sans', sans-serif;
   font-weight: bold;
   font-size: 12px;
@@ -3102,7 +3113,7 @@ img {
 }
 .chapter .note .exercise > .title,
 .chapter .note .exercise .solution::before {
-  font-size: 15.6px;
+  font-size: 12px;
 }
 .chapter .note a.xref {
   prince-text-replace: "Section" "";
@@ -3142,10 +3153,6 @@ img {
  * End of chapter customizations
  * ------------------------
  */
-/* -------------------------
-  * Key Terms
-  * ------------------------
-  */
 .chapter .glossary {
   page-break-before: always;
   display: inline;
@@ -3185,6 +3192,7 @@ img {
 .chapter .glossary dl dd {
   font-size: 12px;
   line-height: 1.6em;
+  padding-left: 20.28px;
   text-indent: -27px;
   margin: 0;
 }
@@ -3205,10 +3213,6 @@ img {
 }
 div.cnx-eoc {
   margin-bottom: 26.364px;
-  /* -------------------------
-   * Summary
-   * ------------------------
-   */
   /* -------------------------
    * EOC Solutions
    * ------------------------
@@ -3233,12 +3237,33 @@ div.cnx-eoc .exercise ol,
 div.cnx-eoc .exercise ul {
   padding-left: 15.6px;
 }
+div.cnx-eoc .exercise ol[type="A"],
+div.cnx-eoc .exercise ul[type="A"] {
+  counter-reset: liTypeA;
+  list-style-type: none;
+}
+div.cnx-eoc .exercise ol[type="A"] li,
+div.cnx-eoc .exercise ul[type="A"] li {
+  counter-increment: liTypeA;
+}
+div.cnx-eoc .exercise ol[type="A"] li::before,
+div.cnx-eoc .exercise ul[type="A"] li::before {
+  content: counter(liTypeA, upper-latin) ".";
+  position: relative;
+  width: 0;
+  left: -12px;
+  display: inline-block;
+}
 div.cnx-eoc.key-terms ul.itemizedlist {
   margin-left: 0;
   padding-left: 0;
 }
 div.cnx-eoc.key-terms .listitem p {
   margin-bottom: 0;
+  padding-left: 20.28px;
+}
+div.cnx-eoc.key-terms .listitem p em.glossterm {
+  margin-left: -20.28px;
 }
 div.cnx-eoc.summary > .title span {
   padding-left: 0;
@@ -3295,7 +3320,7 @@ div.cnx-eoc.suggested-resources > div.section > div.body table > tr > td {
 }
 .cnx-eoc.key-terms > .title {
   display: inline-block !important;
-  background: url("ccap-business/assessments.svg") no-repeat left;
+  background: url("ccap-business/key-terms.svg") no-repeat left;
   padding-left: 34.2732px !important;
   padding-right: 34.2732px !important;
   padding-top: 5.33333333px !important;
@@ -3426,7 +3451,7 @@ div.cnx-eoc.suggested-resources > div.section > div.body table > tr > td {
 }
 .cnx-eoc.suggested-resources > .title {
   display: inline-block !important;
-  background: url("ccap-business/assessments.svg") no-repeat left;
+  background: url("ccap-business/suggestedresources.svg") no-repeat left;
   padding-left: 34.2732px !important;
   padding-right: 34.2732px !important;
   padding-top: 5.33333333px !important;
@@ -3627,7 +3652,7 @@ div.colophon.end-of-book-solutions .chapter-area .solution .orderedlist > .listi
 .chapter a.link.cite {
   border-bottom: 0px !important;
 }
-.chapter a.link.cite::before {
+.chapter a.link.cite {
   content: target-counter(attr(href), references);
   font-size: 75%;
   line-height: 0;
@@ -3727,7 +3752,7 @@ body {
   font-weight: normal;
 }
 @page landscape {
-  prince-rotate-body: landscape;
+  prince-rotate-body: -90deg;
   prince-shrink-to-fit: auto;
 }
 .landscape {
@@ -3736,6 +3761,9 @@ body {
 .landscape img {
   height: 5.2in;
   width: 9.4in;
+}
+div:not(.body) > div.mediaobject > img {
+  margin-top: 0.5em;
 }
 /* -------------------------
  * Global Styles
@@ -3765,7 +3793,7 @@ p {
 div.book div.chapter > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "Chapter " counter(chapter, decimal) " " content();
 }
-.glossterm span {
+.glossterm span:not(.emphasis) {
   display: none;
 }
 span.colored-text {
@@ -3782,6 +3810,7 @@ span.colored-text > strong {
   background-position: left;
   background-size: 15px auto;
   padding-left: 15.6px;
+  margin-right: 3.55555556px;
   border-bottom: 0;
 }
 .appendix.module a.xref,
@@ -3836,6 +3865,9 @@ div.section.learning-outcomes div.orderedlist ol li.listitem::before {
 }
 div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > span.bold:first-child {
   display: none;
+}
+div.itemizedlist {
+  margin-bottom: 0.5em;
 }
 .listitem p {
   padding: 0;
@@ -3916,7 +3948,7 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
   width: 110px;
   height: 62px;
   position: absolute;
-  bottom: 2px;
+  bottom: 0px;
   right: 15px;
 }
 .chapter .note.what-would {
@@ -3953,7 +3985,7 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
   width: 110px;
   height: 62px;
   position: absolute;
-  bottom: 2px;
+  bottom: 0px;
   right: 15px;
 }
 .chapter .note.ethics-across {
@@ -3990,7 +4022,7 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
   width: 110px;
   height: 62px;
   position: absolute;
-  bottom: 2px;
+  bottom: 0px;
   right: 15px;
 }
 .chapter .note.think-through {
@@ -4027,7 +4059,7 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
   width: 110px;
   height: 62px;
   position: absolute;
-  bottom: 2px;
+  bottom: 0px;
   right: 15px;
 }
 .chapter .note.link-to-learning {
@@ -4055,6 +4087,7 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
   letter-spacing: 3px;
   text-transform: uppercase;
   page-break-after: avoid;
+  color: #344456;
 }
 .chapter .note.link-to-learning > div.body::before {
   background: blue;
@@ -4064,7 +4097,7 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
   width: 110px;
   height: 62px;
   position: absolute;
-  bottom: 2px;
+  bottom: 0px;
   right: 15px;
 }
 .cnx-eoc.suggested-resources > .title {
