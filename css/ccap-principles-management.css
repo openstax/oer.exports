@@ -2145,7 +2145,11 @@ div.book > div.preface {
 }
 .book > .part > .toc > ul,
 .book > .toc > ul {
-  margin-left: 12px;
+  margin-left: 0;
+}
+.book > .part > .toc > ul > li,
+.book > .toc > ul > li {
+  padding-left: 12px;
 }
 .book > .part > .toc a.target-appendix,
 .book > .toc a.target-appendix {
@@ -3028,7 +3032,7 @@ img {
   width: 110px;
   height: 62px;
   position: absolute;
-  bottom: 2px;
+  bottom: 0px;
   right: 15px;
 }
 .chapter .example > .title {
@@ -3104,7 +3108,7 @@ img {
   width: 110px;
   height: 62px;
   position: absolute;
-  bottom: 2px;
+  bottom: 0px;
   right: 15px;
 }
 .chapter .note.link-to-learning div.mediaobject {
@@ -3763,8 +3767,8 @@ div.end-of-book-references > .chapter-area > .body > .section-area .note.referen
   font-weight: normal;
 }
 html {
-  prince-image-resolution: 150dpi;
-  prince-background-image-resolution: 150dpi;
+  prince-image-resolution: auto, 200dpi;
+  prince-background-image-resolution: auto, 200dpi;
 }
 body {
   color: #242424;
@@ -3787,6 +3791,9 @@ body {
 .landscape img {
   height: 5.2in;
   width: 9.4in;
+}
+div:not(.body) > div.mediaobject > img {
+  margin-top: 0.5em;
 }
 /* -------------------------
  * Global Styles
@@ -3889,6 +3896,9 @@ div.section.learning-outcomes div.orderedlist ol li.listitem::before {
 div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > span.bold:first-child {
   display: none;
 }
+div.itemizedlist {
+  margin-bottom: 0.5em;
+}
 .listitem p {
   padding: 0;
   margin: 0;
@@ -3964,7 +3974,7 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
   width: 110px;
   height: 62px;
   position: absolute;
-  bottom: 2px;
+  bottom: 0px;
   right: 15px;
 }
 .chapter .note.ethics-in-practice {
@@ -4001,7 +4011,7 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
   width: 110px;
   height: 62px;
   position: absolute;
-  bottom: 2px;
+  bottom: 0px;
   right: 15px;
 }
 .chapter .note.concept-check {
@@ -4034,11 +4044,11 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
   background: blue;
   display: block;
   content: '';
-  background: url("ccap-business/exercises.svg") no-repeat 0;
+  background: url("ccap-business/concept-check.svg") no-repeat 0;
   width: 110px;
   height: 62px;
   position: absolute;
-  bottom: 2px;
+  bottom: 0px;
   right: 15px;
 }
 .chapter .note.link-to-learning {
@@ -4076,7 +4086,7 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
   width: 110px;
   height: 62px;
   position: absolute;
-  bottom: 2px;
+  bottom: 0px;
   right: 15px;
 }
 .chapter .note.exploring-business-careers {
@@ -4118,6 +4128,43 @@ div.section.learning-outcomes div.orderedlist ol li.listitem > p:first-child > s
   text-decoration: none;
   border-bottom: #027eb5 solid 0.02em;
   padding-bottom: 1.13159514px;
+}
+.chapter .note.customer-satisfaction {
+  display: table;
+  position: relative;
+  background-color: #D3E3EB;
+  text-align: left;
+  color: #000;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.chapter .note.customer-satisfaction::before {
+  display: table-caption;
+  content: "Customer Satisfaction";
+  font-style: normal;
+  background-color: #24739e;
+  color: #fff;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  font-size: 15.6px;
+  font-family: 'Roboto Condensed';
+  padding: 15.6px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  page-break-after: avoid;
+}
+.chapter .note.customer-satisfaction > div.body::before {
+  background: blue;
+  display: block;
+  content: '';
+  background: url("ccap-business/customer-satisfaction.svg") no-repeat 0;
+  width: 110px;
+  height: 62px;
+  position: absolute;
+  bottom: 0px;
+  right: 15px;
 }
 /* -------------------------
  * EOC specific to SRM books
