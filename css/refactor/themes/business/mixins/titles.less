@@ -31,7 +31,8 @@ h1, h2, h3, h4 {
 .titles-h1-style(@font: @font-family-titles; @title-color: @h1_title_color) {
   font-family: @font;
   text-transform: initial;
-  .font-scale(3);
+  .font-scale(4);
+  font-weight: normal;
   color: @title-color;
   padding: 0;
   margin: 0;
@@ -70,7 +71,8 @@ h1, h2, h3, h4 {
   //#part>#module>#title>.style();
   font-family: @font;
   color: @title-color;
-  .font-scale(2);
+  .font-scale(3);
+  font-weight: normal;
   bookmark-level: 2;
   page-break-after: avoid;
   //margin-top to replicate the original base styles, should change it to margin-bottom on the element before titles
@@ -87,10 +89,10 @@ h1, h2, h3, h4 {
     border: @number-border;
     .scale-padding(-6, padding-top);
     .scale-padding(-6, padding-bottom);
-    .scale-padding(-5, padding-left);
     .scale-padding(-5, padding-right);
     .scale-padding(-1, margin-right);
-    .font-scale(-1);
+    .font-scale(0);
+    padding-left: 7px;
     vertical-align: middle;
   }
   span.cnx-gentext-n {
@@ -116,13 +118,13 @@ h1, h2, h3, h4 {
 
 //h3 styles
 //used for for 1 levels of nesting titles (section nested in section) anywhere in the Contents
-.titles-h3-style (@font: @font-family, @title-color: @h3-title-color) {
+.titles-h3-style (@font: @font-family-titles, @title-color: @h3-title-color) {
   //#content>#section>#title>.style(any; any);
   font-family: @font;
-  .font-scale(1);
+  .font-scale(2);
   .scale-padding(0, margin-top);
   color: @title-color;
-  font-weight: bold;
+  font-weight: normal;
   bookmark-level: none;
   page-break-after: avoid;
 }
@@ -130,22 +132,21 @@ h1, h2, h3, h4 {
 //h4 styles
 //used for 2 levels of nesting titles (section nested in sections nested in section) anywhere in the Contents
 
-.titles-h4-style(@font: @font-family, @title-color: @h4-title-color) {
+.titles-h4-style(@font: @font-family-titles, @title-color: @h4-title-color) {
   font-family: @font;
-  font-weight: bold;
-  .font-scale(0);
+  font-weight: normal;
+  .font-scale(1);
   color: @title-color;
 }
 
 //h5 styles
 //used for 3 levels of nesting titles (section nested in sections nested in section, nested in section) anywhere in the Contents
 
-.titles-h5-style(@font: @font-family, @title-color: @h5-title-color) {
+.titles-h5-style(@font: @font-family-titles, @title-color: @h5-title-color) {
   font-family: @font;
   font-weight: bold;
-  .font-scale(-1);
+  .font-scale(0);
   color: @title-color;
-  text-transform: uppercase;
   margin-top: 0;
   .scale-padding(-6, margin-bottom);
 }
@@ -176,6 +177,6 @@ h1, h2, h3, h4 {
   color: @solutions-subheading-color;
   .font-scale(1);
   font-weight: 700;
-  font-family: @font-family;
+  font-family: @font-family-titles;
   #utils>#pb>.after(avoid);
 }
