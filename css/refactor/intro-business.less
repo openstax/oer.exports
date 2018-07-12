@@ -75,9 +75,12 @@ span.inlinemediaobject>img {
  */
  div.book {
    .foo-figure-counter(@prefixFn) {
-     div.figure > div.title > span.cnx-gentext-t:not(.labeled)::before {
+     div.figure > div.title > span.cnx-gentext-t:not(.labeled)::before, .target-figure {
        content: "" @FIGURE_NAME @prefixFn counter(figure) " ";
      }
+     // .target-figure {
+     //   content: "" @FIGURE_NAME @prefixFn counter(figure) " ";
+     // }
    }
    div.preface  {
     .foo-figure-counter("");
@@ -109,7 +112,7 @@ div.table table caption {
  * Figures/Subfigures
  * ------------------------
  */
-.figure, 
+.figure,
 .preface .figure {
   > .title {
     .font-scale(-1);
@@ -137,3 +140,7 @@ div.table table caption {
  .end-of-book-solutions {
    display: none;
  }
+
+span.bold > strong > a.xref .target-figure {
+  color: red;
+}
