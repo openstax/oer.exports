@@ -3,6 +3,8 @@ cd "$(dirname "$0")/.." || exit 111
 source ./script/bootstrap || exit 111
 
 book_name=${1}
+diff_start_page=${2}
+diff_end_page=${3}
 
 # This is set to 1 when one of the diffs (PDF, XHTML, or XHTML+CSS) occurs
 has_differences=0
@@ -12,24 +14,30 @@ check_file_exists() {
   [[ -f ${1} ]] || die "Expected file missing: '${1}' ${2}"
 }
 
-diff_files() {
-  local type_label=${1}
-  local before_file=${2}
-  local after_file=${3}
-
-  # Check that the files exist
-  check_file_exists "${before_file}" "Try running ./script/diff-book-prepare {book_name}"
-  check_file_exists "${after_file}" "This is a bug that should be reported"
-
-  diff "${before_file}" "${after_file}" > /dev/null
-  local exit_status=$?
-  if [[ ${exit_status} != 0 ]]; then
-    has_differences=1
-    _say "${c_red}${type_label} mismatch found. Check '${before_file}' and '${after_file}'.${c_none}"
-  else
-    _say "${type_label} matches"
-  fi
+extracts_nums_rm_lead_zeros() {
+  image_file_pg_num=$(echo ${image_file//[!0-9]/} | sed 's/^0*//' )
+  #todo- figure out how to not use echo (rn w/out it, prints extra nums)
+  #todo- make this more reuseable and replace ${image_file}
 }
+
+# diff_files() {
+#   local type_label=${1}
+#   local before_file=${2}
+#   local after_file=${3}
+#
+#   # Check that the files exist
+#   check_file_exists "${before_file}" "Try running ./script/diff-book-prepare {book_name}"
+#   check_file_exists "${after_file}" "This is a bug that should be reported"
+#
+#   diff "${before_file}" "${after_file}" > /dev/null
+#   local exit_status=$?
+#   if [[ ${exit_status} != 0 ]]; then
+#     has_differences=1
+#     _say "${c_red}${type_label} mismatch found. Check '${before_file}' and '${after_file}'.${c_none}"
+#   else
+#     _say "${type_label} matches"
+#   fi
+# }
 
 if [[ ! ${book_name} || ! -d "./data/${book_name}/" ]]; then
   if [[ -d "./data/" && $(ls ./data/) ]]; then
@@ -97,6 +105,11 @@ else
     # Skip the 1st page because it contains a timestamp
     if [[ $(basename "${image_file}") == 'page-0000.png' ]]; then
       continue
+    elif [[ ${diff_start_page} || ${diff_end_page} ]]; then
+      extracts_nums_rm_lead_zeros
+      if [[ ${image_file_pg_num} -lt ${diff_start_page} || ${image_file_pg_num} -gt ${diff_end_page} ]]; then
+        continue
+      fi
     fi
     # Compare the 2 images (from https://www.imagemagick.org/Usage/compare/#statistics)
     compare -metric AE "./out/${book_name}-temp/_prepared-pages/${image_file}" "./out/${book_name}-temp/_after-pages/${image_file}" null: 2> /dev/null
@@ -106,15 +119,15 @@ else
     fi
   done
 
-  if [[ ${found_diffs[@]} ]]; then
+  if [[ "${found_diffs[@]}" ]]; then
     _say "Mismatches occured at:"
     # printf '%s\n' "${found_diffs[@]}"
-    for each in "${found_diffs[@]}"
+    for each_diff in "${found_diffs[@]}"
     do
-      _say "$each"
+      _say "$each_diff"
     done
   fi
-  if [[ ! ${found_diffs[@]} ]]; then
+  if [[ ! "${found_diffs[@]}" ]]; then
     _say "${c_green}Yay! There were no differences between the PDFs, the XHTML, and the XHTML+CSS${c_none}"
   fi
 
