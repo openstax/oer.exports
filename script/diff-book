@@ -20,25 +20,6 @@ extracts_nums_rm_lead_zeros() {
   #todo- make this more reuseable and replace ${image_file}
 }
 
-# diff_files() {
-#   local type_label=${1}
-#   local before_file=${2}
-#   local after_file=${3}
-#
-#   # Check that the files exist
-#   check_file_exists "${before_file}" "Try running ./script/diff-book-prepare {book_name}"
-#   check_file_exists "${after_file}" "This is a bug that should be reported"
-#
-#   diff "${before_file}" "${after_file}" > /dev/null
-#   local exit_status=$?
-#   if [[ ${exit_status} != 0 ]]; then
-#     has_differences=1
-#     _say "${c_red}${type_label} mismatch found. Check '${before_file}' and '${after_file}'.${c_none}"
-#   else
-#     _say "${type_label} matches"
-#   fi
-# }
-
 if [[ ! ${book_name} || ! -d "./data/${book_name}/" ]]; then
   if [[ -d "./data/" && $(ls ./data/) ]]; then
     echo "A valid book name (directory in ./data/) needs to be specified. Valid options are:"
@@ -83,20 +64,6 @@ else
 
   do_progress_quiet "Generating images for each page in the PDF" \
     convert "${pdf_file_after}" "./out/${book_name}-temp/_after-pages/page-%04d.png"
-
-  # do_progress_quiet "Building XHTML with CSS 'baked in'" \
-  #   "$(npm bin)/css-plus" --diffmodeclassnames --nostrict --timeout 0 --html "${xhtml_file_after}" --css "${css_path}" --output "${xhtml_and_css_file_after}"
-  #
-  # check_file_exists "${xhtml_and_css_file_after}" "Report this as a bug"
-  #
-  # # pretty-print the XHTML files so it is easier to diff
-  # try xmllint --pretty 2 --output "${xhtml_file_pretty_after}"          "${xhtml_file_after}"
-  # try xmllint --pretty 2 --output "${xhtml_and_css_file_pretty_after}"  "${xhtml_and_css_file_after}"
-  #
-  # # Diff the files and report when an error occurs
-  # diff_files "PDF"        "${pdf_file_before}" "${pdf_file_after}"
-  # diff_files "XHTML"      "${xhtml_and_css_file_pretty_before}" "${xhtml_and_css_file_pretty_after}"
-  # diff_files "XHTML+CSS"  "${xhtml_file_pretty_before}" "${xhtml_file_pretty_after}"
 
   do_progress "Checking if all the images match"
   # Check that the images exist
