@@ -2427,16 +2427,17 @@ div.chapter > div.titlepage div div > h1.title {
   font-size: 20.28px;
   padding: 0;
   position: absolute;
-  top: -30px;
+  top: 0;
   left: 0;
   right: 0;
-  width: 8.5in;
+  width: 8.75in;
   height: 3.5in;
   color: #fff;
   white-space: nowrap;
   font-weight: normal;
   font-family: 'Roboto Condensed';
   text-transform: none;
+  margin: -0.125in 0 0;
 }
 div.chapter > div.titlepage div div > h1.title::before {
   content: counter(chapter);
@@ -2445,7 +2446,7 @@ div.chapter > div.titlepage div div > h1.title::before {
   font-weight: bold;
   top: auto;
   left: 0;
-  bottom: 62px;
+  bottom: 52px;
   background-color: #fff;
   border-radius: 50%;
   min-width: 0;
@@ -2458,7 +2459,6 @@ div.chapter > div.titlepage div div > h1.title::before {
   line-height: 45px;
   color: #344456;
   position: absolute;
-  border: 1px solid #fff;
   text-align: center;
 }
 div.chapter > div.titlepage div div > h1.title::after {
@@ -2467,8 +2467,9 @@ div.chapter > div.titlepage div div > h1.title::after {
   width: 170px;
   height: 73px;
   position: absolute;
+  bottom: -8px;
   left: 0;
-  bottom: 0;
+  right: 0;
   transform: translate3d(-1in, 0, 0);
   background: url("ccap-business/business-books-intro-graphic.svg") 0 0 no-repeat;
   z-index: 2;
@@ -2482,7 +2483,7 @@ div.chapter > div.titlepage div div > h1.title span.cnx-gentext-t::before {
 }
 div.chapter > div.titlepage div div > h1.title span.cnx-gentext-t {
   position: absolute;
-  bottom: 0;
+  bottom: -10px;
   left: 80px;
   width: 60%;
   height: 70px;
@@ -2500,12 +2501,18 @@ div.chapter > div.titlepage div div {
  * -------------------------
  */
 div.chapter > .introduction {
-  position: relative;
+  margin-top: -0.925in;
 }
 div.chapter > .introduction > .figure.splash {
+  position: relative;
   width: 8.75in;
   margin-left: 0;
-  margin-top: -1.2in;
+  transform: translate3d(-1in, 0, 0);
+  margin-left: -0.125in;
+  padding-bottom: 0;
+  margin-bottom: 15px;
+  display: table;
+  caption-side: bottom;
 }
 div.chapter > .introduction > .figure.splash::before {
   background: transparent url('ccap-astronomy/folio-bg.png') 0 0 repeat-x;
@@ -2515,19 +2522,36 @@ div.chapter > .introduction > .figure.splash::before {
   display: block;
   content: '';
   position: absolute;
-  top: -4.7in;
+  top: 0;
   left: -1in;
   right: -1in;
 }
+div.chapter > .introduction > .figure.splash > .title {
+  display: none;
+}
 div.chapter > .introduction > .figure.splash div.caption {
   width: 6.5in;
+  display: table-caption;
+}
+div.chapter > .introduction > .figure.splash div.caption::before {
+  content: "Figure " counter(chapter, decimal) "." counter(figure) " ";
+  display: inline;
+  font-family: 'Noto Sans', sans-serif;
+  border: none;
+  padding-top: 4.20153356px;
+  padding-left: 0px;
+  padding-bottom: 9.23076923px;
+  margin-right: 5.33333333px;
+  caption-side: bottom;
+  font-size: 12px;
+  font-weight: 700;
+  color: #000;
 }
 div.chapter > .introduction > .figure.splash div.mediaobject {
   width: 8.75in;
   border-left: none;
   height: 4.3in;
   position: relative;
-  transform: translate3d(-1in, 0, 0);
 }
 div.chapter > .introduction > .figure.splash div.mediaobject::before {
   display: none;
@@ -2547,6 +2571,7 @@ div.chapter > .introduction > .figure.splash div.mediaobject::after {
 div.chapter > .introduction > .figure.splash div.mediaobject img {
   width: 8.75in;
   height: 3.58in;
+  display: inline;
 }
 /* -------------------------
  * Global styles for the introduction page
@@ -4399,6 +4424,9 @@ div.book div.chapter div.figure > div.title > span.cnx-gentext-t:not(.labeled)::
 }
 div.book div.appendix div.figure > div.title > span.cnx-gentext-t:not(.labeled)::before {
   content: "" "Exhibit " counter(appendix, upper-alpha) counter(figure) " ";
+}
+div.chapter > .introduction > .figure.splash div.caption::before {
+  content: "Exhibit " counter(chapter, decimal) "." counter(figure) " ";
 }
 /* Hide Chapter Outline for SRM Business titles */
 div.chapter > div.introduction > div.toc {
