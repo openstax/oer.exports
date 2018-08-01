@@ -88,14 +88,14 @@ span.inlinemediaobject>img {
 
   div.chapter > .introduction > .figure.splash div.caption {
    &::before {
-     content: @FIGURE_NAME target-counter(attr(href), chapter) "." target-counter(attr(href), figure);
+      content: @FIGURE_NAME  counter(chapter, decimal) "." counter(figure) " ";
    }
   }
    div.chapter  { .foo-figure-counter(counter(chapter, decimal) "."); }
    div.appendix { .foo-figure-counter(counter(appendix, upper-alpha)); }
 
    a.xref.target-figure {
-     content: @FIGURE_NAME counter(chapter, decimal) "." counter(figure) " ";
+    content: @FIGURE_NAME target-counter(attr(href), chapter) "." target-counter(attr(href), figure);
    }
  }
 // Hide Chapter Outline for SRM Business titles
