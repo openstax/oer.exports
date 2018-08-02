@@ -70,9 +70,14 @@ else
     # Skip the 1st page because it contains a timestamp
     if [[ $(basename "${image_file}") == 'page-0000.png' ]]; then
       continue
-    elif [[ ${diff_start_page} || ${diff_end_page} ]]; then
+    elif [[ ${diff_start_page} ]]; then
       extracts_nums_rm_lead_zeros ${image_file}
-      if [[ ${image_file_pg_num} -lt ${diff_start_page} || ${image_file_pg_num} -gt ${diff_end_page} ]]; then
+      if [[ ${diff_end_page} ]]; then
+        if [[ ${image_file_pg_num} -lt ${diff_start_page} || ${image_file_pg_num} -gt ${diff_end_page} ]]; then
+          continue
+        fi
+      fi
+      if [[ ${image_file_pg_num} -lt ${diff_start_page} ]]; then
         continue
       fi
     fi
@@ -90,9 +95,9 @@ else
     do
       _say "$each_diff"
     done
-  fi
-  if [[ ! "${found_diffs[@]}" ]]; then
+  else
     _say "${c_green}Yay! There were no differences between the PDFs, the XHTML, and the XHTML+CSS${c_none}"
+    fi
   fi
 
   exit ${has_differences}
