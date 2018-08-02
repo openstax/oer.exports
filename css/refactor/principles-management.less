@@ -75,7 +75,7 @@
      div.figure > div.title > span.cnx-gentext-t:not(.labeled)::before {
        content: "" @FIGURE_NAME @prefixFn counter(figure) " ";
      }
-   }
+  }
    div.preface  {
     .foo-figure-counter("");
       div.figure > div.title {
@@ -84,6 +84,12 @@
  }
    div.chapter  { .foo-figure-counter(counter(chapter, decimal) "."); }
    div.appendix { .foo-figure-counter(counter(appendix, upper-alpha)); }
+ }
+
+ div.chapter > .introduction > .figure.splash div.caption {
+   &::before {
+      content: @FIGURE_NAME counter(chapter, decimal) "." counter(figure) " ";
+   }
  }
 /* Hide Chapter Outline for SRM Business titles */
 div.chapter > div.introduction > div.toc {
@@ -106,7 +112,7 @@ div.table table caption {
  * Figures/Subfigures
  * ------------------------
  */
-.figure, 
+.figure,
 .preface .figure {
   > .title {
     .font-scale(-1);

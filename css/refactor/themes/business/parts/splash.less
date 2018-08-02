@@ -8,12 +8,20 @@
  */
 div.chapter {
   > .introduction {
-    position: relative; // chapter splash
-
+    margin-top: -0.925in;
     > .figure.splash {
+      position: relative;
       width: @full-bleed-width;
       margin-left: 0;
-      margin-top: -1.2in;
+      transform: translate3d(-1in, 0, 0);
+      margin-left: -0.125in;
+      caption-side: bottom;
+      padding-bottom: 0;
+      margin-bottom: 15px;
+      display: table;
+      caption-side: bottom;
+
+      //margin-top: -1.2in;
 
       &::before {
         background: @intro-folio-bg;
@@ -23,13 +31,22 @@ div.chapter {
         display: block;
         content: '';
         position: absolute;
-        top: -4.7in;
+        top: 0;
         left: -1in;
         right: -1in;
       }
-
+      > .title {
+        display: none;
+      }
       div.caption {
         width: 6.5in;
+        display: table-caption;
+        &::before {
+          .font-scale(0);
+          content: "Figure " counter(chapter, decimal) "." counter(figure) " ";
+          display: inline;
+          .caption-number-style();
+        }
       }
 
       div.mediaobject {
@@ -37,7 +54,6 @@ div.chapter {
         border-left: none;
         height: 4.3in;
         position: relative;
-        transform: translate3d(-1in, 0, 0);
 
         &::before {
           display: none;
@@ -59,6 +75,7 @@ div.chapter {
         img {
           width: @full-bleed-width;
           height: 3.58in;
+          display: inline;
         }
       }
     }
