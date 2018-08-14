@@ -15,7 +15,7 @@ check_file_exists() {
 }
 
 extracts_nums_rm_lead_zeros() {
-  image_file_pg_num=$(echo ${1//[!0-9]/} | sed 's/^0*//' )
+  echo ${1//[!0-9]/} | sed 's/^0*//'
 }
 
 if [[ ! ${book_name} || ! -d "./data/${book_name}/" ]]; then
@@ -71,7 +71,7 @@ else
     if [[ $(basename "${image_file}") == 'page-0000.png' ]]; then
       continue
     elif [[ ${diff_start_page} ]]; then
-      extracts_nums_rm_lead_zeros ${image_file}
+      image_file_pg_num=$(extracts_nums_rm_lead_zeros ${image_file})
       if [[ ${diff_end_page} ]]; then
         if [[ ${image_file_pg_num} -lt ${diff_start_page} || ${image_file_pg_num} -gt ${diff_end_page} ]]; then
           continue
