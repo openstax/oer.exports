@@ -147,6 +147,12 @@ git checkout dev-branch
 
 # Generate the PDF and XHTML files and see if there are any differences
 ./script/diff-book calculus
+
+# To start the diff on a specific page include a page number
+./script/diff-book calculus 44
+
+# To specify a page range to start and end on
+./script/diff-book calculus 44 95
 ```
 
 That's it! If you want to generate diffs of all the books, you can drop the `:calculus` from `./script/grunt prepare` and `./script/grunt diff`.

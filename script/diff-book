@@ -3,6 +3,8 @@ cd "$(dirname "$0")/.." || exit 111
 source ./script/bootstrap || exit 111
 
 book_name=${1}
+diff_start_page=${2}
+diff_end_page=${3}
 
 # This is set to 1 when one of the diffs (PDF, XHTML, or XHTML+CSS) occurs
 has_differences=0
@@ -12,23 +14,8 @@ check_file_exists() {
   [[ -f ${1} ]] || die "Expected file missing: '${1}' ${2}"
 }
 
-diff_files() {
-  local type_label=${1}
-  local before_file=${2}
-  local after_file=${3}
-
-  # Check that the files exist
-  check_file_exists "${before_file}" "Try running ./script/diff-book-prepare {book_name}"
-  check_file_exists "${after_file}" "This is a bug that should be reported"
-
-  diff "${before_file}" "${after_file}" > /dev/null
-  local exit_status=$?
-  if [[ ${exit_status} != 0 ]]; then
-    has_differences=1
-    _say "${c_red}${type_label} mismatch found. Check '${before_file}' and '${after_file}'.${c_none}"
-  else
-    _say "${type_label} matches"
-  fi
+extracts_nums_rm_lead_zeros() {
+  echo ${1//[!0-9]/} | sed 's/^0*//'
 }
 
 if [[ ! ${book_name} || ! -d "./data/${book_name}/" ]]; then
@@ -76,20 +63,6 @@ else
   do_progress_quiet "Generating images for each page in the PDF" \
     convert "${pdf_file_after}" "./out/${book_name}-temp/_after-pages/page-%04d.png"
 
-  # do_progress_quiet "Building XHTML with CSS 'baked in'" \
-  #   "$(npm bin)/css-plus" --diffmodeclassnames --nostrict --timeout 0 --html "${xhtml_file_after}" --css "${css_path}" --output "${xhtml_and_css_file_after}"
-  #
-  # check_file_exists "${xhtml_and_css_file_after}" "Report this as a bug"
-  #
-  # # pretty-print the XHTML files so it is easier to diff
-  # try xmllint --pretty 2 --output "${xhtml_file_pretty_after}"          "${xhtml_file_after}"
-  # try xmllint --pretty 2 --output "${xhtml_and_css_file_pretty_after}"  "${xhtml_and_css_file_after}"
-  #
-  # # Diff the files and report when an error occurs
-  # diff_files "PDF"        "${pdf_file_before}" "${pdf_file_after}"
-  # diff_files "XHTML"      "${xhtml_and_css_file_pretty_before}" "${xhtml_and_css_file_pretty_after}"
-  # diff_files "XHTML+CSS"  "${xhtml_file_pretty_before}" "${xhtml_file_pretty_after}"
-
   do_progress "Checking if all the images match"
   # Check that the images exist
   [[ -f "./out/${book_name}-temp/_prepared-pages/page-0000.png" ]] || die "Problem looping over the prepared pages. Try running ./script/diff-book-prepare ${book_name}"
@@ -97,17 +70,34 @@ else
     # Skip the 1st page because it contains a timestamp
     if [[ $(basename "${image_file}") == 'page-0000.png' ]]; then
       continue
+    elif [[ ${diff_start_page} ]]; then
+      image_file_pg_num=$(extracts_nums_rm_lead_zeros ${image_file})
+      if [[ ${diff_end_page} ]]; then
+        if [[ ${image_file_pg_num} -lt ${diff_start_page} || ${image_file_pg_num} -gt ${diff_end_page} ]]; then
+          continue
+        fi
+      fi
+      if [[ ${image_file_pg_num} -lt ${diff_start_page} ]]; then
+        continue
+      fi
     fi
     # Compare the 2 images (from https://www.imagemagick.org/Usage/compare/#statistics)
     compare -metric AE "./out/${book_name}-temp/_prepared-pages/${image_file}" "./out/${book_name}-temp/_after-pages/${image_file}" null: 2> /dev/null
     exit_status=$?
     if [[ ${exit_status} != 0 ]]; then
-      die "First mismatched screen occurred at './out/${book_name}-temp/_prepared-pages/${image_file}'"
+      found_diffs+=("./out/${book_name}-temp/_prepared-pages/${image_file}")
     fi
   done
 
-  if [[ ${has_differences} == 0 ]]; then
+  if [[ "${found_diffs[@]}" ]]; then
+    _say "Mismatches occured at:"
+    for each_diff in "${found_diffs[@]}"
+    do
+      _say "$each_diff"
+    done
+  else
     _say "${c_green}Yay! There were no differences between the PDFs, the XHTML, and the XHTML+CSS${c_none}"
+    fi
   fi
 
   exit ${has_differences}
