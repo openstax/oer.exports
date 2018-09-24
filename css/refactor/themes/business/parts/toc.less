@@ -94,7 +94,7 @@
     .scale-padding(1, padding-bottom);
     .scale-padding(1, padding-top);
     margin-left: 0;
-        
+
     &:nth-child(2n) {
       //#content>#list>.item('2n+1', 'chapter'; any; toc);
       background-color: @toc-odd-bg-color;
@@ -121,9 +121,13 @@
       border-left: 4px solid @toc-side-border-color;
       margin-left: 21.6px + 10.6px; //icon size + icon margin-right
       .scale-padding(1, margin-top);
-
+      .scale-padding(10, padding-left);
       li {
         margin-left: 0;
+        text-indent: -2.5em;
+        a.target-section {
+          display: inline-block
+        }
       }
 
       li a span.cnx-gentext-n {
@@ -160,7 +164,7 @@
     .scale-padding(1, padding-bottom);
     margin-left: 0;
     counter-increment: toc-appendix-counter; //#content>#link>.style('appendix'; any; toc);
-    
+
     &::before {
       //#part>#toc>#chapter>.number('appendix'; any; toc);
       content: counter(toc-appendix-counter, upper-latin);
