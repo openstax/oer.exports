@@ -25,7 +25,6 @@
  * Accounting Notes
  * ------------------------
  */
-.note-has-exercise(".your-turn");
 
 .chapter .note {
   &.link-to-learning {
@@ -111,17 +110,21 @@ div.book {
     >.introduction {
       >.toc {
          >ul {
-          padding-left: 0px;
+          .scale-padding(6, padding-left);
           border-left: none;
          }
          li {
            > a:link.target-section {
-             background-image: url("ccap-astronomy/LO.svg");
-             background-repeat: no-repeat;
-             background-position: left;
-             background-size: 15px auto;
-             .scale-padding(2, padding-left);
-             border-bottom: 0;
+             display: inline-block;
+             text-indent:-3.14em;
+             .cnx-gentext-n {
+               background-image: url("ccap-astronomy/LO.svg");
+               background-repeat: no-repeat;
+               background-position: left;
+               background-size: 15px auto;
+               .scale-padding(2, padding-left);
+               border-bottom: 0;
+             }
            }
         }
       }
@@ -137,3 +140,21 @@ div.book {
 .handle-answer-key(".problem-set-a", "PA", "Problem Set A");
 .handle-answer-key(".problem-set-b", "PB", "Problem Set B");
 .handle-answer-key(".thought-provokers", "TP", "Thought Provokers");
+
+/* -------------------------
+ * Accounting Tables
+ * ------------------------
+ */
+//!important is used here to overide a style in ccap-base-skeleton.less
+//full regression testing is not feasible at the moment so the change must be made here and not in the skeleton
+table {
+  thead {
+    tr {
+      &:nth-child(even):not(last-child) {
+        th {
+          border-right: @table-body-border-color !important;
+        }
+      }
+    }
+  }
+}
