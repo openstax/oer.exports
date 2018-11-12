@@ -13,6 +13,7 @@ except:
   from PIL import Image
 from StringIO import StringIO
 from tempfile import mkstemp
+import time
 #try:
 #	import json
 #except KeyError:
@@ -49,17 +50,23 @@ def convert(p, collxml, modulesDict, temp_dir, svg2png=True, math2svg=True, redu
   """ Convert a collxml file (and dictionary of module info) to a Docbook file and dict of filename:bytes) """
 
   newFiles = {}
+  benchmark_book = []
 
   p.start(len(modulesDict), 'collxml to dbk')
 
+  now = time.time()
   paramsStr = PARAMS_XPATH(COLLXML_PARAMS(collxml))[0]
   collParamsUnicode = eval(paramsStr) #json.loads(paramsStr)
   collParams = {}
   for key, value in collParamsUnicode.items():
   	collParams[key.encode('utf-8')] = value
   dbk1 = transform(COLLXML2DOCBOOK_XSL, collxml)
+  benchmark_book.append('  COLLXML2DOCBOOK_XSL: %.1fs\n' % (
+    time.time() - now,))
 
+  now = time.time()
   modDbkDict = {}
+  benchmark = {}
   # Each module can be converted in parallel
   for module, (cnxml, filesDict) in modulesDict.items():
 
@@ -67,11 +74,18 @@ def convert(p, collxml, modulesDict, temp_dir, svg2png=True, math2svg=True, redu
     module_temp_dir = os.path.join(temp_dir, module)
     if not os.path.exists(module_temp_dir):
       os.makedirs(module_temp_dir)
-    modDbk, newFilesMod = module2dbk.convert(module, cnxml, filesDict, collParams, module_temp_dir, svg2png, math2svg, reduce_quality)
+    modDbk, newFilesMod = module2dbk.convert(
+      module, cnxml, filesDict, collParams, module_temp_dir, svg2png, math2svg,
+      reduce_quality, benchmark=benchmark)
     modDbkDict[module] = etree.parse(StringIO(modDbk)).getroot()
     # Add newFiles with the module prefix
     for f, data in newFilesMod.items():
     	newFiles[os.path.join(module, f)] = data
+
+  for k in sorted(benchmark.keys()):
+      benchmark_book.append('    %s: %.1fs\n' % (k, benchmark[k]))
+
+  benchmark_book.append('  Modules converted: %.1fs\n' % (time.time() - now,))
 
   # Terminate saxon process to free memory
   if module2dbk.sax is not None:
@@ -87,13 +101,24 @@ def convert(p, collxml, modulesDict, temp_dir, svg2png=True, math2svg=True, redu
       print >> sys.stderr, "ERROR: Didn't find module source!!!!"
 
   # Clean up image paths
+  now = time.time()
   dbk2 = transform(DOCBOOK_NORMALIZE_PATHS_XSL, dbk1)
+  benchmark_book.append('  Clean up image paths: %.1fs\n' % (time.time() - now,))
 
+  now = time.time()
   dbk3 = transform(DOCBOOK_CLEANUP_XSL, dbk2)
+  benchmark_book.append('  Docbook cleanup xsl: %.1fs\n' % (time.time() - now,))
+  now = time.time()
   dbk4 = transform(DOCBOOK_NORMALIZE_GLOSSARY_XSL, dbk3)
+  benchmark_book.append('  Docbook normalize glossary xsl: %.1fs\n'
+                        % (time.time() - now))
 
   # Create cover SVG and convert it to an image
+  now = time.time()
   cover, newFiles2 = util.dbk2cover(dbk4, filesDict, svg2png)
+  benchmark_book.append('  Create cover SVG: %.1fs\n' % (time.time() - now,))
+
+  util.log(temp_dir, 'benchmark.txt', ''.join(benchmark_book))
 
   if svg2png:
     newFiles['cover.png'] = cover

@@ -180,6 +180,12 @@ def loadCollection(dir):
 
   return collxml, modules, allFiles
 
+
+def log(temp_dir, filename, message, mode='a'):
+  open(os.path.join(temp_dir, filename), mode).write(message)
+
+
+
 class Progress(object):
   def __init__(self):
     self.stack = []
