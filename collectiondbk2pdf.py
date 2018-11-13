@@ -17,6 +17,7 @@ from StringIO import StringIO
 from tempfile import mkdtemp
 import subprocess
 import shutil
+import time
 
 from lxml import etree
 import urllib2
@@ -60,11 +61,22 @@ def collection2pdf(collection_dir, print_style, output_pdf, pdfgen, temp_dir, ve
       modules[moduleId] = (cnxml, files)
 
   p.start(1, 'Converting collection to Docbook')
+  # clear benchmark
+  if not os.path.exists(temp_dir):
+      os.makedirs(temp_dir)
+  util.log(temp_dir, 'benchmark.txt', '', mode='w')
+  now = time.time()
+  benchmark = []
   dbk, newFiles = collection2dbk.convert(p, collxml, modules, temp_dir, svg2png=False, math2svg=True, reduce_quality=reduce_quality)
   allFiles.update(newFiles)
+  util.log(temp_dir, 'benchmark.txt',
+           'Converting collection to Docbook: %.1fs\n\n' % (time.time() - now,))
 
   p.tick('Converting Docbook to PDF')
+  now = time.time()
   stdErr = convert(p, dbk, allFiles, print_style, temp_dir, output_pdf, pdfgen, verbose)
+  util.log(temp_dir, 'benchmark.txt',
+           'Converting Docbook to PDF: %.1fs\n' % (time.time() - now,))
 
   p.finish()
   return stdErr
@@ -164,28 +176,42 @@ def convert(p, dbk1, files, print_style, temp_dir, output_pdf, pdfgen, verbose=F
 
   p.start(3, 'Cleaning up Docbook')
   # Step 1 (Cleaning up Docbook)
+  now = time.time()
   dbk2 = transform(DOCBOOK_CLEANUP_XSL, dbk1)
   if verbose:
     open(os.path.join(temp_dir, 'temp-collection2.dbk'),'w').write(etree.tostring(dbk2,pretty_print=False))
+  util.log(temp_dir, 'benchmark.txt',
+           '  Cleaning up Docbook: %.1fs\n' % (time.time() - now,))
 
+  now = time.time()
   p.tick('Converting Docbook to HTML')
   # Step 2 (Docbook to XHTML)
   xhtml_file = os.path.join(temp_dir, 'collection.xhtml')
   xhtml = transform(DOCBOOK2XHTML_XSL, dbk2)
+  util.log(temp_dir, 'benchmark.txt',
+           '  Converting Docbook to html: %.1fs\n' % (time.time() - now,))
 
+  now = time.time()
   p.tick('Dedup SVGs')
   xhtml_deduped = transform(DEDUPSVG_XSL, xhtml)
+  util.log(temp_dir, 'benchmark.txt',
+           '  Dedup SVGs: %.1fs\n' % (time.time() - now,))
 
+  now = time.time()
   p.tick('Cleaning up references')
   xhtml_dedupeder = transform(DEDUPREFS_XSL, xhtml_deduped)
+  util.log(temp_dir, 'benchmark.txt',
+           '  Cleaning up references: %.1fs\n' % (time.time() - now,))
 
   open(xhtml_file,'w').write(etree.tostring(xhtml_dedupeder))
 
+  now = time.time()
   p.tick('Converting HTML to PDF')
-  #import pdb; pdb.set_trace()
   # Step 4 Converting XSL:FO to PDF (using Apache FOP)
   # Change to the collection dir so the relative paths to images work
   stdErr = xhtml2pdf(xhtml_file, files, temp_dir, print_style, pdfgen, output_pdf, verbose)
+  util.log(temp_dir, 'benchmark.txt',
+           '  Converting HTML to PDF: %.1fs\n' % (time.time() - now,))
 
   p.finish()
   return stdErr
