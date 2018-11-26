@@ -14,6 +14,7 @@ except:
     from PIL import Image
 from StringIO import StringIO
 import subprocess
+import time
 
 import urllib
 import urllib2
@@ -88,6 +89,8 @@ def makeTransform(file):
         xml = xsl(xml, **params)
         errors = extractLog(xsl.error_log)
         return xml, {}, errors
+
+    t.xsl_file = file
     return t
 
 # c2p-files/cnxmathmlc2p.xsl does some disable-output-escaping="yes"
@@ -102,6 +105,8 @@ def makeTransformReparseAfter(file):
         parser = etree.XMLParser()
         xml = etree.parse(StringIO(etree.tostring(xml)), parser)
         return xml, {}, errors
+
+    t.xsl_file = file
     return t
 
 # legacy/zope runs under python2.4 - all() appeared in 2.5
@@ -251,8 +256,19 @@ def exercise_callback_factory(match, url_template, token=None, mml_url=None):
     return (xpath, _replace_exercises)
 
 
+def benchmark_transform(i, transform, time_taken, benchmark):
+    transform_name = transform.__name__
+    if transform_name == 't':
+        transform_name = transform.xsl_file
+    transform_name = '%02d. %s' % (i + 1, transform_name)
+    if transform_name in benchmark:
+        benchmark[transform_name] += time_taken
+    else:
+        benchmark[transform_name] = time_taken
+
+
 # Main method. Doing all steps for the Google Docs to CNXML transformation
-def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2svg=True, reduce_quality=False):
+def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2svg=True, reduce_quality=False, benchmark=None):
     """ Convert a cnxml file (and dictionary of filename:bytes) to a Docbook file and dict of filename:bytes) """
 
     #if 'index.included.dbk' in filesDict:
@@ -433,10 +449,13 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
     origAndNewFiles = {}
     origAndNewFiles.update(filesDict)
 
-    for transform in PIPELINE:
+    for i, transform in enumerate(PIPELINE):
+        beginning = time.time()
         xml, newFiles2, errors = transform(xml, origAndNewFiles, **params)
         newFiles.update(newFiles2)
         origAndNewFiles.update(newFiles2)
+        time_taken = time.time() - beginning
+        benchmark_transform(i, transform, time_taken, benchmark)
 
     origAndNewFiles.update(newFiles)
 
@@ -448,12 +467,17 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
         f.close()
     newFiles = {}
 
+    now = time.time()
     # Create a standalone db:book file for the module
     dbkStandalone = DOCBOOK_BOOK_XSL(xml)
     newFiles['index.standalone.dbk'] = etree.tostring(dbkStandalone)
     # uncomment this to write out individual docbook module files
     #with open(os.path.join(temp_dir,'%s.dbk' % moduleId), 'w') as f:
     #  f.write(newFiles['index.standalone.dbk'])
+    if 'standalone db:book file' in benchmark:
+        benchmark['standalone db:book file'] += time.time() - now
+    else:
+        benchmark['standalone db:book file'] = time.time() - now
 
     return etree.tostring(xml), newFiles
 
