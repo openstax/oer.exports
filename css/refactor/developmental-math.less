@@ -45,3 +45,8 @@ div.book div.chapter > div.titlepage > div > div h1.title {
     string-set: cnx-header "@{cnx-string-chapter} " counter(chapter, decimal)  "\0020\0020\0020" content();
   }
 }
+
+//this is not pretty, but necessary to override a few other counters :/
+div.book > div.chapter > div.section div.example div.exercise .solution .table:not(.unnumbered) {
+  counter-increment: table !important;
+}
