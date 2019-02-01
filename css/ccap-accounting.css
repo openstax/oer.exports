@@ -1719,7 +1719,6 @@ div.book > div.appendix {
   /* Number links to different elements */
 }
 div.book > div.appendix > div.titlepage > div > div h1.title span.cnx-gentext-t {
-  string-set: cnx-header "" "Appendix" " " counter(appendix, upper-latin) " | " content() "";
   padding-left: .25em;
   prince-text-replace: "*" "";
 }
@@ -3342,6 +3341,7 @@ div.cnx-eoc > .title span {
   margin-bottom: 12px;
   margin-left: 0;
   padding-left: 0;
+  bookmark-level: none;
 }
 div.cnx-eoc .section .title a:link {
   font-size: 12px;
@@ -3770,6 +3770,7 @@ div.colophon.end-of-book-solutions .chapter-area > h2.title a.chapter {
   margin-bottom: 12px;
   margin-left: 0;
   padding-left: 0;
+  bookmark-level: none;
   page-break-before: avoid;
   page-break-after: avoid;
 }
@@ -3867,6 +3868,7 @@ div.end-of-book-references > .chapter-area > .body > .section-area .note.referen
 .index > .title h2 {
   padding: 0;
   font-size: inherit;
+  bookmark-level: none;
 }
 .index h3.letter {
   font-size: 15.6px;
@@ -4348,6 +4350,11 @@ div.part > div.titlepage {
  * Accounting EOC
  * ------------------------
  */
+.cnx-eoc .section.empty {
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  page-break-before: avoid;
+}
 .section-summary > .section > .title {
   padding-top: 8px;
   padding-bottom: 4.20153356px;
@@ -4662,5 +4669,14 @@ div.book div.chapter > .introduction > .toc li > a:link.target-section .cnx-gent
  */
 table thead tr:nth-child(even):not(last-child) th {
   border-right: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+.table.top-titled table {
+  margin-top: 0;
+}
+.listitem p + .mediaobject {
+  margin: 1em 0 1em 0;
+}
+div.mediaobject + div.figure {
+  padding-top: 1em;
 }
 /*# sourceMappingURL=ccap-accounting.css.map */
