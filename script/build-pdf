@@ -2,7 +2,25 @@
 cd "$(dirname "$0")/.." || exit 111
 source ./script/bootstrap || exit 111
 
-if [[ ! $1 || ! -d "./data/$1/" ]]; then
+book_name="$1"
+shift
+# if the next parameter does not start with -
+if [[ ${1:0:1} != "-" ]]
+then
+    # then it's the xhtml filename
+    xhtml_filename="$1"
+    shift
+fi
+
+if [[ ! $book_name || ! -d "./data/$book_name/" ]]; then
+  cat <<EOF
+Usage: $0 <book-name> [<xhtml_filename>] [-p <pdfgen>] [-r]
+
+Optional arguments:
+  -p [PDFGEN]        Path to a PDF generation script
+  -r                 Reduce image quality
+
+EOF
   if [[ -d "./data/" && $(ls ./data/) ]]; then
     echo "A valid book name (directory in ./data/) needs to be specified. Valid options are:"
     ls ./data/
@@ -12,10 +30,10 @@ if [[ ! $1 || ! -d "./data/$1/" ]]; then
   fi
 else
 
-  source_dir="./data/$1/"
-  template_name="ccap-$1"
-  pdf_name="./out/$1.pdf"
-  temp_dir="./out/$1-temp/"
+  source_dir="./data/$book_name/"
+  template_name="ccap-$book_name"
+  pdf_name="./out/$book_name.pdf"
+  temp_dir="./out/$book_name-temp/"
 
   # Check that the CSS file exists:
   if [[ ! -f "./css/${template_name}.css" ]]; then
@@ -29,13 +47,12 @@ else
   [[ -f "${pdf_name}" ]] && rm "${pdf_name}"
 
   do_progress_quiet "Compiling CSS file" \
-    ./script/build-css "$1"
+    ./script/build-css "$book_name"
 
   do_progress_quiet "Building PDF from ${source_dir} (~5min. use DEBUG=true for progress)" \
-    ./script/_build-pdf -v -d "${source_dir}" -s "${template_name}" -t "${temp_dir}" "$3" "${pdf_name}"
+    ./script/_build-pdf -v -d "${source_dir}" -s "${template_name}" -t "${temp_dir}" "$@" "${pdf_name}"
 
-  if [[ $2 ]]; then
-    xhtml_filename="$2"
+  if [[ $xhtml_filename ]]; then
     _say "Saving XHTML file to ${temp_dir}/${xhtml_filename}"
     try mv "${temp_dir}/collection.xhtml" "${temp_dir}/${xhtml_filename}"
   else
@@ -44,7 +61,7 @@ else
   xhtml_path="${temp_dir}/${xhtml_filename}"
 
   progress "Adding CSS reference into XHTML file for debugging"
-  try sed -ir "s|</head>|<link rel=\"stylesheet\" type=\"text/css\" href=\"../../css/ccap-$1.css\" /></head>|" "${xhtml_path}"
+  try sed -ir "s|</head>|<link rel=\"stylesheet\" type=\"text/css\" href=\"../../css/ccap-$book_name.css\" /></head>|" "${xhtml_path}"
 
   _say "${c_green}Finished building PDF.${c_none} Opening now"
   _say "You can also view the XHTML file used to generate the PDF at ${xhtml_path}"
@@ -54,7 +71,7 @@ else
 
   if [[ $(which say) ]]; then
     # there is a say bash function so we need to use the bin version
-    $(which say) "$1 PDF is done!"
+    $(which say) "$book_name PDF is done!"
   fi
 
 fi
