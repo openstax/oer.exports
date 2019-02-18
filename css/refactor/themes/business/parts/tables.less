@@ -2,6 +2,8 @@
  * Business Table Styles
  * ------------------------
  */
+ .td-support-valign-middle() {}
+
 .chapter .table {
   //override content-skeleton, can be removed if we remove content-skeleton
   page-break-inside: auto;
@@ -92,6 +94,12 @@ div.table {
 
       &[valign=top] > tr > td {
         vertical-align: top;
+        &[valign=middle] {
+          // Release flag, yields no output when change hasn't been rolled out
+          // To rollout change to your book, "overwrite" this mixin in the book file with
+          // vertical-align: middle
+          .td-support-valign-middle();
+        }
       }
 
       tr {

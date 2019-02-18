@@ -20,6 +20,7 @@
 @cnx-string-customer-satisfaction: "Customer Satisfaction and Quality";
 @cnx-string-sustainability-responsible: "Sustainability and Responsible Management";
 @cnx-string-managerial-leadership: "Managerial Leadership";
+@cnx-string-managing-change: "Managing Change";
 @FIGURE_NAME: "Exhibit ";
 
 /* -------------------------
@@ -51,20 +52,20 @@
   &.managerial-leadership {
     .notes(@cnx-string-managerial-leadership, @white, @primary-color, @feature-style-3-body-color, managerial-leadership);
   }
+  &.managing-change {
+    .notes(@cnx-string-managing-change, @white, @primary-color, @feature-style-3-body-color, managing-change);
+  }
 }
 
 /* -------------------------
- * EOC specific to SRM books
+ * EOC
  * ------------------------
  */
-.cnx-eoc {
-  > .section {
-    .hideEocSectionTitle();
-  }
-}
+
 .handle-eoc-sections(".chapter-review", @eoc-assessment-icon, @section-title: false);
 .handle-eoc-sections(".manage-skills", @eoc-manage-skills-icon, @section-title: false);
 .handle-eoc-sections(".manage-exercises", @eoc-manage-exercies-icon, @section-title: false);
+.handle-eoc-sections(".section-summary", @eoc-summary-icon);
 
 /* -------------------------
  * Exhibits
@@ -141,4 +142,15 @@ div.table table caption {
 
 div.chapter a.xref.target-figure:not(.labeled) {
   content: @FIGURE_NAME target-counter(attr(href), chapter) "." target-counter(attr(href), figure);
+}
+
+.td-support-valign-middle() {
+  vertical-align: middle;
+}
+
+//hiding a unwanted paraenthsis in an equations in footnotes. need to investigate after release
+.footnote > .inlineequation.unnumbered {
+  span.label {
+    display: none;
+  }
 }

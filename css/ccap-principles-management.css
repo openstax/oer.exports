@@ -2819,6 +2819,9 @@ div.table table tbody {
 div.table table tbody[valign=top] > tr > td {
   vertical-align: top;
 }
+div.table table tbody[valign=top] > tr > td[valign=middle] {
+  vertical-align: middle;
+}
 div.table table tbody tr {
   page-break-inside: avoid;
 }
@@ -3956,6 +3959,9 @@ div:not(.body) > div.mediaobject > img {
 p {
   line-height: 1.6em;
 }
+div.orderedlist + div.section {
+  margin-top: 1em;
+}
 /* ---------------------------------------------------
  * Folio
  * ---------------------------------------------------
@@ -4383,16 +4389,47 @@ div.itemizedlist {
   bottom: 0px;
   right: 15px;
 }
+.chapter .note.managing-change {
+  display: table;
+  position: relative;
+  background-color: #D3E3EB;
+  text-align: left;
+  color: #000;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.chapter .note.managing-change::before {
+  display: table-caption;
+  content: "Managing Change";
+  font-style: normal;
+  background-color: #24739e;
+  color: #fff;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  font-size: 15.6px;
+  font-family: 'Roboto Condensed';
+  padding: 15.6px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  page-break-after: avoid;
+}
+.chapter .note.managing-change > div.body::before {
+  background: blue;
+  display: block;
+  content: '';
+  background: url("ccap-business/managing-change.svg") no-repeat 0;
+  width: 110px;
+  height: 62px;
+  position: absolute;
+  bottom: 0px;
+  right: 15px;
+}
 /* -------------------------
- * EOC specific to SRM books
+ * EOC
  * ------------------------
  */
-.cnx-eoc > .section div.title {
-  padding: 0;
-}
-.cnx-eoc > .section div.title span.cnx-gentext-section {
-  display: none;
-}
 .cnx-eoc.chapter-review > .title {
   display: inline-block !important;
   background: url("ccap-business/assessments.svg") no-repeat left;
@@ -4461,6 +4498,26 @@ div.itemizedlist {
 }
 .cnx-eoc.manage-exercises > .section > .title {
   display: none;
+}
+.cnx-eoc.section-summary > .title {
+  display: inline-block !important;
+  background: url("ccap-business/Summary.svg") no-repeat left;
+  padding-left: 34.2732px !important;
+  padding-right: 34.2732px !important;
+  padding-top: 5.33333333px !important;
+  margin-bottom: 5.33333333px !important;
+  background-size: contain;
+  font-family: 'Roboto Condensed';
+  color: #344456;
+  font-size: 20.28px;
+  font-weight: normal;
+  bookmark-level: 2;
+  page-break-after: avoid;
+  page-break-inside: avoid;
+  margin-top: 15.6px;
+  margin-bottom: 12px;
+  margin-left: 0;
+  padding-left: 0;
 }
 /* -------------------------
  * Exhibits
@@ -4537,5 +4594,8 @@ div.table table caption::before:not(.unnumbered) {
 }
 div.chapter a.xref.target-figure:not(.labeled) {
   content: "Exhibit " target-counter(attr(href), chapter) "." target-counter(attr(href), figure);
+}
+.footnote > .inlineequation.unnumbered span.label {
+  display: none;
 }
 /*# sourceMappingURL=ccap-principles-management.css.map */
