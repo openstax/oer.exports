@@ -1,5 +1,9 @@
 # OER.exports
 
+## If you are looking for team information please look [here](https://github.com/openstax/content-managers/blob/master/README.md).
+
+## Below is the workflow for the Textbooks developers and branch creation: 
+
 ## 1. milestone branch and tributary PRs
 A textbook dev will create one branch and one big pull request (PR) for each release. The version number is bumped and the `version.txt` now uses the current milestone name (for example `naughty.newt 0.26.0` becomes `opulent.octopus 0.27.0`). The pull request is centralizing all the issues related to the milestone. Each dev creates an individual PR per issue, gets it reviewed by other devs then merges it into  the milestone PR. Do not merge your changes to master. When creating an individual PR, select the current milestone branch to compare against the milestone PR instead of master so the PR can be merged into it rather than into master. Please see steps 2 and 3 before contributing.
 
@@ -47,7 +51,7 @@ It's ok to include a screenshot or a comment in the issue before the PR has been
 Fixes for individual issues are verified on [devb](https://devb.openstax.org) by Alan (`@stackblocks`) or assigned tester. If any problems are found, the issue is updated with comments and screen captures as necessary, and reassigned to the dev that created the fix. In that case, the dev opens a new PR with the appropriate fix and follows the process in step #2. When the issue has been verified on [devb](https://devb.openstax.org), it is closed. The only people closing issues are Alan or other testers.
 
 ## 5. code freeze and release to staging
-Every other Thursday, we release our code to staging. On that day, a final code review is conducted on the milestone PR, then the PR is merged, tagged and is ready for release. That stage is known as "code freeze". When the tag is ready, notify Alan with a link to the release. 
+Every other Monday, we release our code to staging. On that day, a final code review is conducted on the milestone PR, then the PR is merged, tagged and is ready for release. That stage is known as "code freeze". When the tag is ready, notify Alan with a link to the release. 
 
 ## 6. regression testing and junior branches
 Regression testing is done on [staging](https://staging.openstax.org), to ensure there were no unintended consequences.
