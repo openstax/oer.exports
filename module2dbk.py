@@ -327,7 +327,7 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
                     unprocessed[mathml_key] = mathml
 
             if len(unprocessed) > 0:
-                mathml_str_list = [etree.tostring(mathml) for mathml in unprocessed.values()]
+                mathml_str_list = [etree.tostring(mathml, encoding='utf-8') for mathml in unprocessed.values()]
                 mathml_tree_str = "<root>" + ''.join(mathml_str_list) + "</root>"
                 mathml_svg_tree_str = sax.convert(mathml_tree_str)
                 mathml_svg_tree = etree.parse(StringIO(mathml_svg_tree_str), parser)
