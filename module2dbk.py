@@ -118,7 +118,7 @@ def all(iterable):
 
 def compare_trees(e1, e2):
     if e1.tag != e2.tag: raise ValueError("Tags do not match. Returned '" + e1.tag + "' Expected '" + e2.tag + "'")
-    if e1.text != e2.text: raise ValueError("Text does not match. Returned '" + e1.text + "' Expected '" + e2.text + "'")
+    if e1.text != e2.text: raise ValueError("Text does not match. Returned %s Expected %s" % (repr(e1.text), repr(e2.text)))
     if e1.tail != e2.tail: raise ValueError("Tails do not match. Returned '" + e1.tail + "' Expected '" + e2.tail + "'")
     if e1.attrib != e2.attrib: raise ValueError("Attribs do not match. Returned '" + e1.attrib + "' Expected '" + e2.attrib + "'")
     if len(e1) != len(e2): raise ValueError("Child Lengths do not match. Returned '" + len(e1) + "' Expected '" + len(e2) + "'")
