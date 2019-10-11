@@ -118,7 +118,7 @@ def all(iterable):
 
 def compare_trees(e1, e2):
     if e1.tag != e2.tag: raise ValueError("Tags do not match. Returned '" + e1.tag + "' Expected '" + e2.tag + "'")
-    if e1.text != e2.text: raise ValueError("Text does not match. Returned '" + e1.text + "' Expected '" + e2.text + "'")
+    if e1.text != e2.text: raise ValueError("Text does not match. Returned %s Expected %s" % (repr(e1.text), repr(e2.text)))
     if e1.tail != e2.tail: raise ValueError("Tails do not match. Returned '" + e1.tail + "' Expected '" + e2.tail + "'")
     if e1.attrib != e2.attrib: raise ValueError("Attribs do not match. Returned '" + e1.attrib + "' Expected '" + e2.attrib + "'")
     if len(e1) != len(e2): raise ValueError("Child Lengths do not match. Returned '" + len(e1) + "' Expected '" + len(e2) + "'")
@@ -327,7 +327,7 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
                     unprocessed[mathml_key] = mathml
 
             if len(unprocessed) > 0:
-                mathml_str_list = [etree.tostring(mathml) for mathml in unprocessed.values()]
+                mathml_str_list = [etree.tostring(mathml, encoding='utf-8') for mathml in unprocessed.values()]
                 mathml_tree_str = "<root>" + ''.join(mathml_str_list) + "</root>"
                 mathml_svg_tree_str = sax.convert(mathml_tree_str)
                 mathml_svg_tree = etree.parse(StringIO(mathml_svg_tree_str), parser)
