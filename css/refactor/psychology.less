@@ -79,3 +79,26 @@ html {
 }
 
 @import url('folio.less');
+
+div.book {
+  > div.chapter, 
+  > div.chapter > div.section > div.section > div.table, 
+  > div.chapter > div.section > div.section > div.section > div.table, 
+  > div.chapter > div.section > div.table {
+    &::after {
+      content: "" "Table " counter(chapter, decimal) "." counter(table) " " "";
+      font-weight: bold;
+      font-size: 13px;
+      line-height: 17px;
+      color: #B8292F;
+      font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+      margin: auto;
+    }
+    > table > caption {
+      border-style: none;
+      &::before {
+        content: none !important;
+      }
+    }
+  }
+}
