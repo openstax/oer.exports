@@ -98,10 +98,13 @@ Ensure that the container is running:
 
     docker-compose ps
 
-Enter the container so that you can run any ad-hoc commands.
+Enter the container so that you can run any ad-hoc commands:
     
     docker-compose exec build-pdf /bin/bash
 
+Stop the container from running:
+
+    docker-compose stop
 
 ## Install Fonts
 
