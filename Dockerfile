@@ -20,7 +20,6 @@ RUN apt-get -y update \
     software-properties-common \
     apt-transport-https \
     ca-certificates \
-    python-virtualenv \
     libxslt1-dev \
     libxml2-dev \
     zlib1g-dev \
@@ -42,6 +41,8 @@ RUN apt-get -y update \
     npm \
     curl \
     git \
+    fonts-liberation \
+    texlive-fonts-recommended \
   && apt-get autoremove -y \
   && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
@@ -63,12 +64,19 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 # Install openjdk-7-jdk, PrinceXML, and yarn
 #========================
 RUN add-apt-repository ppa:openjdk-r/ppa \
-  && apt-get -qqy update --no-install-recommends \
-  && apt-get -qqy install  openjdk-7-jdk \
+  && apt-get -y update \
+  && apt-get -y install openjdk-7-jdk \
   gdebi yarn\
   && gdebi --non-interactive /tmp/prince_${PRINCE_VERSION}_ubuntu${PRINCE_DEB_BUILD}_amd64.deb \
   && apt-get autoremove -y \
   && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+
+#========================
+# Install URW Palladio Regular font
+#========================
+RUN mkdir -p /usr/share/fonts/truetype/urw-palladio-l-roman
+COPY ./fonts/urw-palladio-l-roman.ttf /usr/share/fonts/truetype/urw-palladio-l-roman
+RUN fc-cache -fv
 
 #=======================
 # Install pip
@@ -92,5 +100,5 @@ WORKDIR /code
 # Install application level dependencies
 #========================
 RUN python setup.py install
-RUN yarn --prefer-offline
-
+RUN yarn --prefer-offline \
+  && npm install -g grunt-cli
