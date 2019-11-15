@@ -70,7 +70,7 @@ div.table {
 
       tr:first-of-type th {
         //#content>#table>#header>#title>.text(any; any);
-        .table-header-style();
+        .table-header-style(@first-th-bg-color);
         //rounded corners
         &:first-child {
           border-top-left-radius: @border-radius;
@@ -157,7 +157,7 @@ div.table {
       //style TD to display like headers
       &.header {
         //#content>#table>#data>.style('header'; any);
-        .table-header-style();
+        .table-header-style(@first-th-bg-color);
         .font-scale(0);
         text-align: center;
         vertical-align: initial;
@@ -312,13 +312,13 @@ div.table {
         tr {
           &:first-of-type {
             th {
-              .table-white-header-style();
+              .table-header-style(@white);
             }
           }
 
           &:nth-child(even):not(last-child) {
             th {
-              .table-header-style();
+              .table-header-style(@first-th-bg-color);
 
               &:first-child {
                 border-top-left-radius: @border-radius;
@@ -340,7 +340,7 @@ div.table {
         tr {
           &:first-of-type {
             th {
-              .table-white-header-style();
+              .table-header-style(@white);
               text-align: center;
               border-bottom: none !important; //text-heavy-border needs !important
             }
@@ -351,7 +351,7 @@ div.table {
             border-bottom: 1px solid grey;
 
             th {
-              .table-white-header-style();
+              .table-header-style(@light-grey);
               border-bottom: @text-heavy-border;
             }
           }
