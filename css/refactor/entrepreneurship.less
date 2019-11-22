@@ -73,12 +73,21 @@ div.toc li.toc-part a.target-part {
 .handle-eoc-sections(".case-questions", @eoc-icon: @eoc-case-study-icon,  @section-title: false);
 .handle-eoc-sections(".suggested-resources", @eoc-icon: @eoc-suggested-resources-icon);
 
-.handle-answer-key(".review-questions", @assessment-section-title: "Review Questions");
-.handle-answer-key(".case-questions", @assessment-section-title: "Case Questions");
+
+//text indention suggested resources
+div.cnx-eoc.suggested-resources > div.section > div.body {
+  p,
+    table > tr > td {
+      text-indent: -.7em;
+    }
+}
 
 
 /* Hide the EOB references */
 div.colophon.end-of-book-references {
+  display: none;
+}
+div.end-of-book-solutions {
   display: none;
 }
 
@@ -101,4 +110,8 @@ div.orderedlist > div.title > span {
   // padding: 5px;
   .scale-padding(-5, padding);
   display: block;
+}
+
+div.table.text-heavy table tbody > tr {
+  page-break-inside: auto;
 }
