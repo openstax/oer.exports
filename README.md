@@ -59,6 +59,52 @@ Then run:
     DEBUG=true ./script/setup
     DEBUG=true ./script/test
 
+## Using Docker
+
+### Installing Docker and Docker Compose
+
+Follow the instructions to install [Docker](https://docs.docker.com/install/).
+
+Follow the instructions to install [Docker Compose](https://docs.docker.com/compose/install/).
+
+### Build a pdf using Docker Compose
+
+1. Download an offline zip
+2. Create a “data” folder in oer.exports repo (to be ignored by git)
+3. Create an “entrepreneurship” folder in the “data” folder
+4. Extract the downloaded complete zip into the “entrepreneurship” folder
+
+Build the oer.exports image using docker-compose
+
+    docker-compose build
+
+Run the [./script/build-pdf](./script/build-pdf) script using docker-compose
+
+    docker-compose run --rm build-pdf ./script/build-pdf entrepreneurship
+
+### Running scripts from within the container or debugging
+
+You'll want to keep the container from closing out immediately.
+
+To do this look inside the [docker-compose.yml](./docker-compose.yml).
+
+Uncomment the line mentioned in the file.
+
+Run docker-compose so that the container starts up and stays alive:
+
+    docker-compose up -d
+
+Ensure that the container is running:
+
+    docker-compose ps
+
+Enter the container so that you can run any ad-hoc commands:
+    
+    docker-compose exec build-pdf /bin/bash
+
+Stop the container from running:
+
+    docker-compose stop
 
 ## Install Fonts
 
