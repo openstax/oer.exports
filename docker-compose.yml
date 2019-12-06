@@ -1,0 +1,14 @@
+version: '3.2'
+services:
+  build-pdf:
+    build: .
+    image: openstax/oer.exports
+    environment:
+      BOOTSTRAP_ALREADY_RAN: 1
+    volumes:
+      - .:/code
+      - node_modules:/code/node_modules
+#    Uncomment the line below to create an infinite loop to keep the container alive
+#    command: bash -c "while true; do sleep 1; done"
+volumes:
+  node_modules:
