@@ -197,7 +197,14 @@ div.cnx-eoc {
     //   .exercise div.body div.problem .figure { #content>#figure>.style(any; chapter-end; exercise); }
   }
   &.suggested-resources > div.section > div.body {
-    p,
+    p {
+      overflow-wrap: break-word;
+      white-space: normal;
+      // This will need to be removed here and applied more broadly, 
+      // A direct fix was made insead of a broad one because we didn't
+      // want to blow anything up before the holidays.
+      // white-space: normal is to override possible nowrap inheritence
+    }
     table > tr > td {
       text-indent: -1em;
       // padding-left: 10px;
