@@ -54,3 +54,32 @@ div.book > div.chapter > div.section div.example div.exercise {
     }
   }
 }
+
+div.book div.chapter {
+  counter-reset: be-prepared;
+  > div.section div.note.be-prepared {
+    counter-increment: be-prepared;
+    margin-bottom: 2em;
+    &:not(.labeled) {
+      counter-increment: be-prepared;
+    }
+    &.labeled {
+      counter-increment: none;
+    }
+    > .title:not(.labeled) {
+        margin-bottom: 0;
+        &::before {
+          content: "Be Prepared " counter(chapter, decimal) "." counter(be-prepared);
+          background: url(ccap-basic-math/be-prepared.svg) no-repeat 0;
+          background-size: 20px 20px;
+          display: inline-block;
+          vertical-align: top;
+          padding: 0 3px 0 30px;
+          line-height: 20px;
+        }
+    }
+    div.exercise:not(.labeled) > .title > span:first-child:not(.labeled)::before {
+      content: none;
+    }
+  }
+}
