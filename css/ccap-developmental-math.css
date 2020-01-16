@@ -5241,4 +5241,49 @@ div.book > div.chapter > div.section div.example div.exercise .solution .table:n
 div.book > div.chapter > div.section div.example div.exercise .problem .table:not(.unnumbered) {
   counter-increment: table !important;
 }
+div.book div.chapter {
+  counter-reset: be-prepared;
+}
+div.book div.chapter > div.section div.note.be-prepared {
+  background-color: transparent;
+  counter-increment: be-prepared;
+  margin-bottom: 2em;
+}
+div.book div.chapter > div.section div.note.be-prepared::before {
+  content: "Be Prepared : :";
+  color: #093D4C;
+  text-transform: uppercase;
+  background: url(ccap-basic-math/be-prepared.svg) no-repeat 0;
+  background-size: 20px 20px;
+  display: inline-block;
+  padding: 20px 3px 20px 30px;
+  font-size: 11px;
+  font-weight: bold;
+}
+div.book div.chapter > div.section div.note.be-prepared:not(.labeled) {
+  counter-increment: be-prepared;
+}
+div.book div.chapter > div.section div.note.be-prepared.labeled {
+  counter-increment: none;
+}
+div.book div.chapter > div.section div.note.be-prepared > .title:not(.labeled) {
+  display: inline-block;
+  padding-left: 0px;
+  padding-top: 2.5px;
+  color: #00000080;
+  font-weight: normal;
+}
+div.book div.chapter > div.section div.note.be-prepared > .title:not(.labeled)::before {
+  content: counter(chapter, decimal) "." counter(be-prepared);
+}
+div.book div.chapter > div.section div.note.be-prepared div.exercise:not(.labeled) > .title > span:first-child:not(.labeled)::before {
+  content: none;
+}
+div.book div.chapter > div.section div.note.be-prepared > .body {
+  border-top: none;
+  display: inline-block;
+  color: #00000080;
+  vertical-align: text-top;
+  margin-top: -5px;
+}
 /*# sourceMappingURL=ccap-developmental-math.css.map */
