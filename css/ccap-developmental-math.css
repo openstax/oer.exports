@@ -5241,4 +5241,51 @@ div.book > div.chapter > div.section div.example div.exercise .solution .table:n
 div.book > div.chapter > div.section div.example div.exercise .problem .table:not(.unnumbered) {
   counter-increment: table !important;
 }
+div.book div.chapter {
+  counter-reset: be-prepared-math section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint be-prepared-exercise check-understanding;
+}
+div.book div.chapter > div.section div.note.be-prepared {
+  counter-increment: be-prepared-math;
+  background-color: transparent;
+  margin-bottom: 2em;
+}
+div.book div.chapter > div.section div.note.be-prepared::before {
+  content: "Be Prepared : :";
+  color: #093D4C;
+  text-transform: uppercase;
+  background: url(ccap-basic-math/be-prepared.svg) no-repeat 0;
+  background-size: 20px 20px;
+  display: inline-block;
+  padding: 20px 3px 20px 30px;
+  font-size: 11px;
+  font-weight: bold;
+}
+div.book div.chapter > div.section div.note.be-prepared:not(.labeled) {
+  counter-increment: be-prepared-math;
+}
+div.book div.chapter > div.section div.note.be-prepared.labeled {
+  counter-increment: none;
+}
+div.book div.chapter > div.section div.note.be-prepared > .title:not(.labeled) {
+  display: inline-block;
+  padding-left: 0px;
+  padding-top: 2.5px;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: normal;
+}
+div.book div.chapter > div.section div.note.be-prepared > .title:not(.labeled)::before {
+  content: "" "" counter(chapter, decimal) "." counter(be-prepared-math) " " "";
+}
+div.book div.chapter > div.section div.note.be-prepared div.exercise:not(.labeled) > .title > span:first-child:not(.labeled)::before {
+  content: none;
+}
+div.book div.chapter > div.section div.note.be-prepared > .body {
+  border-top: none;
+  display: inline-block;
+  vertical-align: text-top;
+  margin-top: -5px;
+}
+.note.be-prepared > .body {
+  color: rgba(0, 0, 0, 0.5) !important;
+}
 /*# sourceMappingURL=ccap-developmental-math.css.map */
