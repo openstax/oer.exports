@@ -5242,11 +5242,11 @@ div.book > div.chapter > div.section div.example div.exercise .problem .table:no
   counter-increment: table !important;
 }
 div.book div.chapter {
-  counter-reset: be-prepared;
+  counter-reset: be-prepared-math section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint be-prepared-exercise check-understanding;
 }
 div.book div.chapter > div.section div.note.be-prepared {
+  counter-increment: be-prepared-math;
   background-color: transparent;
-  counter-increment: be-prepared;
   margin-bottom: 2em;
 }
 div.book div.chapter > div.section div.note.be-prepared::before {
@@ -5261,7 +5261,7 @@ div.book div.chapter > div.section div.note.be-prepared::before {
   font-weight: bold;
 }
 div.book div.chapter > div.section div.note.be-prepared:not(.labeled) {
-  counter-increment: be-prepared;
+  counter-increment: be-prepared-math;
 }
 div.book div.chapter > div.section div.note.be-prepared.labeled {
   counter-increment: none;
@@ -5274,7 +5274,7 @@ div.book div.chapter > div.section div.note.be-prepared > .title:not(.labeled) {
   font-weight: normal;
 }
 div.book div.chapter > div.section div.note.be-prepared > .title:not(.labeled)::before {
-  content: counter(chapter, decimal) "." counter(be-prepared);
+  content: "" "" counter(chapter, decimal) "." counter(be-prepared-math) " " "";
 }
 div.book div.chapter > div.section div.note.be-prepared div.exercise:not(.labeled) > .title > span:first-child:not(.labeled)::before {
   content: none;
