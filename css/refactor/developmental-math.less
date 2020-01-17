@@ -56,10 +56,10 @@ div.book > div.chapter > div.section div.example div.exercise {
 }
 
 div.book div.chapter {
-  counter-reset: be-prepared-math section figure subfigure table equation example exercise footnote toc-section try theorem checkpoint be-prepared-exercise check-understanding;
+  counter-reset: be-prepared;
   > div.section div.note.be-prepared {
-    counter-increment: be-prepared-math;
     background-color: transparent;
+    counter-increment: be-prepared;
     margin-bottom: 2em;
     &::before {
       content: "Be Prepared : :";
@@ -73,7 +73,7 @@ div.book div.chapter {
       font-weight: bold;
     }
     &:not(.labeled) {
-      counter-increment: be-prepared-math;
+      counter-increment: be-prepared;
     }
     &.labeled {
       counter-increment: none;
@@ -85,7 +85,7 @@ div.book div.chapter {
         color: #00000080;
         font-weight: normal;
         &::before {
-          content: "" "" counter(chapter, decimal) "." counter(be-prepared-math) " " "";;
+          content:counter(chapter, decimal) "." counter(be-prepared);
         }
     }
     div.exercise:not(.labeled) > .title > span:first-child:not(.labeled)::before {
