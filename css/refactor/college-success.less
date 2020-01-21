@@ -30,13 +30,22 @@
     }
 }
 
-.handle-eoc-sections(".section-summary", @eoc-summary-icon);
-.handle-eoc-sections(".career-connection", @eoc-case-study-icon);
-.handle-eoc-sections(".rethinking", @eoc-thoughtprovoker-icon);
-.handle-eoc-sections(".where-go",  @eoc-where-go-icon);
+.cnx-eoc.summary > .section > .title {
+    //this is stupid, but there is a style in eoc.less that prevents the section-title: false setting in the mixin below from working properly. Instead of changing the style that affects all titles using the business theme, I'm putting this here.
+    display: none !important;
+}
+
+.handle-eoc-sections(".summary", @eoc-summary-icon, @section-title: false);
+.handle-eoc-sections(".career-connection", @eoc-case-study-icon, @section-title: false);
+.handle-eoc-sections(".rethinking", @eoc-thoughtprovoker-icon, @section-title: false);
+.handle-eoc-sections(".where-go",  @eoc-where-go-icon, @section-title: false);
 .handle-eoc-sections(".multiple-choice", @eoc-multiplechoice-icon);
 
 div.chapter > div.titlepage > div div > h1.title::after {
     bottom: -17.5px;
     background: url("ccap-business/college-success-splash.svg") 0 0 no-repeat;
+}
+
+div.end-of-book-solutions, div.end-of-book-references {
+    display: none;
 }
