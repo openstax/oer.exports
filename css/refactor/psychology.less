@@ -53,8 +53,6 @@
  .title h2 { border: none; }
 }
 
-
-
 // Images in Psychology are 150DPI
 html {
   prince-image-resolution: 150dpi;
@@ -81,7 +79,6 @@ html {
 @import url('folio.less');
 
 div.book {
-  > div.chapter, 
   > div.chapter > div.section > div.section > div.table, 
   > div.chapter > div.section > div.section > div.section > div.table, 
   > div.chapter > div.section > div.table {
@@ -98,7 +95,12 @@ div.book {
       border-style: none;
       &::before {
         content: none !important;
+        page-break-before: avoid;
       }
     }
   }
+}
+
+div.colophon.end-of-book-solutions {
+    display: none !important;
 }
