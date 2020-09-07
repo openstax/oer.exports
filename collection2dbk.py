@@ -37,6 +37,22 @@ XINCLUDE_XPATH = etree.XPath('//xi:include', namespaces=util.NAMESPACES)
 # etree.XSLT does not allow returning just a text node so the XSLT wraps it in a <root/>
 PARAMS_XPATH = etree.XPath('/root[1]/text()[1]', namespaces=util.NAMESPACES)
 
+def load(p, collection_dir, temp_dir, verbose=False, svg2png=True, math2svg=True, reduce_quality=False):
+  collxml, modules, allFiles = util.loadCollection(collection_dir)
+
+  now = time.time()
+  dbk, newFiles = convert(p, collxml, modules, temp_dir, svg2png, math2svg, reduce_quality)
+  util.log(temp_dir, 'benchmark.txt',
+           'Converting collection to Docbook: %.1fs\n\n' % (time.time() - now,))
+
+  allFiles.update(newFiles)
+
+  if verbose:
+    with open(os.path.join(temp_dir, 'collection.dbk'), 'w') as f:
+      f.write(etree.tostring(dbk, pretty_print=True, encoding='utf-8', xml_declaration=True))
+
+  return dbk, allFiles, newFiles
+
 # Main method. Doing all steps for the Google Docs to CNXML transformation
 def convert(p, collxml, modulesDict, temp_dir, svg2png=True, math2svg=True, reduce_quality=False):
   """ Convert a collxml file (and dictionary of module info) to a Docbook file and dict of filename:bytes) """

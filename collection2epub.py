@@ -65,10 +65,7 @@ def main():
 
   p = util.Progress()
 
-  collxml, modules, allFiles = util.loadCollection(args.directory)
-  dbk, newFiles = collection2dbk.convert(p, collxml, modules, temp_dir, svg2png=True, math2svg=True, reduce_quality=args.reduce_quality)
-  allFiles.update(newFiles)
-
+  dbk, allFiles, newFiles = collection2dbk.load(p, args.directory, temp_dir, args.verbose, svg2png=True, math2svg=True, reduce_quality=args.reduce_quality)
   dbk, files = convert(dbk, allFiles, verbose=args.verbose)
 
   args.output.write(etree.tostring(dbk))

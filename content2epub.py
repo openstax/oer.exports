@@ -114,10 +114,7 @@ def main():
 
   elif args.content_type == 'collection':
     p = util.Progress()
-    collxml, modulesDict, allFiles = util.loadCollection(args.directory)
-
-    dbk, newFiles = collection2dbk.convert(p, collxml, modulesDict, temp_dir, svg2png=True, math2svg=True, reduce_quality=args.reduce_quality)
-    allFiles.update(newFiles)
+    dbk, allFiles, newFiles = collection2dbk.load(p, args.directory, temp_dir, svg2png=True, math2svg=True, reduce_quality=args.reduce_quality)
 
   else:
     print "Invalid content type. Must be one of ['module', 'collection']"

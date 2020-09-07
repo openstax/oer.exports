@@ -33,9 +33,7 @@ IMAGES_XPATH = etree.XPath('//c:*/@src[not(starts-with(.,"http:"))]', namespaces
 def __doStuff(dir, verbose=False):
   p = util.Progress()
   tempdir = mkdtemp(suffix='-fo2pdf')
-  collxml, modules, allFiles = util.loadCollection(dir)
-  dbk, newFiles = collection2dbk.convert(collxml, modules, svg2png=False, math2svg=True)
-  allFiles.update(newFiles)
+  dbk, allFiles = collection2dbk.load(p, dir, tempdir, verbose, svg2png=False, math2svg=True)
   return convert(p, dbk, allFiles, tempdir, verbose)
 
 def convert(p, dbk1, files, tempdir, verbose=False):

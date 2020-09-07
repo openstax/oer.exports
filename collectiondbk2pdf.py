@@ -49,16 +49,7 @@ def collection2pdf(collection_dir, print_style, output_pdf, pdfgen, temp_dir, ve
   collxml, modules, allFiles = util.loadCollection(collection_dir)
   
   p.start(1, 'Converting collection to Docbook')
-  # clear benchmark
-  if not os.path.exists(temp_dir):
-      os.makedirs(temp_dir)
-  util.log(temp_dir, 'benchmark.txt', '', mode='w')
-  now = time.time()
-  benchmark = []
-  dbk, newFiles = collection2dbk.convert(p, collxml, modules, temp_dir, svg2png=False, math2svg=True, reduce_quality=reduce_quality)
-  allFiles.update(newFiles)
-  util.log(temp_dir, 'benchmark.txt',
-           'Converting collection to Docbook: %.1fs\n\n' % (time.time() - now,))
+  dbk, allFiles = collection2dbk.load(p, collection_dir, temp_dir, verbose, svg2png=False, math2svg=True, reduce_quality=reduce_quality)
 
   p.tick('Converting Docbook to PDF')
   now = time.time()
