@@ -7,16 +7,10 @@ Copyright (c) 2013 Rice University
 
 import sys
 import os
-try:
-  import Image
-except:
-  from PIL import Image
 from StringIO import StringIO
-from tempfile import mkdtemp
 import subprocess
 
 from lxml import etree
-import urllib2
 
 import module2dbk
 import collection2dbk
@@ -24,7 +18,6 @@ import util
 
 
 here = os.path.abspath(os.path.dirname(__file__))
-BASE_PATH = os.getcwd()
 
 EMBED_FONTS = [
   'fonts/stix/STIXGeneral.ttf',

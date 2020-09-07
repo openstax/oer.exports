@@ -7,26 +7,14 @@ Copyright (c) 2013 Rice University
 
 import sys
 import os
-try:
-  import Image
-except:
-  from PIL import Image
-from StringIO import StringIO
-from tempfile import mkdtemp
-import subprocess
 
 from lxml import etree
-import urllib2
 
-import module2dbk
 import collection2dbk
 import util
 
 
-BASE_PATH = os.getcwd()
-
 # XSL files
-DOCBOOK2XHTML_XSL=util.makeXsl('dbk2epub.xsl')
 DOCBOOK_CLEANUP_XSL = util.makeXsl('dbk-clean-whole.xsl')
 
 

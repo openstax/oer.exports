@@ -8,21 +8,13 @@ Copyright (c) 2013 Rice University
 
 import sys
 import os
-try:
-  import Image
-except:
-  from PIL import Image
 import shutil
-from StringIO import StringIO
 from tempfile import mkdtemp
 import subprocess
-import shutil
 import time
 
 from lxml import etree
-import urllib2
 
-import module2dbk
 import collection2dbk
 import collection2xhtml
 import util
@@ -32,15 +24,6 @@ DEFAULT_PDFGEN_PATHS = ['/usr/bin/prince', '/usr/local/bin/prince']
 path = os.path.abspath(__file__)
 BASE_PATH = os.path.dirname(path)
 
-# XSL files
-DOCBOOK2XHTML_XSL = util.makeXsl('dbk2xhtml.xsl')
-DOCBOOK_CLEANUP_XSL = util.makeXsl('dbk-clean-whole.xsl')
-DEDUPSVG_XSL = util.makeXsl('xhtml-dedup-svg.xsl')
-DEDUPREFS_XSL = util.makeXsl('dedup-references.xsl')
-
-
-MODULES_XPATH = etree.XPath('//col:module/@document', namespaces=util.NAMESPACES)
-IMAGES_XPATH = etree.XPath('//c:*/@src[not(starts-with(.,"http:"))]', namespaces=util.NAMESPACES)
 
 def collection2pdf(collection_dir, print_style, output_pdf, pdfgen, temp_dir, verbose=False,reduce_quality=False):
 
@@ -58,40 +41,6 @@ def collection2pdf(collection_dir, print_style, output_pdf, pdfgen, temp_dir, ve
            'Converting Docbook to PDF: %.1fs\n' % (time.time() - now,))
 
   p.finish()
-  return stdErr
-
-def __doStuff(collection_dir, print_style):
-
-  output_pdf = '/dev/stdout'
-
-  pdfgen = _find_pdfgen()
-  if not pdfgen:
-    print >> sys.stderr, "No valid pdfgen script found. Specify one via the command line"
-    return 1
-
-  temp_dir = mkdtemp(suffix='-xhtml2pdf')
-  verbose = False
-
-  return collection2pdf(collection_dir, print_style, output_pdf, pdfgen, temp_dir, verbose)
-
-def __doStuffModule(moduleId, module_dir, printStyle):
-
-  pdfgen = _find_pdfgen()
-  if not pdfgen:
-    print >> sys.stderr, "No valid pdfgen script found. Specify one via the command line"
-    return 1
-
-  temp_dir = mkdtemp(suffix='-module-xhtml2pdf')
-  cnxml, files = util.loadModule(module_dir)
-  _, newFiles = module2dbk.convert(moduleId, cnxml, files, {}, temp_dir, svg2png=False, math2svg=True, reduce_quality=False) # Last arg is coll params
-  dbkFile = open(os.path.join(temp_dir, 'index.standalone.dbk'))
-  dbk = etree.parse(dbkFile)
-  allFiles = {}
-  allFiles.update(files)
-  allFiles.update(newFiles)
-
-  p = util.Progress()
-  stdErr = convert(p, dbk, allFiles, printStyle, temp_dir, '/dev/stdout', pdfgen)
   return stdErr
 
 def xhtml2pdf(xhtml_file, files, temp_dir, print_style, pdfgen, output_pdf, verbose=False):

@@ -44,14 +44,6 @@ def makeXsl(filename):
   xml = etree.parse(path)
   return etree.XSLT(xml)
 
-COLLXML_PARAMS = makeXsl('collxml-params.xsl')
-COLLXML2DOCBOOK_XSL = makeXsl('collxml2dbk.xsl')
-
-DOCBOOK_CLEANUP_XSL = makeXsl('dbk-clean-whole.xsl')
-DOCBOOK_NORMALIZE_PATHS_XSL = makeXsl('dbk2epub-normalize-paths.xsl')
-DOCBOOK_NORMALIZE_GLOSSARY_XSL = makeXsl('dbk-clean-whole-remove-duplicate-glossentry.xsl')
-
-
 
 NAMESPACES = {
   'xhtml':'http://www.w3.org/1999/xhtml',

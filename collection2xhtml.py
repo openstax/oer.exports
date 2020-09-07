@@ -2,32 +2,20 @@
 
 import sys
 import os
-try:
-  import Image
-except:
-  from PIL import Image
-from StringIO import StringIO
 from tempfile import mkdtemp
-import subprocess
 import time
 
 from lxml import etree
-import urllib2
 
-import module2dbk
 import collection2dbk
 import util
 
-BASE_PATH = os.getcwd()
 
 # XSL files
 DOCBOOK2XHTML_XSL=util.makeXsl('dbk2xhtml.xsl')
 DOCBOOK_CLEANUP_XSL = util.makeXsl('dbk-clean-whole.xsl')
 DEDUPSVG_XSL = util.makeXsl('xhtml-dedup-svg.xsl')
 DEDUPREFS_XSL = util.makeXsl('dedup-references.xsl')
-
-MODULES_XPATH = etree.XPath('//col:module/@document', namespaces=util.NAMESPACES)
-IMAGES_XPATH = etree.XPath('//c:*/@src[not(starts-with(.,"http:"))]', namespaces=util.NAMESPACES)
 
 
 def convert(p, dbk1, files, tempdir, verbose=False):

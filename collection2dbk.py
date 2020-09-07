@@ -7,20 +7,10 @@ Copyright (c) 2013 Rice University
 
 import sys
 import os
-try:
-  import Image
-except:
-  from PIL import Image
 from StringIO import StringIO
-from tempfile import mkstemp
 import time
-#try:
-#	import json
-#except KeyError:
-#	import simplejson as json
 
 from lxml import etree
-import urllib2
 
 import module2dbk
 import util
