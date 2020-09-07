@@ -24,6 +24,7 @@ import urllib2
 
 import module2dbk
 import collection2dbk
+import collection2xhtml
 import util
 
 DEFAULT_PDFGEN_PATHS = ['/usr/bin/prince', '/usr/local/bin/prince']
@@ -124,41 +125,10 @@ def xhtml2pdf(xhtml_file, files, temp_dir, print_style, pdfgen, output_pdf, verb
 def convert(p, dbk1, files, print_style, temp_dir, output_pdf, pdfgen, verbose=False):
   """ Converts a Docbook Element and a dictionary of files into a PDF. """
 
-  # Step 0 (Sprinkle in some index hints whenever terms are used)
-  # termsprinkler.py $DOCBOOK > $DOCBOOK2
-  if verbose:
-    open(os.path.join(temp_dir, 'temp-collection1.dbk'),'w').write(etree.tostring(dbk1,pretty_print=False))
+  xhtml, files = collection2xhtml.convert(p, dbk1, files, temp_dir, verbose)
 
-  p.start(3, 'Cleaning up Docbook')
-  # Step 1 (Cleaning up Docbook)
-  now = time.time()
-  dbk2 = util.transform(DOCBOOK_CLEANUP_XSL, dbk1)
-  if verbose:
-    open(os.path.join(temp_dir, 'temp-collection2.dbk'),'w').write(etree.tostring(dbk2,pretty_print=False))
-  util.log(temp_dir, 'benchmark.txt',
-           '  Cleaning up Docbook: %.1fs\n' % (time.time() - now,))
-
-  now = time.time()
-  p.tick('Converting Docbook to HTML')
-  # Step 2 (Docbook to XHTML)
   xhtml_file = os.path.join(temp_dir, 'collection.xhtml')
-  xhtml = util.transform(DOCBOOK2XHTML_XSL, dbk2)
-  util.log(temp_dir, 'benchmark.txt',
-           '  Converting Docbook to html: %.1fs\n' % (time.time() - now,))
-
-  now = time.time()
-  p.tick('Dedup SVGs')
-  xhtml_deduped = util.transform(DEDUPSVG_XSL, xhtml)
-  util.log(temp_dir, 'benchmark.txt',
-           '  Dedup SVGs: %.1fs\n' % (time.time() - now,))
-
-  now = time.time()
-  p.tick('Cleaning up references')
-  xhtml_dedupeder = util.transform(DEDUPREFS_XSL, xhtml_deduped)
-  util.log(temp_dir, 'benchmark.txt',
-           '  Cleaning up references: %.1fs\n' % (time.time() - now,))
-
-  open(xhtml_file,'w').write(etree.tostring(xhtml_dedupeder))
+  open(xhtml_file,'w').write(etree.tostring(xhtml))
 
   now = time.time()
   p.tick('Converting HTML to PDF')
