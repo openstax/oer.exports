@@ -17,8 +17,6 @@ import module2dbk
 import collection2dbk
 import util
 
-DEBUG= 'DEBUG' in os.environ
-
 BASE_PATH = os.getcwd()
 
 # XSL files
@@ -29,29 +27,29 @@ MODULES_XPATH = etree.XPath('//col:module/@document', namespaces=util.NAMESPACES
 IMAGES_XPATH = etree.XPath('//c:*/@src[not(starts-with(.,"http:"))]', namespaces=util.NAMESPACES)
 
 
-def __doStuff(dir):
+def __doStuff(dir, verbose=False):
   collxml, modules, allFiles = util.loadCollection(dir)
   dbk, newFiles = collection2dbk.convert(collxml, modules, svg2png=False, math2svg=True)
   allFiles.update(newFiles)
-  return convert(dbk, allFiles)
+  return convert(dbk, allFiles, verbose)
 
-def convert(dbk1, files):
+def convert(dbk1, files, verbose=False):
   """ Converts a Docbook Element and a dictionary of files into a PDF. """
   tempdir = mkdtemp(suffix='-fo2pdf')
 
   # Step 0 (Sprinkle in some index hints whenever terms are used)
   # termsprinkler.py $DOCBOOK > $DOCBOOK2
-  if DEBUG:
+  if verbose:
     open('temp-collection1.dbk','w').write(etree.tostring(dbk1,pretty_print=True))
 
   # Step 1 (Cleaning up Docbook)
   dbk2 = util.transform(DOCBOOK_CLEANUP_XSL, dbk1, tempdir=tempdir)
-  if DEBUG:
+  if verbose:
     open('temp-collection2.dbk','w').write(etree.tostring(dbk2,pretty_print=True))
 
   # Step 2 (Docbook to XHTML)
   xhtml = util.transform(DOCBOOK2XHTML_XSL, dbk2, tempdir=tempdir)
-  if DEBUG:
+  if verbose:
     open('temp-collection3.xhtml','w').write(etree.tostring(xhtml))
 
   return xhtml, files
@@ -62,10 +60,11 @@ def main():
     import argparse
     parser = argparse.ArgumentParser(description='Converts a a collection directory to an xhtml file and additional images')
     parser.add_argument('directory')
+    parser.add_argument('-v', dest='verbose', help='Print detailed messages and output debug files', action='store_true')
     parser.add_argument('-o', dest='output', nargs='?', type=argparse.FileType('w'), default=sys.stdout)
     args = parser.parse_args()
 
-    xhtml, files = __doStuff(args.directory)
+    xhtml, files = __doStuff(args.directory, verbose=args.verbose)
 
     args.output.write(etree.tostring(xhtml))
 

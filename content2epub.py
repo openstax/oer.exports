@@ -22,7 +22,6 @@ import module2dbk
 import collection2dbk
 import util
 
-DEBUG= 'DEBUG' in os.environ
 
 here = os.path.abspath(os.path.dirname(__file__))
 BASE_PATH = os.getcwd()
