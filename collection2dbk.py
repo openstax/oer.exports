@@ -37,14 +37,6 @@ XINCLUDE_XPATH = etree.XPath('//xi:include', namespaces=util.NAMESPACES)
 # etree.XSLT does not allow returning just a text node so the XSLT wraps it in a <root/>
 PARAMS_XPATH = etree.XPath('/root[1]/text()[1]', namespaces=util.NAMESPACES)
 
-def transform(xslDoc, xmlDoc):
-  """ Performs an XSLT transform and parses the <xsl:message /> text """
-  ret = xslDoc(xmlDoc)
-  for entry in xslDoc.error_log:
-    # TODO: Log the errors (and convert JSON to python) instead of just printing
-    print >> sys.stderr, entry.message.encode('utf-8')
-  return ret
-
 # Main method. Doing all steps for the Google Docs to CNXML transformation
 def convert(p, collxml, modulesDict, temp_dir, svg2png=True, math2svg=True, reduce_quality=False):
   """ Convert a collxml file (and dictionary of module info) to a Docbook file and dict of filename:bytes) """
@@ -60,7 +52,7 @@ def convert(p, collxml, modulesDict, temp_dir, svg2png=True, math2svg=True, redu
   collParams = {}
   for key, value in collParamsUnicode.items():
   	collParams[key.encode('utf-8')] = value
-  dbk1 = transform(COLLXML2DOCBOOK_XSL, collxml)
+  dbk1 = util.transform(COLLXML2DOCBOOK_XSL, collxml)
   benchmark_book.append('  COLLXML2DOCBOOK_XSL: %.1fs\n' % (
     time.time() - now,))
 
@@ -102,14 +94,14 @@ def convert(p, collxml, modulesDict, temp_dir, svg2png=True, math2svg=True, redu
 
   # Clean up image paths
   now = time.time()
-  dbk2 = transform(DOCBOOK_NORMALIZE_PATHS_XSL, dbk1)
+  dbk2 = util.transform(DOCBOOK_NORMALIZE_PATHS_XSL, dbk1)
   benchmark_book.append('  Clean up image paths: %.1fs\n' % (time.time() - now,))
 
   now = time.time()
-  dbk3 = transform(DOCBOOK_CLEANUP_XSL, dbk2)
+  dbk3 = util.transform(DOCBOOK_CLEANUP_XSL, dbk2)
   benchmark_book.append('  Docbook cleanup xsl: %.1fs\n' % (time.time() - now,))
   now = time.time()
-  dbk4 = transform(DOCBOOK_NORMALIZE_GLOSSARY_XSL, dbk3)
+  dbk4 = util.transform(DOCBOOK_NORMALIZE_GLOSSARY_XSL, dbk3)
   benchmark_book.append('  Docbook normalize glossary xsl: %.1fs\n'
                         % (time.time() - now))
 

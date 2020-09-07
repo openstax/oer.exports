@@ -126,12 +126,17 @@ def dbk2cover(dbk, filesDict, svg2pngFlag=True):
   else:
     return svg, newFiles
 
-def transform(xslDoc, xmlDoc):
+def transform(xslDoc, xmlDoc, tempdir=None):
   """ Performs an XSLT transform and parses the <xsl:message /> text """
-  ret = xslDoc(xmlDoc)
+  kwargs = {}
+
+  if tempdir is not None:
+    kwargs['cnx.tempdir.path'] = "'%s'" % tempdir
+
+  ret = xslDoc(xmlDoc, **kwargs)
   for entry in xslDoc.error_log:
     # TODO: Log the errors (and convert JSON to python) instead of just printing
-    print entry
+    print >> sys.stderr, entry.message.encode('utf-8')
   return ret
 
 

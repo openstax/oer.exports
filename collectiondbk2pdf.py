@@ -161,14 +161,6 @@ def xhtml2pdf(xhtml_file, files, temp_dir, print_style, pdfgen, output_pdf, verb
 def convert(p, dbk1, files, print_style, temp_dir, output_pdf, pdfgen, verbose=False):
   """ Converts a Docbook Element and a dictionary of files into a PDF. """
 
-  def transform(xslDoc, xmlDoc):
-    """ Performs an XSLT transform and parses the <xsl:message /> text """
-    ret = xslDoc(xmlDoc) # xslDoc(xmlDoc, **({'cnx.tempdir.path':"'%s'" % temp_dir}))
-    for entry in xslDoc.error_log:
-      # TODO: Log the errors (and convert JSON to python) instead of just printing
-      print >> sys.stderr, entry.message.encode('utf-8')
-    return ret
-
   # Step 0 (Sprinkle in some index hints whenever terms are used)
   # termsprinkler.py $DOCBOOK > $DOCBOOK2
   if verbose:
@@ -177,7 +169,7 @@ def convert(p, dbk1, files, print_style, temp_dir, output_pdf, pdfgen, verbose=F
   p.start(3, 'Cleaning up Docbook')
   # Step 1 (Cleaning up Docbook)
   now = time.time()
-  dbk2 = transform(DOCBOOK_CLEANUP_XSL, dbk1)
+  dbk2 = util.transform(DOCBOOK_CLEANUP_XSL, dbk1)
   if verbose:
     open(os.path.join(temp_dir, 'temp-collection2.dbk'),'w').write(etree.tostring(dbk2,pretty_print=False))
   util.log(temp_dir, 'benchmark.txt',
@@ -187,19 +179,19 @@ def convert(p, dbk1, files, print_style, temp_dir, output_pdf, pdfgen, verbose=F
   p.tick('Converting Docbook to HTML')
   # Step 2 (Docbook to XHTML)
   xhtml_file = os.path.join(temp_dir, 'collection.xhtml')
-  xhtml = transform(DOCBOOK2XHTML_XSL, dbk2)
+  xhtml = util.transform(DOCBOOK2XHTML_XSL, dbk2)
   util.log(temp_dir, 'benchmark.txt',
            '  Converting Docbook to html: %.1fs\n' % (time.time() - now,))
 
   now = time.time()
   p.tick('Dedup SVGs')
-  xhtml_deduped = transform(DEDUPSVG_XSL, xhtml)
+  xhtml_deduped = util.transform(DEDUPSVG_XSL, xhtml)
   util.log(temp_dir, 'benchmark.txt',
            '  Dedup SVGs: %.1fs\n' % (time.time() - now,))
 
   now = time.time()
   p.tick('Cleaning up references')
-  xhtml_dedupeder = transform(DEDUPREFS_XSL, xhtml_deduped)
+  xhtml_dedupeder = util.transform(DEDUPREFS_XSL, xhtml_deduped)
   util.log(temp_dir, 'benchmark.txt',
            '  Cleaning up references: %.1fs\n' % (time.time() - now,))
 

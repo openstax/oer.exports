@@ -78,26 +78,18 @@ def convert(dbk1, files):
   """ Converts a Docbook Element and a dictionary of files into a PDF. """
   tempdir = mkdtemp(suffix='-fo2pdf')
 
-  def transform(xslDoc, xmlDoc):
-    """ Performs an XSLT transform and parses the <xsl:message /> text """
-    ret = xslDoc(xmlDoc, **({'cnx.tempdir.path':"'%s'" % tempdir}))
-    for entry in xslDoc.error_log:
-      # TODO: Log the errors (and convert JSON to python) instead of just printing
-      print >> sys.stderr, entry.message.encode('utf-8')
-    return ret
-
   # Step 0 (Sprinkle in some index hints whenever terms are used)
   # termsprinkler.py $DOCBOOK > $DOCBOOK2
   if DEBUG:
     open('temp-collection1.dbk','w').write(etree.tostring(dbk1,pretty_print=True))
 
   # Step 1 (Cleaning up Docbook)
-  dbk2 = transform(DOCBOOK_CLEANUP_XSL, dbk1)
+  dbk2 = util.transform(DOCBOOK_CLEANUP_XSL, dbk1, tempdir=tempdir)
   if DEBUG:
     open('temp-collection2.dbk','w').write(etree.tostring(dbk2,pretty_print=True))
 
   # Step 2 (Docbook to XHTML)
-  xhtml = transform(DOCBOOK2XHTML_XSL, dbk2)
+  xhtml = util.transform(DOCBOOK2XHTML_XSL, dbk2, tempdir=tempdir)
   if DEBUG:
     open('temp-collection3.xhtml','w').write(etree.tostring(xhtml))
 

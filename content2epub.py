@@ -53,14 +53,6 @@ def convert(dbk1, temp_dir, cssFile, xslFile, epubFile):
         out.append(item)
     return out
 
-  def transform(xslDoc, xmlDoc):
-    """ Performs an XSLT transform and parses the <xsl:message /> text """
-    ret = xslDoc(xmlDoc) # , **({'cnx.tempdir.path':"'%s'" % tempdir}))    Don't set the tempdir. We don't need it
-    for entry in xslDoc.error_log:
-      # TODO: Log the errors (and convert JSON to python) instead of just printing
-      print >> sys.stderr, entry.message.encode('utf-8')
-    return ret
-
   # Step 1 (Convert Docbook to EPUB HTML)
   # The epub script will generate HTML files in temp_dir
   # It will not return anything

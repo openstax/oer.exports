@@ -34,21 +34,13 @@ DOCBOOK_CLEANUP_XSL = util.makeXsl('dbk-clean-whole.xsl')
 def convert(dbk1, files):
   """ Converts a Docbook Element and a dictionary of files into a PDF. """
 
-  def transform(xslDoc, xmlDoc):
-    """ Performs an XSLT transform and parses the <xsl:message /> text """
-    ret = xslDoc(xmlDoc) # , **({'cnx.tempdir.path':"'%s'" % tempdir}))    Don't set the tempdir. We don't need it
-    for entry in xslDoc.error_log:
-      # TODO: Log the errors (and convert JSON to python) instead of just printing
-      print >> sys.stderr, entry.message.encode('utf-8')
-    return ret
-
   # Step 0 (Sprinkle in some index hints whenever terms are used)
   # termsprinkler.py $DOCBOOK > $DOCBOOK2
   if DEBUG:
     open('temp-collection1.dbk','w').write(etree.tostring(dbk1,pretty_print=True))
 
   # Step 1 (Cleaning up Docbook)
-  dbk2 = transform(DOCBOOK_CLEANUP_XSL, dbk1)
+  dbk2 = util.transform(DOCBOOK_CLEANUP_XSL, dbk1)
   if DEBUG:
     open('temp-collection2.dbk','w').write(etree.tostring(dbk2,pretty_print=True))
 
