@@ -30,22 +30,7 @@ IMAGES_XPATH = etree.XPath('//c:*/@src[not(starts-with(.,"http:"))]', namespaces
 
 
 def __doStuff(dir):
-  collxml = etree.parse(os.path.join(dir, 'collection.xml'))
-
-  moduleIds = MODULES_XPATH(collxml)
-
-  modules = {} # {'m1000': (etree.Element, {'file.jpg':'23947239874'})}
-  allFiles = {}
-  for moduleId in moduleIds:
-    print >> sys.stderr, "LOG: Starting on %s" % (moduleId)
-    moduleDir = os.path.join(dir, moduleId)
-    if os.path.isdir(moduleDir):
-      cnxml, files = util.loadModule(moduleDir)
-      for f in files:
-        allFiles[os.path.join(moduleId, f)] = files[f]
-
-      modules[moduleId] = (cnxml, files)
-
+  collxml, modules, allFiles = util.loadCollection(dir)
   dbk, newFiles = collection2dbk.convert(collxml, modules, svg2png=False, math2svg=True)
   allFiles.update(newFiles)
   return convert(dbk, allFiles)

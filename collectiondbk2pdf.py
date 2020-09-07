@@ -45,21 +45,8 @@ def collection2pdf(collection_dir, print_style, output_pdf, pdfgen, temp_dir, ve
 
   p = util.Progress()
 
-  collxml = etree.parse(os.path.join(collection_dir, 'collection.xml'))
-
-  moduleIds = MODULES_XPATH(collxml)
-
-  modules = {} # {'m1000': (etree.Element, {'file.jpg':'23947239874'})}
-  allFiles = {}
-  for moduleId in moduleIds:
-    moduleDir = os.path.join(collection_dir, moduleId)
-    if os.path.isdir(moduleDir):
-      cnxml, files = util.loadModule(moduleDir)
-      for f in files:
-        allFiles[os.path.join(moduleId, f)] = files[f]
-
-      modules[moduleId] = (cnxml, files)
-
+  collxml, modules, allFiles = util.loadCollection(collection_dir)
+  
   p.start(1, 'Converting collection to Docbook')
   # clear benchmark
   if not os.path.exists(temp_dir):
