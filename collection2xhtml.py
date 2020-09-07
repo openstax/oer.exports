@@ -1,4 +1,4 @@
-# python -c "import collectiondbk2pdf; print collectiondbk2pdf.__doStuff('./tests', 'modern-textbook');" > result.pdf
+# python collection2xhtml.py -d ./test-ccap result.xhtml
 
 import sys
 import os
@@ -29,12 +29,6 @@ DEDUPREFS_XSL = util.makeXsl('dedup-references.xsl')
 MODULES_XPATH = etree.XPath('//col:module/@document', namespaces=util.NAMESPACES)
 IMAGES_XPATH = etree.XPath('//c:*/@src[not(starts-with(.,"http:"))]', namespaces=util.NAMESPACES)
 
-
-def __doStuff(dir, verbose=False):
-  p = util.Progress()
-  tempdir = mkdtemp(suffix='-fo2pdf')
-  dbk, allFiles = collection2dbk.load(p, dir, tempdir, verbose, svg2png=False, math2svg=True)
-  return convert(p, dbk, allFiles, tempdir, verbose)
 
 def convert(p, dbk1, files, tempdir, verbose=False):
   """ Converts a Docbook Element and a dictionary of files into a PDF. """
@@ -78,18 +72,43 @@ def convert(p, dbk1, files, tempdir, verbose=False):
 def main():
   try:
     import argparse
-    parser = argparse.ArgumentParser(description='Converts a a collection directory to an xhtml file and additional images')
-    parser.add_argument('directory')
-    parser.add_argument('-v', dest='verbose', help='Print detailed messages and output debug files', action='store_true')
-    parser.add_argument('-o', dest='output', nargs='?', type=argparse.FileType('w'), default=sys.stdout)
-    args = parser.parse_args()
-
-    xhtml, files = __doStuff(args.directory, verbose=args.verbose)
-
-    args.output.write(etree.tostring(xhtml))
-
   except ImportError:
     print "argparse is needed for commandline"
+    return 1
+
+  parser = argparse.ArgumentParser(description='Converts a a collection directory to an xhtml file and additional images')
+  parser.add_argument('-v', dest='verbose', help='Print detailed messages and output debug files', action='store_true')
+  parser.add_argument('-d', dest='collection_dir', help='Path to an unzipped collection', required=True)
+  parser.add_argument('-t', dest='temp_dir', help='Path to store temporary files to (default is a temp dir that will be removed)', nargs='?')
+  parser.add_argument('-r', dest='reduce_quality', help='Reduce image quality', action='store_true')
+  parser.add_argument('output_xhtml', help='Path to write the XHTML file', nargs='?', type=argparse.FileType('w'), default=sys.stdout)
+  args = parser.parse_args()
+
+  if not os.path.isdir(args.collection_dir) or not os.path.isfile(os.path.join(args.collection_dir, 'collection.xml')):
+    print >> sys.stderr, "collection_dir Must point to a directory containing a collection.xml file"
+    return 1
+
+  # Choose a temp dir
+  delete_temp_dir = False
+  temp_dir = args.temp_dir
+  if not temp_dir:
+    temp_dir = mkdtemp(suffix='-xhtml2pdf')
+    delete_temp_dir = True
+
+  p = util.Progress()
+
+  p.start(1, 'Converting collection to Docbook')
+  dbk, files, newFiles = collection2dbk.load(p, args.collection_dir, temp_dir, verbose=args.verbose, reduce_quality=args.reduce_quality)
+
+  p.tick('Converting Docbook to XHTML')
+  xhtml, files = convert(p, dbk, files, temp_dir, verbose=args.verbose)
+
+  args.output_xhtml.write(etree.tostring(xhtml))
+
+  p.finish()
+
+  if delete_temp_dir:
+    shutil.rmtree(temp_dir)
 
 if __name__ == '__main__':
     sys.exit(main())

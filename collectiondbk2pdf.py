@@ -49,7 +49,7 @@ def collection2pdf(collection_dir, print_style, output_pdf, pdfgen, temp_dir, ve
   collxml, modules, allFiles = util.loadCollection(collection_dir)
   
   p.start(1, 'Converting collection to Docbook')
-  dbk, allFiles = collection2dbk.load(p, collection_dir, temp_dir, verbose, svg2png=False, math2svg=True, reduce_quality=reduce_quality)
+  dbk, allFiles, newFiles = collection2dbk.load(p, collection_dir, temp_dir, verbose, svg2png=False, math2svg=True, reduce_quality=reduce_quality)
 
   p.tick('Converting Docbook to PDF')
   now = time.time()
