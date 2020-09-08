@@ -6,6 +6,8 @@
 
 <xsl:param name="index.on.type" select="1"/>
 
+<xsl:param name="cnx.math2svg" select="1"/>
+
 <!-- This dir is "." for PDFs but "content" for EPUBs -->
 <xsl:param name="base.dir" select="''"/>
 

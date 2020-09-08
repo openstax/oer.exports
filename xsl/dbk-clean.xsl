@@ -48,13 +48,31 @@
 
 
 <xsl:template match="db:inlinemediaobject[.//mml:math and not(.//svg:svg)]">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Inline MathML Not converted</xsl:with-param></xsl:call-template>
-	<xsl:text>[ERROR: MathML not converted]</xsl:text>
+	<xsl:choose>
+		<xsl:when test="$cnx.math2svg">
+			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Inline MathML Not converted</xsl:with-param></xsl:call-template>
+			<xsl:text>[ERROR: MathML not converted]</xsl:text>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:copy>
+				<xsl:apply-templates select="@*|node()"/>
+			</xsl:copy>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 <xsl:template match="db:mediaobject[.//mml:math and not(.//svg:svg)]">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: MathML Not converted</xsl:with-param></xsl:call-template>
-	<db:para>[ERROR: MathML not converted]</db:para>
+	<xsl:choose>
+		<xsl:when test="$cnx.math2svg">
+			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: MathML Not converted</xsl:with-param></xsl:call-template>
+			<db:para>[ERROR: MathML not converted]</db:para>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:copy>
+				<xsl:apply-templates select="@*|node()"/>
+			</xsl:copy>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 

@@ -7,20 +7,10 @@ Copyright (c) 2013 Rice University
 
 import sys
 import os
-try:
-  import Image
-except:
-  from PIL import Image
 from StringIO import StringIO
-from tempfile import mkstemp
 import time
-#try:
-#	import json
-#except KeyError:
-#	import simplejson as json
 
 from lxml import etree
-import urllib2
 
 import module2dbk
 import util
@@ -37,13 +27,21 @@ XINCLUDE_XPATH = etree.XPath('//xi:include', namespaces=util.NAMESPACES)
 # etree.XSLT does not allow returning just a text node so the XSLT wraps it in a <root/>
 PARAMS_XPATH = etree.XPath('/root[1]/text()[1]', namespaces=util.NAMESPACES)
 
-def transform(xslDoc, xmlDoc):
-  """ Performs an XSLT transform and parses the <xsl:message /> text """
-  ret = xslDoc(xmlDoc)
-  for entry in xslDoc.error_log:
-    # TODO: Log the errors (and convert JSON to python) instead of just printing
-    print >> sys.stderr, entry.message.encode('utf-8')
-  return ret
+def load(p, collection_dir, temp_dir, verbose=False, svg2png=True, math2svg=True, reduce_quality=False):
+  collxml, modules, allFiles = util.loadCollection(collection_dir)
+
+  now = time.time()
+  dbk, newFiles = convert(p, collxml, modules, temp_dir, svg2png, math2svg, reduce_quality)
+  util.log(temp_dir, 'benchmark.txt',
+           'Converting collection to Docbook: %.1fs\n\n' % (time.time() - now,))
+
+  allFiles.update(newFiles)
+
+  if verbose:
+    with open(os.path.join(temp_dir, 'collection.dbk'), 'w') as f:
+      f.write(etree.tostring(dbk, pretty_print=True, encoding='utf-8', xml_declaration=True))
+
+  return dbk, allFiles, newFiles
 
 # Main method. Doing all steps for the Google Docs to CNXML transformation
 def convert(p, collxml, modulesDict, temp_dir, svg2png=True, math2svg=True, reduce_quality=False):
@@ -60,7 +58,7 @@ def convert(p, collxml, modulesDict, temp_dir, svg2png=True, math2svg=True, redu
   collParams = {}
   for key, value in collParamsUnicode.items():
   	collParams[key.encode('utf-8')] = value
-  dbk1 = transform(COLLXML2DOCBOOK_XSL, collxml)
+  dbk1 = util.transform(COLLXML2DOCBOOK_XSL, collxml)
   benchmark_book.append('  COLLXML2DOCBOOK_XSL: %.1fs\n' % (
     time.time() - now,))
 
@@ -102,14 +100,14 @@ def convert(p, collxml, modulesDict, temp_dir, svg2png=True, math2svg=True, redu
 
   # Clean up image paths
   now = time.time()
-  dbk2 = transform(DOCBOOK_NORMALIZE_PATHS_XSL, dbk1)
+  dbk2 = util.transform(DOCBOOK_NORMALIZE_PATHS_XSL, dbk1)
   benchmark_book.append('  Clean up image paths: %.1fs\n' % (time.time() - now,))
 
   now = time.time()
-  dbk3 = transform(DOCBOOK_CLEANUP_XSL, dbk2)
+  dbk3 = util.transform(DOCBOOK_CLEANUP_XSL, dbk2)
   benchmark_book.append('  Docbook cleanup xsl: %.1fs\n' % (time.time() - now,))
   now = time.time()
-  dbk4 = transform(DOCBOOK_NORMALIZE_GLOSSARY_XSL, dbk3)
+  dbk4 = util.transform(DOCBOOK_NORMALIZE_GLOSSARY_XSL, dbk3)
   benchmark_book.append('  Docbook normalize glossary xsl: %.1fs\n'
                         % (time.time() - now))
 
