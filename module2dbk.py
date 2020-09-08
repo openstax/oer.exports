@@ -276,7 +276,11 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
     #  return (filesDict['index.included.dbk'], {})
     #print >> sys.stderr, "LOG: Working on Module %s" % moduleId
     # params are XPaths so strings need to be quoted
-    params = {'cnx.module.id': "'%s'" % moduleId, 'cnx.svg.chunk': 'false'}
+    params = {
+        'cnx.module.id': "'%s'" % moduleId, 
+        'cnx.svg.chunk': 'false',
+        'cnx.math2svg': '1' if math2svg else '0',
+    }
     params.update(collParams)
 
     def expand_exercises(xml, files, **params):
@@ -427,7 +431,7 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
 
         return xml, newFiles2, [] # xml, newFiles, log messages
 
-    PIPELINE = [
+    PIPELINE = list(filter(bool, [
       makeTransformReparseAfter('cnxml-clean.xsl'),
       makeTransform('cnxml-clean-math.xsl'),
       # Have to run the cleanup twice because we remove empty mml:mo,
@@ -435,15 +439,15 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
       # See m21903
       makeTransform('cnxml-clean-math.xsl'),
       expand_exercises,  # Fetch exercises and convert contained latex math
-      makeTransform('cnxml-clean-math-simplify.xsl'),   # Convert "simple" MathML to cnxml
+      makeTransform('cnxml-clean-math-simplify.xsl') if math2svg else None,   # Convert "simple" MathML to cnxml
       makeTransform('cnxml2dbk.xsl'),   # Convert to docbook
-      mathml2svg,
+      mathml2svg if math2svg else None,
       makeTransform('dbk-clean.xsl'),
       imageResize, # Resizing is done before svg2png because svg2png uses a reduced color depth
       svg2pngTransform,
       makeTransform('dbk-svg2png.xsl'), # Clean up the image attributes
       # dbk2xhtml,
-    ]
+    ]))
 
     newFiles = {}
     origAndNewFiles = {}
