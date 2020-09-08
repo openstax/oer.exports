@@ -69,6 +69,7 @@ def main():
   parser.add_argument('-d', dest='collection_dir', help='Path to an unzipped collection', required=True)
   parser.add_argument('-t', dest='temp_dir', help='Path to store temporary files to (default is a temp dir that will be removed)', nargs='?')
   parser.add_argument('-r', dest='reduce_quality', help='Reduce image quality', action='store_true')
+  parser.add_argument('--math2svg', type=util.str2bool, default=True, help="Transform MathML to SVG using pmml2svg")
   parser.add_argument('output_xhtml', help='Path to write the XHTML file', nargs='?', type=argparse.FileType('w'), default=sys.stdout)
   args = parser.parse_args()
 
@@ -86,7 +87,7 @@ def main():
   p = util.Progress()
 
   p.start(1, 'Converting collection to Docbook')
-  dbk, files, newFiles = collection2dbk.load(p, args.collection_dir, temp_dir, verbose=args.verbose, reduce_quality=args.reduce_quality)
+  dbk, files, newFiles = collection2dbk.load(p, args.collection_dir, temp_dir, verbose=args.verbose, math2svg=args.math2svg, reduce_quality=args.reduce_quality)
 
   p.tick('Converting Docbook to XHTML')
   xhtml, files = convert(p, dbk, files, temp_dir, verbose=args.verbose)
