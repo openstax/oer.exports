@@ -210,4 +210,24 @@ xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/"
     <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding md:version since it is set to "<xsl:value-of select="text()"/>"</xsl:with-param></xsl:call-template>
 </xsl:template>
 
+<!-- Ensure mml:math in c:equation is always display="block" -->
+<xsl:template match="c:equation/mml:math[not(@display)]">
+    <xsl:copy>
+        <xsl:attribute name="display">
+            <xsl:text>block</xsl:text>
+        </xsl:attribute>
+        <xsl:apply-templates select="@*|node()"/>
+    </xsl:copy>
+</xsl:template>
+
+<!-- Ensure mml:math in c:para is always display="inline" -->
+<xsl:template match="c:para/mml:math[not(@display)]">
+    <xsl:copy>
+        <xsl:attribute name="display">
+            <xsl:text>inline</xsl:text>
+        </xsl:attribute>
+        <xsl:apply-templates select="@*|node()"/>
+    </xsl:copy>
+</xsl:template>
+
 </xsl:stylesheet>
