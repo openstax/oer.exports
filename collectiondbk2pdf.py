@@ -25,14 +25,14 @@ path = os.path.abspath(__file__)
 BASE_PATH = os.path.dirname(path)
 
 
-def collection2pdf(collection_dir, print_style, output_pdf, pdfgen, temp_dir, verbose=False,reduce_quality=False):
+def collection2pdf(collection_dir, print_style, output_pdf, pdfgen, temp_dir, verbose=False, math2svg=True, reduce_quality=False):
 
   p = util.Progress()
 
   collxml, modules, allFiles = util.loadCollection(collection_dir)
   
   p.start(1, 'Converting collection to Docbook')
-  dbk, allFiles, newFiles = collection2dbk.load(p, collection_dir, temp_dir, verbose, svg2png=False, math2svg=True, reduce_quality=reduce_quality)
+  dbk, allFiles, newFiles = collection2dbk.load(p, collection_dir, temp_dir, verbose, svg2png=False, math2svg=math2svg, reduce_quality=reduce_quality)
 
   p.tick('Converting Docbook to PDF')
   now = time.time()
@@ -107,6 +107,7 @@ def main(argv=None):
     parser.add_argument('-p', dest='pdfgen', help='Path to a PDF generation script', nargs='?', type=argparse.FileType('r'))
     parser.add_argument('-t', dest='temp_dir', help='Path to store temporary files to (default is a temp dir that will be removed)', nargs='?')
     parser.add_argument('-r', dest='reduce_quality', help='Reduce image quality', action='store_true')
+    parser.add_argument('--math2svg', type=util.str2bool, default=True, help="Transform MathML to SVG using pmml2svg")
     parser.add_argument('output_pdf', help='Path to write the PDF file', nargs='?', type=argparse.FileType('w'), default=sys.stdout)
     args = parser.parse_args(argv)
 
@@ -138,7 +139,7 @@ def main(argv=None):
     else:
       output_pdf = os.path.abspath(args.output_pdf.name)
 
-    stdErr = collection2pdf(args.collection_dir, args.print_style, output_pdf, pdfgen, temp_dir, args.verbose, args.reduce_quality)
+    stdErr = collection2pdf(args.collection_dir, args.print_style, output_pdf, pdfgen, temp_dir, args.verbose, args.math2svg, args.reduce_quality)
 
     if delete_temp_dir:
       shutil.rmtree(temp_dir)

@@ -221,3 +221,12 @@ class Progress(object):
     if len(msg) > 1:
       msg = msg[1:]
     print >> sys.stderr, "STATUS: %3.2f%% %s" % (percent * 100, ': '.join(msg))
+
+
+def str2bool(v):
+  if v.lower() in ['yes', 'true', 'y', 't']:
+    return True
+  if v.lower() in ['no', 'false', 'n', 'f']:
+    return False
+  import argparse
+  raise argparse.ArgumentTypeError('boolean value expected')
