@@ -68,7 +68,7 @@ def convert(p, dbk1, files, print_style, temp_dir, output_pdf, pdfgen, verbose=F
   xhtml, files = collection2xhtml.convert(p, dbk1, files, temp_dir, verbose)
 
   xhtml_file = os.path.join(temp_dir, 'collection.xhtml')
-  open(xhtml_file,'w').write(etree.tostring(xhtml))
+  open(xhtml_file,'w').write(etree.tostring(xhtml, encoding='utf-8', xml_declaration=True))
 
   now = time.time()
   p.tick('Converting HTML to PDF')

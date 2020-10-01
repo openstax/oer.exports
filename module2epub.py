@@ -56,7 +56,7 @@ def convert(dbk1, temp_dir, cssFile, epubFile):
   DBK_FILE = os.path.join(temp_dir, DBK_FILE_NAME)
 
   f = open(DBK_FILE, 'w')
-  f.write(etree.tostring(dbk1))
+  f.write(etree.tostring(dbk1, encoding='utf-8', xml_declaration=True))
   f.close()
 
   strCmd = ['--stylesheet', DBK_TO_HTML_XSL_PATH, '-c', cssFile, EMBED_FONT_ARGS, '-o', epubFile, '-d', DBK_FILE]

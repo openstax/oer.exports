@@ -223,7 +223,7 @@ def exercise_callback_factory(match, url_template, token=None, mml_url=None):
                 nodes = etree.fromstring('<div>%s</div>' % (html))
             except etree.XMLSyntaxError:  # Probably HTML - convert
                 body = etree.HTML(html)[0]
-                nodes = etree.fromstring(etree.tostring(body))
+                nodes = etree.fromstring(etree.tostring(body, encoding='utf-8', xml_declaration=True))
 
             if mml_url:
                 for node in nodes.xpath('//*[@data-math]'):
@@ -474,7 +474,7 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
     now = time.time()
     # Create a standalone db:book file for the module
     dbkStandalone = DOCBOOK_BOOK_XSL(xml)
-    newFiles['index.standalone.dbk'] = etree.tostring(dbkStandalone)
+    newFiles['index.standalone.dbk'] = etree.tostring(dbkStandalone, encoding='utf-8', xml_declaration=True)
     # uncomment this to write out individual docbook module files
     #with open(os.path.join(temp_dir,'%s.dbk' % moduleId), 'w') as f:
     #  f.write(newFiles['index.standalone.dbk'])
@@ -483,7 +483,7 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
     else:
         benchmark['standalone db:book file'] = time.time() - now
 
-    return etree.tostring(xml), newFiles
+    return etree.tostring(xml, encoding='utf-8', xml_declaration=True), newFiles
 
 
 EXERCISE_TEMPLATE = jinja2.Template("""\

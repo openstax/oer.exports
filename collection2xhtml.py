@@ -24,14 +24,14 @@ def convert(p, dbk1, files, tempdir, verbose=False):
   # Step 0 (Sprinkle in some index hints whenever terms are used)
   # termsprinkler.py $DOCBOOK > $DOCBOOK2
   if verbose:
-    open(os.path.join(tempdir, 'temp-collection1.dbk'),'w').write(etree.tostring(dbk1,pretty_print=False))
+    open(os.path.join(tempdir, 'temp-collection1.dbk'),'w').write(etree.tostring(dbk1,pretty_print=False,encoding='utf-8',xml_declaration=True))
 
   p.start(3, 'Cleaning up Docbook')
   # Step 1 (Cleaning up Docbook)
   now = time.time()
   dbk2 = util.transform(DOCBOOK_CLEANUP_XSL, dbk1)
   if verbose:
-    open(os.path.join(tempdir, 'temp-collection2.dbk'),'w').write(etree.tostring(dbk2,pretty_print=False))
+    open(os.path.join(tempdir, 'temp-collection2.dbk'),'w').write(etree.tostring(dbk2,pretty_print=False,encoding='utf-8',xml_declaration=True))
   util.log(tempdir, 'benchmark.txt',
            '  Cleaning up Docbook: %.1fs\n' % (time.time() - now,))
 
@@ -92,7 +92,7 @@ def main():
   p.tick('Converting Docbook to XHTML')
   xhtml, files = convert(p, dbk, files, temp_dir, verbose=args.verbose)
 
-  args.output_xhtml.write(etree.tostring(xhtml))
+  args.output_xhtml.write(etree.tostring(xhtml, encoding='utf-8', xml_declaration=True))
 
   p.finish()
 
