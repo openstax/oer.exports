@@ -44,14 +44,6 @@ def makeXsl(filename):
   xml = etree.parse(path)
   return etree.XSLT(xml)
 
-COLLXML_PARAMS = makeXsl('collxml-params.xsl')
-COLLXML2DOCBOOK_XSL = makeXsl('collxml2dbk.xsl')
-
-DOCBOOK_CLEANUP_XSL = makeXsl('dbk-clean-whole.xsl')
-DOCBOOK_NORMALIZE_PATHS_XSL = makeXsl('dbk2epub-normalize-paths.xsl')
-DOCBOOK_NORMALIZE_GLOSSARY_XSL = makeXsl('dbk-clean-whole-remove-duplicate-glossentry.xsl')
-
-
 
 NAMESPACES = {
   'xhtml':'http://www.w3.org/1999/xhtml',
@@ -126,12 +118,17 @@ def dbk2cover(dbk, filesDict, svg2pngFlag=True):
   else:
     return svg, newFiles
 
-def transform(xslDoc, xmlDoc):
+def transform(xslDoc, xmlDoc, tempdir=None):
   """ Performs an XSLT transform and parses the <xsl:message /> text """
-  ret = xslDoc(xmlDoc)
+  kwargs = {}
+
+  if tempdir is not None:
+    kwargs['cnx.tempdir.path'] = "'%s'" % tempdir
+
+  ret = xslDoc(xmlDoc, **kwargs)
   for entry in xslDoc.error_log:
     # TODO: Log the errors (and convert JSON to python) instead of just printing
-    print entry
+    print >> sys.stderr, entry.message.encode('utf-8')
   return ret
 
 

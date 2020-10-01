@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 install_requires = (
     'lxml',
     'argparse',
-    'pillow',
+    'pillow==6.2.2',
 #    'numpy',
     'wand',
     'python-memcached',
