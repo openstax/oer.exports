@@ -171,9 +171,9 @@
 
   <xsl:template match="db:tgroup">
     <!-- Only bother to do this if there are colwidth attributes specified. -->
-    <xsl:call-template name="IdCheck"/>
     <xsl:if test="db:colspec/@colwidth or child::*/db:colspec/@colwidth">
       <colgroup>
+        <xsl:call-template name="IdCheck"/>
         <xsl:call-template name="col.maker"/>
       </colgroup>
     </xsl:if>
