@@ -8,11 +8,6 @@
 .tables(@tables);
 
 @cnx-string-chapter: "Chapter";
-@cnx-string-introduction: "Introduction";
-@cnx-string-chapter-outline: "Chapter Outline";
-@cnx-string-learning-objectives: "Learning Objectives";
-@cnx-string-key-equations: "Key Equations";
-@cnx-string-key-concepts: "Key Concepts";
 
 .x-solutions-subheading-style() {
   color: black;
@@ -97,7 +92,7 @@
   #introduction {
     #title {
       .style(...) {
-        content: @cnx-string-introduction;
+        #l10n>.content-string(introduction; page-title);
         color: @red;
         border-bottom-color: @orange;
         border-bottom-width: 1px;
@@ -144,7 +139,7 @@
           padding-bottom: .2em;
           #utils>#pb>.after(avoid);
           #utils>#pb>.before(avoid);
-          content: @cnx-string-chapter-outline;
+          #l10n>.content-string(chapter-outline; page-title);
         }
       }
       #entry {
@@ -242,7 +237,7 @@
       }
       #title {
         .style(...) {
-          content: @cnx-string-learning-objectives;
+          #l10n>.content-string(learning-objectives; page-title);
           border-bottom-color: @orange;
           font: normal normal 700 10pt @font-family-sans-serif;
           margin-bottom: .5em;
@@ -381,8 +376,8 @@
       .style('critical-thinking') { display: inline; }
       #title {
         .style() {
-          content: "Answer Key";
-          string-set: cnx-header "Answer Key";
+          #l10n>.content-string(answer-key; page-title);
+          #l10n>.named-string(cnx-header; answer-key; page-title);
           margin-left: 0; // reset precalc margin.
           margin-top: 0;
           margin-bottom: .5em;
@@ -440,7 +435,7 @@
       }
      #title {
         .style(...) { //colophon titles are passed as h1's by default by docbook override properties here
-          string-set: cnx-header "References";
+          #l10n>.named-string(cnx-header; references; page-title);
            //font-size: x-large;
            font-weight: bold;
           background-color: transparent;
@@ -677,7 +672,7 @@
         #title {
       .style(...) {}
       .style(any; any; exercise; example) {
-        content: "Solution";
+        #l10n>.content-string(solution; solution-title);
         font-family: @font-family;
         font-size: 10pt;
         color: @dark-blue;
@@ -926,8 +921,7 @@
     }
     #title {
       .style(...) {
-        /* Change "Glossary" to "Key Terms" */
-        content: "Key Terms";
+        #l10n>.content-string(key-terms; page-title);
         color: @red !important;
         font-size: 12pt !important;
         font-weight: bold;
