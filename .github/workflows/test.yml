@@ -1,0 +1,26 @@
+name: Check-CSS-Diff
+
+on: push
+
+jobs: 
+  check-css-diff:
+    name: Check PR for CSS changes
+    runs-on: ubuntu-latest
+
+    steps: 
+      - name: checkout code 
+        uses: actions/checkout@v2 
+
+      - name: Use Node.js 10.48
+        uses: actions/setup-node@v1
+        with: 
+          node-version: '0.10.48'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Compile CSS and check diff
+        run: |
+          grunt compile
+          ./tools/check-diff.sh
+
