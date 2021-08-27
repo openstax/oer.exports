@@ -7,25 +7,17 @@ Copyright (c) 2013 Rice University
 
 import sys
 import os
-try:
-  import Image
-except:
-  from PIL import Image
 from StringIO import StringIO
-from tempfile import mkdtemp
 import subprocess
 
 from lxml import etree
-import urllib2
 
 import module2dbk
 import collection2dbk
 import util
 
-DEBUG= 'DEBUG' in os.environ
 
 here = os.path.abspath(os.path.dirname(__file__))
-BASE_PATH = os.getcwd()
 
 EMBED_FONTS = [
   'fonts/stix/STIXGeneral.ttf',
@@ -52,14 +44,6 @@ def convert(dbk1, temp_dir, cssFile, xslFile, epubFile):
       else:
         out.append(item)
     return out
-
-  def transform(xslDoc, xmlDoc):
-    """ Performs an XSLT transform and parses the <xsl:message /> text """
-    ret = xslDoc(xmlDoc) # , **({'cnx.tempdir.path':"'%s'" % tempdir}))    Don't set the tempdir. We don't need it
-    for entry in xslDoc.error_log:
-      # TODO: Log the errors (and convert JSON to python) instead of just printing
-      print >> sys.stderr, entry.message.encode('utf-8')
-    return ret
 
   # Step 1 (Convert Docbook to EPUB HTML)
   # The epub script will generate HTML files in temp_dir
@@ -123,10 +107,7 @@ def main():
 
   elif args.content_type == 'collection':
     p = util.Progress()
-    collxml, modulesDict, allFiles = util.loadCollection(args.directory)
-
-    dbk, newFiles = collection2dbk.convert(p, collxml, modulesDict, temp_dir, svg2png=True, math2svg=True, reduce_quality=args.reduce_quality)
-    allFiles.update(newFiles)
+    dbk, allFiles, newFiles = collection2dbk.load(p, args.directory, temp_dir, svg2png=True, math2svg=True, reduce_quality=args.reduce_quality)
 
   else:
     print "Invalid content type. Must be one of ['module', 'collection']"
